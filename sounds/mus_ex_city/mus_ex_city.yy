@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"mus_ex_city",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":3,
+  "conversionMode":0,
+  "duration":110.52631,
+  "name":"mus_ex_city",
+  "parent":{
+    "name":"music",
+    "path":"folders/examples/music.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"mus_ex_city.ogg",
+  "type":1,
+  "volume":1.0,
+}

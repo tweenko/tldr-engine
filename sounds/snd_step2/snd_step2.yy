@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_step2",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":2,
+  "conversionMode":0,
+  "duration":1.714286,
+  "name":"snd_step2",
+  "parent":{
+    "name":"sounds",
+    "path":"folders/@engine/sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_step2.wav",
+  "type":1,
+  "volume":1.0,
+}

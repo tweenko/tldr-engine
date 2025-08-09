@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"lerp_type",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lerp_type",
+  "parent":{
+    "name":"anime",
+    "path":"folders/@engine/scripts/systems/general/internal/anime.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

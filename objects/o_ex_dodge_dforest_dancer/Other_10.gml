@@ -1,0 +1,1 @@
+audio_play(snd_ex_scissorbell,,,(0.5 + random(0.7)))

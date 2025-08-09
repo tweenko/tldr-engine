@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_paper_surf",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":1.124127,
+  "name":"snd_paper_surf",
+  "parent":{
+    "name":"sounds",
+    "path":"folders/@engine/sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_paper_surf.ogg",
+  "type":1,
+  "volume":1.0,
+}

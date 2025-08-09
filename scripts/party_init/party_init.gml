@@ -1,0 +1,363 @@
+///@desc intializes the party information
+function party_init() {
+	global.party_names = []
+		array_push(global.party_names, "kris")
+		//array_push(global.party_names, "susie")
+		//array_push(global.party_names, "ralsei")
+		//array_push(global.party_names, "noelle")
+	
+	global.party = {
+		kris: new party_m_kris(),
+		susie: new party_m_susie(),
+		ralsei: new party_m_ralsei(),
+		noelle: new party_m_noelle(),
+	}
+}
+
+function party_m() constructor {
+	name = "???"
+	
+	// colors
+	color =		c_gray
+	darkcolor =	c_dkgray
+	iconcolor =	c_gray
+	
+	// stats
+	lv =	0
+	desc =	"???"
+	power_stats = [
+		["--", 0, spr_ui_menu_icon_exclamation],
+		["--", 0, spr_ui_menu_icon_exclamation],
+		["Guts:", 0, spr_ui_menu_icon_fire],
+	]
+	
+	hp =		50
+	max_hp =	50
+	attack =	16
+	defense =	10
+	magic =		0
+	element_resistance = {
+	}
+	
+	// inventory
+	weapon = undefined
+	armor1 = undefined
+	armor2 = undefined
+	spells = [
+		new item_s_testdmg(),
+	]
+	
+	// sprites
+	s_state =		""
+	s_substate =	""
+	s_icon =		spr_ui_default_icon
+	s_icon_ow =		spr_ui_default_head
+	s_icon_weapon = spr_ui_menu_weapon_axe
+	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+	
+	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed)]
+		act: [spr_bsusie_act, true],
+		actready: spr_bsusie_actready,
+		actend: [spr_bsusie_actend, "idle", 1],
+		attack: [spr_bsusie_attack, true],
+		attackready: spr_bsusie_attackready,
+		defeat: spr_bsusie_defeat,
+		defend: [spr_bsusie_defend, true],
+		hurt: spr_bsusie_hurt,
+		idle: spr_bsusie_idle,
+		intro: spr_susie_right,
+		introb: spr_susie_right,
+		itemuse: [spr_bsusie_item, "idle", 1],
+		itemready: spr_bsusie_itemready,
+		spell: [spr_bsusie_spell, "idle", 1],
+		spellready: spr_bsusie_spellready,
+		victory: [spr_bsusie_victory, true],
+		spare: [spr_bsusie_act, "idle", 1],
+		attack_eff: spr_bsusie_attackeff,
+		
+		rudebuster: [spr_bsusie_rudebuster, 14],
+	}
+		
+	// system
+	obj = {
+		obj: o_actor,
+		var_struct: {
+			name: "susie"
+		},
+	}
+	
+	actor_id = noone
+	is_down = false
+}
+	
+function party_m_kris() : party_m() constructor {
+	name = "Kris"
+	
+	// colors
+	color = c_aqua
+	darkcolor = c_blue
+	iconcolor = #00A2E8
+	
+	// stats
+	lv =	2
+	desc =	"Bed Inspector Inspects all beds inexplicably."
+	power_stats = [
+		"???",
+		"???",
+		["Guts:", 2, spr_ui_menu_icon_fire],
+	]
+	
+	hp =		120
+	max_hp =	120
+	attack =	12
+	defense =	2
+	magic =		0
+	element_resistance = {
+	}
+	
+	// inventory
+	spells = [
+		new item_s_act()
+	]
+	
+	// sprites
+	s_state =		""
+	s_substate =	""
+	s_icon =		spr_ui_kris_icon
+	s_icon_ow =		spr_ui_kris_head
+	s_icon_weapon = spr_ui_menu_weapon_sword
+	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+	
+	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed)]
+		act: [spr_bkris_act, true],
+		actready: spr_bkris_actready,
+		actend: [spr_bkris_actend, "idle", 1],
+		attack: [spr_bkris_attack, true],
+		attackready: spr_bkris_attackready,
+		defeat: spr_bkris_defeat,
+		defend: [spr_bkris_defend, true],
+		hurt: spr_bkris_hurt,
+		idle: spr_bkris_idle,
+		intro: [spr_bkris_intro, true],
+		introb: spr_bkris_introb,
+		itemuse: [spr_bkris_item, "idle", 1],
+		itemready: spr_bkris_itemready,
+		victory: [spr_bkris_victory, true],
+		spare: [spr_bkris_act, "idle", 1],
+		attack_eff: spr_bkris_attackeff,
+	}
+		
+	// system
+	obj = {
+		obj: o_actor_kris,
+		var_struct: {
+			name: "kris"
+		},
+	}
+}
+function party_m_susie() : party_m() constructor {
+	name = "Susie"
+	
+	// colors
+	color = c_fuchsia
+	darkcolor = c_purple
+	iconcolor = #EA79C8
+	
+	// stats
+	lv =	2
+	desc =	"Dark Knight Does damage using dark energy."
+	power_stats = [
+		["Rudeness", 89, spr_ui_menu_icon_demon],
+		["Purple", "Yes", spr_ui_menu_icon_demon],
+		["Guts:", 2, spr_ui_menu_icon_fire],
+	]
+	
+	hp =		140
+	max_hp =	140
+	attack =	16
+	defense =	2
+	magic =		1
+	element_resistance={
+	}
+	
+	// inventory
+	spells = [
+		new item_s_rudebuster(),
+	]
+	
+	// sprites
+	s_state =		""
+	s_substate =	""
+	s_icon =		spr_ui_susie_icon
+	s_icon_ow =		spr_ui_susie_head
+	s_icon_weapon = spr_ui_menu_weapon_axe
+	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+	
+	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed)]
+		act: [spr_bsusie_act, true],
+		actready: spr_bsusie_actready,
+		actend: [spr_bsusie_actend, "idle", 1],
+		attack: [spr_bsusie_attack, true],
+		attackready: spr_bsusie_attackready,
+		defeat: spr_bsusie_defeat,
+		defend: [spr_bsusie_defend, true],
+		hurt: spr_bsusie_hurt,
+		idle: spr_bsusie_idle,
+		intro: spr_susie_right,
+		introb: spr_susie_right,
+		itemuse: [spr_bsusie_item, "idle", 1],
+		itemready: spr_bsusie_itemready,
+		spell: [spr_bsusie_spell, "idle", 1],
+		spellready: spr_bsusie_spellready,
+		victory: [spr_bsusie_victory, true],
+		spare: [spr_bsusie_act, "idle", 1],
+		attack_eff: spr_bsusie_attackeff,
+				
+		rudebuster: [spr_bsusie_rudebuster, 14],
+	}
+		
+	// system
+	obj = {
+		obj: o_actor_susie,
+		var_struct: {
+			name: "susie"
+		},
+	}
+}
+function party_m_ralsei() : party_m() constructor {
+	name = "Ralsei"
+	
+	// colors
+	color = c_lime
+	darkcolor = c_green
+	iconcolor = #B5E61D
+	
+	// stats
+	lv =	2
+	desc =	"Dark Prince Dark-World being. Has friends now."
+	power_stats = [
+		["Sweetness", 97, spr_ui_menu_icon_lollipop],
+		["Fluffiness", 2, spr_ui_menu_icon_fluff],
+		["Guts:", 0, spr_ui_menu_icon_fire],
+	]
+	
+	hp =		100
+	max_hp =	100
+	attack =	8
+	defense =	2
+	magic =		9
+	element_resistance = {
+	}
+	
+	// inventory
+	spells = [
+		new item_s_pacify(),
+		new item_s_healprayer()
+	]
+	
+	// sprites
+	s_state =		""
+	s_substate =	""
+	s_icon =		spr_ui_ralsei_icon
+	s_icon_ow =		spr_ui_ralsei_head
+	s_icon_weapon = spr_ui_menu_weapon_scarf
+	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+	
+	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed)]
+		act: [spr_bralsei_act, true],
+		actready: spr_bralsei_actready,
+		actend: [spr_bralsei_actend, "idle", 1],
+		attack: [spr_bralsei_attack, true],
+		attackready: spr_bralsei_attackready,
+		defeat: spr_bralsei_defeat,
+		defend: [spr_bralsei_defend, true],
+		hurt: spr_bralsei_hurt,
+		idle: spr_bralsei_idle,
+		intro: [spr_bralsei_intro, true],
+		introb: spr_ralsei_right,
+		itemuse: [spr_bralsei_item, "idle", 1],
+		itemready: spr_bralsei_itemready,
+		spell: [spr_bralsei_spell, "idle", 1],
+		spellready: spr_bralsei_spellready,
+		victory: [spr_bralsei_victory, true],
+		spare: [spr_bralsei_act, "idle", 1],
+		attack_eff: spr_bralsei_attackeff,
+	}
+		
+	//system
+	obj = {
+		obj: o_actor_ralsei,
+		var_struct: {
+			name: "ralsei"
+		},
+	}
+}
+function party_m_noelle() : party_m() constructor {
+	name = "Noelle"
+	
+	// colors
+	color = c_yellow
+	darkcolor = c_yellow
+	iconcolor = #FFFF00
+	
+	// stats
+	lv =	1
+	desc =	"Snowcaster Might be able to use some cool moves."
+	power_stats = [
+		["Coldness", 47, spr_ui_menu_icon_snow],
+		["Boldness", 100, spr_ui_menu_icon_exclamation],
+		["Guts:", 0, spr_ui_menu_icon_fire],
+	]
+	
+	hp =		90
+	max_hp =	90
+	attack =	3
+	defense =	1
+	magic =		11
+	element_resistance = {
+	}
+	
+	// inventory
+	spells = [
+		new item_s_healprayer(),
+		new item_s_sleepmist(),
+		new item_s_iceshock(),
+	]
+	
+	// sprites
+	s_state =		""
+	s_substate =	""
+	s_icon =		spr_ui_noelle_icon
+	s_icon_ow =		spr_ui_noelle_head
+	s_icon_weapon = spr_ui_menu_weapon_ring
+	s_battle_intro =	0 // 1 for attack, 0 for full intro	
+	
+	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed)]
+		act: [spr_bnoelle_act, true],
+		actready: spr_bnoelle_actready,
+		actend: [spr_bnoelle_actend, "idle", 1],
+		attack: [spr_bnoelle_attack, true],
+		attackready: spr_bnoelle_attackready,
+		defeat: spr_bnoelle_defeat,
+		defend: spr_bnoelle_defend,
+		hurt: spr_bnoelle_hurt,
+		idle: spr_bnoelle_idle,
+		intro: [spr_bnoelle_intro, true],
+		introb: spr_noelle_right,
+		itemuse: [spr_bnoelle_item, "idle", 1],
+		itemready: spr_bnoelle_itemready,
+		spell: [spr_bnoelle_spell, "idle", 1],
+		spellready: spr_bnoelle_spellready,
+		victory: [spr_bnoelle_victory, true],
+		spare: [spr_bnoelle_act, "idle", 1],
+		attack_eff: spr_bnoelle_attackeff,
+	}
+		
+	// system
+	obj = {
+		obj: o_actor_noelle,
+		var_struct: {
+			name: "noelle"
+		},
+	}
+}

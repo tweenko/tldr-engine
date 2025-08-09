@@ -1,0 +1,20 @@
+{
+  "$GMPath":"",
+  "%Name":"path_ex_test_shadowguy",
+  "closed":true,
+  "kind":1,
+  "name":"path_ex_test_shadowguy",
+  "parent":{
+    "name":"paths",
+    "path":"folders/examples/paths.yy",
+  },
+  "points":[
+    {"speed":100.0,"x":170.0,"y":150.0,},
+    {"speed":100.0,"x":170.0,"y":180.0,},
+    {"speed":100.0,"x":270.0,"y":180.0,},
+    {"speed":100.0,"x":270.0,"y":150.0,},
+  ],
+  "precision":3,
+  "resourceType":"GMPath",
+  "resourceVersion":"2.0",
+}

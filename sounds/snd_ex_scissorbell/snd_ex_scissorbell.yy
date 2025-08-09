@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_ex_scissorbell",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":0.621293,
+  "name":"snd_ex_scissorbell",
+  "parent":{
+    "name":"sounds",
+    "path":"folders/examples/sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_ex_scissorbell.wav",
+  "type":0,
+  "volume":1.0,
+}

@@ -1,0 +1,9 @@
+audio_play(snd_tensionhorn)
+
+get_leader().moveable_battle = false
+alarm[0] = 8
+
+epic = false // whether it's the full animation or not
+savepos = []
+
+encounter_data = {}

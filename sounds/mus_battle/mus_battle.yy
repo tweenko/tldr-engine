@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"mus_battle",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":3,
+  "conversionMode":0,
+  "duration":75.42857,
+  "name":"mus_battle",
+  "parent":{
+    "name":"music",
+    "path":"folders/@engine/music.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"mus_battle.ogg",
+  "type":1,
+  "volume":1.0,
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"loc",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"loc",
+  "parent":{
+    "name":"internal",
+    "path":"folders/@engine/scripts/systems/general/internal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

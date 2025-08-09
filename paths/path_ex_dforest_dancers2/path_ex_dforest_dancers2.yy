@@ -1,0 +1,20 @@
+{
+  "$GMPath":"",
+  "%Name":"path_ex_dforest_dancers2",
+  "closed":true,
+  "kind":0,
+  "name":"path_ex_dforest_dancers2",
+  "parent":{
+    "name":"paths",
+    "path":"folders/examples/paths.yy",
+  },
+  "points":[
+    {"speed":100.0,"x":500.0,"y":280.0,},
+    {"speed":100.0,"x":500.0,"y":400.0,},
+    {"speed":100.0,"x":620.0,"y":400.0,},
+    {"speed":100.0,"x":620.0,"y":280.0,},
+  ],
+  "precision":4,
+  "resourceType":"GMPath",
+  "resourceVersion":"2.0",
+}

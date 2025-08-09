@@ -1,0 +1,144 @@
+///@desc returns the battle sprite of a party member from the battle_sprites struct inside party data
+function enc_getparty_sprite(index, sprname) {
+	var ret = struct_get(party_getdata(global.party_names[index], "battle_sprites"), sprname)
+	
+	if is_array(ret) 
+		ret = ret[0]
+	party_getobj(global.party_names[index]).sprname = sprname
+	
+	ret = asset_get_index_state(sprite_get_name(ret), party_getdata(global.party_names[index], "s_state"))
+	
+	return ret
+}
+
+///@desc hurts an enemy and makes it run away if needed. if the damage is FATAL, specify in the optional argument
+///@arg slot
+function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0, fatal = false) {
+	if o_enc.encounter_data.enemies[target].hp <= 0 
+		exit
+	o_enc.encounter_data.enemies[target].hp -= hurt
+	
+	var o = o_enc.encounter_data.enemies[target].actor_id
+	var txt = -hurt
+	if hurt == 0
+		txt = "miss"
+	
+	if !instance_exists(o) 
+		exit
+	instance_create(o_text_hpchange, o.x + xoff, o.y - o.myheight/2 + yoff, o.depth-100, {draw: txt, mode: 1, user: global.party_names[user],})
+	
+	if hurt > 0 {
+		if o_enc.encounter_data.enemies[target].hp <= 0 {
+			if fatal {
+				instance_create(o_eff_fatal_damage, o.x, o.y, o.depth, {
+					sprite_index: o.s_hurt,
+					image_xscale: o.image_xscale,
+					image_yscale: o.image_yscale,
+					image_index: o.image_index,
+					image_speed: 0,
+					shake: 6,
+				})
+				instance_destroy(o)
+			}
+			else {
+				o.run_away = true
+				audio_play(snd_defeatrun)
+			}
+		}
+		if instance_exists(o) 
+			o.hurt = 20
+		audio_play(sfx)
+		
+		do_anime(6, 0, 10, "linear", function(v, o) {
+			if instance_exists(o) o.xshake = v
+		}, o)
+	}
+}
+
+///@desc adds to the mercy bar and makes the enemy spareable if needed
+///@arg slot
+function enc_sparepercent_enemy(target, percent, sfx = snd_mercyadd) {
+	o_enc.encounter_data.enemies[target].mercy += percent
+	if o_enc.encounter_data.enemies[target].mercy >= 100
+		percent = 100
+	
+	o_enc.encounter_data.enemies[target].mercy = clamp(o_enc.encounter_data.enemies[target].mercy, 0, 100)
+	
+	var o = o_enc.encounter_data.enemies[target].actor_id
+	var txt = $"+{percent}%"
+	
+	instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {draw: txt, mode: 2})
+	
+	if sfx == snd_mercyadd {
+		var _pitch = 0.8
+		
+        if percent < 99
+            _pitch = 1
+        if percent <= 50
+            _pitch = 1.2
+        if percent <= 25
+            _pitch = 1.4
+			
+        audio_play(sfx,, 0.8, _pitch, 1)
+	}
+	if o_enc.encounter_data.enemies[target].mercy >= 100 {
+		o.sprite_index = o.s_spared
+	}
+}
+
+///@arg slot
+function enc_sparepercent_enemy_from_inst(target, instance, variable, sfx = snd_mercyadd){
+	var percent = variable_instance_get(instance, variable)
+	enc_sparepercent_enemy(target, percent, sfx)
+}
+
+///@desc clamps a value between 0 and 100
+function tp_clamp(tp) {
+	return clamp(tp, 0, 100)
+}
+
+///@desc returns whether an enemy is still fighting
+///@arg slot
+function enc_enemy_isfighting(target) {
+	var ret = is_struct(o_enc.encounter_data.enemies[target])
+	if ret && o_enc.encounter_data.enemies[target].hp <= 0 
+		ret = false
+	
+	return ret
+}	
+
+///@desc starts an encounter
+function enc_start(set) {
+	var inst = instance_create(o_enc_anim,,,, {encounter_data: set})
+	return inst
+}
+
+///@desc returns the enemy count during the current encounter
+function enc_enemy_count(only_alive = true){
+	if only_alive {
+		var c = 0
+		for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
+		    if enc_enemy_isfighting(i) 
+				c ++
+		}
+		return c
+	}
+	return array_length(o_enc.encounter_data.enemies)
+}
+
+///@desc game over!
+function enc_gameover(){
+	instance_create(o_gameover, 
+		o_enc_soul.x - guipos_x(), o_enc_soul.y - guipos_y(), DEPTH_ENCOUNTER.UI,
+		{
+			image_blend: o_enc_soul.image_blend,
+			freezeframe: sprite_create_from_surface(application_surface, 0, 0, 640, 480, 0, 0, 0, 0),
+			freezeframe_gui: sprite_create_from_surface((instance_exists(o_enc) ? o_enc.surf : -1), 0, 0, 640, 480, 0, 0, 0, 0),
+		}
+	)
+	
+	room_goto(room_gameover)
+	
+	audio_stop_all()
+	audio_play(snd_hurt)
+}

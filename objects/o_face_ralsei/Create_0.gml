@@ -1,0 +1,42 @@
+event_inherited()
+
+f_sprite = spr_face_ralsei // -1 if each is specified, a sprite index if expressions are img indexes
+
+face_expressions = {
+    angrier: 0,
+    angry: 1,
+    angry_surprise: 2,
+    blush: 3,
+    blush_pleased: 4,
+    blush_pleased_open: 5,
+    blush_shy: 6,
+    blush_smile: 7,
+    blush_surprise: 8,
+    concern: 9,
+    concern_smile: 10,
+    disappointed: 11,
+    dismissive: 12,
+    frown: 13,
+    frown_b: 14,
+    neutral: 15,
+    no_glasses: 16,
+    no_glasses_closed: 17,
+    owo: 18,
+    owo_angry: 19,
+    pensive: 20,
+    pleased: 21,
+    roaring: 22,
+    shock: 23,
+    shock_smile: 24,
+    small_smile: 25,
+    small_smile_side: 26,
+    small_smile_side_b: 27,
+    smile: 28,
+    smile_b: 29,
+    smile_side: 30,
+    surprise_confused: 31,
+    surprise_neutral: 32,
+    surprise_neutral_side: 33,
+    surprise_smile: 34,
+    wink: 35
+};

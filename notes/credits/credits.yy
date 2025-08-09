@@ -1,0 +1,11 @@
+{
+  "$GMNotes":"",
+  "%Name":"credits",
+  "name":"credits",
+  "parent":{
+    "name":"@engine",
+    "path":"folders/@engine.yy",
+  },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
+}

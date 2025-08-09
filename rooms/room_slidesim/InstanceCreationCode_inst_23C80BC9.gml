@@ -1,0 +1,1 @@
+text="* \"I hate fun\"{br} {br}                       - you"

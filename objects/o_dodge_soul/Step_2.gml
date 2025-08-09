@@ -1,0 +1,1 @@
+depth = get_leader().depth - 10

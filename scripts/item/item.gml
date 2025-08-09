@@ -1,0 +1,317 @@
+function item_base() constructor {
+	name = ["Item"] // short, then long (first is default)
+	desc = ["Overworld Description.", "Battle Text"] // ow, battle
+	type = ITEM_TYPE.CONSUMABLE
+	
+	lw_counterpart = { // just change any variable of this struct here (e.g name: "LightItem")
+	}
+	
+	// item specific
+	use_type = ITEM_USE.INDIVIDUAL
+	can_use = true // false if cant
+	throw_scripts = {
+		can: true,
+		execute_code: function() { //executes this INSTEAD of the default item_delete
+		},
+	}
+	
+	// equippable specific
+	stats = {
+		attack: 0,
+		defense: 0,
+		magic: 0,
+		element_resistance: {
+		}, // out of 1
+	}
+	affect = []
+	icon = spr_ui_menu_icon_exclamation
+	
+	weapon_fatal = false
+	weapon_whitelist = []
+	armor_blacklist = []
+	
+	// spell specific
+	tp_cost = 0
+	color = c_white
+	is_party_act = false
+	is_mercyspell = false // does it allow to spare enemies?
+	
+	reactions = {
+	}
+	use = -1
+	use_args = []
+	
+	shop = {
+	}
+}
+
+enum ITEM_TYPE {
+	CONSUMABLE,
+	KEY,
+	WEAPON,
+	ARMOR,
+	SPELL,
+	STORAGE,
+	LIGHT
+}
+enum ITEM_USE {
+	INDIVIDUAL,
+	EVERYONE,
+	ENEMY,
+}
+
+///@desc returns the maximum amount of items you can hold depending on the item type
+function item_get_maxcount(type = ITEM_TYPE.CONSUMABLE) {
+	if type == ITEM_TYPE.CONSUMABLE
+		return 12
+	if type == ITEM_TYPE.STORAGE
+		return 24
+	
+	return 48
+}
+
+///@desc deletes an item according to its type
+function item_delete(item_slot, type = ITEM_TYPE.CONSUMABLE) {
+	if type == ITEM_TYPE.STORAGE
+		item_get_array(type)[item_slot] = undefined
+	else 
+		array_delete(item_get_array(type), item_slot, 1)
+}
+
+///@desc adds an item to your inventory, returns the text you get upon obtaining the item
+///@return {string}
+function item_add(item_struct, type = ITEM_TYPE.CONSUMABLE) {
+	var can = true
+	
+	if struct_exists(item_struct, "type") && type == 0
+		type = item_struct.type
+	if type == ITEM_TYPE.CONSUMABLE {
+		if item_get_count(type) >= item_get_maxcount(type) {
+			if item_get_count(ITEM_TYPE.STORAGE) < item_get_maxcount(ITEM_TYPE.STORAGE)
+				type = ITEM_TYPE.STORAGE
+			else 
+				can = false
+		}
+	}
+	else
+		if item_get_count(type) >= item_get_maxcount(type) 
+			can = false
+	
+	var txt = "* ({col(y)}" + item_struct.name[0] + "{col(w)} was added to your {col(y)}" + item_get_store_name(type) + "{col(w)}.)"
+	if can {
+		if type == ITEM_TYPE.STORAGE {
+			var i = 0
+			for (i = 0; i < array_length(item_get_array(ITEM_TYPE.STORAGE)); ++i) {
+				if item_get_array(ITEM_TYPE.STORAGE)[i] != undefined 
+					break
+			}
+			item_set(item_struct, i, type)
+		}
+		else
+			array_push(item_get_array(type), item_struct)
+	}
+	else
+		txt = "* (You didn't have enough space.)"
+	
+	return txt
+}
+
+///@desc replaces an item in the array
+function item_set(item_struct, index, type = ITEM_TYPE.CONSUMABLE) {
+	if index >= item_get_count(type) 
+		index = item_get_count(type)
+	array_set(item_get_array(type), index, item_struct)
+}
+
+///@desc calls the item's use method
+function item_use(item_struct, index, target) {
+	if is_callable(item_struct.use) {
+		if !is_array(item_struct.use_args) 
+			item_struct.use_args = [item_struct.use_args]
+		script_execute_ext(item_struct.use, array_concat([index, target, id], item_struct.use_args))
+	}
+}
+
+///@desc returns the amount of a specific item type in the inventory
+function item_get_count(type = 0){
+	var ret = 0
+	var a = item_get_array(type)
+	for (var i = 0; i < array_length(a); ++i) {
+		if a[i] != undefined 
+			ret ++
+	}
+	return ret
+}
+
+///@desc returns the name of an item
+function item_get_name(item_struct) {
+	var ret = item_struct.name
+	
+	if is_array(ret)
+		return ret[0]
+	if is_string(ret)
+		return ret
+}
+
+///@desc returns the description of an item
+///@arg item_struct the struct of the item
+///@arg desc_type the type of the description that will be returned (0 for full, 1 for shortened)
+function item_get_desc(item_struct, desc_type = 0){
+	var ret = item_struct.desc
+	
+	if is_array(ret)
+		return ret[desc_type]
+	if is_string(ret)
+		return ret
+}
+
+///@desc returns the type of an item
+function item_get_type(item_struct) {
+	return item_struct.type
+}
+
+///@desc returns whether the item can deal fatal damage to the enemies
+function item_get_fatal(item_struct) {
+	if is_undefined(item_struct) return false
+	if struct_exists(item_struct, "weapon_fatal") && item_struct.weapon_fatal
+		return true
+}
+
+///@desc returns the item array depending on the type
+///@return array
+function item_get_array(type){
+	switch(type) {
+		case ITEM_TYPE.CONSUMABLE:
+			return global.items
+		case ITEM_TYPE.KEY:
+			return global.key_items
+		case ITEM_TYPE.WEAPON:
+			return global.weapons
+		case ITEM_TYPE.ARMOR:
+			return global.armors
+		case ITEM_TYPE.STORAGE:
+			return global.storage
+		case ITEM_TYPE.LIGHT:
+			return global.lw_items
+	}
+}
+
+///@desc returns the storage name
+function item_get_store_name(type){
+	switch(type) {
+		case ITEM_TYPE.CONSUMABLE:
+			return "ITEMs"
+		case ITEM_TYPE.KEY:
+			return "KEY ITEMs"
+		case ITEM_TYPE.WEAPON:
+			return "WEAPONs"
+		case ITEM_TYPE.ARMOR:
+			return "ARMORs"
+		case ITEM_TYPE.STORAGE:
+			return "STORAGE"
+		case ITEM_TYPE.LIGHT:
+			return "ITEMs"
+	}
+}
+
+///@desc used only for the dark world overworld menu, activates the party's reactions to an item
+///@arg name
+///@arg {string|struct} reaction
+function item_menu_party_react(name, reaction) {
+	if is_struct(reaction) {
+		for (var i = 0; i < array_length(global.party_names); ++i) {
+			if struct_exists(reaction, global.party_names[i]) {
+				var u = party_getpos(global.party_names[i])
+				
+				o_ui_menu.partyreaction[u] = struct_get(reaction, global.party_names[i])
+				o_ui_menu.partyreactiontimer[u] = o_ui_menu.partyreactionlen
+			}
+		}
+	}
+	else {
+		var user = party_getpos(name)
+		
+		o_ui_menu.partyreaction[user] = reaction
+		o_ui_menu.partyreactiontimer[user] = o_ui_menu.partyreactionlen
+	}
+}
+
+///@desc calls item_menu_party_react while extracting the reaction from the item struct. only used in the dark world overworld menu
+function item_menu_reaction(item_struct, user = 0) {
+	if item_struct.use_type == 0 {
+		var reaction = struct_get(item_struct.reactions, global.party_names[user])
+		item_menu_party_react(global.party_names[user], reaction)
+	}
+	else {
+		for (var i = 0; i < array_length(global.party_names); ++i) {
+			var reaction = struct_get(item_struct.reactions, global.party_names[i])
+			item_menu_party_react(global.party_names[i], reaction)
+		}
+	}
+}
+
+///@desc checks whether the item is within the inventory
+function item_contains(item_struct){
+	var s = item_get_array(item_struct.type)
+	
+	for (var i = 0; i < array_length(s); ++i) {
+		if !is_undefined(s[i])
+			continue
+		if instanceof(item_struct) == instanceof(s[i]) 
+			return i
+	}
+	
+	return undefined
+}
+
+///@desc check whether an item is equipped. returns the COUNT of matching items found
+///@arg {Asset.GMScript,struct} _item_ref the item constructor OR item struct that we are looking a match for
+///@arg {string} _party_name check a specific party member to have the item equipped
+///@return {real,undefined}
+function item_get_equipped(_item_ref, _party_name = undefined) {
+	var __item = (is_struct(_item_ref) ? _item_ref : new _item_ref())
+	var __iteminst = (is_struct(_item_ref) ? instanceof(_item_ref) : script_get_name(_item_ref))
+	
+	var __equipped = 0
+	if is_undefined(_party_name) {
+		for (var i = 0; i < array_length(global.party_names); ++i) {
+			if __item.type == 2 {
+				var __a = party_getdata(global.party_names[i], "weapon")
+				if !is_undefined(__a) && instanceof(__a) == __iteminst
+					__equipped ++
+			}
+			else if __item.type == 3 {
+				var __a = party_getdata(global.party_names[i], "armor1")
+				if !is_undefined(__a) && instanceof(__a) == __iteminst
+					__equipped ++
+					
+				var __b = party_getdata(global.party_names[i], "armor2")
+				if !is_undefined(__b) && instanceof(__b) == __iteminst
+					__equipped ++
+			}
+		}
+	}
+	else {
+		if !party_ismember(_party_name) {
+			show_debug_message($"item_get_equipped: \"{_party_name}\" not found in global.party_names")
+			return 0
+		}
+		
+		if __item.type == 2 {
+			var __a = party_getdata(global.party_names, "weapon")
+			if !is_undefined(__a) && instanceof(__a) == __iteminst
+				__equipped ++
+		}
+		else if __item.type == 3 {
+			var __a = party_getdata(global.party_names, "armor1")
+			if !is_undefined(__a) && instanceof(__a) == __iteminst
+				__equipped ++
+					
+			var __b = party_getdata(global.party_names, "armor2")
+			if !is_undefined(__b) && instanceof(__b) == __iteminst
+				__equipped ++
+		}
+	}
+	
+	return __equipped
+}

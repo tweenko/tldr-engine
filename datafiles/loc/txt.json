@@ -1,0 +1,14 @@
+{
+    "txt_debug_loctest": {
+        "en": [
+            "* Susie? Can you enrich my enclosure?",
+            "{char(susie)}* Uhh, I can punch a hole in drywall and hide toys inside.",
+            "{char(none)}* Thank you. Someday, I will do the same for you..."
+        ],
+        "jp": [
+            "＊ スージィ？ ボクさまの飼育環境を改善してくれる？",
+            "{char(susie)}＊ あー…カベにコブシで穴あけて 中にオモチャ隠したりとかかな？",
+            "{char(none)}＊ ありがとう。いつかボクさまも スージィに 同じことしてあげる…"
+        ]
+    }
+}

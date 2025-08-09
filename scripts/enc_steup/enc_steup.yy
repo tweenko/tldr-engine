@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"enc_steup",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"enc_steup",
+  "parent":{
+    "name":"encounter",
+    "path":"folders/@engine/scripts/encounter.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

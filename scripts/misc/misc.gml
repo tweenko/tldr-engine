@@ -1,0 +1,282 @@
+function string_to_color(color_string){
+	switch color_string{
+		case "c_red":
+		case "r":
+			return c_red
+		case "c_blue":
+		case "b":
+			return c_blue
+		case "c_yellow":
+		case "y":
+			return c_yellow
+		case "c_lime":
+		case "g":
+			return c_lime
+		case "c_black":
+			return c_black
+		case "c_dkgray":
+			return c_dkgray
+		case "c_gray":
+			return c_gray
+		case "c_silver":
+			return c_silver
+		default:
+			return c_white
+	}
+}
+function color_to_string(color){
+	var cc = merge_color(c_aqua, c_blue, 0.3)
+	switch color {
+		case c_red:
+			return "c_red"
+		case c_blue:
+			return "c_blue"
+		case c_green:
+			return "c_green"
+		case c_yellow:
+			return "c_yellow"
+		case c_lime:
+			return "c_lime"
+		case c_black:
+			return "c_black"
+		case cc:
+			return "tired_aqua"
+		default:
+			return "c_white"
+	}
+}
+
+///@desc shakes the screen (with the gui layer)
+function screen_shake(pow, timelen = undefined){
+	if timelen == undefined
+        timelen = pow * 2
+	do_anime(pow, 0, timelen, "linear", function(v){
+        if instance_exists(o_window) 
+            o_window.shake = v
+    })
+}
+
+///@desc creates a trail of the object that calls this function
+function afterimage(_decay_speed = 0.1, inst = id, gui = false){
+    var _afterimage = instance_create_depth(inst.x, inst.y, inst.depth, o_afterimage)
+
+    _afterimage.sprite_index = inst.sprite_index
+    _afterimage.image_index = inst.image_index
+    _afterimage.image_blend = inst.image_blend
+    _afterimage.image_speed = 0
+    _afterimage.depth = inst.depth
+    _afterimage.gui = gui
+    _afterimage.image_xscale = inst.image_xscale
+    _afterimage.image_yscale = inst.image_yscale
+    _afterimage.image_angle = inst.image_angle
+    _afterimage.decay_speed=_decay_speed
+
+    return _afterimage;
+}
+
+///@desc draws the deltarune dialogue box
+function ui_dialoguebox_create(xx, yy, width, height){
+	var frame = (o_world.frames/10) % 8
+	if global.world == 0 {
+		draw_sprite_ext(spr_pixel, 0, xx + 12, yy + 12, width - 24, height - 24, 0, c_black, 1);
+        
+		draw_sprite_ext(spr_ui_dkbox_top, 0, xx + 16, yy, width - 32, 2, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_dkbox_top, 0, xx + 16, yy + height, width - 32, -2, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_dkbox_left, 0, xx, yy + 16, 2, height - 32, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_dkbox_left, 0, xx + width, yy + 16, -2, height - 32, 0, c_white, 1)
+        
+		draw_sprite_ext(spr_ui_dkbox_corner, frame, xx, yy, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_dkbox_corner, frame, xx + width, yy, -2, 2, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_dkbox_corner, frame, xx, yy + height, 2, -2, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_dkbox_corner, frame, xx + width, yy + height, -2, -2, 0, c_white, 1)
+	}
+	else {
+		draw_sprite_ext(spr_pixel, 0, xx, yy, width, height, 0, c_white, 1);
+		draw_sprite_ext(spr_pixel, 0, xx + 6, yy + 6, width - 12, height - 12, 0, c_black, 1);
+	}
+}
+
+///@desc draw_self except it darkens depending on dodge_lerper (overworld battle darken)
+function dodge_darken_self(){
+	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * .5)
+}
+///@desc returns the lerper of the overworld battle mode
+function dodge_getalpha(){
+	if instance_exists(get_leader())
+		return get_leader().dodge_lerper
+	return 0
+}
+///@desc game over!
+function dodge_gameover(){
+	instance_create(o_gameover, 
+		o_dodge_soul.x - guipos_x(), o_dodge_soul.y - guipos_y(), DEPTH_ENCOUNTER.UI,
+		{
+			image_blend: o_dodge_soul.image_blend,
+			freezeframe: sprite_create_from_surface(application_surface, 0, 0, 640, 480, 0, 0, 0, 0),
+			freezeframe_gui: sprite_create_from_surface((instance_exists(o_ui_menu) ? o_ui_menu.surf : -1), 0, 0, 640, 480, 0, 0, 0, 0),
+		}
+	)
+	
+	room_goto(room_gameover)
+	
+	audio_stop_all()
+	audio_play(snd_hurt)
+}
+
+///@desc draw_self but it darkens depending on the lighting the player is recieving
+function lighting_darken_self() {
+	if s_lightalpha > 0 && !am_emmiting_light {
+		draw_sprite_ext(sprite_index, image_index,
+			x, y, image_xscale, image_yscale,
+			image_angle, c_black, s_lightalpha * lighting_darken
+		)
+	}
+}
+
+///@desc returns time in the format of HH:MM:SS (hours can overflow)
+///@arg {bool} display_hours if asked not to, it will return the MM:SS format instead
+function time_format(time_s, display_hours = true){
+	time_s = round(time_s)
+    
+	var time_m = floor(time_s/60)
+	var time_h = floor(time_m/60)
+	time_m -= time_h*60
+	
+	time_s -= time_m * 60
+	time_s -= time_h * 60*60
+	
+	if time_m < 10 {
+		time_m = $"0{time_m}"
+	}
+	if time_s < 10 {
+		time_s = $"0{time_s}"
+	}
+	
+	var time = $"{time_h}:{time_m}:{time_s}"
+	if !display_hours 
+		time = $"{time_m}:{time_s}"
+	
+	return time
+}
+
+///@desc converts binds to keys
+function input_binding_to_string(bind){
+	bind = string_lower(bind)
+	
+	if bind == "arrow up"			return "UP"
+	else if bind == "arrow down"	return "DOWN"
+	else if bind == "arrow left"	return "LEFT"
+	else if bind == "arrow right"	return "RIGHT"
+	else return string_upper(bind)
+}
+///@desc converts a bind to text (or sprite) - gets it ready for use in dialogue
+function input_binding_intext(verb){
+	if input_source_using(INPUT_GAMEPAD){
+		if is_array(verb){
+			var res = ""
+			for (var i = 0; i < array_length(verb); ++i) {
+				res += "{spr(" + sprite_get_name(input_binding_get_icon(input_binding_get(verb[i]))) + ")}"
+			}
+			return res
+		}
+		else 
+			return "{spr(" + sprite_get_name(input_binding_get_icon(input_binding_get(verb))) + ")}"
+	}
+	if is_array(verb){
+		var res = ""
+		for (var i = 0; i < array_length(verb); ++i) {
+			res += input_binding_to_string(input_binding_get(verb[i])) + "/"
+		}
+		res = string_delete(res, string_width(res)-1, 1)
+		
+		return $"[{res}]"
+	}
+	
+	return $"[{input_binding_to_string(input_binding_get(verb))}]"
+}
+
+/// @ignore
+/// @desc ripped from deltarune code. don't use this.
+/// @param {real} alpha - The alpha transparency of the tiles (0 to 1).
+function draw_sprite_tiled_area(sprite, subimg, xx, yy, x1, y1, x2, y2, xscale, yscale, blend, alpha) {
+    var sw = sprite_get_width(sprite) * xscale;
+    var sh = sprite_get_height(sprite) * yscale;
+
+    // Normalize offsets
+    var start_x = x1 - ((x1 - xx) % sw);
+    var start_y = y1 - ((y1 - yy) % sh);
+
+    for (var i = start_x; i < x2; i += sw) {
+        for (var j = start_y; j < y2; j += sh) {
+            var left = 0;
+            var top = 0;
+            var width = sw;
+            var height = sh;
+
+            // Clip left edge
+            if (i < x1) {
+                left = (x1 - i) / xscale;
+                width -= (x1 - i);
+            }
+            if (j < y1) {
+                top = (y1 - j) / yscale;
+                height -= (y1 - j);
+            }
+
+            // Clip right edge
+            if (i + width > x2) {
+                width -= (i + width - x2);
+            }
+            if (j + height > y2) {
+                height -= (j + height - y2);
+            }
+
+            draw_sprite_part_ext(sprite, subimg, left, top, width / xscale, height / yscale, i + left * xscale, j + top * yscale, xscale, yscale, blend, alpha);
+        }
+    }
+}
+/// @ignore
+/// @desc ripped from deltarune code. don't use this.
+function draw_sprite_part_parallax(sprite, image, xoff, yoff, alpha, xx = x, yy = y){
+    var _mywidth = sprite_get_width(sprite)
+    var _myheight = sprite_get_height(sprite)
+	
+    var _xoffset = xoff%_mywidth
+    var _yoffset = yoff%_myheight
+	
+    if _xoffset<0 _xoffset+=_mywidth
+    if _yoffset<0 _yoffset+=_myheight
+	
+    if _xoffset==0 && _yoffset==0
+        draw_sprite_ext(sprite, image, xx, yy, 1, 1, 0, image_blend, alpha)
+    else{
+        draw_sprite_part_ext(sprite, image, 0, 0, (_mywidth - _xoffset), (_myheight - _yoffset), (xx + _xoffset), (yy + _yoffset), 1,1, image_blend, alpha)
+        draw_sprite_part_ext(sprite, image, (_mywidth - _xoffset), (_myheight - _yoffset), _xoffset, _yoffset, xx, yy, 1, 1, image_blend, alpha)
+        draw_sprite_part_ext(sprite, image, 0, (_myheight - _yoffset), (_mywidth - _xoffset), _yoffset, (xx + _xoffset), yy,1,1, image_blend, alpha)
+        draw_sprite_part_ext(sprite, image, (_mywidth - _xoffset), 0, _xoffset, (_myheight - _yoffset), xx, (yy + _yoffset), 1,1, image_blend, alpha)
+    }
+}
+/// @ignore
+/// @desc ripped from deltarune code. don't use this.
+function draw_sprite_part_parallax_scale(sprite, image, xoff, yoff, alpha, scale, xx = x,yy = y, xmax = -1, ymax = -1){
+    var _mywidth = sprite_get_width(sprite)
+    var _myheight = sprite_get_height(sprite)
+	
+    var _xoffset = xoff%_mywidth
+    var _yoffset = yoff%_myheight
+	
+    if _xoffset<0 _xoffset+=_mywidth
+    if _yoffset<0 _yoffset+=_myheight
+	
+    var _xmax = (xmax==-1 ? _mywidth * scale : xmax)
+    var _ymax = (ymax==-1 ? _myheight * scale : ymax)
+	
+    if _xoffset==0 && _yoffset==0
+        draw_sprite_ext(sprite, image, xx, yy, 1, 1, 0, image_blend, alpha)
+    else{
+        draw_sprite_part_ext(sprite, image, 0, 0, (_xmax - _xoffset), (_ymax - _yoffset), (xx + _xoffset * scale), (yy + _yoffset * scale), scale, scale, image_blend, alpha)
+        draw_sprite_part_ext(sprite, image, (_mywidth - _xoffset), (_myheight - _yoffset), min(_xmax, _xoffset), min(_ymax, _yoffset), xx, yy, scale, scale, image_blend, alpha)
+        draw_sprite_part_ext(sprite, image, 0, (_ymax - _yoffset), min(_xmax, (_xmax - _xoffset)), min(_ymax, _yoffset), (xx + _xoffset * scale), yy, scale, scale, image_blend, alpha)
+        draw_sprite_part_ext(sprite, image, (_xmax - _xoffset), 0, min(_xmax, _xoffset), min(_ymax, (_ymax - _yoffset)), xx, (yy + _yoffset * scale), scale, scale, image_blend, alpha)
+    }
+}
