@@ -8,7 +8,7 @@
 	yspace = 18
 	
 	char = "none"
-	shadow=true
+	shadow = true
 	
 	typespd = 1
 	
@@ -56,6 +56,8 @@
 	curchar = ""
 	xoff = 0
 	yoff = 0
+    center_xoff = 0
+    center_yoff = 0
 	
 	timer = 0
 	pause = 0
@@ -84,8 +86,9 @@
 			face_inst.facename = face_expression
 			face_inst.caller = id
 			face_inst.alarm[0] = change_delay
+            
+            x += 116
 		}
-		x += 116
 		
 		pause += change_delay
 	}

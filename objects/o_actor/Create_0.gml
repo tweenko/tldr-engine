@@ -33,6 +33,7 @@ is_player = false
 { // enemy specific
 	chaser = false
 	chasing = false
+    can_encounter = false
 }
 { // actor variables
 	follow = true
@@ -41,7 +42,7 @@ is_player = false
 	autoheight = true // whether the height is automatically determined
 	myheight = 0
 	
-	customdepth = undefined
+	custom_depth = undefined
 	pos = 0
 }
 { // visual
@@ -89,6 +90,7 @@ is_player = false
 	xoff = 0
 	xshake = 0
 	
+    flash_color = c_white
 	fsiner = 0 // flash siner
 	flash = 0
 	
@@ -116,6 +118,8 @@ is_player = false
 	
 	run_away = false
 	run_away_timer = 0
+    
+    freeze = 0
 	
 	sliding = false
 	prevsliding = false

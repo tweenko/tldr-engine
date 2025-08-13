@@ -2,8 +2,8 @@
 function party_init() {
 	global.party_names = []
 		array_push(global.party_names, "kris")
-		//array_push(global.party_names, "susie")
-		//array_push(global.party_names, "ralsei")
+		array_push(global.party_names, "susie")
+		array_push(global.party_names, "ralsei")
 		//array_push(global.party_names, "noelle")
 	
 	global.party = {
@@ -177,12 +177,13 @@ function party_m_susie() : party_m() constructor {
 	attack =	16
 	defense =	2
 	magic =		1
-	element_resistance={
+	element_resistance = {
 	}
 	
 	// inventory
 	spells = [
 		new item_s_rudebuster(),
+        new item_s_susieheal()
 	]
 	
 	// sprites

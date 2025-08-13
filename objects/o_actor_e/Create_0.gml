@@ -30,4 +30,6 @@ __start_chasing = function() {
     
     if !is_undefined(idle_path)
         path_end()
+    
+    can_encounter = true
 }

@@ -1,4 +1,4 @@
-if mode == 3 {
+if mode == 3 || mode == 4 {
 	var a = create_anime(.1)
 		.add(1.5, 6, "quad_out")
 		.add(1, 4, "linear")

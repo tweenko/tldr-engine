@@ -3,16 +3,17 @@ if fadeout{
 	if uialpha <= 0 
 		instance_destroy()
 }
-else{
-	if start_timer timer--
-	siner++
+else {
+	if start_timer 
+        timer --
+	siner ++
 	
 	if siner == 1 exit
 	
 	if sguy_amp < 10 && start_timer sguy_amp += .5
 	
-	if start_timer{
-		//move around shadowguys and snap socks
+	if start_timer {
+		// move around shadowguys and snap socks
 		for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 			var enemy = o_enc.encounter_data.enemies[i]
 			if enemy.name == "Shadowguy" && enc_enemy_isfighting(i) && instance_exists(enemy.actor_id){
@@ -20,8 +21,8 @@ else{
 				e_o.x = saved_pos[i][0] + sin((siner + e_o.moveseed[1]) / e_o.moveseed[0]) * sguy_amp
 				e_o.y = saved_pos[i][1] + cos((siner + e_o.moveseed[1]) / e_o.moveseed[0]) * sguy_amp/2 + sin((siner + 30) / 14) * (16 * sguy_amp/10)
 			
-				with(e_o){
-					if my_socks.collide{
+				with(e_o) {
+					if my_socks.collide {
 						my_socks.x = x
 						my_socks.y = y
 					}

@@ -49,7 +49,11 @@ function enemy_base() constructor {
 	
 	turn_object = o_turn_default
 	
-	//misc (in-fight events)
+    // misc
+    freezable = true
+    defeat_marker = 0 // marker id
+    
+	// misc (in-fight events)
 	ev_dialogue =	-1
 	ev_turn =		-1
 	ev_post_turn =	-1
@@ -88,7 +92,7 @@ function enemy_virovirokun() : enemy_base() constructor{
 	hp =		240
 	max_hp =	240
 	attack =	8
-	defense =	-400
+	defense =	0
 	status_effect = ""
 	
 	// acts
@@ -271,7 +275,7 @@ function enemy_killercar() : enemy_base() constructor{
 	
 	obj = o_actor_e_killercar
 	tired = true
-	defense = -400
+	defense = 0
 	
 	acts = [
 		{

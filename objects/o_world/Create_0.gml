@@ -29,5 +29,3 @@ global.temp_choice = 0
 eff_reverb = audio_effect_create(AudioEffectType.Reverb1);
 eff_reverb.size = 0.7;
 eff_reverb.mix = 0.5
-
-global.SEED = undefined

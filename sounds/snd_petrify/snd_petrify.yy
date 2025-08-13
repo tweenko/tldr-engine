@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":1.838685,
+  "duration":1.8386848,
   "name":"snd_petrify",
   "parent":{
     "name":"sounds",

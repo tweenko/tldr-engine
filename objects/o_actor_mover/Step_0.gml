@@ -1,7 +1,7 @@
 if seed[step] == "jump" { // jump animation
 	if state == 0 {
 		if timer == 0 {
-			character.customdepth = -2000 - yreq[step]
+			character.custom_depth = -2000 - yreq[step]
 			character.s_override = true
 			character.moveable_move = false
 		}
@@ -29,7 +29,7 @@ if seed[step] == "jump" { // jump animation
 	else if state == 2 && timer == 20 { 
 		timer = 0
 		character.yoff = 0
-		character.customdepth = undefined
+		character.custom_depth = undefined
 		step ++
 		if step >= array_length(xreq) || step >= array_length(yreq){
 			character.dir = DIR.DOWN

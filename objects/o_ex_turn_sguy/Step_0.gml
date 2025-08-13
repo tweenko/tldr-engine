@@ -4,8 +4,8 @@ if type == 0 { // sax attack
 	if timer == 6 {
 		var o = enemy_struct.actor_id
 		o.sprite_index = spr_ex_e_sguy_sax
-		o.customdepth = DEPTH_ENCOUNTER.BULLETS_OUTSIDE - (o.y-guipos_y())
-		o.depth = o.customdepth
+		o.custom_depth = DEPTH_ENCOUNTER.BULLETS_OUTSIDE - (o.y-guipos_y())
+		o.depth = o.custom_depth
 	
 		notepath = instance_create(o_ex_sguy_notepath)
 	
@@ -40,7 +40,7 @@ if type == 0 { // sax attack
 	if timer == 200 {
 		var o = enemy_struct.actor_id
 		o.sprite_index = spr_ex_e_sguy_idle
-		o.customdepth = undefined
+		o.custom_depth = undefined
 	
 		instance_destroy()
 	}
@@ -54,7 +54,7 @@ else { // gun attack
 		o.gun_angle = 0
 		do_animate(o.x, o.x + 20, 15, "cubic_out", o, "x")
         
-		o.customdepth = DEPTH_ENCOUNTER.BULLETS_OUTSIDE - (o.y-guipos_y())
+		o.custom_depth = DEPTH_ENCOUNTER.BULLETS_OUTSIDE - (o.y-guipos_y())
 	}
 	if timer > 6 + 15 && timer % 5 == 0 && count < 12 && timer < 200 - 15 {
 		var o = enemy_struct.actor_id
@@ -101,7 +101,7 @@ else { // gun attack
 	if timer == ending {
 		var o = enemy_struct.actor_id
 		o.sprite_index = spr_ex_e_sguy_idle
-		o.customdepth = undefined
+		o.custom_depth = undefined
 		instance_destroy()
 	}
 }

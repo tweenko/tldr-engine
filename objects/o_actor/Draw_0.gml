@@ -48,6 +48,26 @@ s_drawer(spr, image_index,
 	image_angle, image_blend, image_alpha
 )
 
+if freeze > 0 {
+    var __freezecol = merge_color(c_navy, c_white, 0.8)
+    var t = (sprite_height) - (freeze * (sprite_height));
+    
+    gpu_set_fog(true, __freezecol, 0, 0);
+    
+    var yoffset = -(sprite_get_yoffset(sprite_index) * image_yscale);
+    var xoffset = -(sprite_get_xoffset(sprite_index) * image_xscale);
+    
+    draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, (x - 1) + xoffset, (y - 1) + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.8);
+    draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, x + 1 + xoffset, (y - 1) + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.4);
+    draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, (x - 1) + xoffset, y + 1 + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.4);
+    draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, x + 1 + xoffset, y + 1 + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.8);
+    gpu_set_fog(false, c_white, 0, 0);
+    
+    gpu_set_blendmode(bm_add);
+    draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, x + xoffset, y + t + yoffset, image_xscale, image_yscale, __freezecol, image_alpha * 0.4);
+    gpu_set_blendmode(bm_normal);
+}
+
 if !surface_exists(s_lightsurf)
 	s_lightsurf = surface_create(320, 240)
 
@@ -113,9 +133,9 @@ if flashing { // battle select flash
 	gpu_set_fog(false,c_white,0,0)
 }
 if flash > 0 { // normal flash
-	gpu_set_fog(true, c_white, 0, 0)
+	gpu_set_fog(true, flash_color, 0, 0)
 	s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, c_white, flash)
-	gpu_set_fog(false, c_white, 0, 0)
+	gpu_set_fog(false, flash_color, 0, 0)
 }
 
 if instance_exists(get_leader()) && !is_player{

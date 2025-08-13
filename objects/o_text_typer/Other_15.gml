@@ -195,9 +195,9 @@ else {
 	}
 }
 	
-if _face == noone {
+if _face == noone && instance_exists(face_inst) {
 	instance_clean(face_inst)
-	x = xstart
+	x -= 116
 }
 if face_expression != face_expression_prev {
 	face_inst.facename = face_expression

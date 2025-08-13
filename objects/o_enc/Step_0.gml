@@ -10,7 +10,7 @@ if battle_state == "menu" {
 		for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 			if !enc_enemy_isfighting(i)
 				continue
-			if selec==i
+			if selec == i
 				encounter_data.enemies[i].actor_id.flashing = true
 			else
 				encounter_data.enemies[i].actor_id.flashing = false
@@ -177,17 +177,20 @@ if battle_state == "menu" {
 			&& spells[actselection[selection]].use_type == 2 
 			&& state == 3
 	){
-		var eselectordelta = 0
+		var eselectordelta = 1
+        var __changed = false
 		
 		if input_check_pressed("up") {
 			fightselection[selection] --
 			audio_play(snd_ui_move)
 			eselectordelta = -1
+            __changed = true
 		}
 		if input_check_pressed("down") {
 			fightselection[selection] ++
 			audio_play(snd_ui_move)
 			eselectordelta = 1
+            __changed = true
 		}
 		
 		// cap this
@@ -223,7 +226,7 @@ if battle_state == "menu" {
 		}
 		
 		// if we moved, update the enemies flashing
-		if eselectordelta != 0 {
+		if __changed {
 			for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 				if !enc_enemy_isfighting(i)
 					continue
@@ -321,17 +324,20 @@ if battle_state == "menu" {
 		&& spells[actselection[selection]].use_type == 2 
 		&& state == 4
 	{
-		var eselectordelta = 0
+		var eselectordelta = 1
+        var changed = false
 		
 		if input_check_pressed("up") {
 			partyactselection[selection] --; 
 			audio_play(snd_ui_move);
-			eselectordelta = 1
+			eselectordelta = -1
+            changed = true
 		}
 		if input_check_pressed("down") {
 			partyactselection[selection] ++; 
 			audio_play(snd_ui_move);
 			eselectordelta = 1
+            changed = true
 		}
 		
 		// cap
@@ -342,7 +348,7 @@ if battle_state == "menu" {
 		
 		// skip the enemies that aren't fighting anymore
 		while !enc_enemy_isfighting(partyactselection[selection]) {
-			partyactselection[selection] ++
+			partyactselection[selection] += eselectordelta
 			
 			if partyactselection[selection] > array_length(encounter_data.enemies) - 1
 				partyactselection[selection] = 0
@@ -351,7 +357,7 @@ if battle_state == "menu" {
 		}
 		
 		if input_check_pressed("cancel") && buffer == 0 {
-			state--
+			state --
 			buffer = 1
 			for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 				if !enc_enemy_isfighting(i)
@@ -364,7 +370,7 @@ if battle_state == "menu" {
 				state = 1
 		}
 		
-		if eselectordelta {
+		if changed {
 			for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 				if !enc_enemy_isfighting(i)
 					continue
@@ -647,7 +653,7 @@ if battle_state == "menu" {
 			spellpage[selection] = 0
 		
 		if input_check_pressed("confirm") && buffer == 0 && tp >= spells[actselection[selection]].tp_cost {
-			if spells[actselection[selection]].use_type == 0 {
+			if spells[actselection[selection]].use_type == ITEM_USE.INDIVIDUAL {
 				state = 2
 				buffer = 1
 				
@@ -655,10 +661,11 @@ if battle_state == "menu" {
 				
 				updateglowing_party()
 			}
-			if spells[actselection[selection]].use_type == 1 {
+			else if spells[actselection[selection]].use_type == ITEM_USE.EVERYONE {
 				party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
 				party_getobj(global.party_names[selection]).image_speed = 1
-				char_state[selection] = 5
+				
+                char_state[selection] = 5
 				
 				array_set(tp_upon_spell, selection, tp)
 				tp = tp_clamp(tp)
@@ -670,7 +677,7 @@ if battle_state == "menu" {
 				
 				audio_play(snd_ui_select)
 			}
-			if spells[actselection[selection]].use_type == 2 {
+			else if spells[actselection[selection]].use_type == ITEM_USE.ENEMY {
 				if spells[actselection[selection]].is_party_act 
 					state = 4
 				else 
@@ -994,9 +1001,7 @@ if battle_state == "exec" {
 				var enemyo = enemy.actor_id // get enemy object
 				cutscene_create()
 				
-				if enemy.mercy >= 100 { //spare
-					recruit_advance(enemy)
-					
+				if enemy.mercy >= 100 { // spare
 					cutscene_dialogue(string("* {0} spared {1}!", party_getname(global.party_names[user]), enemy.name), "{stop}", false)
 					cutscene_wait_until(function(index){
 						return party_getobj(global.party_names[index]).sprname == "idle"
@@ -1006,49 +1011,8 @@ if battle_state == "exec" {
 						o_enc.char_state[user] = -1
 					}, [user])
 					
-					cutscene_set_variable(enemyo, "sprite_index", enemyo.s_spared)
-					cutscene_instance_create(o_text_hpchange, 
-						enemyo.x, enemyo.y - enemyo.myheight/2, 
-						o.depth - 100, {
-							draw: $"{recruit_get(enemy)}/{recruit_getneed(enemy)}", 
-							mode: 3
-						}
-					)
-				
-					cutscene_audio_play(snd_spare)
-					// flash the enemy
-					cutscene_anim(.5, 1, 4, "linear", function(v,o) {
-						if instance_exists(o) o.flash = v
-					}, enemyo)
-					cutscene_sleep(4)
-					
-					cutscene_instance_create(o_afterimage, enemyo.x, enemyo.y, enemyo.depth + 6, {
-						sprite_index: enemyo.sprite_index, 
-						image_index: enemyo.image_index, 
-						white: true, 
-						image_alpha: 1, 
-						speed: 2
-					})
-					cutscene_instance_create(o_afterimage, enemyo.x, enemyo.y, enemyo.depth + 6, {
-						sprite_index: enemyo.sprite_index,
-						image_index: enemyo.image_index, 
-						white: true, 
-						image_alpha: 1, 
-						speed: 4
-					})
-					cutscene_instance_create(o_eff_spareeffect, 
-						enemyo.x - enemyo.sprite_xoffset, enemyo.y - enemyo.sprite_yoffset,
-						enemyo.depth - 6, {
-							w: enemyo.sprite_width,
-							h: enemyo.sprite_height
-						}
-					)
-				
-					cutscene_func(instance_destroy,[enemyo])
-					cutscene_func(function(e) {
-						o_enc.encounter_data.enemies[e] = "spared"
-					}, [alternative])
-				
+                    cutscene_spare_enemy(alternative)
+                    
 					cutscene_sleep(30)
 					cutscene_func(instance_destroy, [o_ui_dialogue])
 					cutscene_set_variable(o_enc, "exec_wait", false)
@@ -1086,6 +1050,16 @@ if battle_state == "exec" {
 				var o = party_getobj(global.party_names[user])
 				var spells = array_clone(party_getdata(global.party_names[user], "spells"))
 				
+                // find other enemies if the target is not fighting
+				if !enc_enemy_isfighting(selected) {
+					for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+					    if enc_enemy_isfighting(i) {
+                            selected = i
+                            break
+                        }
+					}
+				}
+                
 				for (var i = 0; i < array_length(struct_get(bonus_actions, global.party_names[user])); ++i) {
 				    array_insert(spells, i, struct_get(bonus_actions, global.party_names[user])[i])
 				}
@@ -1097,13 +1071,10 @@ if battle_state == "exec" {
 				cutscene_set_variable(o_enc, "exec_wait", true)
 				cutscene_set_partysprite(user, "spell")
 				cutscene_sleep(4)
-				cutscene_wait_until(function(index) {
-					return party_getobj(global.party_names[index]).sprname == "idle"
-				}, [user]) 
+                item_use(spells[actselection[user]], user, selected)
 				cutscene_func(function(user) {
 					o_enc.char_state[user] = -1
 				}, [user])
-				item_use(spells[actselection[user]], user, selected)
 				
 				cutscene_sleep(1)
 				cutscene_wait_until(function(){
@@ -1369,10 +1340,27 @@ if battle_state == "win" {
 				o.y = v
 			}, o)
 		}
+        for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+            if is_struct(encounter_data.enemies[i]) {
+                var o = encounter_data.enemies[i].actor_id
+                var a = marker_getpos("enemy_defeated", encounter_data.enemies[i].defeat_marker)
+                
+                if !is_undefined(a) && instance_exists(o) {
+                    cutscene_animate(o.x, a[0], 12, "linear", o, "x")
+                    cutscene_animate(o.y, a[1], 12, "linear", o, "y")
+                }
+            }
+		}
 		cutscene_sleep(12)
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			var o = party_getobj(global.party_names[i])
 		    cutscene_set_variable(o, "is_in_battle", false)
+		}
+        for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+            if is_struct(encounter_data.enemies[i]) && instance_exists(encounter_data.enemies[i].actor_id) {
+                var o = encounter_data.enemies[i].actor_id
+                cutscene_set_variable(o, "is_in_battle", false)
+            }
 		}
 		cutscene_set_variable(o_camera, "target", o_actor_kris)
 		cutscene_set_variable(get_leader(), "moveable_battle", true)

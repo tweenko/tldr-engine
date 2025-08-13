@@ -1,5 +1,5 @@
 draw_set_font(global.font_numbers_w)
-if mode == 3{
+if mode == 3 {
 	draw_sprite_ext(spr_ui_damage_recruit, 0, 
 		x - (align == 1 ? sprite_get_width(spr_ui_damage_recruit) : 0), y, 
 		2 - stretch, stretch * image_yscale, 
@@ -83,6 +83,12 @@ else {
 				case "max": 
 					spr = spr_ui_damage_max
 					break
+                case "purified":
+                    spr = spr_ui_damage_purified
+                    break
+                case "frozen":
+                    spr = spr_ui_damage_frozen
+                    break
 			}
 			
 			draw_sprite_ext(spr, 0,

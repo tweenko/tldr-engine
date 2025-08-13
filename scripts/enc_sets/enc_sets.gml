@@ -23,6 +23,9 @@ function enc_set_ex() : enc_set() constructor {
 		new enemy_killercar(),
 		new enemy_virovirokun(),
 	]
+    enemies[0].defeat_marker = 0
+    enemies[2].defeat_marker = 1
+    
 	enemies_pos = [
 		[0, 0, true],
 		[-20, 0, true]

@@ -3,8 +3,8 @@ if !is_in_battle
 else 
 	depth = DEPTH_ENCOUNTER.ACTORS - (y - guipos_y())
 
-if !is_undefined(customdepth)
-	depth = customdepth
+if !is_undefined(custom_depth)
+	depth = custom_depth
 
 // record the sliding states
 prevsliding = sliding

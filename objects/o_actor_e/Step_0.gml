@@ -1,5 +1,12 @@
 event_inherited()
 
+if is_enemy && freeze > 0 {
+    image_speed = 0
+    sprite_index = s_hurt
+    
+    exit
+}
+
 drawsiner += 0.25
 
 if !is_undefined(chase_dist) {
@@ -46,7 +53,7 @@ if chasing && !is_in_battle
 }
 
 // collision, initiate encounter
-if place_meeting(x, y, get_leader()) && !encounter_started {
+if place_meeting(x, y, get_leader()) && !encounter_started && can_encounter {
     chasing = false
     encounter_started = true
     hurt = 20

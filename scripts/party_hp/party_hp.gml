@@ -13,8 +13,8 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			
 			inst.text = string("+{0}", heal)
 		}
-		else if caller == o_enc // if in battle
-			|| caller.object_index == o_cutscene_inst && caller.caller.object_index == o_enc 
+		else if caller == o_enc // if in battle or in a cutscene
+			|| caller.object_index == o_cutscene_inst
 			|| caller.object_index == o_enc
 		{ 
 			var o = party_getobj(name)
@@ -38,15 +38,15 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			instance_create(o_eff_healeffect,,,, {target: o})
 		
 			var a = create_anime(.5)
-			.add(1, 4, "linear")
-			.add(0, 6, "linear")
-			.start(function(val, o){
-				o.flash = val
-			}, o)
+    			.add(1, 4, "linear")
+    			.add(0, 6, "linear")
+    			.start(function(val, o){
+    				o.flash = val
+    			}, o)
 		}
 	}
 	else if heal == 0 { // miss
-		if caller.object_index == o_cutscene_inst && caller.caller.object_index == o_enc // if in battle
+		if caller.object_index == o_cutscene_inst // if in battle
 			||caller.object_index == o_enc 
 		{
 			var o = party_getobj(name)
@@ -60,7 +60,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 		struct_set(party_nametostruct(name), "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
 		
 		if caller == o_enc // if in battle
-			|| caller.object_index == o_cutscene_inst && caller.caller.object_index == o_enc
+			|| caller.object_index == o_cutscene_inst
 			|| caller.object_index == o_enc
 		{
 			var txt = heal

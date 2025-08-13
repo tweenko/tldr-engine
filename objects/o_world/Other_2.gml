@@ -106,5 +106,3 @@ item_add(new item_key_cell_phone())
 
 randomize()
 room_goto_next()
-
-global.SEED = 658192

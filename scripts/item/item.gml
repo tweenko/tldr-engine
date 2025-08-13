@@ -315,3 +315,68 @@ function item_get_equipped(_item_ref, _party_name = undefined) {
 	
 	return __equipped
 }
+
+/// @desc check whether a spell exists. returns the COUNT of matching spells found
+/// @arg {Asset.GMScript,struct} the item constructor OR item struct that we are looking a match for
+/// @arg {string} _party_name check a specific party member to have the spell, otherwise checks everybody
+/// @return {real,undefined}
+function item_spell_get_exists(_item_ref, _party_name = undefined) {
+    var __iteminst = (is_struct(_item_ref) ? instanceof(_item_ref) : script_get_name(_item_ref))
+    
+    var __spells_found = 0
+    if is_undefined(_party_name) {
+        for (var i = 0; i < array_length(global.party_names); ++i) {
+			__spells_found = item_spell_get_index(_item_ref, global.party_names[i])
+            if !is_undefined(__spells_found)
+                break
+		}
+    }
+    else
+        __spells_found = item_spell_get_index(_item_ref, _party_name)
+    
+    if is_undefined(__spells_found)
+        return false
+    else 
+        return true
+}
+
+/// @desc returns the INDEX of the spell
+/// @arg {Asset.GMScript,struct} _item_ref the item constructor OR item struct that we are looking a match for
+/// @arg {string} _party_name check a specific party member to have the spell
+/// @return {real,undefined}
+function item_spell_get_index(_item_ref, _party_name) {
+    var __iteminst = (is_struct(_item_ref) ? instanceof(_item_ref) : script_get_name(_item_ref))
+    
+    var __index = undefined
+    if !party_ismember(_party_name) {
+        show_debug_message($"item_spell_get_index: \"{_party_name}\" not found in global.party_names")
+        return undefined
+    }
+    for (var j = 0; j < array_length(party_getdata(_party_name, "spells")); j ++) {
+        var __a = party_getdata(_party_name, "spells")[j]
+        if !is_undefined(__a) && instanceof(__a) == __iteminst {
+            __index = j
+            break
+        }
+    }
+    
+    return __index
+}
+
+/**
+ * re-creates the struct with new data
+ * @param {string} _party_name the name of the party member who's spell we want to reload
+ * @param {real} _spell_index the index of the spell to reload
+ * @param {struct|undefined} [_data] the data you pass to the constructor when reloading
+ */
+function item_spell_reload(_party_name, _spell_index, _data = undefined) {
+    var __iteminst = asset_get_index(instanceof(party_getdata(_party_name, "spells")[_spell_index]))
+    var _n = undefined
+    
+    if !is_undefined(_data)
+        _n = new __iteminst(_data)
+    else 
+    	_n = new __iteminst()
+        
+    party_getdata(_party_name, "spells")[_spell_index] = _n
+}

@@ -35,10 +35,10 @@ while string_contains("{", twb) {
 
 // don't predict text unless in specific circumstances
 if instance_exists(caller) && (caller.object_index == o_ui_dialogue || caller.object_index == o_enc || caller.object_index == o_ui_enemydialogue) {}
-else {
-	linebreaks = manualbreaks
-	exit
-}
+//else {
+	//linebreaks = manualbreaks
+	//exit
+//}
 
 var stringsofar = ""
 var lastreservedspace = 0
@@ -88,16 +88,26 @@ for (var i = 0; i < array_length(allbreaks); ++i) {
 linebreaks = allbreaks
 maxw = string_width(strformatted) * xscale
 maxh = (array_length(linebreaks) + 1) * yspace * yscale
-if maxw == 0 
+if maxw == 0 {
 	maxw = string_width(twb) * xscale
-
+}
+        
+x -= center_xoff
+y -= center_yoff
+        
 if instance_exists(caller) {
-	if center_x 
+	if center_x {
 		x -= maxw/2
-	if center_y 
+        center_xoff = -maxw/2
+    }
+	if center_y {
 		y -= maxh/2
+        center_yoff = -maxh/2
+    }
 	
 	// make the enemy dialogue centered right-center
-	if caller.object_index == o_ui_enemydialogue
+	if caller.object_index == o_ui_enemydialogue {
 		x -= maxw/2
+        center_xoff += -maxw/2
+    }
 }

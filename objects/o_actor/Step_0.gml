@@ -1,6 +1,13 @@
 var currentspd = spd
 var check_canmove = _checkmove()
 
+if is_enemy && freeze > 0 {
+    image_speed = 0
+    sprite_index = s_hurt
+    
+    exit
+}
+
 if !init {
 	exit
 }

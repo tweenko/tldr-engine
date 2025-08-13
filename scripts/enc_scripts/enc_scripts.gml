@@ -11,9 +11,16 @@ function enc_getparty_sprite(index, sprname) {
 	return ret
 }
 
-///@desc hurts an enemy and makes it run away if needed. if the damage is FATAL, specify in the optional argument
-///@arg slot
-function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0, fatal = false) {
+/// @desc  hurts an enemy and makes it run away if needed. if the damage is FATAL, specify in the optional argument
+/// @param {real} target_index
+/// @param {real} hurt 
+/// @param {real} user_index
+/// @param {asset.gmsound} [sfx]
+/// @param {real} [xoff]
+/// @param {real} [yoff]
+/// @param {bool} [fatal]
+/// @param {string} [seed]
+function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0, fatal = false, seed = "") {
 	if o_enc.encounter_data.enemies[target].hp <= 0 
 		exit
 	o_enc.encounter_data.enemies[target].hp -= hurt
@@ -40,10 +47,14 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
 				})
 				instance_destroy(o)
 			}
-			else {
+			else if seed == "" {
 				o.run_away = true
 				audio_play(snd_defeatrun)
 			}
+            else {
+                do_animate(0, 1, 20, "linear", o, "freeze")
+                audio_play(snd_petrify)
+            }
 		}
 		if instance_exists(o) 
 			o.hurt = 20
@@ -97,8 +108,8 @@ function tp_clamp(tp) {
 	return clamp(tp, 0, 100)
 }
 
-///@desc returns whether an enemy is still fighting
-///@arg slot
+/// @desc returns whether an enemy is still fighting
+/// @arg enemy_slot
 function enc_enemy_isfighting(target) {
 	var ret = is_struct(o_enc.encounter_data.enemies[target])
 	if ret && o_enc.encounter_data.enemies[target].hp <= 0 
@@ -141,4 +152,70 @@ function enc_gameover(){
 	
 	audio_stop_all()
 	audio_play(snd_hurt)
+}
+
+/// @arg {real,array} index could be an index or array if there are multiple enemies to spare
+function cutscene_spare_enemy(index) {
+    var enemy = o_enc.encounter_data.enemies
+    
+    if !is_array(index)
+        index = [index]
+    
+    for (var i = 0; i < array_length(index); i ++) {
+        var obj = enemy[index[i]].actor_id
+        
+        if !enc_enemy_isfighting(index[i])
+            continue
+        
+        recruit_advance(enemy[index[i]])
+        
+        cutscene_set_variable(obj, "sprite_index", obj.s_spared)
+        cutscene_instance_create(o_text_hpchange, 
+            obj.x, obj.y - obj.myheight/2, 
+            obj.depth - 100, {
+                draw: $"{recruit_get(enemy[index[i]])}/{recruit_getneed(enemy[index[i]])}", 
+                mode: 3
+            }
+        )
+        
+        // flash the enemy
+        cutscene_anim(.5, 1, 4, "linear", function(v, o) {
+            if instance_exists(o) 
+                o.flash = v
+        }, obj)
+    }
+    
+    cutscene_audio_play(snd_spare)
+    cutscene_sleep(4)
+    
+    for (var i = 0; i < array_length(index); i ++) {
+        var obj = enemy[index[i]].actor_id
+        
+        cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
+            sprite_index: obj.sprite_index, 
+            image_index: obj.image_index, 
+            white: true, 
+            image_alpha: 1, 
+            speed: 2
+        })
+        cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
+            sprite_index: obj.sprite_index,
+            image_index: obj.image_index, 
+            white: true, 
+            image_alpha: 1, 
+            speed: 4
+        })
+        cutscene_instance_create(o_eff_spareeffect, 
+            obj.x - obj.sprite_xoffset, obj.y - obj.sprite_yoffset,
+            obj.depth - 6, {
+                w: obj.sprite_width,
+                h: obj.sprite_height
+            }
+        )
+        
+        cutscene_func(instance_destroy, [obj])
+        cutscene_func(function(e) {
+            o_enc.encounter_data.enemies[e] = "spared"
+        }, [index[i]])
+    }
 }

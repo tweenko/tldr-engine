@@ -298,8 +298,15 @@ surface_set_target(surf) {
 				draw_set_color(c_orange)
 				if struct_exists(acts[actselection[selection]], "tp_cost") && acts[actselection[selection]].tp_cost > 0 
 					draw_text_ext_transformed(500, 440, string("{0}% TP", acts[actselection[selection]].tp_cost), 15, 130/2, 2, 2, 0)
-				draw_set_color(c_white)
-			
+				
+                draw_set_color(c_white)
+                if struct_exists(acts[i], "color") {
+                    if is_callable(acts[i].color) 
+                        draw_set_color(acts[i].color())
+                    else
+                        draw_set_color(acts[i].color)
+			    }
+                
 				if struct_exists(acts[i], "tp_cost") && acts[i].tp_cost > 0 {
 					if tp < acts[i].tp_cost 
 						draw_set_color(c_gray)
@@ -353,10 +360,15 @@ surface_set_target(surf) {
 			    if i == actselection[selection] 
 					draw_sprite_ext(spr_uisoul, 0, 10 + (i%2 == 1 ? 230 : 0), 385 + 30 * floor(i/2) - 90*spellpage[selection], 1, 1, 0, c_red, 1)
 				
+                draw_set_color(c_white)
 				if tp < spells[i].tp_cost 
 					draw_set_color(c_gray)
-				else if struct_exists(spells[i],"color") && spells[i].color != c_white 
-					draw_set_color(spells[i].color)
+				else if struct_exists(spells[i], "color") {
+                    if is_callable(spells[i].color) 
+                        draw_set_color(spells[i].color())
+                    else
+                        draw_set_color(spells[i].color)
+			    }
 				
 			    draw_text_transformed(30 + (i % 2 == 1 ? 230 : 0), 375 + 30 * floor(i/2) - 90*spellpage[selection], txt, 2, 2, 0)
 				draw_set_color(c_white)

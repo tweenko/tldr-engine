@@ -1,5 +1,5 @@
 color = 0
-graze = 1
+graze = 15
 att = 6
 inv = ENC_SETUP_SOUL_INV
 
