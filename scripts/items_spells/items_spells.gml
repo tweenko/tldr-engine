@@ -23,7 +23,7 @@ function item_s_rudebuster() : item_s_base() constructor {
         cutscene_sleep(20)
         cutscene_set_partysprite(index, "rudebuster")
         cutscene_wait_until(function(__name) {
-            return party_get_inst(__name).image_index >= 6
+            return party_getobj(__name).image_index >= 6
         }, [__name])
         cutscene_func(instance_destroy, [o_ui_dialogue])
         cutscene_func(function(tgt, m, _slot, name) {
@@ -42,7 +42,7 @@ function item_s_rudebuster() : item_s_base() constructor {
             inst.direction = inst.image_angle
             
             do_animate(0, 1, 3, "linear", inst, "image_alpha")
-        }, [__e_obj, party_get_inst(__name), target, __name])
+        }, [__e_obj, party_getobj(__name), target, __name])
         cutscene_sleep(50)
 		cutscene_set_variable(o_enc, "exec_waiting", false)
     }
@@ -335,7 +335,7 @@ function item_s_iceshock() : item_s_base() constructor {
                     mode: 1,
                 })
             
-            enc_hurt_enemy(target, round(max(1, party_getdata(__name, "magic") - 10) * 30 + 90 + random(10)), index,,, 20,, "freeze")
+            enc_hurt_enemy(target, round(max(1, party_getdata(__name, "magic") - 10) * 430 + 90 + random(10)), index,,, 20,, "freeze")
         }, [target, __name, index, __fatal])
         
         cutscene_sleep(30)

@@ -83,90 +83,8 @@ chapters = [
 		},
 		icon: spr_ui_chs_ch2,
 	},
-	{
-		name: loc("chapter_3"),
-		exec: function(caller){
-			music_stop(0)
-			audio_play(snd_chs_ch3)
-			
-			do_animate(0, 1, 20, "linear", caller, "trans_shrink")
-			
-			call_later(80, time_source_units_frames, function() {
-				global.chapter = 3
-				global.save = {
-					NAME: "PLAYER",
-					ROOM: room_test_main,
-					ROOM_NAME: "I was lazy, sorry",
-					TIME: 0,
-					PARTY_DATA: global.party,
-					PARTY_NAMES: global.party_names,
-					CHAPTER: 3,
-		
-					//inventory
-					ITEMS: global.items,
-					KEY_ITEMS: global.key_items,
-					WEAPONS: global.weapons,
-					ARMORS: global.armors,
-					STORAGE: global.storage,
-	
-					STATES: global.states,
-					RECRUITS: {},
-					RECRUIT_PROGRESS: {},
-		
-					CRYSTAL: false,
-					COMPLETED: false,
-					COMPLETE_ROOM: "",
-					COMPLETE_TIME: 0,
-				}
-				
-				save_reload()
-				room_goto(room_save_select)
-			})
-		},
-		icon: spr_ui_chs_ch3,
-	},
-	{
-		name: loc("chapter_4"),
-		exec: function(caller){
-			music_stop(0)
-			audio_play(snd_chs_ch4)
-			
-			do_animate(0, 1, 20, "linear", caller, "trans_shrink")
-			
-			call_later(80, time_source_units_frames, function() {
-				global.chapter = 4
-				global.save = {
-					NAME: "PLAYER",
-					ROOM: room_ex_church,
-					ROOM_NAME: "Prophecy Room Idk",
-					TIME: 0,
-					PARTY_DATA: global.party,
-					PARTY_NAMES: global.party_names,
-					CHAPTER: 2,
-		
-					//inventory
-					ITEMS: global.items,
-					KEY_ITEMS: global.key_items,
-					WEAPONS: global.weapons,
-					ARMORS: global.armors,
-					STORAGE: global.storage,
-	
-					STATES: global.states,
-					RECRUITS: {},
-					RECRUIT_PROGRESS: {},
-		
-					CRYSTAL: false,
-					COMPLETED: false,
-					COMPLETE_ROOM: "",
-					COMPLETE_TIME: 0,
-				}
-				
-				save_reload()
-				room_goto(room_save_select)
-			})
-		},
-		icon: spr_ui_chs_ch4,
-	},
+	-1,
+	-1,
 	-1,
 	-1,
 	-1,
@@ -184,7 +102,7 @@ pause = 0
 
 copyright_text = ""
 gamename = "tlDR Engine"
-version_text = "v0.7.81"
+version_text = "v0.8.10"
 
 languages = true
 

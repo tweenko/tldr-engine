@@ -23,14 +23,11 @@ function marker_find_closest(xx, yy, mtype){
 /// @desc	gets a position of a marker in the room. in case of failure, returns undefined
 /// @arg	{real|string}	type type of the marker
 /// @arg	{real}	id id of the marker you are looking for
-/// @return	{struct|undefined}
+/// @return	{array<real>|undefined}
 function marker_getpos(mtype, mid){
 	with(o_dev_marker) {
 		if m_type == mtype && m_id == mid 
-			return {
-                x: x,
-                y: y,
-            }
+			return [x, y]
 	}
     
 	return undefined

@@ -17,7 +17,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			|| caller.object_index == o_cutscene_inst
 			|| caller.object_index == o_enc
 		{ 
-			var o = party_get_inst(name)
+			var o = party_getobj(name)
 			var txt = heal
 			
 			if party_getdata(name, "hp") > 0 && party_getdata(name, "is_down") && auto {
@@ -49,7 +49,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 		if caller.object_index == o_cutscene_inst // if in battle
 			||caller.object_index == o_enc 
 		{
-			var o = party_get_inst(name)
+			var o = party_getobj(name)
 			instance_create(o_text_hpchange, o.x, o.y-o.myheight/2, o.depth-100, {draw: "miss", mode: 0})
 		}
 	}
@@ -64,7 +64,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			|| caller.object_index == o_enc
 		{
 			var txt = heal
-			var o = party_get_inst(name)
+			var o = party_getobj(name)
 			
 			if o.is_in_battle {
 				o.hurt = 20
@@ -209,7 +209,7 @@ function party_check_gameover(){
 ///@arg	{string}	party_name	party member's name
 /// @arg {string}   element     the element that will be used for calculation
 function damage(attack, party_name, element){
-	if !party_get_inst(party_name).is_in_battle return attack
+	if !party_getobj(party_name).is_in_battle return attack
 	
 	//base calculation
 	var hurt=5*attack

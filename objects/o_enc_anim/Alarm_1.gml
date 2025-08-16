@@ -2,7 +2,7 @@ party_setfollow(false)
 
 // animate the party in
 for (var i = 0; i < array_length(global.party_names); ++i) {
-	var obj = party_get_inst(global.party_names[i])
+	var obj = party_getobj(global.party_names[i])
 	var startpos = guipos_y() + 130 - 20*array_length(global.party_names)
 	
 	if array_length(global.party_names) == 3 

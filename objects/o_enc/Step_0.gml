@@ -19,9 +19,9 @@ if battle_state == "menu" {
 	var updateglowing_party = function() {
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			if itemuserselection[selection] == i
-				party_get_inst(global.party_names[i]).flashing = true
+				party_getobj(global.party_names[i]).flashing = true
 			else
-				party_get_inst(global.party_names[i]).flashing = false
+				party_getobj(global.party_names[i]).flashing = false
 		}
 	}
 	
@@ -43,9 +43,9 @@ if battle_state == "menu" {
 		if input_check_pressed("confirm") && buffer == 0 {
 			if bt_selection[selection] == 4 {
 				// set the party sprite to defend
-				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "defend")
-				party_get_inst(global.party_names[selection]).image_index = 0
-				party_get_inst(global.party_names[selection]).image_speed = 1
+				party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "defend")
+				party_getobj(global.party_names[selection]).image_index = 0
+				party_getobj(global.party_names[selection]).image_speed = 1
 				
 				char_state[selection] = 4
 				selection ++
@@ -101,8 +101,8 @@ if battle_state == "menu" {
 					char_state[selection] = -1
 					
 					// set the sprite back to the idle sprite
-					party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "idle")
-					party_get_inst(global.party_names[selection]).image_speed = 1
+					party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "idle")
+					party_getobj(global.party_names[selection]).image_speed = 1
 				}
 				array_delete(ignore, array_get_index(ignore, selection), 1)
 				selection --
@@ -112,8 +112,8 @@ if battle_state == "menu" {
 					char_state[selection] = -1;
 					
 					// set the sprite back to the idle sprite
-					party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "idle")
-					party_get_inst(global.party_names[selection]).image_speed = 1
+					party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "idle")
+					party_getobj(global.party_names[selection]).image_speed = 1
 				}
 				selection --
 			}
@@ -125,8 +125,8 @@ if battle_state == "menu" {
 					    char_state[i] = -1;
 						
 						// set the sprite back to the idle one
-						party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
-						party_get_inst(global.party_names[i]).image_speed = 1
+						party_getobj(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
+						party_getobj(global.party_names[i]).image_speed = 1
 						
 						array_delete(ignore, array_get_index(ignore, together_with[i]), 1)
 					}
@@ -137,8 +137,8 @@ if battle_state == "menu" {
 				var i = together_with[selection]
 				char_state[i] = -1;
 				
-				party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
-				party_get_inst(global.party_names[i]).image_speed = 1
+				party_getobj(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
+				party_getobj(global.party_names[i]).image_speed = 1
 				
 				array_delete(ignore, array_get_index(ignore, together_with), 1)
 				together_with[selection] = []
@@ -164,8 +164,8 @@ if battle_state == "menu" {
 			
 			// get back to being idle
 			char_state[selection] = -1
-			party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "idle")
-			party_get_inst(global.party_names[selection]).image_speed = 1
+			party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "idle")
+			party_getobj(global.party_names[selection]).image_speed = 1
 		}
 	}
 	else if state == 1 && (bt_selection[selection] == 0 // enemy selector
@@ -250,8 +250,8 @@ if battle_state == "menu" {
 				}
 				
 				// set the sprite accoredingly
-				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "attackready")
-				party_get_inst(global.party_names[selection]).image_speed = 1
+				party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "attackready")
+				party_getobj(global.party_names[selection]).image_speed = 1
 				selection ++
 				
 				audio_play(snd_ui_select)
@@ -263,8 +263,8 @@ if battle_state == "menu" {
 				audio_play(snd_ui_select)
 			}
 			else if bt_selection[selection] == 1 && !can_act[selection] { // power, spell selected
-				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
-				party_get_inst(global.party_names[selection]).image_speed = 1
+				party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
+				party_getobj(global.party_names[selection]).image_speed = 1
 				
 				// save the tp amount we used
 				array_set(tp_upon_spell, selection, tp)
@@ -299,8 +299,8 @@ if battle_state == "menu" {
 				}
 			}
 			else if bt_selection[selection] == 2 { // items, item selected
-				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "itemready")
-				party_get_inst(global.party_names[selection]).image_speed = 1
+				party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "itemready")
+				party_getobj(global.party_names[selection]).image_speed = 1
 				char_state[selection] = 2
 				
 				array_push(items_using, item_get_name(items[itemselection[selection]]))
@@ -383,8 +383,8 @@ if battle_state == "menu" {
 		}
 		
 		if input_check_pressed("confirm") && buffer == 0 {
-			party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "actready")
-			party_get_inst(global.party_names[selection]).image_speed = 1
+			party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "actready")
+			party_getobj(global.party_names[selection]).image_speed = 1
 			
 			char_state[selection] = 1
 			selection ++
@@ -468,8 +468,8 @@ if battle_state == "menu" {
 							var me = j
 							array_push(ignore, me)
 							
-							party_get_inst(global.party_names[me]).sprite_index = enc_getparty_sprite(me, "actready")
-							party_get_inst(global.party_names[me]).image_speed = 1
+							party_getobj(global.party_names[me]).sprite_index = enc_getparty_sprite(me, "actready")
+							party_getobj(global.party_names[me]).image_speed = 1
 							char_state[me]=1
 							
 							array_push(together_with[selection], me)
@@ -488,8 +488,8 @@ if battle_state == "menu" {
 							var me = array_get_index(global.party_names, acts[ii].party[j])
 						    array_push(ignore, me)
 						
-							party_get_inst(global.party_names[me]).sprite_index = enc_getparty_sprite(me, "actready")
-							party_get_inst(global.party_names[me]).image_speed = 1
+							party_getobj(global.party_names[me]).sprite_index = enc_getparty_sprite(me, "actready")
+							party_getobj(global.party_names[me]).image_speed = 1
 							char_state[me] = 1
 							
 							array_push(together_with[selection], me)
@@ -519,8 +519,8 @@ if battle_state == "menu" {
 					array_set(tp_upon_spell, selection, tp)
 				}
 				
-				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "actready")
-				party_get_inst(global.party_names[selection]).image_speed = 1
+				party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "actready")
+				party_getobj(global.party_names[selection]).image_speed = 1
 				
 				selection ++
 				state = 0
@@ -583,8 +583,8 @@ if battle_state == "menu" {
 				updateglowing_party()
 			}
 			else if items[itemselection[selection]].use_type == 1 {
-				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "itemready")
-				party_get_inst(global.party_names[selection]).image_speed = 1
+				party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "itemready")
+				party_getobj(global.party_names[selection]).image_speed = 1
 				char_state[selection] = 2
 				
 				array_push(items_using, item_get_name(items[itemselection[selection]]))
@@ -662,8 +662,8 @@ if battle_state == "menu" {
 				updateglowing_party()
 			}
 			else if spells[actselection[selection]].use_type == ITEM_USE.EVERYONE {
-				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
-				party_get_inst(global.party_names[selection]).image_speed = 1
+				party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
+				party_getobj(global.party_names[selection]).image_speed = 1
 				
                 char_state[selection] = 5
 				
@@ -716,13 +716,13 @@ if battle_state == "menu" {
 			state -- 
 			buffer = 1
 			for (var i = 0; i < array_length(global.party_names); ++i) {
-				party_get_inst(global.party_names[i]).flashing = false
+				party_getobj(global.party_names[i]).flashing = false
 			}
 		}
 		if input_check_pressed("confirm") && buffer == 0 {
 			if bt_selection[selection] == 1 && spells[actselection[selection]].use_type == 0 {
-				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
-				party_get_inst(global.party_names[selection]).image_speed = 1
+				party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
+				party_getobj(global.party_names[selection]).image_speed = 1
 				char_state[selection] = 5
 				
 				array_set(tp_upon_spell, selection, tp)
@@ -735,12 +735,12 @@ if battle_state == "menu" {
 				
 				audio_play(snd_ui_select)
 				for (var i = 0; i < array_length(global.party_names); ++i) {
-					party_get_inst(global.party_names[i]).flashing = false
+					party_getobj(global.party_names[i]).flashing = false
 				}
 			}
 			else {
-				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "itemready")
-				party_get_inst(global.party_names[selection]).image_speed = 1
+				party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "itemready")
+				party_getobj(global.party_names[selection]).image_speed = 1
 				char_state[selection] = 2
 				
 				array_push(items_using, item_get_name(items[itemselection[selection]]))
@@ -751,7 +751,7 @@ if battle_state == "menu" {
 				
 				audio_play(snd_ui_select)
 				for (var i = 0; i < array_length(global.party_names); ++i) {
-					party_get_inst(global.party_names[i]).flashing = false
+					party_getobj(global.party_names[i]).flashing = false
 				}
 			}
 		}
@@ -864,7 +864,7 @@ if battle_state == "exec" {
 					var act_execer = encounter_data.enemies[fightselection[user]].acts[actselection[user]].exec
 					
 					// set the party sprite accordingly
-					var o = party_get_inst(global.party_names[user])
+					var o = party_getobj(global.party_names[user])
 					o.sprite_index = enc_getparty_sprite(user, "act")
 					o.image_index = 0
 					o.image_speed = 1
@@ -874,9 +874,9 @@ if battle_state == "exec" {
 						if !array_equals(together_with[user], []) {
 							for (var i = 0; i < array_length(together_with[user]); ++i) {
 							    char_state[i] = -1;
-								party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "act")
-								party_get_inst(global.party_names[i]).image_index = 0
-								party_get_inst(global.party_names[i]).image_speed = 1
+								party_getobj(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "act")
+								party_getobj(global.party_names[i]).image_index = 0
+								party_getobj(global.party_names[i]).image_speed = 1
 								
 								array_delete(ignore, array_get_index(ignore, together_with[i]), 1)
 							}
@@ -886,9 +886,9 @@ if battle_state == "exec" {
 						var i = together_with[user]
 						
 						char_state[i] = -1;
-						party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "act")
-						party_get_inst(global.party_names[i]).image_index = 0
-						party_get_inst(global.party_names[i]).image_speed = 1
+						party_getobj(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "act")
+						party_getobj(global.party_names[i]).image_index = 0
+						party_getobj(global.party_names[i]).image_speed = 1
 						
 						array_delete(ignore, array_get_index(ignore, together_with), 1)
 					}
@@ -907,7 +907,7 @@ if battle_state == "exec" {
 					
 					if struct_exists(act_execer, global.party_names[user]){
 						act_execer = struct_get(act_execer, global.party_names[user])
-						var o = party_get_inst(global.party_names[user])
+						var o = party_getobj(global.party_names[user])
 						o.sprite_index = enc_getparty_sprite(user, "act")
 						o.image_index = 0
 						o.image_speed = 1
@@ -931,7 +931,7 @@ if battle_state == "exec" {
 			}
 			else if exec_current[0] == 2 { // item
 				var items = item_get_array(0)
-				var o = party_get_inst(global.party_names[itemuserselection[user]])
+				var o = party_getobj(global.party_names[itemuserselection[user]])
 				
 				cutscene_create()
 				
@@ -947,7 +947,7 @@ if battle_state == "exec" {
 				
 				// only continue when the item use animation is finished
 				cutscene_wait_until(function(index){
-					return party_get_inst(global.party_names[index]).sprname == "idle"
+					return party_getobj(global.party_names[index]).sprname == "idle"
 				}, [user])
 				cutscene_func(function(user){
 					o_enc.char_state[user] = -1
@@ -964,7 +964,7 @@ if battle_state == "exec" {
 			else if exec_current[0] == 3 { // spare
 				exec_wait = true
 				
-				var o = party_get_inst(global.party_names[user]) // get party object
+				var o = party_getobj(global.party_names[user]) // get party object
 				o.sprite_index = enc_getparty_sprite(user, "spare")
 				o.image_index = 0
 				o.image_speed = 1
@@ -1004,7 +1004,7 @@ if battle_state == "exec" {
 				if enemy.mercy >= 100 { // spare
 					cutscene_dialogue(string("* {0} spared {1}!", party_getname(global.party_names[user]), enemy.name), "{stop}", false)
 					cutscene_wait_until(function(index){
-						return party_get_inst(global.party_names[index]).sprname == "idle"
+						return party_getobj(global.party_names[index]).sprname == "idle"
 					}, [user])
 					
 					cutscene_func(function(user){
@@ -1047,7 +1047,7 @@ if battle_state == "exec" {
 			}
 			else if exec_current[0] == 5 { // spell
 				var selected = fightselection[user]
-				var o = party_get_inst(global.party_names[user])
+				var o = party_getobj(global.party_names[user])
 				var spells = array_clone(party_getdata(global.party_names[user], "spells"))
 				
                 // find other enemies if the target is not fighting
@@ -1093,17 +1093,17 @@ if battle_state == "exec" {
 			// if not defending, go back to the idle sprite
 			if char_state[exec_current[1]] != 4 {
 				char_state[exec_current[1]] = -1;
-				party_get_inst(global.party_names[exec_current[1]]).sprite_index = enc_getparty_sprite(exec_current[1], "idle")
-				party_get_inst(global.party_names[exec_current[1]]).image_index = 0
-				party_get_inst(global.party_names[exec_current[1]]).image_speed = 1
+				party_getobj(global.party_names[exec_current[1]]).sprite_index = enc_getparty_sprite(exec_current[1], "idle")
+				party_getobj(global.party_names[exec_current[1]]).image_index = 0
+				party_getobj(global.party_names[exec_current[1]]).image_speed = 1
 				
 				if is_array(together_with[exec_current[1]]) {
 					if !array_equals(together_with[exec_current[1]], []) {
 						for (var i = 0; i < array_length(together_with[exec_current[1]]); ++i) {
 							var me = together_with[exec_current[1]][i]
 						    char_state[me] = -1;
-							party_get_inst(global.party_names[me]).sprite_index = enc_getparty_sprite(me, "idle")
-							party_get_inst(global.party_names[me]).image_speed = 1
+							party_getobj(global.party_names[me]).sprite_index = enc_getparty_sprite(me, "idle")
+							party_getobj(global.party_names[me]).image_speed = 1
 						}
 						together_with[exec_current[1]] = []
 					}
@@ -1112,8 +1112,8 @@ if battle_state == "exec" {
 					var i = together_with[exec_current[1]]
 					
 					char_state[i] = -1;
-					party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
-					party_get_inst(global.party_names[i]).image_speed = 1
+					party_getobj(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
+					party_getobj(global.party_names[i]).image_speed = 1
 					
 					together_with[exec_current[1]] = []
 				}
@@ -1180,14 +1180,14 @@ if battle_state == "dialogue" {
 		}
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 		    if party_getdata(global.party_names[i], "hp") > 0 {
-				var o = party_get_inst(global.party_names[i])
+				var o = party_getobj(global.party_names[i])
 				
 				array_push(turn_targets,global.party_names[i])
 				if encounter_data.display_target
 					instance_create(o_enc_target, o.x, o.y - o.myheight/2, o.depth-10)
 			}
 			else {
-				var o = party_get_inst(global.party_names[i])
+				var o = party_getobj(global.party_names[i])
 				do_animate(0, .5, 15, "linear", o, "darken")
 			}
 		}
@@ -1266,9 +1266,9 @@ if battle_state == "turn" {
 if battle_state == "post_turn" {
 	for (var i = 0; i < array_length(global.party_names); ++i) { // heal party members, reset their sprites
 	    // if defending, or anything else for that matter, just go back to being idle
-		party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
-		party_get_inst(global.party_names[i]).image_index = 0
-		party_get_inst(global.party_names[i]).image_speed = 1
+		party_getobj(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
+		party_getobj(global.party_names[i]).image_index = 0
+		party_getobj(global.party_names[i]).image_speed = 1
 		
 		char_state[i] = -1
 		
@@ -1276,7 +1276,7 @@ if battle_state == "post_turn" {
 			party_heal(global.party_names[i], round(party_getdata(global.party_names[i], "max_hp") * .13))
 		}
 		if !array_contains(turn_targets, global.party_names[i]) { // if i wasn't target, stop being dimmed
-			do_animate(.5 ,0, 15, "linear", party_get_inst(global.party_names[i]), "darken")
+			do_animate(.5 ,0, 15, "linear", party_getobj(global.party_names[i]), "darken")
 		}
 	}
 	{ //set the flavor text
@@ -1318,9 +1318,9 @@ if battle_state == "win" {
 			
 			if party_getdata(global.party_names[i], "is_down") 
 				party_setdata(global.party_names[i], "hp", round(party_getdata(global.party_names[i], "max_hp") * .12))
-			party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "victory")
-			party_get_inst(global.party_names[i]).image_index = 0
-			party_get_inst(global.party_names[i]).image_speed = 1
+			party_getobj(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "victory")
+			party_getobj(global.party_names[i]).image_index = 0
+			party_getobj(global.party_names[i]).image_speed = 1
 		}
 		
 		cutscene_create()
@@ -1331,7 +1331,7 @@ if battle_state == "win" {
 		cutscene_set_variable(o_eff_bg, "destroy", true)
 		cutscene_func(music_fade, [1])
 		for (var i = 0; i < array_length(global.party_names); ++i) {
-			var o = party_get_inst(global.party_names[i])
+			var o = party_getobj(global.party_names[i])
 			
 		    cutscene_anim(o.x, savepos[i][0], 12, "linear", function(v,o) {
 				o.x = v
@@ -1346,14 +1346,14 @@ if battle_state == "win" {
                 var a = marker_getpos("enemy_defeated", encounter_data.enemies[i].defeat_marker)
                 
                 if !is_undefined(a) && instance_exists(o) {
-                    cutscene_animate(o.x, a.x, 12, "linear", o, "x")
-                    cutscene_animate(o.y, a.y, 12, "linear", o, "y")
+                    cutscene_animate(o.x, a[0], 12, "linear", o, "x")
+                    cutscene_animate(o.y, a[1], 12, "linear", o, "y")
                 }
             }
 		}
 		cutscene_sleep(12)
 		for (var i = 0; i < array_length(global.party_names); ++i) {
-			var o = party_get_inst(global.party_names[i])
+			var o = party_getobj(global.party_names[i])
 		    cutscene_set_variable(o, "is_in_battle", false)
 		}
         for (var i = 0; i < array_length(encounter_data.enemies); ++i) {

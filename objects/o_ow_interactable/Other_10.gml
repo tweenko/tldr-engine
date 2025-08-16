@@ -1,1 +1,1 @@
-script_execute_ext(interaction_code, interaction_args)
+dialogue_start(text)

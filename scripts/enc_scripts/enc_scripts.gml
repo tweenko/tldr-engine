@@ -4,7 +4,7 @@ function enc_getparty_sprite(index, sprname) {
 	
 	if is_array(ret) 
 		ret = ret[0]
-	party_get_inst(global.party_names[index]).sprname = sprname
+	party_getobj(global.party_names[index]).sprname = sprname
 	
 	ret = asset_get_index_state(sprite_get_name(ret), party_getdata(global.party_names[index], "s_state"))
 	

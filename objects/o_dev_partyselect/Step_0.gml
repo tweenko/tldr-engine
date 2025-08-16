@@ -26,7 +26,7 @@ if input_check_pressed("confirm") {
 		party_reposition(lx, ly)
 	}
 	else{
-		instance_destroy(party_get_inst(name))
+		instance_destroy(party_getobj(name))
 		array_delete(global.party_names, party_getpos(name), 1)
 		party_reposition(lx, ly)
 	}

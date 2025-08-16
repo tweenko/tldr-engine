@@ -1,7 +1,7 @@
 // change the sprites of the party
 for (var i = 0; i < array_length(global.party_names); ++i) {
 	if struct_exists(shoot_sprites, global.party_names[i]){
-		var o = party_get_inst(global.party_names[i])
+		var o = party_getobj(global.party_names[i])
 		o.sprite_index = struct_get(shoot_sprites, global.party_names[i])
 		
 		var aft = afterimage(.03, o)

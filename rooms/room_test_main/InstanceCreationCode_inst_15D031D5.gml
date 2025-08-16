@@ -1,1 +1,0 @@
-global.save.ROOM_NAME = "Test Zone - Entrance"

@@ -160,9 +160,9 @@ function cutscene_actor_move(target, movement, pos = 0, wait = true) {
         pos: pos,
         wait: wait,
 		
-		action: [function(target, movement, wait, pos) {
-            actor_move(target, movement, pos)
-        }, target, movement, wait, pos],
+		action: [function(target, movement, wait) {
+            actor_move(target, movement)
+        }, target, movement, wait],
 		continue_func: function(wait, pos) {
             if !wait
                 return true
@@ -213,9 +213,9 @@ function cutscene_set_variable(obj, variable, value) {
 /// @desc sets a party member's sprite accordingly to the battle sprites struct from party_data
 function cutscene_set_partysprite(selection, spritename ){
 	var set = function(selection, spritename) {
-		party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, spritename)
-		party_get_inst(global.party_names[selection]).image_index = 0
-		party_get_inst(global.party_names[selection]).image_speed = 1
+		party_getobj(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, spritename)
+		party_getobj(global.party_names[selection]).image_index = 0
+		party_getobj(global.party_names[selection]).image_speed = 1
 	}
 	cutscene_custom({
 		selection, spritename, set,

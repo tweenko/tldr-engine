@@ -93,7 +93,7 @@ battle_state = "menu"
 
 encounter_data = {} // the information about the encounter: enemies, music, text and such
 
-tp = 0
+tp = 100
 tplerp = 0
 tplerp2 = 0
 
