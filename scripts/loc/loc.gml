@@ -1,4 +1,4 @@
-#macro LOC_FILES [ "config.json", "general.json", "ui.json", "txt.json" ] 
+#macro LOC_FILES [ "config.json", "ui.json", "text.json" ] 
 #macro LOC_LANG_LIST [ "en", "jp" ]
 
 global.loc_source = {}

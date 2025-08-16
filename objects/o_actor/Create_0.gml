@@ -44,6 +44,13 @@ is_player = false
 	
 	custom_depth = undefined
 	pos = 0
+    
+    /// @desc needs to return true to function
+    interaction_code = function() {
+        return false
+    }
+    interaction_args = []
+    interactable_instances = []
 }
 { // visual
 	{ // sprites

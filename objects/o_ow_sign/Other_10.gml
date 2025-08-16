@@ -1,0 +1,1 @@
+dialogue_start(text)

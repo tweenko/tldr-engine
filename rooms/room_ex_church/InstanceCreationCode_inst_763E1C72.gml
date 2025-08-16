@@ -1,0 +1,1 @@
+text = ["* I do agree this is low effort, sorry."]

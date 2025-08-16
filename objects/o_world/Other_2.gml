@@ -7,14 +7,14 @@ instance_create(o_dev_musiccontrol)
 instance_create(o_fader)
 
 { // get window ready
-	var divide=480
-	if display_get_width()<display_get_height(){
-		divide=640
+	var divide = 480
+	if display_get_width() < display_get_height() {
+		divide = 640
 	}
-	windowsize=floor(min(display_get_width()-100,display_get_height()-100)/divide)
+	windowsize = floor(min(display_get_width()-100, display_get_height()-100) / divide)
 
-	window_set_size(640*windowsize,480*windowsize)
-	display_set_gui_maximize(windowsize,windowsize);
+	window_set_size(640*windowsize, 480*windowsize)
+	display_set_gui_maximize(windowsize, windowsize);
 	application_surface_draw_enable(false);
 	window_center();
 }
@@ -33,13 +33,14 @@ global.items = []
 global.key_items = []
 global.weapons = []
 global.armors = []
-global.storage = array_create(item_get_maxcount(5), undefined)
+global.storage = array_create(item_get_maxcount(ITEM_TYPE.STORAGE), undefined)
 global.lw_items = []
+
 global.states = {}
-global.world = 0 //0 for dark, 1 for light
+global.world = 0 // 0 for dark, 1 for light
 
 { //saves
-	global.chapter = 3
+	global.chapter = 2
 	global.time = 0
 
 	//load settings
@@ -52,7 +53,7 @@ global.world = 0 //0 for dark, 1 for light
 	global.save_slot = global.settings.SAVE_SLOT
 	global.save = {
 		NAME:			"PLAYER",
-		ROOM:			room_testroom,
+		ROOM:			room_test_main,
 		ROOM_NAME:		"TEST ROOM",
 		TIME:			global.time,
 		PARTY_DATA:		global.party,
@@ -96,13 +97,9 @@ global.world = 0 //0 for dark, 1 for light
 save_load(global.save_slot)
 loc_load(LOC_FILES)
 
-//item_add(new item_lw_shit(),6)
-item_add(new item_w_spookysword())
-item_add(new item_a_pink_ribbon())
-//item_add(new item_a_twin_ribbon())
-//item_add(new item_a_white_ribbon())
-
 item_add(new item_key_cell_phone())
+
+global.charmove_insts = array_create(party_getpossiblecount() + 10, undefined)
 
 randomize()
 room_goto_next()

@@ -9,7 +9,7 @@ if is_enemy && freeze > 0 {
 
 drawsiner += 0.25
 
-if !is_undefined(chase_dist) {
+if !is_undefined(chase_dist) && !chasing && notice_timer == -1 {
     if distance_to_point(get_leader().x, get_leader().y) < chase_dist {
         __start_chasing()
     }
@@ -60,4 +60,6 @@ if place_meeting(x, y, get_leader()) && !encounter_started && can_encounter {
     
     path_end()
     encounter.start()
+    
+    image_xscale = 1
 }

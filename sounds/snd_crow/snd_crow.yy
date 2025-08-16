@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":0.468753,
+  "duration":0.46875283,
   "name":"snd_crow",
   "parent":{
     "name":"sounds",

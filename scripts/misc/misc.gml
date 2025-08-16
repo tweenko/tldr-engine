@@ -280,3 +280,45 @@ function draw_sprite_part_parallax_scale(sprite, image, xoff, yoff, alpha, scale
         draw_sprite_part_ext(sprite, image, (_xmax - _xoffset), 0, min(_xmax, _xoffset), min(_ymax, (_ymax - _yoffset)), xx, (yy + _yoffset * scale), scale, scale, image_blend, alpha)
     }
 }
+
+function camera_confine_x(xx) {
+    xx = xx - o_camera.width/2
+    xx = clamp(xx, 0, room_width - o_camera.width)
+    
+    return xx
+}
+function camera_confine_y(yy) {
+    yy = yy - o_camera.height/2
+    yy = clamp(yy, 0, room_height - o_camera.height)
+    
+    return yy
+}
+
+/// @arg {real} x_dest set to undefined if you don't want to move on this axis
+/// @arg {real} y_dest set to undefined if you don't want to move on this axis
+function camera_pan(x_dest, y_dest, time, ease_type = "linear") {
+    x_dest = camera_confine_x(x_dest)
+    y_dest = camera_confine_x(y_dest)
+    
+    if o_camera.x != x_dest && !is_undefined(x_dest)
+        o_camera.animation_x = do_animate(o_camera.x, x_dest, time, ease_type, o_camera, "x")
+    if o_camera.y != y_dest && !is_undefined(y_dest)
+        o_camera.animation_y = do_animate(o_camera.y, y_dest, time, ease_type, o_camera, "y")
+}
+
+function camera_unpan(target, time, ease_type = "linear") {
+    o_camera.target = target
+    
+    o_camera.offset_x = guipos_x() - camera_confine_x(target.x)
+    o_camera.offset_y = guipos_y() - camera_confine_y(target.y)
+    
+    o_camera.animation_x = do_animate(o_camera.offset_x, 0, time, ease_type, o_camera, "offset_x")
+    o_camera.animation_y = do_animate(o_camera.offset_y, 0, time, ease_type, o_camera, "offset_y")
+}
+
+function camera_stop_animations() {
+    if is_struct(o_camera.animation_x)
+        o_camera.animation_x.stop()
+    if is_struct(o_camera.animation_y)
+        o_camera.animation_y.stop()
+}

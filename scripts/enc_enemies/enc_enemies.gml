@@ -50,7 +50,7 @@ function enemy_base() constructor {
 	turn_object = o_turn_default
 	
     // misc
-    freezable = true
+    freezable = false
     defeat_marker = 0 // marker id
     
 	// misc (in-fight events)
@@ -94,6 +94,7 @@ function enemy_virovirokun() : enemy_base() constructor{
 	attack =	8
 	defense =	0
 	status_effect = ""
+    freezable = true
 	
 	// acts
 	acts = [
@@ -117,7 +118,7 @@ function enemy_virovirokun() : enemy_base() constructor{
 				cutscene_func(enc_sparepercent_enemy, [slot, 100])
 				cutscene_func(function(user) {
 					var name = global.party_names[user]
-					var o = party_getobj(name)
+					var o = party_get_inst(name)
 					o.sprite_index = asset_get_index($"spr_b{name}_nurse")
 					
 					var inst = afterimage(.03,o)
@@ -151,7 +152,7 @@ function enemy_virovirokun() : enemy_base() constructor{
 				cutscene_func(function(user) {
 					for (var i = 0; i < array_length(global.party_names); ++i) {
 					    var name = global.party_names[i]
-						var o = party_getobj(name)
+						var o = party_get_inst(name)
 						o.sprite_index = asset_get_index($"spr_b{name}_nurse")
 						o.image_speed = 0
 						o.image_index = irandom(sprite_get_number(o.sprite_index)-1)

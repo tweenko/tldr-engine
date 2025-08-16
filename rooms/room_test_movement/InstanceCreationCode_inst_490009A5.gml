@@ -1,11 +1,13 @@
+name = "party jump"
+
 execute_func = function() {
-	cutscene_create()
+    cutscene_create()
 	cutscene_player_canmove(false)
 	cutscene_party_follow(false)
 	
 	for (var i = 0; i < array_length(global.party_names); ++i) {
-	    cutscene_actor_move(party_getobj(global.party_names[i]), [
-            new __actor_movement(room_width/2 - (array_length(global.party_names)-1) * 15 + i*30, 140, 30),
+	    cutscene_actor_move(party_get_inst(global.party_names[i]), [
+            new __actor_movement_jump(110 - (array_length(global.party_names)-  1) * 15 + i*30, 130),
 		], i, false)
 	}
 	cutscene_wait_until(function() {

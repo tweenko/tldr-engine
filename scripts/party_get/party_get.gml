@@ -54,11 +54,11 @@ function party_geticon_ow(name) {
 }
 
 ///@desc returns the id of the party member using their name
-function party_getobj(name) {
+function party_get_inst(name) {
 	return party_getdata(name, "actor_id")
 }
 ///@desc returns the object variable from the party struct
-function party_getobjvar(name) {
+function party_get_obj(name) {
 	return party_getdata(name, "obj")
 }
 

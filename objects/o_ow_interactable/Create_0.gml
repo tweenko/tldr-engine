@@ -1,2 +1,4 @@
 event_inherited()
-text = ""
+
+interaction_code = function() {}
+interaction_args = []

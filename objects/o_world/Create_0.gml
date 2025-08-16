@@ -9,7 +9,7 @@ sound_on_frame = -1
 equip_style = 0 //modern
 
 global.current_cutscene = noone
-global.charmove_insts = array_create(10, undefined)
+global.charmove_insts = []
 global.console = false
 global.current_light = c_white
 

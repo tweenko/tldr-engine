@@ -51,7 +51,7 @@ else {
 	if input_check("menu") && buffer == 0 && ammo > 0{
 		buffer = 5
 		for (var i = 0; i < array_length(global.party_names); ++i) {
-			var o = party_getobj(global.party_names[i])
+			var o = party_get_inst(global.party_names[i])
 			
 			ammo -= 1
 			

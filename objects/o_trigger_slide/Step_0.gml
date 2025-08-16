@@ -10,7 +10,7 @@ if triggered {
 
 if instance_exists(target){
 	for (var i = 1; i < array_length(global.party_names); ++i) {
-		var o = party_getobj(global.party_names[i])
+		var o = party_get_inst(global.party_names[i])
 		
 		if o.sliding && !o.prevsliding {
 			o.sprite_index = o.s_slide

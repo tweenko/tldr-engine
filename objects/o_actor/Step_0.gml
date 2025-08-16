@@ -69,12 +69,13 @@ if is_player && check_canmove {
 	// interact
 	if input_check_pressed("confirm") {
 		var w = 2
+        var __interactable_instances = array_concat([o_ow_interactable], interactable_instances)
 		
 		var __xw = -lengthdir_x(w, dir + 90)
 		var __yw = lengthdir_y(w, dir + 90)
 		
-		if place_meeting(x + __xw, y + __yw, o_ow_interactable) {
-			var inst = instance_place(x + __xw, y + __yw, o_ow_interactable)
+		if place_meeting(x + __xw, y + __yw, __interactable_instances) {
+			var inst = instance_place(x + __xw, y + __yw, __interactable_instances)
 			with inst
 				event_user(0)
 		}
@@ -132,6 +133,7 @@ else if sliding{
 		sliding = false
 		y -= 4
 	}
+    
 	y += 4
 }
 
@@ -204,7 +206,7 @@ else if moving // if you are already "moving," and it is confirmed by checking y
 && (x != xprevious || y != yprevious)
 && !is_in_battle && !is_enemy {}
 else
-	moving=false
+	moving = false
 
 // sprites
 if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override{

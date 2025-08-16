@@ -7,7 +7,7 @@ else
 
 // pull the weapons
 for (var i = 0; i < array_length(global.party_names); ++i) {
-	var obj = party_getobj(global.party_names[i])
+	var obj = party_get_inst(global.party_names[i])
 	var m = party_getdata(global.party_names[i], "s_battle_intro")
 	
 	if m != 0 {

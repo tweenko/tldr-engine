@@ -1,12 +1,13 @@
 if instance_exists(get_leader()) {
 	var pos = marker_getpos("land", target_marker)
-	if pos != -1 {
-		get_leader().x = pos[0]
-		get_leader().y = pos[1]
+    
+	if is_struct(pos) {
+		get_leader().x = pos.x
+		get_leader().y = pos.y
 		get_leader().dir = savedir
 	}
 	for (var i = 0; i < array_length(global.party_names); ++i) {
-	    with party_getobj(global.party_names[i]) {
+	    with party_get_inst(global.party_names[i]) {
 			x = get_leader().x
 			y = get_leader().y
 			dir = get_leader().dir

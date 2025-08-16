@@ -9,7 +9,7 @@ while !enc_enemy_isfighting(target) {
 	}
 }
 
-var o = party_getobj(global.party_names[index])
+var o = party_get_inst(global.party_names[index])
 var dist = floor(abs(x - 87) - 3)
 
 // calculate accuracy

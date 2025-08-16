@@ -7,6 +7,8 @@ is_enemy = true
 
 idle_path = undefined
 idle_path_spd = 1
+idle_path_autodir = true
+sprite_facing_dir = DIR.LEFT
 
 chasing = false
 chase_spd = 3
@@ -33,3 +35,5 @@ __start_chasing = function() {
     
     can_encounter = true
 }
+
+xprev_real = 0

@@ -7,6 +7,11 @@ target = noone;
 
 follow_x = true
 follow_y = true
+offset_x = 0
+offset_y = 0
+
+animation_x = undefined
+animation_y = undefined
 
 event_user(0)
 
