@@ -60,6 +60,8 @@ global.world = 0 // 0 for dark, 1 for light
 		PARTY_NAMES:	global.party_names,
 		CHAPTER:		0,
 		PLOT:			0,
+        MONEY:          0,
+        EXP:            0,
 		
 		LW_NAME:	"Kris",
 		LW_LV:		1,

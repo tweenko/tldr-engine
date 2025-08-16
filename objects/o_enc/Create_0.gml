@@ -18,6 +18,7 @@
 	
 	hideui = false
 	wininit = false
+    earned_money = 0
 	
 	savepos = []
 	items_using = []

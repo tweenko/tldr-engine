@@ -36,6 +36,9 @@
     "name":"spr_e_killercar",
     "path":"sprites/spr_e_killercar/spr_e_killercar.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"spr_e_killercar",
+    "path":"sprites/spr_e_killercar/spr_e_killercar.yy",
+  },
   "visible":true,
 }

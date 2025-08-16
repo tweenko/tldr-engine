@@ -1,5 +1,5 @@
 draw = 1
-mode = 0 // 0 for text or heal/damage, 1 for enemy heal/damage, 2 for percent, 3 for recruit
+mode = 0 // 0 for text or heal/damage, 1 for enemy heal/damage, 2 for percent, 3 for recruit, 4 for other stuff that animates in by popping up in scale
 user = "kris"
 
 stretch = .2

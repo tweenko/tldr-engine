@@ -34,6 +34,8 @@ is_player = false
 	chaser = false
 	chasing = false
     can_encounter = false
+    
+    carrying_money = 0
 }
 { // actor variables
 	follow = true

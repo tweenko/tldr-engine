@@ -312,7 +312,6 @@ function item_s_iceshock() : item_s_base() constructor {
     use = function(index, target, caller, _name) {
         var __name = global.party_names[index]
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
-        var __fatal = false
         
         cutscene_set_variable(o_enc, "exec_waiting", true)
     
@@ -325,18 +324,21 @@ function item_s_iceshock() : item_s_base() constructor {
         cutscene_wait_until(function() {
             return !instance_exists(o_eff_iceshock)
         })
-        cutscene_func(function(target, __name, index, __fatal) {
+        cutscene_func(function(target, __name, index) {
             var __o = o_enc.encounter_data.enemies[target].actor_id
+            var __dmg = round(max(1, party_getdata(__name, "magic") - 10) * 330 + 90 + random(10))
+            var __fatal = ((o_enc.encounter_data.enemies[target].hp - __dmg) <= 0)
+            
             if !__fatal 
                 do_animate(1, 0, 5, "linear", __o, "flash")
             else 
-                instance_create(o_text_hpchange, __o.x, __o.y - __o.myheight/2, __o.depth - 50, {
+                instance_create(o_text_hpchange, __o.x, __o.y - __o.myheight/2, __o.depth - 100, {
                     draw: "frozen",
-                    mode: 1,
+                    mode: 4,
                 })
             
-            enc_hurt_enemy(target, round(max(1, party_getdata(__name, "magic") - 10) * 30 + 90 + random(10)), index,,, 20,, "freeze")
-        }, [target, __name, index, __fatal])
+            enc_hurt_enemy(target, __dmg, index,,, 20,, "freeze")
+        }, [target, __name, index])
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])

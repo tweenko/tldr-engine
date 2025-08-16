@@ -14,7 +14,7 @@ if can_graze == true && o_enc.turn_timer > 10{
 		&& instance_place(x, y, o_enc_bullet).graze > 0 {
 			grazed_inst = instance_place(x, y, o_enc_bullet);
 			event_user(0);
-			graze_buffer = 8;
+			graze_buffer = 3;
 		}
 	}
 }

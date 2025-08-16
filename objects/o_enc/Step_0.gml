@@ -1308,11 +1308,14 @@ if battle_state == "post_turn" {
 
 // do the fight end animation and such
 if battle_state == "win" {
-	tproll = lerp(tproll,0,.5)
+	tproll = lerp(tproll, 0, .5)
 	if hideui
-		roll = lerp(roll,-40,.4)
+		roll = lerp(roll, -40, .4)
 	
 	if !wininit {
+        var __exp = 0
+        var __dd = earned_money + global.chapter * tp / 4
+        
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 		    char_state[i] = -1
 			
@@ -1324,10 +1327,14 @@ if battle_state == "win" {
 		}
 		
 		cutscene_create()
-		cutscene_dialogue(string("* You won!{br}{resetx}* Got {0} EXP and {1} D$.", 0, 0))
+		cutscene_dialogue(string("* You won!{br}{resetx}* Got {0} EXP and {1} D$.", __exp, __dd))
 		cutscene_set_variable(id, "hideui", true)
 		cutscene_sleep(4)
-		cutscene_func(instance_destroy, [id])
+        
+        global.save.EXP += __exp
+        global.save.MONEY += __dd
+		
+        cutscene_func(instance_destroy, [id])
 		cutscene_set_variable(o_eff_bg, "destroy", true)
 		cutscene_func(music_fade, [1])
 		for (var i = 0; i < array_length(global.party_names); ++i) {
@@ -1351,7 +1358,8 @@ if battle_state == "win" {
                 }
             }
 		}
-		cutscene_sleep(12)
+		
+        cutscene_sleep(12)
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			var o = party_get_inst(global.party_names[i])
 		    cutscene_set_variable(o, "is_in_battle", false)
@@ -1362,9 +1370,11 @@ if battle_state == "win" {
                 cutscene_set_variable(o, "is_in_battle", false)
             }
 		}
-		cutscene_set_variable(o_camera, "target", o_actor_kris)
+		
+        cutscene_set_variable(o_camera, "target", o_actor_kris)
 		cutscene_set_variable(get_leader(), "moveable_battle", true)
-		cutscene_party_follow(true)
+		
+        cutscene_party_follow(true)
 		cutscene_play()
 	}
 	wininit = true

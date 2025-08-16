@@ -6,6 +6,7 @@ function enemy_base() constructor {
 		var_struct: {
 			s_hurt: spr_e_virovirokun_hurt,
 			s_spared: spr_e_virovirokun_spare,
+            carrying_money: 10
 		},
 	}
 	
@@ -35,8 +36,8 @@ function enemy_base() constructor {
 	acts_special_desc = "Standard"
 	
 	// text
-	dialogue =				"Test" //can be a function (can accept slot argument as arg0)
-	dia_bubble_offset =		[0, 0, 0] //x,y,relative to (1 for enemy and 0 for default box pos)
+	dialogue =				"Test" // can be a function (can accept slot argument as arg0)
+	dia_bubble_offset =		[0, 0, 0] // x, y, relative to (1 for enemy and 0 for default box pos)
 	dia_bubble_sprites =	[spr_ui_enc_dialogue_box, spr_ui_enc_dialogue_spike]
 	flavor =				function() {
 		var text = ""
