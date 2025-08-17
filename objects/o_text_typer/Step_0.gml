@@ -6,3 +6,5 @@ if !skipping
 else 
 	while skipping
 		event_user(5)
+
+timer ++

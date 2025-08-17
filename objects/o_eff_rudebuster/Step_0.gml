@@ -8,7 +8,7 @@ instance_create(o_eff_rudebuster_trail, x, y, depth + 10, {
     sprite_index, image_index, image_speed, image_angle
 })
 
-if input_check_pressed("confirm") && !upgraded {
+if InputPressed(INPUT_VERB.SELECT) && !upgraded {
     if timer > 9
         dmg += 30
     else if timer > 8

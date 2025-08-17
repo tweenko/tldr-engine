@@ -148,7 +148,7 @@ while looping || normalupd {
 	}
 	
 	// stop checking for commands if we've reached the closing bracket
-	if string_char_at(text, 0) == "}" {
+	if command_mode && string_char_at(text, 0) == "}" {
 		command_mode = false
 		text = string_delete(text, 0, 1)
 		chars ++
@@ -179,7 +179,7 @@ if pause == -1 || pause == -2 {
 	if instance_exists(caller) && pause != -2 {
 		caller.can_proceed = true
 	}
-	if input_check_pressed("confirm") && pause != -2 {
+	if InputPressed(INPUT_VERB.SELECT) && pause != -2 {
 		pause = 0
 	}
 }
@@ -204,8 +204,6 @@ if face_expression != face_expression_prev {
 	face_expression_prev = face_expression
 }
 
-if input_check_pressed("cancel") && skipping == false && can_skip{
+if InputPressed(INPUT_VERB.CANCEL) && skipping == false && can_skip && !command_mode {
 	skipping = true
-}
-
-timer++
+}  

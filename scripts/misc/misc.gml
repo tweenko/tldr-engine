@@ -159,40 +159,40 @@ function time_format(time_s, display_hours = true){
 	return time
 }
 
-///@desc converts binds to keys
+/// @desc converts binds to keys
 function input_binding_to_string(bind){
-	bind = string_lower(bind)
-	
-	if bind == "arrow up"			return "UP"
-	else if bind == "arrow down"	return "DOWN"
-	else if bind == "arrow left"	return "LEFT"
-	else if bind == "arrow right"	return "RIGHT"
-	else return string_upper(bind)
+	if bind == INPUT_VERB.UP		    return "UP"
+	else if bind == INPUT_VERB.DOWN	    return "DOWN"
+	else if bind == INPUT_VERB.LEFT	    return "LEFT"
+	else if bind == INPUT_VERB.RIGHT	return "RIGHT"
+        
+	else return string_upper(InputVerbGetBindingName(bind))
 }
-///@desc converts a bind to text (or sprite) - gets it ready for use in dialogue
+
+/// @desc converts a bind to text (or sprite) - gets it ready for use in dialogue
 function input_binding_intext(verb){
-	if input_source_using(INPUT_GAMEPAD){
-		if is_array(verb){
+	if InputPlayerUsingGamepad() {
+		if is_array(verb) {
 			var res = ""
 			for (var i = 0; i < array_length(verb); ++i) {
-				res += "{spr(" + sprite_get_name(input_binding_get_icon(input_binding_get(verb[i]))) + ")}"
+				res += "{spr(" + sprite_get_name(InputIconGet(verb[i])) + ")}"
 			}
 			return res
 		}
 		else 
-			return "{spr(" + sprite_get_name(input_binding_get_icon(input_binding_get(verb))) + ")}"
+			return "{spr(" + sprite_get_name(InputIconGet(verb)) + ")}"
 	}
 	if is_array(verb){
 		var res = ""
 		for (var i = 0; i < array_length(verb); ++i) {
-			res += input_binding_to_string(input_binding_get(verb[i])) + "/"
+			res += input_binding_to_string(verb[i]) + "/"
 		}
 		res = string_delete(res, string_width(res)-1, 1)
 		
 		return $"[{res}]"
 	}
 	
-	return $"[{input_binding_to_string(input_binding_get(verb))}]"
+	return $"[{input_binding_to_string(verb)}]"
 }
 
 /// @ignore

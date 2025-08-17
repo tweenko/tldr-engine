@@ -1,21 +1,24 @@
 if color == 0{
 	if is_transitioning == false {
 		// Movement
-		if input_check("cancel") 
+		if InputCheck(INPUT_VERB.CANCEL) 
 			movespd = 1;
 		else
 			movespd = 2;
 		
-		if input_check("left") 
+		if InputCheck(INPUT_VERB.LEFT) 
 			x -= movespd
-		else if input_check("right") 
+		else if InputCheck(INPUT_VERB.RIGHT) 
 			x += movespd
-		if input_check("up") 
+		if InputCheck(INPUT_VERB.UP) 
 			y -= movespd
-		else if input_check("down") 
+		else if InputCheck(INPUT_VERB.DOWN) 
 			y += movespd
 		
-		if (input_check("left") || input_check("up") || input_check("right") || input_check("down")) 
+		if (InputCheck(INPUT_VERB.LEFT) 
+            || InputCheck(INPUT_VERB.UP) 
+            || InputCheck(INPUT_VERB.RIGHT) 
+            || InputCheck(INPUT_VERB.DOWN)) 
 		&& (x != xprevious || y != yprevious) {
 			moving=true
 		}

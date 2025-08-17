@@ -17,7 +17,7 @@ if fading {
 }
 else if !fading {
 	if order == caller.order && !fading {
-	    if input_check_pressed("confirm") && !caller.buffer && x > 60 {
+	    if InputPressed(INPUT_VERB.SELECT) && !caller.buffer && x > 60 {
 			if x < 79+125 {
 				if x > 84 && x < 90 {
 					perfect = true

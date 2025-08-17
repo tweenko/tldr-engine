@@ -126,6 +126,7 @@ if command == "choice"{
 		choices: arg,
 		caller: id,
 	})
+    
 	pause = -2
 	looping = false
 }

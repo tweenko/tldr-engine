@@ -7,15 +7,15 @@ if global.console
 	exit
 
 if state == -1 {
-	if input_check_pressed("down") {
+	if InputPressed(INPUT_VERB.DOWN) {
 		sselection = 1
 		audio_play(snd_ui_move)
 	}
-	else if input_check_pressed("up") {
+	else if InputPressed(INPUT_VERB.UP) {
 		sselection = 0
 		audio_play(snd_ui_move)
 	}
-	if input_check_pressed("confirm") {
+	if InputPressed(INPUT_VERB.SELECT) {
 		audio_play(snd_ui_select)
 		if sselection == 0 {
 			chapters[tselec-1].exec(id) // run the chapter start script
@@ -35,10 +35,10 @@ if state == -1 {
 else {
 	var total = array_length(chapters)
 	if !musplayed && music_getplaying(0) != mus_drone{
-		musplayed=true
-		music_play(mus_drone,0)
+		musplayed = true
+		music_play(mus_drone, 0)
 	}
-	if input_check_pressed("down") && !confirming {
+	if InputPressed(INPUT_VERB.DOWN) && !confirming {
 		if selection >= total + 1 {
 			selection = 1
 			audio_play(snd_ui_move)
@@ -51,7 +51,7 @@ else {
 				selection++
 		}
 	}
-	else if input_check_pressed("up") && !confirming {
+	else if InputPressed(INPUT_VERB.UP) && !confirming {
 		if selection > 1 {
 			var save = selection
 			selection --
@@ -68,21 +68,21 @@ else {
 		}
 	}
 
-	if input_check_pressed("right") && confirming {
+	if InputPressed(INPUT_VERB.RIGHT) && confirming {
 		audio_play(snd_ui_move)
 		confirmselection = 1
 	}
-	if input_check_pressed("left") && confirming {
+	if InputPressed(INPUT_VERB.LEFT) && confirming {
 		audio_play(snd_ui_move)
 		confirmselection = 0
 	}
 	
 	if languages {
-		if input_check_pressed("right") && selection == total+1 {
+		if InputPressed(INPUT_VERB.RIGHT) && selection == total+1 {
 			horselection = 1
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("left") && selection == total+1 {
+		if InputPressed(INPUT_VERB.LEFT) && selection == total+1 {
 			horselection = 0
 			audio_play(snd_ui_move)
 		}
@@ -94,7 +94,7 @@ else {
 	if selection != total+1 && horselection != 0 
 		horselection = 0
 
-	if input_check_pressed("confirm") {
+	if InputPressed(INPUT_VERB.SELECT) {
 		if selection < total {
 			if is_struct(chapters[selection - 1]) {
 				if confirming == true && confirmselection == 0{
@@ -119,7 +119,7 @@ else {
 		else if selection == total + 1 
 			loc_switch_lang()
 	}
-	if input_check_pressed("cancel") && confirming {
+	if InputPressed(INPUT_VERB.CANCEL) && confirming {
 		confirming = false
 		confirmselection = 0
 		audio_play(snd_ui_cancel)

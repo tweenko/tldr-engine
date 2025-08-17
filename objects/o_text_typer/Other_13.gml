@@ -2,6 +2,8 @@
 xoff = 0
 yoff = 0
 
+show_debug_message("beep boop killing myself")
+
 for (var i = 0; i < array_length(mychars); ++i) {
 	instance_destroy(mychars[i])
 }

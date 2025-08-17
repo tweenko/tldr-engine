@@ -7,14 +7,14 @@ if menuroll < .1 && close
 
 if !only_hp {
 	if state == 0 {
-		if (input_check_pressed("menu") || input_check_pressed("cancel")) && !close 
+		if (InputPressed(INPUT_VERB.SPECIAL) || InputPressed(INPUT_VERB.CANCEL)) && !close 
 			close = true
 		
-		if input_check_pressed("right") {
+		if InputPressed(INPUT_VERB.RIGHT) {
 			selection ++
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("left") {
+		if InputPressed(INPUT_VERB.LEFT) {
 			selection--
 			audio_play(snd_ui_move)
 		}
@@ -24,7 +24,7 @@ if !only_hp {
 		if selection > 3
 			selection = 0
 		
-		if input_check_pressed("confirm") {
+		if InputPressed(INPUT_VERB.SELECT) {
 			state = 1; 
 			buffer = 1
 			
@@ -34,11 +34,11 @@ if !only_hp {
 	
 	if selection == 0 { // item
 		if state == 1 { // submenu selector
-			if input_check_pressed("right") {
+			if InputPressed(INPUT_VERB.RIGHT) {
 				i_pselection ++; 
 				audio_play(snd_ui_move)
 			}
-			if input_check_pressed("left") {
+			if InputPressed(INPUT_VERB.LEFT) {
 				i_pselection --; 
 				audio_play(snd_ui_move)
 			}
@@ -48,11 +48,11 @@ if !only_hp {
 			if i_pselection > 2
 				i_pselection = 0
 			
-			if input_check_pressed("cancel") {
+			if InputPressed(INPUT_VERB.CANCEL) {
 				state = 0
 				audio_play(snd_ui_cancel_small)
 			}
-			if input_check_pressed("confirm") && buffer == 0 {
+			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				if i_pselection < 2 {
 					// if we can even open the item menu
 					if array_length(global.items) > 0 {
@@ -81,27 +81,27 @@ if !only_hp {
 				arr = global.key_items
 			var t = (i_pselection==2 ? 1 : 0)
 			
-			if input_check_pressed("right") {
+			if InputPressed(INPUT_VERB.RIGHT) {
 				i_selection ++; 
 				if i_selection % 2 == 0
 					i_selection -= 2
 				audio_play(snd_ui_move)
 			}
-			if input_check_pressed("down") && i_selection < item_get_count(t) - 2 {
+			if InputPressed(INPUT_VERB.DOWN) && i_selection < item_get_count(t) - 2 {
 				i_selection += 2; 
 				audio_play(snd_ui_move)
 			}
-			if input_check_pressed("left") && i_selection > 0 {
+			if InputPressed(INPUT_VERB.LEFT) && i_selection > 0 {
 				i_selection--; 
 				if i_selection % 2 == 1
 					i_selection+=2
 				audio_play(snd_ui_move)
 			}
-			else if input_check_pressed("left") && i_selection == 0 && item_get_count(t) > 1 {
+			else if InputPressed(INPUT_VERB.LEFT) && i_selection == 0 && item_get_count(t) > 1 {
 				i_selection = 1; 
 				audio_play(snd_ui_move)
 			}
-			if input_check_pressed("up") && i_selection > 1 {
+			if InputPressed(INPUT_VERB.UP) && i_selection > 1 {
 				i_selection -= 2; 
 				audio_play(snd_ui_move)
 			}
@@ -111,11 +111,11 @@ if !only_hp {
 			if i_selection > item_get_count(t) - 1
 				i_selection = 0
 			
-			if input_check_pressed("cancel"){
+			if InputPressed(INPUT_VERB.CANCEL){
 				state = 1
 				audio_play(snd_ui_cancel_small)
 			}
-			if input_check_pressed("confirm") && buffer == 0 {
+			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				if i_pselection == 2 {
 					item_use(global.key_items[i_selection], i_selection, 0)
 					if item_get_count(t) == 0
@@ -140,11 +140,11 @@ if !only_hp {
 		if state == 3 { // choose party member / confirm action
 			var t = (i_pselection == 2 ? 1 : 0)
 			
-			if input_check_pressed("right") && i_mode != 1 {
+			if InputPressed(INPUT_VERB.RIGHT) && i_mode != 1 {
 				i_pmselection ++
 				audio_play(snd_ui_move)
 			}
-			if input_check_pressed("left") && i_mode != 1 {
+			if InputPressed(INPUT_VERB.LEFT) && i_mode != 1 {
 				i_pmselection --
 				audio_play(snd_ui_move)
 			}
@@ -154,12 +154,12 @@ if !only_hp {
 			if i_pmselection > array_length(global.party_names) - 1
 				i_pmselection = 0
 			
-			if input_check_pressed("cancel") {
+			if InputPressed(INPUT_VERB.CANCEL) {
 				state = 2
 				i_mode = 0
 				audio_play(snd_ui_cancel_small)
 			}
-			if input_check_pressed("confirm") && buffer == 0 {
+			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				if i_pselection == 0 {
 					state = 2;
 					i_mode = 0
@@ -189,11 +189,11 @@ if !only_hp {
 	}
 	if selection == 1 { // equip
 		if state == 1 { // character selector
-			if input_check_pressed("right") {
+			if InputPressed(INPUT_VERB.RIGHT) {
 				e_pmselection ++; 
 				audio_play(snd_ui_move)
 			}
-			if input_check_pressed("left") {
+			if InputPressed(INPUT_VERB.LEFT) {
 				e_pmselection --; 
 				audio_play(snd_ui_move)
 			}
@@ -203,22 +203,22 @@ if !only_hp {
 			if e_pmselection > array_length(global.party_names) - 1
 				e_pmselection = 0
 			
-			if input_check_pressed("cancel") {
+			if InputPressed(INPUT_VERB.CANCEL) {
 				state = 0
 				audio_play(snd_ui_cancel_small)
 			}
-			if input_check_pressed("confirm") && buffer == 0 {
+			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				state ++
 				buffer = 1
 				audio_play(snd_ui_select)
 			}
 		}
 		if state == 2 { // equipment type selector
-			if input_check_pressed("down"){
+			if InputPressed(INPUT_VERB.DOWN){
 				e_pselection ++; 
 				audio_play(snd_ui_move)
 			}
-			if input_check_pressed("up"){
+			if InputPressed(INPUT_VERB.UP){
 				e_pselection --; 
 				audio_play(snd_ui_move)
 			}
@@ -228,11 +228,11 @@ if !only_hp {
 			if e_pselection > 2
 				e_pselection = 0
 			
-			if input_check_pressed("cancel") {
+			if InputPressed(INPUT_VERB.CANCEL) {
 				state = 1
 				audio_play(snd_ui_cancel_small)
 			}
-			if input_check_pressed("confirm") && buffer == 0 {
+			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				state ++
 				buffer = 1
 				audio_play(snd_ui_select)
@@ -244,14 +244,14 @@ if !only_hp {
 			array_copy(arr_mod, 0, arr, 0, array_length(arr)) 
 			array_insert(arr_mod, 0, undefined)
 			
-			if input_check_pressed_repeat("down") && e_selection < array_length(arr_mod) - 1 {
+			if InputRepeat(INPUT_VERB.DOWN) && e_selection < array_length(arr_mod) - 1 {
 				e_selection ++ 
 				if e_selection > e_move + 5 && e_selection < array_length(arr_mod)
 					e_move++
 				
 				audio_play(snd_ui_move); 
 			}
-			if input_check_pressed_repeat("up") && e_selection > 0 {
+			if InputRepeat(INPUT_VERB.UP) && e_selection > 0 {
 				e_selection -- 
 				if e_selection < e_move && e_selection >= 0
 					e_move --
@@ -272,11 +272,11 @@ if !only_hp {
 			if e_move > array_length(arr_mod) - 6
 				e_move = max(array_length(arr_mod) - 6, 0)
 			
-			if input_check_pressed("cancel") {
+			if InputPressed(INPUT_VERB.CANCEL) {
 				state = 2
 				audio_play(snd_ui_cancel_small)
 			}
-			if input_check_pressed("confirm") && buffer == 0 {
+			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				var equipment = [
 					party_getdata(global.party_names[e_pmselection], "weapon"),
 					party_getdata(global.party_names[e_pmselection], "armor1"),
@@ -354,11 +354,11 @@ if !only_hp {
 	}
 	if selection == 2 { // power
 		if state == 1 { // character selector
-			if input_check_pressed("right") { 
+			if InputPressed(INPUT_VERB.RIGHT) { 
 				p_pmselection++; 
 				audio_play(snd_ui_move)
 			}
-			if input_check_pressed("left") { 
+			if InputPressed(INPUT_VERB.LEFT) { 
 				p_pmselection--; 
 				audio_play(snd_ui_move)
 			}
@@ -368,11 +368,11 @@ if !only_hp {
 			if p_pmselection > array_length(global.party_names) - 1
 				p_pmselection = 0
 			
-			if input_check_pressed("cancel") {
+			if InputPressed(INPUT_VERB.CANCEL) {
 				state = 0
 				audio_play(snd_ui_cancel_small)
 			}
-			if input_check_pressed("confirm") && buffer == 0 {
+			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				state ++
 				buffer = 1
 				audio_play(snd_ui_select)
@@ -381,16 +381,16 @@ if !only_hp {
 		if state == 2 { // spell list
 			var arr = party_getdata(global.party_names[p_pmselection], "spells")
 			
-			if input_check_pressed("down") { 
+			if InputPressed(INPUT_VERB.DOWN) { 
 				p_selection++; 
 				audio_play(snd_ui_move)
 			}
-			if input_check_pressed("up") { 
+			if InputPressed(INPUT_VERB.UP) { 
 				p_selection--; 
 				audio_play(snd_ui_move)
 			}
 			
-			if input_check_pressed("cancel") {
+			if InputPressed(INPUT_VERB.CANCEL) {
 				state = 1
 				audio_play(snd_ui_cancel_small)
 			}

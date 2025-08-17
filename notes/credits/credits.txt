@@ -1,4 +1,4 @@
-# Welcome to tlDR v0.7.8 (BETA)
+# Welcome to tlDR v0.7.81 (BETA)
 
 This engine is quite simple to use, but in case you have any questions, 
 please ask them in [this Discord server](https://discord.gg/x3t8JTyC2p).

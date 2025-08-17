@@ -36,7 +36,8 @@ if state < 3{
 	}
 		
 	if timer < 200{
-		if input_check_pressed("confirm") confirm_pressed++
+		if InputPressed(INPUT_VERB.SELECT) 
+            confirm_pressed++
 		if confirm_pressed > 4 {
 			event_user(0)
 			exit
@@ -66,10 +67,10 @@ if state == 4{
 	if ui_alpha < 1
 	    ui_alpha += .05
 	
-	if input_check_pressed("left") selection = 0
-	else if input_check_pressed("right") selection = 1
+	if InputPressed(INPUT_VERB.LEFT) selection = 0
+	else if InputPressed(INPUT_VERB.RIGHT) selection = 1
 	
-	if input_check_pressed("confirm") && ui_alpha > .5{
+	if InputPressed(INPUT_VERB.SELECT) && ui_alpha > .5{
 		timer = 0
 		state = 5
 	}

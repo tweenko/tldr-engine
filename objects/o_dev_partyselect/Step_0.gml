@@ -1,8 +1,8 @@
 global.console = true
 
-if input_check_pressed("right") 
+if InputPressed(INPUT_VERB.RIGHT) 
 	selection++
-else if input_check_pressed("left") 
+else if InputPressed(INPUT_VERB.LEFT) 
 	selection--
 
 // cap selection
@@ -13,7 +13,7 @@ if selection > maxparty - 1
 
 xoff = lerp(xoff, selection, .4)
 
-if input_check_pressed("confirm") {
+if InputPressed(INPUT_VERB.SELECT) {
 	audio_play(snd_metalhit)
 	var name = struct_get_names(global.party)[selection]
 	
@@ -31,6 +31,6 @@ if input_check_pressed("confirm") {
 		party_reposition(lx, ly)
 	}
 }
-if input_check_pressed("cancel") {
+if InputPressed(INPUT_VERB.CANCEL) {
 	instance_destroy()
 }

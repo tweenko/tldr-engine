@@ -5,16 +5,16 @@ if state == 0 { // choose
 	if selection < SAVE_SLOTS {
 		soul_put(130, 144 + 90*selection)
 		
-		if input_check_pressed("down") {
+		if InputPressed(INPUT_VERB.DOWN) {
 			selection ++
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("up") && selection > 0 {
+		if InputPressed(INPUT_VERB.UP) && selection > 0 {
 			selection --
 			audio_play(snd_ui_move)
 		}
 		
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			audio_play(snd_ui_select)
 			state = 1
 			buffer = 1
@@ -28,7 +28,7 @@ if state == 0 { // choose
 		if selection == SAVE_SLOTS+4 soul_put(280-30, 430)
 		if selection == SAVE_SLOTS+5 soul_put(408-30, 430)
 		
-		if input_check_pressed("down") && selection < SAVE_SLOTS + 3 {
+		if InputPressed(INPUT_VERB.DOWN) && selection < SAVE_SLOTS + 3 {
 			selection += 3
 			audio_play(snd_ui_move)
 			
@@ -39,14 +39,14 @@ if state == 0 { // choose
 				selection = SAVE_SLOTS + 5
 			}
 		}
-		if input_check_pressed("up") {
+		if InputPressed(INPUT_VERB.UP) {
 			audio_play(snd_ui_move)
 			selection -= 3
 			if selection < SAVE_SLOTS {
 				selection = SAVE_SLOTS - 1
 			}
 		}
-		if input_check_pressed("right") && (selection-SAVE_SLOTS) % 3 < 2 {
+		if InputPressed(INPUT_VERB.RIGHT) && (selection-SAVE_SLOTS) % 3 < 2 {
 			audio_play(snd_ui_move)
 			selection ++
 			
@@ -55,7 +55,7 @@ if state == 0 { // choose
 			if !ch_file && selection == SAVE_SLOTS + 3
 				selection = SAVE_SLOTS + 5
 		}
-		if input_check_pressed("left") && (selection-SAVE_SLOTS) % 3 > 0 {
+		if InputPressed(INPUT_VERB.LEFT) && (selection-SAVE_SLOTS) % 3 > 0 {
 			audio_play(snd_ui_move)
 			selection --
 			if !language && selection == SAVE_SLOTS + 4
@@ -64,7 +64,7 @@ if state == 0 { // choose
 				selection = SAVE_SLOTS + 5
 		}
 			
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if selection == SAVE_SLOTS {
 				audio_play(snd_ui_select)
 				
@@ -101,22 +101,22 @@ if state == 0 { // choose
 if state == 1 {
 	soul_put(180 - 30 + 180*selection_hor, 162 + selection*90)
 	
-	if input_check_pressed("right") {
+	if InputPressed(INPUT_VERB.RIGHT) {
 		selection_hor = 1
 		audio_play(snd_ui_move)
 	}
-	if input_check_pressed("left") {
+	if InputPressed(INPUT_VERB.LEFT) {
 		selection_hor = 0
 		audio_play(snd_ui_move)
 	}
-	if input_check_pressed("cancel") || input_check_pressed("confirm") && selection_hor == 1 && buffer == 0 {
+	if InputPressed(INPUT_VERB.CANCEL) || InputPressed(INPUT_VERB.SELECT) && selection_hor == 1 && buffer == 0 {
 		audio_play(snd_ui_cancel)
 		
 		selection_hor = 0
 		buffer = 1
 		state = 0
 	}
-	if input_check_pressed("confirm") && selection_hor == 0 && buffer == 0 { //load file
+	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 { // load file
 		save_refresh_back()
 		save_load(selection,global.chapter)
 		
@@ -130,15 +130,15 @@ if state == 2 {
 	if subselection < SAVE_SLOTS {
 		soul_put(130, 144 + 90*subselection)
 		
-		if input_check_pressed("down") {
+		if InputPressed(INPUT_VERB.DOWN) {
 			audio_play(snd_ui_move)
 			subselection ++
 		}
-		if input_check_pressed("up") && subselection > 0 {
+		if InputPressed(INPUT_VERB.UP) && subselection > 0 {
 			audio_play(snd_ui_move)
 			subselection --
 		}
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if files[subselection] != -1 {
 				audio_play(snd_ui_select)
 				msg_set(m_copyto, 0)
@@ -156,11 +156,11 @@ if state == 2 {
 	else {
 		if subselection == SAVE_SLOTS 
 			soul_put(108-30, 390)
-		if input_check_pressed("up") {
+		if InputPressed(INPUT_VERB.UP) {
 			audio_play(snd_ui_move)
 			subselection = SAVE_SLOTS - 1
 		}
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			audio_play(snd_ui_select)
 			state = 0
 			subselection = 0
@@ -170,7 +170,7 @@ if state == 2 {
 		}
 	}
 	
-	if input_check_pressed("cancel") && buffer == 0 {
+	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 		audio_play(snd_ui_cancel)
 		
 		state = 0
@@ -183,16 +183,16 @@ if state == 21 {
 	if subselection < SAVE_SLOTS{
 		soul_put(130, 144 + 90*subselection)
 		
-		if input_check_pressed("down") {
+		if InputPressed(INPUT_VERB.DOWN) {
 			audio_play(snd_ui_move)
 			subselection ++
 		}
-		if input_check_pressed("up") && subselection > 0 {
+		if InputPressed(INPUT_VERB.UP) && subselection > 0 {
 			audio_play(snd_ui_move)
 			subselection --
 		}
 		
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if subselection == copy_from {
 				msg_set(m_copycant, 0)
 				buffer = 1
@@ -226,11 +226,11 @@ if state == 21 {
 		if subselection == SAVE_SLOTS 
 			soul_put(108-30,390)
 		
-		if input_check_pressed("up") {
+		if InputPressed(INPUT_VERB.UP) {
 			audio_play(snd_ui_move)
 			subselection = SAVE_SLOTS - 1
 		}
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			audio_play(snd_ui_select)
 			state = 2
 			subselection = copy_from
@@ -240,7 +240,7 @@ if state == 21 {
 		}
 	}
 	
-	if input_check_pressed("cancel") && buffer == 0 {
+	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 		audio_play(snd_ui_cancel)
 		
 		state = 2
@@ -253,15 +253,15 @@ if state == 21 {
 if state == 22 {
 	soul_put(180 - 30 + 180*selection_hor, 162 + subselection*90)
 	
-	if input_check_pressed("right") {
+	if InputPressed(INPUT_VERB.RIGHT) {
 		audio_play(snd_ui_move)
 		selection_hor = 1
 	}
-	if input_check_pressed("left") {
+	if InputPressed(INPUT_VERB.LEFT) {
 		audio_play(snd_ui_move)
 		selection_hor = 0
 	}
-	if input_check_pressed("cancel") && buffer == 0 || input_check_pressed("confirm") && selection_hor == 1 && buffer == 0 {
+	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 || InputPressed(INPUT_VERB.SELECT) && selection_hor == 1 && buffer == 0 {
 		audio_play(snd_ui_cancel)
 		
 		selection_hor = 0
@@ -270,7 +270,7 @@ if state == 22 {
 		
 		msg_set(m_copyto)
 	}
-	if input_check_pressed("confirm") && selection_hor == 0 && buffer == 0 {
+	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 {
 		audio_play(snd_ui_scary)
 		state = 0
 		buffer = 1
@@ -291,15 +291,15 @@ if state == 3 {
 	if subselection < SAVE_SLOTS {
 		soul_put(130, 144 + 90*subselection)
 		
-		if input_check_pressed("down") {
+		if InputPressed(INPUT_VERB.DOWN) {
 			audio_play(snd_ui_move)
 			subselection ++
 		}
-		if input_check_pressed("up") && subselection > 0 {
+		if InputPressed(INPUT_VERB.UP) && subselection > 0 {
 			audio_play(snd_ui_move)
 			subselection --
 		}
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if files[subselection] != -1 {
 				audio_play(snd_ui_select)
 				
@@ -317,11 +317,11 @@ if state == 3 {
 	else {
 		if subselection == SAVE_SLOTS 
 			soul_put(108-30, 390)
-		if input_check_pressed("up") {
+		if InputPressed(INPUT_VERB.UP) {
 			audio_play(snd_ui_move)
 			subselection = SAVE_SLOTS-1
 		}
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			audio_play(snd_ui_select)
 			state = 0
 			subselection = 0
@@ -330,7 +330,7 @@ if state == 3 {
 			msg_set(m_main, 0)
 		}
 	}
-	if input_check_pressed("cancel") {
+	if InputPressed(INPUT_VERB.CANCEL) {
 		audio_play(snd_ui_cancel)
 		state = 0
 		subselection = 0
@@ -341,15 +341,15 @@ if state == 3 {
 if state == 31 {
 	soul_put(180 - 30 + 180*selection_hor, 162 + subselection*90)
 	
-	if input_check_pressed("right") {
+	if InputPressed(INPUT_VERB.RIGHT) {
 		audio_play(snd_ui_move)
 		selection_hor = 1
 	}
-	if input_check_pressed("left") {
+	if InputPressed(INPUT_VERB.LEFT) {
 		audio_play(snd_ui_move)
 		selection_hor = 0
 	}
-	if input_check_pressed("cancel") && buffer == 0 || input_check_pressed("confirm") && selection_hor == 1 && buffer == 0 {
+	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 || InputPressed(INPUT_VERB.SELECT) && selection_hor == 1 && buffer == 0 {
 		selection_hor = 0
 		state = 3
 		buffer = 1
@@ -359,7 +359,7 @@ if state == 31 {
 		
 		msg_set(m_erase, 0)
 	}
-	if input_check_pressed("confirm") && selection_hor == 0 && buffer == 0 {
+	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 {
 		audio_play(snd_ui_select)
 		
 		state = 32
@@ -371,15 +371,15 @@ if state == 31 {
 if state == 32 {
 	soul_put(180 - 30 + 180*selection_hor, 162 + subselection*90)
 	
-	if input_check_pressed("right") {
+	if InputPressed(INPUT_VERB.RIGHT) {
 		audio_play(snd_ui_move)
 		selection_hor = 1
 	}
-	if input_check_pressed("left") {
+	if InputPressed(INPUT_VERB.LEFT) {
 		audio_play(snd_ui_move)
 		selection_hor = 0
 	}
-	if input_check_pressed("cancel") && buffer == 0 || input_check_pressed("confirm") && selection_hor == 1 && buffer == 0 {
+	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 || InputPressed(INPUT_VERB.SELECT) && selection_hor == 1 && buffer == 0 {
 		selection_hor = 0
 		state = 3
 		buffer = 1
@@ -388,7 +388,7 @@ if state == 32 {
 		
 		msg_set(m_erase, 0)
 	}
-	if input_check_pressed("confirm") && selection_hor == 0 && buffer == 0 {
+	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 {
 		audio_play(snd_ui_scary)
 		state = 0
 		buffer = 1
@@ -409,15 +409,15 @@ if state == 4 {
 	if subselection < SAVE_SLOTS {
 		soul_put(130, 144 + 90*subselection)
 		
-		if input_check_pressed("down") {
+		if InputPressed(INPUT_VERB.DOWN) {
 			audio_play(snd_ui_move)
 			subselection ++
 		}
-		if input_check_pressed("up") && subselection > 0 {
+		if InputPressed(INPUT_VERB.UP) && subselection > 0 {
 			audio_play(snd_ui_move)
 			subselection --
 		}
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if files_prev[subselection] != -1 && files_prev[subselection].COMPLETED {
 				audio_play(snd_ui_select)
 				buffer = 1
@@ -435,11 +435,11 @@ if state == 4 {
 	else {
 		if subselection == SAVE_SLOTS 
 			soul_put(108 - 30, 390)
-		if input_check_pressed("up") {
+		if InputPressed(INPUT_VERB.UP) {
 			audio_play(snd_ui_move)
 			subselection = SAVE_SLOTS - 1
 		}
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			audio_play(snd_ui_select)
 			state = 0
 			subselection = 0
@@ -449,7 +449,7 @@ if state == 4 {
 		}
 	}
 	
-	if input_check_pressed("cancel") {
+	if InputPressed(INPUT_VERB.CANCEL) {
 		audio_play(snd_ui_cancel)
 		state = 0
 		subselection = 0
@@ -460,15 +460,15 @@ if state == 4 {
 if state == 41 {
 	soul_put(180 - 30 + 180*selection_hor, 162 + subselection*90)
 	
-	if input_check_pressed("right") {
+	if InputPressed(INPUT_VERB.RIGHT) {
 		audio_play(snd_ui_move)
 		selection_hor = 1
 	}
-	if input_check_pressed("left") {
+	if InputPressed(INPUT_VERB.LEFT) {
 		audio_play(snd_ui_move)
 		selection_hor = 0
 	}
-	if input_check_pressed("cancel") && buffer == 0 || input_check_pressed("confirm") && selection_hor == 1 && buffer == 0 {
+	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 || InputPressed(INPUT_VERB.SELECT) && selection_hor == 1 && buffer == 0 {
 		selection_hor = 0
 		state = 4
 		buffer = 1
@@ -476,7 +476,7 @@ if state == 41 {
 		
 		msg_set(m_chfile, 0)
 	}
-	if input_check_pressed("confirm") && selection_hor == 0 && buffer == 0 {
+	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 {
 		audio_play(snd_ui_select)
 		state = 0
 		buffer = 1

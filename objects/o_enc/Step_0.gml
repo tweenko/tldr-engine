@@ -26,11 +26,11 @@ if battle_state == "menu" {
 	}
 	
 	if state == 0 { // button selector
-		if input_check_pressed("left") {
+		if InputPressed(INPUT_VERB.LEFT) {
 			bt_selection[selection]--
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("right") {
+		if InputPressed(INPUT_VERB.RIGHT) {
 			bt_selection[selection]++
 			audio_play(snd_ui_move)
 		}
@@ -40,7 +40,7 @@ if battle_state == "menu" {
 		if bt_selection[selection] > 4 bt_selection[selection]=0
 		
 		// press the buttons
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if bt_selection[selection] == 4 {
 				// set the party sprite to defend
 				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "defend")
@@ -92,7 +92,7 @@ if battle_state == "menu" {
 		if array_equals(ignore,[]) 
 			iignore[0] = 0
 		
-		if input_check_pressed("cancel") && buffer == 0 && selection > 0 {
+		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 && selection > 0 {
 			selection --
 			buffer = 1
 			
@@ -180,13 +180,13 @@ if battle_state == "menu" {
 		var eselectordelta = 1
         var __changed = false
 		
-		if input_check_pressed("up") {
+		if InputPressed(INPUT_VERB.UP) {
 			fightselection[selection] --
 			audio_play(snd_ui_move)
 			eselectordelta = -1
             __changed = true
 		}
-		if input_check_pressed("down") {
+		if InputPressed(INPUT_VERB.DOWN) {
 			fightselection[selection] ++
 			audio_play(snd_ui_move)
 			eselectordelta = 1
@@ -209,7 +209,7 @@ if battle_state == "menu" {
 				fightselection[selection] = array_length(encounter_data.enemies) - 1
 		}
 		
-		if input_check_pressed("cancel") && buffer == 0 {
+		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 			state --
 			buffer = 1
 			
@@ -238,7 +238,7 @@ if battle_state == "menu" {
 			}
 		}
 		
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if bt_selection[selection] == 0 { // attack, enemy selected
 				char_state[selection] = 0
 				state = 0 // continue
@@ -327,13 +327,13 @@ if battle_state == "menu" {
 		var eselectordelta = 1
         var changed = false
 		
-		if input_check_pressed("up") {
+		if InputPressed(INPUT_VERB.UP) {
 			partyactselection[selection] --; 
 			audio_play(snd_ui_move);
 			eselectordelta = -1
             changed = true
 		}
-		if input_check_pressed("down") {
+		if InputPressed(INPUT_VERB.DOWN) {
 			partyactselection[selection] ++; 
 			audio_play(snd_ui_move);
 			eselectordelta = 1
@@ -356,7 +356,7 @@ if battle_state == "menu" {
 				partyactselection[selection] = array_length(encounter_data.enemies) - 1
 		}
 		
-		if input_check_pressed("cancel") && buffer == 0 {
+		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 			state --
 			buffer = 1
 			for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
@@ -382,7 +382,7 @@ if battle_state == "menu" {
 			}
 		}
 		
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "actready")
 			party_get_inst(global.party_names[selection]).image_speed = 1
 			
@@ -405,7 +405,7 @@ if battle_state == "menu" {
 	if state == 2 && bt_selection[selection] == 1 && can_act[selection] { // act selector
 		var acts = __act_sort()
 		
-		if input_check_pressed("cancel") && buffer == 0 {
+		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 			state--
 			buffer = 1
 			
@@ -413,28 +413,28 @@ if battle_state == "menu" {
 		}
 		
 		// movement
-		if input_check_pressed("right") && actselection[selection] < array_length(acts) - 1 {
+		if InputPressed(INPUT_VERB.RIGHT) && actselection[selection] < array_length(acts) - 1 {
 			actselection[selection] ++
 			if actselection[selection] % 2 == 0
 				actselection[selection] -= 2 
 			
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("down") && actselection[selection] < array_length(acts) - 2 {
+		if InputPressed(INPUT_VERB.DOWN) && actselection[selection] < array_length(acts) - 2 {
 			actselection[selection] += 2;
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("left") && actselection[selection] > 0 {
+		if InputPressed(INPUT_VERB.LEFT) && actselection[selection] > 0 {
 			actselection[selection] -- 
 			if actselection[selection] % 2 == 1
 				actselection[selection] += 2
 			audio_play(snd_ui_move)
 		}
-		else if input_check_pressed("left") && actselection[selection] == 0 && array_length(acts) > 1 {
+		else if InputPressed(INPUT_VERB.LEFT) && actselection[selection] == 0 && array_length(acts) > 1 {
 			actselection[selection] = 1; 
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("up") && actselection[selection] > 1 {
+		if InputPressed(INPUT_VERB.UP) && actselection[selection] > 1 {
 			actselection[selection] -= 2; 
 			audio_play(snd_ui_move)
 		}
@@ -445,7 +445,7 @@ if battle_state == "menu" {
 		if actselection[selection] > array_length(acts) - 1
 			actselection[selection] = 0
 		
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			var cando = 1
 			
 			var ii = actselection[selection]
@@ -531,34 +531,34 @@ if battle_state == "menu" {
 		}
 	}
 	if state == 1 && bt_selection[selection] == 2 { // item selector
-		if input_check_pressed("cancel") && buffer == 0 {
+		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 			state --
 			buffer=1
 		}
 		
-		if input_check_pressed("right") && itemselection[selection] < array_length(items) - 1 {
+		if InputPressed(INPUT_VERB.RIGHT) && itemselection[selection] < array_length(items) - 1 {
 			itemselection[selection] ++; 
 			if itemselection[selection] % 2 == 0
 				itemselection[selection]-=2
 			
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("down") && itemselection[selection] < array_length(items) - 2 {
+		if InputPressed(INPUT_VERB.DOWN) && itemselection[selection] < array_length(items) - 2 {
 			itemselection[selection] += 2; 
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("left") && itemselection[selection] > 0 {
+		if InputPressed(INPUT_VERB.LEFT) && itemselection[selection] > 0 {
 			itemselection[selection] --; 
 			if itemselection[selection] % 2 == 1
 				itemselection[selection] += 2
 			
 			audio_play(snd_ui_move)
 		}
-		else if input_check_pressed("left") && itemselection[selection] == 0 && array_length(items) > 1 {
+		else if InputPressed(INPUT_VERB.LEFT) && itemselection[selection] == 0 && array_length(items) > 1 {
 			itemselection[selection] = 1; 
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("up") && itemselection[selection] > 1 {
+		if InputPressed(INPUT_VERB.UP) && itemselection[selection] > 1 {
 			itemselection[selection] -= 2; 
 			audio_play(snd_ui_move)
 		}
@@ -573,7 +573,7 @@ if battle_state == "menu" {
 		else
 			itempage[selection] = 0
 		
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if items[itemselection[selection]].use_type == 0 {
 				state = 2
 				buffer = 1
@@ -606,13 +606,13 @@ if battle_state == "menu" {
 		}
 	}
 	if state == 1 && bt_selection[selection] == 1 && !can_act[selection] { // spell selector
-		if input_check_pressed("cancel") && buffer == 0 {
+		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 			state --; 
 			buffer = 1
 		}
 		
 		// movement
-		if input_check_pressed("right") && actselection[selection] < array_length(spells) - 1 {
+		if InputPressed(INPUT_VERB.RIGHT) && actselection[selection] < array_length(spells) - 1 {
 			actselection[selection]++; 
 			if actselection[selection] % 2 == 0 {
 				actselection[selection] -= 2
@@ -620,12 +620,12 @@ if battle_state == "menu" {
 			
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("down") && actselection[selection] < array_length(spells) - 2 {
+		if InputPressed(INPUT_VERB.DOWN) && actselection[selection] < array_length(spells) - 2 {
 			actselection[selection] += 2; 
 			
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("left") && actselection[selection] > 0 {
+		if InputPressed(INPUT_VERB.LEFT) && actselection[selection] > 0 {
 			actselection[selection] --; 
 			if actselection[selection] % 2 == 1 {
 				actselection[selection] += 2
@@ -633,11 +633,11 @@ if battle_state == "menu" {
 			
 			audio_play(snd_ui_move)
 		}
-		else if input_check_pressed("left") && actselection[selection] == 0 && array_length(spells) > 1 {
+		else if InputPressed(INPUT_VERB.LEFT) && actselection[selection] == 0 && array_length(spells) > 1 {
 			actselection[selection] = 1; 
 			audio_play(snd_ui_move)
 		}
-		if input_check_pressed("up") && actselection[selection] > 1 {
+		if InputPressed(INPUT_VERB.UP) && actselection[selection] > 1 {
 			actselection[selection] -= 2 
 			audio_play(snd_ui_move)
 		}
@@ -652,7 +652,7 @@ if battle_state == "menu" {
 		else
 			spellpage[selection] = 0
 		
-		if input_check_pressed("confirm") && buffer == 0 && tp >= spells[actselection[selection]].tp_cost {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 && tp >= spells[actselection[selection]].tp_cost {
 			if spells[actselection[selection]].use_type == ITEM_USE.INDIVIDUAL {
 				state = 2
 				buffer = 1
@@ -693,12 +693,12 @@ if battle_state == "menu" {
 	if state == 2 && (bt_selection[selection] == 2 || (!can_act[selection] && bt_selection[selection] == 1 && spells[actselection[selection]].use_type == 0)) { // item chooser
 		var delta = false
 		
-		if input_check_pressed("up"){
+		if InputPressed(INPUT_VERB.UP){
 			itemuserselection[selection] -- 
 			audio_play(snd_ui_move)
 			delta = 1
 		}
-		if input_check_pressed("down"){
+		if InputPressed(INPUT_VERB.DOWN){
 			itemuserselection[selection] ++;
 			audio_play(snd_ui_move)
 			delta = 1
@@ -712,14 +712,14 @@ if battle_state == "menu" {
 		if delta 
 			updateglowing_party()
 		
-		if input_check_pressed("cancel") && buffer == 0 {
+		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 			state -- 
 			buffer = 1
 			for (var i = 0; i < array_length(global.party_names); ++i) {
 				party_get_inst(global.party_names[i]).flashing = false
 			}
 		}
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if bt_selection[selection] == 1 && spells[actselection[selection]].use_type == 0 {
 				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
 				party_get_inst(global.party_names[selection]).image_speed = 1

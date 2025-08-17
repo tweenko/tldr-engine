@@ -1,9 +1,9 @@
 if state == 0 {
-	if input_check_pressed("down") {
+	if InputPressed(INPUT_VERB.DOWN) {
 		selection ++
 		audio_play(snd_ui_move)
 	}
-	else if input_check_pressed("up") {
+	else if InputPressed(INPUT_VERB.UP) {
 		selection --
 		audio_play(snd_ui_move)
 	}
@@ -12,11 +12,11 @@ if state == 0 {
 	if selection < 0 
 		selection = array_length(options)-1
 	
-	if input_check_pressed("cancel") || input_check_pressed("menu"){
+	if InputPressed(INPUT_VERB.CANCEL) || InputPressed(INPUT_VERB.SPECIAL){
 		instance_destroy()
 	}
 	
-	if input_check_pressed("confirm"){
+	if InputPressed(INPUT_VERB.SELECT){
 		if selection == 0 {
 			if item_get_count(6) == 0{
 				audio_play(snd_ui_cant_select)
@@ -29,11 +29,11 @@ if state == 0 {
 	}
 }
 if state == 1{
-	if input_check_pressed("down"){
+	if InputPressed(INPUT_VERB.DOWN){
 		i_selection++
 		audio_play(snd_ui_move)
 	}
-	else if input_check_pressed("up"){
+	else if InputPressed(INPUT_VERB.UP){
 		i_selection--
 		audio_play(snd_ui_move)
 	}
@@ -43,24 +43,24 @@ if state == 1{
 	if i_selection < 0
 		i_selection = 0
 		
-	if input_check_pressed("confirm"){
+	if InputPressed(INPUT_VERB.SELECT){
 		state = 2
 		audio_play(snd_ui_select)
 		ip_selection = 0
 		exit
 	}
 	
-	if input_check_pressed("cancel"){
+	if InputPressed(INPUT_VERB.CANCEL){
 		state = 0
 		exit
 	}
 }
 if state == 2{
-	if input_check_pressed("right"){
+	if InputPressed(INPUT_VERB.RIGHT){
 		ip_selection++
 		audio_play(snd_ui_move)
 	}
-	else if input_check_pressed("left"){
+	else if InputPressed(INPUT_VERB.LEFT){
 		ip_selection--
 		audio_play(snd_ui_move)
 	}
@@ -70,7 +70,7 @@ if state == 2{
 	if ip_selection < 0
 		ip_selection = 0
 	
-	if input_check_pressed("confirm"){
+	if InputPressed(INPUT_VERB.SELECT){
 		var _item = item_get_array(6)[i_selection]
 		
 		audio_play(snd_ui_select)
@@ -89,7 +89,7 @@ if state == 2{
 		exit
 	}
 	
-	if input_check_pressed("cancel"){
+	if InputPressed(INPUT_VERB.CANCEL){
 		state = 1
 		exit
 	}

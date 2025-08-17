@@ -1,7 +1,7 @@
 if lightup > 0
 	lightup -= .2
 
-if !input_check("confirm")
+if !InputCheck(INPUT_VERB.SELECT)
 	buffer = 0
 	
 var go = true

@@ -17,7 +17,7 @@ if is_player && check_canmove {
 	var am_moving = 0
 	
 	// movement speed control
-	if input_check("cancel") {
+	if InputCheck(INPUT_VERB.CANCEL) {
 		running = true
 		
 		if spd < runspd // accelerate
@@ -29,7 +29,7 @@ if is_player && check_canmove {
 	}
 	
 	// move upon pressing keys
-	if input_check("right") {
+	if InputCheck(INPUT_VERB.RIGHT) {
 		if !diagonal 
 			for(var i = 0; i < 360; i += 90) if i != DIR.RIGHT move[i] = 0
 		
@@ -38,7 +38,7 @@ if is_player && check_canmove {
 		
 		am_moving = true
 	}
-	if input_check("left") {
+	if InputCheck(INPUT_VERB.LEFT) {
 		if !diagonal 
 			for(var i = 0; i < 360; i += 90) if i != DIR.LEFT move[i] = 0
 		
@@ -47,7 +47,7 @@ if is_player && check_canmove {
 		
 		am_moving = true
 	}
-	if input_check("down") && (!sliding || slide_vertical_allow) {
+	if InputCheck(INPUT_VERB.DOWN) && (!sliding || slide_vertical_allow) {
 		if !diagonal 
 			for(var i = 0; i < 360; i += 90) if i != DIR.DOWN move[i] = 0
 		
@@ -56,7 +56,7 @@ if is_player && check_canmove {
 		
 		am_moving = true
 	}
-	if input_check("up") && (!sliding || slide_vertical_allow) {
+	if InputCheck(INPUT_VERB.UP) && (!sliding || slide_vertical_allow) {
 		if !diagonal 
 			for(var i = 0; i < 360; i += 90) if i != DIR.UP move[i] = 0
 		
@@ -67,7 +67,7 @@ if is_player && check_canmove {
 	}
 	
 	// interact
-	if input_check_pressed("confirm") {
+	if InputPressed(INPUT_VERB.SELECT) {
 		var w = 2
         var __interactable_instances = array_concat([o_ow_interactable], interactable_instances)
 		
@@ -82,7 +82,7 @@ if is_player && check_canmove {
 	}
 	
 	// menu
-	if input_check_pressed("menu") && !dodge_mode { // only allow while not in an overworld dodging section
+	if InputPressed(INPUT_VERB.SPECIAL) && !dodge_mode { // only allow while not in an overworld dodging section
 		// swap the menu object depending on the world
 		if global.world == 0 // dark world
 			instance_create(o_ui_menu)

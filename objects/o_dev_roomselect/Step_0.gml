@@ -1,18 +1,18 @@
 global.console = true
 
 // menu movement
-if input_check_pressed_repeat("up") {
+if InputRepeat(INPUT_VERB.UP) {
 	if selection > 0 {
 		selection --
 	}
 }
-if input_check_pressed_repeat("down") {
+if InputRepeat(INPUT_VERB.DOWN) {
 	if selection < room_last {
 		selection++
 	}
 }
 
-if input_check_pressed("confirm") {
+if InputPressed(INPUT_VERB.SELECT) {
 	if !array_contains(inaccessible, selection) {
         music_stop_all()
 		audio_play(snd_ui_select)
@@ -21,6 +21,6 @@ if input_check_pressed("confirm") {
 	else 
 		audio_play(snd_ui_cant_select)
 }
-if input_check_pressed("cancel") {
+if InputPressed(INPUT_VERB.CANCEL) {
 	instance_destroy()
 }

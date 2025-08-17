@@ -2,13 +2,13 @@ if global.console
 	exit
 
 if page == 0 { // main menu
-	if input_check_pressed("left") && m_selection % 2 > 0
+	if InputPressed(INPUT_VERB.LEFT) && m_selection % 2 > 0
 		m_selection --
-	if input_check_pressed("right") && m_selection % 2 < 1
+	if InputPressed(INPUT_VERB.RIGHT) && m_selection % 2 < 1
 		m_selection ++
-	if input_check_pressed("down") && m_selection < 2
+	if InputPressed(INPUT_VERB.DOWN) && m_selection < 2
 		m_selection += 2
-	if input_check_pressed("up") && m_selection > 1
+	if InputPressed(INPUT_VERB.UP) && m_selection > 1
 		m_selection -= 2
 	
 	if m_selection > 3 
@@ -16,7 +16,7 @@ if page == 0 { // main menu
 	if m_selection < 0 
 		m_selection = 0
 	
-	if input_check_pressed("confirm") && buffer == 0 {
+	if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 		page = m_buttons[m_selection].page
 		if page != -1 
 			audio_play(snd_ui_select)
@@ -32,15 +32,15 @@ if page == 0 { // main menu
 			st_souly = 145 + floor(st_selection[st_page]/2)*20 + 3
 		}
 	}
-	if input_check_pressed("cancel") && buffer == 0{
+	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0{
 		instance_destroy()
 	}
 }
 if page == 1 { // save menu
 	if prog == 0 {
-		if input_check_pressed("down")
+		if InputPressed(INPUT_VERB.DOWN)
 			s_selection ++
-		if input_check_pressed("up")
+		if InputPressed(INPUT_VERB.UP)
 			s_selection --
 		
 		if s_selection > 4 
@@ -48,7 +48,7 @@ if page == 1 { // save menu
 		if s_selection < 0 
 			s_selection = 0
 	
-		if input_check_pressed("confirm") && s_selection < 3 && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && s_selection < 3 && buffer == 0 {
 			if s_selection != global.save_slot && global.saves[s_selection] != -1 
 				prog = 2
 			else {
@@ -60,23 +60,23 @@ if page == 1 { // save menu
 			}
 			buffer = 1
 		}
-		if input_check_pressed("cancel") && buffer == 0 || s_selection == 3 && input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 || s_selection == 3 && InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			prog = 0
 			buffer = 1
 			page = 0
 		}
 	}
 	if prog == 1 {
-		if (input_check_pressed("confirm") || input_check_pressed("cancel")) && buffer == 0
+		if (InputPressed(INPUT_VERB.SELECT) || InputPressed(INPUT_VERB.CANCEL)) && buffer == 0
 			instance_destroy()
 	}
 	if prog == 2 {
-		if input_check_pressed("left") 
+		if InputPressed(INPUT_VERB.LEFT)
 			s_o_selection=0
-		if input_check_pressed("right") 
+		if InputPressed(INPUT_VERB.RIGHT)
 			s_o_selection=1
 		
-		if input_check_pressed("confirm") && buffer == 0 {
+		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if s_o_selection == 0 {
 				save_update_pc(s_selection)
 				save_set(s_selection)
@@ -89,7 +89,7 @@ if page == 1 { // save menu
 			
 			buffer = 1
 		}
-		if input_check_pressed("cancel") && buffer == 0 {
+		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 			prog = 0
 			buffer = 1
 		}
@@ -100,9 +100,9 @@ if page == 2 { // storage
 	st_soulx = lerp(st_soulx, xx-15, .6)
 	st_souly = lerp(st_souly, (st_page == 0 ? 145 : 295) + floor((st_selection[st_page] - (st_page == 1 ? 12 * st_stpage : 0)) / 2)*20 + 3, .6)
 	
-	if input_check_pressed("left") && st_selection[st_page] % 2 > 0 
+	if InputPressed(INPUT_VERB.LEFT) && st_selection[st_page] % 2 > 0 
 		st_selection[st_page] --
-	else if input_check_pressed("left") && st_selection[st_page] % 2 == 0 && st_page == 1 {
+	else if InputPressed(INPUT_VERB.LEFT) && st_selection[st_page] % 2 == 0 && st_page == 1 {
 		st_stpage = (st_stpage - 1) % st_maxstpage
 		
 		st_selection[st_page] -= 11
@@ -110,9 +110,9 @@ if page == 2 { // storage
 			st_selection[st_page] += 12 * st_maxstpage
 	}
 	
-	if input_check_pressed("right") && st_selection[st_page] % 2 < 1
+	if InputPressed(INPUT_VERB.RIGHT) && st_selection[st_page] % 2 < 1
 		st_selection[st_page] ++
-	else if input_check_pressed("right") && st_selection[st_page] % 2 == 1 && st_page == 1 {
+	else if InputPressed(INPUT_VERB.RIGHT) && st_selection[st_page] % 2 == 1 && st_page == 1 {
 		st_stpage = (st_stpage + 1) % st_maxstpage
 		
 		st_selection[st_page] += 11
@@ -120,12 +120,12 @@ if page == 2 { // storage
 			st_selection[st_page] -= 12 * st_maxstpage
 	}
 	
-	if input_check_pressed("down") && st_selection[st_page] < item_get_maxcount()-2 + (st_page == 1 ? 12 * st_stpage : 0)
+	if InputPressed(INPUT_VERB.DOWN) && st_selection[st_page] < item_get_maxcount()-2 + (st_page == 1 ? 12 * st_stpage : 0)
 		st_selection[st_page] += 2
-	if input_check_pressed("up") && st_selection[st_page] > 1 + (st_page == 1 ? 12 * st_stpage : 0)
+	if InputPressed(INPUT_VERB.UP) && st_selection[st_page] > 1 + (st_page == 1 ? 12 * st_stpage : 0)
 		st_selection[st_page] -= 2
 	
-	if input_check_pressed("confirm") && buffer == 0 {
+	if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 		if st_page == 0 
 			st_page = 1
 		else {
@@ -151,7 +151,7 @@ if page == 2 { // storage
 			st_page = 0
 		}
 	}
-	if input_check_pressed("cancel") && buffer == 0 {
+	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 		if st_page == 0 {
 			page = 0
 			buffer = 1

@@ -34,21 +34,21 @@ else {
 	var xrange = 50
 	var yrange = 60
 	
-	if input_check(all) && !start_timer{
+	if InputPressed(INPUT_VERB.SPECIAL) && !start_timer{
 		start_timer = true
 		event_user(0)
 	}
 	
-	if input_check("up") && y-ystart > -yrange
+	if InputCheck(INPUT_VERB.UP) && y-ystart > -yrange
 		y -= 2
-	else if input_check("down") && y-ystart < yrange
+	else if InputCheck(INPUT_VERB.DOWN) && y-ystart < yrange
 		y += 2
-	if input_check("left") && x-xstart > -xrange
+	if InputCheck(INPUT_VERB.LEFT) && x-xstart > -xrange
 		x -= 2
-	else if input_check("right") && x-xstart < xrange
+	else if InputCheck(INPUT_VERB.RIGHT) && x-xstart < xrange
 		x += 2
 		
-	if input_check("menu") && buffer == 0 && ammo > 0{
+	if InputCheck(INPUT_VERB.SPECIAL) && buffer == 0 && ammo > 0{
 		buffer = 5
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			var o = party_get_inst(global.party_names[i])
