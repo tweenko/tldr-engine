@@ -1,7 +1,7 @@
 members = []
 name = "party wait"
 
-execute_func = function() {
+execute_code = function() {
 	cutscene_create()
 	cutscene_player_canmove(false)
 	cutscene_party_follow(false)

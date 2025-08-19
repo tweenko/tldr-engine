@@ -1,3 +1,3 @@
 event_inherited()
-execute_func = function(){
+execute_code = function(){
 }

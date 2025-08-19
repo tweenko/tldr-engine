@@ -340,6 +340,19 @@ function item_spell_get_exists(_item_ref, _party_name = undefined) {
         return true
 }
 
+/// @desc returns the struct of a spell that matches
+/// @arg {Asset.GMScript,struct} _item_ref the item constructor OR item struct that we are looking a match for
+/// @arg {string} _party_name check a specific party member to have the spell
+/// @return {struct.item|undefined}
+function item_spell_get_struct(_item_ref, _party_name) {
+    var ret = undefined
+    var __spell_index = item_spell_get_index(_item_ref, _party_name)
+    
+    if is_undefined(__spell_index)
+        return undefined
+    return party_getdata(_party_name, "spells")[__spell_index]
+}
+
 /// @desc returns the INDEX of the spell
 /// @arg {Asset.GMScript,struct} _item_ref the item constructor OR item struct that we are looking a match for
 /// @arg {string} _party_name check a specific party member to have the spell
