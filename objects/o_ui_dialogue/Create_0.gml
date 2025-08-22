@@ -24,9 +24,15 @@ if instance_exists(get_leader())
 
 _reposition_self = function() {
 	if instance_exists(get_leader()) {
-		if get_leader().y - guipos_y()>160 {
+        yy = 320
+		if get_leader().y - guipos_y() > 160
 			yy = 10
-		}
 	}
+}
+_reposition_self_to = function(down) {
+	if down
+        yy = 320
+    else
+    	yy = 10
 }
 _reposition_self()

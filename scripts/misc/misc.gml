@@ -168,7 +168,6 @@ function input_binding_to_string(bind){
         
 	else return string_upper(InputVerbGetBindingName(bind))
 }
-
 /// @desc converts a bind to text (or sprite) - gets it ready for use in dialogue
 function input_binding_intext(verb){
 	if InputPlayerUsingGamepad() {
@@ -297,15 +296,19 @@ function camera_confine_y(yy) {
 /// @arg {real} x_dest set to undefined if you don't want to move on this axis
 /// @arg {real} y_dest set to undefined if you don't want to move on this axis
 function camera_pan(x_dest, y_dest, time, ease_type = "linear") {
+    if is_undefined(x_dest) 
+        x_dest = o_camera.x
+    if is_undefined(y_dest) 
+        y_dest = o_camera.y
+    
     x_dest = camera_confine_x(x_dest)
-    y_dest = camera_confine_x(y_dest)
+    y_dest = camera_confine_y(y_dest)
     
     if o_camera.x != x_dest && !is_undefined(x_dest)
         o_camera.animation_x = do_animate(o_camera.x, x_dest, time, ease_type, o_camera, "x")
     if o_camera.y != y_dest && !is_undefined(y_dest)
         o_camera.animation_y = do_animate(o_camera.y, y_dest, time, ease_type, o_camera, "y")
 }
-
 function camera_unpan(target, time, ease_type = "linear") {
     o_camera.target = target
     
@@ -321,4 +324,30 @@ function camera_stop_animations() {
         o_camera.animation_x.stop()
     if is_struct(o_camera.animation_y)
         o_camera.animation_y.stop()
+}
+
+function convert_leader_equipment() {
+    var __weapon = party_getdata(global.party_names[0], "weapon")
+    if !is_undefined(__weapon)
+        global.lw_weapon = __weapon.lw_counterpart
+    
+    var __armor1 = party_getdata(global.party_names[0], "armor1")
+    if !is_undefined(__armor1)
+        global.lw_armor = __armor1.lw_counterpart
+    var __armor2 = party_getdata(global.party_names[0], "armor2")
+    if !is_undefined(__armor2) && !is_undefined(__armor2.lw_counterpart)
+        global.lw_armor = __armor2.lw_counterpart
+    
+    if !is_undefined(global.lw_weapon) && is_callable(global.lw_weapon)
+        global.lw_weapon = new global.lw_weapon()
+    if !is_undefined(global.lw_armor) && is_callable(global.lw_armor)
+        global.lw_armor = new global.lw_armor()
+}
+
+function world_switch(world) {
+    var wprevious = global.world
+    global.world = world
+    
+    if wprevious != global.world
+        convert_leader_equipment()
 }

@@ -3,7 +3,7 @@ if !is_in_battle && freeze == 0 { // enemy aura, toby code
 	if hurt > 0  
 		spr = s_hurt
 	
-	var xx = x + xoff + sine(1, xshake)
+	var xx = x + xoff + sine(1, shake)
 	var yy = y + yoff
 	
 	if onscreen(id, 30) && hurt == 0 {

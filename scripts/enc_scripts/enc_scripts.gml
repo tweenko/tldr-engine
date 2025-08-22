@@ -61,7 +61,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
 		audio_play(sfx)
 		
 		do_anime(6, 0, 10, "linear", function(v, o) {
-			if instance_exists(o) o.xshake = v
+			if instance_exists(o) o.shake = v
 		}, o)
 	}
 }

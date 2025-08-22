@@ -1,3 +1,5 @@
+// note: while adding ` for strings in the commands is unnecessary, it is considered best practice, because if you use commas in a string argument the argument will be split.
+
 { // configuration
 	text = ""
 	font = loc_getfont("text")
@@ -8,7 +10,7 @@
 	yspace = 18
 	
 	char = "none"
-	shadow = true
+	shadow = (global.world == 0 ? true : false)
 	
 	typespd = 1
 	
@@ -23,7 +25,8 @@
 	xcolor = c_white
 	effect = 0
 	god = 0
-	
+    predict_text = true
+     
 	can_skip = true
 }
 { // face & voice
@@ -50,6 +53,7 @@
 	disp_chars = 0 //displayed characters
 	mychars = []
 	linebreaks = []
+    mini_faces = []
 	dont_update = false
 	saved_color = c_white
 	
@@ -58,6 +62,7 @@
 	yoff = 0
     center_xoff = 0
     center_yoff = 0
+    face_xoff = 0
 	
 	timer = 0
 	pause = 0
@@ -77,17 +82,25 @@
 	_facechange = function(char, expression = "neutral", change_delay = 4) {
 		_face = struct_get(struct_get(char_presets, char), "_face")
 		if instance_exists(face_inst) {
-			x -= 116
+			x -= face_xoff
+            face_xoff = 0
+            
 			instance_destroy(face_inst)
 		}
 		if object_exists(_face) {
+            if string_length(expression) == string_length(string_digits(expression))
+                expression = real(expression)
+            
 			face_expression = expression
 			face_inst = instance_create(_face, x, y, depth - 100)
 			face_inst.facename = face_expression
 			face_inst.caller = id
 			face_inst.alarm[0] = change_delay
+            face_inst.image_xscale = xscale
+            face_inst.image_yscale = yscale
             
-            x += 116
+            x += 58 * xscale
+            face_xoff = 58 * xscale
 		}
 		
 		pause += change_delay

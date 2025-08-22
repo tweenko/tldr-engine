@@ -1,4 +1,5 @@
 name = "susieheal_use"
+
 execute_code = function() {
     cutscene_create()
     

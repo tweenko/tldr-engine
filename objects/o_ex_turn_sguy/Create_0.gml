@@ -1,5 +1,7 @@
 event_inherited()
 
+timer_end = 215
+
 notepath = -1
 type = choose(0,1)
 

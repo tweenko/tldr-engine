@@ -24,7 +24,7 @@ p_selection = 0
 
 partyreaction = array_create(party_getpossiblecount(), 0)
 partyreactiontimer = array_create(party_getpossiblecount(), 0)
-partyreactionlen = 30
+partyreactionlen = 5
 
 state = 0
 buffer = 0

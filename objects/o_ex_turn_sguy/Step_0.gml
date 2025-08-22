@@ -37,7 +37,7 @@ if type == 0 { // sax attack
 	
 		notepath.depth = o.depth+10
 	}
-	if timer == 200 {
+	if timer == timer_end - 15 {
 		var o = enemy_struct.actor_id
 		o.sprite_index = spr_ex_e_sguy_idle
 		o.custom_depth = undefined
@@ -46,8 +46,6 @@ if type == 0 { // sax attack
 	}
 }
 else { // gun attack
-	var ending = 215
-	
 	if timer == 6 {
 		var o = enemy_struct.actor_id
 		o.gun = true
@@ -56,22 +54,22 @@ else { // gun attack
         
 		o.custom_depth = DEPTH_ENCOUNTER.BULLETS_OUTSIDE - (o.y-guipos_y())
 	}
-	if timer > 6 + 15 && timer % 5 == 0 && count < 12 && timer < 200 - 15 {
+	if timer > 6 + 15 && timer % 5 == 0 && count < 12 && timer < timer_end - 15 {
 		var o = enemy_struct.actor_id
         
 		do_animate(1, 3, 2, 0, o, "gun_img")
-		o.gun_angle=point_direction(o.x - 6, o.y - 16, o_enc_soul.x, o_enc_soul.y) + random_range(-25, 25) - 180
-		var a = o.gun_angle-180
+		o.gun_angle = point_direction(o.x - 6, o.y - 16, o_enc_soul.x, o_enc_soul.y) + random_range(-25, 25) - 180
+		var a = o.gun_angle - 180
 		
 		var inst = instance_create(o_ex_bullet_sguy_bullet, o.x-18 + lengthdir_x(26, a), o.y-24 + lengthdir_y(26, a)-8, DEPTH_ENCOUNTER.BULLETS_OUTSIDE)
-		inst.direction = o.gun_angle+180
+		inst.direction = o.gun_angle + 180
 		inst.image_angle = inst.direction-180
 		inst.speed = 4
 		
 		count ++
 	}
 	
-	if count == 12 && !reloading && timer<200-15 {
+	if count == 12 && !reloading && timer < timer_end - 15 {
 		var o = enemy_struct.actor_id
 		o.sprite_index = spr_ex_e_sguy_reload
 		o.gun = false
@@ -80,7 +78,7 @@ else { // gun attack
 	if reloading && timer < 200 - 15 {
 		ttimer ++
 	}
-	if count == 12 && reloading && ttimer == 25 && timer < 200 - 15 {
+	if count == 12 && reloading && ttimer == 25 && timer < timer_end - 15 {
 		var o = enemy_struct.actor_id
 		o.sprite_index = spr_ex_e_sguy_reload
 		o.image_speed = 1
@@ -92,13 +90,13 @@ else { // gun attack
 		ttimer = 0
 		count = 0
 	}
-	if timer == ending - 15 {
+	if timer == timer_end - 15 {
 		var o = enemy_struct.actor_id
 		o.gun = false
 		o.sprite_index = spr_ex_e_sguy_reload
 		do_animate(o.x, o.x-20, 15, "cubic_out", o, "x")
 	}
-	if timer == ending {
+	if timer == timer_end {
 		var o = enemy_struct.actor_id
 		o.sprite_index = spr_ex_e_sguy_idle
 		o.custom_depth = undefined

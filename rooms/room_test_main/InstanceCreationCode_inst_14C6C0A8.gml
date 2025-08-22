@@ -2,26 +2,24 @@ name = "choice test"
 
 execute_code = function() {
     var evil = state_get("test_sad", 1)
-    show_debug_message(global.states)
-    show_debug_message(evil)
     
 	cutscene_create()
     cutscene_player_canmove(false)
     
     if !evil {
-    	cutscene_dialogue("* Hello! This is a test of the Choice thing.{p}{c}* Is it cool?{p}{c}{choice(Hell Yeah, I like it, Peak, Uhh)}{e}", "")
+    	cutscene_dialogue("* Hello! This is a test of the Choice thing.{p}{c}* Is it cool?{p}{c}{choice(`Hell Yeah`, `I like it`, `Peak`, `Uhh`)}{e}", "")
     	
     	cutscene_func(function() {
     		if global.temp_choice == 3 {
                 cutscene_create()
                 cutscene_player_canmove(false)
-    			cutscene_dialogue("* Huh? What do you mean... \"Uhh\"?{p}{c}{choice(Sorry I Meant\nit's Cool., I mean...)}", "{e}")
+    			cutscene_dialogue("* Huh? What do you mean... \"Uhh\"?{p}{c}{choice(`Sorry, I Meant\nit's Cool`, `I mean...`)}", "{e}")
                 
                 cutscene_func(function() {
             		if global.temp_choice == 1 {
                         cutscene_create()
                         cutscene_player_canmove(false)
-            			cutscene_dialogue("* What is it? I-Is it good? Hey?{p}{c}{choice(Haha! That's\na joke., It Sucks.)}", "{e}")
+            			cutscene_dialogue("* What is it? I-Is it good? Hey?{p}{c}{choice(`Haha! That's\na joke`, `It Sucks.`)}", "{e}")
                         
                         cutscene_func(function() {
                     		if global.temp_choice == 1 {

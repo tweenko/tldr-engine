@@ -7,5 +7,3 @@ continue_func = function(){
 	return true
 }
 continue_args = []
-
-caller = -1

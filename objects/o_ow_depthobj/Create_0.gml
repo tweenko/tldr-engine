@@ -1,6 +1,6 @@
 event_inherited()
 
-xshake = 0
+shake = 0
 can_reflect = false
 reflection_code = function(){
 	var ret=image_yscale

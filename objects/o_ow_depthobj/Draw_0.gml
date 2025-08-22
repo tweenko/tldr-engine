@@ -1,4 +1,4 @@
-var xx = sine(1, xshake)
+var xx = sine(1, shake)
 x += xx
 
 draw_self()

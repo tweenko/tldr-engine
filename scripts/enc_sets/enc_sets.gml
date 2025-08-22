@@ -7,6 +7,7 @@ function enc_set() constructor { // base
 	flavor = "* undefined"
 	bgm = mus_battle
 	bg_type = 0 // default, no bg
+    can_change_turnlen = true
 	
 	display_target = true // whether to display the target of the enemy's attack
 	

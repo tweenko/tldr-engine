@@ -10,7 +10,7 @@
   "option_windows_description_info":"A GameMaker Game",
   "option_windows_disable_sandbox":false,
   "option_windows_display_cursor":true,
-  "option_windows_display_name":"DELTARUNE Chapter 3",
+  "option_windows_display_name":"Totally Lit DELTARUNE Engine",
   "option_windows_enable_steam":false,
   "option_windows_executable_name":"${project_name}.exe",
   "option_windows_icon":"${options_dir}/windows/icons/icon.ico",

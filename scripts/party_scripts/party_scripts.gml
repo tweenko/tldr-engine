@@ -17,10 +17,10 @@ function party_leader_create(name, xx, yy, ddepth){
 }
 
 ///@desc creates an actor standing in for the party member
-function party_member_create(name, recordnow = true){
-	var inst = actor_create(party_get_obj(name), get_leader().x, get_leader().y, get_leader().depth)
+function party_member_create(name, recordnow = true, xx = get_leader().x, yy = get_leader().y){
+	var inst = actor_create(party_get_obj(name), xx, yy, get_leader().depth)
 	inst.is_follower = true
-	inst.pos = get_leader().spacing*party_getpos(name)
+	inst.pos = get_leader().spacing * party_getpos(name)
 	
 	with inst {
 		if recordnow 
@@ -95,4 +95,16 @@ function party_reposition(lx = get_leader().x, ly = get_leader().y){
 ///@arg {string} _name
 function party_ismember(_name) {
 	return array_contains(global.party_names, _name)
+}
+
+/// @desc sets the state of a party member (sprite state)
+/// @arg {string} _name
+/// @arg {string} _state 
+function party_set_state(_name, _state) {
+    party_setdata(_name, "s_state", _state)
+    
+    with party_get_inst(_name)
+        event_user(2)
+    
+    show_debug_message(party_get_inst(_name).s_state)
 }

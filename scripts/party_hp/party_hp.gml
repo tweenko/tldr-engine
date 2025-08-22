@@ -70,7 +70,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 				o.hurt = 20
 				do_anime(6, 0, 10, "linear", function(v, o){
 					if instance_exists(o) 
-						o.xshake = v
+						o.shake = v
 				}, o)
 				
 				if !party_getdata(name, "is_down") && !party_isup(name) {
@@ -192,7 +192,7 @@ function party_attack_targets(att, caller = noone, element = "") {
 function party_check_gameover(){
 	var res = true
 	for (var i = 0; i < array_length(global.party_names); ++i) {
-		if party_getdata(global.party_names[i], "hp") > 0 {
+		if party_getdata(global.party_names[i], "hp") > 1 {
 			res = false
 			break
 		}

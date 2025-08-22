@@ -59,7 +59,7 @@ _typer_drawsinglechar = function(xx, yy, opacity) {
 				}
 			}
 		}
-		if array_contains(solid_colors,xcolor) || solid_color
+		if array_contains(solid_colors, xcolor) || solid_color
 			draw_text_transformed_color(xx + xoff, yy + yoff,
 				symbol, scalex, scaley, angle,
 				xcolor, xcolor, xcolor, xcolor, opacity

@@ -1,4 +1,5 @@
-var roll = 80*menuroll
+var roll = 80 * menuroll
+var __top_txt_len = 310
 
 draw_set_font(loc_getfont("main"))
 
@@ -100,7 +101,7 @@ if selection == 0 { // items
 		}
 		
 		if i_pselection == 2 { // key
-			for (var i = 0; i < item_get_count(1); ++i) {
+			for (var i = 0; i < item_get_count(ITEM_TYPE.KEY); ++i) {
 				if i == i_selection && state == 2 
 					draw_sprite_ext(spr_uisoul, 0, 120 + (i % 2 == 1 ? 210 : 0), 160 + floor(i/2) * 30, 1, 1, 0, c_red, 1)
 				draw_text_shadow(146 + (i%2 == 1 ? 210 : 0), 152 + floor(i/2) * 30, item_get_name(global.key_items[i]), (state == 1 ? c_gray : c_white))
@@ -125,9 +126,9 @@ if selection == 0 { // items
 			
 			var txt = item_get_desc(arr[i_selection],0)
 			if i_pselection == 1 && state == 3
-				txt=string("Really throw away the\n{0}?", item_get_name(arr[i_selection]))
+				txt = string("Really throw away the\n{0}?", item_get_name(arr[i_selection]))
 			
-			draw_text_ext_transformed(20, 10, txt, 16, 300, 2, 2, 0)
+			draw_text_ext_transformed(20, 10, txt, 16, __top_txt_len, 2, 2, 0)
 		}
 	}
 }
@@ -167,9 +168,9 @@ if selection == 1 { // equip
 		if e_pselection > 0
 			arr = global.armors
 		
-		var arr_mod=[]
-		array_copy(arr_mod,0,arr,0,array_length(arr))
-		array_insert(arr_mod,0,undefined)
+		var arr_mod = []
+		array_copy(arr_mod, 0, arr, 0, array_length(arr))
+		array_insert(arr_mod, 0, undefined)
 		
 		var stats = [
 			["Attack:", party_getdata(global.party_names[e_pmselection], "attack"), spr_ui_menu_icon_sword],
@@ -184,10 +185,11 @@ if selection == 1 { // equip
 		
 		for (var i = 0; i < array_length(equipment); ++i) {
 			if state == 3 && i == e_pselection {
-				if !is_undefined(arr_mod[e_selection]) && !array_equals(arr_mod[e_selection].affect, []) {
-					array_push(stats, [arr_mod[e_selection].affect[0], 0, arr_mod[e_selection].affect[1]])
-					if equipment[i] != undefined && !array_equals(equipment[i].affect, []) {
-						if arr_mod[e_selection].affect[0] != equipment[i].affect[0]
+				if !is_undefined(arr_mod[e_selection]) && !is_undefined(arr_mod[e_selection].effect) {
+					array_push(stats, [arr_mod[e_selection].effect.text, 0, arr_mod[e_selection].effect.sprite])
+                    
+					if !is_undefined(equipment[i]) && !is_undefined(equipment[i].effect) {
+						if arr_mod[e_selection].effect.text != equipment[i].effect.text
 							delta = 2
 					}
 					else
@@ -200,8 +202,8 @@ if selection == 1 { // equip
 				}
 			}
 			else {
-			    if !is_undefined(equipment[i]) && !array_equals(equipment[i].affect, [])
-					array_push(stats, [equipment[i].affect[0], 0, equipment[i].affect[1]])
+			    if !is_undefined(equipment[i]) && !is_undefined(equipment[i].effect)
+					array_push(stats, [equipment[i].effect.text, 0, equipment[i].effect.sprite])
 				else
 					array_push(stats, ["(No ability.)", 0, -1])
 			}
@@ -300,7 +302,7 @@ if selection == 1 { // equip
 			draw_set_color(c_white)
 			if !is_undefined(equipped[e_pselection][1]) {
 				var txt = item_get_desc(equipped[e_pselection][1], 0)
-				draw_text_ext_transformed(20, 10, txt, 16, 300, 2, 2, 0)
+				draw_text_ext_transformed(20, 10, txt, 16, __top_txt_len, 2, 2, 0)
 			}
 		}
 		draw_set_color(c_white)
@@ -311,7 +313,7 @@ if selection == 1 { // equip
 			draw_set_color(c_white)
 			if !is_undefined(arr_mod[e_selection]) {
 				var txt=item_get_desc(arr_mod[e_selection], 0)
-				draw_text_ext_transformed(20, 10, txt, 16, 300, 2, 2, 0)
+				draw_text_ext_transformed(20, 10, txt, 16, __top_txt_len, 2, 2, 0)
 			}
 		}
 		
@@ -451,7 +453,7 @@ if selection == 2 { //power
 			
 			if !is_undefined(party_getdata(global.party_names[p_pmselection], "spells")[p_selection]){
 				var txt = item_get_desc(party_getdata(global.party_names[p_pmselection],"spells")[p_selection], 0)
-				draw_text_ext_transformed(20, 10, txt, 16, 300, 2, 2, 0)
+				draw_text_ext_transformed(20, 10, txt, 16, __top_txt_len, 2, 2, 0)
 			}
 		}
 	}

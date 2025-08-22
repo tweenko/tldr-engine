@@ -1315,6 +1315,7 @@ if battle_state == "win" {
 	if !wininit {
         var __exp = 0
         var __dd = earned_money + global.chapter * tp / 4
+        var __dd_mod = 1
         
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 		    char_state[i] = -1
@@ -1324,7 +1325,16 @@ if battle_state == "win" {
 			party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "victory")
 			party_get_inst(global.party_names[i]).image_index = 0
 			party_get_inst(global.party_names[i]).image_speed = 1
+            
+            if !is_undefined(party_getdata(global.party_names[i], "weapon")) && struct_exists(party_getdata(global.party_names[i], "weapon").stats_misc, "money_modifier")
+                __dd_mod += party_getdata(global.party_names[i], "weapon").stats_misc.money_modifier
+            if !is_undefined(party_getdata(global.party_names[i], "armor1")) && struct_exists(party_getdata(global.party_names[i], "armor1").stats_misc, "money_modifier")
+                __dd_mod += party_getdata(global.party_names[i], "armor1").stats_misc.money_modifier
+            if !is_undefined(party_getdata(global.party_names[i], "armor2")) && struct_exists(party_getdata(global.party_names[i], "armor2").stats_misc, "money_modifier")
+                __dd_mod += party_getdata(global.party_names[i], "armor2").stats_misc.money_modifier
 		}
+        
+        __dd *= __dd_mod
 		
 		cutscene_create()
 		cutscene_dialogue(string("* You won!{br}{resetx}* Got {0} EXP and {1} D$.", __exp, __dd))

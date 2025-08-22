@@ -5,7 +5,8 @@ function cutscene_get() {
 
 ///@desc creates a cutscene instance. if needed, also sets global.current_cutscene to the newly created one.
 function cutscene_create(autoset = true) {
-	var inst = instance_create(o_cutscene_inst,,,, {caller: id})
+    var inst = instance_create(o_cutscene_inst)
+    
 	if autoset
 		cutscene_set(inst)
 	return inst
@@ -81,13 +82,21 @@ function cutscene_sleep(sleep) {
 ///@desc runs dialogue in a cutscene and waits until the dialogue box is destroyed if asked to
 ///@arg {string|array<string>} dialogue
 ///could be either an array or just a string. if it's an array, between the array entries the box will pause and clear itself afterwards.
-function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true) {
+function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_down = undefined) {
 	dialogue = dialogue_array_to_string(dialogue)
+    
 	cutscene_custom({
 		dialogue,
 		wait,
 		postfix,
-		action: [instance_create, o_ui_dialogue, 0, 0, 0, {text: dialogue, postfix}],
+        box_pos_down,
+
+		action: [function(dialogue, postfix, box_pos_down) {
+            var inst = instance_create(o_ui_dialogue, 0, 0, 0, {text: dialogue, postfix})
+            if !is_undefined(box_pos_down)
+                inst._reposition_self_to(box_pos_down)
+        }, dialogue, postfix, box_pos_down],
+
 		continue_func: function(wait) {
 			return (wait ? !instance_exists(o_ui_dialogue) : true)
 		},
@@ -282,20 +291,26 @@ function cutscene_func(func, args = []){
 
 /// @arg {real} x_dest set to undefined if you don't want to move on this axis
 /// @arg {real} y_dest set to undefined if you don't want to move on this axis
-function cutscene_camera_pan(x_dest, y_dest, time, wait = true, ease_type = "linear"){
-	cutscene_custom({
-		x_dest, y_dest, time, wait, ease_type,
-		
-		action: [function(x_dest, y_dest, time, wait, ease_type) {
-			
-			if o_camera.x != x_dest && !is_undefined(x_dest)
-				do_animate(o_camera.x, x_dest, time, ease_type, o_camera, "x")
-			if o_camera.y != y_dest && !is_undefined(y_dest)
-				do_animate(o_camera.y, y_dest, time, ease_type, o_camera, "y")
-			
-			if wait	 // wait if asked to
-				variable_instance_set(global.current_cutscene, "sleep", time)
-			
-		}, x_dest, y_dest, time, wait, ease_type]
-	})
+function cutscene_camera_pan(x_dest, y_dest, time, wait = true, ease_type = "linear") {
+    var data = {
+        x_dest: x_dest,
+        y_dest: y_dest,
+        time: time,
+        wait: wait,
+        ease_type: ease_type,
+        timer: 0,
+        action: [camera_pan, x_dest, y_dest, time, ease_type]
+    };
+
+    // First arg is the struct itself
+    data.continue_func = function(_data, _wait, _time) {
+        _data.timer ++
+        if !_wait
+            return true
+        
+        return _data.timer > _time
+    }
+    data.continue_args = [data, wait, time]
+
+    cutscene_custom(data);
 }

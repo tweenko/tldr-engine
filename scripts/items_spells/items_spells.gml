@@ -1,15 +1,15 @@
-function item_s_base() : item_base() constructor {
+function item_spell() : item() constructor {
 	type = ITEM_TYPE.SPELL
 }
 
-function item_s_act() : item_s_base() constructor {
+function item_s_act() : item_spell() constructor {
 	name = ["ACT"]
 	desc = ["You can do many things.\nDon't confuse it with magic.", "--"]
 	
 	tp_cost = 0
 }
 	
-function item_s_rudebuster() : item_s_base() constructor {
+function item_s_rudebuster() : item_spell() constructor {
 	name = ["Rude Buster"]
 	desc = ["Deals moderate Rude-elemental damage to one foe. Depends on Attack & Magic.", "Rude Damage"]
 	use_type = ITEM_USE.ENEMY
@@ -52,7 +52,7 @@ function item_s_rudebuster() : item_s_base() constructor {
 function item_s_susieheal(data = {
         progress: 0,
         uses: 0,
-    }) : item_s_base() constructor {
+    }) : item_spell() constructor {
     
     use_type = ITEM_USE.INDIVIDUAL
     _data = data
@@ -140,7 +140,7 @@ function item_s_susieheal(data = {
     __update_spell(_data)
 }
 	
-function item_s_testdmg() : item_s_base() constructor {
+function item_s_testdmg() : item_spell() constructor {
 	name = ["Test Damage"]
 	desc = ["Deals little damage to a foe.", "Test Damage"]
 	use_type = ITEM_USE.ENEMY
@@ -155,7 +155,7 @@ function item_s_testdmg() : item_s_base() constructor {
 	tp_cost = 16
 }
 
-function item_s_pacify() : item_s_base() constructor {
+function item_s_pacify() : item_spell() constructor {
 	name = ["Pacify"]
 	desc = ["SPARE a tired enemy by putting them to sleep.", "Spare TIRED foe"]
 	
@@ -214,7 +214,7 @@ function item_s_pacify() : item_s_base() constructor {
     
 	tp_cost = 16
 }
-function item_s_healprayer() : item_s_base() constructor {
+function item_s_healprayer() : item_spell() constructor {
 	name = ["Heal Prayer"]
 	desc = ["Heavenly Light restores a little HP to\none party member. Depends on Magic.", "Heal Ally"]
 	use_type = ITEM_USE.INDIVIDUAL
@@ -239,7 +239,7 @@ function item_s_healprayer() : item_s_base() constructor {
 	tp_cost = 32
 }
 
-function item_s_sleepmist() : item_s_base() constructor {
+function item_s_sleepmist() : item_spell() constructor {
     name = ["Sleep Mist"]
 	desc = ["A cold mist sweeps through, sparing all TIRED enemies.", "Spare TIRED foes"]
 	
@@ -304,7 +304,7 @@ function item_s_sleepmist() : item_s_base() constructor {
     
 	tp_cost = 32
 }
-function item_s_iceshock() : item_s_base() constructor {
+function item_s_iceshock() : item_spell() constructor {
 	name = ["IceShock"]
 	desc = ["Deal magical ICE damage to one enemy.", "Damage w/ ICE"]
 	use_type = ITEM_USE.ENEMY
@@ -349,7 +349,7 @@ function item_s_iceshock() : item_s_base() constructor {
 	tp_cost = 16
 }
 
-function item_s_defaultaction(nname) : item_s_base() constructor {
+function item_s_defaultaction(nname) : item_spell() constructor {
 	name = string("{0}-Action", string_upper(string_copy(nname, 0, 1)))
 	desc = ["", "", "Standard"]
 	

@@ -280,9 +280,20 @@ function fader_fade(a, b, time){
 /// @desc returns an asset index with specified name but if the prefix version does not exists, returns the normal sprite
 function asset_get_index_state(str, state){
 	var ret = asset_get_index(str)
+    var __states = string_split(state, "_", true)
 	
-	for (var i = string_length(state)-1; i >= 0; i--) {
-		var r = asset_get_index(str + string_concat(state, string_copy(state, 0, i)))
+	for (var i = array_length(__states); i >= 0; i--) {
+        var __curstate = ""
+        for (var j = 0; j < i; j ++) {
+            __curstate += __states[j]
+            if j < i - 1
+                __curstate += "_"
+        }
+        if __curstate != ""
+            __curstate = string_concat("_", __curstate)
+        
+        show_debug_message(str + __curstate)
+		var r = asset_get_index(str + __curstate)
 		if r != -1 {
 			ret = r
 			break

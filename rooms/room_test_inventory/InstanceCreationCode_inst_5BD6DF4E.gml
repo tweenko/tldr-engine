@@ -1,1 +1,1 @@
-item_inside = new item_revive_mint()
+item_inside = new item_a_pinkribbon()

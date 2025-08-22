@@ -1,10 +1,9 @@
-function item_base() constructor {
+function item() constructor {
 	name = ["Item"] // short, then long (first is default)
-	desc = ["Overworld Description.", "Battle Text"] // ow, battle
+	desc = ["Overworld Description", "Battle Text", "Shop Description"] // ow, battle, shop
 	type = ITEM_TYPE.CONSUMABLE
 	
-	lw_counterpart = { // just change any variable of this struct here (e.g name: "LightItem")
-	}
+	lw_counterpart = undefined // reference a script, nothing appears in the light world if it's undefined
 	
 	// item specific
 	use_type = ITEM_USE.INDIVIDUAL
@@ -23,7 +22,9 @@ function item_base() constructor {
 		element_resistance: {
 		}, // out of 1
 	}
-	affect = []
+    stats_misc = {} // money_modifier
+    
+	effect = undefined // (struct with the sprite key and text key)
 	icon = spr_ui_menu_icon_exclamation
 	
 	weapon_fatal = false
@@ -125,6 +126,8 @@ function item_set(item_struct, index, type = ITEM_TYPE.CONSUMABLE) {
 
 ///@desc calls the item's use method
 function item_use(item_struct, index, target) {
+    if is_undefined(item_struct)
+        return undefined
 	if is_callable(item_struct.use) {
 		if !is_array(item_struct.use_args) 
 			item_struct.use_args = [item_struct.use_args]
@@ -133,7 +136,7 @@ function item_use(item_struct, index, target) {
 }
 
 ///@desc returns the amount of a specific item type in the inventory
-function item_get_count(type = 0){
+function item_get_count(type = ITEM_TYPE.CONSUMABLE){
 	var ret = 0
 	var a = item_get_array(type)
 	for (var i = 0; i < array_length(a); ++i) {
@@ -145,18 +148,23 @@ function item_get_count(type = 0){
 
 ///@desc returns the name of an item
 function item_get_name(item_struct) {
+    if is_undefined(item_struct)
+        return undefined
 	var ret = item_struct.name
 	
 	if is_array(ret)
 		return ret[0]
 	if is_string(ret)
 		return ret
+    return undefined
 }
 
 ///@desc returns the description of an item
 ///@arg item_struct the struct of the item
 ///@arg desc_type the type of the description that will be returned (0 for full, 1 for shortened)
 function item_get_desc(item_struct, desc_type = 0){
+    if is_undefined(item_struct)
+        return undefined
 	var ret = item_struct.desc
 	
 	if is_array(ret)
@@ -167,6 +175,8 @@ function item_get_desc(item_struct, desc_type = 0){
 
 ///@desc returns the type of an item
 function item_get_type(item_struct) {
+    if is_undefined(item_struct)
+        return undefined
 	return item_struct.type
 }
 

@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"mus_charjoin",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":3,
+  "conversionMode":0,
+  "duration":3.1189797,
+  "name":"mus_charjoin",
+  "parent":{
+    "name":"music",
+    "path":"folders/@engine/music.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"mus_charjoin.ogg",
+  "type":1,
+  "volume":1.0,
+}

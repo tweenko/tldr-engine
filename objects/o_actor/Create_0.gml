@@ -97,7 +97,7 @@ is_player = false
 	
 	yoff = 0
 	xoff = 0
-	xshake = 0
+	shake = 0
 	
     flash_color = c_white
 	fsiner = 0 // flash siner

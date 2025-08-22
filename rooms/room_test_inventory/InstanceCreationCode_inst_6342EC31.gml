@@ -1,4 +1,5 @@
 name = "susieheal_upgrade"
+
 execute_code = function() {
     cutscene_create()
     

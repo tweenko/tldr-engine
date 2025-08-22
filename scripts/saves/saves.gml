@@ -208,9 +208,12 @@
 		music_stop_all()
 		
 		if global.saves[slot] != -1 
-            global.save=global.saves[slot]
+            global.save = global.saves[slot]
+        
+        global.lw_weapon = save_inv_single_import(save_get("lw_weapon"))
+        global.lw_armor = save_inv_single_import(save_get("lw_armor"))
 		
-		global.chapter=chapter
+		global.chapter = chapter
 		save_set(slot)
 		
 		global.items = save_inv_import(save_get("items"))
@@ -236,6 +239,9 @@
 		global.save.CHAPTER = global.chapter
 		global.save.TIME = global.time
 		
+        global.save.LW_WEAPON = save_inv_single_export(global.lw_weapon)
+        global.save.LW_ARMOR = save_inv_single_export(global.lw_armor)
+        
 		global.save.ITEMS = save_inv_export(global.items)
 		global.save.KEY_ITEMS = save_inv_export(global.key_items)
 		global.save.WEAPONS = save_inv_export(global.weapons)

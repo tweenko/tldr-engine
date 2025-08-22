@@ -344,10 +344,10 @@ surface_set_target(surf) {
 			}
 			
 			// item pages
-			if item_get_count(0) > 6 && itemselection[selection] < 6 {
+			if item_get_count(ITEM_TYPE.CONSUMABLE) > 6 && itemselection[selection] < 6 {
 				draw_sprite_ext(spr_ui_arrow_down, 0, 470, 446 + round(sine(12,3)), 1, 1, 0, c_white, 1)
 			}
-			else if item_get_count(0) > 6{
+			else if item_get_count(ITEM_TYPE.CONSUMABLE) > 6{
 				draw_sprite_ext(spr_ui_arrow_up, 0, 470, 382 + round(sine(12,3)), 1, 1, 0, c_white, 1)
 			}
 		}

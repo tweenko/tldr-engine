@@ -118,7 +118,7 @@ if !only_hp {
 			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				if i_pselection == 2 {
 					item_use(global.key_items[i_selection], i_selection, 0)
-					if item_get_count(t) == 0
+					if item_get_count(t) == ITEM_TYPE.CONSUMABLE
 						state = 1
 					
 					if i_selection > item_get_count(t) - 1 
@@ -180,7 +180,7 @@ if !only_hp {
 						global.items[i_selection].throw_scripts.execute_code()
 				}
 				
-				if item_get_count(t) == 0
+				if item_get_count(t) == ITEM_TYPE.CONSUMABLE
 					state = 1
 				if i_selection > item_get_count(t) - 1
 					i_selection = item_get_count(t) - 1

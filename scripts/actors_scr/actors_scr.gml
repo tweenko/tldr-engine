@@ -1,10 +1,18 @@
 ///@desc creates an actor object
 ///@arg {asset.GMObject | struct} obj
 function actor_create(obj, xx = 0, yy = 0, ddepth = 0){
-	if is_struct(obj)
-		return instance_create(obj.obj, xx, yy, ddepth, obj.var_struct)
-	else
-		return instance_create(obj, xx, yy, ddepth)
+	if is_struct(obj) {
+		var inst = instance_create(obj.obj, xx, yy, ddepth, obj.var_struct)
+        with inst
+            event_user(2)
+        return inst
+    }
+	else {
+		var inst = instance_create(obj, xx, yy, ddepth)
+        with inst
+            event_user(2)
+        return inst
+    }
 }
 
 /// @desc (MIGHT be memory heavy) finds an actor in the room

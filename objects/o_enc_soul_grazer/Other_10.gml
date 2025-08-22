@@ -1,12 +1,20 @@
 /// @desc
-if grazed_inst.color != 0{
+if grazed_inst.color != 0
 	exit
-}
 
 o_enc.tp += grazed_inst.graze
-o_enc.tp = clamp(o_enc.tp,0,100)
+o_enc.tp = clamp(o_enc.tp, 0, 100)
+
+for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
+    if instance_exists(o_enc.turn_objects[i]) {
+        o_enc.turn_objects[i].timer_end -= 2
+        
+        if item_get_equipped(item_a_silverwatch) 
+            o_enc.turn_objects[i].timer_end -= .1
+    }
+}
 
 audio_play(snd_graze)
 
-image_index=0;
-image_alpha=1
+image_index = 0;
+image_alpha = 1

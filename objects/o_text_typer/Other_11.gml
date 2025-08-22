@@ -33,12 +33,11 @@ while string_contains("{", twb) {
 	twb = string_delete(twb, string_pos("{", twb), string_pos("}", twb)-string_pos("{", twb) + 1)
 }
 
-// don't predict text unless in specific circumstances
-if instance_exists(caller) && (caller.object_index == o_ui_dialogue || caller.object_index == o_enc || caller.object_index == o_ui_enemydialogue) {}
-//else {
-	//linebreaks = manualbreaks
-	//exit
-//}
+// don't predict text
+if !predict_text {
+    linebreaks = manualbreaks
+	exit
+}
 
 var stringsofar = ""
 var lastreservedspace = 0

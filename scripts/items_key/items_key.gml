@@ -1,8 +1,8 @@
-function item_key_base() : item_base() constructor {
+function item_key() : item() constructor {
 	type = ITEM_TYPE.KEY
 }
 
-function item_key_cell_phone() : item_key_base() constructor {
+function item_key_cell_phone() : item_key() constructor {
 	name = ["Cell Phone"]
 	desc = ["It can be used to make calls.", "--"]
 	

@@ -116,6 +116,9 @@ function party_m_kris() : party_m() constructor {
 	}
 	
 	// inventory
+    weapon = new item_w_spookysword()
+    armor1 = new item_a_ambercard()
+    armor2 = new item_a_ambercard()
 	spells = [
 		new item_s_act()
 	]
@@ -181,6 +184,9 @@ function party_m_susie() : party_m() constructor {
 	}
 	
 	// inventory
+    weapon = new item_w_maneax()
+    armor1 = new item_a_ambercard()
+    armor2 = new item_a_ambercard()
 	spells = [
 		new item_s_rudebuster(),
         new item_s_susieheal()
@@ -251,6 +257,9 @@ function party_m_ralsei() : party_m() constructor {
 	}
 	
 	// inventory
+    weapon = new item_w_redscarf()
+    armor1 = new item_a_ambercard()
+    armor2 = new item_a_whiteribbon()
 	spells = [
 		new item_s_pacify(),
 		new item_s_healprayer()
@@ -319,6 +328,9 @@ function party_m_noelle() : party_m() constructor {
 	}
 	
 	// inventory
+    weapon = new item_w_snowring()
+    armor1 = new item_a_silverwatch()
+    armor2 = new item_a_royalpin()
 	spells = [
 		new item_s_healprayer(),
 		new item_s_sleepmist(),
