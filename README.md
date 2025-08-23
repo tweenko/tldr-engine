@@ -1,4 +1,6 @@
-# Welcome to tlDR[^1] v0.9.0 (BETA)
+# Welcome to tlDR[^1] v1.0.0!
+
+One of the first 1:1 DELTARUNE Engines on Gamemaker Studio 2, the software that was used to create DELTARUNE. The Engine is very straightforward and advanced at the same time. Encounters, cutscenes and menus are all there (even including chapter select and save select somehow).
 
 This engine is quite simple to use, but in case you have any questions, 
 please ask them in [this Discord server](https://discord.gg/x3t8JTyC2p). 
