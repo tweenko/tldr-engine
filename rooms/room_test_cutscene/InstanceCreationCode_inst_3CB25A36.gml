@@ -1,3 +1,5 @@
+instance_deactivate_object(id)
+
 trigger_code = function() {
     cutscene_create()
     cutscene_player_canmove(false)
@@ -13,29 +15,23 @@ trigger_code = function() {
     for (var i = 0; i < array_length(global.party_names); i ++) {
         if global.party_names[i] != "susie" && global.party_names[i] != "noelle" {
             cutscene_actor_move(party_get_inst(global.party_names[i]), new __actor_movement(
-                party_get_inst(global.party_names[i]).x, get_leader().y - 15,
+                get_leader().x + 40 - get_leader().spacing*3 * i, get_leader().y - 15,
                 30,,, DIR.DOWN
             ), i, false)
         }
-        
-        if global.party_names[i] == "noelle"
+        else
             cutscene_actor_move(party_get_inst(global.party_names[i]), new __actor_movement(
-                party_get_inst("noelle").x, get_leader().y,
+                get_leader().x + 40 - get_leader().spacing*3 * i, get_leader().y,
                 30,,, DIR.RIGHT
-            ), i, false)
-        if global.party_names[i] == "susie"
-            cutscene_actor_move(party_get_inst(global.party_names[i]), new __actor_movement(
-                party_get_inst("susie").x, get_leader().y,
-                30,,, DIR.LEFT
             ), i, false)
     }
     
     cutscene_sleep(30)
     cutscene_dialogue([
-        "{char(susie, 9)}* Heh. You might want to sit down for this. {mini(`I'd need a chair...`, noelle, 7)}"
+        "{char(susie, 9)}* Heh. You might want to sit down for this. {mini(`(I'd need a chair...)`, noelle, 7, -10)}"
     ])
     
-    var __healdir = sign(party_get_inst("noelle").x - party_get_inst("susie").x)
+    var __healdir = -1
     
     cutscene_sleep(10)
     cutscene_set_variable(party_get_inst("susie"), "s_override", true)

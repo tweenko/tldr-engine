@@ -105,6 +105,4 @@ function party_set_state(_name, _state) {
     
     with party_get_inst(_name)
         event_user(2)
-    
-    show_debug_message(party_get_inst(_name).s_state)
 }

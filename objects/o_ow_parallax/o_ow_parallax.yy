@@ -1,21 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"o_ow_testinteractable",
+  "%Name":"o_ow_parallax",
   "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":2,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":10,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_ow_testinteractable",
+  "name":"o_ow_parallax",
   "overriddenProperties":[],
   "parent":{
-    "name":"misc",
-    "path":"folders/@engine/objects/ow/misc.yy",
+    "name":"ow",
+    "path":"folders/@engine/objects/ow.yy",
   },
-  "parentObjectId":{
-    "name":"o_ow_interactable",
-    "path":"objects/o_ow_interactable/o_ow_interactable.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -33,10 +30,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_interactable",
-    "path":"sprites/spr_interactable/spr_interactable.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

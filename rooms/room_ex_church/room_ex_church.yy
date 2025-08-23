@@ -32,7 +32,7 @@
   "name":"room_ex_church",
   "parent":{
     "name":"rooms",
-    "path":"folders/@engine/rooms.yy",
+    "path":"folders/examples/rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

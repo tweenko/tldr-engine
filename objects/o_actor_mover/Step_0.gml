@@ -11,7 +11,7 @@ if seed[step] == "jump" { // jump animation
 	}
 	else if state == 1 {
 		timer = 0
-		
+        
 		audio_play(snd_wing,,,, 1)
 		var spr = character.s_landed
         

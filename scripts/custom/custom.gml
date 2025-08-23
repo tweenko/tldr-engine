@@ -292,7 +292,6 @@ function asset_get_index_state(str, state){
         if __curstate != ""
             __curstate = string_concat("_", __curstate)
         
-        show_debug_message(str + __curstate)
 		var r = asset_get_index(str + __curstate)
 		if r != -1 {
 			ret = r

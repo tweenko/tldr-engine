@@ -8,6 +8,8 @@ inst.image_speed = 0
 party_setdata("noelle", "hp", 70)
 
 trigger_code = function() {
+    instance_activate_object(inst_3CB25A36)
+    
     cutscene_create()
     cutscene_player_canmove(false)
     cutscene_party_follow(false)
@@ -59,7 +61,7 @@ trigger_code = function() {
     cutscene_sleep(50)
     
     cutscene_set_variable(party_get_inst("susie"), "image_xscale", 1)
-    cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_down)
+    cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_down_serious)
     cutscene_set_variable(party_get_inst("susie"), "s_override", false)
     cutscene_audio_play(snd_noise)
     cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_shock)
@@ -137,7 +139,10 @@ trigger_code = function() {
         array_push(global.party_names, "noelle")
         party_member_create("noelle", true, inst.x, inst.y)
         instance_destroy(inst)
+        
+        camera_unpan(get_leader(), 10)
     })
+    cutscene_sleep(10)
     
     cutscene_party_follow(true)
     cutscene_party_interpolate()

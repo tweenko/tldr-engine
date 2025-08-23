@@ -127,11 +127,19 @@ while looping || normalupd {
 			text = string_delete(text, 0, 1)
 			chars ++
 			
-			while string_char_at(text, 0) != ")" {
-				argstrings += string_char_at(text, 0)
-				text = string_delete(text, 0, 1)
-				
-				chars ++
+			while string_char_at(text, 0) != ")" || command_string_mode {
+                if string_char_at(text, 0) == "`" {
+                    command_string_mode = !command_string_mode
+                    text = string_delete(text, 0, 1)
+                    
+                    chars ++
+                }
+                else {
+    				argstrings += string_char_at(text, 0)
+    				text = string_delete(text, 0, 1)
+    				
+    				chars ++
+                }
 			}
 		}
 		// otherwise just collect it as is

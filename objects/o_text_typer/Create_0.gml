@@ -69,6 +69,7 @@
 	
 	command_mode = false
 	command = ""
+    command_string_mode = false
 	argstrings = ""
 	
 	choice_inst = noone
