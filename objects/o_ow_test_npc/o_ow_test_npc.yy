@@ -1,19 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"o_ow_test_couch",
+  "%Name":"o_ow_test_npc",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_ow_test_couch",
+  "name":"o_ow_test_npc",
   "overriddenProperties":[],
   "parent":{
     "name":"test",
     "path":"folders/@engine/objects/ow/test.yy",
   },
   "parentObjectId":{
-    "name":"o_ow_interactable",
-    "path":"objects/o_ow_interactable/o_ow_interactable.yy",
+    "name":"o_ow_npc",
+    "path":"objects/o_ow_npc/o_ow_npc.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_ow_test_couch",
-    "path":"sprites/spr_ow_test_couch/spr_ow_test_couch.yy",
+    "name":"spr_ow_test_npc",
+    "path":"sprites/spr_ow_test_npc/spr_ow_test_npc.yy",
   },
   "spriteMaskId":null,
   "visible":true,

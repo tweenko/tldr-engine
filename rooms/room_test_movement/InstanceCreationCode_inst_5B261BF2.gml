@@ -3,7 +3,7 @@ trigger_code = function() {
         var marker = marker_getpos("test_pm_wait", i)
         
         if !is_undefined(marker) {
-            actor_move(party_get_inst(global.party_names[i]), new __actor_movement(marker.x, marker.y, 15,,, DIR.RIGHT), i)
+            actor_move(party_get_inst(global.party_names[i]), new actor_movement(marker.x, marker.y, 15,,, DIR.RIGHT), i)
             party_get_inst(global.party_names[i]).follow = false
         }
     }

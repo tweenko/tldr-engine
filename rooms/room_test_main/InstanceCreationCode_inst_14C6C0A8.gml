@@ -7,7 +7,7 @@ execute_code = function() {
     cutscene_player_canmove(false)
     
     if !evil {
-    	cutscene_dialogue("* Hello! This is a test of the Choice thing.{p}{c}* Is it cool?{p}{c}{choice(`Hell Yeah`, `I like it`, `Peak`, `Uhh`)}{e}", "")
+    	cutscene_dialogue("* Hello! This is a test of the Choice thing.{p}{c}* Is it cool?{p}{c}{choice(`Hell Yeah,d`, `I like it`, `Peak`, `Uhh`)}{e}", "")
     	
     	cutscene_func(function() {
     		if global.temp_choice == 3 {

@@ -14,13 +14,13 @@ trigger_code = function() {
     ])
     for (var i = 0; i < array_length(global.party_names); i ++) {
         if global.party_names[i] != "susie" && global.party_names[i] != "noelle" {
-            cutscene_actor_move(party_get_inst(global.party_names[i]), new __actor_movement(
+            cutscene_actor_move(party_get_inst(global.party_names[i]), new actor_movement(
                 get_leader().x + 40 - get_leader().spacing*3 * i, get_leader().y - 15,
                 30,,, DIR.DOWN
             ), i, false)
         }
         else
-            cutscene_actor_move(party_get_inst(global.party_names[i]), new __actor_movement(
+            cutscene_actor_move(party_get_inst(global.party_names[i]), new actor_movement(
                 get_leader().x + 40 - get_leader().spacing*3 * i, get_leader().y,
                 30,,, DIR.RIGHT
             ), i, false)

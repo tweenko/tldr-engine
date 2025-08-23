@@ -24,7 +24,6 @@ if __temp_arg != "" {
     array_push(arg, __temp_arg)
 }
 
-
 if command == "s" || command == "sleep" { // sleep(frames)
 	if array_length(arg) > 0
 		pause = real(arg[0])
@@ -137,7 +136,7 @@ if command == "font" { // font(string) out of "main", "text", "enc"
 if command == "shadow" { // shadow(bool)
 	shadow = bool(arg[0])
 }
-if command == "eff" { // eff(real) out of 0 (shake)
+if command == "eff" || command == "effect" { // eff(real) out of 0 (shake)
     effect = real(arg[0])
 }
 if command == "god" { // god(bool)  whether it's god (gaster) text

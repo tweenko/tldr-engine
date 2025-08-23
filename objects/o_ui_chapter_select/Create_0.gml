@@ -184,7 +184,7 @@ pause = 0
 
 copyright_text = ""
 gamename = "tlDR Engine"
-version_text = "v0.7.81"
+version_text = "v0.9.0"
 
 languages = true
 

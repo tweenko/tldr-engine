@@ -1,0 +1,1 @@
+text = "* Thank you for visiting the TEST ZONE!"

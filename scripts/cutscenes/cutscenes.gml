@@ -159,7 +159,7 @@ function cutscene_party_follow(follow){
 
 /// @desc  move an actor during a cutscene
 /// @param {Id.Instance,Asset.GMObject} target the actor to move
-/// @param {array<struct.__actor_movement>} movement the movement struct based on __actor_movement
+/// @param {array<struct.actor_movement>} movement the movement struct based on actor_movement
 /// @param {real} [pos] the array index of global.charmove_insts. needed only if there are multiple of these running at once
 /// @param {bool} [wait] whether to wait until this is all done or not
 function cutscene_actor_move(target, movement, pos = 0, wait = true) {

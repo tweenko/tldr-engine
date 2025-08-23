@@ -6,9 +6,9 @@ execute_code = function() {
 	cutscene_party_follow(false)
     
 	cutscene_actor_move(o_actor_kris, [
-		new __actor_movement_jump(100, 140),
-		new __actor_movement(100, 200, 20,,,DIR.LEFT),
-		new __actor_movement_jump(o_actor_kris.x, o_actor_kris.y),
+		new actor_movement_jump(100, 140),
+		new actor_movement(100, 200, 20,,,DIR.LEFT),
+		new actor_movement_jump(o_actor_kris.x, o_actor_kris.y),
 	])
     
 	cutscene_wait_until(function(){

@@ -54,7 +54,7 @@ function actor_find(obj, xx = x, yy = y) {
 /// @param {real|undefined} [_spd] the speed at which the actor should move. leave undefined if the actor will move under time constraint
 /// @param {enum.DIR|undefined} [_char_dir] the direction that the actor will be locked into
 /// @param {bool} [_absolute] whether the X and Y positions are absolute
-function __actor_movement(_x, _y, _time, _seed = "", _spd = undefined, _char_dir = undefined, _absolute = true) constructor {
+function actor_movement(_x, _y, _time, _seed = "", _spd = undefined, _char_dir = undefined, _absolute = true) constructor {
     xx = _x
     yy = _y
     seed = _seed
@@ -64,15 +64,15 @@ function __actor_movement(_x, _y, _time, _seed = "", _spd = undefined, _char_dir
     absolute = _absolute
 }
 
-/// @desc  a constructor for actor jump movement. inherits from __actor_movement.
+/// @desc  a constructor for actor jump movement. inherits from actor_movement.
 /// @param {real} _x target X position
 /// @param {real} _y target Y position
 /// @param {bool} [_absolute] whether the X and Y positions are absolute
-function __actor_movement_jump(_x, _y, _absolute = true) : __actor_movement(_x, _y, 20, "jump", undefined, undefined, _absolute) constructor {}
+function actor_movement_jump(_x, _y, _absolute = true) : actor_movement(_x, _y, 20, "jump", undefined, undefined, _absolute) constructor {}
 
 ///@desc	moves an actor using a struct
 ///@arg		{Id.Instance|Asset.GMObject}	actor		the actor to move
-///@arg		{array|struct.__actor_movement}	movement	array of the movement pattern
+///@arg		{array|struct.actor_movement}	movement	array of the movement pattern
 function actor_move(_actor, movement, pos = 0){
 	if !instance_exists(_actor) 
         exit

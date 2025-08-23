@@ -1,5 +1,5 @@
 ///@desc starts dialogue
-///@arg {array<string>, string} text 
+///@arg {array<string>,string} text 
 ///could be either an array or just a string. if it's an array, between the array entries the box will pause and clear itself afterwards.
 function dialogue_start(text) {
 	var inst = instance_create(o_ui_dialogue)

@@ -1,2 +1,2 @@
-target_room = room_test_movement
-target_marker = 1
+target_room = room_test_loopback
+target_marker = 0
