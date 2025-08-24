@@ -1,4 +1,4 @@
-if can_graze == true && o_enc.turn_timer > 10{
+if can_graze == true && o_enc.turn_timer > 10 {
 	if graze_buffer > 0
 		graze_buffer--;
 	else {

@@ -1,6 +1,6 @@
 frames = 0
-volume_a = .4
-volume_bgm = .4
+volume_sfx = .5
+volume_bgm = .5
 
 gamepad = false
 windowsize = 1

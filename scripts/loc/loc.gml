@@ -68,4 +68,5 @@ function loc_switch_lang(lang = undefined) {
 		global.loc_lang = lang
 	
 	loc_load(LOC_FILES)
+    game_restart()
 }

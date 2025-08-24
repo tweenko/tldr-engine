@@ -34,6 +34,7 @@ if state == -1 {
 }
 else {
 	var total = array_length(chapters)
+    
 	if !musplayed && music_getplaying(0) != mus_drone{
 		musplayed = true
 		music_play(mus_drone, 0)
@@ -114,10 +115,14 @@ else {
 			else
 				audio_play(snd_ui_cant_select)
 		}
-		if selection == total 
-			game_end()
-		else if selection == total + 1 
-			loc_switch_lang()
+        
+		if selection == total + 1 {
+            if horselection == 0
+                game_end()
+            else {
+            	loc_switch_lang()
+            }
+        }
 	}
 	if InputPressed(INPUT_VERB.CANCEL) && confirming {
 		confirming = false
@@ -125,3 +130,5 @@ else {
 		audio_play(snd_ui_cancel)
 	}
 }
+
+show_debug_message(selection)
