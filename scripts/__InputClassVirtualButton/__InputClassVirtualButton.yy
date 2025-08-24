@@ -6,7 +6,7 @@
   "name":"__InputClassVirtualButton",
   "parent":{
     "name":"Classes",
-    "path":"folders/libraries/Input/(System)/Classes.yy",
+    "path":"folders/@libraries/Input/(System)/Classes.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

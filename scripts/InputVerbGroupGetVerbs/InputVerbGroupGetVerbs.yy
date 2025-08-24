@@ -6,7 +6,7 @@
   "name":"InputVerbGroupGetVerbs",
   "parent":{
     "name":"Verb Groups",
-    "path":"folders/libraries/Input Plug-Ins/Verb Groups.yy",
+    "path":"folders/@libraries/Input Plug-Ins/Verb Groups.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

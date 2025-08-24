@@ -6,7 +6,7 @@
   "name":"InputManualCollect",
   "parent":{
     "name":"Miscellaneous",
-    "path":"folders/libraries/Input/Miscellaneous.yy",
+    "path":"folders/@libraries/Input/Miscellaneous.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

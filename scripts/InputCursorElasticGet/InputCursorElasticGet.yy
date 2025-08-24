@@ -6,7 +6,7 @@
   "name":"InputCursorElasticGet",
   "parent":{
     "name":"Elastic & Limits",
-    "path":"folders/libraries/Input Plug-Ins/Cursor/Elastic & Limits.yy",
+    "path":"folders/@libraries/Input Plug-Ins/Cursor/Elastic & Limits.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

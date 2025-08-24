@@ -6,7 +6,7 @@
   "name":"__InputKeyIsIgnored",
   "parent":{
     "name":"(System)",
-    "path":"folders/libraries/Input/(System).yy",
+    "path":"folders/@libraries/Input/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

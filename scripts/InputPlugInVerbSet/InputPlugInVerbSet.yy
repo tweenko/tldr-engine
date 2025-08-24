@@ -6,7 +6,7 @@
   "name":"InputPlugInVerbSet",
   "parent":{
     "name":"Plug-In API",
-    "path":"folders/libraries/Input/Plug-In API.yy",
+    "path":"folders/@libraries/Input/Plug-In API.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

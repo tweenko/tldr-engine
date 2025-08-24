@@ -6,7 +6,7 @@
   "name":"InputVibrateConstant",
   "parent":{
     "name":"Vibration",
-    "path":"folders/libraries/Input Plug-Ins/Vibration.yy",
+    "path":"folders/@libraries/Input Plug-Ins/Vibration.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

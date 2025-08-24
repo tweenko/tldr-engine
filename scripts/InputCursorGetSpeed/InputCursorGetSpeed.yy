@@ -6,7 +6,7 @@
   "name":"InputCursorGetSpeed",
   "parent":{
     "name":"Basics",
-    "path":"folders/libraries/Input Plug-Ins/Cursor/Basics.yy",
+    "path":"folders/@libraries/Input Plug-Ins/Cursor/Basics.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -6,7 +6,7 @@
   "name":"InputVirtualDestroyAll",
   "parent":{
     "name":"Virtual Buttons",
-    "path":"folders/libraries/Input/Virtual Buttons.yy",
+    "path":"folders/@libraries/Input/Virtual Buttons.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

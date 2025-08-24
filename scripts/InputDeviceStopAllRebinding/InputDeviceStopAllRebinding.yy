@@ -6,7 +6,7 @@
   "name":"InputDeviceStopAllRebinding",
   "parent":{
     "name":"Rebinding",
-    "path":"folders/libraries/Input/Rebinding.yy",
+    "path":"folders/@libraries/Input/Rebinding.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

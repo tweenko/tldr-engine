@@ -6,7 +6,7 @@
   "name":"InputDirection",
   "parent":{
     "name":"Clusters",
-    "path":"folders/libraries/Input/Checkers/Clusters.yy",
+    "path":"folders/@libraries/Input/Checkers/Clusters.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
