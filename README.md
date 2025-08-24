@@ -1,6 +1,15 @@
 # Welcome to tlDR[^1] v1.0.0!
 
-One of the first 1:1 DELTARUNE Engines on Gamemaker Studio 2, the software that was used to create DELTARUNE. The Engine is very straightforward and advanced at the same time. Encounters, cutscenes and menus are all there (even including chapter select and save select somehow).
+One of the first 1:1 DELTARUNE Engines on Gamemaker Studio 2, the software that was used to create DELTARUNE. 
+The Engine is very straightforward and advanced at the same time. Encounters, cutscenes and menus are 
+all there (even including chapter select and save select somehow).
+
+
+<img width="2562" height="1964" alt="tldr-promo-pacify" src="https://github.com/user-attachments/assets/91b0fc9b-3af7-49c4-92c9-1c4fda95e53d" />
+<img width="2562" height="1964" alt="tldr-promo-equip" src="https://github.com/user-attachments/assets/4a5c7084-eac6-421c-bdb6-0e2d80585d16" />
+<img width="2564" height="1967" alt="tldr-promo-chest" src="https://github.com/user-attachments/assets/94d0cee3-90a1-4480-8944-15b65f62a20b" />
+<img width="2564" height="1967" alt="tldr-promo-menu" src="https://github.com/user-attachments/assets/801b40e6-9a79-4dd5-9d44-5f3db49e3edb" />
+
 
 This engine is quite simple to use, but in case you have any questions, 
 please ask them in [this Discord server](https://discord.gg/x3t8JTyC2p). 
@@ -12,6 +21,9 @@ request in the according channel in the server mentioned above.
 to the things inside the @engine folder, because it is likely they may change over 
 time and your code may break when pulling a new version. 
 Be careful about changing source code!
+
+> If you do plan on making changes there, however, you shouldn't update your engine to the newest version.
+A workaround for this MAY be in the works.
 
 There is no straight up documentation per se, (at least for now) so the Discord server can be considered a very interactive documentation, if you will.
 
