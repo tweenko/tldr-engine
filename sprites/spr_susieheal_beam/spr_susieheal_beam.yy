@@ -28,7 +28,7 @@
   "origin":9,
   "parent":{
     "name":"misc",
-    "path":"folders/@engine/sprites/misc.yy",
+    "path":"folders/examples/sprites/misc.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

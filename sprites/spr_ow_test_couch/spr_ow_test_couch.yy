@@ -26,7 +26,7 @@
   "origin":7,
   "parent":{
     "name":"test",
-    "path":"folders/@engine/sprites/ow/test.yy",
+    "path":"folders/examples/sprites/ow/test.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

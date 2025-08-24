@@ -74,7 +74,7 @@
   "name":"room_test_main",
   "parent":{
     "name":"rooms",
-    "path":"folders/@engine/rooms.yy",
+    "path":"folders/examples/rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"test",
-    "path":"folders/@engine/objects/ow/test.yy",
+    "path":"folders/examples/objects/ow/test.yy",
   },
   "parentObjectId":{
     "name":"o_ow_interactable",

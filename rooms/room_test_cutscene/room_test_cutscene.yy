@@ -58,7 +58,7 @@
   "name":"room_test_cutscene",
   "parent":{
     "name":"rooms",
-    "path":"folders/@engine/rooms.yy",
+    "path":"folders/examples/rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{
