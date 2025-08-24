@@ -6,7 +6,7 @@
   "name":"InputColorSupportedByDevice",
   "parent":{
     "name":"Color",
-    "path":"folders/Input Plug-Ins/Color.yy",
+    "path":"folders/libraries/Input Plug-Ins/Color.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

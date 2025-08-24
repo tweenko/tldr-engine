@@ -6,7 +6,7 @@
   "name":"__InputConfigVerbs",
   "parent":{
     "name":"Config",
-    "path":"folders/Input/Config.yy",
+    "path":"folders/libraries/Input/Config.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

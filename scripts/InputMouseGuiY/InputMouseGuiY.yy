@@ -6,7 +6,7 @@
   "name":"InputMouseGuiY",
   "parent":{
     "name":"Mouse (& Touch)",
-    "path":"folders/Input/Mouse (& Touch).yy",
+    "path":"folders/libraries/Input/Mouse (& Touch).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

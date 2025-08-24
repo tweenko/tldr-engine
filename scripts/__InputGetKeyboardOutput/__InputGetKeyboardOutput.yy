@@ -6,7 +6,7 @@
   "name":"__InputGetKeyboardOutput",
   "parent":{
     "name":"Device Scanning",
-    "path":"folders/Input/(System)/Device Scanning.yy",
+    "path":"folders/libraries/Input/(System)/Device Scanning.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

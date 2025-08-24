@@ -6,7 +6,7 @@
   "name":"__InputCursorTransformCoordinate",
   "parent":{
     "name":"(System)",
-    "path":"folders/Input Plug-Ins/Cursor/(System).yy",
+    "path":"folders/libraries/Input Plug-Ins/Cursor/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -6,7 +6,7 @@
   "name":"InputPlayerSetMaxThreshold",
   "parent":{
     "name":"Player",
-    "path":"folders/Input/Player.yy",
+    "path":"folders/libraries/Input/Player.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

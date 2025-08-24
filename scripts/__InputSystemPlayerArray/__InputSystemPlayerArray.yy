@@ -6,7 +6,7 @@
   "name":"__InputSystemPlayerArray",
   "parent":{
     "name":"Initializing",
-    "path":"folders/Input/(System)/Initializing.yy",
+    "path":"folders/libraries/Input/(System)/Initializing.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
