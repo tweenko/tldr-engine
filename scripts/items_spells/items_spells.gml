@@ -326,7 +326,7 @@ function item_s_iceshock() : item_spell() constructor {
         })
         cutscene_func(function(target, __name, index) {
             var __o = o_enc.encounter_data.enemies[target].actor_id
-            var __dmg = round(max(1, party_getdata(__name, "magic") - 10) * 330 + 90 + random(10))
+            var __dmg = round(max(1, party_getdata(__name, "magic") - 10) * 30 + 90 + random(10))
             var __fatal = ((o_enc.encounter_data.enemies[target].hp - __dmg) <= 0)
             
             if !__fatal 

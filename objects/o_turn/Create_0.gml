@@ -3,7 +3,7 @@ debuff = 0 // 0 for default difficulty
 
 enemy_index = 0
 timer = 0
-timer_end = 30 // set to undefined for it to not end automatically
+timer_end = 60 // set to undefined for it to not end automatically
 turn_started = false
 enemy_struct = {}
 
