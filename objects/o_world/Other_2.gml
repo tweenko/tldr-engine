@@ -59,7 +59,7 @@ global.world = 0 // 0 for dark, 1 for light
 	global.save = {
 		NAME:			"PLAYER",
 		ROOM:			room_test_main,
-		ROOM_NAME:		"TEST ROOM",
+		ROOM_NAME:		"",
 		TIME:			global.time,
 		PARTY_DATA:		global.party,
 		PARTY_NAMES:	global.party_names,
@@ -93,8 +93,8 @@ global.world = 0 // 0 for dark, 1 for light
 		
 		CRYSTAL:		false,
 		COMPLETED:		false,
-		COMPLETE_ROOM:	"Test Room [Chapter 0 END]",
-		COMPLETE_TIME:	2395820396,
+		COMPLETE_ROOM:	"undefined",
+		COMPLETE_TIME:	0,
 	}
 	global.saves = save_read_all() //saves saved on device
 	

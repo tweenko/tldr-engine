@@ -9,31 +9,9 @@ chapters = [
 			
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 1
-				global.save = {
-					NAME: "PLAYER",
-					ROOM: room_ex_dforest,
-					ROOM_NAME: "Forest - Example",
-					TIME: 0,
-					PARTY_DATA: global.party,
-					PARTY_NAMES: global.party_names,
-					CHAPTER: 1,
-		
-					//inventory
-					ITEMS: global.items,
-					KEY_ITEMS: global.key_items,
-					WEAPONS: global.weapons,
-					ARMORS: global.armors,
-					STORAGE: global.storage,
-	
-					STATES: global.states,
-					RECRUITS: {},
-					RECRUIT_PROGRESS: {},
-		
-					CRYSTAL: false,
-					COMPLETED: false,
-					COMPLETE_ROOM: "",
-					COMPLETE_TIME: 0,
-				}
+                
+                global.SAVE.ROOM = room_ex_dforest
+                global.SAVE.CHAPTER = 1
 				
 				save_reload()
 				room_goto(room_save_select)
@@ -51,31 +29,9 @@ chapters = [
 			
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 2
-				global.save = {
-					NAME: "PLAYER",
-					ROOM: room_ex_city,
-					ROOM_NAME: "Cyber City - Example",
-					TIME: 0,
-					PARTY_DATA: global.party,
-					PARTY_NAMES: global.party_names,
-					CHAPTER: 2,
-		
-					//inventory
-					ITEMS: global.items,
-					KEY_ITEMS: global.key_items,
-					WEAPONS: global.weapons,
-					ARMORS: global.armors,
-					STORAGE: global.storage,
-	
-					STATES: global.states,
-					RECRUITS: {},
-					RECRUIT_PROGRESS: {},
-		
-					CRYSTAL: false,
-					COMPLETED: false,
-					COMPLETE_ROOM: "",
-					COMPLETE_TIME: 0,
-				}
+                
+				global.SAVE.ROOM = room_ex_city
+                global.SAVE.CHAPTER = 2
 				
 				save_reload()
 				room_goto(room_save_select)
@@ -93,31 +49,9 @@ chapters = [
 			
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 3
-				global.save = {
-					NAME: "PLAYER",
-					ROOM: room_test_main,
-					ROOM_NAME: "I was lazy, sorry",
-					TIME: 0,
-					PARTY_DATA: global.party,
-					PARTY_NAMES: global.party_names,
-					CHAPTER: 3,
-		
-					//inventory
-					ITEMS: global.items,
-					KEY_ITEMS: global.key_items,
-					WEAPONS: global.weapons,
-					ARMORS: global.armors,
-					STORAGE: global.storage,
-	
-					STATES: global.states,
-					RECRUITS: {},
-					RECRUIT_PROGRESS: {},
-		
-					CRYSTAL: false,
-					COMPLETED: false,
-					COMPLETE_ROOM: "",
-					COMPLETE_TIME: 0,
-				}
+                
+				global.SAVE.ROOM = room_test_main
+                global.SAVE.CHAPTER = 3
 				
 				save_reload()
 				room_goto(room_save_select)
@@ -135,31 +69,9 @@ chapters = [
 			
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 4
-				global.save = {
-					NAME: "PLAYER",
-					ROOM: room_ex_church,
-					ROOM_NAME: "Prophecy Room Idk",
-					TIME: 0,
-					PARTY_DATA: global.party,
-					PARTY_NAMES: global.party_names,
-					CHAPTER: 2,
-		
-					//inventory
-					ITEMS: global.items,
-					KEY_ITEMS: global.key_items,
-					WEAPONS: global.weapons,
-					ARMORS: global.armors,
-					STORAGE: global.storage,
-	
-					STATES: global.states,
-					RECRUITS: {},
-					RECRUIT_PROGRESS: {},
-		
-					CRYSTAL: false,
-					COMPLETED: false,
-					COMPLETE_ROOM: "",
-					COMPLETE_TIME: 0,
-				}
+                
+				global.SAVE.ROOM = room_ex_church
+                global.SAVE.CHAPTER = 4
 				
 				save_reload()
 				room_goto(room_save_select)
@@ -184,7 +96,7 @@ pause = 0
 
 copyright_text = ""
 gamename = "tlDR Engine"
-version_text = "v0.9.0"
+version_text = "v1.0.1"
 
 languages = true
 

@@ -1,0 +1,1 @@
+global.SAVE.ROOM_NAME = "Example Rooms - Forest"
