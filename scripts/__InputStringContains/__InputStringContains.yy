@@ -6,7 +6,7 @@
   "name":"__InputStringContains",
   "parent":{
     "name":"(System)",
-    "path":"folders/@Libraries/Input/(System).yy",
+    "path":"folders/@Engine/External Libraries/Input/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

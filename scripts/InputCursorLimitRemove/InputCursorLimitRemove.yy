@@ -6,7 +6,7 @@
   "name":"InputCursorLimitRemove",
   "parent":{
     "name":"Elastic & Limits",
-    "path":"folders/@Libraries/Input Plug-Ins/Cursor/Elastic & Limits.yy",
+    "path":"folders/@Engine/External Libraries/Input Plug-Ins/Cursor/Elastic & Limits.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

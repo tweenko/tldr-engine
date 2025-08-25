@@ -6,7 +6,7 @@
   "name":"InputBindingFind",
   "parent":{
     "name":"Rebinding",
-    "path":"folders/@Libraries/Input/Rebinding.yy",
+    "path":"folders/@Engine/External Libraries/Input/Rebinding.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

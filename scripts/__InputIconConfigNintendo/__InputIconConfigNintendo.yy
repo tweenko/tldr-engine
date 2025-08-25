@@ -6,7 +6,7 @@
   "name":"__InputIconConfigNintendo",
   "parent":{
     "name":"Config",
-    "path":"folders/@Libraries/Input Plug-Ins/Binding Icons/Config.yy",
+    "path":"folders/@Engine/External Libraries/Input Plug-Ins/Binding Icons/Config.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

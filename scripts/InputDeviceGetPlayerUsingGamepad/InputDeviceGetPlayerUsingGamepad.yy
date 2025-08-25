@@ -6,7 +6,7 @@
   "name":"InputDeviceGetPlayerUsingGamepad",
   "parent":{
     "name":"Device",
-    "path":"folders/@Libraries/Input/Device.yy",
+    "path":"folders/@Engine/External Libraries/Input/Device.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

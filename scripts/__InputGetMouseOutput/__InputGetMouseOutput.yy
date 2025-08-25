@@ -6,7 +6,7 @@
   "name":"__InputGetMouseOutput",
   "parent":{
     "name":"Device Scanning",
-    "path":"folders/@Libraries/Input/(System)/Device Scanning.yy",
+    "path":"folders/@Engine/External Libraries/Input/(System)/Device Scanning.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

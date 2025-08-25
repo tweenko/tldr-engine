@@ -6,7 +6,7 @@
   "name":"InputLast",
   "parent":{
     "name":"Many",
-    "path":"folders/@Libraries/Input/Checkers/Many.yy",
+    "path":"folders/@Engine/External Libraries/Input/Checkers/Many.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

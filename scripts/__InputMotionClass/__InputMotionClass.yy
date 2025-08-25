@@ -6,7 +6,7 @@
   "name":"__InputMotionClass",
   "parent":{
     "name":"(System)",
-    "path":"folders/@Libraries/Input Plug-Ins/Gyro & Motion/(System).yy",
+    "path":"folders/@Engine/External Libraries/Input Plug-Ins/Gyro & Motion/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

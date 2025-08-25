@@ -6,7 +6,7 @@
   "name":"__InputCreateTypeLookup",
   "parent":{
     "name":"Initializing",
-    "path":"folders/@Libraries/Input/(System)/Initializing.yy",
+    "path":"folders/@Engine/External Libraries/Input/(System)/Initializing.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

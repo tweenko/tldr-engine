@@ -6,7 +6,7 @@
   "name":"__InputRegisterUpdatePlayer",
   "parent":{
     "name":"Callbacks",
-    "path":"folders/@Libraries/Input/(System)/Callbacks.yy",
+    "path":"folders/@Engine/External Libraries/Input/(System)/Callbacks.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

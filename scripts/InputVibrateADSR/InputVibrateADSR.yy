@@ -6,7 +6,7 @@
   "name":"InputVibrateADSR",
   "parent":{
     "name":"Vibration",
-    "path":"folders/@Libraries/Input Plug-Ins/Vibration.yy",
+    "path":"folders/@Engine/External Libraries/Input Plug-Ins/Vibration.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

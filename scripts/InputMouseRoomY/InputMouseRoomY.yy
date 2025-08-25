@@ -6,7 +6,7 @@
   "name":"InputMouseRoomY",
   "parent":{
     "name":"Mouse (& Touch)",
-    "path":"folders/@Libraries/Input/Mouse (& Touch).yy",
+    "path":"folders/@Engine/External Libraries/Input/Mouse (& Touch).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

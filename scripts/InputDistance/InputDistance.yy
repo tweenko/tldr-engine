@@ -6,7 +6,7 @@
   "name":"InputDistance",
   "parent":{
     "name":"Clusters",
-    "path":"folders/@Libraries/Input/Checkers/Clusters.yy",
+    "path":"folders/@Engine/External Libraries/Input/Checkers/Clusters.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

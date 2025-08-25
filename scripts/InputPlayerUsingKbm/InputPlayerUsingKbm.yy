@@ -6,7 +6,7 @@
   "name":"InputPlayerUsingKbm",
   "parent":{
     "name":"Player",
-    "path":"folders/@Libraries/Input/Player.yy",
+    "path":"folders/@Engine/External Libraries/Input/Player.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

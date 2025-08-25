@@ -6,7 +6,7 @@
   "name":"InputPartySetParams",
   "parent":{
     "name":"Party Multiplayer",
-    "path":"folders/@Libraries/Input Plug-Ins/Party Multiplayer.yy",
+    "path":"folders/@Engine/External Libraries/Input Plug-Ins/Party Multiplayer.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
