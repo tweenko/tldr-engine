@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"spells",
-    "path":"folders/@engine/objects/effects/spells.yy",
+    "path":"folders/@Engine/objects/effects/spells.yy",
   },
   "parentObjectId":null,
   "persistent":false,

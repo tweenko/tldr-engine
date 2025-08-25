@@ -12,7 +12,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"city",
-    "path":"folders/examples/objects/ow/city.yy",
+    "path":"folders/zzz Examples/Objects/ow/city.yy",
   },
   "parentObjectId":{
     "name":"o_ow_interactable",

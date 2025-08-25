@@ -120,7 +120,7 @@
   "name":"font_prophecy",
   "parent":{
     "name":"fonts",
-    "path":"folders/@engine/fonts.yy",
+    "path":"folders/@Engine/fonts.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -134,10 +134,7 @@
   "sdfSpread":8,
   "size":12.0,
   "styleName":"Condense",
-  "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
-  },
+  "textureGroupId":null,
   "TTFName":"",
   "usesSDF":false,
 }

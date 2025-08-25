@@ -6,7 +6,7 @@
   "name":"actors_scr",
   "parent":{
     "name":"engine",
-    "path":"folders/@engine/scripts/systems/engine.yy",
+    "path":"folders/@Engine/scripts/systems/engine.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

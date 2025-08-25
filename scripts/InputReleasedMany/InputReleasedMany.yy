@@ -6,7 +6,7 @@
   "name":"InputReleasedMany",
   "parent":{
     "name":"Many",
-    "path":"folders/Input/Checkers/Many.yy",
+    "path":"folders/@Libraries/Input/Checkers/Many.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

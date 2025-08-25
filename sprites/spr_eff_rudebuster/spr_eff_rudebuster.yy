@@ -32,7 +32,7 @@
   "origin":4,
   "parent":{
     "name":"rude buster",
-    "path":"folders/@engine/sprites/effects/rude buster.yy",
+    "path":"folders/@Engine/sprites/effects/rude buster.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

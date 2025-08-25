@@ -29,7 +29,7 @@
   "origin":7,
   "parent":{
     "name":"light",
-    "path":"folders/@engine/sprites/actors/noelle/light.yy",
+    "path":"folders/@Engine/sprites/actors/noelle/light.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

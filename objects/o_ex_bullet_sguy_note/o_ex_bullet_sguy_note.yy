@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"bullets",
-    "path":"folders/examples/objects/enc/bullets.yy",
+    "path":"folders/zzz Examples/Objects/enc/bullets.yy",
   },
   "parentObjectId":{
     "name":"o_enc_bullet",

@@ -6,7 +6,7 @@
   "name":"lerp_type",
   "parent":{
     "name":"anime",
-    "path":"folders/@engine/scripts/systems/general/internal/anime.yy",
+    "path":"folders/@Engine/scripts/systems/general/internal/anime.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

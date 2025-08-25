@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"turns",
-    "path":"folders/examples/objects/enc/turns.yy",
+    "path":"folders/zzz Examples/Objects/enc/turns.yy",
   },
   "parentObjectId":{
     "name":"o_turn",

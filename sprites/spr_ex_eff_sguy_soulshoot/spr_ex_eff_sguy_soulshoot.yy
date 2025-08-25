@@ -29,7 +29,7 @@
   "origin":9,
   "parent":{
     "name":"effects",
-    "path":"folders/examples/sprites/effects.yy",
+    "path":"folders/zzz Examples/Sprites/effects.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

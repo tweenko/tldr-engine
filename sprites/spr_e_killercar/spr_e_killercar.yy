@@ -29,7 +29,7 @@
   "origin":7,
   "parent":{
     "name":"enemies",
-    "path":"folders/@engine/sprites/actors/enemies.yy",
+    "path":"folders/@Engine/sprites/actors/enemies.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

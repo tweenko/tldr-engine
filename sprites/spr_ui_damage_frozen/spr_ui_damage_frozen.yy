@@ -26,7 +26,7 @@
   "origin":9,
   "parent":{
     "name":"damage",
-    "path":"folders/@engine/sprites/ui/damage.yy",
+    "path":"folders/@Engine/sprites/ui/damage.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

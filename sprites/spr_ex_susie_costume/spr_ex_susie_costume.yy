@@ -26,7 +26,7 @@
   "origin":7,
   "parent":{
     "name":"party",
-    "path":"folders/examples/sprites/actors/party.yy",
+    "path":"folders/zzz Examples/Sprites/actors/party.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

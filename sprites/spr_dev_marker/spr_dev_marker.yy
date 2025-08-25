@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"dev",
-    "path":"folders/@engine/sprites/dev.yy",
+    "path":"folders/@Engine/sprites/dev.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

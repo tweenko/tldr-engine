@@ -12,7 +12,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"menus",
-    "path":"folders/@engine/objects/dev/menus.yy",
+    "path":"folders/@Engine/objects/dev/menus.yy",
   },
   "parentObjectId":null,
   "persistent":false,

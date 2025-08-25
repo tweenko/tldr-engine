@@ -31,7 +31,7 @@
   "origin":9,
   "parent":{
     "name":"virovirokun",
-    "path":"folders/@engine/sprites/actors/enemies/virovirokun.yy",
+    "path":"folders/@Engine/sprites/actors/enemies/virovirokun.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

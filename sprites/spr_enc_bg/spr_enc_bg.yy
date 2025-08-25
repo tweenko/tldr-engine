@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"enc",
-    "path":"folders/@engine/sprites/enc.yy",
+    "path":"folders/@Engine/sprites/enc.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

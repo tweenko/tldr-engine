@@ -29,7 +29,7 @@
   "origin":9,
   "parent":{
     "name":"bangs",
-    "path":"folders/@engine/sprites/actors/susie/light/bangs.yy",
+    "path":"folders/@Engine/sprites/actors/susie/light/bangs.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

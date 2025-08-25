@@ -13,7 +13,7 @@
   "name":"snd_ui_cancel_small",
   "parent":{
     "name":"sounds",
-    "path":"folders/@engine/sounds.yy",
+    "path":"folders/@Engine/sounds.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

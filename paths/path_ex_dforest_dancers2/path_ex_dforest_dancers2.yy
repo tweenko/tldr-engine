@@ -5,8 +5,8 @@
   "kind":0,
   "name":"path_ex_dforest_dancers2",
   "parent":{
-    "name":"paths",
-    "path":"folders/examples/paths.yy",
+    "name":"Paths",
+    "path":"folders/zzz Examples/Paths.yy",
   },
   "points":[
     {"speed":100.0,"x":500.0,"y":280.0,},

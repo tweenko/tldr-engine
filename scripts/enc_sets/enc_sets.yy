@@ -6,7 +6,7 @@
   "name":"enc_sets",
   "parent":{
     "name":"encounter",
-    "path":"folders/@engine/scripts/encounter.yy",
+    "path":"folders/@Engine/scripts/encounter.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

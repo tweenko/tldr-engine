@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"enemies",
-    "path":"folders/@engine/objects/actors/enemies.yy",
+    "path":"folders/@Engine/objects/actors/enemies.yy",
   },
   "parentObjectId":{
     "name":"o_actor_e",

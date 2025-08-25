@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"switch",
-    "path":"folders/@engine/sprites/ui/gamepad/switch.yy",
+    "path":"folders/@Engine/sprites/ui/gamepad/switch.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

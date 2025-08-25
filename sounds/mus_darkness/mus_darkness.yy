@@ -13,7 +13,7 @@
   "name":"mus_darkness",
   "parent":{
     "name":"music",
-    "path":"folders/@engine/music.yy",
+    "path":"folders/@Engine/music.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

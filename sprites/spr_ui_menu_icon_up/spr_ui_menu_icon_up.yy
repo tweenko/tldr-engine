@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"icons",
-    "path":"folders/@engine/sprites/ui/menu/icons.yy",
+    "path":"folders/@Engine/sprites/ui/menu/icons.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -6,7 +6,7 @@
   "name":"__InputCursorConstants",
   "parent":{
     "name":"Cursor",
-    "path":"folders/Input Plug-Ins/Cursor.yy",
+    "path":"folders/@Libraries/Input Plug-Ins/Cursor.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -27,7 +27,7 @@
   "origin":7,
   "parent":{
     "name":"traffic",
-    "path":"folders/examples/sprites/ow/city/traffic.yy",
+    "path":"folders/zzz Examples/Sprites/ow/city/traffic.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

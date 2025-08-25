@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"bullets",
-    "path":"folders/@engine/sprites/enc/bullets.yy",
+    "path":"folders/@Engine/sprites/enc/bullets.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -68,7 +68,7 @@
   "origin":4,
   "parent":{
     "name":"face",
-    "path":"folders/@engine/sprites/face.yy",
+    "path":"folders/@Engine/sprites/face.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

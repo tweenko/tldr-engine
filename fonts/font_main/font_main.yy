@@ -120,7 +120,7 @@
   "name":"font_main",
   "parent":{
     "name":"fonts",
-    "path":"folders/@engine/fonts.yy",
+    "path":"folders/@Engine/fonts.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -134,7 +134,10 @@
   "sdfSpread":8,
   "size":12.0,
   "styleName":"Regular",
-  "textureGroupId":null,
+  "textureGroupId":{
+    "name":"Default",
+    "path":"texturegroups/Default",
+  },
   "TTFName":"",
   "usesSDF":false,
 }

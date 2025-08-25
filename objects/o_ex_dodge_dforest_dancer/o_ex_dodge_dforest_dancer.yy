@@ -12,7 +12,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"dforest",
-    "path":"folders/examples/objects/ow/dforest.yy",
+    "path":"folders/zzz Examples/Objects/ow/dforest.yy",
   },
   "parentObjectId":{
     "name":"o_dodge_bullet",

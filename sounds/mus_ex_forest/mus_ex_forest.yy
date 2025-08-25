@@ -12,8 +12,8 @@
   "duration":128.0,
   "name":"mus_ex_forest",
   "parent":{
-    "name":"music",
-    "path":"folders/examples/music.yy",
+    "name":"Music",
+    "path":"folders/zzz Examples/Music.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

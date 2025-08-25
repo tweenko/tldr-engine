@@ -13,7 +13,7 @@
   "out_tilevborder":2,
   "parent":{
     "name":"dforest",
-    "path":"folders/examples/tilesets/dforest.yy",
+    "path":"folders/zzz Examples/Tile Sets/dforest.yy",
   },
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",

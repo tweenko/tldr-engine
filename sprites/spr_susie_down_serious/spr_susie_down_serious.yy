@@ -29,7 +29,7 @@
   "origin":7,
   "parent":{
     "name":"serious",
-    "path":"folders/@engine/sprites/actors/susie/serious.yy",
+    "path":"folders/@Engine/sprites/actors/susie/serious.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

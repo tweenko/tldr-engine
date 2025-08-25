@@ -85,8 +85,8 @@
   ],
   "name":"room_test_inventory",
   "parent":{
-    "name":"rooms",
-    "path":"folders/@engine/rooms.yy",
+    "name":"Rooms",
+    "path":"folders/zzz Examples/Rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

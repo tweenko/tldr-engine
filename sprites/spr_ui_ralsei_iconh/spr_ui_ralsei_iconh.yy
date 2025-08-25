@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"hat",
-    "path":"folders/@engine/sprites/actors/ralsei/hat.yy",
+    "path":"folders/@Engine/sprites/actors/ralsei/hat.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

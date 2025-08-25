@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"misc",
-    "path":"folders/@engine/sprites/ui/misc.yy",
+    "path":"folders/@Engine/sprites/ui/misc.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

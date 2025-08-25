@@ -6,7 +6,7 @@
   "name":"party_hp",
   "parent":{
     "name":"party",
-    "path":"folders/@engine/scripts/party.yy",
+    "path":"folders/@Engine/scripts/party.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

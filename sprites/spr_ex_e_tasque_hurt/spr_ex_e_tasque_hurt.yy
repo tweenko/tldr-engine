@@ -26,7 +26,7 @@
   "origin":9,
   "parent":{
     "name":"tasque",
-    "path":"folders/examples/sprites/actors/enemies/tasque.yy",
+    "path":"folders/zzz Examples/Sprites/actors/enemies/tasque.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

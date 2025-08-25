@@ -6,7 +6,7 @@
   "name":"InputVerbStateWrite",
   "parent":{
     "name":"Verb Interaction",
-    "path":"folders/Input/Verb Interaction.yy",
+    "path":"folders/@Libraries/Input/Verb Interaction.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

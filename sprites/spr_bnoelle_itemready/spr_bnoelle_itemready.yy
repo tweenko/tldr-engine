@@ -27,7 +27,7 @@
   "origin":7,
   "parent":{
     "name":"battle",
-    "path":"folders/@engine/sprites/actors/noelle/battle.yy",
+    "path":"folders/@Engine/sprites/actors/noelle/battle.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

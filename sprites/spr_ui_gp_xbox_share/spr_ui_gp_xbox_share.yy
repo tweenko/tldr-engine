@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"xbox",
-    "path":"folders/@engine/sprites/ui/gamepad/xbox.yy",
+    "path":"folders/@Engine/sprites/ui/gamepad/xbox.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -7,7 +7,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"party",
-    "path":"folders/@engine/objects/actors/party.yy",
+    "path":"folders/@Engine/objects/actors/party.yy",
   },
   "parentObjectId":{
     "name":"o_actor",

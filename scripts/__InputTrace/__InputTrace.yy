@@ -6,7 +6,7 @@
   "name":"__InputTrace",
   "parent":{
     "name":"(System)",
-    "path":"folders/Input/(System).yy",
+    "path":"folders/@Libraries/Input/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

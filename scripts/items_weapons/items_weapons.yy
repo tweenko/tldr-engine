@@ -6,7 +6,7 @@
   "name":"items_weapons",
   "parent":{
     "name":"inventory",
-    "path":"folders/@engine/scripts/inventory.yy",
+    "path":"folders/@Engine/scripts/inventory.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

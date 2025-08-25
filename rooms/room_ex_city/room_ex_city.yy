@@ -173,8 +173,8 @@
   ],
   "name":"room_ex_city",
   "parent":{
-    "name":"rooms",
-    "path":"folders/examples/rooms.yy",
+    "name":"Rooms",
+    "path":"folders/zzz Examples/Rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

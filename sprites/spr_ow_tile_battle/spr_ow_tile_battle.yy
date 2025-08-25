@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"area",
-    "path":"folders/@engine/sprites/ow/area.yy",
+    "path":"folders/@Engine/sprites/ow/area.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

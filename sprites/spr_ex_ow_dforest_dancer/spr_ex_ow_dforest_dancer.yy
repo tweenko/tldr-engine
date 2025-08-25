@@ -37,7 +37,7 @@
   "origin":9,
   "parent":{
     "name":"dforest",
-    "path":"folders/examples/sprites/ow/dforest.yy",
+    "path":"folders/zzz Examples/Sprites/ow/dforest.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

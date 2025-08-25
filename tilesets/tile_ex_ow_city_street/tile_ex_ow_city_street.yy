@@ -13,7 +13,7 @@
   "out_tilevborder":2,
   "parent":{
     "name":"city",
-    "path":"folders/examples/tilesets/city.yy",
+    "path":"folders/zzz Examples/Tile Sets/city.yy",
   },
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",

@@ -20,7 +20,7 @@
   "name":"room_init",
   "parent":{
     "name":"rooms",
-    "path":"folders/@engine/rooms.yy",
+    "path":"folders/@Engine/rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

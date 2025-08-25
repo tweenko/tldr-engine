@@ -4,7 +4,7 @@
   "name":"shd_bm_color_burn",
   "parent":{
     "name":"shaders",
-    "path":"folders/@engine/shaders.yy",
+    "path":"folders/@Engine/shaders.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

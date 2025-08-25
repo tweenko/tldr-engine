@@ -30,7 +30,7 @@
   "origin":0,
   "parent":{
     "name":"saveselect",
-    "path":"folders/@engine/sprites/ui/menu/saveselect.yy",
+    "path":"folders/@Engine/sprites/ui/menu/saveselect.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"effects",
-    "path":"folders/@engine/sprites/effects.yy",
+    "path":"folders/@Engine/sprites/effects.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

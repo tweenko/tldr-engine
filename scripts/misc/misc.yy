@@ -6,7 +6,7 @@
   "name":"misc",
   "parent":{
     "name":"scripts",
-    "path":"folders/@engine/scripts.yy",
+    "path":"folders/@Engine/scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

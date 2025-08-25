@@ -119,7 +119,7 @@
   "name":"font_dotumche",
   "parent":{
     "name":"fonts",
-    "path":"folders/@engine/fonts.yy",
+    "path":"folders/@Engine/fonts.yy",
   },
   "pointRounding":0,
   "ranges":[
@@ -132,10 +132,7 @@
   "sdfSpread":8,
   "size":10.0,
   "styleName":"Regular",
-  "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
-  },
+  "textureGroupId":null,
   "TTFName":"",
   "usesSDF":false,
 }

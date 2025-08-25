@@ -31,8 +31,8 @@
   ],
   "name":"room_ex_church",
   "parent":{
-    "name":"rooms",
-    "path":"folders/examples/rooms.yy",
+    "name":"Rooms",
+    "path":"folders/zzz Examples/Rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

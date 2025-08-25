@@ -5,8 +5,8 @@
   "kind":0,
   "name":"path_ex_test_shadowguy",
   "parent":{
-    "name":"paths",
-    "path":"folders/examples/paths.yy",
+    "name":"Paths",
+    "path":"folders/zzz Examples/Paths.yy",
   },
   "points":[
     {"speed":100.0,"x":170.0,"y":230.0,},

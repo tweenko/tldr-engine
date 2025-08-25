@@ -6,7 +6,7 @@
   "name":"__InputTriggerEffectClassVibration",
   "parent":{
     "name":"(System)",
-    "path":"folders/Input Plug-Ins/Trigger Effects/(System).yy",
+    "path":"folders/@Libraries/Input Plug-Ins/Trigger Effects/(System).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

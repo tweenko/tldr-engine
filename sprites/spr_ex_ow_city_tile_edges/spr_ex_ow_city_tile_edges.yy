@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"tiles",
-    "path":"folders/examples/sprites/ow/city/tiles.yy",
+    "path":"folders/zzz Examples/Sprites/ow/city/tiles.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

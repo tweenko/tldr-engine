@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"markers",
-    "path":"folders/@engine/objects/dev/markers.yy",
+    "path":"folders/@Engine/objects/dev/markers.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -6,7 +6,7 @@
   "name":"InputRepeat",
   "parent":{
     "name":"Advanced",
-    "path":"folders/Input/Checkers/Advanced.yy",
+    "path":"folders/@Libraries/Input/Checkers/Advanced.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

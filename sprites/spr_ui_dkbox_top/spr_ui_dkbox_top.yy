@@ -26,7 +26,7 @@
   "origin":9,
   "parent":{
     "name":"box",
-    "path":"folders/@engine/sprites/ui/box.yy",
+    "path":"folders/@Engine/sprites/ui/box.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

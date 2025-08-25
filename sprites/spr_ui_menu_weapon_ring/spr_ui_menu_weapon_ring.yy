@@ -26,7 +26,7 @@
   "origin":9,
   "parent":{
     "name":"equip",
-    "path":"folders/@engine/sprites/ui/menu/equip.yy",
+    "path":"folders/@Engine/sprites/ui/menu/equip.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

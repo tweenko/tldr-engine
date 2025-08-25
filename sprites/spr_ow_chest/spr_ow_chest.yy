@@ -27,7 +27,7 @@
   "origin":7,
   "parent":{
     "name":"ow",
-    "path":"folders/@engine/sprites/ow.yy",
+    "path":"folders/@Engine/sprites/ow.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"noelle",
-    "path":"folders/@engine/sprites/actors/noelle.yy",
+    "path":"folders/@Engine/sprites/actors/noelle.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

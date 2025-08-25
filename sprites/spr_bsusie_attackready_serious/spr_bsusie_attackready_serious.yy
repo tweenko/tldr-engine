@@ -26,7 +26,7 @@
   "origin":9,
   "parent":{
     "name":"serious",
-    "path":"folders/@engine/sprites/actors/susie/battle/serious.yy",
+    "path":"folders/@Engine/sprites/actors/susie/battle/serious.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

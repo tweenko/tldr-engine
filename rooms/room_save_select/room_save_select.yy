@@ -18,7 +18,7 @@
   "name":"room_save_select",
   "parent":{
     "name":"rooms",
-    "path":"folders/@engine/rooms.yy",
+    "path":"folders/@Engine/rooms.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

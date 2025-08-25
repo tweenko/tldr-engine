@@ -31,7 +31,7 @@
   "origin":9,
   "parent":{
     "name":"shadowguy",
-    "path":"folders/examples/sprites/actors/enemies/shadowguy.yy",
+    "path":"folders/zzz Examples/Sprites/actors/enemies/shadowguy.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

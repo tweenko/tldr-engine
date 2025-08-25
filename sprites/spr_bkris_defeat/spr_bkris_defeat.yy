@@ -26,7 +26,7 @@
   "origin":9,
   "parent":{
     "name":"battle",
-    "path":"folders/@engine/sprites/actors/kris/battle.yy",
+    "path":"folders/@Engine/sprites/actors/kris/battle.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

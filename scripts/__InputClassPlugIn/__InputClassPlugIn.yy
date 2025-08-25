@@ -6,7 +6,7 @@
   "name":"__InputClassPlugIn",
   "parent":{
     "name":"Classes",
-    "path":"folders/Input/(System)/Classes.yy",
+    "path":"folders/@Libraries/Input/(System)/Classes.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

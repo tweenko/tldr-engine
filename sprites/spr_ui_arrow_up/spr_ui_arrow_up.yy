@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"arrows",
-    "path":"folders/@engine/sprites/ui/menu/arrows.yy",
+    "path":"folders/@Engine/sprites/ui/menu/arrows.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

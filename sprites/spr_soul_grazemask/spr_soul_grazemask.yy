@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"soul",
-    "path":"folders/@engine/sprites/ui/soul.yy",
+    "path":"folders/@Engine/sprites/ui/soul.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -27,7 +27,7 @@
   "origin":9,
   "parent":{
     "name":"city",
-    "path":"folders/examples/sprites/ow/city.yy",
+    "path":"folders/zzz Examples/Sprites/ow/city.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"squares",
-    "path":"folders/@engine/objects/dev/squares.yy",
+    "path":"folders/@Engine/objects/dev/squares.yy",
   },
   "parentObjectId":null,
   "persistent":false,

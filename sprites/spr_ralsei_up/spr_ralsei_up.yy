@@ -29,7 +29,7 @@
   "origin":9,
   "parent":{
     "name":"ralsei",
-    "path":"folders/@engine/sprites/actors/ralsei.yy",
+    "path":"folders/@Engine/sprites/actors/ralsei.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

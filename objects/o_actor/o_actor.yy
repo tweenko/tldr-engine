@@ -18,7 +18,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"actors",
-    "path":"folders/@engine/objects/actors.yy",
+    "path":"folders/@Engine/objects/actors.yy",
   },
   "parentObjectId":{
     "name":"o_block",

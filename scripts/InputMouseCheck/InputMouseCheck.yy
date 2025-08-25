@@ -6,7 +6,7 @@
   "name":"InputMouseCheck",
   "parent":{
     "name":"Mouse (& Touch)",
-    "path":"folders/Input/Mouse (& Touch).yy",
+    "path":"folders/@Libraries/Input/Mouse (& Touch).yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

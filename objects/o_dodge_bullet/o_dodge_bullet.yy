@@ -12,7 +12,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"battle",
-    "path":"folders/@engine/objects/ow/battle.yy",
+    "path":"folders/@Engine/objects/ow/battle.yy",
   },
   "parentObjectId":{
     "name":"o_ow_interactable",

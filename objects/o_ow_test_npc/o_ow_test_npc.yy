@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"test",
-    "path":"folders/@engine/objects/ow/test.yy",
+    "path":"folders/zzz Examples/Objects/ow/test.yy",
   },
   "parentObjectId":{
     "name":"o_ow_npc",

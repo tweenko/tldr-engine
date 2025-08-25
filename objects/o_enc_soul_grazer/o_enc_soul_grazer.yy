@@ -12,7 +12,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"soul",
-    "path":"folders/@engine/objects/enc/soul.yy",
+    "path":"folders/@Engine/objects/enc/soul.yy",
   },
   "parentObjectId":null,
   "persistent":false,

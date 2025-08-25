@@ -6,7 +6,7 @@
   "name":"macro_depth",
   "parent":{
     "name":"macro",
-    "path":"folders/@engine/scripts/macro.yy",
+    "path":"folders/@Engine/scripts/macro.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

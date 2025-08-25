@@ -33,7 +33,7 @@
   "origin":9,
   "parent":{
     "name":"battle",
-    "path":"folders/@engine/sprites/actors/susie/battle.yy",
+    "path":"folders/@Engine/sprites/actors/susie/battle.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

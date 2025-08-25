@@ -12,7 +12,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"triggers",
-    "path":"folders/@engine/objects/dev/triggers.yy",
+    "path":"folders/@Engine/objects/dev/triggers.yy",
   },
   "parentObjectId":{
     "name":"o_trigger",

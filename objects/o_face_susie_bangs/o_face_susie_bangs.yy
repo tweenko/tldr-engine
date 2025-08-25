@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"face",
-    "path":"folders/@engine/objects/ui/text/face.yy",
+    "path":"folders/@Engine/objects/ui/text/face.yy",
   },
   "parentObjectId":{
     "name":"o_face",

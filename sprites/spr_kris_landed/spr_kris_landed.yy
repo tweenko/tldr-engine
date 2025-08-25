@@ -28,7 +28,7 @@
   "origin":9,
   "parent":{
     "name":"kris",
-    "path":"folders/@engine/sprites/actors/kris.yy",
+    "path":"folders/@Engine/sprites/actors/kris.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

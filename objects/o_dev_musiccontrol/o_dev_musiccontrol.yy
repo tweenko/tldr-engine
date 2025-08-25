@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"dev",
-    "path":"folders/@engine/objects/dev.yy",
+    "path":"folders/@Engine/objects/dev.yy",
   },
   "parentObjectId":null,
   "persistent":true,

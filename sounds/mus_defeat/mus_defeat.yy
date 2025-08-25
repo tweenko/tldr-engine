@@ -13,7 +13,7 @@
   "name":"mus_defeat",
   "parent":{
     "name":"music",
-    "path":"folders/@engine/music.yy",
+    "path":"folders/@Engine/music.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

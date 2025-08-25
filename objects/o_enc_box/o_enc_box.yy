@@ -14,7 +14,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"enc",
-    "path":"folders/@engine/objects/enc.yy",
+    "path":"folders/@Engine/objects/enc.yy",
   },
   "parentObjectId":null,
   "persistent":false,

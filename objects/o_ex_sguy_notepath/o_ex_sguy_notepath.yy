@@ -13,7 +13,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"misc",
-    "path":"folders/examples/objects/enc/misc.yy",
+    "path":"folders/zzz Examples/Objects/enc/misc.yy",
   },
   "parentObjectId":null,
   "persistent":false,

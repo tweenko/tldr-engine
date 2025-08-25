@@ -29,7 +29,7 @@
   "origin":7,
   "parent":{
     "name":"happy",
-    "path":"folders/@engine/sprites/actors/noelle/happy.yy",
+    "path":"folders/@Engine/sprites/actors/noelle/happy.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -6,7 +6,7 @@
   "name":"InputColorSet",
   "parent":{
     "name":"Color",
-    "path":"folders/Input Plug-Ins/Color.yy",
+    "path":"folders/@Libraries/Input Plug-Ins/Color.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"ps4",
-    "path":"folders/@engine/sprites/ui/gamepad/ps4.yy",
+    "path":"folders/@Engine/sprites/ui/gamepad/ps4.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

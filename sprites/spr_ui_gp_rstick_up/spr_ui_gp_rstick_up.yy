@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"stick",
-    "path":"folders/@engine/sprites/ui/gamepad/stick.yy",
+    "path":"folders/@Engine/sprites/ui/gamepad/stick.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

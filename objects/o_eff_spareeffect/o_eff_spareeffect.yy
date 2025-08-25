@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"particles",
-    "path":"folders/@engine/objects/effects/particles.yy",
+    "path":"folders/@Engine/objects/effects/particles.yy",
   },
   "parentObjectId":null,
   "persistent":false,

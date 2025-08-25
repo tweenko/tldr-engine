@@ -29,7 +29,7 @@
   "origin":0,
   "parent":{
     "name":"particles",
-    "path":"folders/@engine/sprites/effects/particles.yy",
+    "path":"folders/@Engine/sprites/effects/particles.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

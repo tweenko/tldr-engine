@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"effects",
-    "path":"folders/examples/objects/effects.yy",
+    "path":"folders/zzz Examples/Objects/effects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

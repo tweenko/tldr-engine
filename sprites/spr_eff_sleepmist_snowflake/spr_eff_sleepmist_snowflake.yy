@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"spells",
-    "path":"folders/@engine/sprites/effects/spells.yy",
+    "path":"folders/@Engine/sprites/effects/spells.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -26,7 +26,7 @@
   "origin":9,
   "parent":{
     "name":"chs",
-    "path":"folders/@engine/sprites/ui/chs.yy",
+    "path":"folders/@Engine/sprites/ui/chs.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

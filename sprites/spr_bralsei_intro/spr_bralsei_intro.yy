@@ -36,7 +36,7 @@
   "origin":9,
   "parent":{
     "name":"battle",
-    "path":"folders/@engine/sprites/actors/ralsei/battle.yy",
+    "path":"folders/@Engine/sprites/actors/ralsei/battle.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
