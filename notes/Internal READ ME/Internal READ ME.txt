@@ -1,0 +1,3 @@
+Modifying anything in this folder may prevent importing future updates!
+
+But if updates are not a concern, feel free to ignore this warning.

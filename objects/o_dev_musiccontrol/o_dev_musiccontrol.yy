@@ -9,8 +9,8 @@
   "name":"o_dev_musiccontrol",
   "overriddenProperties":[],
   "parent":{
-    "name":"dev",
-    "path":"folders/@Engine/objects/dev.yy",
+    "name":"music",
+    "path":"folders/@Engine/(Internal)/music.yy",
   },
   "parentObjectId":null,
   "persistent":true,

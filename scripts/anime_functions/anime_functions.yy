@@ -6,7 +6,7 @@
   "name":"anime_functions",
   "parent":{
     "name":"anime",
-    "path":"folders/@Engine/scripts/systems/general/internal/anime.yy",
+    "path":"folders/@Engine/(Internal)/anime.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

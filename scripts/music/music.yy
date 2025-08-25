@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"music",
   "parent":{
-    "name":"external",
-    "path":"folders/@Engine/scripts/systems/general/external.yy",
+    "name":"music",
+    "path":"folders/@Engine/(Internal)/music.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
