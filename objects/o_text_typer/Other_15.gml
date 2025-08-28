@@ -209,7 +209,7 @@ if _face == noone && instance_exists(face_inst) {
 	x -= 116
 }
 if face_expression != face_expression_prev {
-	face_inst.facename = face_expression
+	face_inst.f_index = face_expression
 	face_expression_prev = face_expression
 }
 

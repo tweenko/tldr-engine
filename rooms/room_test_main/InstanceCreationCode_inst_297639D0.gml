@@ -18,15 +18,15 @@ execute_code = function() {
     else if array_length(members) == 0 {
         var _txt = []
         if array_contains(global.party_names, "susie") {
-            array_push(_txt, string("{char(susie, smirk)}* Want {0} to wait around here? Sure I guess.", (array_length(global.party_names) > 2 ? "us" : "me")))
+            array_push(_txt, string("{char(susie, 21)}* Want {0} to wait around here? Sure I guess.", (array_length(global.party_names) > 2 ? "us" : "me")))
         }
         if array_contains(global.party_names, "ralsei") {
-            array_push(_txt, ["{char(ralsei, dismissive)}* Huh? Wait here?", 
-                "{face_ex(blush_smile)}* Sure! Tell me if you need anything!"
+            array_push(_txt, ["{char(ralsei, 20)}* Huh? Wait here?", 
+                "{face_ex(19)}* Sure! Tell me if you need anything!"
             ])
         }
         if array_contains(global.party_names, "noelle") {
-            array_push(_txt, "{char(noelle, blush_finger)}* Umm... Well, if you say please, I'll think about it!!")
+            array_push(_txt, "{char(noelle, 27)}* Umm... Well, if you say please, I'll think about it!!")
         }
         
         if array_length(_txt) > 0 
@@ -73,13 +73,13 @@ execute_code = function() {
     else {
         var _txt = []
         if array_contains(members, "susie") {
-            array_push(_txt, "{char(susie, sincere_smile)}* Right behind you.")
+            array_push(_txt, "{char(susie, 9)}* Right behind you.")
         }
         if array_contains(members, "ralsei") {
-            array_push(_txt, "{char(ralsei, surprise_smile)}* Catching up!")
+            array_push(_txt, "{char(ralsei, 19)}* Catching up!")
         }
         if array_contains(members, "noelle") {
-            array_push(_txt, "{char(noelle, smile_closed)}* Coming!!")
+            array_push(_txt, "{char(noelle, 4)}* Coming!!")
         }
         
         if array_length(_txt) > 0 

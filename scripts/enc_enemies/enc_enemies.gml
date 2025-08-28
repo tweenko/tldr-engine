@@ -192,7 +192,7 @@ function enemy_virovirokun() : enemy_base() constructor{
 				enc_sparepercent_enemy(slot, 50)
 				encounter_scene_dialogue([
 					"* Susie commiserated with the enemy!",
-					"{char(susie)}{f_ex(smirk)}* Stick it to the man, dude.",
+					"{char(susie, 2)}* Stick it to the man, dude.",
 					"* Even if that means cloning yourself, or, whatever.",
 				])
 			},
@@ -202,13 +202,13 @@ function enemy_virovirokun() : enemy_base() constructor{
 				enc_sparepercent_enemy(slot, 50)
 				encounter_scene_dialogue([
 					"* Ralsei tried to steer the enemy down the right path.",
-					"{char(ralsei)}{f_ex(smile)}* Not everybody knows this, but...",
-					"{f_ex(blush_smile)}* Crimes are bad. ... Did you know that?",
+					"{char(ralsei, 3)}* Not everybody knows this, but...",
+					"{f_ex(2)}* Crimes are bad. ... Did you know that?",
 				])
 			},
 		},
 		noelle: {
-			exec: function() {
+			exec: function(slot) {
 				enc_sparepercent_enemy(slot, 50)
 				encounter_scene_dialogue("* Noelle offered a cold compress!")
 			},
@@ -297,7 +297,7 @@ function enemy_killercar() : enemy_base() constructor{
 				cutscene_set_variable(o_enc, "exec_wait", true)
 				
 				cutscene_dialogue([
-					"{char(susie, smile)}* I have an idea.",
+					"{char(susie, 21)}* I have an idea.",
 				])
 				cutscene_set_partysprite(party_getpos("susie"), "spell")
 				cutscene_sleep(30)

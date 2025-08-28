@@ -18,7 +18,7 @@ trigger_code = function() {
     cutscene_func(function() {
         party_set_state("susie", "serious")
     })
-    cutscene_dialogue("{char(susie, 28)}* Woah... Is that...",, false)
+    cutscene_dialogue("{char(susie, 6)}* Woah... Is that...",, false)
     for (var i = 0; i < array_length(global.party_names); i ++) {
         cutscene_actor_move(party_get_inst(global.party_names[i]), new actor_movement(
             110 - (array_length(global.party_names) - 1) * 20 + i * 40,
@@ -43,8 +43,8 @@ trigger_code = function() {
         10,,, DIR.DOWN, false
     ), i, false)
     cutscene_dialogue([
-        "{char(susie, 29)}* Noelle??",
-        "{char(noelle, 27)}* WHO'S NOELLE?"
+        "{char(susie, 11)}* Noelle??",
+        "{char(noelle, 20)}* NOELLE??"
     ],, false, false)
     cutscene_wait_dialogue_boxes(1)
     cutscene_set_variable(o_actor_noelle, "image_index", 3)
@@ -67,8 +67,8 @@ trigger_code = function() {
     cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_shock)
     cutscene_animate(5, 0, 10, "linear", o_actor_noelle, "shake")
     cutscene_dialogue([
-        "{char(noelle, 10)}* Ha-h-- I MEAN-- Uh-",
-        "{face_ex(6)}* HEY SUSIE"
+        "{char(noelle, 25)}* Ha-h-- I MEAN-- Uh-",
+        "{face_ex(22)}* HEY SUSIE"
     ],, true, false)
     cutscene_sleep(30)
     
@@ -76,29 +76,29 @@ trigger_code = function() {
         party_set_state("susie", "")
     })
     cutscene_dialogue([
-        "{char(susie, 25)}* Hey."
+        "{char(susie, 21)}* Hey."
     ],,, false)
     cutscene_sleep(10)
     
     cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_up)
     cutscene_dialogue([
-        "{char(noelle, 3)}* ...", 
-        "{char(susie, 27)}* ...",
-        "{char(noelle, 6)}* ..."
+        "{char(noelle, 25)}* ...", 
+        "{char(susie, 11)}* ...",
+        "{char(noelle, 22)}* ..."
     ],,, false)
 
     cutscene_sleep(30)
     cutscene_dialogue([
-        "{char(susie, 27)}* So like, why were you...",
-        "{face_ex(26)}* ...on the floor?"
+        "{char(susie, 12)}* So like, why were you...",
+        "{face_ex(20)}* ...on the floor?"
     ],,, false)
     
     cutscene_sleep(30)
     cutscene_dialogue([
-        "{char(noelle, 31)}* I just got really lost in this test place and... fell asleep, haha!",
-        "{char(susie, 30)}* Oh, did you have like, any dreams??",
-        "{char(noelle, 24)}* Yeah! The dream was cool... there was, like...",
-        "{face_ex(3)}* Um...",
+        "{char(noelle, 0)}* I just got really lost in this test place and... fell asleep, haha!",
+        "{char(susie, 7)}* Oh, did you have like, any dreams??",
+        "{char(noelle, 8)}* Yeah! The dream was cool... there was, like...",
+        "{face_ex(25)}* Um...",
     ],, false, false)
     cutscene_wait_dialogue_boxes(2)
     
@@ -110,9 +110,9 @@ trigger_code = function() {
     
     cutscene_sleep(40)
     cutscene_dialogue([
-        "{char(susie, 32)}* Sorry, uhh... I don't think I heard that last part.",
-        "{char(noelle, 27)}* ANYWAY, guys, mind if tag along?",
-        "{char(susie, 26)}* Uhh, sure?"
+        "{char(susie, 10)}* Sorry, uhh... I don't think I heard that last part.",
+        "{char(noelle, 4)}* ANYWAY, guys, mind if tag along?",
+        "{char(susie, 20)}* Uhh, sure?"
     ],, false, false)
     cutscene_wait_dialogue_boxes(1)
     

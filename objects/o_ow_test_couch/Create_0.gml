@@ -70,12 +70,12 @@ interaction_code = function() {
             cutscene_sleep(30)
             
             if party_ismember("ralsei")
-                cutscene_dialogue("{char(ralsei, 32)}* Kris, are you joining us, or..?")
+                cutscene_dialogue("{char(ralsei, 20)}* Kris, are you joining us, or..?")
             if party_ismember("susie")
                 cutscene_dialogue([
-                    "{char(susie, 25)}* Hey, when we get couch time we ALL get couch time.",
-                    "{face_ex(31)}* ...",
-                    "{face_ex(33)}* Kris, you too."
+                    "{char(susie, 1)}* Hey, when we get couch time we ALL get couch time.",
+                    "{face_ex(21)}* ...",
+                    "{face_ex(10)}* Kris, you too."
                 ])
             
             state_add("test_couchsat", id)
@@ -106,21 +106,21 @@ interaction_code = function() {
     if !__mode && party_ismember("noelle") {
         if party_ismember("susie") {
             cutscene_dialogue([
-                "{char(noelle, 35)}* (Um...)",
-                "{char(susie, 30)}* Noelle, did you say something? I didn't hear much if you did.",
-                "{char(noelle, 36)}* Oh, no. I... Uh...",
-                "{char(susie, 26)}* Cool.{mini(`(I'll just... sit here.)`, noelle, 32, -30, -10)}",
+                "{char(noelle, 17)}* (Um...)",
+                "{char(susie, 10)}* Noelle, did you say something? I didn't hear much if you did.",
+                "{char(noelle, 18)}* Oh, no. I... Uh...",
+                "{char(susie, 2)}* Cool.{mini(`(I'll just... sit here.)`, noelle, 6, -30, -10)}",
             ])
         }
         else if party_ismember("ralsei") {
             cutscene_dialogue([
-                "{char(noelle, 35)}* (Um...)",
-                "{char(ralsei, 3)}* Kris, are you cozy?.{mini(`(I'll just... sit here.)`, noelle, 32, -30, -10)}",
+                "{char(noelle, 17)}* (Um...)",
+                "{char(ralsei, 3)}* Kris, are you cozy?.{mini(`(I'll just... sit here.)`, noelle, 6, -30, -10)}",
             ])
         }
         else {
             cutscene_dialogue([
-                "{char(noelle, 10)}* ...",
+                "{char(noelle, 17)}* ...",
             ])
         }
     }
