@@ -1318,9 +1318,13 @@ if battle_state == "win" {
         var __exp = 0
         var __dd = earned_money + global.chapter * tp / 4
         var __dd_mod = 1
+        var __follow_record = array_create(array_length(global.party_names))
         
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 		    char_state[i] = -1
+            
+            if instance_exists(party_get_inst(global.party_names[i]))
+                __follow_record[i] = party_get_inst(global.party_names[i]).follow
 			
 			if party_getdata(global.party_names[i], "is_down") {
 				party_setdata(global.party_names[i], "hp", round(party_getdata(global.party_names[i], "max_hp") * .12))
@@ -1341,7 +1345,7 @@ if battle_state == "win" {
         
         __dd *= __dd_mod
         __dd = round(__dd)
-		
+        
 		cutscene_create()
 		cutscene_dialogue(string("* You won!{br}{resetx}* Got {0} EXP and {1} D$.", __exp, __dd))
 		cutscene_set_variable(id, "hideui", true)
@@ -1390,7 +1394,10 @@ if battle_state == "win" {
         cutscene_set_variable(o_camera, "target", o_actor_kris)
 		cutscene_set_variable(get_leader(), "moveable_battle", true)
 		
-        cutscene_party_follow(true)
+        for (var i = 0; i < array_length(global.party_names); i ++) {
+            cutscene_set_variable(party_get_inst(global.party_names[i]), "follow", __follow_record[i])
+        }
+        
 		cutscene_play()
 	}
 	wininit = true

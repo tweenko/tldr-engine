@@ -20,7 +20,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			var o = party_get_inst(name)
 			var txt = heal
 			
-			if party_getdata(name, "hp") > 0 && party_getdata(name, "is_down") && auto {
+			if party_getdata(name, "hp") > 0 && party_getdata(name, "is_down") && o_enc.battle_state == "post_turn" {
 				txt = "up"
 				party_setdata(name, "hp", round(party_getdata(name, "max_hp") * .17))
 				party_setdata(name,"is_down", false)
