@@ -222,7 +222,7 @@ if command == "speed" { // speed(real)
 }
 
 if command == "char" { // char(char_preset_string, face_expression = undefined)  optional argument 1 for changing the expression - could be either the name of the expression or the index of it in the sprite
-	var __exp = (array_length(arg) > 1 ? arg[1] : "neutral")
+	var __exp = (array_length(arg) > 1 ? real(arg[1]) : 0)
 	_facechange(arg[0], __exp)
 	
 	voice = struct_get(struct_get(char_presets, arg[0]), "voice")
@@ -234,7 +234,7 @@ if command == "char" { // char(char_preset_string, face_expression = undefined) 
 	looping = false
 }
 if command == "face" { // face(face_preset_string, face_expression)  optional argument 1 for changing the expression - could be either the name of the expression or the index of it in the sprite
-	var __exp = (array_length(arg) > 1 ? arg[1] : "neutral")
+	var __exp = (array_length(arg) > 1 ? real(arg[1]) : 0)
 	_facechange(arg[0], __exp)
 	looping = false
 }
