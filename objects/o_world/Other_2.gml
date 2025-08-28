@@ -36,7 +36,9 @@ global.key_items = [
 global.weapons = []
 global.armors = []
 global.storage = array_create(item_get_maxcount(ITEM_TYPE.STORAGE), undefined)
-global.lw_items = []
+global.lw_items = [
+    new item_lw_shit()
+]
 
 global.lw_weapon = undefined
 global.lw_armor = undefined
@@ -76,7 +78,7 @@ global.world = 0 // 0 for dark, 1 for light
 		LW_ITEMS:	global.lw_items,
 		LW_SINCE_CHAPTER: 0,
         LW_WEAPON: undefined,
-		LW_ARMOR:	new item_a_silvercard(),
+		LW_ARMOR:	undefined,
 		
 		//inventory
 		ITEMS:		global.items,
@@ -104,8 +106,6 @@ global.world = 0 // 0 for dark, 1 for light
 
 save_load(global.save_slot)
 loc_load(LOC_FILES)
-
-item_add(new item_lw_shit(), ITEM_TYPE.LIGHT)
 
 global.charmove_insts = array_create(party_getpossiblecount() + 10, undefined)
 

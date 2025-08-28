@@ -15,6 +15,9 @@ soulx = 320
 souly = 360 + 20
 choice = ["CONTINUE", "GIVE UP"]
 
-dialogue = "{voice(snd_text_susie)}Come on,{br}{resetx}that all you got!?{p}{c}Kris,{br}{resetx}get up...!{p}{e}"
+dialogue = [
+    "{voice(snd_text_susie)}Come on,{br}{resetx}that all you got!?",
+    "Kris,{br}{resetx}get up...!"
+]
 
 image_alpha = 0

@@ -127,12 +127,23 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 function party_heal(name, heal, caller = -1, sfx = -1) {
 	party_hpchange(name, heal, caller, sfx)
 }
-///@desc kind of a fake function that just calls party_hpchange but makes the heal argument negative to hurt the party member instead
+/// @desc kind of a fake function that just calls party_hpchange but makes the heal argument negative to hurt the party member instead
+/// @arg {string} name the name of the party member to damage
+/// @arg {real} hurt the damage to be dealed
+/// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
+/// @arg {real} sfx sound effect that will be played upon dealing damage
+function party_hurt(name, hurt, caller = -1, sfx = -1) {
+	party_hpchange(name, -hurt, caller, sfx)
+}
+///@desc hurt a party member while calculating the damage of with the defense and attack of characters
+/// @arg {string} name the name of the party member to damage
 /// @arg {real} enemy_attack the enemy's attack that will be used for calculation
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
 /// @arg {string} element the element of the attack that will be used for calculation
-function party_hurt(name, hurt, caller = -1, sfx = -1) {
-	party_hpchange(name, -hurt, caller, sfx)
+/// @arg {real} sfx sound effect that will be played upon dealing damage
+function party_attack(name, enemy_attack, caller = -1, element = "", sfx = -1) {
+    var dmg = damage(enemy_attack, name, element)
+    party_hurt(name, dmg, caller, sfx)
 }
 
 ///@desc heal all party members a specified amount
@@ -145,10 +156,10 @@ function party_heal_all(heal, caller = -1) {
 	}
 }
 ///@desc hurt all party members a specified amount
-/// @arg {real} enemy_attack the enemy's attack that will be used for calculation
+/// @arg {real} hurt the damage to deal
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
 /// @arg {string} element the element of the attack that will be used for calculation
-function party_hurt_all(hurt, caller = -1, element = "") {
+function party_hurt_all(hurt, caller = -1) {
 	for (var i = 0; i < array_length(global.party_names); ++i) {
 		party_hurt(global.party_names[i], hurt, caller)
 	}
@@ -164,14 +175,12 @@ function party_attack_all(att, caller = -1, element = "") {
 	}
 }
 ///@desc hurt targeted party members a specified amount
-/// @arg {real} enemy_attack the enemy's attack that will be used for calculation
+/// @arg {real} hurt the damage to deal
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
-/// @arg {string} element the element of the attack that will be used for calculation
-function party_hurt_targets(hurt, caller = -1, element="") {
+function party_hurt_targets(hurt, caller = -1) {
 	for (var i = 0; i < array_length(o_enc.turn_targets); ++i) {
 		if !party_getdata(o_enc.turn_targets[i], "is_down") {
-			var dmg = damage(hurt, o_enc.turn_targets[i], element)
-			party_hurt(o_enc.turn_targets[i], dmg, caller)
+			party_hurt(o_enc.turn_targets[i], hurt, caller)
 		}
 	}
 }
@@ -188,19 +197,20 @@ function party_attack_targets(att, caller = noone, element = "") {
 	}
 }
 
-///@desc check if the party is all dead. if so, initiates the gameover screen
-function party_check_gameover(){
-	var res = true
+///@desc check if the party is all down. if so, initiates the gameover screen
+function party_check_gameover() {
+	var res_ow = true
+    var res_enc = true
 	for (var i = 0; i < array_length(global.party_names); ++i) {
-		if party_getdata(global.party_names[i], "hp") > 1 {
-			res = false
-			break
-		}
+		if party_getdata(global.party_names[i], "hp") > 1 && res_ow
+			res_ow = false
+		if party_getdata(global.party_names[i], "hp") > 0 && res_enc
+			res_enc = false
 	}
 	
-	if res && instance_exists(o_enc) 
+	if res_enc && instance_exists(o_enc) 
 		enc_gameover()
-    else if res && dodge_getalpha() > 0
+    else if res_ow && dodge_getalpha() > 0
         dodge_gameover()
 }
 

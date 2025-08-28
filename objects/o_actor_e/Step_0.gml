@@ -59,7 +59,7 @@ if place_meeting(x, y, get_leader()) && !encounter_started && can_encounter {
     hurt = 20
     
     path_end()
-    encounter.start()
+    encounter._start()
     
     image_xscale = 1
 }

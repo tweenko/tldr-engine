@@ -7,12 +7,23 @@ function enc_set() constructor { // base
 	flavor = "* undefined"
 	bgm = mus_battle
 	bg_type = 0 // default, no bg
+    
     can_change_turnlen = true
 	
-	display_target = true // whether to display the target of the enemy's attack
+	display_target = true // whether to display the targets of the enemy's attack
 	
-	//methods
-	start = function() {
+	// methods
+    _target_calculation = function() { // should return an array of indexes of party members who are targeted
+        var __targets = []
+        
+        for (var i = 0; i < array_length(global.party_names); ++i) {
+		    if party_getdata(global.party_names[i], "hp") > 0
+				array_push(__targets, global.party_names[i])
+		}
+        
+        return __targets
+    }
+	_start = function() {
 		enc_start(self)
 	}
 }
@@ -34,7 +45,19 @@ function enc_set_ex() : enc_set() constructor {
 	
 	flavor = "* The test crew is approaching!!"
 	bgm = -1
+    
+    _target_calculation = function() {
+        var __targets = []
+        
+        for (var i = 0; i < array_length(global.party_names); ++i) {
+		    if party_getdata(global.party_names[i], "hp") > 0
+				array_push(__targets, global.party_names[i])
+		}
+        
+        return [array_shuffle(__targets)[0]]
+    }
 }
+
 function enc_set_virovirokun() : enc_set() constructor {
 	debug_name	=	"virovirokun"
 	enemies = [

@@ -1178,13 +1178,15 @@ if battle_state == "dialogue" {
 			    array_push(dialogueinstances, inst)
 			}
 		}
+        
+        // choose turn targets
+        turn_targets = encounter_data._target_calculation()
 		for (var i = 0; i < array_length(global.party_names); ++i) {
-		    if party_getdata(global.party_names[i], "hp") > 0 {
-				var o = party_get_inst(global.party_names[i])
-				
-				array_push(turn_targets,global.party_names[i])
-				if encounter_data.display_target
-					instance_create(o_enc_target, o.x, o.y - o.myheight/2, o.depth-10)
+		    if array_contains(turn_targets, global.party_names[i]) {
+                if encounter_data.display_target {
+				    var o = party_get_inst(global.party_names[i])
+                    instance_create(o_enc_target, o.x, o.y - o.myheight/2, o.depth-10)
+                }
 			}
 			else {
 				var o = party_get_inst(global.party_names[i])
@@ -1197,7 +1199,7 @@ if battle_state == "dialogue" {
 	
 	var move_on = true
 	for (var i = 0; i < array_length(dialogueinstances); ++i) {
-	    if instance_exists(dialogueinstances[i]){
+	    if instance_exists(dialogueinstances[i]) {
 			move_on = false; 
 			break
 		}
@@ -1320,8 +1322,11 @@ if battle_state == "win" {
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 		    char_state[i] = -1
 			
-			if party_getdata(global.party_names[i], "is_down") 
+			if party_getdata(global.party_names[i], "is_down") {
 				party_setdata(global.party_names[i], "hp", round(party_getdata(global.party_names[i], "max_hp") * .12))
+                party_setdata(global.party_names[i], "is_down", false)
+            }
+            
 			party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "victory")
 			party_get_inst(global.party_names[i]).image_index = 0
 			party_get_inst(global.party_names[i]).image_speed = 1
@@ -1335,6 +1340,7 @@ if battle_state == "win" {
 		}
         
         __dd *= __dd_mod
+        __dd = round(__dd)
 		
 		cutscene_create()
 		cutscene_dialogue(string("* You won!{br}{resetx}* Got {0} EXP and {1} D$.", __exp, __dd))

@@ -130,5 +130,3 @@ else {
 		audio_play(snd_ui_cancel)
 	}
 }
-
-show_debug_message(selection)

@@ -1,7 +1,7 @@
 {
   "$GMNotes":"",
-  "%Name":"credits",
-  "name":"credits",
+  "%Name":"setup",
+  "name":"setup",
   "parent":{
     "name":"@Engine",
     "path":"folders/@Engine.yy",

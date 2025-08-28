@@ -1,4 +1,4 @@
-# Welcome to tlDR[^1] Engine v1.0.0!
+# Welcome to tlDR[^1] Engine v1.0.1!
 
 One of the first 1:1 DELTARUNE Engines on Gamemaker Studio 2, the software that was used to create DELTARUNE. 
 The Engine is very straightforward and advanced at the same time. Encounters, cutscenes and menus are 

@@ -1,15 +1,16 @@
 timer++
 
-if state < 3{
-	if timer == 30{
+if state < 3 {
+	if timer == 30 {
 		state = 1
 	}
-	if timer == 31 sprite_delete(freezeframe)
-	if timer == 50{
+	if timer == 31  
+        sprite_delete(freezeframe)
+	if timer == 50 {
 		sprite_index = spr_soul_break
 		audio_play(snd_break1)
 	}
-	if timer == 90{
+	if timer == 90 {
 		audio_play(snd_break2)
 		visible = false
 	
@@ -24,18 +25,18 @@ if state < 3{
 		with o_eff_soulshard 
 			image_blend = a
 	}
-	if timer == 140{
+	if timer == 140 {
 		instance_destroy(o_eff_soulshard)
 	
 		visible = true
 		state = 2
 	}
-	if timer == 200{
+	if timer == 200 {
 		music_play(mus_defeat, 0, true)
 		state = 3
 	}
 		
-	if timer < 200{
+	if timer < 200 {
 		if InputPressed(INPUT_VERB.SELECT) 
             confirm_pressed++
 		if confirm_pressed > 4 {
@@ -45,14 +46,14 @@ if state < 3{
 	}
 }
 
-if state == 2{
+if state == 2 {
 	if image_alpha < 1
 	    image_alpha += .02
 }
-if state == 3{
+if state == 3 {
 	if !dia_created{
 		inst_dialogue = instance_create(o_text_typer, 100, 300, DEPTH_UI.DIALOGUE_UI, {
-			text: "{shadow(0)}{speed(3)}{xspace(3)}{yspace(18)}" + dialogue,
+			text: "{can_skip(false)}{shadow(0)}{speed(3)}{xspace(3)}{yspace(18)}" + dialogue_array_to_string(dialogue) + "{p}{e}",
 			gui: true,
 			caller: id,
 		})
@@ -63,7 +64,7 @@ if state == 3{
 		state = 4
 	}
 }
-if state == 4{
+if state == 4 {
 	if ui_alpha < 1
 	    ui_alpha += .05
 	
@@ -78,25 +79,26 @@ if state == 4{
 if state == 5 && selection == 0{
 	if ui_alpha> 0 ui_alpha-=.05
 	
-	if timer == 1{
+	if timer == 1 {
 		music_stop(0)
 	}
-	if timer == 30{
+	if timer == 30 {
 		audio_play(snd_dtrans_lw)
 	}
-	if timer > 30{
+	if timer > 30 {
 		fader_alpha += .03
 	}
 	
-	if fader_alpha == 1.2{
+	if fader_alpha == 1.2 {
 		event_user(0)
 	}
 }
-if state == 5 && selection == 1{
-	if ui_alpha > 0 ui_alpha-=.05
+if state == 5 && selection == 1 {
+	if ui_alpha > 0 
+        ui_alpha -= .05
 	image_alpha = 0
 	
-	if timer == 1{
+	if timer == 1 {
 		music_stop(0)
 		inst_dialogue = instance_create(o_text_typer, 130, 160, depth, {
 			text: "{preset(god_text)}{can_skip(false)}THEN THE WORLD{br}{s(20)}WAS COVERED{br}{s(20)}IN DARKNESS.{p}{e}",

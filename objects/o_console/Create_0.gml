@@ -42,6 +42,23 @@ registred_commands = {
 			instance_create(o_dev_encselect)
 		}
 	},
+    w: {
+        name: "encounter_end",
+        desc: "Lets you end an encounter instantly.",
+        execute: function() {
+            if instance_exists(o_enc) {
+                for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
+                    if enc_enemy_isfighting(i)
+                        instance_destroy(o_enc.encounter_data.enemies[i].actor_id)
+                }
+                instance_destroy(o_enc.menutext)
+                
+                o_enc.battle_state = "win"
+            }
+            else 
+                show_debug_message("CONSOLE: o_enc not found, no encounter ended")
+        }
+    }
 }
 
 depth = DEPTH_UI.CONSOLE

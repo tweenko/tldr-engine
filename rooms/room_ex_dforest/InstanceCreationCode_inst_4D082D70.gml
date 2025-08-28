@@ -14,12 +14,7 @@ trigger_code = function() {
 	}
     
 	cutscene_func(function(){
-		actor_move(get_leader(), {
-			xx: 20,
-			yy: 0,
-			absolute: false,
-			spd: 1,
-		})
+		actor_move(get_leader(), new actor_movement(0, -20, 30,,, DIR.DOWN, false))
 	})
     
 	cutscene_sleep(20)

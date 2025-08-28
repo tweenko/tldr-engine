@@ -98,7 +98,7 @@ function item_s_susieheal(data = {
                 return round(party_getdata(user, "magic") * 5 + 15) + _data.uses*2
             }
         }
-        else if __prog == 3 {
+        else if __prog >= 3 {
             name = ["BetterHeal"]
             desc = ["A healing spell that has grown with practice and confidence.", "Heal Ally"]
             
