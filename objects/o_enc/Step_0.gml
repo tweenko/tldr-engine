@@ -1318,13 +1318,9 @@ if battle_state == "win" {
         var __exp = 0
         var __dd = earned_money + global.chapter * tp / 4
         var __dd_mod = 1
-        var __follow_record = array_create(array_length(global.party_names))
         
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 		    char_state[i] = -1
-            
-            if instance_exists(party_get_inst(global.party_names[i]))
-                __follow_record[i] = party_get_inst(global.party_names[i]).follow
 			
 			if party_getdata(global.party_names[i], "is_down") {
 				party_setdata(global.party_names[i], "hp", round(party_getdata(global.party_names[i], "max_hp") * .12))
@@ -1360,10 +1356,10 @@ if battle_state == "win" {
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			var o = party_get_inst(global.party_names[i])
 			
-		    cutscene_anim(o.x, savepos[i][0], 12, "linear", function(v,o) {
+		    cutscene_anim(o.x, save_pos[i][0], 12, "linear", function(v,o) {
 				o.x = v
 			}, o)
-		    cutscene_anim(o.y, savepos[i][1], 12, "linear", function(v,o) {
+		    cutscene_anim(o.y, save_pos[i][1], 12, "linear", function(v,o) {
 				o.y = v
 			}, o)
 		}
@@ -1394,8 +1390,8 @@ if battle_state == "win" {
         cutscene_set_variable(o_camera, "target", o_actor_kris)
 		cutscene_set_variable(get_leader(), "moveable_battle", true)
 		
-        for (var i = 0; i < array_length(global.party_names); i ++) {
-            cutscene_set_variable(party_get_inst(global.party_names[i]), "follow", __follow_record[i])
+        for (var i = 0; i < array_length(save_follow); i ++) {
+            cutscene_set_variable(party_get_inst(global.party_names[i]), "follow", save_follow[i])
         }
         
 		cutscene_play()
