@@ -1,10 +1,12 @@
 party_init()
+loc_load(LOC_FILES)
 pal_swap_init_system(shd_pal_swapper)
 
 instance_create(o_camera)
 instance_create(o_window)
 instance_create(o_dev_musiccontrol)
 instance_create(o_fader)
+instance_create(o_ui_quit)
 
 { // get window ready
 	var divide = 480
@@ -105,7 +107,6 @@ global.world = 0 // 0 for dark, 1 for light
 }
 
 save_load(global.save_slot)
-loc_load(LOC_FILES)
 
 global.charmove_insts = array_create(party_getpossiblecount() + 10, undefined)
 

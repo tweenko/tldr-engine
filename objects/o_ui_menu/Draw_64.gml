@@ -364,7 +364,7 @@ if selection == 1 { // equip
 		}
 	}
 }
-if selection == 2 { //power
+if selection == 2 { // power
 	if state > 0 {
 		draw_set_font(loc_getfont("main"))
 		ui_dialoguebox_create(58, 88, 583 - 58, 413 - 88)
@@ -457,6 +457,9 @@ if selection == 2 { //power
 			}
 		}
 	}
+}
+if selection == 3 { // config
+    
 }
 
 draw_set_color(c_white)

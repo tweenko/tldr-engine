@@ -1,52 +1,57 @@
 {
     "ui_chs_play": {
         "en": "Play",
-        "jp": "プレイする"
+        "ja": "プレイする"
     },
     "ui_chs_donot": {
         "en": "Do Not",
-        "jp": "もどる"
+        "ja": "もどる"
     },
     "ui_chs_lanswitch": {
         "en": "日本語",
-        "jp": "English"
+        "ja": "English"
     },
     "ui_chs_quit": {
         "en": "Quit",
-        "jp": "終了"
+        "ja": "終了"
     },
 
 
     "ui_chs_start_0": {
         "en": "Would you like to start from Chapter {0}?",
-        "jp": "Chapter {0}から始めますか？"
+        "ja": "Chapter {0}から始めますか？"
     },
 
     "ui_chs_start_1": {
         "en": "Continue from Chapter {0}?",
-        "jp": "Chapter {0}から続けますか？"
+        "ja": "Chapter {0}から続けますか？"
     },
 
     "ui_chs_start_2": {
         "en": "Chapter {0} was completed.",
-        "jp": "Chapter {0}はクリア済みです。"
+        "ja": "Chapter {0}はクリア済みです。"
     },
     "ui_chs_start_2_yes": {
         "en": "Play Chapter {0}",
-        "jp": "Chapter {0}をプレイ"
+        "ja": "Chapter {0}をプレイ"
     },
     "ui_chs_start_2_no": {
         "en": "Chapter Select",
-        "jp": "チャプター選択"
+        "ja": "チャプター選択"
     },
 
 
     "ui_chs_yes": {
         "en": "Yes",
-        "jp": "はい"
+        "ja": "はい"
     },
     "ui_chs_no": {
         "en": "No",
-        "jp": "いいえ"
+        "ja": "いいえ"
+    },
+
+    "ui_misc_quit": {
+        "en": "spr_ui_misc_quit_en",
+        "ja": "spr_ui_misc_quit_ja"
     }
 }
