@@ -20,9 +20,11 @@
 	wininit = false
     earned_money = 0
 	
-	savepos = []
+	save_pos = []
+    save_follow = []
+    
 	items_using = []
-	
+    
 	dialogueinstances = []
 	menutext = noone
 	mybox = noone

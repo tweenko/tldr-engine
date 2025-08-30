@@ -9,7 +9,8 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
 
 instance_create(o_enc,,,,{
 	encounter_data: encounter_data, 
-	savepos
+	save_pos,
+    save_follow,
 })
 if struct_exists(encounter_data, "bgm") && encounter_data.bgm != -1 {
 	music_play(encounter_data.bgm, 1)

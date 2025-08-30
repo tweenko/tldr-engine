@@ -1,3 +1,9 @@
+save_follow = array_create(array_length(global.party_names))
+
+for (var i = 0; i < array_length(global.party_names); i ++) {
+    var inst = party_get_inst(global.party_names[i])
+    save_follow[i] = inst.follow
+}
 party_setfollow(false)
 
 // animate the party in
