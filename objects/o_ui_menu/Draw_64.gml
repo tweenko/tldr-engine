@@ -480,8 +480,12 @@ if selection == 3 && state > 0 { // config
                 break
             case C_CONFIG_TYPE.SWITCH:
                 var __txt = "ON"
-                if c_config[i].state == false
-                    __txt = "OFF"
+                if is_callable(c_config[i].state) {
+                    var __tmp = c_config[i].state()
+                    __txt = (__tmp ? "ON" : "OFF")
+                }
+                else
+                    __txt = (c_config[i].state ? "ON" : "OFF")
                 
                 draw_text_transformed(430, 150 + i*35, __txt, 2, 2, 0)
                 break

@@ -294,6 +294,10 @@
     ///@desc updates the save slot variable in the settings (in the back-loaded settings)
 	function save_settings_refresh(){
 		global.settings.SAVE_SLOT = global.save_slot
+        
+        global.settings.VOL_MASTER = o_world.volume_master
+        global.settings.VOL_SFX = o_world.volume_sfx
+        global.settings.VOL_BGM = o_world.volume_bgm
 	}
 	
     ///@desc loads the settings from the device into global.settings

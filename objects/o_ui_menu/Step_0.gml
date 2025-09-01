@@ -411,7 +411,7 @@ if !only_hp {
                 c_selection --
                 audio_play(snd_ui_move)
             }
-            c_selection = (c_selection + array_length(c_config)) % array_length(c_config) // if c_selection it's still -1
+            c_selection = (c_selection + array_length(c_config)) % array_length(c_config)
             
             if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
                 audio_play(snd_ui_select)
@@ -425,8 +425,15 @@ if !only_hp {
                         c_config[c_selection].call()
                         break
                     case C_CONFIG_TYPE.SWITCH:
-                        c_config[c_selection].state = !c_config[c_selection].state
-                        c_config[c_selection].call(c_config[c_selection].state)
+                        var __tmp = false
+                        if is_callable(c_config[c_selection].state)
+                            __tmp = !c_config[c_selection].state()
+                        else {
+                            __tmp = !c_config[c_selection].state
+                            c_config[c_selection].state = __tmp
+                        }
+                        
+                        c_config[c_selection].call(__tmp)
                         break
                 }
             }

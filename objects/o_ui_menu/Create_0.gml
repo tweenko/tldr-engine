@@ -54,26 +54,34 @@ c_config = [
     },
     {
         name: "Simplify VFX",
-        state: false,
+        state: function() {
+            return global.settings.SIMPLIFY_VFX
+        },
         type: C_CONFIG_TYPE.SWITCH,
         call: method(self, function(_bool) {
-            global.simplify_vfx = _bool
+            global.settings.SIMPLIFY_VFX = _bool
         })
     },
     {
         name: "Fullscreen",
-        state: false,
+        state: function() {
+            return window_get_fullscreen()
+        },
         type: C_CONFIG_TYPE.SWITCH,
+    
         call: method(self, function(_bool) {
             window_set_fullscreen(_bool)
-        })
+        }),
     },
     {
         name: "Auto-Run",
-        state: false,
+        state: function() {
+            return global.settings.AUTO_RUN
+        },
         type: C_CONFIG_TYPE.SWITCH,
         call: method(self, function(_bool) {
             get_leader().auto_run = _bool
+            global.settings.AUTO_RUN = _bool
         })
     },
     {
