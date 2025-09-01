@@ -35,7 +35,7 @@
 	can_act = array_create_ext(
 		array_length(global.party_names), 
 		function(index) {
-			return array_equals(party_getdata(global.party_names[index], "spells")[0].name, ["ACT"])
+			return item_spell_get_exists(item_s_act, global.party_names[index])
 		}
 	)
 	pmlerp = array_create(array_length(global.party_names), 0)

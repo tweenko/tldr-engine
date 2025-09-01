@@ -1,7 +1,7 @@
 if global.console 
 	exit
-menuroll = lerp(menuroll, (close ? 0 : 1), .4)
 
+menuroll = lerp(menuroll, (close ? 0 : 1), .4)
 if menuroll < .1 && close 
 	instance_destroy()
 
@@ -401,6 +401,66 @@ if !only_hp {
 				p_selection = 0
 		}
 	}
+    if selection == 3 { // config
+        if state == 1 { // config menu
+            if InputPressed(INPUT_VERB.DOWN) {
+                c_selection ++
+                audio_play(snd_ui_move)
+            }
+            if InputPressed(INPUT_VERB.UP) {
+                c_selection --
+                audio_play(snd_ui_move)
+            }
+            c_selection = (c_selection + array_length(c_config)) % array_length(c_config) // if c_selection it's still -1
+            
+            if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
+                audio_play(snd_ui_select)
+                buffer = 2
+                
+                switch c_config[c_selection].type {
+                    case C_CONFIG_TYPE.SLIDER:
+                        state = 2
+                        break
+                    case C_CONFIG_TYPE.BUTTON:
+                        c_config[c_selection].call()
+                        break
+                    case C_CONFIG_TYPE.SWITCH:
+                        c_config[c_selection].state = !c_config[c_selection].state
+                        c_config[c_selection].call(c_config[c_selection].state)
+                        break
+                }
+            }
+            if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
+                audio_play(snd_ui_cancel_small)
+                state = 0
+                buffer = 1
+            }
+        }
+        if state == 2 { // changing a slider
+            if InputCheck(INPUT_VERB.LEFT) {
+                c_config[c_selection].call(-.02)
+                c_holdtimer ++
+                
+                if c_holdtimer % 3 == 0
+                    audio_play(snd_noise)
+            }
+            else if InputCheck(INPUT_VERB.RIGHT) {
+                c_config[c_selection].call(.02)
+                c_holdtimer ++
+                
+                if c_holdtimer % 3 == 0
+                    audio_play(snd_noise)
+            }
+            else 
+                c_holdtimer = 0
+            
+            if (InputPressed(INPUT_VERB.SELECT) || InputPressed(INPUT_VERB.CANCEL)) && buffer == 0 {
+                state = 1
+                buffer = 1
+                audio_play(snd_ui_select)
+            }
+        }
+    }
 }
 
 timer --

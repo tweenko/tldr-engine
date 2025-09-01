@@ -262,9 +262,10 @@ function cosine(INP_DEVIDE, OUT_MULTIPLY, input = undefined) {
 ///@desc 0 for Audio, 1 for BGM. If something else is inputted, returns 0
 function volume_get(type){
 	if type == 0
-		return o_world.volume_sfx
+		return o_world.volume_sfx * o_world.volume_master
     if type == 1
-		return o_world.volume_bgm
+		return o_world.volume_bgm * o_world.volume_master
+    
 	return 0
 }
 

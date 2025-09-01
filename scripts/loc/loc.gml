@@ -1,19 +1,26 @@
-#macro LOC_FILES [ "config.json", "ui.json", "text.json" ] 
 #macro LOC_LANG_LIST [ "en", "ja" ]
 
 global.loc_source = {}
 global.loc_dir = "loc/"
 global.loc_lang = "en"
+global.loc_files = []
 
-function loc_fname_format(fname){
+var fileName = file_find_first(global.loc_dir + "*.json", 0);
+while fileName != "" {
+    array_push(global.loc_files, fileName);
+    fileName = file_find_next();
+}
+file_find_close();
+
+function loc_fname_format(fname) {
 	return global.loc_dir + fname
 }
 
 ///@desc loads all the specified files
-///@arg {array<string>} files
-function loc_load(files, lang = global.loc_lang) {
-    for (var i = 0; i < array_length(files); ++i) {
-        var fname = loc_fname_format(files[i])
+///@arg {string} lang
+function loc_load(lang = global.loc_lang) {
+    for (var i = 0; i < array_length(global.loc_files); ++i) {
+        var fname = loc_fname_format(global.loc_files[i])
 
         if file_exists(fname) {
             var f = file_text_open_read(fname)
@@ -32,9 +39,8 @@ function loc_load(files, lang = global.loc_lang) {
 			
             file_text_close(f)
         }
-		else {
+		else
             loc_error($"Localization file \"{fname}\" was not found.", true)
-        }
     }
 }
 

@@ -1,5 +1,4 @@
 party_init()
-loc_load(LOC_FILES)
 pal_swap_init_system(shd_pal_swapper)
 
 instance_create(o_camera)

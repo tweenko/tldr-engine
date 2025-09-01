@@ -17,7 +17,7 @@ if is_player && check_canmove {
 	var am_moving = 0
 	
 	// movement speed control
-	if InputCheck(INPUT_VERB.CANCEL) {
+	if ((!auto_run && InputCheck(INPUT_VERB.CANCEL)) || (auto_run && !InputCheck(INPUT_VERB.CANCEL))) && moving {
 		running = true
 		
 		if spd < runspd // accelerate
@@ -193,18 +193,20 @@ for (var i = 0; i < 360; i += 90) {
 			x += sign(instance_place(x, y + yy, o_block_diag).image_xscale) * spd
 		}
 		
-		moving=true;
+		moving = true;
 	}
 }
 
 // just make it known that you are moving (if you are not the player)
 if !is_player 
-&& (x != xprevious || y != yprevious)
-&& !is_in_battle && !is_enemy || sliding
-	moving = true
-else if moving // if you are already "moving," and it is confirmed by checking your x and y positions, let you still be moving
-&& (x != xprevious || y != yprevious)
-&& !is_in_battle && !is_enemy {}
+    && (x != xprevious || y != yprevious)
+    && !is_in_battle && !is_enemy || sliding
+    	moving = true
+    else if moving // if you are already "moving," and it is confirmed by checking your x and y positions, let you still be moving
+    && (x != xprevious || y != yprevious)
+    && !is_in_battle && !is_enemy {
+        
+}
 else
 	moving = false
 
