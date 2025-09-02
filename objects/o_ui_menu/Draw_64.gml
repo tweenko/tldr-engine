@@ -461,36 +461,69 @@ if selection == 2 { // power
 if selection == 3 && state > 0 { // config
     draw_set_font(loc_getfont("main"))
     ui_dialoguebox_create(58, 88, 583 - 58, 413 - 88)
-    draw_text_transformed(270, 100, "CONFIG", 2, 2, 0)
     
-    draw_sprite_ext(spr_soul, 0, 152, 168 + c_selection*35, 1, 1, 0, c_red, 1)
-    
-    for (var i = 0; i < array_length(c_config); i ++) {
-        if c_selection == i && state == 2
-            draw_set_color(c_yellow)
+    if state == 1 || state == 2 {
+        draw_text_transformed(270, 100, "CONFIG", 2, 2, 0)
+        draw_sprite_ext(spr_soul, 0, 152, 168 + c_selection*35, 1, 1, 0, c_red, 1)
         
-        draw_text_transformed(170, 150 + i*35, c_config[i].name, 2, 2, 0)
+        for (var i = 0; i < array_length(c_config); i ++) {
+            if c_selection == i && state == 2
+                draw_set_color(c_yellow)
+            
+            draw_text_transformed(170, 150 + i*35, c_config[i].name, 2, 2, 0)
+            
+            // draw the value to the right
+            switch c_config[i].type {
+                case C_CONFIG_TYPE.BUTTON:
+                    break
+                case C_CONFIG_TYPE.SLIDER:
+                    draw_text_transformed(430, 150 + i*35, c_config[i].display(), 2, 2, 0)
+                    break
+                case C_CONFIG_TYPE.SWITCH:
+                    var __txt = "ON"
+                    if is_callable(c_config[i].state) {
+                        var __tmp = c_config[i].state()
+                        __txt = (__tmp ? "ON" : "OFF")
+                    }
+                    else
+                        __txt = (c_config[i].state ? "ON" : "OFF")
+                    
+                    draw_text_transformed(430, 150 + i*35, __txt, 2, 2, 0)
+                    break
+            }
+            
+            draw_set_color(c_white)
+            
+            }
+        }
+    else if state == 3 {
+        draw_text_transformed(105, 100, "Function", 2, 2, 0)
+        draw_text_transformed(325, 100, "Key", 2, 2, 0)
         
-        // draw the value to the right
-        switch c_config[i].type {
-            case C_CONFIG_TYPE.BUTTON:
-                break
-            case C_CONFIG_TYPE.SLIDER:
-                draw_text_transformed(430, 150 + i*35, c_config[i].display(), 2, 2, 0)
-                break
-            case C_CONFIG_TYPE.SWITCH:
-                var __txt = "ON"
-                if is_callable(c_config[i].state) {
-                    var __tmp = c_config[i].state()
-                    __txt = (__tmp ? "ON" : "OFF")
-                }
-                else
-                    __txt = (c_config[i].state ? "ON" : "OFF")
-                
-                draw_text_transformed(430, 150 + i*35, __txt, 2, 2, 0)
-                break
+        draw_sprite_ext(spr_soul, 0, 88, 156 + 28 * c_controls_selection, 1, 1, 0, c_red, 1)
+        for (var i = 0; i < array_length(c_controls); i ++) {
+            if c_controls_selection == i {
+                draw_set_color(c_aqua)
+                if c_controls_changing
+                    draw_set_color(c_red)
+            }
+            
+            draw_text_transformed(105, 140 + 28*i, InputVerbGetExportName(c_controls[i]), 2, 2, 0)
+            draw_text_transformed(325, 140 + 28*i, input_binding_to_string(InputBindingGet(InputDeviceIsGamepad(InputPlayerGetDevice()), c_controls[i]), false), 2, 2, 0)
+            
+            draw_set_color(c_white)
         }
         
+        if c_controls_selection == array_length(c_controls)
+            draw_set_color(merge_color(c_aqua, c_yellow, c_controls_resetfade))
+        draw_text_transformed(105, 140 + 28*i, "Reset to default", 2, 2, 0)
+        draw_set_color(c_white)
+        
+        i ++
+        
+        if c_controls_selection == array_length(c_controls) + 1
+            draw_set_color(c_aqua)
+        draw_text_transformed(105, 140 + 28*i, "Finish", 2, 2, 0)
         draw_set_color(c_white)
     }
 }

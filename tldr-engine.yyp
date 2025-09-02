@@ -738,6 +738,7 @@
     {"id":{"name":"snd_icespell","path":"sounds/snd_icespell/snd_icespell.yy",},},
     {"id":{"name":"snd_impact","path":"sounds/snd_impact/snd_impact.yy",},},
     {"id":{"name":"snd_jump","path":"sounds/snd_jump/snd_jump.yy",},},
+    {"id":{"name":"snd_levelup","path":"sounds/snd_levelup/snd_levelup.yy",},},
     {"id":{"name":"snd_locker","path":"sounds/snd_locker/snd_locker.yy",},},
     {"id":{"name":"snd_mercyadd","path":"sounds/snd_mercyadd/snd_mercyadd.yy",},},
     {"id":{"name":"snd_metalhit","path":"sounds/snd_metalhit/snd_metalhit.yy",},},

@@ -291,19 +291,29 @@
 		return ret
 	}
 	
-    ///@desc updates the save slot variable in the settings (in the back-loaded settings)
+    /// @desc updates the save slot variable in the settings (in the back-loaded settings)
 	function save_settings_refresh(){
 		global.settings.SAVE_SLOT = global.save_slot
         
         global.settings.VOL_MASTER = o_world.volume_master
         global.settings.VOL_SFX = o_world.volume_sfx
         global.settings.VOL_BGM = o_world.volume_bgm
+        
+        global.settings.CONTROLS_KEY = InputBindingsExport(false)
+        global.settings.CONTROLS_GP = InputBindingsExport(true)
 	}
-	
+    
     ///@desc loads the settings from the device into global.settings
 	function save_settings_load() {
 		if save_settings_exists() {
 			global.settings = save_settings_read()
+            
+            o_world.volume_master = global.settings.VOLUME_MASTER
+            o_world.volume_sfx = global.settings.VOLUME_SFX
+            o_world.volume_bgm = global.settings.VOLUME_BGM
+            
+            InputBindingsImport(false, global.settings.CONTROLS_KEY)
+            InputBindingsImport(true, global.settings.CONTROLS_GP)
 		}
 	}
 		

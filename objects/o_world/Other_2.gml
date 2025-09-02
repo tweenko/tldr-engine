@@ -61,6 +61,9 @@ global.world = 0 // 0 for dark, 1 for light
         
         SIMPLIFY_VFX: false,
         AUTO_RUN: false,
+        
+        CONTROLS_KEY: {},
+        CONTROLS_GP: {}
 	}
 	save_settings_load()
 
@@ -115,10 +118,6 @@ global.world = 0 // 0 for dark, 1 for light
 save_load(global.save_slot)
 
 global.charmove_insts = array_create(party_getpossiblecount() + 10, undefined)
-
-o_world.volume_master = global.settings.VOL_MASTER
-o_world.volume_sfx = global.settings.VOL_SFX
-o_world.volume_bgm = global.settings.VOL_BGM
 
 randomize()
 room_goto_next()

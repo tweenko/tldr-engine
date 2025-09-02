@@ -49,7 +49,7 @@ c_config = [
         name: "Controls",
         type: C_CONFIG_TYPE.BUTTON,
         call: method(self, function() {
-            state = 4
+            state = 3
         })
     },
     {
@@ -100,6 +100,17 @@ c_config = [
         })
     },
 ]
+c_controls = [
+    INPUT_VERB.DOWN,
+    INPUT_VERB.RIGHT,
+    INPUT_VERB.UP,
+    INPUT_VERB.LEFT,
+    INPUT_VERB.SELECT,
+    INPUT_VERB.CANCEL,
+    INPUT_VERB.SPECIAL,
+]
+c_controls_changing = false
+c_controls_resetfade = 0
 
 partyreaction = array_create(party_getpossiblecount(), 0)
 partyreactiontimer = array_create(party_getpossiblecount(), 0)
