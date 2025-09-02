@@ -22,6 +22,96 @@ e_selection = 0
 p_pmselection = 0
 p_selection = 0
 
+// config
+c_selection = 0
+c_controls_selection = 0
+c_holdtimer = 0
+
+enum C_CONFIG_TYPE {
+    SLIDER,
+    BUTTON,
+    SWITCH
+}
+c_config = [
+    {
+        name: "Master Volume",
+        type: C_CONFIG_TYPE.SLIDER,
+    
+        call: method(self, function(delta) {
+            o_world.volume_master += delta
+            o_world.volume_master = clamp(o_world.volume_master, 0, 1)
+        }),
+        display: function() {
+            return $"{clamp(round(o_world.volume_master * 100), 0, 100)}%"
+        }
+    },
+    {
+        name: "Controls",
+        type: C_CONFIG_TYPE.BUTTON,
+        call: method(self, function() {
+            state = 3
+        })
+    },
+    {
+        name: "Simplify VFX",
+        state: function() {
+            return global.settings.SIMPLIFY_VFX
+        },
+        type: C_CONFIG_TYPE.SWITCH,
+        call: method(self, function(_bool) {
+            global.settings.SIMPLIFY_VFX = _bool
+        })
+    },
+    {
+        name: "Fullscreen",
+        state: function() {
+            return window_get_fullscreen()
+        },
+        type: C_CONFIG_TYPE.SWITCH,
+    
+        call: method(self, function(_bool) {
+            window_set_fullscreen(_bool)
+        }),
+    },
+    {
+        name: "Auto-Run",
+        state: function() {
+            return global.settings.AUTO_RUN
+        },
+        type: C_CONFIG_TYPE.SWITCH,
+        call: method(self, function(_bool) {
+            get_leader().auto_run = _bool
+            global.settings.AUTO_RUN = _bool
+        })
+    },
+    {
+        name: "Return to Title",
+        type: C_CONFIG_TYPE.BUTTON,
+        call: method(self, function() {
+            music_stop_all()
+            room_goto(room_save_select)
+        })
+    },
+    {
+        name: "Back",
+        type: C_CONFIG_TYPE.BUTTON,
+        call: method(self, function() {
+            state = 0
+        })
+    },
+]
+c_controls = [
+    INPUT_VERB.DOWN,
+    INPUT_VERB.RIGHT,
+    INPUT_VERB.UP,
+    INPUT_VERB.LEFT,
+    INPUT_VERB.SELECT,
+    INPUT_VERB.CANCEL,
+    INPUT_VERB.SPECIAL,
+]
+c_controls_changing = false
+c_controls_resetfade = 0
+
 partyreaction = array_create(party_getpossiblecount(), 0)
 partyreactiontimer = array_create(party_getpossiblecount(), 0)
 partyreactionlen = 5

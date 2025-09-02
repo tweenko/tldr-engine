@@ -8,9 +8,9 @@ trigger_code = function() {
     cutscene_set_variable(party_get_inst("susie"), "dir", DIR.LEFT)
     cutscene_set_variable(party_get_inst("noelle"), "dir", DIR.RIGHT)
     cutscene_dialogue([
-        "{char(susie, 12)}* So like. If you were dreaming this whole time... why...",
+        "{char(susie, 4)}* So like. If you were dreaming this whole time... why...",
         "* Is your HP not full??",
-        "{char(noelle, 2)}* Oh, is it??? Umm... Do you have... any items?"
+        "{char(noelle, 1)}* Oh, is it??? Umm... Do you have... any items?"
     ])
     for (var i = 0; i < array_length(global.party_names); i ++) {
         if global.party_names[i] != "susie" && global.party_names[i] != "noelle" {
@@ -28,7 +28,7 @@ trigger_code = function() {
     
     cutscene_sleep(30)
     cutscene_dialogue([
-        "{char(susie, 9)}* Heh. You might want to sit down for this. {mini(`(I'd need a chair...)`, noelle, 7, -10)}"
+        "{char(susie, 26)}* Heh. You might want to sit down for this. {mini(`(I'd need a chair...)`, noelle, 7, -10)}"
     ])
     
     var __healdir = -1
@@ -44,7 +44,7 @@ trigger_code = function() {
     cutscene_set_variable(party_get_inst("noelle"), "sprite_index", spr_noelle_right_blush)
     
     cutscene_dialogue([
-        "{char(susie, 24)}* Check this out!!"
+        "{char(susie, 7)}* Check this out!!"
     ])
     cutscene_set_variable(party_get_inst("susie"), "image_speed", 1)
     cutscene_sleep(6)
@@ -67,9 +67,9 @@ trigger_code = function() {
     
     cutscene_sleep(40)
     cutscene_dialogue([
-        "{char(noelle, 30)}* Um, thanks Susie!! That felt... refreshing!",
-        "{face_ex(4)}* Didn't know you knew any healing spells!!",
-        "{char(susie, 9)}* Oh, yeah, I did learn some cool stuff recently. Thanks."
+        "{char(noelle, 4)}* Um, thanks Susie!! That felt... refreshing!",
+        "{face_ex(27)}* Didn't know you knew any healing spells!!",
+        "{char(susie, 53)}* Oh, yeah, I did learn some cool stuff recently. Thanks."
     ],, false)
     cutscene_wait_dialogue_boxes(2)
     

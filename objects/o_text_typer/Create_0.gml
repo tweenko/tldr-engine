@@ -80,7 +80,7 @@
 	auto_pauses = true
 	auto_breaks = true
 	
-	_facechange = function(char, expression = "neutral", change_delay = 4) {
+	_facechange = function(char, expression = 0, change_delay = 4) {
 		_face = struct_get(struct_get(char_presets, char), "_face")
 		if instance_exists(face_inst) {
 			x -= face_xoff
@@ -94,7 +94,7 @@
             
 			face_expression = expression
 			face_inst = instance_create(_face, x, y, depth - 100)
-			face_inst.facename = face_expression
+			face_inst.f_index = face_expression
 			face_inst.caller = id
 			face_inst.alarm[0] = change_delay
             face_inst.image_xscale = xscale

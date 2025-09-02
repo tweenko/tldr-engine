@@ -88,9 +88,10 @@ if state == 0 { // choose
 				subselection = 0
 				msg_set(m_chfile, 0)
 			}
-			if selection==SAVE_SLOTS + 4 {
+			if selection == SAVE_SLOTS + 4 {
+                loc_switch_lang()
 			}
-			if selection==SAVE_SLOTS + 5 {
+			if selection == SAVE_SLOTS + 5 {
 				game_end()
 			}
 			

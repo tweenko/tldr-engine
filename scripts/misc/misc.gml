@@ -160,13 +160,19 @@ function time_format(time_s, display_hours = true){
 }
 
 /// @desc converts binds to keys
-function input_binding_to_string(bind){
-	if bind == INPUT_VERB.UP		    return "UP"
-	else if bind == INPUT_VERB.DOWN	    return "DOWN"
-	else if bind == INPUT_VERB.LEFT	    return "LEFT"
-	else if bind == INPUT_VERB.RIGHT	return "RIGHT"
-        
-	else return string_upper(InputVerbGetBindingName(bind))
+function input_binding_to_string(bind, upper = true, _is_gamepad = InputDeviceIsGamepad(InputPlayerGetDevice())){
+	var __bindname = InputGetBindingName(bind, _is_gamepad)
+    var __ret = ""
+    
+    if string_contains("arrow", __bindname) {
+        __ret = string_split(__bindname, " ")[1]
+        __ret = string_upper(string_copy(__ret, 1, 1)) + string_delete(__ret, 1, 1);
+    }
+    else {
+    	__ret = string_upper(__bindname)
+    }
+    
+	return (upper ? string_upper(__ret) : __ret)
 }
 /// @desc converts a bind to text (or sprite) - gets it ready for use in dialogue
 function input_binding_intext(verb){

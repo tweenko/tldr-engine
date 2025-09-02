@@ -18,8 +18,8 @@ m_buttons=[
 	},
 	{
 		name: "Recruits",
-		on: true,
-		page: 3,
+		on: false,
+		page: 0,
 	},
 ]
 

@@ -41,6 +41,9 @@
     "name":"spr_soul",
     "path":"sprites/spr_soul/spr_soul.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"spr_soul_mask",
+    "path":"sprites/spr_soul_mask/spr_soul_mask.yy",
+  },
   "visible":true,
 }

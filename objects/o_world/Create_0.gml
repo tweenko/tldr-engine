@@ -1,6 +1,7 @@
 frames = 0
-volume_sfx = .5
-volume_bgm = .5
+volume_sfx = 1
+volume_bgm = 1
+volume_master = .6
 
 gamepad = false
 windowsize = 1
@@ -14,6 +15,7 @@ global.console = false
 global.current_light = c_white
 
 global.temp_choice = 0
+global.simplify_vfx = false
 
 { // emmiters
 	emitter_sfx = audio_emitter_create();
@@ -29,3 +31,5 @@ global.temp_choice = 0
 eff_reverb = audio_effect_create(AudioEffectType.Reverb1);
 eff_reverb.size = 0.7;
 eff_reverb.mix = 0.5
+
+loc_load()

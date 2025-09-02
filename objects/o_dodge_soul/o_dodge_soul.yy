@@ -10,8 +10,8 @@
   "name":"o_dodge_soul",
   "overriddenProperties":[],
   "parent":{
-    "name":"battle",
-    "path":"folders/@Engine/objects/ow/battle.yy",
+    "name":"dodge",
+    "path":"folders/@Engine/objects/ow/dodge.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -35,6 +35,9 @@
     "name":"spr_soul",
     "path":"sprites/spr_soul/spr_soul.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"spr_soul_mask",
+    "path":"sprites/spr_soul_mask/spr_soul_mask.yy",
+  },
   "visible":true,
 }

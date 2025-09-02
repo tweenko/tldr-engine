@@ -5,6 +5,7 @@ instance_create(o_camera)
 instance_create(o_window)
 instance_create(o_dev_musiccontrol)
 instance_create(o_fader)
+instance_create(o_ui_quit)
 
 { // get window ready
 	var divide = 480
@@ -53,6 +54,16 @@ global.world = 0 // 0 for dark, 1 for light
 	//load settings
 	global.settings = {
 		SAVE_SLOT: 0,
+
+        VOLUME_SFX: volume_sfx,
+        VOLUME_BGM: volume_bgm,
+        VOLUME_MASTER: volume_master,
+        
+        SIMPLIFY_VFX: false,
+        AUTO_RUN: false,
+        
+        CONTROLS_KEY: {},
+        CONTROLS_GP: {}
 	}
 	save_settings_load()
 
@@ -105,7 +116,6 @@ global.world = 0 // 0 for dark, 1 for light
 }
 
 save_load(global.save_slot)
-loc_load(LOC_FILES)
 
 global.charmove_insts = array_create(party_getpossiblecount() + 10, undefined)
 

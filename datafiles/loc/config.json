@@ -1,31 +1,31 @@
 {
     "font_main": {
         "en": "font_main",
-        "jp": "font_main_ja"
+        "ja": "font_main_ja"
     },
     "font_text": {
         "en": "font_main_mono",
-        "jp": "font_main_ja"
+        "ja": "font_main_ja"
     },
     "font_enc": {
         "en": "font_dotumche",
-        "jp": "font_main_ja"
+        "ja": "font_main_ja"
     },
 
     "chapter_1": {
         "en": "The Beginning",
-        "jp": "はじまり"
+        "ja": "はじまり"
     },
     "chapter_2": {
         "en": "A Cyber's World",
-        "jp": "サイバーワールド"
+        "ja": "サイバーワールド"
     },
     "chapter_3": {
         "en": "Late Night",
-        "jp": "レイトナイト"
+        "ja": "レイトナイト"
     },
     "chapter_4": {
         "en": "Prophecy",
-        "jp": "予言"
+        "ja": "予言"
     }
 }

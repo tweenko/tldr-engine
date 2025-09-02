@@ -15,10 +15,10 @@ is_player = false
 	runspd = 4
 	basespd = spd
 	lockeddir = -1
+    auto_run = global.settings.AUTO_RUN
 	
 	slide_vertical_allow = false // can move vertically while sliding
 	diagonal = true // can move diagonally
-	canrun = true // can run
 	
 	stepsounds = false
 	stepsound = 0 // if the stepsound was played

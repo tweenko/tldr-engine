@@ -103,7 +103,7 @@ while looping || normalupd {
 			}
 			
 			// handle line breaks
-			if array_contains(linebreaks, disp_chars) && auto_breaks {
+			if array_contains(linebreaks, disp_chars) {
 				event_user(4)
 			}
 		}
@@ -209,7 +209,7 @@ if _face == noone && instance_exists(face_inst) {
 	x -= 116
 }
 if face_expression != face_expression_prev {
-	face_inst.facename = face_expression
+	face_inst.f_index = face_expression
 	face_expression_prev = face_expression
 }
 

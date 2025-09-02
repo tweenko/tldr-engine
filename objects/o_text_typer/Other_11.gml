@@ -34,7 +34,7 @@ while string_contains("{", twb) {
 }
 
 // don't predict text
-if !predict_text {
+if !predict_text || !auto_breaks {
     linebreaks = manualbreaks
 	exit
 }
