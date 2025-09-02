@@ -301,6 +301,9 @@
         
         global.settings.CONTROLS_KEY = InputBindingsExport(false)
         global.settings.CONTROLS_GP = InputBindingsExport(true)
+        
+        global.settings.LANG = global.loc_lang
+        global.settings.VERSION_SAVED = ENGINE_VERSION
 	}
     
     ///@desc loads the settings from the device into global.settings
@@ -314,6 +317,8 @@
             
             InputBindingsImport(false, global.settings.CONTROLS_KEY)
             InputBindingsImport(true, global.settings.CONTROLS_GP)
+            
+            global.loc_lang = global.settings.LANG
 		}
 	}
 		

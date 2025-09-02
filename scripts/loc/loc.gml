@@ -52,13 +52,22 @@ function loc(loc_id) {
 		
 	return loc_id
 }
+///@desc used to localize sprites. if unable to do so, spr_default will be returned
+///@arg {string} loc_id the id of the localized sprite you want to get
+function loc_sprite(loc_id) {
+    if struct_exists(global.loc_source, loc_id)
+		return asset_get_index(struct_get(global.loc_source, loc_id))
+		
+	return spr_default
+}
+///@desc used to localize fonts
+///@arg {string} font_id the id of the localized font you want to get
+function loc_font(font_id){
+	return asset_get_index(loc("font_" + font_id))
+}
 
 function loc_error(err_text = "Undefined", critical = false) {
 	show_error(string(" \nLOCALIZATION ERROR:\n{0}\n ", err_text), critical)
-}
-
-function loc_getfont(font_id){
-	return asset_get_index(loc("font_"+font_id))
 }
 
 function loc_getlang() {

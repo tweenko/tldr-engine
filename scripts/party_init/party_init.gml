@@ -91,7 +91,7 @@ function party_m() constructor {
 }
 	
 function party_m_kris() : party_m() constructor {
-	name = "Kris"
+	name = "party_name_kris"
 	
 	// colors
 	color = c_aqua
@@ -159,7 +159,7 @@ function party_m_kris() : party_m() constructor {
 	}
 }
 function party_m_susie() : party_m() constructor {
-	name = "Susie"
+	name = "party_name_susie"
 	
 	// colors
 	color = c_fuchsia
@@ -232,7 +232,7 @@ function party_m_susie() : party_m() constructor {
 	}
 }
 function party_m_ralsei() : party_m() constructor {
-	name = "Ralsei"
+	name = "party_name_ralsei"
 	
 	// colors
 	color = c_lime
@@ -303,7 +303,7 @@ function party_m_ralsei() : party_m() constructor {
 	}
 }
 function party_m_noelle() : party_m() constructor {
-	name = "Noelle"
+	name = "party_name_noelle"
 	
 	// colors
 	color = c_yellow

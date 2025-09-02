@@ -1,7 +1,7 @@
 { // top
 	ui_dialoguebox_create(32,52+yy, 142, 110)
 	
-	draw_set_font(loc_getfont("main"))
+	draw_set_font(loc_font("main"))
 	draw_set_color(c_white)
 	draw_text_transformed(46, 60+yy, save_get("lw_name"), 2, 2, 0)
 	draw_set_font(font_lwmenu)
@@ -13,7 +13,7 @@
 	draw_text_transformed(46, 136-6+yy, "$", 2, 2, 0)
 	draw_text_transformed(80, 136-6+yy, save_get("lw_money"), 2, 2, 0)
 
-	draw_set_font(loc_getfont("main"))
+	draw_set_font(loc_font("main"))
 	draw_set_color(c_white)
 }
 { // middle

@@ -1,7 +1,7 @@
 var roll = 80 * menuroll
 var __top_txt_len = 310
 
-draw_set_font(loc_getfont("main"))
+draw_set_font(loc_font("main"))
 
 if !surface_exists(surf)
     surf = surface_create(640, 480)
@@ -10,7 +10,7 @@ draw_clear_alpha(0, 0)
 
 if !only_hp { // top
 	draw_sprite_ext(spr_pixel, 0, 0, 0, 640, roll, 0, c_black, 1)
-	draw_sprite_ext(spr_ui_menu_lb, selection, 20, 24 - 80 + roll, 2, 2, 0, c_white, 1)
+	draw_sprite_ext(loc_sprite("menu_label_spr"), selection, 20, 24 - 80 + roll, 2, 2, 0, c_white, 1)
 	
 	for (var i = 0; i < 4; ++i) {
 	    draw_sprite_ext(spr_ui_menu_bt, i*2 + (selection == i ? 1 : 0), 120 + 100*i, 20 - 80 + roll, 2, 2, 0, c_white, 1)
@@ -44,6 +44,9 @@ if !only_hp { // top
 			font = global.partyname_font_1
 		if string_length(party_getname(global.party_names[i], false)) > 5
 			font = global.partyname_font_0
+        
+        if loc_getlang() == "ja"
+            font = global.partyname_font_ja
 		
 		draw_set_font(font)
 		draw_text_transformed(51 + 213*i + xoff, 430 + 80 - roll, string_upper(party_getname(global.party_names[i], false)), 1, 1, 0)
@@ -64,7 +67,7 @@ if !only_hp { // top
 		
 		draw_set_color(c_white)
 		draw_set_halign(fa_left)
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		draw_set_alpha(min(partyreactiontimer[i],1))
 		draw_set_color(c_white)
 		
@@ -84,7 +87,7 @@ if selection == 0 { // items
 		    draw_text_transformed(xx, yy, sstring, 2, 2, 0)
 		}
 		
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		ui_dialoguebox_create(68, 88, 572-68, 362-88)
 		
 		// the three options at the top
@@ -134,7 +137,7 @@ if selection == 0 { // items
 }
 if selection == 1 { // equip
 	if state > 0 {
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		
 		ui_dialoguebox_create(58, 88, 583 - 58, 413 - 88)
 		draw_text_transformed(135, 107,party_getname(global.party_names[e_pmselection],false), 2, 2, 0)
@@ -152,14 +155,14 @@ if selection == 1 { // equip
 		draw_rectangle(62, 221, 580, 226, 0)
 		draw_rectangle(323, 226, 328, 408, 0)
 		
-		draw_sprite_ext(spr_ui_menu_cchar, 0, 118, 86, 2, 2, 0, c_white, 1)
-		draw_sprite_ext(spr_ui_menu_cstats, 0, 116, 216, 2, 2, 0, c_white, 1)
-		draw_sprite_ext(spr_ui_menu_cequipped, 0, 376, 86, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_char_spr"), 0, 118, 86, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_stats_spr"), 0, 116, 216, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_equipped_spr"), 0, 376, 86, 2, 2, 0, c_white, 1)
 		
-		if e_pselection==0
-			draw_sprite_ext(spr_ui_menu_cweapons, 0, 372, 216, 2, 2, 0, c_white, 1)
+		if e_pselection == 0
+			draw_sprite_ext(loc_sprite("menu_caption_weapons_spr"), 0, 372, 216, 2, 2, 0, c_white, 1)
 		else 
-			draw_sprite_ext(spr_ui_menu_carmors, 0, 372, 216, 2, 2, 0, c_white, 1)
+			draw_sprite_ext(loc_sprite("menu_caption_armors_spr"), 0, 372, 216, 2, 2, 0, c_white, 1)
 		
 		var delta = 0 // 1 for worse and 2 for better
 		var order = ["attack", "defense", "magic"]
@@ -366,7 +369,7 @@ if selection == 1 { // equip
 }
 if selection == 2 { // power
 	if state > 0 {
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		ui_dialoguebox_create(58, 88, 583 - 58, 413 - 88)
 		
 		draw_text_transformed(130, 112-7, party_getname(global.party_names[p_pmselection], false), 2, 2, 0)
@@ -382,9 +385,9 @@ if selection == 2 { // power
 		draw_rectangle(62, 216, 580, 221, 0)
 		draw_rectangle(294, 220, 299, 408, 0)
 		
-		draw_sprite_ext(spr_ui_menu_cchar, 0, 124, 84, 2, 2, 0, c_white, 1)
-		draw_sprite_ext(spr_ui_menu_cstats, 0, 124, 210, 2, 2, 0, c_white, 1)
-		draw_sprite_ext(spr_ui_menu_cspells, 0, 380, 210, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_char_spr"), 0, 124, 84, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_stats_spr"), 0, 124, 210, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_spells_spr"), 0, 380, 210, 2, 2, 0, c_white, 1)
 		
 		draw_text_ext_transformed(320, 105, "LV" + string(party_getdata(global.party_names[p_pmselection], "lv")) + " " + party_getdata(global.party_names[p_pmselection], "desc"), 16, 126, 2, 2, 0)
 		
@@ -434,7 +437,7 @@ if selection == 2 { // power
 		}
 		
 		draw_set_color(c_gray)
-		draw_sprite_ext(spr_ui_menu_ctp, 0, 340, 225, 1, 1, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_menu_caption_tp, 0, 340, 225, 1, 1, 0, c_white, 1)
 		
 		for (var i = 0; i < array_length(party_getdata(global.party_names[p_pmselection], "spells")); ++i) {
 		    draw_text_transformed(340, 230 + i*25, string("{0}%", party_getdata(global.party_names[p_pmselection], "spells")[i].tp_cost), 2, 2, 0)
@@ -459,7 +462,7 @@ if selection == 2 { // power
 	}
 }
 if selection == 3 && state > 0 { // config
-    draw_set_font(loc_getfont("main"))
+    draw_set_font(loc_font("main"))
     ui_dialoguebox_create(58, 88, 583 - 58, 413 - 88)
     
     if state == 1 || state == 2 {

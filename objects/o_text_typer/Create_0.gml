@@ -2,7 +2,7 @@
 
 { // configuration
 	text = ""
-	font = loc_getfont("text")
+	font = loc_font("text")
 	gui = false
 	destroy_caller = false
 	

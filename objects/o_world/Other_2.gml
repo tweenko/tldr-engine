@@ -23,6 +23,7 @@ instance_create(o_ui_quit)
 	global.partyname_font_0 = font_add_sprite_ext(spr_ui_partyname_font, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/", true, -1);
 	global.partyname_font_1 = font_add_sprite_ext(spr_ui_partyname_font, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/", true, 0);
 	global.partyname_font_2 = font_add_sprite_ext(spr_ui_partyname_font, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/", true, 1);
+	global.partyname_font_ja = font_add_sprite_ext(spr_ui_partyname_font_ja, "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォャュョッヮーヴガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポABCDEFGHIJKLMNOPQRSTUVWXYZ", true, 3);
 	
 	global.font_ui_hp = font_add_sprite_ext(spr_ui_hpfont, "1234567890-", true, 2);
 	
@@ -50,22 +51,6 @@ global.world = 0 // 0 for dark, 1 for light
 { //saves
 	global.chapter = 2
 	global.time = 0
-
-	//load settings
-	global.settings = {
-		SAVE_SLOT: 0,
-
-        VOLUME_SFX: volume_sfx,
-        VOLUME_BGM: volume_bgm,
-        VOLUME_MASTER: volume_master,
-        
-        SIMPLIFY_VFX: false,
-        AUTO_RUN: false,
-        
-        CONTROLS_KEY: {},
-        CONTROLS_GP: {}
-	}
-	save_settings_load()
 
 	//get saves ready
 	global.save_slot = global.settings.SAVE_SLOT
@@ -120,4 +105,15 @@ save_load(global.save_slot)
 global.charmove_insts = array_create(party_getpossiblecount() + 10, undefined)
 
 randomize()
-room_goto_next()
+
+if !allow_incompatible_saves {
+    var __v = (struct_exists(global.settings, "VERSION_SAVED") ? global.settings.VERSION_SAVED : "v0.0.0")
+    if !__engine_versions_compare(__v, ENGINE_LAST_COMPATIBLE_VERSION) {
+        progress = false
+        incompatible_save_warning = true
+        incompatible_save_sleep = 20
+    }
+}
+
+if progress
+    room_goto_next()

@@ -1,5 +1,5 @@
 symbol = ""
-font = loc_getfont("text")
+font = loc_font("text")
 scalex = 1
 scaley = 1
 angle = 0

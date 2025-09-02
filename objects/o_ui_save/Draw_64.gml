@@ -1,4 +1,4 @@
-draw_set_font(loc_getfont("main"))
+draw_set_font(loc_font("main"))
 
 if page == 0 { // main menu
 	var time = time_format(global.time)
@@ -179,7 +179,7 @@ if page == 1 { // save menu
 	}
 }
 if page == 2 { // storage
-	draw_set_font(loc_getfont("main"))
+	draw_set_font(loc_font("main"))
 	
 	draw_set_color(c_white)
 	draw_rectangle(40, 121, 600, 430, 0)
@@ -202,7 +202,7 @@ if page == 2 { // storage
 	}
 	draw_text_ext_transformed(20, 20, desc, 16, 300, 2, 2, 0)
 	
-	draw_set_font(loc_getfont("enc"))
+	draw_set_font(loc_font("enc"))
 	draw_set_color((st_page == 0 ? c_gray : c_dkgray))
 	draw_text_transformed(61, 141, "POCKET", 1, 1, 0)
 	draw_set_color((st_page == 1 ? c_gray : c_dkgray))

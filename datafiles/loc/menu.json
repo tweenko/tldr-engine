@@ -1,0 +1,30 @@
+{
+    "menu_label_spr": {
+        "en": "spr_ui_menu_label",
+        "ja": "spr_ui_menu_label_ja"
+    },
+    "menu_caption_armors_spr": {
+        "en": "spr_ui_menu_caption_armors",
+        "ja": "spr_ui_menu_caption_armors_ja"
+    },
+    "menu_caption_char_spr": {
+        "en": "spr_ui_menu_caption_char",
+        "ja": "spr_ui_menu_caption_char_ja"
+    },
+    "menu_caption_equipped_spr": {
+        "en": "spr_ui_menu_caption_equipped",
+        "ja": "spr_ui_menu_caption_equipped_ja"
+    },
+    "menu_caption_spells_spr": {
+        "en": "spr_ui_menu_caption_spells",
+        "ja": "spr_ui_menu_caption_spells_ja"
+    },
+    "menu_caption_stats_spr": {
+        "en": "spr_ui_menu_caption_stats",
+        "ja": "spr_ui_menu_caption_stats_ja"
+    },
+    "menu_caption_weapons_spr": {
+        "en": "spr_ui_menu_caption_weapons",
+        "ja": "spr_ui_menu_caption_weapons_ja"
+    }
+}

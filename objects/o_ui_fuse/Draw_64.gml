@@ -1,4 +1,4 @@
-draw_set_font(loc_getfont("main"))
+draw_set_font(loc_font("main"))
 
 if !confirmation {
 	draw_set_color(c_black)

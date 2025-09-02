@@ -1,4 +1,4 @@
-draw_set_font(loc_getfont("main"))
+draw_set_font(loc_font("main"))
 draw_set_color(white)
 
 if bg != -1 {
@@ -233,10 +233,10 @@ if state < 2 { // main
 		option_draw(108, 420, $"Ch {global.chapter-1} Files", SAVE_SLOTS+3)
 	if language {
         draw_set_font(font_main_ja)
-		option_draw(280, 420, $"{loc("ui_chs_lanswitch")}", SAVE_SLOTS+4)
+		option_draw(280, 420, $"{loc("chapter_select_lanswitch")}", SAVE_SLOTS+4)
     }
     
-    draw_set_font(loc_getfont("main"))
+    draw_set_font(loc_font("main"))
 	option_draw(408, 420, "End Program", SAVE_SLOTS+5)
 }
 else if state == 2 || state == 21 || state == 22 { // copy

@@ -43,7 +43,7 @@ surface_set_target(surf) {
 		if char_state[i] == -1 
 			draw_sprite_ext(party_geticon(global.party_names[i]), 0, 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, c_white, 1)
 		else
-			draw_sprite_ext(spr_ui_menu_partyiconsenc, char_state[i], 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, party_getdata(global.party_names[i], "iconcolor"), 1)
+			draw_sprite_ext(spr_ui_enc_icons_command, char_state[i], 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, party_getdata(global.party_names[i], "iconcolor"), 1)
 		
 		var font = global.partyname_font_2
 		
@@ -51,6 +51,9 @@ surface_set_target(surf) {
 			font = global.partyname_font_1
 		if string_length(party_getname(global.party_names[i], false)) > 5
 			font = global.partyname_font_0
+        
+        if loc_getlang() == "ja"
+            font = global.partyname_font_ja
 		
 		draw_set_font(font)
 		draw_text_transformed(51 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], string_upper(party_getname(global.party_names[i], false)), 1, 1, 0)
@@ -74,7 +77,7 @@ surface_set_target(surf) {
 		
 		draw_set_halign(fa_left)
 		draw_set_color(c_white)
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		draw_set_alpha(1)
 	}
 	
@@ -134,7 +137,7 @@ surface_set_target(surf) {
 	
 	// draw the menu ui
 	if battle_state == "menu" {
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		
 		// enemy selector
 		if state == 1 && (bt_selection[selection] == 0 || bt_selection[selection] == 3 || (bt_selection[selection] == 1 && can_act[selection])) || (bt_selection[selection] == 2 && state == 3) || (!can_act[selection] && bt_selection[selection] == 1 && spells[actselection[selection]].use_type == 2 && state == 3) {
@@ -415,7 +418,7 @@ surface_set_target(surf) {
 		
 		draw_sprite_ext(spr_ui_enc_tpbar_caption, 0, 10 + tpxx, 77, 2, 2, 0, c_white, 1)
 		
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		draw_set_color(c_white)
 		
 		if ceil(tplerp) >= 100 {

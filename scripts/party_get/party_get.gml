@@ -17,9 +17,9 @@ function party_getdata(name, value) {
 ///@desc returns the full name of a party member
 function party_getname(name, full = true) {
 	if struct_exists(party_nametostruct(name), "name_t") && !full 
-		return party_getdata(name, "name_t")
+		return loc(party_getdata(name, "name_t"))
 	else 
-		return party_getdata(name, "name")
+		return loc(party_getdata(name, "name"))
 }
 ///@arg {String} name
 ///@desc returns the index of a party member using their name
