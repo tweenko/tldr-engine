@@ -9,8 +9,8 @@
   "name":"o_dodge_layerhandler",
   "overriddenProperties":[],
   "parent":{
-    "name":"battle",
-    "path":"folders/@Engine/objects/ow/battle.yy",
+    "name":"dodge",
+    "path":"folders/@Engine/objects/ow/dodge.yy",
   },
   "parentObjectId":null,
   "persistent":false,

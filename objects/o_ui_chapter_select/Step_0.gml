@@ -35,7 +35,7 @@ if state == -1 {
 else {
 	var total = array_length(chapters)
     
-	if !musplayed && music_getplaying(0) != mus_drone{
+	if !musplayed && music_getplaying(0) != mus_drone {
 		musplayed = true
 		music_play(mus_drone, 0)
 	}

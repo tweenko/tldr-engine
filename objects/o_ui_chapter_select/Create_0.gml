@@ -95,8 +95,8 @@ vtext_alpha = 0
 pause = 0
 
 copyright_text = ""
-gamename = "tlDR Engine"
-version_text = "v1.0.1"
+gamename = ENGINE_NAME
+version_text = ENGINE_VERSION
 
 languages = true
 

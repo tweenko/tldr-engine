@@ -231,19 +231,31 @@ if state < 2 { // main
 	option_draw(408, 380, "Chapter Select", SAVE_SLOTS+2)
 	if ch_file 
 		option_draw(108, 420, $"Ch {global.chapter-1} Files", SAVE_SLOTS+3)
-	if language 
-		option_draw(280, 420, $"lang", SAVE_SLOTS+4)
+	if language {
+        draw_set_font(font_main_ja)
+		option_draw(280, 420, $"{loc("ui_chs_lanswitch")}", SAVE_SLOTS+4)
+    }
+    
+    draw_set_font(loc_getfont("main"))
 	option_draw(408, 420, "End Program", SAVE_SLOTS+5)
 }
-else if state == 2 || state == 21 || state == 22 { //copy
+else if state == 2 || state == 21 || state == 22 { // copy
 	option_draw(108, 380,"Cancel", SAVE_SLOTS, subselection)
 }
-else if state == 3 || state == 31 || state == 32 { //erase
+else if state == 3 || state == 31 || state == 32 { // erase
 	option_draw(108, 380,"Cancel", SAVE_SLOTS, subselection)
 }
-else if state == 4 || state == 41 { //erase
+else if state == 4 || state == 41 {
 	option_draw(108, 380, string("Don't Use Chapter {0} FILE", global.chapter - 1), SAVE_SLOTS, subselection)
 }
 
 draw_set_color(c_white)
 draw_sprite_ext(spr_ui_soul, 0, soulx, souly, 2, 2, 0, c_red, 1)
+
+
+draw_set_alpha(.25)
+draw_set_halign(fa_right); draw_set_valign(fa_bottom)
+draw_text_transformed(640 - 10, 480 - 6, credit, 1, 1, 0)
+
+draw_set_halign(fa_left); draw_set_valign(fa_top)
+draw_set_alpha(1)

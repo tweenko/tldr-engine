@@ -11,8 +11,8 @@
   "name":"o_dodge_bullet",
   "overriddenProperties":[],
   "parent":{
-    "name":"battle",
-    "path":"folders/@Engine/objects/ow/battle.yy",
+    "name":"dodge",
+    "path":"folders/@Engine/objects/ow/dodge.yy",
   },
   "parentObjectId":{
     "name":"o_ow_interactable",

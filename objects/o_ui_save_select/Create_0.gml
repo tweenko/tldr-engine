@@ -36,7 +36,7 @@ event_user(1)
 files = []
 files_prev = []
 
-language = false
+language = true
 ch_file = (global.chapter>1)
 
 soulx = 130
@@ -51,6 +51,8 @@ threat = 0
 
 copy_from = 0
 copy_to = 0
+
+credit = $"{ENGINE_NAME} {ENGINE_VERSION}"
 
 event_user(0)
 

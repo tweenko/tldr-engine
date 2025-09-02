@@ -64,8 +64,9 @@ function loc_getfont(font_id){
 function loc_getlang() {
 	return global.loc_lang
 }
-	
-function loc_switch_lang(lang = undefined) {
+
+/// @desc the language changes usually fully apply after the game is restarted, so it's highly recommended
+function loc_switch_lang(lang = undefined, restart_game = true) {
 	if is_undefined(lang) {
 		var __cur = array_get_index(LOC_LANG_LIST, global.loc_lang)
 		global.loc_lang = LOC_LANG_LIST[(__cur + 1) % array_length(LOC_LANG_LIST)]
@@ -73,6 +74,8 @@ function loc_switch_lang(lang = undefined) {
 	else
 		global.loc_lang = lang
 	
-	loc_load(LOC_FILES)
-    game_restart()
+	loc_load()
+    
+    if restart_game
+        game_restart()
 }
