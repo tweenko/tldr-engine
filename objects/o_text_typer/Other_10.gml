@@ -32,7 +32,7 @@ if command == "s" || command == "sleep" { // sleep(frames)
 	
 	looping = false
 }
-if command == "br" || command == "break" { // break() or break
+if command == "br" { // br() or br
 	chars ++
 }
 if command == "p" || command == "pause"  { // pause(frames)

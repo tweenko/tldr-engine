@@ -468,20 +468,21 @@ if !only_hp {
             }
         }
         if state == 3 { // controls
+            var __inputdevice = InputPlayerGetDevice()
             if c_controls_changing {
                 if keyboard_check_pressed(vk_escape) && buffer == 0 {
                     audio_play(snd_ui_cancel_small)
-                    InputDeviceSetRebinding(INPUT_KBM, false)
+                    InputDeviceSetRebinding(__inputdevice, false)
                     
                     c_controls_changing = false
                     buffer = 1
                 }
                 if buffer == 0 {
-                    if InputDeviceGetRebinding(INPUT_KBM) {
-                        var _result = InputDeviceGetRebindingResult(INPUT_KBM);
+                    if InputDeviceGetRebinding(__inputdevice) {
+                        var _result = InputDeviceGetRebindingResult(__inputdevice);
                         if (_result != undefined) {
-                            InputBindingSetSafe(InputDeviceIsGamepad(INPUT_KBM), c_controls[c_controls_selection], _result);
-                            InputDeviceSetRebinding(INPUT_KBM, false);
+                            InputBindingSetSafe(InputDeviceIsGamepad(__inputdevice), c_controls[c_controls_selection], _result);
+                            InputDeviceSetRebinding(__inputdevice, false);
                             
                             audio_play(snd_ui_cancel_small)
                             audio_play(snd_ui_select)
@@ -522,7 +523,7 @@ if !only_hp {
                             gp_axislh, gp_axisrh, gp_axisrv, gp_axislv, 
                             gp_stickl, gp_stickr
                         ]
-                        InputDeviceSetRebinding(INPUT_KBM, true, _ignoreArray)
+                        InputDeviceSetRebinding(__inputdevice, true, _ignoreArray)
                     }
                     else {
                     	if c_controls_selection == array_length(c_controls) {

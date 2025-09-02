@@ -103,7 +103,7 @@ while looping || normalupd {
 			}
 			
 			// handle line breaks
-			if array_contains(linebreaks, disp_chars) && auto_breaks {
+			if array_contains(linebreaks, disp_chars) {
 				event_user(4)
 			}
 		}

@@ -51,7 +51,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
 				o.run_away = true
 				audio_play(snd_defeatrun)
 			}
-            else {
+            else if seed == "freeze" {
                 do_animate(0, 1, 20, "linear", o, "freeze")
                 audio_play(snd_petrify)
             }

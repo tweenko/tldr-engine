@@ -160,8 +160,8 @@ function time_format(time_s, display_hours = true){
 }
 
 /// @desc converts binds to keys
-function input_binding_to_string(bind, upper = true){
-	var __bindname = InputGetBindingName(bind, InputDeviceIsGamepad(InputPlayerGetDevice()))
+function input_binding_to_string(bind, upper = true, _is_gamepad = InputDeviceIsGamepad(InputPlayerGetDevice())){
+	var __bindname = InputGetBindingName(bind, _is_gamepad)
     var __ret = ""
     
     if string_contains("arrow", __bindname) {

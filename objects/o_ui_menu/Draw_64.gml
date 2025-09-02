@@ -497,8 +497,13 @@ if selection == 3 && state > 0 { // config
             }
         }
     else if state == 3 {
+        var __isgamepad = InputDeviceIsGamepad(InputPlayerGetDevice())
+        
         draw_text_transformed(105, 100, "Function", 2, 2, 0)
         draw_text_transformed(325, 100, "Key", 2, 2, 0)
+        
+        if __isgamepad 
+            draw_text_transformed(435, 100, "Gamepad", 2, 2, 0)
         
         draw_sprite_ext(spr_soul, 0, 88, 156 + 28 * c_controls_selection, 1, 1, 0, c_red, 1)
         for (var i = 0; i < array_length(c_controls); i ++) {
@@ -509,9 +514,14 @@ if selection == 3 && state > 0 { // config
             }
             
             draw_text_transformed(105, 140 + 28*i, InputVerbGetExportName(c_controls[i]), 2, 2, 0)
-            draw_text_transformed(325, 140 + 28*i, input_binding_to_string(InputBindingGet(InputDeviceIsGamepad(InputPlayerGetDevice()), c_controls[i]), false), 2, 2, 0)
+            draw_text_transformed(325, 140 + 28*i, input_binding_to_string(InputBindingGet(false, c_controls[i]), false, false), 2, 2, 0)
             
             draw_set_color(c_white)
+            
+            if __isgamepad {
+                var __potential_icon = InputIconGet(c_controls[i])
+                draw_sprite_ext(__potential_icon, 0, 465, 140 + 28*i, 2, 2, 0, c_white, 1)
+            }
         }
         
         if c_controls_selection == array_length(c_controls)

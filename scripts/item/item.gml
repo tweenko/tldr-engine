@@ -182,9 +182,12 @@ function item_get_type(item_struct) {
 
 ///@desc returns whether the item can deal fatal damage to the enemies
 function item_get_fatal(item_struct) {
-	if is_undefined(item_struct) return false
+	if is_undefined(item_struct) 
+        return false
 	if struct_exists(item_struct, "weapon_fatal") && item_struct.weapon_fatal
 		return true
+    
+    return false
 }
 
 ///@desc returns the item array depending on the type
