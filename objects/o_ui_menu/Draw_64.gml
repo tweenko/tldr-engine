@@ -389,7 +389,7 @@ if selection == 2 { // power
 		draw_sprite_ext(loc_sprite("menu_caption_stats_spr"), 0, 124, 210, 2, 2, 0, c_white, 1)
 		draw_sprite_ext(loc_sprite("menu_caption_spells_spr"), 0, 380, 210, 2, 2, 0, c_white, 1)
 		
-		draw_text_ext_transformed(320, 105, "LV" + string(party_getdata(global.party_names[p_pmselection], "lv")) + " " + party_getdata(global.party_names[p_pmselection], "desc"), 16, 126, 2, 2, 0)
+		draw_text_ext_transformed(320, 105, "LV" + string(party_getdata(global.party_names[p_pmselection], "lv")) + " " + loc(party_getdata(global.party_names[p_pmselection], "desc")), 16, 126, 2, 2, 0)
 		
 		var stats = [
 			["Attack:", party_getdata(global.party_names[p_pmselection], "attack"), spr_ui_menu_icon_sword],
@@ -419,15 +419,15 @@ if selection == 2 { // power
 					draw_sprite_ext(stats[i][2], 0, 74, 236 + i*off, 2, 2, 0, draw_get_color(), 1)
 			}
 			
-			draw_text_xfit(100, 230 + i*off, txt, 220, 2, 2)
+			draw_text_xfit(100, 230 + i*off, loc(txt), 220, 2, 2)
 			
 			if stats[i] != "???" {
 				// add custom ones here if needed
-				if stats[i][0] == "Guts:"
-					|| stats[i][0] == "Fluffiness" 
+				if stats[i][0] == "party_stat_guts"
+					|| stats[i][0] == "party_stat_fluffiness" 
 				{
 					for (var j = 0; j < stats[i][1]; ++j) {
-					    draw_sprite_ext(stats[i][2], 0, (stats[i][0] == "Guts:" ? 190 : 230)+20*j, 236+i*off, 2, 2, 0, c_white, 1)
+					    draw_sprite_ext(stats[i][2], 0, (stats[i][0] == "party_stat_guts" ? 190 : 230)+20*j, 236+i*off, 2, 2, 0, c_white, 1)
 					}
 				}
 				else {

@@ -56,4 +56,5 @@ global.settings = {
 }
 save_settings_load()
 
-loc_load(global.settings.LANG)
+if struct_exists(global.settings, "LANG")
+    loc_load(global.settings.LANG)

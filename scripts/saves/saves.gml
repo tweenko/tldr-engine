@@ -315,10 +315,13 @@
             o_world.volume_sfx = global.settings.VOLUME_SFX
             o_world.volume_bgm = global.settings.VOLUME_BGM
             
-            InputBindingsImport(false, global.settings.CONTROLS_KEY)
-            InputBindingsImport(true, global.settings.CONTROLS_GP)
+            if struct_exists(global.settings, "CONTROLS_KEY")
+                InputBindingsImport(false, global.settings.CONTROLS_KEY)
+            if struct_exists(global.settings, "CONTROLS_GP")
+                InputBindingsImport(true, global.settings.CONTROLS_GP)
             
-            global.loc_lang = global.settings.LANG
+            if struct_exists(global.settings, "LANG")
+                global.loc_lang = global.settings.LANG
 		}
 	}
 		

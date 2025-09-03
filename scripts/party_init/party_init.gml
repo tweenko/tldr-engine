@@ -28,7 +28,7 @@ function party_m() constructor {
 	power_stats = [
 		["--", 0, spr_ui_menu_icon_exclamation],
 		["--", 0, spr_ui_menu_icon_exclamation],
-		["Guts:", 0, spr_ui_menu_icon_fire],
+		["party_stat_guts", 0, spr_ui_menu_icon_fire],
 	]
 	
 	hp =		50
@@ -91,7 +91,7 @@ function party_m() constructor {
 }
 	
 function party_m_kris() : party_m() constructor {
-	name = "party_name_kris"
+	name = "party_kris_name"
 	
 	// colors
 	color = c_aqua
@@ -100,11 +100,11 @@ function party_m_kris() : party_m() constructor {
 	
 	// stats
 	lv =	2
-	desc =	"Bed Inspector Inspects all beds inexplicably."
+	desc =	"party_kris_desc"
 	power_stats = [
 		"???",
 		"???",
-		["Guts:", 2, spr_ui_menu_icon_fire],
+		["party_stat_guts", 2, spr_ui_menu_icon_fire],
 	]
 	
 	hp =		120
@@ -159,7 +159,7 @@ function party_m_kris() : party_m() constructor {
 	}
 }
 function party_m_susie() : party_m() constructor {
-	name = "party_name_susie"
+	name = "party_susie_name"
 	
 	// colors
 	color = c_fuchsia
@@ -168,11 +168,11 @@ function party_m_susie() : party_m() constructor {
 	
 	// stats
 	lv =	2
-	desc =	"Dark Knight Does damage using dark energy."
+	desc =	"party_susie_desc"
 	power_stats = [
-		["Rudeness", 89, spr_ui_menu_icon_demon],
-		["Purple", "Yes", spr_ui_menu_icon_demon],
-		["Guts:", 2, spr_ui_menu_icon_fire],
+		["party_susie_stat_rudeness", 89, spr_ui_menu_icon_demon],
+		["party_susie_stat_purple", "Yes", spr_ui_menu_icon_demon],
+		["party_stat_guts", 2, spr_ui_menu_icon_fire],
 	]
 	
 	hp =		140
@@ -232,7 +232,7 @@ function party_m_susie() : party_m() constructor {
 	}
 }
 function party_m_ralsei() : party_m() constructor {
-	name = "party_name_ralsei"
+	name = "party_ralsei_name"
 	
 	// colors
 	color = c_lime
@@ -241,11 +241,11 @@ function party_m_ralsei() : party_m() constructor {
 	
 	// stats
 	lv =	2
-	desc =	"Dark Prince Dark-World being. Has friends now."
+	desc =	"party_ralsei_desc"
 	power_stats = [
-		["Sweetness", 97, spr_ui_menu_icon_lollipop],
-		["Fluffiness", 2, spr_ui_menu_icon_fluff],
-		["Guts:", 0, spr_ui_menu_icon_fire],
+		["party_ralsei_stat_sweetness", 97, spr_ui_menu_icon_lollipop],
+		["party_ralsei_stat_fluffiness", 2, spr_ui_menu_icon_fluff],
+		["party_stat_guts", 0, spr_ui_menu_icon_fire],
 	]
 	
 	hp =		100
@@ -303,7 +303,7 @@ function party_m_ralsei() : party_m() constructor {
 	}
 }
 function party_m_noelle() : party_m() constructor {
-	name = "party_name_noelle"
+	name = "party_noelle_name"
 	
 	// colors
 	color = c_yellow
@@ -312,11 +312,11 @@ function party_m_noelle() : party_m() constructor {
 	
 	// stats
 	lv =	1
-	desc =	"Snowcaster Might be able to use some cool moves."
+	desc =	"party_noelle_desc"
 	power_stats = [
-		["Coldness", 47, spr_ui_menu_icon_snow],
-		["Boldness", 100, spr_ui_menu_icon_exclamation],
-		["Guts:", 0, spr_ui_menu_icon_fire],
+		["party_noelle_stat_coldness", 47, spr_ui_menu_icon_snow],
+		["party_noelle_stat_boldness", 100, spr_ui_menu_icon_exclamation],
+		["party_stat_guts", 0, spr_ui_menu_icon_fire],
 	]
 	
 	hp =		90
