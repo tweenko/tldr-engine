@@ -1,0 +1,26 @@
+{
+    "spell_act_name": {
+        "en": "ACT", "ja": "こうどう"
+    },
+    "spell_act_desc": {
+        "en": "You can do many things.\nDon't confuse it with magic.",
+        "ja": "いろんなことをする。\nまほうではない。"
+    },
+
+    "spell_rude_buster_name": {
+        "en": "Rude Buster", "ja": "ルードバスター"
+    },
+    "spell_rude_buster_desc": {
+        "en": ["Deals moderate Rude-elemental damage to one foe. Depends on Attack & Magic.", "Rude Damage"],
+        "ja": ["敵1体に中程度の暴属性ダメージ。\nこうげきまりょく値によりダメージ量変化。", "暴属性\nダメージ"]
+    },
+
+    "spell_susieheal_name": {
+        "en": ["UltimateHeal", "UltraHeal", "OKHeal", "BetterHeal"], 
+        "ja": ""
+    },
+    "spell_susieheal_desc": {
+        "en": ["Deals moderate Rude-elemental damage to one foe. Depends on Attack & Magic.", "Rude Damage"],
+        "ja": ["敵1体に中程度の暴属性ダメージ。\nこうげきまりょく値によりダメージ量変化。", "暴属性\nダメージ"]
+    }
+}

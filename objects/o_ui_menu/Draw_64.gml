@@ -79,7 +79,7 @@ if !only_hp { // top
 
 if selection == 0 { // items
 	if state > 0 {
-		var opt = ["USE", "TOSS", "KEY"]
+		var opt = [loc("menu_item_use"), loc("menu_item_toss"), loc("menu_item_key")]
 		var draw_text_shadow = function(xx,yy, sstring, color = c_white) {
 			draw_set_color(bcolor)
 		    draw_text_transformed(xx+2, yy+2, sstring, 2, 2, 0)
@@ -129,7 +129,7 @@ if selection == 0 { // items
 			
 			var txt = item_get_desc(arr[i_selection],0)
 			if i_pselection == 1 && state == 3
-				txt = string("Really throw away the\n{0}?", item_get_name(arr[i_selection]))
+				txt = string(loc("menu_item_toss_confirm"), item_get_name(arr[i_selection]))
 			
 			draw_text_ext_transformed(20, 10, txt, 16, __top_txt_len, 2, 2, 0)
 		}
@@ -199,7 +199,7 @@ if selection == 1 { // equip
 						delta = 2
 				}
 				else {
-					array_push(stats, ["(No ability.)", 0, -1])
+					array_push(stats, [loc("menu_no_ability"), 0, -1])
 					if !is_undefined(equipment[i])
 						delta = 1
 				}
@@ -208,7 +208,7 @@ if selection == 1 { // equip
 			    if !is_undefined(equipment[i]) && !is_undefined(equipment[i].effect)
 					array_push(stats, [equipment[i].effect.text, 0, equipment[i].effect.sprite])
 				else
-					array_push(stats, ["(No ability.)", 0, -1])
+					array_push(stats, [loc("menu_no_ability"), 0, -1])
 			}
 		}
 		for (var i = 0; i < array_length(stats); ++i) {
@@ -222,7 +222,7 @@ if selection == 1 { // equip
 		    if sprite_exists(stats[i][2]) 
 				draw_sprite_ext(stats[i][2], 0, 74, 236 + i*off + (i > 2 ? 2 : 0), 2, 2, 0, draw_get_color(), 1)
 			
-			if stats[i][0] == "(No ability.)" 
+			if stats[i][0] == loc("menu_no_ability") 
 				draw_set_color(c_dkgray) 
 			else 
 				draw_set_color(c_white)
@@ -286,7 +286,7 @@ if selection == 1 { // equip
 			
 			draw_set_color(c_white)
 			if is_undefined(equipped[i][1]) {
-				txt = "(Nothing)"; 
+				txt = loc("menu_nothing"); 
 				draw_set_color(c_dkgray)
 			}
 			else {
@@ -466,7 +466,7 @@ if selection == 3 && state > 0 { // config
     ui_dialoguebox_create(58, 88, 583 - 58, 413 - 88)
     
     if state == 1 || state == 2 {
-        draw_text_transformed(270, 100, "CONFIG", 2, 2, 0)
+        draw_text_transformed(270, 100, loc("menu_config_header"), 2, 2, 0)
         draw_sprite_ext(spr_soul, 0, 152, 168 + c_selection*35, 1, 1, 0, c_red, 1)
         
         for (var i = 0; i < array_length(c_config); i ++) {
@@ -502,11 +502,11 @@ if selection == 3 && state > 0 { // config
     else if state == 3 {
         var __isgamepad = InputDeviceIsGamepad(InputPlayerGetDevice())
         
-        draw_text_transformed(105, 100, "Function", 2, 2, 0)
-        draw_text_transformed(325, 100, "Key", 2, 2, 0)
+        draw_text_transformed(105, 100, loc("menu_controls_function"), 2, 2, 0)
+        draw_text_transformed(325, 100, loc("menu_controls_key"), 2, 2, 0)
         
         if __isgamepad 
-            draw_text_transformed(435, 100, "Gamepad", 2, 2, 0)
+            draw_text_transformed(435, 100, loc("menu_controls_gamepad"), 2, 2, 0)
         
         draw_sprite_ext(spr_soul, 0, 88, 156 + 28 * c_controls_selection, 1, 1, 0, c_red, 1)
         for (var i = 0; i < array_length(c_controls); i ++) {
@@ -516,7 +516,7 @@ if selection == 3 && state > 0 { // config
                     draw_set_color(c_red)
             }
             
-            draw_text_transformed(105, 140 + 28*i, InputVerbGetExportName(c_controls[i]), 2, 2, 0)
+            draw_text_transformed(105, 140 + 28*i, loc("menu_controls_" + string_lower(InputVerbGetExportName(c_controls[i]))), 2, 2, 0)
             draw_text_transformed(325, 140 + 28*i, input_binding_to_string(InputBindingGet(false, c_controls[i]), false, false), 2, 2, 0)
             
             draw_set_color(c_white)
@@ -529,14 +529,14 @@ if selection == 3 && state > 0 { // config
         
         if c_controls_selection == array_length(c_controls)
             draw_set_color(merge_color(c_aqua, c_yellow, c_controls_resetfade))
-        draw_text_transformed(105, 140 + 28*i, "Reset to default", 2, 2, 0)
+        draw_text_transformed(105, 140 + 28*i, loc("menu_controls_reset"), 2, 2, 0)
         draw_set_color(c_white)
         
         i ++
         
         if c_controls_selection == array_length(c_controls) + 1
             draw_set_color(c_aqua)
-        draw_text_transformed(105, 140 + 28*i, "Finish", 2, 2, 0)
+        draw_text_transformed(105, 140 + 28*i, loc("menu_controls_finish"), 2, 2, 0)
         draw_set_color(c_white)
     }
 }

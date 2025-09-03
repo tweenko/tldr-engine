@@ -215,6 +215,7 @@
     {"$GMIncludedFile":"","%Name":"config.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"config.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"menu.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"menu.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"party.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"party.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"spells.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"spells.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"text.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"text.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,

@@ -3,15 +3,15 @@ function item_spell() : item() constructor {
 }
 
 function item_s_act() : item_spell() constructor {
-	name = ["ACT"]
-	desc = ["You can do many things.\nDon't confuse it with magic.", "--"]
+	name = [loc("spell_act_name")]
+	desc = [loc("spell_act_desc"), "--"]
 	
 	tp_cost = 0
 }
 	
 function item_s_rudebuster() : item_spell() constructor {
-	name = ["Rude Buster"]
-	desc = ["Deals moderate Rude-elemental damage to one foe. Depends on Attack & Magic.", "Rude Damage"]
+	name = [loc("spell_rude_buster_name")]
+	desc = loc("spell_rude_buster_desc")
 	use_type = ITEM_USE.ENEMY
 	
     use = function(index, target, caller = -1) {
