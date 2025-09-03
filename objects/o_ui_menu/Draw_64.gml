@@ -38,15 +38,12 @@ if !only_hp { // top
 		else
 			draw_sprite_ext(party_geticon(global.party_names[i]), 0, 12 + 213*i + xoff, 430 + 80-roll, 1, 1, 0, c_white, 1)
 		
-		var font = global.partyname_font_2
+		var font = global.font_name[0]
 		
 		if string_length(party_getname(global.party_names[i], false)) > 4
-			font = global.partyname_font_1
+			font = global.font_name[1]
 		if string_length(party_getname(global.party_names[i], false)) > 5
-			font = global.partyname_font_0
-        
-        if loc_getlang() == "ja"
-            font = global.partyname_font_ja
+			font = global.font_name[2]
 		
 		draw_set_font(font)
 		draw_text_transformed(51 + 213*i + xoff, 430 + 80 - roll, string_upper(party_getname(global.party_names[i], false)), 1, 1, 0)
@@ -176,9 +173,9 @@ if selection == 1 { // equip
 		array_insert(arr_mod, 0, undefined)
 		
 		var stats = [
-			["Attack:", party_getdata(global.party_names[e_pmselection], "attack"), spr_ui_menu_icon_sword],
-			["Defense:", party_getdata(global.party_names[e_pmselection], "defense"), spr_ui_menu_icon_armor],
-			["Magic:", party_getdata(global.party_names[e_pmselection], "magic"), spr_ui_menu_icon_magic],
+			[loc("menu_stat_attack"), party_getdata(global.party_names[e_pmselection], "attack"), spr_ui_menu_icon_sword],
+			[loc("menu_stat_defense"), party_getdata(global.party_names[e_pmselection], "defense"), spr_ui_menu_icon_armor],
+			[loc("menu_stat_magic"), party_getdata(global.party_names[e_pmselection], "magic"), spr_ui_menu_icon_magic],
 		]
 		var equipment = [
 			party_getdata(global.party_names[e_pmselection], "weapon"),
@@ -370,31 +367,39 @@ if selection == 1 { // equip
 if selection == 2 { // power
 	if state > 0 {
 		draw_set_font(loc_font("main"))
-		ui_dialoguebox_create(58, 88, 583 - 58, 413 - 88)
+        
+        var _l_offset = 0
+        var _r_offset = 0
+        if loc_getlang() == "ja" {
+            _l_offset = -16
+            _r_offset = 16
+        }
+        
+        ui_dialoguebox_create(58 + _l_offset, 88, 583 - 58 + _r_offset - _l_offset, 413 - 88)
 		
-		draw_text_transformed(130, 112-7, party_getname(global.party_names[p_pmselection], false), 2, 2, 0)
+		draw_text_transformed(130 + _l_offset, 112-7, party_getname(global.party_names[p_pmselection], false), 2, 2, 0)
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			var c = (i == p_pmselection ? c_white : #666666)
 			if i == p_pmselection && state == 1 {
-				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i, 141, 1, 1, 0, c_red, 1)
+				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i + _l_offset, 141, 1, 1, 0, c_red, 1)
 			}
-		    draw_sprite_ext(party_geticon_ow(global.party_names[i]),0, 90+50*i, 160, 2, 2, 0, c, 1)
+		    draw_sprite_ext(party_geticon_ow(global.party_names[i]),0, 90+50*i + _l_offset, 160, 2, 2, 0, c, 1)
 		}
 		
 		draw_set_color(c_white)
-		draw_rectangle(62, 216, 580, 221, 0)
-		draw_rectangle(294, 220, 299, 408, 0)
+		draw_rectangle(62 + _l_offset, 216, 580 + _r_offset, 221, 0)
+		draw_rectangle(294 + _l_offset, 220, 299 + _l_offset, 408, 0)
 		
-		draw_sprite_ext(loc_sprite("menu_caption_char_spr"), 0, 124, 84, 2, 2, 0, c_white, 1)
-		draw_sprite_ext(loc_sprite("menu_caption_stats_spr"), 0, 124, 210, 2, 2, 0, c_white, 1)
-		draw_sprite_ext(loc_sprite("menu_caption_spells_spr"), 0, 380, 210, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_char_spr"), 0, 124 + _l_offset, 84, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_stats_spr"), 0, 124 + _l_offset, 210, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_spells_spr"), 0, 380 + _l_offset, 210, 2, 2, 0, c_white, 1)
 		
-		draw_text_ext_transformed(320, 105, "LV" + string(party_getdata(global.party_names[p_pmselection], "lv")) + " " + loc(party_getdata(global.party_names[p_pmselection], "desc")), 16, 126, 2, 2, 0)
+		draw_text_ext_transformed(320 + _l_offset, 105, "LV" + string(party_getdata(global.party_names[p_pmselection], "lv")) + " " + loc(party_getdata(global.party_names[p_pmselection], "desc")), 16, 126, 2, 2, 0)
 		
 		var stats = [
-			["Attack:", party_getdata(global.party_names[p_pmselection], "attack"), spr_ui_menu_icon_sword],
-			["Defense:", party_getdata(global.party_names[p_pmselection], "defense"), spr_ui_menu_icon_armor],
-			["Magic:", party_getdata(global.party_names[p_pmselection], "magic"), spr_ui_menu_icon_magic],
+			[loc("menu_stat_attack"), party_getdata(global.party_names[p_pmselection], "attack"), spr_ui_menu_icon_sword],
+			[loc("menu_stat_defense"), party_getdata(global.party_names[p_pmselection], "defense"), spr_ui_menu_icon_armor],
+			[loc("menu_stat_magic"), party_getdata(global.party_names[p_pmselection], "magic"), spr_ui_menu_icon_magic],
 		]
 		
 		if struct_exists(party_nametostruct(global.party_names[p_pmselection]), "power_stats") {
@@ -416,10 +421,10 @@ if selection == 2 { // power
 				draw_set_color(c_white)
 				
 				if sprite_exists(stats[i][2]) 
-					draw_sprite_ext(stats[i][2], 0, 74, 236 + i*off, 2, 2, 0, draw_get_color(), 1)
+					draw_sprite_ext(stats[i][2], 0, 74 + _l_offset, 236 + i*off, 2, 2, 0, draw_get_color(), 1)
 			}
 			
-			draw_text_xfit(100, 230 + i*off, loc(txt), 220, 2, 2)
+			draw_text_xfit(100 + _l_offset, 230 + i*off, loc(txt), (i > 2 ? 220 : 280), 2, 2)
 			
 			if stats[i] != "???" {
 				// add custom ones here if needed
@@ -427,24 +432,24 @@ if selection == 2 { // power
 					|| stats[i][0] == "party_stat_fluffiness" 
 				{
 					for (var j = 0; j < stats[i][1]; ++j) {
-					    draw_sprite_ext(stats[i][2], 0, (stats[i][0] == "party_stat_guts" ? 190 : 230)+20*j, 236+i*off, 2, 2, 0, c_white, 1)
+					    draw_sprite_ext(stats[i][2], 0, (stats[i][0] == "party_stat_guts" ? 190 : 230)+20*j + _l_offset, 236+i*off, 2, 2, 0, c_white, 1)
 					}
 				}
 				else {
-					draw_text_transformed(230, 230 + i*off, stats[i][1], 2, 2, 0)
+					draw_text_transformed(230 + _l_offset, 230 + i*off, stats[i][1], 2, 2, 0)
 				}
 			}
 		}
 		
 		draw_set_color(c_gray)
-		draw_sprite_ext(spr_ui_menu_caption_tp, 0, 340, 225, 1, 1, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_menu_caption_tp, 0, 340 + _l_offset*3, 225, 1, 1, 0, c_white, 1)
 		
 		for (var i = 0; i < array_length(party_getdata(global.party_names[p_pmselection], "spells")); ++i) {
-		    draw_text_transformed(340, 230 + i*25, string("{0}%", party_getdata(global.party_names[p_pmselection], "spells")[i].tp_cost), 2, 2, 0)
-		    draw_text_transformed(410, 230 + i*25, item_get_name(party_getdata(global.party_names[p_pmselection], "spells")[i]), 2, 2, 0)
+		    draw_text_transformed(340 + _l_offset*3, 230 + i*25, string("{0}%", party_getdata(global.party_names[p_pmselection], "spells")[i].tp_cost), 2, 2, 0)
+		    draw_text_transformed(410 + _l_offset*3, 230 + i*25, item_get_name(party_getdata(global.party_names[p_pmselection], "spells")[i]), 2, 2, 0)
 			
 			if i == p_selection && state == 2
-				draw_sprite_ext(spr_uisoul, 0, 320, 240 + i*25, 1, 1, 0, c_red, 1)
+				draw_sprite_ext(spr_uisoul, 0, 320 + (loc_getlang() == "ja" ? 20 : 0), 240 + i*25 - (loc_getlang() == "ja" ? 2 : 0), 1, 1, 0, c_red, 1)
 		}
 		
 		draw_set_color(c_white)
@@ -548,3 +553,5 @@ draw_set_valign(fa_top)
 
 surface_reset_target()
 draw_surface_ext(surf, 0, 0, 1, 1, 0, c_white, 1)
+
+//draw_sprite_ext(image__1_, 0, 0, 0, 1, 1, 0, c_white, .3)

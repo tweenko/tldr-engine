@@ -20,11 +20,14 @@ instance_create(o_ui_quit)
 	window_center();
 }
 { // fonts
-	global.partyname_font_0 = font_add_sprite_ext(spr_ui_partyname_font, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/", true, -1);
-	global.partyname_font_1 = font_add_sprite_ext(spr_ui_partyname_font, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/", true, 0);
-	global.partyname_font_2 = font_add_sprite_ext(spr_ui_partyname_font, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/", true, 1);
-	global.partyname_font_ja = font_add_sprite_ext(spr_ui_partyname_font_ja, "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォャュョッヮーヴガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポABCDEFGHIJKLMNOPQRSTUVWXYZ", true, 3);
-	
+    var __charset = loc("font_name")[1]
+    var __spr = asset_get_index(loc("font_name")[0])
+    
+    global.font_name = [undefined, undefined, undefined]
+	global.font_name[2] = font_add_sprite_ext(__spr, __charset, true, -1);
+	global.font_name[1] = font_add_sprite_ext(__spr, __charset, true, 0);
+	global.font_name[0] = font_add_sprite_ext(__spr, __charset, true, 1);
+    
 	global.font_ui_hp = font_add_sprite_ext(spr_ui_hpfont, "1234567890-", true, 2);
 	
 	global.font_numbers_w = font_add_sprite_ext(spr_ui_numbers_wfont,"0123456789+-%/",false,1);

@@ -9,6 +9,11 @@ windowsize = 1
 allow_incompatible_saves = false
 incompatible_save_warning = false
 incompatible_save_sleep = 0
+incompatible_selection = -1
+incompatible_soulx = 320
+incompatible_soulx_target = 320
+incompatible_end_cutscene = false
+incompatible_alpha = 1
 
 progress = true
 

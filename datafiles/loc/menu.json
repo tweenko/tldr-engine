@@ -28,6 +28,16 @@
         "ja": "spr_ui_menu_caption_weapons_ja"
     },
 
+    "menu_stat_attack": {
+        "en": "Attack:", "ja": "こうげき: "
+    },
+    "menu_stat_defense": {
+        "en": "Defense:", "ja": "ぼうぎょ:"
+    },
+    "menu_stat_magic": {
+        "en": "Magic:", "ja": "まりょく:"
+    },
+
     "menu_item_use": {
         "en": "USE", "ja": "つかう"
     },

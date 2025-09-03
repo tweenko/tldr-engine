@@ -1,6 +1,6 @@
-#macro ENGINE_VERSION "v1.1.0"
+#macro ENGINE_VERSION "v1.2.0"
 #macro ENGINE_NAME "tlDR Engine"
-#macro ENGINE_LAST_COMPATIBLE_VERSION "v1.1.0"
+#macro ENGINE_LAST_COMPATIBLE_VERSION "v1.2.0"
 
 /// @arg {real} version
 function __engine_version_to_real(version) {
@@ -24,8 +24,5 @@ function __engine_version_to_real(version) {
 
 /// @desc will return true if a >= b 
 function __engine_versions_compare(a, b) {
-    show_debug_message(__engine_version_to_real(a))
-    show_debug_message(__engine_version_to_real(b))
-    
     return __engine_version_to_real(a) >= __engine_version_to_real(b)
 }

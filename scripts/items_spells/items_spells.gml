@@ -19,7 +19,7 @@ function item_s_rudebuster() : item_spell() constructor {
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
         
         cutscene_set_variable(o_enc, "exec_waiting", true)
-		cutscene_dialogue(string("* {0} used RUDE BUSTER!", party_getname(__name)),, false)
+		cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), string_upper(loc("spell_rude_buster_name"))),, false)
         cutscene_sleep(20)
         cutscene_set_partysprite(index, "rudebuster")
         cutscene_wait_until(function(__name) {
@@ -66,19 +66,13 @@ function item_s_susieheal(data = {
         
         var __prog = _data.progress
         if __prog == 0 {
-            name = ["UltimateHeal"]
-            desc = ["Heals 1 party member to the best of Susie's ability.", "Best Healing"]
-            
             tp_cost = 100
             __heal_calc = function(user) {
                 return party_getdata(user, "magic") + 1
             }
         }
         else if __prog == 1 {
-            name = ["UltraHeal"]
-            desc = ["An awesome healing spell. ... right?", "Best Healing"]
-            
-            _data.uses = clamp(_data.uses, 0, 5)
+           _data.uses = clamp(_data.uses, 0, 5)
             
             tp_cost = 90 - _data.uses
             __heal_calc = function(user) {
@@ -86,9 +80,6 @@ function item_s_susieheal(data = {
             }
         }
         else if __prog == 2 {
-            name = ["OKHeal"]
-            desc = ["It's not the best healing spell, but it may have its uses.", "OK healing"]
-            
             _data.uses = clamp(_data.uses, 0, 15)
             
             tp_cost = 85
@@ -99,9 +90,6 @@ function item_s_susieheal(data = {
             }
         }
         else if __prog >= 3 {
-            name = ["BetterHeal"]
-            desc = ["A healing spell that has grown with practice and confidence.", "Heal Ally"]
-            
             _data.uses = clamp(_data.uses, 0, 15)
             
             tp_cost = 80
@@ -111,6 +99,9 @@ function item_s_susieheal(data = {
                 return round(party_getdata(user, "magic") * 7 + 15) + _data.uses*2
             }
         }
+        
+        name = [loc("spell_susieheal_name")[__prog]]
+        desc = loc("spell_susieheal_desc")[__prog]
         
         self._data = __data
         use_args = [name[0], __heal_calc, function(){
@@ -123,7 +114,7 @@ function item_s_susieheal(data = {
         var __name = global.party_names[index]
         
         cutscene_set_variable(o_enc, "exec_waiting", true)
-		cutscene_dialogue(string("* {0} cast {1}!", party_getname(__name), _name),, false)
+		cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
         
         cutscene_sleep(10)
         cutscene_func(function(index, target, _name, _calc, _use) {
@@ -148,7 +139,7 @@ function item_s_testdmg() : item_spell() constructor {
 	use = function() {
 		cutscene_set_variable(o_enc, "exec_waiting", true)
 		cutscene_func(enc_hurt_enemy, [target, 10, user])
-		cutscene_dialogue(string("* {0} cast TEST DAMAGE!", party_getname(global.party_names[user])),, true)
+		cutscene_dialogue(string(loc("spell_cast"), party_getname(global.party_names[user]), "TEST DAMAGE"),, true)
 		cutscene_set_variable(o_enc, "exec_waiting", false)
 	}
 	
@@ -156,8 +147,8 @@ function item_s_testdmg() : item_spell() constructor {
 }
 
 function item_s_pacify() : item_spell() constructor {
-	name = ["Pacify"]
-	desc = ["SPARE a tired enemy by putting them to sleep.", "Spare TIRED foe"]
+	name = [loc("spell_pacify_name")]
+	desc = loc("spell_pacify_desc")
 	
 	use_type = ITEM_USE.ENEMY
 	is_mercyspell = true
@@ -186,7 +177,7 @@ function item_s_pacify() : item_spell() constructor {
         cutscene_set_variable(o_enc, "exec_waiting", true)
         
         if o_enc.encounter_data.enemies[target].tired {
-		    cutscene_dialogue(string("* {0} cast {1}!", party_getname(__name), _name),, false)
+		    cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
            
             cutscene_sleep(10)
             cutscene_instance_create(o_eff_pacify, __e_obj.x, __e_obj.y - __e_obj.myheight/2, __e_obj.depth - 10)
@@ -194,7 +185,7 @@ function item_s_pacify() : item_spell() constructor {
             cutscene_spare_enemy(target)
         }
         else {
-            cutscene_dialogue(string("* {0} cast {1}!{br}{resetx}{sleep(10)}* But the enemy wasn't {col(tired_aqua)}TIRED{reset_col}...", party_getname(__name), _name),, false)
+            cutscene_dialogue(string(loc("spell_pacify_desc")[2], party_getname(__name), _name),, false)
             
             cutscene_set_variable(__e_obj, "flash_color", c_blue)
             cutscene_sleep(20)
@@ -215,15 +206,15 @@ function item_s_pacify() : item_spell() constructor {
 	tp_cost = 16
 }
 function item_s_healprayer() : item_spell() constructor {
-	name = ["Heal Prayer"]
-	desc = ["Heavenly Light restores a little HP to\none party member. Depends on Magic.", "Heal Ally"]
+	name = [loc("spell_heal_prayer_name")]
+	desc = loc("spell_heal_prayer_desc")
 	use_type = ITEM_USE.INDIVIDUAL
 	
     use = function(index, target, caller, _name) {
         var __name = global.party_names[index]
         
         cutscene_set_variable(o_enc, "exec_waiting", true)
-		cutscene_dialogue(string("* {0} cast {1}!", party_getname(__name), _name),, false)
+		cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
         
         cutscene_sleep(10)
         cutscene_func(function(index, target, _name) {
@@ -240,8 +231,8 @@ function item_s_healprayer() : item_spell() constructor {
 }
 
 function item_s_sleepmist() : item_spell() constructor {
-    name = ["Sleep Mist"]
-	desc = ["A cold mist sweeps through, sparing all TIRED enemies.", "Spare TIRED foes"]
+    name = [loc("spell_sleep_mist_name")]
+	desc = loc("spell_sleep_mist_desc")
 	
 	use_type = ITEM_USE.EVERYONE
 	is_mercyspell = true
@@ -269,7 +260,7 @@ function item_s_sleepmist() : item_spell() constructor {
         
         cutscene_set_variable(o_enc, "exec_waiting", true)
     
-        cutscene_dialogue(string("* {0} cast {1}!", party_getname(__name), _name),, false)
+        cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
     
         cutscene_sleep(10)
         cutscene_audio_play(snd_ghostappear)
@@ -305,8 +296,8 @@ function item_s_sleepmist() : item_spell() constructor {
 	tp_cost = 32
 }
 function item_s_iceshock() : item_spell() constructor {
-	name = ["IceShock"]
-	desc = ["Deal magical ICE damage to one enemy.", "Damage w/ ICE"]
+	name = [loc("spell_iceshock_name")]
+	desc = loc("spell_iceshock_desc")
 	use_type = ITEM_USE.ENEMY
 	
     use = function(index, target, caller, _name) {
@@ -315,7 +306,7 @@ function item_s_iceshock() : item_spell() constructor {
         
         cutscene_set_variable(o_enc, "exec_waiting", true)
     
-        cutscene_dialogue(string("* {0} cast {1}!", party_getname(__name), _name),, false)
+        cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
     
         cutscene_sleep(10)
         cutscene_audio_play(snd_icespell)
@@ -350,8 +341,8 @@ function item_s_iceshock() : item_spell() constructor {
 }
 
 function item_s_defaultaction(nname) : item_spell() constructor {
-	name = string("{0}-Action", string_upper(string_copy(nname, 0, 1)))
-	desc = ["", "", "Standard"]
+	name = string(loc("spell_party_action_name"), string_upper(string_copy(party_getname(nname), 0, 1)))
+	desc = ["", "", loc("spell_party_action_desc")]
 	
 	use_type = ITEM_USE.ENEMY
 	

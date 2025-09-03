@@ -45,15 +45,12 @@ surface_set_target(surf) {
 		else
 			draw_sprite_ext(spr_ui_enc_icons_command, char_state[i], 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, party_getdata(global.party_names[i], "iconcolor"), 1)
 		
-		var font = global.partyname_font_2
+		var font = global.font_name[0]
 		
 		if string_length(party_getname(global.party_names[i], false)) > 4
-			font = global.partyname_font_1
+			font = global.font_name[1]
 		if string_length(party_getname(global.party_names[i], false)) > 5
-			font = global.partyname_font_0
-        
-        if loc_getlang() == "ja"
-            font = global.partyname_font_ja
+			font = global.font_name[2]
 		
 		draw_set_font(font)
 		draw_text_transformed(51 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], string_upper(party_getname(global.party_names[i], false)), 1, 1, 0)

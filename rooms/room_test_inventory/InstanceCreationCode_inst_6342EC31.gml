@@ -9,6 +9,7 @@ execute_code = function() {
                 var _item = item_spell_get_struct(item_s_susieheal, "susie")
                 var datastruct = _item._data
                 datastruct.progress += 1
+                datastruct.progress = clamp(datastruct.progress, 0, 3)
                 
                 _item.__update_spell(datastruct)
             }

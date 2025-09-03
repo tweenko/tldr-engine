@@ -6,7 +6,7 @@ image_index = 1
 audio_play(snd_locker)
 screen_shake(5)
 
-var txt = "* (You opened the treasure chest.){s(10)}{br}{resetx}* (Inside was {col(y)}" + item_get_name(item_inside) + "{col(w)}.)" + "{p}{c}"
+var txt = string(loc("item_chest_get"), item_get_name(item_inside)) + "{p}{c}"
 txt += item_add(item_inside)
 dialogue_start(txt)
 

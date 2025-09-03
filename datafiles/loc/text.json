@@ -12,5 +12,9 @@
             "{char(susie)}＊ あー…カベにコブシで穴あけて 中にオモチャ隠したりとかかな？",
             "{char(none)}＊ ありがとう。いつかボクさまも スージィに 同じことしてあげる…"
         ]
+    },
+    "txt_debug_save_erase": {
+        "en": "THEN IT WAS{br}SUBSUMED{sleep(10)} BY{br}ETERNAL SHADOW.",
+        "ja": "そして それは{br}呑まれた{sleep(10)}{br}永劫の闇に。"
     }
 }

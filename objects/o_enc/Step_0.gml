@@ -939,7 +939,7 @@ if battle_state == "exec" {
 				cutscene_set_partysprite(user, "itemuse")
 				
 				cutscene_sleep(4)
-				cutscene_dialogue(string("* {0} used the {1}!", 
+				cutscene_dialogue(string(loc("item_use"), 
 					party_getname(global.party_names[user]), 
 					string_upper(item_get_name(items[itemselection[user]]))), 
 					"{stop}", false

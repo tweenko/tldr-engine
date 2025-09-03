@@ -256,6 +256,16 @@
 	function save_delete(slot, chapter = global.chapter){
 		file_delete(save_get_fname(slot, chapter))
 	}
+    
+    /// @desc wipe off saves and settings you previously had. irreversible. use sparingly
+    function save_wipe() {
+        var fileName = file_find_first("", 0);
+        while fileName != "" {
+            file_delete(fileName)
+            fileName = file_find_next();
+        }
+        file_find_close();
+    }
 }
 
 //SETTINGS

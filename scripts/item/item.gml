@@ -98,7 +98,7 @@ function item_add(item_struct, type = ITEM_TYPE.CONSUMABLE) {
 		if item_get_count(type) >= item_get_maxcount(type) 
 			can = false
 	
-	var txt = "* ({col(y)}" + item_struct.name[0] + "{col(w)} was added to your {col(y)}" + item_get_store_name(type) + "{col(w)}.)"
+	var txt = string(loc("item_added"), item_get_name(item_struct), item_get_store_name(type))
 	if can {
 		if type == ITEM_TYPE.STORAGE {
 			var i = 0
@@ -112,7 +112,7 @@ function item_add(item_struct, type = ITEM_TYPE.CONSUMABLE) {
 			array_push(item_get_array(type), item_struct)
 	}
 	else
-		txt = "* (You didn't have enough space.)"
+		txt = loc("item_added_no_space")
 	
 	return txt
 }
@@ -213,17 +213,17 @@ function item_get_array(type){
 function item_get_store_name(type){
 	switch(type) {
 		case ITEM_TYPE.CONSUMABLE:
-			return "ITEMs"
+			return loc("item_type_items")
 		case ITEM_TYPE.KEY:
-			return "KEY ITEMs"
+			return loc("item_type_key_items")
 		case ITEM_TYPE.WEAPON:
-			return "WEAPONs"
+			return loc("item_type_weapons")
 		case ITEM_TYPE.ARMOR:
-			return "ARMORs"
+			return loc("item_type_armors")
 		case ITEM_TYPE.STORAGE:
-			return "STORAGE"
+			return loc("item_type_storage")
 		case ITEM_TYPE.LIGHT:
-			return "ITEMs"
+			return loc("item_type_items")
 	}
 }
 
