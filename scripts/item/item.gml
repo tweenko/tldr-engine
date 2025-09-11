@@ -406,3 +406,16 @@ function item_spell_reload(_party_name, _spell_index, _data = undefined) {
         
     party_getdata(_party_name, "spells")[_spell_index] = _n
 }
+
+/**
+ * localizes the item using the struct in the localization file
+ * @param {string} _loc the loc_id of the item struct
+ */
+function item_localize(_loc) {
+    var __data = loc(_loc)
+    var __names = struct_get_names(__data)
+    
+    for (var i = 0; i < array_length(__names); i ++) {
+        struct_set(self, __names[i], struct_get(__data, __names[i]))
+    }
+}

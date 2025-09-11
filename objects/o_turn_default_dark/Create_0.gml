@@ -1,3 +1,3 @@
 event_inherited()
 
-timer_end = 240
+timer_end = undefined

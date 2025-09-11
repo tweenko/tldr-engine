@@ -68,6 +68,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			
 			if o.is_in_battle {
 				o.hurt = 20
+                screen_shake(5)
 				do_anime(6, 0, 10, "linear", function(v, o){
 					if instance_exists(o) 
 						o.shake = v

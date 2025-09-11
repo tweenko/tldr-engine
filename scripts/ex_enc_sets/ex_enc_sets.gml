@@ -21,6 +21,8 @@ function ex_enc_set_spawn() : enc_set() constructor {
 		[-4, -6, true],
 		[-14, 6, true]
 	]
+    bgm = mus_ex_spawn
+    
 	flavor = "* Darkness constricts you...{br}{resetx}* {col(y)}TP{col(w)} Gain reduced outside of {col(g)}COURAGE{col(w)}!"
     enc_var_struct = {
         tp_constrict: true

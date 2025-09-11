@@ -5,6 +5,8 @@ glow = 0
 
 homing_target = noone
 scale = 1
+spd = 0
+timer = random(5)
 
 image_alpha = 0
 
@@ -14,8 +16,8 @@ _aura_call = function() {
     
     glow += .03
     scale -= .05
-    if speed > .2
-        speed -= .005
+    if spd > .2
+        spd -= .001
     
     if scale <= .4 {
         instance_destroy()
@@ -38,3 +40,5 @@ _aura_call = function() {
             target_scale: 1,
         })
 }
+
+audio_play(snd_spawn_appear)

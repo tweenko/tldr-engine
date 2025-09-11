@@ -34,7 +34,9 @@ instance_create(o_ui_quit)
 	global.font_numbers_g = font_add_sprite_ext(spr_ui_numbers_gfont,"0123456789+-%/",false,1);
 }
 
-global.items = []
+global.items = [
+    new item_lightcandy()
+]
 global.key_items = [
     new item_key_cell_phone()
 ]

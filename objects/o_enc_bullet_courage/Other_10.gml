@@ -19,4 +19,10 @@ repeat(3 + irandom(2)) {
 o_enc.tp = tp_clamp(o_enc.tp + tp)
 o_enc.tp_glow_alpha = 1
 
+audio_stop_sound(snd_swallow)
+audio_stop_sound(snd_flash)
+
+audio_play(snd_swallow, false);
+audio_play(snd_flash, false, 1, 2);
+
 instance_destroy()

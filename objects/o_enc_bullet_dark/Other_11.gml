@@ -1,4 +1,4 @@
-var _scale = image_xscale * scale
+var _scale = round_p(image_xscale * scale, .1)
 
 draw_sprite_ext(sprite_index, image_index, 
     x, y, _scale, _scale, 

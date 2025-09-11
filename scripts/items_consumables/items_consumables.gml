@@ -11,6 +11,8 @@ function item_lightcandy() : item() constructor {
 		ralsei: "Nice and chalky.",
 		noelle: "(I-isn't this the chalk I gave her?)",
 	}
+    
+    item_localize("item_lightcandy")
 }
 function item_darkercandy() : item() constructor {
 	name = ["Darker Candy"]

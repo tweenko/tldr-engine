@@ -135,31 +135,38 @@ if selection == 0 { // items
 if selection == 1 { // equip
 	if state > 0 {
 		draw_set_font(loc_font("main"))
+        
+        var _l_offset = 0
+        var _r_offset = 0
+        if loc_getlang() == "ja" {
+            _l_offset = -16
+            _r_offset = 16
+        }
 		
-		ui_dialoguebox_create(58, 88, 583 - 58, 413 - 88)
-		draw_text_transformed(135, 107,party_getname(global.party_names[e_pmselection],false), 2, 2, 0)
+		ui_dialoguebox_create(58 + _l_offset, 88, 583 - 58 + _r_offset - _l_offset, 413 - 88)
+		draw_text_transformed(135 + _l_offset, 107, party_getname(global.party_names[e_pmselection],false), 2, 2, 0)
 		
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			var c = (i == e_pmselection ? c_white : #666666)
 			if i == e_pmselection && state == 1 {
-				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i, 142, 1, 1, 0, c_red, 1)
+				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i + _l_offset, 142, 1, 1, 0, c_red, 1)
 			}
-		    draw_sprite_ext(party_geticon_ow(global.party_names[i]),0, 90 + 50*i, 160, 2, 2, 0, c, 1)
+		    draw_sprite_ext(party_geticon_ow(global.party_names[i]),0, 90 + 50*i + _l_offset, 160, 2, 2, 0, c, 1)
 		}
 		
 		draw_set_color(c_white)
-		draw_rectangle(270, 90, 275, 220, 0)
-		draw_rectangle(62, 221, 580, 226, 0)
-		draw_rectangle(323, 226, 328, 408, 0)
+		draw_rectangle(270 + _l_offset, 90, 275 + _l_offset, 220, 0)
+		draw_rectangle(62 + _l_offset, 221, 580 + _r_offset, 226, 0)
+		draw_rectangle(323 + _l_offset, 226, 328 + _l_offset, 408, 0)
 		
-		draw_sprite_ext(loc_sprite("menu_caption_char_spr"), 0, 118, 86, 2, 2, 0, c_white, 1)
-		draw_sprite_ext(loc_sprite("menu_caption_stats_spr"), 0, 116, 216, 2, 2, 0, c_white, 1)
-		draw_sprite_ext(loc_sprite("menu_caption_equipped_spr"), 0, 376, 86, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_char_spr"), 0, 118 + _l_offset, 86, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_stats_spr"), 0, 116 + _l_offset, 216, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_equipped_spr"), 0, 376 + _l_offset, 86, 2, 2, 0, c_white, 1)
 		
 		if e_pselection == 0
-			draw_sprite_ext(loc_sprite("menu_caption_weapons_spr"), 0, 372, 216, 2, 2, 0, c_white, 1)
+			draw_sprite_ext(loc_sprite("menu_caption_weapons_spr"), 0, 372 + _l_offset, 216, 2, 2, 0, c_white, 1)
 		else 
-			draw_sprite_ext(loc_sprite("menu_caption_armors_spr"), 0, 372, 216, 2, 2, 0, c_white, 1)
+			draw_sprite_ext(loc_sprite("menu_caption_armors_spr"), 0, 372 + _l_offset, 216, 2, 2, 0, c_white, 1)
 		
 		var delta = 0 // 1 for worse and 2 for better
 		var order = ["attack", "defense", "magic"]
@@ -217,7 +224,7 @@ if selection == 1 { // equip
 				draw_set_color(c_white)
 			
 		    if sprite_exists(stats[i][2]) 
-				draw_sprite_ext(stats[i][2], 0, 74, 236 + i*off + (i > 2 ? 2 : 0), 2, 2, 0, draw_get_color(), 1)
+				draw_sprite_ext(stats[i][2], 0, 74 + _l_offset, 236 + i*off + (i > 2 ? 2 : 0), 2, 2, 0, draw_get_color(), 1)
 			
 			if stats[i][0] == loc("menu_no_ability") 
 				draw_set_color(c_dkgray) 
@@ -233,7 +240,7 @@ if selection == 1 { // equip
 					draw_set_color(c_yellow)
 			}
 			
-			draw_text_transformed(100, 230 + i*off, stats[i][0], 2, 2, 0)
+			draw_text_transformed(100 + _l_offset, 230 + i*off, stats[i][0], 2, 2, 0)
 			
 			var txt = stats[i][1]
 			var delta_stats = {
@@ -264,7 +271,7 @@ if selection == 1 { // equip
 			}
 			
 			if i < 3 
-				draw_text_transformed(230, 230 + i*off, txt, 2, 2, 0)
+				draw_text_transformed(230 + _l_offset, 230 + i*off, txt, 2, 2, 0)
 		}
 		
 		var equipped = [
@@ -274,9 +281,9 @@ if selection == 1 { // equip
 		]
 		for (var i = 0; i < array_length(equipped); ++i) {
 			if e_pselection == i && state == 2
-				draw_sprite_ext(spr_uisoul, 0, 308, 122 + i*30, 1, 1, 0, c_red, 1)
+				draw_sprite_ext(spr_uisoul, 0, 308 + _l_offset, 122 + i*30, 1, 1, 0, c_red, 1)
 			else
-				draw_sprite_ext(equipped[i][0], 0, 302, 118 + 30*i, 2, 2, 0, c_white, 1)
+				draw_sprite_ext(equipped[i][0], 0, 302 + _l_offset, 118 + 30*i, 2, 2, 0, c_white, 1)
 			
 			var txt = ""
 			var icon = undefined
@@ -290,10 +297,10 @@ if selection == 1 { // equip
 				txt=struct_get(equipped[i][1], "name")[0];
 				icon=struct_get(equipped[i][1], "icon")
 			}
-			draw_text_transformed(365, 112 + 30*i, txt, 2, 2, 0)
+			draw_text_transformed(365 + _l_offset, 112 + 30*i, txt, 2, 2, 0)
 			
 			if !is_undefined(icon) 
-				draw_sprite_ext(icon, 0, 343, 118 + 30*i, 2, 2, 0, c_white, 1)
+				draw_sprite_ext(icon, 0, 343 + _l_offset, 118 + 30*i, 2, 2, 0, c_white, 1)
 		}
 		
 		if state == 2 {
@@ -302,7 +309,7 @@ if selection == 1 { // equip
 			draw_set_color(c_white)
 			if !is_undefined(equipped[e_pselection][1]) {
 				var txt = item_get_desc(equipped[e_pselection][1], 0)
-				draw_text_ext_transformed(20, 10, txt, 16, __top_txt_len, 2, 2, 0)
+				draw_text_ext_transformed(20 + _l_offset, 10, txt, 16, __top_txt_len, 2, 2, 0)
 			}
 		}
 		draw_set_color(c_white)
@@ -313,7 +320,7 @@ if selection == 1 { // equip
 			draw_set_color(c_white)
 			if !is_undefined(arr_mod[e_selection]) {
 				var txt=item_get_desc(arr_mod[e_selection], 0)
-				draw_text_ext_transformed(20, 10, txt, 16, __top_txt_len, 2, 2, 0)
+				draw_text_ext_transformed(20 + _l_offset, 10, txt, 16, __top_txt_len, 2, 2, 0)
 			}
 		}
 		
@@ -336,15 +343,15 @@ if selection == 1 { // equip
 				draw_set_color(c_dkgray)
 			}
 			
-		    draw_text_transformed(384, 230 + (i - e_move) * 27, txt, 2, 2, 0)
+		    draw_text_transformed(384 + _l_offset, 230 + (i - e_move) * 27, txt, 2, 2, 0)
 			if i == e_selection && state == 3 
-				draw_sprite_ext(spr_uisoul, 0, 344, 240 + (i - e_move) * 27, 1, 1, 0, c_red, 1)
+				draw_sprite_ext(spr_uisoul, 0, 344 + _l_offset, 240 + (i - e_move) * 27, 1, 1, 0, c_red, 1)
 			
 			var icon = undefined
 			if !is_undefined(arr_mod[i]) 
 				icon = struct_get(arr_mod[i],"icon")
 			if !is_undefined(icon) 
-				draw_sprite_ext(icon, 0, 363, 236 + (i-e_move)*27, 2, 2, 0, draw_get_color(), 1)
+				draw_sprite_ext(icon, 0, 363 + _l_offset, 236 + (i-e_move)*27, 2, 2, 0, draw_get_color(), 1)
 			draw_set_color(c_white)
 		}
 		
@@ -355,12 +362,12 @@ if selection == 1 { // equip
 			draw_set_color(c_white)
 			
 			var add = lerp(0, 120-5, e_move / (array_length(arr_mod)-6))
-			draw_rectangle(555, 259 + add, 560, 259 + 5 + add, 0)
+			draw_rectangle(555 + _l_offset, 259 + add, 560 + _l_offset, 259 + 5 + add, 0)
 			
 			if e_move < array_length(arr_mod) - 6
-				draw_sprite_ext(spr_ui_arrow_down, 0, 551, 385 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
+				draw_sprite_ext(spr_ui_arrow_down, 0, 551 + _l_offset, 385 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
 			if e_move > 0
-				draw_sprite_ext(spr_ui_arrow_up, 0, 551, 234 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
+				draw_sprite_ext(spr_ui_arrow_up, 0, 551 + _l_offset, 234 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
 		}
 	}
 }

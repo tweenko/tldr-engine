@@ -127,7 +127,7 @@ function ex_enemy_dentos() : enemy_base() constructor{
             s_spared: spr_ex_e_dentos,
         }
     }
-	turn_object = o_turn_default
+	turn_object = o_ex_turn_dentos
 	
 	//stats
 	hp =		780
