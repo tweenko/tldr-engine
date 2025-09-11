@@ -413,45 +413,75 @@ surface_set_target(surf) {
 		var tpxx = tproll - 80
 		var full = false
 		
-		draw_sprite_ext(spr_ui_enc_tpbar_caption, 0, 10 + tpxx, 77, 2, 2, 0, c_white, 1)
+        if !surface_exists(tp_surf)
+            tp_surf = surface_create(640, 480)
+        
+        surface_set_target(tp_surf) {
+            draw_clear_alpha(0,0)
+            
+    		draw_sprite_ext(spr_ui_enc_tpbar_caption, 0, 10 + tpxx, 77, 2, 2, 0, c_white, 1)
+    		
+    		draw_set_font(loc_font("main"))
+    		draw_set_color(c_white)
+    		
+    		if ceil(tplerp) >= 100 {
+    			full = true
+    			
+    			draw_set_color(c_yellow)
+    			draw_text_transformed(10 + tpxx, 118, "M", 2, 2, 0)
+    			draw_text_transformed(14 + tpxx, 138, "A", 2, 2, 0)
+    			draw_text_transformed(18 + tpxx, 158, "X", 2, 2, 0)
+    		}
+    		else {
+    			draw_text_transformed(8 + tpxx, 110, round(tplerp), 2, 2, 0)
+    			draw_text_transformed(13 + tpxx, 135, "%", 2, 2, 0)
+    		}
+        }
+        surface_reset_target()
+        
+        draw_surface(tp_surf, 0, 0)
+        draw_set_alpha(tp_glow_alpha)
+        gpu_set_blendmode(bm_add)
+        for (var i = 0; i < 360; i += 45) {
+            
+            draw_surface(tp_surf, lengthdir_x(2, i), lengthdir_y(2, i))
+        }
+        gpu_set_blendmode(bm_normal)
+        draw_set_alpha(1)
 		
-		draw_set_font(loc_font("main"))
-		draw_set_color(c_white)
-		
-		if ceil(tplerp) >= 100 {
-			full = true
-			
-			draw_set_color(c_yellow)
-			draw_text_transformed(10 + tpxx, 118, "M", 2, 2, 0)
-			draw_text_transformed(14 + tpxx, 138, "A", 2, 2, 0)
-			draw_text_transformed(18 + tpxx, 158, "X", 2, 2, 0)
-		}
-		else {
-			draw_text_transformed(8 + tpxx, 110, round(tplerp), 2, 2, 0)
-			draw_text_transformed(13 + tpxx, 135, "%", 2, 2, 0)
-		}
-		
-		draw_sprite_ext(spr_ui_enc_tpbar, 1, 38 + tpxx, 40, 1, 1, 0, c_white, 1)
-		
+        var __c_unfilled = c_red
+        var __c_filled = (!full ? c_orange : c_yellow)
+        var __c_outline = c_white
+        
+        if tp_constrict {
+            __c_unfilled = c_blue
+            
+            __c_filled = merge_color(c_blue, c_teal, 0.5)
+            if full
+                __c_filled = merge_color(c_teal, __c_filled, 0.5)
+        }
+        
+        draw_sprite_ext(spr_ui_enc_tpbar, (tp_constrict ? 2 : 1), 38 + tpxx, 40, 1, 1, 0, c_white, 1)
+        
 		if tplerp2 < tplerp {
 			draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
 				0, (100-tplerp) / 100 * 187, 
 				18, tplerp/100 * 187, 41 + tpxx,
 				46 + (100-tplerp)/100 * 187,
-				1, 1, c_red, 1
+				1, 1, __c_unfilled, 1
 			)
 			draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
 				0, (100-tplerp2)/100 * 187,
 				18, tplerp2/100 * 187, 
 				41 + tpxx, 46 + (100-tplerp2)/100 * 187,
-				1, 1, (!full ? c_orange : c_yellow), 1)
+				1, 1, __c_filled, 1)
 			
 			if !full {
 				draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
 					0, (100-tplerp)/100 * 187,
 					18, 2,
 					41 + tpxx, 46 + (100-tplerp)/100 * 187,
-					1, 1, c_white, 1
+					1, 1, __c_outline, 1
 				)
 			}
 		}
@@ -460,13 +490,13 @@ surface_set_target(surf) {
 				0, (100-tplerp2)/100 * 187,
 				18, tplerp2/100 * 187, 
 				41 + tpxx, 46 + (100-tplerp2)/100 * 187,
-				1, 1, c_white, 1
+				1, 1, __c_outline, 1
 			)
 			draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
 				0, (100-tplerp)/100 * 187, 
 				18, tplerp/100 * 187,
 				41 + tpxx, 46 + (100-tplerp)/100 * 187,
-				1, 1, (!full ? c_orange : c_yellow) ,1
+				1, 1, __c_filled ,1
 			)
 			
 			if !full {
@@ -474,10 +504,12 @@ surface_set_target(surf) {
 					0, (100-tplerp2)/100 * 187,
 					18, 2, 
 					41 + tpxx, 46 + (100-tplerp2)/100 * 187,
-					1, 1, c_white, 1
+					1, 1, __c_outline, 1
 				)
 			}
 		}
+        
+        draw_sprite_ext(spr_ui_enc_tpfilling, 0, 41 + tpxx, 46, 1, 1, 0, c_white, tp_glow_alpha)
 	}
 
 }

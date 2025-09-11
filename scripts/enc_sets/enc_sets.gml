@@ -4,12 +4,16 @@ function enc_set() constructor { // base
 	]
 	enemies_pos = [ // x, y, relative (bool) -- if not relative, guipos is added
 	]
-	flavor = "* undefined"
+	flavor = function() { // can also be a string
+		var text = "* undefined"
+		return text
+	}
 	bgm = mus_battle
 	bg_type = 0 // default, no bg
     
     can_change_turnlen = true
-	
+    enc_var_struct = {}	
+    
 	display_target = true // whether to display the targets of the enemy's attack
 	
 	// methods

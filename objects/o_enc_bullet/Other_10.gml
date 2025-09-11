@@ -13,5 +13,5 @@ o_enc_soul.image_index = 1
 
 party_attack_targets(att, o_enc)
 
-if color == 0 
+if color == 0 && destroy
 	instance_destroy()

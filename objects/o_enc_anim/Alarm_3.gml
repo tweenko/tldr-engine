@@ -7,11 +7,19 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
     obj.image_index = 0
 }
 
-instance_create(o_enc,,,,{
+var inst = instance_create(o_enc,,,,{
 	encounter_data: encounter_data, 
 	save_pos,
     save_follow,
 })
+
+var __vs = encounter_data.enc_var_struct
+var __names = struct_get_names(__vs)
+for (var i = 0; i < array_length(__names); i ++) {
+    show_debug_message($"{__names[i]}: {struct_get(__vs, __names[i])}")
+    variable_instance_set(inst, __names[i], struct_get(__vs, __names[i]))
+}
+
 if struct_exists(encounter_data, "bgm") && encounter_data.bgm != -1 {
 	music_play(encounter_data.bgm, 1)
 }

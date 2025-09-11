@@ -83,28 +83,71 @@ function ex_enemy_shadowguy() : enemy_base() constructor{
 	//text
 	dialogue = function(slot){
 	}
-	flavor = function(slot){
-		var text = ""
-		var priority = 0 //the higher, the more likely to appear
-		if o_enc.encounter_data.enemies[slot].mercy >= 100 
-            text = "* Shadowguy shuffles their feet in a celebratory manner."
-		if text == "" {
-			var a = [
-				"* Smells like jam."
-			]
-			
-			if o_enc.encounter_data.debug_name == "shadowguys" 
-                array_push(a, "* Shadowguys argue over who gets the next solo.")
-			text = a[irandom(array_length(a)-1)]
-		}
-		
-		if o_enc.encounter_data.enemies[slot].hp <= o_enc.encounter_data.enemies[slot].max_hp/3 {
-			text = "* Shadowguy skips a beat!"
-			priority = 1
-		}
-		return {
-			text,
-			priority,
-		}
+}
+
+function ex_enemy_spawnling() : enemy_base() constructor{
+	name = "Spawnling"
+	obj = {
+        obj: o_ex_actor_e_spawnling,
+        var_struct: {
+            s_hurt: spr_ex_e_spawnling_hurt,
+            s_spared: spr_ex_e_spawnling,
+        }
+    }
+	turn_object = o_turn_default_dark
+	
+	//stats
+	hp =		960
+	max_hp =	960
+	attack =	12
+	defense =	4
+	
+	//acts
+	acts = [
+		{
+			name: "Check",
+			party: [],
+			desc: -1,
+			exec: function() {
+				encounter_scene_dialogue("* SPAWNLING - Common TITAN SPAWN. Use {col(c_orange)}FOCUS{col(w)} to burn its shell.")
+			}
+		},
+	]
+    
+	//text
+	dialogue = function(slot){
+	}
+}
+function ex_enemy_dentos() : enemy_base() constructor{
+	name = "Dentos"
+	obj = {
+        obj: o_ex_actor_e_dentos,
+        var_struct: {
+            s_hurt: spr_ex_e_dentos_hurt,
+            s_spared: spr_ex_e_dentos,
+        }
+    }
+	turn_object = o_turn_default
+	
+	//stats
+	hp =		780
+	max_hp =	780
+	attack =	12
+	defense =	4
+	
+	//acts
+	acts = [
+		{
+			name: "Check",
+			party: [],
+			desc: -1,
+			exec: function() {
+				encounter_scene_dialogue("* DENTOS - Beware of its sharp teeth. Use {col(c_orange)}FOCUS{col(w)} to burn its shell.")
+			}
+		},
+	]
+    
+	//text
+	dialogue = function(slot){
 	}
 }

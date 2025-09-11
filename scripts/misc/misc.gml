@@ -20,6 +20,8 @@ function string_to_color(color_string){
 			return c_gray
 		case "c_silver":
 			return c_silver
+        case "c_orange":
+            return c_orange
 		default:
 			return c_white
 	}

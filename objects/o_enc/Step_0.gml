@@ -24,7 +24,10 @@ if battle_state == "menu" {
 				party_get_inst(global.party_names[i]).flashing = false
 		}
 	}
-	
+	var __defend_tp = 16
+    if tp_constrict
+        __defend_tp = 2
+    
 	if state == 0 { // button selector
 		if InputPressed(INPUT_VERB.LEFT) {
 			bt_selection[selection]--
@@ -51,7 +54,7 @@ if battle_state == "menu" {
 				selection ++
 				
 				state = 0
-				tp += 16
+				tp += __defend_tp
 				
 				audio_play(snd_ui_select)
 			}
@@ -160,7 +163,7 @@ if battle_state == "menu" {
 			
 			// return the tp if i was defending
 			if char_state[selection] == 4
-				tp -= 16
+				tp -= __defend_tp
 			
 			// get back to being idle
 			char_state[selection] = -1
@@ -1224,8 +1227,14 @@ if battle_state == "turn" {
 		mybox = instance_create(o_enc_box)
 		mysoul = instance_create(o_enc_soul, 
 			get_leader().x, get_leader().y - get_leader().myheight/2, 
-			DEPTH_ENCOUNTER.ACTORS
+			DEPTH_ENCOUNTER.SOUL
 		)
+        
+        if tp_constrict
+            o_enc_soul.inst_aura = instance_create(o_enc_soul_aura, 
+                o_enc_soul.x, o_enc_soul.y, 
+                DEPTH_ENCOUNTER.SOUL
+            )
 		
 		turn_init = true
 		turn_timer = 0
@@ -1248,13 +1257,13 @@ if battle_state == "turn" {
 		
 		var move_on=true
 		for (var i = 0; i < array_length(turn_objects); ++i) {
-			if !enc_enemy_isfighting(i){continue}
-			if instance_exists(turn_objects[i]) move_on=false
+			if !enc_enemy_isfighting(i) continue
+			if instance_exists(turn_objects[i]) move_on = false
 		}
 		if move_on {
-			mybox.alarm[0]=1
-			mysoul.alarm[0]=1
-			turn_goingback=true
+			mybox.alarm[0] = 1
+			mysoul.alarm[0] = 1
+			turn_goingback = true
 		}
 	}
 	else if turn_goingback {
@@ -1282,27 +1291,12 @@ if battle_state == "post_turn" {
 		}
 	}
 	{ //set the flavor text
-		var maxprio = -infinity
-		var flav = []
-		
-		for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-			if enc_enemy_isfighting(i) {
-				if struct_exists(encounter_data.enemies[i], "ev_post_turn") && is_callable(encounter_data.enemies[i].ev_post_turn)
-					encounter_data.enemies[i].ev_post_turn()
-				
-				var a = encounter_data.enemies[i].flavor(i)
-				if a.priority > maxprio {
-					flav = [];
-					maxprio = a.priority
-					array_push(flav, a.text)
-				}
-				else if a.priority == maxprio 
-					array_push(flav, a.text)
-			}
-		}
-		if array_length(flav) > 0 {
-			encounter_data.flavor = flav[irandom(array_length(flav)-1)]
-		}
+		var flav = encounter_data.flavor
+        if is_callable(flav)
+		    encounter_data.flavor = flav()
+        else {
+        	encounter_data.flavor = flav
+        }
 	}
 	
 	event_user(0) // reset variable values
@@ -1411,3 +1405,5 @@ if buffer > 0
 
 tplerp = lerp(tplerp, tp, .3)
 tplerp2 = lerp(tplerp2, tp, .8)
+if tp_glow_alpha > 0
+    tp_glow_alpha -= .1

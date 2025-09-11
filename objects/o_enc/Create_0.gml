@@ -4,6 +4,7 @@
 }
 { // visual variables
 	surf = -1 // the main surface
+    tp_surf = -1
 	roll = 0
 	tproll = 0
 	
@@ -99,6 +100,8 @@ encounter_data = {} // the information about the encounter: enemies, music, text
 tp = 0
 tplerp = 0
 tplerp2 = 0
+tp_constrict = false // darkness constriction
+tp_glow_alpha = 0
 
 ignore = [] // the "busy" party members
 

@@ -39,14 +39,6 @@ function enemy_base() constructor {
 	dialogue =				"Test" // can be a function (can accept slot argument as arg0)
 	dia_bubble_offset =		[0, 0, 0] // x, y, relative to (1 for enemy and 0 for default box pos)
 	dia_bubble_sprites =	[spr_ui_enc_dialogue_box, spr_ui_enc_dialogue_spike]
-	flavor =				function() {
-		var text = ""
-		var priority = 0 //the higher, the more likely to appear
-		return {
-			text,
-			priority,
-		}
-	}
 	
 	turn_object = o_turn_default
 	
@@ -246,30 +238,6 @@ function enemy_virovirokun() : enemy_base() constructor{
 			"Happy new year 1997!", 
 			"I've got a love letter for you."
 		)
-	}
-	flavor = function(slot) {
-		var text = ""
-		var priority = 0 //the higher, the more likely to appear
-		
-		if o_enc.encounter_data.enemies[slot].mercy >= 100 
-			text = "* Virovirokun looks healthy."
-		if text == "" {
-			text = choose("* Virovirokun is sweating suspiciously.", 
-				"* Virovirokun uses a text document as a tissue.", 
-				"* Virovirokun is poking round things with a spear.", 
-				"* Virovirokun is beeping a criminal tune.", 
-				"* Smells like cherry syrup."
-			)
-		}
-		
-		if o_enc.encounter_data.enemies[slot].hp <= o_enc.encounter_data.enemies[slot].max_hp / 3 {
-			text = "* Virovirokun looks extra sick."
-			priority = 1
-		}
-		return {
-			text,
-			priority,
-		}
 	}
 }
 function enemy_killercar() : enemy_base() constructor{
