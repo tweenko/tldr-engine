@@ -74,7 +74,7 @@
 	
 	choice_inst = noone
 	looping = false
-	break_tabulation = 0
+	break_tabulation = true
 	current_box = 0
 	
 	auto_pauses = true

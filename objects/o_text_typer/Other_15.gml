@@ -43,7 +43,7 @@ while looping || normalupd {
 				if is_array(struct_get(char_presets, char).voice_pitchrange){
 					pitch = random_range(
 						struct_get(char_presets, char).voice_pitchrange[0],
-						struct_get(char_presets, char).voice_pitchrange[0]
+						struct_get(char_presets, char).voice_pitchrange[1]
 					)
 				}
 				
@@ -206,7 +206,8 @@ else {
 	
 if _face == noone && instance_exists(face_inst) {
 	instance_clean(face_inst)
-	x -= 116
+	x -= face_xoff
+    face_xoff = 0
 }
 if face_expression != face_expression_prev {
 	face_inst.f_index = face_expression
