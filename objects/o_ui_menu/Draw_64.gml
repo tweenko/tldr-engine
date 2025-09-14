@@ -76,6 +76,13 @@ if !only_hp { // top
 
 if selection == 0 { // items
 	if state > 0 {
+        var _l_offset = 0
+        var _r_offset = 0
+        if loc_getlang() == "ja" {
+            _l_offset = -24
+            _r_offset = 24
+        }
+        
 		var opt = [loc("menu_item_use"), loc("menu_item_toss"), loc("menu_item_key")]
 		var draw_text_shadow = function(xx,yy, sstring, color = c_white) {
 			draw_set_color(bcolor)
@@ -85,7 +92,7 @@ if selection == 0 { // items
 		}
 		
 		draw_set_font(loc_font("main"))
-		ui_dialoguebox_create(68, 88, 572-68, 362-88)
+		ui_dialoguebox_create(68 + _l_offset, 88, 572-68 + _r_offset - _l_offset, 362-88)
 		
 		// the three options at the top
 		for (var i = 0; i < 3; ++i) {
@@ -95,25 +102,25 @@ if selection == 0 { // items
 			else if state > 1
 				col = c_gray
 			
-			draw_text_transformed_color(180 + 120*i, 110, opt[i], 2, 2, 0, col, col, col, col, 1)
+			draw_text_transformed_color(180 + 120*i + _l_offset, 110, opt[i], 2, 2, 0, col, col, col, col, 1)
 			if i == i_pselection && state == 1 
-				draw_sprite_ext(spr_uisoul, 0, 155 + 120*i, 120, 1, 1, 0, c_red, 1)
+				draw_sprite_ext(spr_uisoul, 0, 155 + 120*i + _l_offset, 120, 1, 1, 0, c_red, 1)
 		}
 		
 		if i_pselection == 2 { // key
 			for (var i = 0; i < item_get_count(ITEM_TYPE.KEY); ++i) {
 				if i == i_selection && state == 2 
-					draw_sprite_ext(spr_uisoul, 0, 120 + (i % 2 == 1 ? 210 : 0), 160 + floor(i/2) * 30, 1, 1, 0, c_red, 1)
-				draw_text_shadow(146 + (i%2 == 1 ? 210 : 0), 152 + floor(i/2) * 30, item_get_name(global.key_items[i]), (state == 1 ? c_gray : c_white))
+					draw_sprite_ext(spr_uisoul, 0, 120 + (i % 2 == 1 ? 210 + _r_offset*2 : 0) + _l_offset*2, 160 + floor(i/2) * 30, 1, 1, 0, c_red, 1)
+				draw_text_shadow(146 + (i%2 == 1 ? 210 + _r_offset*2 : 0) + _l_offset*2, 152 + floor(i/2) * 30, item_get_name(global.key_items[i]), (state == 1 ? c_gray : c_white))
 			}
 		}
 		else { // other
 			for (var i = 0; i < item_get_count(); ++i) {
 				if i == i_selection && state == 2 
-					draw_sprite_ext(spr_uisoul, 0, 120 + (i % 2 == 1 ? 210 : 0), 160 + floor(i/2) * 30, 1, 1, 0, c_red, 1)
-				draw_text_shadow(146 + (i%2 == 1 ? 210 : 0), 152 + floor(i/2) * 30, item_get_name(global.items[i]), (state == 1 ? c_gray : c_white))
+					draw_sprite_ext(spr_uisoul, 0, 120 + (i % 2 == 1 ? 210 + _r_offset*2 : 0) + _l_offset*2, 160 + floor(i/2) * 30, 1, 1, 0, c_red, 1)
+				draw_text_shadow(146 + (i%2 == 1 ? 210 + _r_offset*2 : 0) + _l_offset*2, 152 + floor(i/2) * 30, item_get_name(global.items[i]), (state == 1 ? c_gray : c_white))
 			}
-		}
+		}    
 		
 		if state == 2 || state == 3 {
 			var arr = global.items
@@ -294,8 +301,8 @@ if selection == 1 { // equip
 				draw_set_color(c_dkgray)
 			}
 			else {
-				txt=struct_get(equipped[i][1], "name")[0];
-				icon=struct_get(equipped[i][1], "icon")
+				txt = item_get_name(equipped[i][1]);
+				icon = struct_get(equipped[i][1], "icon")
 			}
 			draw_text_transformed(365 + _l_offset, 112 + 30*i, txt, 2, 2, 0)
 			
@@ -358,16 +365,16 @@ if selection == 1 { // equip
 		// the page arrows
 		if array_length(arr_mod) > 6 && state == 3 {
 			draw_set_color(c_dkgray)
-			draw_rectangle(555, 259, 560, 378, 0)
+			draw_rectangle(555 + _r_offset, 259, 560 + _r_offset, 378, 0)
 			draw_set_color(c_white)
 			
 			var add = lerp(0, 120-5, e_move / (array_length(arr_mod)-6))
-			draw_rectangle(555 + _l_offset, 259 + add, 560 + _l_offset, 259 + 5 + add, 0)
+			draw_rectangle(555 + _r_offset, 259 + add, 560 + _r_offset, 259 + 5 + add, 0)
 			
 			if e_move < array_length(arr_mod) - 6
-				draw_sprite_ext(spr_ui_arrow_down, 0, 551 + _l_offset, 385 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
+				draw_sprite_ext(spr_ui_arrow_down, 0, 551 + _r_offset, 385 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
 			if e_move > 0
-				draw_sprite_ext(spr_ui_arrow_up, 0, 551 + _l_offset, 234 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
+				draw_sprite_ext(spr_ui_arrow_up, 0, 551 + _r_offset, 234 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
 		}
 	}
 }
@@ -561,4 +568,4 @@ draw_set_valign(fa_top)
 surface_reset_target()
 draw_surface_ext(surf, 0, 0, 1, 1, 0, c_white, 1)
 
-//draw_sprite_ext(image__1_, 0, 0, 0, 1, 1, 0, c_white, .3)
+//draw_sprite_ext(item_ja_ref, 0, 0, 0, 1, 1, 0, c_white, .3)

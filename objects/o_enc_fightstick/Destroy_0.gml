@@ -10,3 +10,6 @@ instance_create(o_eff_attackslash, o.x, o.y - o.myheight/2, DEPTH_ENCOUNTER.ACTO
 	target,
 	fatal: item_get_fatal(party_getdata(global.party_names[index], "weapon"))
 })
+
+if item_get_equipped(item_w_absorbax, global.party_names[index]) > 0
+    party_heal(global.party_names[index], 2, o_enc)

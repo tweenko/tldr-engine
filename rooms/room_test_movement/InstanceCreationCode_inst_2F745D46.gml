@@ -1,1 +1,1 @@
-world_switch(0)
+world_switch(1)

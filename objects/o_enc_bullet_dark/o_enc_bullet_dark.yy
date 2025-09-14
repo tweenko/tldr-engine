@@ -38,8 +38,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_ex_e_spawn_small",
-    "path":"sprites/spr_ex_e_spawn_small/spr_ex_e_spawn_small.yy",
+    "name":"spr_enc_bullet_spawn",
+    "path":"sprites/spr_enc_bullet_spawn/spr_enc_bullet_spawn.yy",
   },
   "spriteMaskId":null,
   "visible":true,

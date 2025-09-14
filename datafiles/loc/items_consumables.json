@@ -1,0 +1,100 @@
+{
+    "item_c_lightcandy": {
+        "en": {
+            "name": "LightCandy",
+            "desc": ["White candy with a chalky texture.\nIt'll recover 120HP.", "Heals 120HP"],
+            "reactions": {
+                "susie": "Hey, this rules!",
+                "ralsei": "Nice and chalky.",
+                "noelle": "(I-isn't this the chalk I gave her?)"
+            }
+            },
+        "ja": {
+            "name": "ライトキャンディ",
+            "desc": ["チョークっぽい食感の白いキャンディ。\n120HP回復。", "120HP\n回復"],
+            "reactions": {
+                "susie": "こりゃサイコーだな！",
+                "ralsei": "とってもチョークっぽい味！",
+                "noelle": "(これって…　スージィにあげたチョーク…？)"
+            }
+        }
+    },
+    "item_c_darker_candy" : {
+        "en": {
+            "name": "Darker Candy",
+            "desc": ["A candy that has grown sweeter with time.\nSaid to taste like toasted marshmallow. +120HP", "Heals 120HP"],
+            "reactions": {
+                "susie": "Yeahh!! That's good!",
+                "ralsei": {
+                "susie": "Hey, feed ME!!!",
+                "ralsei": "Yummy!!! Marshmallows!!"
+                },
+                "noelle": "Oh, it's... sticky?"
+            }
+        },
+        "ja": {
+            "name": "DDキャンディ",
+            "desc": ["時間がたって　甘さが増したキャンディ。\n焼いたマシュマロの味がするらしい。HP+120", "120HP\n回復"],
+            "reactions": {
+                "susie": "うおー！　うんめー！",
+                "ralsei": {
+                "susie": "おい！　オレにも食わせろ！",
+                "ralsei": "おいしい！　マシュマロだ！"
+                },
+                "noelle": "ベタベタしてる…？"
+            }
+        }
+    },
+    "item_c_top_cake" : {
+        "en": {
+            "name": "Top Cake",
+            "desc": ["This cake will make your taste buds spin! Heals 160HP to the team", "Heals team 160HP"],
+            "reactions": {
+                "susie": "Mmm, seconds!",
+                "ralsei": "Whoops.",
+                "noelle": "Happy birthday! Haha!"
+            }
+            },
+        "ja": {
+            "name": "トップケーキ",
+            "desc": ["一口食べれば舌がクルクルおどる絶品ケーキ。\n仲間全員のHPを160回復。", "仲間全員を\n160HP\n回復"],
+            "reactions": {
+                "susie": "うま！おかわり！",
+                "ralsei": "え…",
+                "noelle": "お誕生日おめでとう！　あはは！"
+            }
+        }
+    },
+    "item_c_revivemint" : {
+        "en": {
+            "name": "ReviveMint",
+            "desc": ["Heals a fallen ally to MAX HP.\nA minty green crystal.", "Heals Downed Ally"],
+            "reactions": {
+                "susie": {
+                    "susie": "I'm ALIVE!!!",
+                    "ralsei": "(You weren't dead)"
+                },
+                "ralsei": {
+                    "susie": "(Don't look it)",
+                    "ralsei": "Ah, I'm refreshed!"
+                },
+                "noelle": "Mints? I love mints!"
+            }
+        },
+        "ja": {
+            "name": "リザレクトミント",
+            "desc": ["倒れた仲間のHPを全回復。\n緑色をした　ミントの香りのクリスタル。", "倒れた\n仲間が\n復活"],
+            "reactions": {
+                "susie": {
+                    "susie": "生き返ったぜ！",
+                    "ralsei": "(死んでなかったでしょ…)"
+                },
+                "ralsei": {
+                    "susie": "(そうは見えねーけどな…)",
+                    "ralsei": "うーん　力がわいてきた！"
+                },
+                "noelle": "ミント…？　大好き！"
+            }
+        }
+    }
+}

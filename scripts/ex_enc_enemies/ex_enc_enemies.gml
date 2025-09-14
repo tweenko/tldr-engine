@@ -97,10 +97,10 @@ function ex_enemy_spawnling() : enemy_base() constructor{
 	turn_object = o_turn_default_dark
 	
 	//stats
-	hp =		960
-	max_hp =	960
-	attack =	12
-	defense =	4
+	hp =		5000
+	max_hp =	5000
+	attack =	30
+	defense =	6
 	
 	//acts
 	acts = [
@@ -130,10 +130,44 @@ function ex_enemy_dentos() : enemy_base() constructor{
 	turn_object = o_ex_turn_dentos
 	
 	//stats
-	hp =		780
-	max_hp =	780
-	attack =	12
-	defense =	4
+	hp =		5000
+	max_hp =	5000
+	attack =	30
+	defense =	6
+	
+	//acts
+	acts = [
+		{
+			name: "Check",
+			party: [],
+			desc: -1,
+			exec: function() {
+				encounter_scene_dialogue("* DENTOS - Beware of its sharp teeth. Use {col(c_orange)}FOCUS{col(w)} to burn its shell.")
+			}
+		},
+	]
+    
+	//text
+	dialogue = function(slot){
+	}
+}
+
+function ex_enemy_knight() : enemy_base() constructor{
+	name = "Knight"
+	obj = {
+        obj: o_ex_actor_e_knight,
+        var_struct: {
+            s_hurt: spr_ex_e_knight,
+            s_spared: spr_ex_e_knight,
+        }
+    }
+	turn_object = o_ex_turn_knight
+	
+	//stats
+	hp =		7300
+	max_hp =	7300
+	attack =	230
+	defense =	0
 	
 	//acts
 	acts = [

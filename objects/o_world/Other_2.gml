@@ -1,4 +1,10 @@
 party_init()
+for (var i = 0; i < array_length(global.party_names); i ++) {
+    item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
+    item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
+    item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
+}
+
 pal_swap_init_system(shd_pal_swapper)
 
 instance_create(o_camera)
@@ -35,16 +41,16 @@ instance_create(o_ui_quit)
 }
 
 global.items = [
-    new item_lightcandy()
 ]
 global.key_items = [
     new item_key_cell_phone()
 ]
-global.weapons = []
-global.armors = []
+global.weapons = [
+]
+global.armors = [
+]
 global.storage = array_create(item_get_maxcount(ITEM_TYPE.STORAGE), undefined)
 global.lw_items = [
-    new item_lw_shit()
 ]
 
 global.lw_weapon = undefined

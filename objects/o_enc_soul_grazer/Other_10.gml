@@ -9,7 +9,7 @@ for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
     if instance_exists(o_enc.turn_objects[i]) && enc_enemy_isfighting(i) {
         o_enc.turn_objects[i].timer_end -= 2
         
-        if item_get_equipped(item_a_silverwatch) 
+        if item_get_equipped(item_a_silver_watch) 
             o_enc.turn_objects[i].timer_end -= .1
     }
 }

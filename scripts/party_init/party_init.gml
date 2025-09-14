@@ -184,7 +184,7 @@ function party_m_susie() : party_m() constructor {
 	}
 	
 	// inventory
-    weapon = new item_w_maneax()
+    weapon = new item_w_mane_ax()
     armor1 = new item_a_ambercard()
     armor2 = new item_a_ambercard()
 	spells = [
@@ -257,9 +257,9 @@ function party_m_ralsei() : party_m() constructor {
 	}
 	
 	// inventory
-    weapon = new item_w_redscarf()
+    weapon = new item_w_red_scarf()
     armor1 = new item_a_ambercard()
-    armor2 = new item_a_whiteribbon()
+    armor2 = new item_a_white_ribbon()
 	spells = [
 		new item_s_pacify(),
 		new item_s_healprayer()
@@ -329,8 +329,8 @@ function party_m_noelle() : party_m() constructor {
 	
 	// inventory
     weapon = new item_w_snowring()
-    armor1 = new item_a_silverwatch()
-    armor2 = new item_a_royalpin()
+    armor1 = new item_a_silver_watch()
+    armor2 = new item_a_royal_pin()
 	spells = [
 		new item_s_healprayer(),
 		new item_s_sleepmist(),

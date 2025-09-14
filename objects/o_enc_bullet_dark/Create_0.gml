@@ -8,6 +8,9 @@ scale = 1
 spd = 0
 timer = random(5)
 
+element = "dark_star"
+att = 30
+
 image_alpha = 0
 
 _underaura = false

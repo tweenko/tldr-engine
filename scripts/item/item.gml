@@ -311,16 +311,16 @@ function item_get_equipped(_item_ref, _party_name = undefined) {
 		}
 		
 		if __item.type == 2 {
-			var __a = party_getdata(global.party_names, "weapon")
+			var __a = party_getdata(_party_name, "weapon")
 			if !is_undefined(__a) && instanceof(__a) == __iteminst
 				__equipped ++
 		}
 		else if __item.type == 3 {
-			var __a = party_getdata(global.party_names, "armor1")
+			var __a = party_getdata(_party_name, "armor1")
 			if !is_undefined(__a) && instanceof(__a) == __iteminst
 				__equipped ++
 					
-			var __b = party_getdata(global.party_names, "armor2")
+			var __b = party_getdata(_party_name, "armor2")
 			if !is_undefined(__b) && instanceof(__b) == __iteminst
 				__equipped ++
 		}
@@ -407,6 +407,25 @@ function item_spell_reload(_party_name, _spell_index, _data = undefined) {
     party_getdata(_party_name, "spells")[_spell_index] = _n
 }
 
+/// @desc for weapons and armors
+function item_apply(item_struct, party_name) {
+    if !is_undefined(item_struct) {
+        var structnames = struct_get_names(item_struct.stats)
+        for (var i = 0; i < array_length(structnames); ++i) {
+            party_adddata(party_name, structnames[i], struct_get(item_struct.stats, structnames[i]))
+        }
+    }
+}
+/// @desc for weapons and armors
+function item_deapply(item_struct, party_name) {
+    if !is_undefined(item_struct) {
+        var structnames = struct_get_names(item_struct.stats)
+        for (var i = 0; i < array_length(structnames); ++i) {
+            party_subtractdata(party_name, structnames[i], struct_get(item_struct.stats, structnames[i]))
+        }
+    }
+}
+
 /**
  * localizes the item using the struct in the localization file
  * @param {string} _loc the loc_id of the item struct
@@ -416,6 +435,17 @@ function item_localize(_loc) {
     var __names = struct_get_names(__data)
     
     for (var i = 0; i < array_length(__names); i ++) {
-        struct_set(self, __names[i], struct_get(__data, __names[i]))
+        var __value = struct_get(__data, __names[i])
+        if is_struct(__value) && is_struct(struct_get(__data, __names[i])) { // loop through the struct and avoid deleting already existing hashes
+            
+            for (var j = 0; j < struct_names_count(__value); j ++) {
+                var n = struct_get_names(__value)[j]
+                struct_set(struct_get(self, __names[i]), n, struct_get(__value, n))
+                
+                show_debug_message($"!! setting {n} to {struct_get(__value, n)}")
+            }
+        }
+        else
+            struct_set(self, __names[i], __value)
     }
 }

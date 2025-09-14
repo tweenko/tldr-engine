@@ -49,24 +49,27 @@ for (var i = 0; i < string_length(twb); ++i) {
 	if array_contains(manualbreaks, i) {
 		stringsofar = "";
 		widthcutter = 16 * xscale
+        
 		if loc_getlang() == "ja" 
 			widthcutter = string_width("＊ ") * xscale
 	}
     stringsofar += string_char_at(twb,i)
 	
-	if string_char_at(twb, i) == "*" && string_char_at(twb,i + 1) == " "
+	if string_char_at(twb, i) == "*" && string_char_at(twb, i + 1) == " "
+    || string_char_at(twb, i) == "＊" && string_char_at(twb, i + 1) == " "
 		widthcutter = 0
 	if string_char_at(twb, i) == " "
+//    || string_char_at(twb, i) == "　"
 		lastreservedspace = i
 	
-	if string_width(stringsofar) * xscale > (w-widthcutter) - (x-xstart){
+	if string_width(stringsofar) * xscale >= (w-widthcutter) - x {
 		if lastreservedspace < 3 { // make sure we don't do breaks on the asterisk part
 			stringsofar = ""
 			array_push(linebreaks, i)
 			lastbreak = i
 		}
 		else {
-			stringsofar = string_copy(twb,lastreservedspace,i-lastreservedspace)
+			stringsofar = string_copy(twb, lastreservedspace, i-lastreservedspace)
 			array_push(linebreaks, lastreservedspace + disp_chars)
 			lastbreak = lastreservedspace + disp_chars
 		}

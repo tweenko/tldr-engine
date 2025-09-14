@@ -49,7 +49,7 @@ while looping || normalupd {
 				
 				// play unless it's a punctuation sign
 				if struct_get(char_presets, char).voice != -1 
-					&& curchar != "." && curchar != " " 
+					&& curchar != "." && curchar != " " && curchar != "　"
 					&& curchar != "," && curchar != "!" 
 					&& curchar != "?" && curchar != "-" 
 				{
@@ -83,7 +83,7 @@ while looping || normalupd {
 				{ // en
 					if (curchar == "." || curchar == "?" || curchar == "!")
 					&& string_length(text) > 1 
-					&& string_char_at(text, 1) == " "
+					&& (string_char_at(text, 1) == " " || string_char_at(text, 1) == "　")
 						pause = 10
 					
 					if curchar == ","
@@ -91,7 +91,7 @@ while looping || normalupd {
 					
 					if curchar == "-" 
 					&& string_length(text) > 1 
-					&& string_char_at(text, 1) == " "
+					&& (string_char_at(text, 1) == " " || string_char_at(text, 1) == "　")
 						pause = 5
 				}
 				{ // ja

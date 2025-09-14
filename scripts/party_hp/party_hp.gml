@@ -220,31 +220,35 @@ function party_check_gameover() {
 ///@arg	{string}	party_name	party member's name
 /// @arg {string}   element     the element that will be used for calculation
 function damage(attack, party_name, element){
-	if !party_get_inst(party_name).is_in_battle return attack
+	if !party_get_inst(party_name).is_in_battle 
+        return attack
 	
-	//base calculation
-	var hurt=5*attack
-	var party=party_nametostruct(party_name)
+	// base calculation
+	var hurt = 5*attack
+	var party = party_nametostruct(party_name)
 	
-	//member's defense
-	var dfm=0
+	// member's defense
+	var dfm = 0
 	for (var i = 0; i < party.defense; ++i) {
-	    if hurt>1/5*party.max_hp dfm=3
-		else if hurt>1/8*party.max_hp dfm=2
-		else dfm=1
-		hurt-=dfm
+	    if hurt > 1/5 * party.max_hp 
+            dfm=3
+		else if hurt > 1/8 * party.max_hp 
+            dfm = 2
+		else 
+            dfm = 1
+        
+		hurt -= dfm
 	}
 	
-	//check if member is defending
+	// check if member is defending
 	if instance_exists(o_enc){
-		if o_enc.char_state[party_getpos(party_name)]==4 hurt*=2/3
+		if o_enc.char_state[party_getpos(party_name)] == 4 // defending
+            hurt *= 2/3
 	}
-	hurt=round(hurt)
-	
-	//apply element protection
-	if struct_exists(party.element_resistance, element){
-		hurt*=1-struct_get(party.element_resistance, element)
+	// apply element protection
+	if struct_exists(party.element_resistance, element) {
+		hurt *= 1 - struct_get(party.element_resistance, element)
 	}
 	
-	return max(1,hurt)
+	return max(1, round(hurt))
 }
