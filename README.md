@@ -32,7 +32,6 @@ There is no straight up documentation per se, (at least for now) so the Discord 
 ### Credits and Thanks
 - The Soul and Box system originally created by **Callum** (jevilhumor)
 - Amazing Libraries made by [Juju Adams](https://www.jujuadams.com/)
-Huge shout-out! The Kristal Engine is really good if you're into lua, so consider it too!
 - The Anime Library was made by [futuregamer25](https://futuregamer25.github.io/) (It's really good. Thanks a lot!)
 - Some code in the engine was made by **doedreemurr**.
 - Small contributions from other people, as well!
