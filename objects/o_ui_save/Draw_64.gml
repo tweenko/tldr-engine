@@ -11,7 +11,7 @@ if page == 0 { // main menu
 	draw_text_transformed(522, 120, time, 2,2, 0)
 	
 	draw_set_halign(fa_center)
-	draw_text_transformed(320, 170, save_get("room_name"), 2, 2, 0)
+	draw_text_transformed(320, 170, loc(save_get("room_name")), 2, 2, 0)
 	
 	draw_set_halign(fa_left)
 
@@ -39,7 +39,7 @@ if page == 1 { // save menu
 	
 	draw_set_halign(fa_center)
 	draw_text_transformed(320, 32, save_get("name"), 2, 2, 0)
-	draw_text_transformed(320, 64, save_get("room_name"), 2, 2, 0)
+	draw_text_transformed(320, 64, loc(save_get("room_name")), 2, 2, 0)
 	
 	draw_set_halign(fa_left)
 	draw_text_transformed(100, 32, $"LV {global.chapter}", 2, 2, 0)
@@ -81,7 +81,7 @@ if page == 1 { // save menu
 			
 			if prog == 1 && i == s_selection {
 				draw_set_halign(fa_center)
-				if prog!=2 draw_text_transformed(320,48+i*space+spacing,"File Saved",2,2,0)
+				if prog!=2 draw_text_transformed(320, 48+  i*space+spacing, "File Saved", 2, 2, 0)
 				draw_set_halign(fa_left)
 			}
 			else {
@@ -90,13 +90,13 @@ if page == 1 { // save menu
 				
 				draw_set_halign(fa_center)
 				if prog != 2 
-					draw_text_transformed(320,32 + i*space + spacing, save_s_get(i,"name"), 2, 2, 0)
+					draw_text_transformed(320,32 + i*space + spacing, save_s_get(i, "name"), 2, 2, 0)
 				if prog != 2 
-					draw_text_transformed(320,64 + i*space + spacing, save_s_get(i,"room_NAME"), 2, 2, 0)
+					draw_text_transformed(320,64 + i*space + spacing, loc(save_s_get(i, "room_name")), 2, 2, 0)
 				
 				draw_set_halign(fa_left)
 				if prog != 2 
-					draw_text_transformed(124, 32 + i*space + spacing, $"LV {save_s_get(i,"chapter")}", 2, 2, 0)
+					draw_text_transformed(124, 32 + i*space + spacing, $"LV {save_s_get(i, "chapter")}", 2, 2, 0)
 				
 				draw_set_halign(fa_right)
 				if prog != 2 

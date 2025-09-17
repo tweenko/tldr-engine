@@ -50,7 +50,7 @@ if battle_state == "menu" {
 				party_get_inst(global.party_names[selection]).image_index = 0
 				party_get_inst(global.party_names[selection]).image_speed = 1
 				
-				char_state[selection] = 4
+				char_state[selection] = CHAR_STATE.DEFEND
 				selection ++
 				
 				state = 0
@@ -100,8 +100,8 @@ if battle_state == "menu" {
 			buffer = 1
 			
 			while array_contains(ignore, selection) {
-				if char_state[selection] != -1 {
-					char_state[selection] = -1
+				if char_state[selection] != CHAR_STATE.IDLE {
+					char_state[selection] = CHAR_STATE.IDLE
 					
 					// set the sprite back to the idle sprite
 					party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "idle")
@@ -111,8 +111,8 @@ if battle_state == "menu" {
 				selection --
 			}
 			while !party_isup(global.party_names[selection]) {
-				if char_state[selection] != -1 {
-					char_state[selection] = -1;
+				if char_state[selection] != CHAR_STATE.IDLE {
+					char_state[selection] = CHAR_STATE.IDLE;
 					
 					// set the sprite back to the idle sprite
 					party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "idle")
@@ -125,7 +125,7 @@ if battle_state == "menu" {
 			if is_array(together_with[selection]) {
 				if !array_equals(together_with[selection], []) {
 					for (var i = 0; i < array_length(together_with[selection]); ++i) {
-					    char_state[i] = -1;
+					    char_state[i] = CHAR_STATE.IDLE;
 						
 						// set the sprite back to the idle one
 						party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
@@ -138,7 +138,7 @@ if battle_state == "menu" {
 			}
 			else {
 				var i = together_with[selection]
-				char_state[i] = -1;
+				char_state[i] = CHAR_STATE.IDLE;
 				
 				party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
 				party_get_inst(global.party_names[i]).image_speed = 1
@@ -148,25 +148,25 @@ if battle_state == "menu" {
 			}
 			
 			// if i was selecting an item, make sure it isn't used anymore
-			if char_state[selection] == 2
+			if char_state[selection] == CHAR_STATE.ITEM
 				array_pop(items_using)
 			// if i was using magic, return the tp i spent
-			if char_state[selection] == 5 && !can_act[selection] && tp_upon_spell[selection] != -1 {
+			if char_state[selection] == CHAR_STATE.POWER && !can_act[selection] && tp_upon_spell[selection] != -1 {
 				tp = tp_upon_spell[selection]
 				array_set(tp_upon_spell, selection, -1)
 			}
 			// if i was acting and used tp, return the tp i spent
-			if char_state[selection] == 1 && can_act[selection] && tp_upon_spell[selection] != -1 {
+			if char_state[selection] == CHAR_STATE.ACT && can_act[selection] && tp_upon_spell[selection] != -1 {
 				tp = tp_upon_spell[selection]
 				array_set(tp_upon_spell, selection, -1)
 			}
 			
 			// return the tp if i was defending
-			if char_state[selection] == 4
+			if char_state[selection] == CHAR_STATE.DEFEND
 				tp -= __defend_tp
 			
 			// get back to being idle
-			char_state[selection] = -1
+			char_state[selection] = CHAR_STATE.IDLE
 			party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "idle")
 			party_get_inst(global.party_names[selection]).image_speed = 1
 		}
@@ -243,7 +243,7 @@ if battle_state == "menu" {
 		
 		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if bt_selection[selection] == 0 { // attack, enemy selected
-				char_state[selection] = 0
+				char_state[selection] = CHAR_STATE.FIGHT
 				state = 0 // continue
 				
 				for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
@@ -274,7 +274,7 @@ if battle_state == "menu" {
 				tp = tp_clamp(tp)
 				tp -= spells[actselection[selection]].tp_cost
 				
-				char_state[selection] = 5
+				char_state[selection] = CHAR_STATE.POWER
 				selection ++
 				state = 0
 				audio_play(snd_ui_select)
@@ -287,7 +287,7 @@ if battle_state == "menu" {
 				}
 			}	
 			else if bt_selection[selection] == 3 { // spare, enemy selected
-				char_state[selection] = 3
+				char_state[selection] = CHAR_STATE.SPARE
 				selection ++
 				state = 0
 				
@@ -304,7 +304,7 @@ if battle_state == "menu" {
 			else if bt_selection[selection] == 2 { // items, item selected
 				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "itemready")
 				party_get_inst(global.party_names[selection]).image_speed = 1
-				char_state[selection] = 2
+				char_state[selection] = CHAR_STATE.ITEM
 				
 				array_push(items_using, item_get_name(items[itemselection[selection]]))
 				
@@ -389,7 +389,7 @@ if battle_state == "menu" {
 			party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "actready")
 			party_get_inst(global.party_names[selection]).image_speed = 1
 			
-			char_state[selection] = 1
+			char_state[selection] = CHAR_STATE.ACT
 			selection ++
 			state = 0
 			buffer = 1
@@ -465,7 +465,7 @@ if battle_state == "menu" {
 							if !party_isup(global.party_names[j]) 
 								cando=false
 						}
-						char_state[selection] = 1
+						char_state[selection] = CHAR_STATE.ACT
 						
 						for (var j = 1; j < array_length(global.party_names); ++j) {
 							var me = j
@@ -473,7 +473,7 @@ if battle_state == "menu" {
 							
 							party_get_inst(global.party_names[me]).sprite_index = enc_getparty_sprite(me, "actready")
 							party_get_inst(global.party_names[me]).image_speed = 1
-							char_state[me]=1
+							char_state[me] = CHAR_STATE.ACT
 							
 							array_push(together_with[selection], me)
 						}
@@ -485,7 +485,7 @@ if battle_state == "menu" {
 							cando=false
 					}
 					if cando {
-						char_state[selection] = 1
+						char_state[selection] = CHAR_STATE.ACT
 						
 						for (var j = 0; j < add; ++j) {
 							var me = array_get_index(global.party_names, acts[ii].party[j])
@@ -493,7 +493,7 @@ if battle_state == "menu" {
 						
 							party_get_inst(global.party_names[me]).sprite_index = enc_getparty_sprite(me, "actready")
 							party_get_inst(global.party_names[me]).image_speed = 1
-							char_state[me] = 1
+							char_state[me] = CHAR_STATE.ACT
 							
 							array_push(together_with[selection], me)
 						}
@@ -504,7 +504,7 @@ if battle_state == "menu" {
 			if struct_exists(acts[ii], "tp_cost") && tp < acts[ii].tp_cost 
 				cando = false
 			if cando {
-				char_state[selection] = 1
+				char_state[selection] = CHAR_STATE.ACT
 				
 				for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 					if !enc_enemy_isfighting(i)
@@ -588,7 +588,7 @@ if battle_state == "menu" {
 			else if items[itemselection[selection]].use_type == 1 {
 				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "itemready")
 				party_get_inst(global.party_names[selection]).image_speed = 1
-				char_state[selection] = 2
+				char_state[selection] = CHAR_STATE.ACT
 				
 				array_push(items_using, item_get_name(items[itemselection[selection]]))
 				
@@ -668,7 +668,7 @@ if battle_state == "menu" {
 				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
 				party_get_inst(global.party_names[selection]).image_speed = 1
 				
-                char_state[selection] = 5
+                char_state[selection] = CHAR_STATE.POWER
 				
 				array_set(tp_upon_spell, selection, tp)
 				tp = tp_clamp(tp)
@@ -726,7 +726,7 @@ if battle_state == "menu" {
 			if bt_selection[selection] == 1 && spells[actselection[selection]].use_type == 0 {
 				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
 				party_get_inst(global.party_names[selection]).image_speed = 1
-				char_state[selection] = 5
+				char_state[selection] = CHAR_STATE.POWER
 				
 				array_set(tp_upon_spell, selection, tp)
 				tp = tp_clamp(tp)
@@ -744,7 +744,7 @@ if battle_state == "menu" {
 			else {
 				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "itemready")
 				party_get_inst(global.party_names[selection]).image_speed = 1
-				char_state[selection] = 2
+				char_state[selection] = CHAR_STATE.ITEM
 				
 				array_push(items_using, item_get_name(items[itemselection[selection]]))
 				
@@ -804,7 +804,7 @@ if battle_state == "menu" {
 if battle_state == "exec" {
 	// initially calculate and queue the execution of commands
 	if !exec_calculated {
-		var review_queue_states = [1, 2, 5, 4, 3, 0] // the original order: act, item, magic, (defend), spare, attack
+		var review_queue_states = [CHAR_STATE.ACT, CHAR_STATE.ITEM, CHAR_STATE.POWER, CHAR_STATE.DEFEND, CHAR_STATE.SPARE, CHAR_STATE.FIGHT] // the original order: act, item, magic, (defend), spare, attack
 		
 		var localcharstates = array_clone(char_state)
 		var alreadyfighting = false
@@ -814,8 +814,8 @@ if battle_state == "exec" {
 		for (var i = 0; i < array_length(review_queue_states); ++i) {
 			for (var j = 0; j < array_length(global.party_names); ++j) {
 				if localcharstates[j] == review_queue_states[i]
-					&& review_queue_states[2] != 4 // not defend
-					&& review_queue_states[i] != -1
+					&& review_queue_states[2] != CHAR_STATE.DEFEND // not defend
+					&& review_queue_states[i] != CHAR_STATE.IDLE
 				{
 					var record = true
 					
@@ -823,23 +823,23 @@ if battle_state == "exec" {
 						if !array_equals(together_with[j],[]) {
 							for (var v = 0; v < array_length(together_with[j]); ++v) {
 								var me = together_with[j][v]
-								localcharstates[me] = -1;
+								localcharstates[me] = CHAR_STATE.IDLE;
 							}
 						}
 					}
 					else {
 						var v = together_with[j]
-						localcharstates[v] = -1;
+						localcharstates[v] = CHAR_STATE.IDLE;
 					}
 						
-					if localcharstates[j] == 0 {
+					if localcharstates[j] == CHAR_STATE.FIGHT {
 						array_push(fighters, global.party_names[j])
 						array_push(fighterselection, fightselection[j])
 					}
 					
-					if localcharstates[j] == 0 && !alreadyfighting || localcharstates[j] != 0
+					if localcharstates[j] == CHAR_STATE.FIGHT && !alreadyfighting || localcharstates[j] != CHAR_STATE.FIGHT
 						ds_queue_enqueue(exec_queue, [review_queue_states[i], j])
-					if localcharstates[j] == 0 && !alreadyfighting
+					if localcharstates[j] == CHAR_STATE.FIGHT && !alreadyfighting
 						alreadyfighting = true
 				}
 			}
@@ -853,7 +853,7 @@ if battle_state == "exec" {
 			exec_current = ds_queue_dequeue(exec_queue)
 			var user = exec_current[1] // index
 			
-			if exec_current[0] == 0 { // fight
+			if exec_current[0] == CHAR_STATE.FIGHT { // fight
 				instance_create(o_enc_fight,,,, {
 					caller: id, 
 					depth: depth-1, 
@@ -862,7 +862,7 @@ if battle_state == "exec" {
 				})
 				exec_wait = true
 			}
-			else if exec_current[0] == 1 && can_act[user] { // act
+			else if exec_current[0] == CHAR_STATE.ACT && can_act[user] { // act
 				if enc_enemy_isfighting(fightselection[user]) {
 					var act_execer = encounter_data.enemies[fightselection[user]].acts[actselection[user]].exec
 					
@@ -876,7 +876,7 @@ if battle_state == "exec" {
 					if is_array(together_with[user]) {
 						if !array_equals(together_with[user], []) {
 							for (var i = 0; i < array_length(together_with[user]); ++i) {
-							    char_state[i] = -1;
+							    char_state[i] = CHAR_STATE.IDLE;
 								party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "act")
 								party_get_inst(global.party_names[i]).image_index = 0
 								party_get_inst(global.party_names[i]).image_speed = 1
@@ -888,7 +888,7 @@ if battle_state == "exec" {
 					else {
 						var i = together_with[user]
 						
-						char_state[i] = -1;
+						char_state[i] = CHAR_STATE.IDLE;
 						party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "act")
 						party_get_inst(global.party_names[i]).image_index = 0
 						party_get_inst(global.party_names[i]).image_speed = 1
@@ -903,7 +903,7 @@ if battle_state == "exec" {
 						script_execute(act_execer, encounter_data.enemies[fightselection[user]].slot, user)
 				}
 			}
-			else if exec_current[0] == 1 && !can_act[user] { // special act
+			else if exec_current[0] == CHAR_STATE.ACT && !can_act[user] { // special act
 				if enc_enemy_isfighting(partyactselection[user]) {
 					var act_execer = encounter_data.enemies[partyactselection[user]].acts_special
 					var __default_action = 0
@@ -932,7 +932,7 @@ if battle_state == "exec" {
 						encounter_scene_dialogue($"* Default {party_getname(global.party_names[user])} Action")
 				}
 			}
-			else if exec_current[0] == 2 { // item
+			else if exec_current[0] == CHAR_STATE.ITEM { // item
 				var items = item_get_array(0)
 				var o = party_get_inst(global.party_names[itemuserselection[user]])
 				
@@ -953,7 +953,7 @@ if battle_state == "exec" {
 					return party_get_inst(global.party_names[index]).sprname == "idle"
 				}, [user])
 				cutscene_func(function(user){
-					o_enc.char_state[user] = -1
+					o_enc.char_state[user] = CHAR_STATE.IDLE
 				}, [user])
 				
 				// actually use the said item
@@ -964,7 +964,7 @@ if battle_state == "exec" {
 				cutscene_set_variable(o_enc, "exec_wait", false)
 				cutscene_play()	
 			}
-			else if exec_current[0] == 3 { // spare
+			else if exec_current[0] == CHAR_STATE.SPARE { // spare
 				exec_wait = true
 				
 				var o = party_get_inst(global.party_names[user]) // get party object
@@ -1011,7 +1011,7 @@ if battle_state == "exec" {
 					}, [user])
 					
 					cutscene_func(function(user){
-						o_enc.char_state[user] = -1
+						o_enc.char_state[user] = CHAR_STATE.IDLE
 					}, [user])
 					
                     cutscene_spare_enemy(alternative)
@@ -1048,7 +1048,7 @@ if battle_state == "exec" {
 				
 				cutscene_play()	
 			}
-			else if exec_current[0] == 5 { // spell
+			else if exec_current[0] == CHAR_STATE.POWER { // spell
 				var selected = fightselection[user]
 				var o = party_get_inst(global.party_names[user])
 				var spells = array_clone(party_getdata(global.party_names[user], "spells"))
@@ -1076,7 +1076,7 @@ if battle_state == "exec" {
 				cutscene_sleep(4)
                 item_use(spells[actselection[user]], user, selected)
 				cutscene_func(function(user) {
-					o_enc.char_state[user] = -1
+					o_enc.char_state[user] = CHAR_STATE.IDLE
 				}, [user])
 				
 				cutscene_sleep(1)
@@ -1094,8 +1094,8 @@ if battle_state == "exec" {
 	else {
 		if !exec_wait {
 			// if not defending, go back to the idle sprite
-			if char_state[exec_current[1]] != 4 {
-				char_state[exec_current[1]] = -1;
+			if char_state[exec_current[1]] != CHAR_STATE.DEFEND {
+				char_state[exec_current[1]] = CHAR_STATE.IDLE;
 				party_get_inst(global.party_names[exec_current[1]]).sprite_index = enc_getparty_sprite(exec_current[1], "idle")
 				party_get_inst(global.party_names[exec_current[1]]).image_index = 0
 				party_get_inst(global.party_names[exec_current[1]]).image_speed = 1
@@ -1104,7 +1104,7 @@ if battle_state == "exec" {
 					if !array_equals(together_with[exec_current[1]], []) {
 						for (var i = 0; i < array_length(together_with[exec_current[1]]); ++i) {
 							var me = together_with[exec_current[1]][i]
-						    char_state[me] = -1;
+						    char_state[me] = CHAR_STATE.IDLE;
 							party_get_inst(global.party_names[me]).sprite_index = enc_getparty_sprite(me, "idle")
 							party_get_inst(global.party_names[me]).image_speed = 1
 						}
@@ -1114,7 +1114,7 @@ if battle_state == "exec" {
 				else {
 					var i = together_with[exec_current[1]]
 					
-					char_state[i] = -1;
+					char_state[i] = CHAR_STATE.IDLE;
 					party_get_inst(global.party_names[i]).sprite_index = enc_getparty_sprite(i, "idle")
 					party_get_inst(global.party_names[i]).image_speed = 1
 					
@@ -1281,7 +1281,7 @@ if battle_state == "post_turn" {
 		party_get_inst(global.party_names[i]).image_index = 0
 		party_get_inst(global.party_names[i]).image_speed = 1
 		
-		char_state[i] = -1
+		char_state[i] = CHAR_STATE.IDLE
 		
 		if party_getdata(global.party_names[i], "is_down") {
 			party_heal(global.party_names[i], round(party_getdata(global.party_names[i], "max_hp") * .13))
@@ -1314,7 +1314,7 @@ if battle_state == "win" {
         var __dd_mod = 1
         
 		for (var i = 0; i < array_length(global.party_names); ++i) {
-		    char_state[i] = -1
+		    char_state[i] = CHAR_STATE.IDLE
 			
 			if party_getdata(global.party_names[i], "is_down") {
 				party_setdata(global.party_names[i], "hp", round(party_getdata(global.party_names[i], "max_hp") * .12))
@@ -1399,6 +1399,9 @@ else {
 
 for (var i = 0; i < array_length(global.party_names); ++i) {
 	pmlerp[i] = lerp(pmlerp[i], (selection==i ? 1 : 0), .5)
+    
+    if pm_hurt[i] > 0
+        pm_hurt[i] -= 1
 }
 if buffer > 0 
 	buffer --

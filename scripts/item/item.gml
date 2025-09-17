@@ -441,8 +441,6 @@ function item_localize(_loc) {
             for (var j = 0; j < struct_names_count(__value); j ++) {
                 var n = struct_get_names(__value)[j]
                 struct_set(struct_get(self, __names[i]), n, struct_get(__value, n))
-                
-                show_debug_message($"!! setting {n} to {struct_get(__value, n)}")
             }
         }
         else

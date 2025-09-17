@@ -89,7 +89,10 @@ if state == 0 { // choose
 				msg_set(m_chfile, 0)
 			}
 			if selection == SAVE_SLOTS + 4 {
-                loc_switch_lang()
+                loc_switch_lang(, false)
+                event_user(2)
+                
+                audio_play(snd_ui_select)
 			}
 			if selection == SAVE_SLOTS + 5 {
 				game_end()

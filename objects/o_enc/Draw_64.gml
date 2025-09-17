@@ -40,10 +40,15 @@ surface_set_target(surf) {
 			draw_sprite_ext(spr_pixel, 0, i*213 + xoff + 211, 325 + 80 - roll - off*pmlerp[i], 2, 69, 0, col, 1)
 			draw_sprite_ext(spr_pixel, 0, i*213 + xoff, 325 + 80 - roll - off*pmlerp[i], 2, 69, 0, col, 1)
 		}
-		if char_state[i] == -1 
-			draw_sprite_ext(party_geticon(global.party_names[i]), 0, 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, c_white, 1)
+		if char_state[i] == CHAR_STATE.IDLE {
+            var __icon = party_geticon(global.party_names[i])
+            if pm_hurt[i] > 0
+                __icon = party_geticon_hurt(global.party_names[i])
+            
+            draw_sprite_ext(__icon, 0, 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, c_white, 1)
+        }
 		else
-			draw_sprite_ext(spr_ui_enc_icons_command, char_state[i], 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, party_getdata(global.party_names[i], "iconcolor"), 1)
+			draw_sprite_ext(spr_ui_enc_icons_command, __state_to_icon(char_state[i]), 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, party_getdata(global.party_names[i], "iconcolor"), 1)
 		
 		var font = global.font_name[0]
 		

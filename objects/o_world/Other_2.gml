@@ -26,13 +26,7 @@ instance_create(o_ui_quit)
 	window_center();
 }
 { // fonts
-    var __charset = loc("font_name")[1]
-    var __spr = asset_get_index(loc("font_name")[0])
-    
-    global.font_name = [undefined, undefined, undefined]
-	global.font_name[2] = font_add_sprite_ext(__spr, __charset, true, -1);
-	global.font_name[1] = font_add_sprite_ext(__spr, __charset, true, 0);
-	global.font_name[0] = font_add_sprite_ext(__spr, __charset, true, 1);
+    event_user(0)
     
 	global.font_ui_hp = font_add_sprite_ext(spr_ui_hpfont, "1234567890-", true, 2);
 	

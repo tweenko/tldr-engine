@@ -47,6 +47,12 @@ function party_geticon(name) {
 	var a = sprite_get_name(party_getdata(name, "s_icon"))
 	return asset_get_index_state(a, party_getdata(name, "s_state"))
 }
+///@desc returns the hurt icon of a party member
+function party_geticon_hurt(name) {
+	var a = sprite_get_name(party_getdata(name, "s_icon"))
+	return asset_get_index_state(a, "hurt" + (party_getdata(name, "s_state") == "" ? "" : "_") + party_getdata(name, "s_state"))
+}
+
 ///@desc returns the overworld icon of a party member
 function party_geticon_ow(name) {
 	var a = sprite_get_name(party_getdata(name, "s_icon_ow"))

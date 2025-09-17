@@ -41,6 +41,7 @@
 	)
 	pmlerp = array_create(array_length(global.party_names), 0)
 	bt_selection = array_create(array_length(global.party_names), 0)
+    pm_hurt = array_create(array_length(global.party_names), 0)
 	
 	fightselection = array_create(array_length(global.party_names), 0)
 	
@@ -57,7 +58,7 @@
 	partyactselection = array_create(array_length(global.party_names), 0)
 	together_with = array_create(array_length(global.party_names), [])
 	
-	char_state = array_create(array_length(global.party_names), -1)
+	char_state = array_create(array_length(global.party_names), CHAR_STATE.IDLE)
 }
 
 { // action execution - party turn
@@ -186,4 +187,25 @@ __bt_highlight = function(button_index, party_name) {
 	}
 	
 	return false
+}
+__state_to_icon = function(state) {
+    switch state {
+        default: return -1
+        case CHAR_STATE.FIGHT:      return 0
+        case CHAR_STATE.ACT:        return 1
+        case CHAR_STATE.ITEM:       return 2
+        case CHAR_STATE.SPARE:      return 3
+        case CHAR_STATE.DEFEND:     return 4
+        case CHAR_STATE.POWER:      return 5
+    }
+}
+
+enum CHAR_STATE {
+    IDLE, 
+    FIGHT,
+    ACT,
+    POWER,
+    ITEM,
+    SPARE,
+    DEFEND
 }

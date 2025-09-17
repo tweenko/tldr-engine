@@ -74,8 +74,8 @@ function loc_getlang() {
 	return global.loc_lang
 }
 
-/// @desc the language changes usually fully apply after the game is restarted, so it's highly recommended
-function loc_switch_lang(lang = undefined, restart_game = true) {
+/// @desc the language changes usually fully apply after the room is restarted, so it's highly recommended; however, if your room supports live language switching, feel free to set it to false.
+function loc_switch_lang(lang = undefined, restart_room = true) {
 	if is_undefined(lang) {
 		var __cur = array_get_index(LOC_LANG_LIST, global.loc_lang)
 		global.loc_lang = LOC_LANG_LIST[(__cur + 1) % array_length(LOC_LANG_LIST)]
@@ -84,7 +84,9 @@ function loc_switch_lang(lang = undefined, restart_game = true) {
 		global.loc_lang = lang
 	
 	loc_load()
+    with o_world
+        event_user(0)
     
-    if restart_game
-        game_restart()
+    if restart_room
+        room_goto(room)
 }

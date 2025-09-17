@@ -23,10 +23,10 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			if party_getdata(name, "hp") > 0 && party_getdata(name, "is_down") && o_enc.battle_state == "post_turn" {
 				txt = "up"
 				party_setdata(name, "hp", round(party_getdata(name, "max_hp") * .17))
-				party_setdata(name,"is_down", false)
+				party_setdata(name, "is_down", false)
 			}
 			else if party_getdata(name, "hp") > 0 && party_getdata(name, "is_down") 
-				party_setdata(name,"is_down", false)
+				party_setdata(name, "is_down", false)
 			
 			if party_getdata(name, "hp") >= party_getdata(name, "max_hp")
 				txt = "max"
@@ -66,6 +66,10 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			var txt = heal
 			var o = party_get_inst(name)
 			
+            if instance_exists(o_enc) {
+                o_enc.pm_hurt[party_getpos(name)] = 15
+            }
+            
 			if o.is_in_battle {
 				o.hurt = 20
                 screen_shake(5)
@@ -242,7 +246,7 @@ function damage(attack, party_name, element){
 	
 	// check if member is defending
 	if instance_exists(o_enc){
-		if o_enc.char_state[party_getpos(party_name)] == 4 // defending
+		if o_enc.char_state[party_getpos(party_name)] == CHAR_STATE.DEFEND // defending
             hurt *= 2/3
 	}
 	// apply element protection

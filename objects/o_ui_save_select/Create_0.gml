@@ -12,23 +12,26 @@ msg_time = 0
 	bg = spr_ui_saveselect_door
 }
 { // messages
-	m_main = "Please select a file."
+	m_main = "main"
 
-	m_copy = "Choose a file to copy."
-	m_copyto = "Choose a file to copy to."
-	m_copyempty = "It can't be copied."
-	m_copycant = "You can't copy there."
-	m_copysuccess = "Copy Complete."
-	m_copy_overwritewarn = "The file will be overwritten."
+	m_copy = "copy"
+	m_copyto = "copyto"
+	m_copyempty = "copyempty"
+	m_copycant = "copycant"
+	m_copysuccess = "copysuccess"
+	m_copy_overwritewarn = "copy_overwritewarn"
 
-	m_erase = "Choose a file to erase."
-	m_erase_warn1 = "Choose a file to erase."
-	m_erase_warn2 = "Choose a file to erase."
-	m_erasesuccess = "Erase complete."
-	m_eraseempty = "There's nothing to erase."
+	m_erase = "erase"
+	m_erase_warn1 = "erase_warn1"
+	m_erase_warn2 = "erase_warn2"
+	m_erasesuccess = "erasesuccess"
+	m_eraseempty = "eraseempty"
 	
-	m_chfile = "Start Chapter {0} from Chapter {1}'s FILE."
-	m_chfileconfirm = "This will start Chapter {0} in FILE Slot {1}."
+	m_chfile = "chfile"
+	m_chfileconfirm = "chfileconfirm"
+    
+    localized_messages = loc("save_select_messages_normal")
+    loc_id_messages = "save_select_messages_normal"
 }
 
 event_user(1)
@@ -104,11 +107,8 @@ msg_set = function(str, time = 120){
 	
 	if is_callable(msg) 
 		msg = msg(stateprev)
-	msg = string(msg, global.chapter, global.chapter-1)
-	
 	if is_callable(msg_temp) 
 		msg_temp = msg_temp(stateprev)
-	msg_temp = string(msg_temp, global.chapter, global.chapter-1)
 }
 	
 msg_set(m_main, 0)
