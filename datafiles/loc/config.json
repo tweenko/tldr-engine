@@ -9,7 +9,7 @@
     },
     "font_enc": {
         "en": "font_dotumche",
-        "ja": "font_main_ja"
+        "ja": "font_dotumche_ja"
     },
     "font_name": {
         "en": ["spr_ui_partyname_font", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/"],

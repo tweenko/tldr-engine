@@ -119,7 +119,7 @@ function item_add(item_struct, type = ITEM_TYPE.CONSUMABLE) {
 
 ///@desc replaces an item in the array
 function item_set(item_struct, index, type = ITEM_TYPE.CONSUMABLE) {
-	if index >= item_get_count(type) 
+	if index >= item_get_count(type) && type != ITEM_TYPE.STORAGE
 		index = item_get_count(type)
 	array_set(item_get_array(type), index, item_struct)
 }

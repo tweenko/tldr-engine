@@ -35,6 +35,12 @@ instance_create(o_ui_quit)
 }
 
 global.items = [
+    new item_revivemint(),
+    new item_revivemint(),
+    new item_top_cake(),
+    new item_top_cake(),
+    new item_darker_candy(),
+    new item_darker_candy(),
 ]
 global.key_items = [
     new item_key_cell_phone()

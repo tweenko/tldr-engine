@@ -1,23 +1,23 @@
 alarm[1] = 1
 
-m_buttons=[
+m_buttons = [
 	{
-		name: "Save",
+		name: loc("save_menu_save"),
 		on: true,
 		page: 1
 	},
 	{
-		name: "Return",
+		name: loc("save_menu_return"),
 		on: true,
 		page: -1,
 	},
 	{
-		name: "Storage",
+		name: loc("save_menu_storage"),
 		on: true,
 		page: 2,
 	},
 	{
-		name: "Recruits",
+		name: loc("save_menu_recruits"),
 		on: false,
 		page: 0,
 	},

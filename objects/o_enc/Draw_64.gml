@@ -120,11 +120,11 @@ surface_set_target(surf) {
 				
 				for (var j = 0; j < array_length(btns); ++j) {
 					draw_sprite_ext(spr_pixel, 0, 2 + 193 - array_length(btns)*35 + j*35, 1, 31, 25, 0, c_black, 1)
-					draw_sprite_ext(spr_ui_enc_buttons, btns[j] + (bt_selection[selection] == j && i == selection ? 1 : 0), 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, 1)
+					draw_sprite_ext(loc_sprite("enc_ui_spr_buttons"), btns[j] + (bt_selection[selection] == j && i == selection ? 1 : 0), 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, 1)
 					
 					if i == selection && __bt_highlight(j, global.party_names[i]) && bt_selection[selection] != j {
 						gpu_set_fog(true, c_white, 0, 1)
-						draw_sprite_ext(spr_ui_enc_buttons, btns[j] + 1, 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, .5 + sine(8, .3))
+						draw_sprite_ext(loc_sprite("enc_ui_spr_buttons"), btns[j] + 1, 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, .5 + sine(8, .3))
 						gpu_set_fog(false, 0, 0, 0)
 					}
 				}

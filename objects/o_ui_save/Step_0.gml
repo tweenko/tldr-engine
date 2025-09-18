@@ -103,7 +103,7 @@ if page == 2 { // storage
 	if InputPressed(INPUT_VERB.LEFT) && st_selection[st_page] % 2 > 0 
 		st_selection[st_page] --
 	else if InputPressed(INPUT_VERB.LEFT) && st_selection[st_page] % 2 == 0 && st_page == 1 {
-		st_stpage = (st_stpage - 1) % st_maxstpage
+		st_stpage = (st_stpage - 1 + st_maxstpage) % st_maxstpage
 		
 		st_selection[st_page] -= 11
 		if st_selection[st_page] < 0 
@@ -113,7 +113,7 @@ if page == 2 { // storage
 	if InputPressed(INPUT_VERB.RIGHT) && st_selection[st_page] % 2 < 1
 		st_selection[st_page] ++
 	else if InputPressed(INPUT_VERB.RIGHT) && st_selection[st_page] % 2 == 1 && st_page == 1 {
-		st_stpage = (st_stpage + 1) % st_maxstpage
+		st_stpage = (st_stpage + 1 + st_maxstpage) % st_maxstpage
 		
 		st_selection[st_page] += 11
 		if st_selection[st_page] >= 12 * st_maxstpage
@@ -139,14 +139,14 @@ if page == 2 { // storage
 				i2 = global.storage[st_selection[1]]
 			
 			if !is_undefined(i1)
-				item_set(i1,st_selection[1], 5)
+				item_set(i1, st_selection[1], ITEM_TYPE.STORAGE)
 			else 
-				item_delete(st_selection[1], 5)
+				item_delete(st_selection[1], ITEM_TYPE.STORAGE)
 			
 			if !is_undefined(i2)
-				item_set(i2,st_selection[0], 0)
+				item_set(i2, st_selection[0], ITEM_TYPE.CONSUMABLE)
 			else 
-				item_delete(st_selection[0])
+				item_delete(st_selection[0], ITEM_TYPE.CONSUMABLE)
 			
 			st_page = 0
 		}
