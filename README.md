@@ -9,7 +9,7 @@ all there (even including chapter select and save select somehow).
 <img width="2562" height="1964" alt="tldr-promo-equip" src="https://github.com/user-attachments/assets/4a5c7084-eac6-421c-bdb6-0e2d80585d16" />
 <img width="2564" height="1967" alt="tldr-promo-chest" src="https://github.com/user-attachments/assets/94d0cee3-90a1-4480-8944-15b65f62a20b" />
 <img width="2564" height="1967" alt="tldr-promo-menu" src="https://github.com/user-attachments/assets/df8559ae-5d26-49c0-a8aa-6041bb5bb92d" />
-<img width="2564" height="1967" alt="tldr-promo-japanese" src="https://github.com/user-attachments/assets/2f592189-9e78-4cd8-8784-7345846b4d39" />
+<img width="2564" height="1967" alt="tldr-promo-japanese" src="https://github.com/user-attachments/assets/a5c7311d-b81c-4345-b9e2-cd68416c45a8" />
 
 
 This engine is quite simple to use, but in case you have any questions, 
