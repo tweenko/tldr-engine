@@ -57,7 +57,12 @@ global.lw_weapon = undefined
 global.lw_armor = undefined
 
 global.states = {}
-global.world = 0 // 0 for dark, 1 for light
+
+enum WORLD_TYPE {
+    DARK,
+    LIGHT
+}
+global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 
 { //saves
 	global.chapter = 2
@@ -95,8 +100,48 @@ global.world = 0 // 0 for dark, 1 for light
 		STORAGE:	global.storage,
 	
 		STATES:				global.states,
-		RECRUITS:			{},
-		RECRUIT_PROGRESS:	{},
+		RECRUITS:			[
+            {
+                progress: 0,
+        		need: 2,
+        		
+        		//display
+        		name:		"Test",
+        		desc:		"Description",
+        		sprite:		spr_e_virovirokun_idle,
+        		spr_speed:	1,
+        		bgcolor:	c_aqua,
+        		chapter:	2,
+        		
+        		//stats
+        		level:		0,
+        		element:	"NONE:DEBUG",
+        		like:		"(None)",
+        		dislike:	"(None)",
+        		attack:		0,
+        		defense:	0,
+        	},
+            {
+                progress: 1,
+        		need: 1,
+        		
+        		//display
+        		name:		"Killer Car",
+        		desc:		"Description",
+        		sprite:		spr_e_killercar,
+        		spr_speed:	1,
+        		bgcolor:	c_purple,
+        		chapter:	6,
+        		
+        		//stats
+        		level:		4,
+        		element:	"AURA:FARM",
+        		like:		"AURA FARMING",
+        		dislike:	"FARMING",
+        		attack:		7,
+        		defense:	12,
+        	}
+        ],
 		RECRUITS_LOST:		[],
 		WORLD:				global.world,
 		

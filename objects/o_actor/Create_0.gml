@@ -28,7 +28,7 @@ is_player = false
 	lighting_color = c_white
 	lighting_darken = .75
 	
-	spacing = (global.world == 1 ? 15 : 12) // make the party member spacing bigger in the light world
+	spacing = (global.world == WORLD_TYPE.LIGHT ? 15 : 12) // make the party member spacing bigger in the light world
 }
 { // enemy specific
 	chaser = false

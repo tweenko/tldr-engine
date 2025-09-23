@@ -1,4 +1,4 @@
-sprite_index = asset_get_index(loc("ui_misc_quit"))
+sprite_index = asset_get_index(loc("menu_misc_quit"))
 image_index = 0
 image_speed = 0
 

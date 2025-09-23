@@ -122,5 +122,10 @@
     },
     "menu_controls_finish": {
         "en": "Finish", "ja": "終了"
+    },
+
+    "menu_misc_quit": {
+        "en": "spr_ui_misc_quit_en",
+        "ja": "spr_ui_misc_quit_ja"
     }
 }

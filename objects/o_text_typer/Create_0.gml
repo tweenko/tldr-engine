@@ -10,7 +10,7 @@
 	yspace = 18
 	
 	char = "none"
-	shadow = (global.world == 0 ? true : false)
+	shadow = (global.world == WORLD_TYPE.DARK ? true : false)
 	
 	typespd = 1
 	

@@ -1,4 +1,4 @@
-function ex_enemy_shadowguy() : enemy_base() constructor{
+function ex_enemy_shadowguy() : enemy() constructor{
 	name = "Shadowguy"
 	obj = o_ex_actor_e_sguy
 	turn_object = o_ex_turn_sguy
@@ -85,7 +85,7 @@ function ex_enemy_shadowguy() : enemy_base() constructor{
 	}
 }
 
-function ex_enemy_spawnling() : enemy_base() constructor{
+function ex_enemy_spawnling() : enemy() constructor{
 	name = "Spawnling"
 	obj = {
         obj: o_ex_actor_e_spawnling,
@@ -118,7 +118,7 @@ function ex_enemy_spawnling() : enemy_base() constructor{
 	dialogue = function(slot){
 	}
 }
-function ex_enemy_dentos() : enemy_base() constructor{
+function ex_enemy_dentos() : enemy() constructor{
 	name = "Dentos"
 	obj = {
         obj: o_ex_actor_e_dentos,
@@ -152,7 +152,7 @@ function ex_enemy_dentos() : enemy_base() constructor{
 	}
 }
 
-function ex_enemy_knight() : enemy_base() constructor{
+function ex_enemy_knight() : enemy() constructor{
 	name = "Knight"
 	obj = {
         obj: o_ex_actor_e_knight,

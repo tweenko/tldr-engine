@@ -156,24 +156,24 @@ function enc_gameover(){
 
 /// @arg {real,array} index could be an index or array if there are multiple enemies to spare
 function cutscene_spare_enemy(index) {
-    var enemy = o_enc.encounter_data.enemies
+    var _enemy = o_enc.encounter_data.enemies
     
     if !is_array(index)
         index = [index]
     
     for (var i = 0; i < array_length(index); i ++) {
-        var obj = enemy[index[i]].actor_id
+        var obj = _enemy[index[i]].actor_id
         
         if !enc_enemy_isfighting(index[i])
             continue
         
-        recruit_advance(enemy[index[i]])
+        recruit_advance(_enemy[index[i]])
         
         cutscene_set_variable(obj, "sprite_index", obj.s_spared)
         cutscene_instance_create(o_text_hpchange, 
             obj.x, obj.y - obj.myheight/2, 
             obj.depth - 100, {
-                draw: $"{recruit_get(enemy[index[i]])}/{recruit_getneed(enemy[index[i]])}", 
+                draw: $"{recruit_get_progress(_enemy[index[i]])}/{recruit_getneed(_enemy[index[i]])}", 
                 mode: 3
             }
         )
@@ -189,7 +189,7 @@ function cutscene_spare_enemy(index) {
     cutscene_sleep(4)
     
     for (var i = 0; i < array_length(index); i ++) {
-        var obj = enemy[index[i]].actor_id
+        var obj = _enemy[index[i]].actor_id
         
         cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
             sprite_index: obj.sprite_index, 

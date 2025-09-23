@@ -159,8 +159,8 @@ __bt_highlight = function(button_index, party_name) {
 			if !enc_enemy_isfighting(m) 
 				continue
 			
-			var enemy = encounter_data.enemies[m]
-			if enemy.tired {
+			var _enemy = encounter_data.enemies[m]
+			if _enemy.tired {
 				if is_struct(__tgt_spell) && tp >= __tgt_spell.tp_cost { // if mercyspell exists
 					__can_spellspare = true
 				}
@@ -177,8 +177,8 @@ __bt_highlight = function(button_index, party_name) {
 			if !enc_enemy_isfighting(m) 
 				continue
 			
-			var enemy = encounter_data.enemies[m]
-			if enemy.mercy >= 100 {
+			var _enemy = encounter_data.enemies[m]
+			if _enemy.mercy >= 100 {
 				__can_spare = true
 			}
 		}

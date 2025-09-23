@@ -8,7 +8,7 @@ if s_auto && name != "" {
     	sp += "_"
     
     var fstate = s_state
-    fstate += (global.world == 1 ? "_light" : "")
+    fstate += (global.world == WORLD_TYPE.LIGHT ? "_light" : "")
     
 	var __conv_sprite_pm = function(_identifier, _prefix, _fstate, _default = s_move[DIR.DOWN]){
 		var __a = asset_get_index_state($"spr_{_prefix}{name}_{_identifier}", _fstate)

@@ -972,7 +972,7 @@ if battle_state == "exec" {
 				o.image_index = 0
 				o.image_speed = 1
 				
-				var enemy = encounter_data.enemies[fightselection[user]] // get enemy struct
+				var _enemy = encounter_data.enemies[fightselection[user]] // get enemy struct
 				
 				// find other enemies if the target is not fighting
 				var alternative = -1
@@ -996,16 +996,16 @@ if battle_state == "exec" {
 					}
 				}
 				if alternative != -1 // reassign enemy struct if the enemy target is changed
-					enemy = encounter_data.enemies[alternative]
+					_enemy = encounter_data.enemies[alternative]
 				else
 					alternative = fightselection[user]
 				
 				// spare animation cutscene
-				var enemyo = enemy.actor_id // get enemy object
+				var enemyo = _enemy.actor_id // get enemy object
 				cutscene_create()
 				
-				if enemy.mercy >= 100 { // spare
-					cutscene_dialogue(string("* {0} spared {1}!", party_getname(global.party_names[user]), enemy.name), "{stop}", false)
+				if _enemy.mercy >= 100 { // spare
+					cutscene_dialogue(string("* {0} spared {1}!", party_getname(global.party_names[user]), _enemy.name), "{stop}", false)
 					cutscene_wait_until(function(index){
 						return party_get_inst(global.party_names[index]).sprname == "idle"
 					}, [user])
@@ -1023,7 +1023,7 @@ if battle_state == "exec" {
 				else { // cant spare
 					var txt = "* {0} spared {1}!{br}{resetx}* But its name wasn't {col(y)}YELLOW{col(w)}..."
 					
-					if enemy.tired {
+					if _enemy.tired {
 						var tgt_spell = -1
 						var spellowner = ""
 						for (var i = 0; i < array_length(global.party_names); ++i) { // if party has a person who can use a mercy spell
@@ -1042,7 +1042,7 @@ if battle_state == "exec" {
 							txt += "{p}{c}* (Try using "+spellowner+"'s {col("+color_to_string(tgt_spell.color)+")}"+string_upper(item_get_name(tgt_spell))+"{col(white)}!)"
 						}
 					}
-					cutscene_dialogue(string(txt, party_getname(global.party_names[user]), enemy.name),, true)
+					cutscene_dialogue(string(txt, party_getname(global.party_names[user]), _enemy.name),, true)
 					cutscene_set_variable(o_enc, "exec_wait", false)
 				}
 				

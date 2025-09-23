@@ -1,4 +1,4 @@
-function enemy_base() constructor {
+function enemy() constructor {
 	// base info
 	name = "Test"
 	obj = {
@@ -53,6 +53,7 @@ function enemy_base() constructor {
 	
 	//recruit
 	recruit = {
+        progress: 0,
 		need: 2,
 		
 		//display
@@ -77,7 +78,7 @@ function enemy_base() constructor {
 	slot =		-1
 }
 
-function enemy_virovirokun() : enemy_base() constructor{
+function enemy_virovirokun() : enemy() constructor{
 	name = "Virovirokun"
 	obj = o_actor_e_virovirokun
 	
@@ -209,6 +210,7 @@ function enemy_virovirokun() : enemy_base() constructor{
 	
 	// recruit
 	recruit = {
+        progress: 0,
 		need: 4,
 		
 		//display
@@ -240,7 +242,7 @@ function enemy_virovirokun() : enemy_base() constructor{
 		)
 	}
 }
-function enemy_killercar() : enemy_base() constructor{
+function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
 	obj = o_actor_e_killercar

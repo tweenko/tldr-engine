@@ -50,8 +50,20 @@
         "ja": "いいえ"
     },
 
-    "ui_misc_quit": {
-        "en": "spr_ui_misc_quit_en",
-        "ja": "spr_ui_misc_quit_ja"
+    "chapter_1": {
+        "en": "The Beginning",
+        "ja": "はじまり"
+    },
+    "chapter_2": {
+        "en": "A Cyber's World",
+        "ja": "サイバーワールド"
+    },
+    "chapter_3": {
+        "en": "Late Night",
+        "ja": "レイトナイト"
+    },
+    "chapter_4": {
+        "en": "Prophecy",
+        "ja": "予言"
     }
 }
