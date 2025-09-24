@@ -51,8 +51,8 @@ for (var i = 0; i < array_length(items); ++i) {
 }
 
 if array_length(items) > 2 && !confirmation {
-	draw_sprite_ext(spr_ui_arrow_left_flat, 0, 32 + round(sine(5,2)), 268, 2, 2, 0, c_white, 1)
-	draw_sprite_ext(spr_ui_arrow_right_flat, 0, 610 - round(sine(5,2)), 268, 2, 2, 0, c_white, 1)
+	draw_sprite_ext(spr_ui_arrow_flat, 0, 32 + round(sine(5,2)), 268, -2, 2, 0, c_white, 1)
+	draw_sprite_ext(spr_ui_arrow_flat, 0, 610 - round(sine(5,2)), 268, 2, 2, 0, c_white, 1)
 }
 
 draw_set_color(c_white)

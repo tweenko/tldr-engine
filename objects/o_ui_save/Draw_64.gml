@@ -243,7 +243,7 @@ if page == 2 { // storage
 	draw_sprite_ext(spr_ui_soul, 0, st_soulx, st_souly, 1, 1, 0, c_red, 1)
 	
 	if st_page == 1 {
-		draw_sprite_ext(spr_ui_arrow_left_flat, 0, 40 + round(sine(5, 2)), 352, 2, 2, 0, c_white, 1)
-		draw_sprite_ext(spr_ui_arrow_right_flat, 0, 600 - round(sine(5, 2)), 352, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_arrow_flat, 0, 40 + round(sine(5, 2)), 352, -2, 2, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_arrow_flat, 0, 600 - round(sine(5, 2)), 352, 2, 2, 0, c_white, 1)
 	}
 }

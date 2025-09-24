@@ -1,5 +1,6 @@
 selection = 0
-view = 1
+view = 0
+page_max = 9
 
 soul_x = 50
 soul_y = 98 
@@ -30,3 +31,6 @@ __draw_charbox = function(xx, yy, color, sprite, name = undefined, chapter = und
     
     draw_set_halign(fa_left)
 }
+
+if instance_exists(get_leader())
+    get_leader().moveable_menu = false

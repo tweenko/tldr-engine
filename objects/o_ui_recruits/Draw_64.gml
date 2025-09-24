@@ -1,4 +1,8 @@
 var recruit_array = save_get("recruits")
+var __page = selection div page_max
+var __page_max = min(array_length(recruit_array), page_max * __page + page_max)
+var __morepages = (array_length(recruit_array) > page_max)
+var __total_pages = ceil(array_length(recruit_array) / page_max)
 
 draw_set_font(loc_font("main"))
 
@@ -11,13 +15,20 @@ if view == 0 {
     draw_set_color(c_white)
     
     
-    for (var i = 0; i < array_length(recruit_array); i ++) {
+    for (var i = __page*page_max; i < __page_max; i ++) {
         if selection == i
             draw_set_color(c_yellow)
-        draw_text_transformed(80, 92 + i*35, loc(recruit_array[i].name), 2, 2, 0)
+        draw_text_transformed(80, 92 + (i - __page*page_max) * 35, loc(recruit_array[i].name), 2, 2, 0)
         
-        draw_set_color(c_lime)
-        draw_text_transformed(275, 92 + i*35, loc("recruits_recruited"), 1, 2, 0)
+        if recruit_array[i].progress >= recruit_array[i].need {
+            draw_set_color(c_lime)
+            draw_text_transformed(275, 92 + (i - __page*page_max) * 35, loc("recruits_recruited"), 1, 2, 0)
+        }
+        else {
+            draw_set_color(c_ltgray)
+            draw_text_transformed(275, 92 + (i - __page*page_max) * 35, $"{recruit_array[i].progress}/{recruit_array[i].need}", 2, 2, 0)
+        }
+        
         draw_set_color(c_white)
     }
     
@@ -27,6 +38,11 @@ if view == 0 {
     
     input_binding_draw(INPUT_VERB.SELECT, 370 + 10, 75 + 245, 2, " More Info")
     input_binding_draw(INPUT_VERB.CANCEL, 370 + 10, 75 + 275, 2, " Quit")
+    
+    if __morepages {
+        draw_sprite_ext(spr_ui_arrow_flat, 0, 620 + round(sine(8, 3)), 240, 2, 2, 0, c_white, 1)
+        draw_sprite_ext(spr_ui_arrow_flat, 0, 30 - round(sine(8, 3)), 240, -2, 2, 0, c_white, 1)
+    }
     
 }
 else if view == 1 {
@@ -76,6 +92,6 @@ else if view == 1 {
     input_binding_draw(INPUT_VERB.CANCEL, 80, 400, 2, " to Return", "Press ")
 }
 
-draw_sprite_ext(spr_uisoul, 0, soul_x, soul_y, 1, 1, 0, c_red, 1)
+draw_sprite_ext(spr_uisoul, 0, soul_vx, soul_vy, 1, 1, 0, c_red, 1)
 
 //draw_sprite_ext(recruits_reference, view, 0, 0, 1, 1, 0, c_white, .2)
