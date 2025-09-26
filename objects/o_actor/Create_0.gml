@@ -154,6 +154,7 @@ is_player = false
 	moveable_console = true
 	moveable_save = true
 	moveable_anim = true
+    moveable_recruits = true
 	
 	_checkmove = function() { // the main function that determines whether the player can move as of right now
 		return moveable 
@@ -164,6 +165,7 @@ is_player = false
 		&& moveable_console
 		&& moveable_save 
 		&& moveable_anim 
+        && moveable_recruits
 		
 		&& hurt == 0
 		

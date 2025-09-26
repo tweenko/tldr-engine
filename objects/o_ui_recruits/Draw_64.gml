@@ -90,8 +90,11 @@ else if view == 1 {
     
     draw_set_halign(fa_left)
     input_binding_draw(INPUT_VERB.CANCEL, 80, 400, 2, " to Return", "Press ")
+    
+    if __morepages {
+        draw_sprite_ext(spr_ui_arrow_flat, 0, 610 + round(sine(8, 3)), 240, 2, 2, 0, c_white, 1)
+        draw_sprite_ext(spr_ui_arrow_flat, 0, 30 - round(sine(8, 3)), 240, -2, 2, 0, c_white, 1)
+    }
 }
 
 draw_sprite_ext(spr_uisoul, 0, soul_vx, soul_vy, 1, 1, 0, c_red, 1)
-
-//draw_sprite_ext(recruits_reference, view, 0, 0, 1, 1, 0, c_white, .2)

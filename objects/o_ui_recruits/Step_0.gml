@@ -41,6 +41,22 @@ if view == 0 {
 else if view == 1 {
     soul_x = 50
     soul_y = 408
+    
+    if InputPressed(INPUT_VERB.LEFT) {
+        selection -= 1
+    }
+    else if InputPressed(INPUT_VERB.RIGHT) {
+        selection += 1
+    }
+    
+    if selection > array_length(recruit_array)-1
+        selection = 0
+    if selection < 0
+        selection = array_length(recruit_array)-1
+    
+    if InputPressed(INPUT_VERB.CANCEL) {
+        view = 0
+    }
 }
 
 soul_vx = lerp(soul_vx, soul_x, .5)

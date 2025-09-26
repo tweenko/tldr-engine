@@ -11,8 +11,8 @@
   "name":"o_ui_recruits",
   "overriddenProperties":[],
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"ui",
+    "path":"folders/@Engine/objects/ui.yy",
   },
   "parentObjectId":null,
   "persistent":false,

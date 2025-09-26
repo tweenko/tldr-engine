@@ -33,4 +33,4 @@ __draw_charbox = function(xx, yy, color, sprite, name = undefined, chapter = und
 }
 
 if instance_exists(get_leader())
-    get_leader().moveable_menu = false
+    get_leader().moveable_recruits = false

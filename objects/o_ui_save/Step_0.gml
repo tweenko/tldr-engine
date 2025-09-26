@@ -17,20 +17,25 @@ if page == 0 { // main menu
 		m_selection = 0
 	
 	if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-		page = m_buttons[m_selection].page
-		if page != -1 
-			audio_play(snd_ui_select)
-		
-		buffer = 1
-		prog = 0
-		
-		if page == 2 {
-			st_page = 0
-			
-			var xx = (st_selection[st_page] % 2 == 0 ? 155 : 375)
-			st_soulx = xx - 15
-			st_souly = 145 + floor(st_selection[st_page]/2)*20 + 3
-		}
+        if m_buttons[m_selection].on {
+            audio_play(snd_ui_cant_select)
+        }
+        else {
+    		page = m_buttons[m_selection].page
+    		if page != -1 
+    			audio_play(snd_ui_select)
+    		
+    		buffer = 1
+    		prog = 0
+    		
+    		if page == 2 {
+    			st_page = 0
+    			
+    			var xx = (st_selection[st_page] % 2 == 0 ? 155 : 375)
+    			st_soulx = xx - 15
+    			st_souly = 145 + floor(st_selection[st_page]/2)*20 + 3
+    		}
+        }
 	}
 	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0{
 		instance_destroy()
@@ -164,6 +169,10 @@ if page == 2 { // storage
 }
 if page == -1 {
 	instance_destroy()
+}
+if page == 3 { // recruits
+    instance_destroy()
+    instance_create(o_ui_recruits)
 }
 
 if buffer > 0 

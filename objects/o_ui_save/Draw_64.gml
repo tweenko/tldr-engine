@@ -17,7 +17,7 @@ if page == 0 { // main menu
 
 	for (var i = 0; i < array_length(m_buttons); ++i) {
 		if !m_buttons[i].on 
-			draw_set_color(c_dkgray)
+			draw_set_color(c_gray)
 		
 		draw_text_transformed((i%2 == 0 ? 170 : 350), 220 + floor(i/2)*40, m_buttons[i].name, 2, 2, 0)
 		draw_set_color(c_white)

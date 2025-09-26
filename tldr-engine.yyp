@@ -811,7 +811,6 @@
     {"id":{"name":"snd_whip_hard","path":"sounds/snd_whip_hard/snd_whip_hard.yy",},},
     {"id":{"name":"snd_wing","path":"sounds/snd_wing/snd_wing.yy",},},
     {"id":{"name":"snd_won","path":"sounds/snd_won/snd_won.yy",},},
-    {"id":{"name":"recruits_reference","path":"sprites/recruits_reference/recruits_reference.yy",},},
     {"id":{"name":"spr_bkris_act","path":"sprites/spr_bkris_act/spr_bkris_act.yy",},},
     {"id":{"name":"spr_bkris_actend","path":"sprites/spr_bkris_actend/spr_bkris_actend.yy",},},
     {"id":{"name":"spr_bkris_actready","path":"sprites/spr_bkris_actready/spr_bkris_actready.yy",},},
