@@ -1,4 +1,5 @@
 party_init()
+
 for (var i = 0; i < array_length(global.party_names); i ++) {
     item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
     item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
@@ -43,16 +44,14 @@ global.items = [
     new item_darker_candy(),
 ]
 global.key_items = [
-    new item_key_cell_phone()
+    new item_key_cell_phone() 
 ]
-global.weapons = [
-]
-global.armors = [
-]
-global.storage = array_create(item_get_maxcount(ITEM_TYPE.STORAGE), undefined)
-global.lw_items = [
-]
+global.weapons = []
+global.armors = []
 
+global.storage = array_create(item_get_maxcount(ITEM_TYPE.STORAGE), undefined)
+
+global.lw_items = []
 global.lw_weapon = undefined
 global.lw_armor = undefined
 
@@ -64,11 +63,11 @@ enum WORLD_TYPE {
 }
 global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 
-{ //saves
+{ // saves
 	global.chapter = 2
 	global.time = 0
 
-	//get saves ready
+	// get saves ready
 	global.save_slot = global.settings.SAVE_SLOT
 	global.save = {
 		NAME:			"PLAYER",
@@ -109,8 +108,10 @@ global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 		COMPLETE_ROOM:	"undefined",
 		COMPLETE_TIME:	0,
 	}
-	global.saves = save_read_all() //saves saved on device
+	global.saves = save_read_all() // saves saved on device
 	
+    global.recruits = []
+    
 	if global.saves[global.save_slot] != -1 
 		global.save = global.saves[global.save_slot]
 }

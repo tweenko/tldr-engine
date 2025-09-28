@@ -228,6 +228,7 @@
 		global.party = save_party_import(save_get("party_data"))
 		global.states = save_get("states")
 		global.world = save_get("world")
+        global.recruits = save_inv_import(save_get("recruits"))
 		
 		save_refresh_back()
 	}
@@ -248,6 +249,7 @@
 		global.save.ARMORS = save_inv_export(global.armors)
 		global.save.STORAGE = save_inv_export(global.storage)
 		global.save.LW_ITEMS = save_inv_export(global.lw_items)
+        global.save.RECRUITS = save_inv_export(global.recruits)
 		
 		global.save.WORLD = global.world
 	}
@@ -268,7 +270,7 @@
     }
 }
 
-//SETTINGS
+// SETTINGS
 {
     ///@desc check whether the settings file exists
 	function save_settings_exists(){

@@ -1,17 +1,18 @@
 ///@desc adds 1 to the amount of recruited enemies, recruits if you've finished it all
 ///@arg {struct.enemy} _enemy the struct of the enemy you want to check for
 function recruit_advance(_enemy) {
-	var r = save_get("recruits")
+	var r = global.recruits
 	
 	if recruit_isrecruited(_enemy) || recruit_islost(_enemy) // already full
 		return -1
-    if recruit_get_struct(_enemy) != undefined // if not added to the recruit array yet, just add it
+    if recruit_get_struct(_enemy) == undefined // if not added to the recruit array yet, just add it
         array_push(r, _enemy.recruit)
     
-    recruit_get_struct(_enemy).progress = clamp(recruit_get_struct(_enemy).progress + 1, 0, recruit_get_struct(_enemy).need)
+    var __struct = recruit_get_struct(_enemy)
+    __struct.progress = clamp(__struct.progress + 1, 0, __struct.need)
 }
 function recruit_lose(_enemy) {
-    var r = save_get("recruits_lost")
+    var r = global.recruits
     
     if !recruit_islost(_enemy) {
         array_push(r, _enemy.recruit.name)
@@ -30,7 +31,7 @@ function recruit_getneed(_enemy) {
 ///@arg {struct.enemy} _enemy the struct of the enemy you want to check for
 /// @return {struct,undefined}
 function recruit_get_struct(_enemy) {
-	var r = save_get("recruits")
+	var r = global.recruits
 	
     for (var i = 0; i < array_length(r); i ++) {
         var __c = r[i]
@@ -44,7 +45,7 @@ function recruit_get_struct(_enemy) {
 ///@arg {struct.enemy} _enemy the struct of the enemy you want to check for
 /// @return {real,undefined}
 function recruit_get_index(_enemy) {
-	var r = save_get("recruits")
+	var r = global.recruits
 	
     for (var i = 0; i < array_length(r); i ++) {
         var __c = r[i]
@@ -58,7 +59,7 @@ function recruit_get_index(_enemy) {
 ///@desc returns the progress of the recruit
 ///@arg {struct.enemy} _enemy the struct of the enemy you want to check for
 function recruit_get_progress(_enemy) {
-	var r = save_get("recruits")
+	var r = global.recruits
 	
     for (var i = 0; i < array_length(r); i ++) {
         var __c = r[i]
@@ -79,4 +80,12 @@ function recruit_isrecruited(_enemy) {
 ///@desc returns whether the enemy is lost
 function recruit_islost(_enemy) {
     return array_contains(save_get("recruits_lost"), _enemy.recruit.name)
+}
+
+/**
+ * localizes the recruit struct using the struct in the localization file, a hyperlink to item_localize
+ * @param {string} _loc the loc_id of the item struct
+ */
+function recruit_localize(_loc) {
+    item_localize(_loc)
 }

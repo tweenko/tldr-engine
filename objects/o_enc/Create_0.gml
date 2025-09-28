@@ -30,6 +30,8 @@
 	menutext = noone
 	mybox = noone
 	mysoul = noone
+    
+    win_message = ""
 }
 
 { // arrays for each party member

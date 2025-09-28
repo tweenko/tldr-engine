@@ -1,17 +1,19 @@
-///@desc intializes the party information
+global.party = {}
+
+/// @desc intializes the party stuff
 function party_init() {
+    party_m_initialize("kris", party_m_kris)
+    party_m_initialize("susie", party_m_susie)
+    party_m_initialize("ralsei", party_m_ralsei)
+    party_m_initialize("noelle", party_m_noelle)
+    
 	global.party_names = []
 		array_push(global.party_names, "kris")
 		array_push(global.party_names, "susie")
 		array_push(global.party_names, "ralsei")
-		//array_push(global.party_names, "noelle")
-	
-	global.party = {
-		kris: new party_m_kris(),
-		susie: new party_m_susie(),
-		ralsei: new party_m_ralsei(),
-		noelle: new party_m_noelle(),
-	}
+}
+function party_m_initialize(_name, _constructor) {
+    struct_set(global.party, _name, new _constructor())
 }
 
 function party_m() constructor {

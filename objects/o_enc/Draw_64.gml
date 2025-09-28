@@ -103,9 +103,9 @@ surface_set_target(surf) {
 				draw_set_color(c_white)
 				
 				// image indexes
-				var btns = [0, 10, 4, 6, 8]
+				var btns = ["fight", "power", "item", "spare", "defend"]
 				if can_act[i]
-					btns[1] = 2
+					btns[1] = "act"
 				
 				gpu_set_colorwriteenable(1, 1, 1, 0)
 				for (var j = 0; j < 3; ++j) {
@@ -119,12 +119,14 @@ surface_set_target(surf) {
 				draw_set_color(c_white)
 				
 				for (var j = 0; j < array_length(btns); ++j) {
+                    var __spr = asset_get_index(string(loc("enc_ui_spr_buttons"), btns[j]))
+                    
 					draw_sprite_ext(spr_pixel, 0, 2 + 193 - array_length(btns)*35 + j*35, 1, 31, 25, 0, c_black, 1)
-					draw_sprite_ext(loc_sprite("enc_ui_spr_buttons"), btns[j] + (bt_selection[selection] == j && i == selection ? 1 : 0), 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, 1)
+					draw_sprite_ext(__spr, (bt_selection[selection] == j && i == selection ? 1 : 0), 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, 1)
 					
 					if i == selection && __bt_highlight(j, global.party_names[i]) && bt_selection[selection] != j {
 						gpu_set_fog(true, c_white, 0, 1)
-						draw_sprite_ext(loc_sprite("enc_ui_spr_buttons"), btns[j] + 1, 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, .5 + sine(8, .3))
+						draw_sprite_ext(__spr, 1, 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, .5 + sine(8, .3))
 						gpu_set_fog(false, 0, 0, 0)
 					}
 				}
@@ -143,8 +145,8 @@ surface_set_target(surf) {
 		
 		// enemy selector
 		if state == 1 && (bt_selection[selection] == 0 || bt_selection[selection] == 3 || (bt_selection[selection] == 1 && can_act[selection])) || (bt_selection[selection] == 2 && state == 3) || (!can_act[selection] && bt_selection[selection] == 1 && spells[actselection[selection]].use_type == 2 && state == 3) {
-			draw_text_transformed(424, 364, "HP", 2, 1, 0)
-			draw_text_transformed(524, 364, "MERCY", 2, 1, 0)
+			draw_text_transformed(424, 364, loc("enc_ui_label_hp"), 2, 1, 0)
+			draw_text_transformed(524, 364, loc("enc_ui_label_mercy"), 2, 1, 0)
 			
 			for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 				if !enc_enemy_isfighting(i)
@@ -248,8 +250,10 @@ surface_set_target(surf) {
 					draw_sprite_ext(spr_ui_enc_sparestar, 0, 60 + string_width(encounter_data.enemies[i].name)*2 + 42, 385 + 30*i, 1, 1, 0, c_white, 1)
 				
 				var mercypercent = encounter_data.enemies[i].mercy
-				var desc = item_get_desc(spells[actselection[selection]],2)
-				if desc == "Standard" && encounter_data.enemies[i].acts_special_desc != desc 
+                
+				var desc = item_get_desc(spells[actselection[selection]], 2)
+				if is_instanceof(spells[actselection[selection]], item_s_defaultaction) // change the description if it's the default action
+                && encounter_data.enemies[i].acts_special_desc != desc 
 					desc = encounter_data.enemies[i].acts_special_desc
 				
 				draw_set_color(merge_color(party_getdata(global.party_names[selection], "color"), c_white, .5))
@@ -520,4 +524,4 @@ surface_set_target(surf) {
 }
 surface_reset_target()
 
-draw_surface(surf,0,0)
+draw_surface(surf, 0, 0)

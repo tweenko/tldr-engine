@@ -1337,7 +1337,7 @@ if battle_state == "win" {
         __dd = round(__dd)
         
 		cutscene_create()
-		cutscene_dialogue(string("* You won!{br}{resetx}* Got {0} EXP and {1} D$.", __exp, __dd))
+		cutscene_dialogue(string(loc("enc_win"), __exp, __dd) + win_message)
 		cutscene_set_variable(id, "hideui", true)
 		cutscene_sleep(4)
         
