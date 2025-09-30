@@ -18,7 +18,7 @@ m_buttons = [
 	},
 	{
 		name: loc("save_menu_recruits"),
-		on: (array_length(save_get("recruits")) > 0),
+		on: (array_length(global.recruits) > 0),
 		page: 3,
 	},
 ]

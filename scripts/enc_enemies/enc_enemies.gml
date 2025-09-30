@@ -52,7 +52,7 @@ function enemy() constructor {
 	ev_post_turn =	-1
 	
 	//recruit
-	recruit = enemy_recruit
+	recruit = new enemy_recruit()
 	
 	//system
 	actor_id =	-1
@@ -182,7 +182,7 @@ function enemy_virovirokun() : enemy() constructor{
 	}
 	
 	// recruit
-    recruit = enemy_recruit_virovirokun
+    recruit = new enemy_recruit_virovirokun()
 		
 	// text
 	dialogue = function(slot) {
@@ -232,4 +232,6 @@ function enemy_killercar() : enemy() constructor{
 	
 	act_desc = array_create(array_length(acts), -1)
 	act_desc[1] = "Kill Em with Ralsei"
+    
+    recruit = new enemy_recruit_killercar()
 }

@@ -50,9 +50,22 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
 			else if seed == "" {
 				o.run_away = true
 				audio_play(snd_defeatrun)
+                
+                if !recruit_islost(o_enc.encounter_data.enemies[target]) {
+                    instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {
+                        draw: "lost",
+                        mode: 4,
+                    })
+                    recruit_lose(o_enc.encounter_data.enemies[target])
+                }
 			}
             else if seed == "freeze" {
                 do_animate(0, 1, 20, "linear", o, "freeze")
+                
+                instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {
+                    draw: "frozen",
+                    mode: 4,
+                })
                 audio_play(snd_petrify)
             }
 		}
@@ -125,7 +138,7 @@ function enc_start(set) {
 }
 
 ///@desc returns the enemy count during the current encounter
-function enc_enemy_count(only_alive = true){
+function enc_enemy_count(only_alive = true) {
 	if only_alive {
 		var c = 0
 		for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {

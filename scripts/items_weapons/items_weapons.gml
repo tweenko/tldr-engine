@@ -18,7 +18,6 @@ function item_w_spookysword() : item_weapon() constructor {
 	icon = spr_ui_menu_icon_sword
 	
 	weapon_whitelist = ["kris"]
-	weapon_fatal = true
 	
 	reactions = {
 		susie: "Ugh, it's too small!",

@@ -35,19 +35,15 @@ instance_create(o_ui_quit)
 	global.font_numbers_g = font_add_sprite_ext(spr_ui_numbers_gfont,"0123456789+-%/",false,1);
 }
 
-global.items = [
-    new item_revivemint(),
-    new item_revivemint(),
-    new item_top_cake(),
-    new item_top_cake(),
-    new item_darker_candy(),
-    new item_darker_candy(),
-]
+global.items = []
 global.key_items = [
     new item_key_cell_phone() 
 ]
 global.weapons = []
 global.armors = []
+
+global.recruits = []
+global.recruits_lost = []
 
 global.storage = array_create(item_get_maxcount(ITEM_TYPE.STORAGE), undefined)
 
@@ -99,8 +95,8 @@ global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 		STORAGE:	global.storage,
 	
 		STATES:				global.states,
-		RECRUITS:			[],
-		RECRUITS_LOST:		[],
+		RECRUITS:			global.recruits,
+		RECRUITS_LOST:		global.recruits_lost,
 		WORLD:				global.world,
 		
 		CRYSTAL:		false,
@@ -109,8 +105,6 @@ global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 		COMPLETE_TIME:	0,
 	}
 	global.saves = save_read_all() // saves saved on device
-	
-    global.recruits = []
     
 	if global.saves[global.save_slot] != -1 
 		global.save = global.saves[global.save_slot]

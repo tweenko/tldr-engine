@@ -36,6 +36,18 @@
         "ja": "ぶんせき"
     },
 
+    "enc_exec_spare_msg": {
+        "en": "* {0} spared {1}!", "ja": "＊ {0}は　{1}を{br}にがした！"
+    },
+    "enc_exec_spare_notyellow": {
+        "en": "* But its name wasn't {col(y)}YELLOW{col(w)}...", 
+        "ja": "＊ しかし名前が　{col(y)}きいろ{col(w)}くない…"
+    },
+    "enc_exec_spare_suggest_spell": {
+        "en": "* (Try using {0}'s {col(y)}{1}{col(w)}!)", 
+        "ja": "＊ ({0}に　{col(y)}{1}{col(w)}を{br}唱えさせてみよう！)"
+    },
+
     "enemy_virovirokun_name": {
         "en": "Virovirokun",
         "ja": "ウィルスン"
@@ -58,7 +70,7 @@
     },
     "enemy_virovirokun_act_takecarex_msg": {
         "en": "* Everyone treated the enemy with tender loving care!! All the enemies felt great!!",
-        "ja": "＊ みんな　敵を　やさしくケアした！　敵は　すっかり元気になった！！"
+        "ja": "＊ みんな　敵を　やさしくケアした！{br}敵は　すっかり元気になった！！"
     },
     "enemy_virovirokun_act_susie": {
         "en": [

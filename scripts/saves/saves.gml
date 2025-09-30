@@ -178,6 +178,10 @@
 			_constructor: instanceof(_item),
 			_data: [],
 		}
+        
+        if struct_exists(_item, "_prepare_for_export") {
+            _item._prepare_for_export()
+        }
 		if struct_exists(_item, "_data")
 			struct_set(__d, "_data", _item._data)
 			
@@ -229,6 +233,7 @@
 		global.states = save_get("states")
 		global.world = save_get("world")
         global.recruits = save_inv_import(save_get("recruits"))
+        global.recruits_lost = save_inv_import(save_get("recruits_lost"))
 		
 		save_refresh_back()
 	}
@@ -250,6 +255,7 @@
 		global.save.STORAGE = save_inv_export(global.storage)
 		global.save.LW_ITEMS = save_inv_export(global.lw_items)
         global.save.RECRUITS = save_inv_export(global.recruits)
+        global.save.RECRUITS_LOST = save_inv_export(global.recruits_lost)
 		
 		global.save.WORLD = global.world
 	}

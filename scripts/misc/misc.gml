@@ -28,6 +28,7 @@ function string_to_color(color_string){
 }
 function color_to_string(color){
 	var cc = merge_color(c_aqua, c_blue, 0.3)
+    
 	switch color {
 		case c_red:
 			return "c_red"

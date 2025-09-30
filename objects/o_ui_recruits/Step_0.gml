@@ -1,4 +1,4 @@
-var recruit_array = save_get("recruits")
+var recruit_array = global.recruits
 var __page = selection div page_max
 var __page_max = min(array_length(recruit_array), page_max * __page + page_max)
 var __total_pages = ceil(array_length(recruit_array) / page_max)

@@ -1282,8 +1282,8 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"room_init","path":"rooms/room_init/room_init.yy",},},
-    {"roomId":{"name":"room_test_movement","path":"rooms/room_test_movement/room_test_movement.yy",},},
     {"roomId":{"name":"room_test_main","path":"rooms/room_test_main/room_test_main.yy",},},
+    {"roomId":{"name":"room_test_movement","path":"rooms/room_test_movement/room_test_movement.yy",},},
     {"roomId":{"name":"room_save_select","path":"rooms/room_save_select/room_save_select.yy",},},
     {"roomId":{"name":"room_test_inventory","path":"rooms/room_test_inventory/room_test_inventory.yy",},},
     {"roomId":{"name":"room_test_cutscene","path":"rooms/room_test_cutscene/room_test_cutscene.yy",},},

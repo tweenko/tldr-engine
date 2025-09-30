@@ -1,4 +1,4 @@
-var recruit_array = save_get("recruits")
+var recruit_array = global.recruits
 var __page = selection div page_max
 var __page_max = min(array_length(recruit_array), page_max * __page + page_max)
 var __morepages = (array_length(recruit_array) > page_max)
@@ -36,8 +36,8 @@ if view == 0 {
     var current_recruit = recruit_array[selection]
     __draw_charbox(370, 75, current_recruit.bgcolor, current_recruit.sprite, loc(current_recruit.name), current_recruit.chapter, current_recruit.level)
     
-    input_binding_draw(INPUT_VERB.SELECT, 370 + 10, 75 + 245, 2, " More Info")
-    input_binding_draw(INPUT_VERB.CANCEL, 370 + 10, 75 + 275, 2, " Quit")
+    input_binding_draw(INPUT_VERB.SELECT, 370 + 10, 75 + 245, 2, loc("recruits_more_msg"))
+    input_binding_draw(INPUT_VERB.CANCEL, 370 + 10, 75 + 275, 2, loc("recruits_quit_msg"))
     
     if __morepages {
         draw_sprite_ext(spr_ui_arrow_flat, 0, 620 + round(sine(8, 3)), 240, 2, 2, 0, c_white, 1)
@@ -59,13 +59,13 @@ else if view == 1 {
     draw_text_transformed(300, 70, loc(current_recruit.name), 2, 2, 0)
     
     draw_set_font(loc_font("enc"))
-    draw_text_transformed(301, 121, loc(current_recruit.desc), 1, 1, 0)
+    draw_text_ext_transformed(301, 121, loc(current_recruit.desc), 20, 280, 1, 1, 0)
     
     draw_set_font(loc_font("main"))
-    draw_text_xfit(80, 240, "LIKE", 160, 2, 2)
+    draw_text_xfit(80, 240, loc("recruits_like"), 160, 2, 2)
     draw_text_xfit(180, 240, loc(current_recruit.like), 540, 2, 2)
     
-    draw_text_xfit(80, 280, "DISLIKE", 160, 2, 2)
+    draw_text_xfit(80, 280, loc("recruits_dislike"), 160, 2, 2)
     draw_text_xfit(180, 280, loc(current_recruit.dislike), 540, 2, 2)
     
     draw_text_xfit(80, 320, "?????", 160, 2, 2)
@@ -77,19 +77,19 @@ else if view == 1 {
     
     draw_set_halign(fa_right)
     
-    draw_text_transformed(560, 240, "LEVEL", 1, 2, 0)
+    draw_text_transformed(560, 240, loc("recruits_level"), 1, 2, 0)
     draw_text_transformed(590, 240, loc(current_recruit.level), 1, 2, 0)
 
-    draw_text_transformed(560, 280, "ATTACK", 1, 2, 0)
+    draw_text_transformed(560, 280, loc("recruits_attack"), 1, 2, 0)
     draw_text_transformed(590, 280, loc(current_recruit.attack), 1, 2, 0)
 
-    draw_text_transformed(560, 320, "DEFENSE", 1, 2, 0)
+    draw_text_transformed(560, 320, loc("recruits_defense"), 1, 2, 0)
     draw_text_transformed(590, 320, loc(current_recruit.defense), 1, 2, 0)
     
-    draw_text_transformed(590, 360, $"ELEMENT {current_recruit.element}", 1, 2, 0)
+    draw_text_transformed(590, 360, $"{loc("recruits_element")} {current_recruit.element}", 1, 2, 0)
     
     draw_set_halign(fa_left)
-    input_binding_draw(INPUT_VERB.CANCEL, 80, 400, 2, " to Return", "Press ")
+    input_binding_draw(INPUT_VERB.CANCEL, 80, 400, 2, loc("recruits_return_msg")[0], loc("recruits_return_msg")[1])
     
     if __morepages {
         draw_sprite_ext(spr_ui_arrow_flat, 0, 610 + round(sine(8, 3)), 240, 2, 2, 0, c_white, 1)

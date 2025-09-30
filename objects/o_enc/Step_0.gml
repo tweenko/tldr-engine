@@ -1,4 +1,5 @@
 // the general battle ui naviagation and execution
+
 if battle_state == "menu" {
 	var items = __item_sort()
 	var spells = array_clone(party_getdata(global.party_names[selection], "spells"))
@@ -133,7 +134,7 @@ if battle_state == "menu" {
 						
 						array_delete(ignore, array_get_index(ignore, together_with[i]), 1)
 					}
-					together_with[selection]=[]
+					together_with[selection] = []
 				}
 			}
 			else {
@@ -449,7 +450,7 @@ if battle_state == "menu" {
 			actselection[selection] = 0
 		
 		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-			var cando = 1
+			var cando = true
 			
 			var ii = actselection[selection]
 			if array_length(acts[ii].party) > 0 || acts[ii].party == -1 {
@@ -459,15 +460,18 @@ if battle_state == "menu" {
 					together_with[selection] = []
 					
 					if struct_exists(acts[ii], "tp_cost") && tp < acts[ii].tp_cost 
-						cando=false
+						cando = false
+                    for (var j = 0; j < array_length(global.party_names); ++j) {
+                        if !party_isup(global.party_names[j]) 
+                            cando = false
+                    }
 					if cando {
-						for (var j = 1; j < array_length(global.party_names); ++j) {
-							if !party_isup(global.party_names[j]) 
-								cando=false
-						}
 						char_state[selection] = CHAR_STATE.ACT
 						
-						for (var j = 1; j < array_length(global.party_names); ++j) {
+						for (var j = 0; j < array_length(global.party_names); ++j) {
+                            if j == selection // if the one being cycled through is calling the act, don't include them
+                                continue
+                            
 							var me = j
 							array_push(ignore, me)
 							
@@ -480,15 +484,22 @@ if battle_state == "menu" {
 					}
 				}
 				else {
+                    together_with[selection] = []
+                    
+                    if struct_exists(acts[ii], "tp_cost") && tp < acts[ii].tp_cost 
+						cando = false
 					for (var j = 0; j < add; ++j) {
 						if !party_isup(acts[ii].party[j]) 
-							cando=false
+							cando = false
 					}
 					if cando {
 						char_state[selection] = CHAR_STATE.ACT
 						
 						for (var j = 0; j < add; ++j) {
 							var me = array_get_index(global.party_names, acts[ii].party[j])
+                            if me == selection // if the one being cycled through is calling the act, don't include them
+                                continue
+                            
 						    array_push(ignore, me)
 						
 							party_get_inst(global.party_names[me]).sprite_index = enc_getparty_sprite(me, "actready")
@@ -499,6 +510,8 @@ if battle_state == "menu" {
 						}
 					}
 				}
+                
+                show_debug_message(together_with)
 			}
 			
 			if struct_exists(acts[ii], "tp_cost") && tp < acts[ii].tp_cost 
@@ -1005,7 +1018,7 @@ if battle_state == "exec" {
 				cutscene_create()
 				
 				if _enemy.mercy >= 100 { // spare
-					cutscene_dialogue(string("* {0} spared {1}!", party_getname(global.party_names[user]), _enemy.name), "{stop}", false)
+					cutscene_dialogue(string(loc("enc_exec_spare_msg"), party_getname(global.party_names[user]), _enemy.name), "{stop}", false)
 					cutscene_wait_until(function(index){
 						return party_get_inst(global.party_names[index]).sprname == "idle"
 					}, [user])
@@ -1021,7 +1034,7 @@ if battle_state == "exec" {
 					cutscene_set_variable(o_enc, "exec_wait", false)
 				}
 				else { // cant spare
-					var txt = "* {0} spared {1}!{br}{resetx}* But its name wasn't {col(y)}YELLOW{col(w)}..."
+					var txt = loc("enc_exec_spare_msg") + "{br}{resetx}" + loc("enc_exec_spare_notyellow")
 					
 					if _enemy.tired {
 						var tgt_spell = -1
@@ -1039,7 +1052,8 @@ if battle_state == "exec" {
 							}
 						}
 						if is_struct(tgt_spell) { // if mercyspell exists
-							txt += "{p}{c}* (Try using "+spellowner+"'s {col("+color_to_string(tgt_spell.color)+")}"+string_upper(item_get_name(tgt_spell))+"{col(white)}!)"
+							txt += "{p}{c}"
+                            txt += string(loc("enc_exec_spare_suggest_spell"), spellowner, string_upper(item_get_name(tgt_spell)))
 						}
 					}
 					cutscene_dialogue(string(txt, party_getname(global.party_names[user]), _enemy.name),, true)
@@ -1255,7 +1269,7 @@ if battle_state == "turn" {
 		}
 		turn_timer++
 		
-		var move_on=true
+		var move_on = true
 		for (var i = 0; i < array_length(turn_objects); ++i) {
 			if !enc_enemy_isfighting(i) continue
 			if instance_exists(turn_objects[i]) move_on = false
@@ -1267,9 +1281,9 @@ if battle_state == "turn" {
 		}
 	}
 	else if turn_goingback {
-		// idk why it's not an animation :(
+		// idk why it's not an animation :(, this is old code
 		if instance_exists(o_eff_bg) && o_eff_bg.fade > 0
-			o_eff_bg.fade-=.05
+			o_eff_bg.fade -= .05
 	}
 }
 

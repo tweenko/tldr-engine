@@ -322,11 +322,6 @@ function item_s_iceshock() : item_spell() constructor {
             
             if !__fatal 
                 do_animate(1, 0, 5, "linear", __o, "flash")
-            else 
-                instance_create(o_text_hpchange, __o.x, __o.y - __o.myheight/2, __o.depth - 100, {
-                    draw: "frozen",
-                    mode: 4,
-                })
             
             enc_hurt_enemy(target, __dmg, index,,, 20,, "freeze")
         }, [target, __name, index])
