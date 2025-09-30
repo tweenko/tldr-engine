@@ -12,13 +12,11 @@ function party_setdata(name, hash, value) {
 ///@arg {String} hash
 ///@arg {Any} value
 function party_adddata(name, hash, value) {
-	if is_struct(value) {
-		var st = party_getdata(name, hash)
-        
-		for (var i = 0; i < struct_names_count(value); ++i) {
-			var n = struct_get_names(value)[i] 
-            var val = struct_get(value, n)
-            
+	if is_struct(value) && is_struct(struct_get(party_nametostruct(name), hash)) {
+		var st = struct_get(party_nametostruct(name), hash)
+		for (var i = 0; i < array_length(struct_names_count(value)); ++i) {
+			var val = value
+			var n = struct_get_names(value)[i]
 		    if struct_exists(st, n) 
 				val += struct_get(st, n)
 			struct_set(st, n, val)
@@ -32,16 +30,14 @@ function party_adddata(name, hash, value) {
 ///@arg {String} name
 ///@arg {String} hash
 ///@arg {Any} value
-function party_subtractdata(name, hash, value) {
-	if is_struct(value) {
-		var st = party_getdata(name, hash)
-        
-		for (var i = 0; i < struct_names_count(value); ++i) {
-			var n = struct_get_names(value)[i] 
-            var val = -struct_get(value, n)
-            
+function party_subtractdata(name, hash, value){
+	if is_struct(value) && is_struct(struct_get(party_nametostruct(name), hash)) {
+		var st = struct_get(party_nametostruct(name), hash)
+		for (var i = 0; i < array_length(struct_names_count(value)); ++i) {
+			var val = -value
+			var n = struct_get_names(value)[i]
 		    if struct_exists(st, n) 
-				val += struct_get(st, n)
+				val += struct_get(st,n)
 			struct_set(st, n, val)
 		}
 	}

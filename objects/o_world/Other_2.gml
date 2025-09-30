@@ -1,11 +1,4 @@
 party_init()
-
-for (var i = 0; i < array_length(global.party_names); i ++) {
-    item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
-    item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
-    item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
-}
-
 pal_swap_init_system(shd_pal_swapper)
 
 instance_create(o_camera)
@@ -27,8 +20,10 @@ instance_create(o_ui_quit)
 	window_center();
 }
 { // fonts
-    event_user(0)
-    
+	global.partyname_font_0 = font_add_sprite_ext(spr_ui_partyname_font, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/", true, -1);
+	global.partyname_font_1 = font_add_sprite_ext(spr_ui_partyname_font, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/", true, 0);
+	global.partyname_font_2 = font_add_sprite_ext(spr_ui_partyname_font, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/", true, 1);
+	
 	global.font_ui_hp = font_add_sprite_ext(spr_ui_hpfont, "1234567890-", true, 2);
 	
 	global.font_numbers_w = font_add_sprite_ext(spr_ui_numbers_wfont,"0123456789+-%/",false,1);
@@ -37,33 +32,42 @@ instance_create(o_ui_quit)
 
 global.items = []
 global.key_items = [
-    new item_key_cell_phone() 
+    new item_key_cell_phone()
 ]
 global.weapons = []
 global.armors = []
-
-global.recruits = []
-global.recruits_lost = []
-
 global.storage = array_create(item_get_maxcount(ITEM_TYPE.STORAGE), undefined)
+global.lw_items = [
+    new item_lw_shit()
+]
 
-global.lw_items = []
 global.lw_weapon = undefined
 global.lw_armor = undefined
 
 global.states = {}
+global.world = 0 // 0 for dark, 1 for light
 
-enum WORLD_TYPE {
-    DARK,
-    LIGHT
-}
-global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
-
-{ // saves
+{ //saves
 	global.chapter = 2
 	global.time = 0
 
-	// get saves ready
+	//load settings
+	global.settings = {
+		SAVE_SLOT: 0,
+
+        VOLUME_SFX: volume_sfx,
+        VOLUME_BGM: volume_bgm,
+        VOLUME_MASTER: volume_master,
+        
+        SIMPLIFY_VFX: false,
+        AUTO_RUN: false,
+        
+        CONTROLS_KEY: {},
+        CONTROLS_GP: {}
+	}
+	save_settings_load()
+
+	//get saves ready
 	global.save_slot = global.settings.SAVE_SLOT
 	global.save = {
 		NAME:			"PLAYER",
@@ -95,8 +99,9 @@ global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 		STORAGE:	global.storage,
 	
 		STATES:				global.states,
-		RECRUITS:			global.recruits,
-		RECRUITS_LOST:		global.recruits_lost,
+		RECRUITS:			{},
+		RECRUIT_PROGRESS:	{},
+		RECRUITS_LOST:		[],
 		WORLD:				global.world,
 		
 		CRYSTAL:		false,
@@ -104,8 +109,8 @@ global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 		COMPLETE_ROOM:	"undefined",
 		COMPLETE_TIME:	0,
 	}
-	global.saves = save_read_all() // saves saved on device
-    
+	global.saves = save_read_all() //saves saved on device
+	
 	if global.saves[global.save_slot] != -1 
 		global.save = global.saves[global.save_slot]
 }
@@ -115,15 +120,4 @@ save_load(global.save_slot)
 global.charmove_insts = array_create(party_getpossiblecount() + 10, undefined)
 
 randomize()
-
-if !allow_incompatible_saves {
-    var __v = (struct_exists(global.settings, "VERSION_SAVED") ? global.settings.VERSION_SAVED : "v0.0.0")
-    if !__engine_versions_compare(__v, ENGINE_LAST_COMPATIBLE_VERSION) {
-        progress = false
-        incompatible_save_warning = true
-        incompatible_save_sleep = 20
-    }
-}
-
-if progress
-    room_goto_next()
+room_goto_next()

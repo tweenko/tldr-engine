@@ -1,3 +1,3 @@
 event_inherited()
 
-item_inside = new item_a_pink_ribbon()
+item_inside = new item_a_pinkribbon()

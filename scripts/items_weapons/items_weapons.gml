@@ -6,7 +6,7 @@ function item_weapon() : item() constructor {
 function item_w_spookysword() : item_weapon() constructor {
 	name = ["Spookysword"]
 	desc = ["A black-and-orange sword with a bat hilt.", "--"]
-	lw_counterpart = item_w_lw_halloween_pencil
+	lw_counterpart = item_w_lw_halloweenpencil
     
 	stats = {
 		attack: 2, 
@@ -18,27 +18,24 @@ function item_w_spookysword() : item_weapon() constructor {
 	icon = spr_ui_menu_icon_sword
 	
 	weapon_whitelist = ["kris"]
+	weapon_fatal = true
 	
 	reactions = {
 		susie: "Ugh, it's too small!",
 		ralsei: "Oh, it's too scary!",
         noelle: "(It's kinda cool...)"
 	}
-    
-    item_localize("item_w_spookysword")
 }
-function item_w_lw_halloween_pencil() : item_weapon() constructor {
+function item_w_lw_halloweenpencil() : item_weapon() constructor {
     name = ["Halloween Pencil"]
 	desc = ["* Orange with black bats on it.", "--"]
 	
 	stats = {
         attack: 1,
     }
-    
-    item_localize("item_w_lw_halloween_pencil")
 }
 
-function item_w_wood_blade() : item_weapon() constructor {
+function item_w_woodblade() : item_weapon() constructor {
 	name = ["Wood Blade"]
 	desc = ["A wooden practice blade with a carbon-\nreinforced core.", "--"]
     lw_counterpart = item_w_lw_pencil
@@ -52,18 +49,14 @@ function item_w_wood_blade() : item_weapon() constructor {
 		ralsei: "That's yours, Kris...",
         noelle: "(It has bite marks...)"
 	}
-    
-    item_localize("item_w_wood_blade")
 }
 function item_w_lw_pencil() : item_weapon() constructor {
     name = ["Pencil"]
-	desc = ["* \"Pencil\" - Weapon 1 AT{br}{resetx}{sleep(10)}* Mightier than a sword?{br}{resetx}{sleep(10)} * Maybe equal at best.", "--"]
+	desc = ["* Mightier than a sword? Maybe equal at best.", "--"]
 	
 	stats = {
         attack: 1,
     }
-    
-    item_localize("item_w_lw_pencil")
 }
 
 function item_w_saber10() : item_weapon() constructor {
@@ -82,8 +75,6 @@ function item_w_saber10() : item_weapon() constructor {
 		ralsei: "You want to... pierce my ears...?",
 		noelle: "(I'm not against using it, but...)",
 	}
-    
-    item_localize("item_w_saber10")
 }
 function item_w_lw_cactusneedle() : item_weapon() constructor {
 	name = ["CactusNeedle"]
@@ -92,14 +83,12 @@ function item_w_lw_cactusneedle() : item_weapon() constructor {
 	stats = {
         attack: 2,
     }
-    
-    item_localize("item_w_lw_cactusneedle")
 }
 
 function item_w_jingleblade() : item_weapon() constructor {
-	name = ["JingleBlade"]
+	name = ["Jingle Blade"]
 	desc = ["A lance-like sword with red-and-white stripes. Perfect for jousting.", "--"]
-	lw_counterpart = item_w_lw_holiday_pencil
+	lw_counterpart = item_w_lw_holidaypencil
     
 	stats = {
         attack: 7,
@@ -117,22 +106,18 @@ function item_w_jingleblade() : item_weapon() constructor {
 		ralsei: "Mmm! Minty and festive!",
 		noelle: "What is this, a barber pole?",
 	}
-    
-    item_localize("item_w_jingleblade")
 }
-function item_w_lw_holiday_pencil() : item_weapon() constructor {
+function item_w_lw_holidaypencil() : item_weapon() constructor {
 	name = ["Holiday Pencil"]
-	desc = ["* \"Holiday Pencil\" - 1 AT{br}{resetx}{sleep(10)}* A festive candycane pencil.{br}{resetx}{sleep(10)}* Do not eat.", "--"]
+	desc = ["* A festive candycane pencil. Do not eat.", "--"]
 	
 	stats = {
         attack: 1,
     }
-    
-    item_localize("item_w_lw_holiday_pencil")
 }
 
 // axes
-function item_w_mane_ax() : item_weapon() constructor {
+function item_w_maneax() : item_weapon() constructor {
     name = ["Mane Ax"]
 	desc = ["Beginner's ax forged from the mane of a dragon whelp.", "--"]
 	
@@ -145,8 +130,6 @@ function item_w_mane_ax() : item_weapon() constructor {
 		ralsei: "Ummm... it's a bit big.",
 		noelle: "It... smells nice...",
 	}
-    
-    item_localize("item_w_mane_ax")
 }
 function item_w_devilsknife() : item_weapon() constructor {
 	name = ["Devilsknife"]
@@ -168,8 +151,6 @@ function item_w_devilsknife() : item_weapon() constructor {
 		ralsei: "It's too, um, evil.",
 		noelle: "...? It smiled at me?",
 	}
-    
-    item_localize("item_w_devilsknife")
 }    
 function item_w_absorbax() : item_weapon() constructor {
 	name = ["AbsorbAx"]
@@ -178,10 +159,6 @@ function item_w_absorbax() : item_weapon() constructor {
 	stats = {
         attack: 8,
     } 
-    effect = {
-        text: "Vampire",
-        sprite: spr_ui_menu_icon_demon
-    }
 	icon = spr_ui_menu_icon_axe
 	weapon_whitelist = ["susie"]
 	
@@ -190,12 +167,10 @@ function item_w_absorbax() : item_weapon() constructor {
 		ralsei: "Don't scoop me!",
 		noelle: "That red... is that blood?",
 	}
-    
-    item_localize("item_w_absorbax")
 }  
 
 // scarfs
-function item_w_red_scarf() : item_weapon() constructor {
+function item_w_redscarf() : item_weapon() constructor {
 	name = ["Red Scarf"]
 	desc = ["A basic scarf made of lightly\nmagical fiber.", "--"]
 	
@@ -208,11 +183,9 @@ function item_w_red_scarf() : item_weapon() constructor {
 		ralsei: "Comfy! Touch it, Kris!",
 		noelle: "Huh? No, I'm not cold.",
 	}
-    
-    item_localize("item_w_red_scarf")
 }
 function item_w_flexscarf() : item_weapon() constructor {
-	name = ["FlexScarf"]
+	name = ["Flex Scarf"]
 	desc = ["A scarf that is warm and fuzzy, but with a metal core that lets it keep its shape.", "--", "Weaklings can flex too"]
 	
 	stats = {
@@ -227,8 +200,6 @@ function item_w_flexscarf() : item_weapon() constructor {
 		ralsei: "So pliable, like me!",
 		noelle: "Twist it and... it's a wreath!",
 	}
-    
-    item_localize("item_w_flexscarf")
 }
 function item_w_puppetscarf() : item_weapon() constructor {
 	name = ["PuppetScarf"]
@@ -246,8 +217,6 @@ function item_w_puppetscarf() : item_weapon() constructor {
 		ralsei: "If I have to fight...",
 		noelle: "(Feels like guitar strings...)",
 	}
-    
-    item_localize("item_w_puppetscarf")
 } 
 
 // rings
@@ -264,8 +233,6 @@ function item_w_snowring() : item_weapon() constructor {
 		ralsei: "Are you... proposing?",
 		noelle: "(Thank goodness...)",
 	}
-    
-    item_localize("item_w_snowring")
 }
 function item_w_freezering() : item_weapon() constructor {
 	name = ["FreezeRing"]
@@ -283,6 +250,4 @@ function item_w_freezering() : item_weapon() constructor {
 		ralsei: "It's beautiful...",
 		noelle: "...",
 	}
-    
-    item_localize("item_w_freezering")
 }  

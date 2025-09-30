@@ -1,1 +1,1 @@
-item_inside = new item_a_silver_watch()
+item_inside = new item_a_silverwatch()

@@ -1,1 +1,0 @@
-audio_stop_sound(aura_sfx)

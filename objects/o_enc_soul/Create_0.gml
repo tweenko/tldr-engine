@@ -15,8 +15,7 @@ is_transitioning = true;
 transition_mode = 0;
 movespd = 1;
 graze_buffer = 0;
-inst_graze = instance_create_depth(x, y, depth - 10, o_enc_soul_grazer);
-inst_aura = noone
+mygraze = instance_create_depth(x, y, depth - 10, o_enc_soul_grazer);
 
 color = 0
 

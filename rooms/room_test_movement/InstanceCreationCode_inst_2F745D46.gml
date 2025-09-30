@@ -1,0 +1,1 @@
+world_switch(0)

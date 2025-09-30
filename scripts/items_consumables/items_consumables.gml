@@ -11,10 +11,8 @@ function item_lightcandy() : item() constructor {
 		ralsei: "Nice and chalky.",
 		noelle: "(I-isn't this the chalk I gave her?)",
 	}
-    
-    item_localize("item_c_lightcandy")
 }
-function item_darker_candy() : item() constructor {
+function item_darkercandy() : item() constructor {
 	name = ["Darker Candy"]
 	desc = ["A candy that has grown sweeter with time.\nSaid to taste like toasted marshmallow. +120HP", "Heals 120HP"]
 	
@@ -30,10 +28,8 @@ function item_darker_candy() : item() constructor {
 		},
 		noelle: "Oh, it's... sticky?"
 	}
-    
-    item_localize("item_c_darker_candy")
 }
-function item_top_cake() : item() constructor {
+function item_topcake() : item() constructor {
 	name = ["Top Cake"]
 	desc = ["This cake will make your taste buds spin! Heals 160HP to the team", "Heals team 160HP"]
 	
@@ -48,8 +44,6 @@ function item_top_cake() : item() constructor {
 		ralsei: "Whoops.",
 		noelle: "Happy birthday! Haha!"
 	}
-    
-    item_localize("item_c_top_cake")
 }
 
 function item_revivemint() : item() constructor {
@@ -78,8 +72,6 @@ function item_revivemint() : item() constructor {
 		}
 		item_delete(index)
 	}
-    
-    item_localize("item_c_revivemint")
 }
 
 function item_lw_shit() : item() constructor {

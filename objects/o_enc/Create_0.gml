@@ -4,7 +4,6 @@
 }
 { // visual variables
 	surf = -1 // the main surface
-    tp_surf = -1
 	roll = 0
 	tproll = 0
 	
@@ -30,8 +29,6 @@
 	menutext = noone
 	mybox = noone
 	mysoul = noone
-    
-    win_message = ""
 }
 
 { // arrays for each party member
@@ -43,7 +40,6 @@
 	)
 	pmlerp = array_create(array_length(global.party_names), 0)
 	bt_selection = array_create(array_length(global.party_names), 0)
-    pm_hurt = array_create(array_length(global.party_names), 0)
 	
 	fightselection = array_create(array_length(global.party_names), 0)
 	
@@ -60,7 +56,7 @@
 	partyactselection = array_create(array_length(global.party_names), 0)
 	together_with = array_create(array_length(global.party_names), [])
 	
-	char_state = array_create(array_length(global.party_names), CHAR_STATE.IDLE)
+	char_state = array_create(array_length(global.party_names), -1)
 }
 
 { // action execution - party turn
@@ -103,8 +99,6 @@ encounter_data = {} // the information about the encounter: enemies, music, text
 tp = 0
 tplerp = 0
 tplerp2 = 0
-tp_constrict = false // darkness constriction
-tp_glow_alpha = 0
 
 ignore = [] // the "busy" party members
 
@@ -161,8 +155,8 @@ __bt_highlight = function(button_index, party_name) {
 			if !enc_enemy_isfighting(m) 
 				continue
 			
-			var _enemy = encounter_data.enemies[m]
-			if _enemy.tired {
+			var enemy = encounter_data.enemies[m]
+			if enemy.tired {
 				if is_struct(__tgt_spell) && tp >= __tgt_spell.tp_cost { // if mercyspell exists
 					__can_spellspare = true
 				}
@@ -179,8 +173,8 @@ __bt_highlight = function(button_index, party_name) {
 			if !enc_enemy_isfighting(m) 
 				continue
 			
-			var _enemy = encounter_data.enemies[m]
-			if _enemy.mercy >= 100 {
+			var enemy = encounter_data.enemies[m]
+			if enemy.mercy >= 100 {
 				__can_spare = true
 			}
 		}
@@ -189,25 +183,4 @@ __bt_highlight = function(button_index, party_name) {
 	}
 	
 	return false
-}
-__state_to_icon = function(state) {
-    switch state {
-        default: return -1
-        case CHAR_STATE.FIGHT:      return 0
-        case CHAR_STATE.ACT:        return 1
-        case CHAR_STATE.ITEM:       return 2
-        case CHAR_STATE.SPARE:      return 3
-        case CHAR_STATE.DEFEND:     return 4
-        case CHAR_STATE.POWER:      return 5
-    }
-}
-
-enum CHAR_STATE {
-    IDLE, 
-    FIGHT,
-    ACT,
-    POWER,
-    ITEM,
-    SPARE,
-    DEFEND
 }

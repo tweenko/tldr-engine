@@ -1,19 +1,17 @@
-global.party = {}
-
-/// @desc intializes the party stuff
+///@desc intializes the party information
 function party_init() {
-    party_m_initialize("kris", party_m_kris)
-    party_m_initialize("susie", party_m_susie)
-    party_m_initialize("ralsei", party_m_ralsei)
-    party_m_initialize("noelle", party_m_noelle)
-    
 	global.party_names = []
 		array_push(global.party_names, "kris")
 		array_push(global.party_names, "susie")
 		array_push(global.party_names, "ralsei")
-}
-function party_m_initialize(_name, _constructor) {
-    struct_set(global.party, _name, new _constructor())
+		//array_push(global.party_names, "noelle")
+	
+	global.party = {
+		kris: new party_m_kris(),
+		susie: new party_m_susie(),
+		ralsei: new party_m_ralsei(),
+		noelle: new party_m_noelle(),
+	}
 }
 
 function party_m() constructor {
@@ -30,7 +28,7 @@ function party_m() constructor {
 	power_stats = [
 		["--", 0, spr_ui_menu_icon_exclamation],
 		["--", 0, spr_ui_menu_icon_exclamation],
-		["party_stat_guts", 0, spr_ui_menu_icon_fire],
+		["Guts:", 0, spr_ui_menu_icon_fire],
 	]
 	
 	hp =		50
@@ -93,7 +91,7 @@ function party_m() constructor {
 }
 	
 function party_m_kris() : party_m() constructor {
-	name = "party_kris_name"
+	name = "Kris"
 	
 	// colors
 	color = c_aqua
@@ -102,11 +100,11 @@ function party_m_kris() : party_m() constructor {
 	
 	// stats
 	lv =	2
-	desc =	"party_kris_desc"
+	desc =	"Bed Inspector Inspects all beds inexplicably."
 	power_stats = [
 		"???",
 		"???",
-		["party_stat_guts", 2, spr_ui_menu_icon_fire],
+		["Guts:", 2, spr_ui_menu_icon_fire],
 	]
 	
 	hp =		120
@@ -161,7 +159,7 @@ function party_m_kris() : party_m() constructor {
 	}
 }
 function party_m_susie() : party_m() constructor {
-	name = "party_susie_name"
+	name = "Susie"
 	
 	// colors
 	color = c_fuchsia
@@ -170,11 +168,11 @@ function party_m_susie() : party_m() constructor {
 	
 	// stats
 	lv =	2
-	desc =	"party_susie_desc"
+	desc =	"Dark Knight Does damage using dark energy."
 	power_stats = [
-		["party_susie_stat_rudeness", 89, spr_ui_menu_icon_demon],
-		["party_susie_stat_purple", "Yes", spr_ui_menu_icon_demon],
-		["party_stat_guts", 2, spr_ui_menu_icon_fire],
+		["Rudeness", 89, spr_ui_menu_icon_demon],
+		["Purple", "Yes", spr_ui_menu_icon_demon],
+		["Guts:", 2, spr_ui_menu_icon_fire],
 	]
 	
 	hp =		140
@@ -186,7 +184,7 @@ function party_m_susie() : party_m() constructor {
 	}
 	
 	// inventory
-    weapon = new item_w_mane_ax()
+    weapon = new item_w_maneax()
     armor1 = new item_a_ambercard()
     armor2 = new item_a_ambercard()
 	spells = [
@@ -234,7 +232,7 @@ function party_m_susie() : party_m() constructor {
 	}
 }
 function party_m_ralsei() : party_m() constructor {
-	name = "party_ralsei_name"
+	name = "Ralsei"
 	
 	// colors
 	color = c_lime
@@ -243,11 +241,11 @@ function party_m_ralsei() : party_m() constructor {
 	
 	// stats
 	lv =	2
-	desc =	"party_ralsei_desc"
+	desc =	"Dark Prince Dark-World being. Has friends now."
 	power_stats = [
-		["party_ralsei_stat_sweetness", 97, spr_ui_menu_icon_lollipop],
-		["party_ralsei_stat_fluffiness", 2, spr_ui_menu_icon_fluff],
-		["party_stat_guts", 0, spr_ui_menu_icon_fire],
+		["Sweetness", 97, spr_ui_menu_icon_lollipop],
+		["Fluffiness", 2, spr_ui_menu_icon_fluff],
+		["Guts:", 0, spr_ui_menu_icon_fire],
 	]
 	
 	hp =		100
@@ -259,9 +257,9 @@ function party_m_ralsei() : party_m() constructor {
 	}
 	
 	// inventory
-    weapon = new item_w_red_scarf()
+    weapon = new item_w_redscarf()
     armor1 = new item_a_ambercard()
-    armor2 = new item_a_white_ribbon()
+    armor2 = new item_a_whiteribbon()
 	spells = [
 		new item_s_pacify(),
 		new item_s_healprayer()
@@ -305,7 +303,7 @@ function party_m_ralsei() : party_m() constructor {
 	}
 }
 function party_m_noelle() : party_m() constructor {
-	name = "party_noelle_name"
+	name = "Noelle"
 	
 	// colors
 	color = c_yellow
@@ -314,11 +312,11 @@ function party_m_noelle() : party_m() constructor {
 	
 	// stats
 	lv =	1
-	desc =	"party_noelle_desc"
+	desc =	"Snowcaster Might be able to use some cool moves."
 	power_stats = [
-		["party_noelle_stat_coldness", 47, spr_ui_menu_icon_snow],
-		["party_noelle_stat_boldness", 100, spr_ui_menu_icon_exclamation],
-		["party_stat_guts", 0, spr_ui_menu_icon_fire],
+		["Coldness", 47, spr_ui_menu_icon_snow],
+		["Boldness", 100, spr_ui_menu_icon_exclamation],
+		["Guts:", 0, spr_ui_menu_icon_fire],
 	]
 	
 	hp =		90
@@ -331,8 +329,8 @@ function party_m_noelle() : party_m() constructor {
 	
 	// inventory
     weapon = new item_w_snowring()
-    armor1 = new item_a_silver_watch()
-    armor2 = new item_a_royal_pin()
+    armor1 = new item_a_silverwatch()
+    armor2 = new item_a_royalpin()
 	spells = [
 		new item_s_healprayer(),
 		new item_s_sleepmist(),

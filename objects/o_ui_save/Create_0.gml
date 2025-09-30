@@ -1,25 +1,25 @@
 alarm[1] = 1
 
-m_buttons = [
+m_buttons=[
 	{
-		name: loc("save_menu_save"),
+		name: "Save",
 		on: true,
 		page: 1
 	},
 	{
-		name: loc("save_menu_return"),
+		name: "Return",
 		on: true,
 		page: -1,
 	},
 	{
-		name: loc("save_menu_storage"),
+		name: "Storage",
 		on: true,
 		page: 2,
 	},
 	{
-		name: loc("save_menu_recruits"),
-		on: (array_length(global.recruits) > 0),
-		page: 3,
+		name: "Recruits",
+		on: false,
+		page: 0,
 	},
 ]
 

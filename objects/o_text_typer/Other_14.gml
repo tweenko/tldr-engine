@@ -1,5 +1,5 @@
 /// @description break
-if break_tabulation {
+if break_tabulation == 0 {
 	xoff = 16 * xscale
 	
 	if loc_getlang() == "ja" 

@@ -5,8 +5,7 @@ depth = DEPTH_UI.CONSOLE
 encounters = [
 	new enc_set_ex(),
 	new enc_set_virovirokun(),
-	new ex_enc_set_shadowguys(),
-    new ex_enc_set_spawn(),
+	new ex_enc_set_shadowguys()
 ]
 
 enc_names = []
