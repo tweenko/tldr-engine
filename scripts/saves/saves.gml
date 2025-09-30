@@ -233,7 +233,7 @@
 		global.states = save_get("states")
 		global.world = save_get("world")
         global.recruits = save_inv_import(save_get("recruits"))
-        global.recruits_lost = save_inv_import(save_get("recruits_lost"))
+        global.recruits_lost = save_get("recruits_lost")
 		
 		save_refresh_back()
 	}
@@ -255,7 +255,7 @@
 		global.save.STORAGE = save_inv_export(global.storage)
 		global.save.LW_ITEMS = save_inv_export(global.lw_items)
         global.save.RECRUITS = save_inv_export(global.recruits)
-        global.save.RECRUITS_LOST = save_inv_export(global.recruits_lost)
+        global.save.RECRUITS_LOST = global.recruits_lost
 		
 		global.save.WORLD = global.world
 	}
