@@ -35,4 +35,4 @@ else {
 }
 
 if notice
-    draw_sprite(spr_ui_exclamation, 0, xx, yy - sprite_height - 2)
+    draw_sprite(spr_ui_exclamation, 0, x, y - sprite_height - 2)

@@ -1,4 +1,4 @@
-draw_set_font(loc_getfont("main"))
+draw_set_font(loc_font("main"))
 
 if state == 0 { //still show the freezeframe
 	draw_sprite_ext(freezeframe, 0, 0, 0, 1, 1, 0, c_white, 1)

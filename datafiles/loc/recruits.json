@@ -1,0 +1,40 @@
+{
+    "recruits_title": {
+        "en": "Recruits", "ja": "なかま"
+    },
+    "recruits_title_progress": {
+        "en": "PROGRESS", "ja": "友好度"
+    },
+    "recruits_recruited": {
+        "en": "Recruited!", "ja": "GET!"
+    },
+
+    "recruits_like": {
+        "en": "LIKE", "ja": "好き:"
+    },
+    "recruits_dislike": {
+        "en": "DISLIKE", "ja": "きらい:"
+    },
+    "recruits_level": {
+        "en": "LEVEL", "ja": "LV:"
+    },
+    "recruits_attack": {
+        "en": "ATTACK", "ja": "AT:"
+    },
+    "recruits_defense": {
+        "en": "DEFENSE", "ja": "DF:"
+    },
+    "recruits_element": {
+        "en": "ELEMENT", "ja": "属性:"
+    },
+
+    "recruits_more_msg": {
+        "en": " More Info", "ja": ": 図鑑"
+    },
+    "recruits_quit_msg": {
+        "en": " Quit", "ja": ": 終了"
+    },
+    "recruits_return_msg": {
+        "en": [" to Return", "Press "], "ja": [" を押してもどる", ""]
+    }
+}

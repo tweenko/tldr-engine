@@ -1,0 +1,312 @@
+{
+    "item_w_spookysword": {
+        "en": {
+            "name": "Spookysword",
+            "desc": ["A black-and-orange sword with a bat hilt.", "--"],
+            "effect": {
+                "text": "Spookiness UP"
+            },
+            "reactions": {
+                "susie": "Ugh, it's too small!",
+                "ralsei": "Oh, it's too scary!",
+                "noelle": "(It's kinda cool...)"
+            }
+        },
+        "ja": {
+            "name": "スケアソード",
+            "desc": ["柄にコウモリをあしらった\n黒とオレンジ色のソード。", "--"],
+            "effect": {
+                "text": "ブキミさ上昇"
+            },
+            "reactions": {
+                "susie": "ちっこすぎるぜ！",
+                "ralsei": "ええぇ…怖いよ！",
+                "noelle": "(ちょっと　かっこいい…)"
+            }
+        }
+    },
+    "item_w_lw_halloween_pencil": {
+        "en": {
+            "name": "Halloween Pencil",
+            "desc": ["* \"Halloween Pencil\" - Weapon 1 AT{br}{resetx}{s(10)}*Orange with black bats on it.", "--"]
+        },
+        "ja": {
+            "name": "ハロウィンエンピツ",
+            "desc": ["＊ 「ハロウィンエンピツ」 - ぶき　AT1{br}{resetx}{s(10)}＊ オレンジいろの　エンピツ。くろい　コウモリの　もようが　ついている。", "--"]
+        }
+    },
+
+    "item_w_wood_blade": {
+        "en": {
+            "name": "Wood Blade",
+            "desc": ["A wooden practice blade with a carbon-\nreinforced core.", "--"],
+            "reactions": {
+                "susie": "What's this!? A CHOPSTICK?",
+                "ralsei": "That's yours, Kris...",
+                "noelle": "(It has bite marks...)"
+            }
+        },
+        "ja": {
+            "name": "木刀",
+            "desc": ["芯にカーボン素材を用いた練習用の木刀。", "--"],
+            "reactions": {
+                "susie": "なんだよこれ！？　わりばしか？",
+                "ralsei": "クリス…これは　キミのでしょ。",
+                "noelle": "(かじったあとが　ある…)"
+            }
+        }
+    },
+    "item_w_lw_pencil": {
+        "en": {
+            "name": "Pencil",
+            "desc": ["* \"Pencil\" - Weapon 1 AT{br}{resetx}{sleep(10)}* Mightier than a sword?{br}{resetx}{sleep(10)} * Maybe equal at best.", "--"]
+        },
+        "ja": {
+            "name": "エンピツ",
+            "desc": ["＊ エンピツ - ぶきAT1{br}{resetx}{sleep(10)}＊ けんより　つよし？{br}{resetx}{sleep(10)}＊ …せいぜい　おなじぐらい　かな。", "--"]
+        }
+    },
+
+    "item_w_saber10": {
+        "en": {
+            "name": "Saber10",
+            "desc": ["A saber made of 10 cactus needles. Fortunately, can deal more than 10 damage.", "--"],
+            "reactions": {
+                "susie": "Nah, I'd snap it.",
+                "ralsei": "You want to... pierce my ears...?",
+                "noelle": "(I'm not against using it, but...)"
+            }
+        },
+        "ja": {
+            "name": "サーベル10",
+            "desc": ["サボテンのトゲ10本でできたサーベル。ちゃんと　10以上のダメージを与える。", "--"],
+            "reactions": {
+                "susie": "こんなん ヘシ折ってやるよ",
+                "ralsei": "ボクの耳…刺すの…？",
+                "noelle": "(使うの イヤじゃない…けど…)"
+            }
+        }
+    },
+    "item_w_lw_cactusneedle": {
+        "en": {
+            "name": "CactusNeedle",
+            "desc": ["* \"CactusNeedle\" - 2 AT{br}{resetx}{sleep(10)}* Ouch! ... It's somewhat sentimental in a way.", "--"]
+        },
+        "ja": {
+            "name": "サボテンのトゲ",
+            "desc": ["＊ 「サボテンのトゲ」 - ATK+2{br}{resetx}{sleep(10)}＊ イタイ…！　…こころが。", "--"]
+        }
+    },
+
+    "item_w_jingleblade": {
+        "en": {
+            "name": "JingleBlade",
+            "desc": ["A lance-like sword with red-and-white stripes. Perfect for jousting.", "--"],
+            "effect": {
+                "text": "Festive"
+            },
+            "reactions": {
+                "susie": "Sleigh the bad guys.",
+                "ralsei": "Mmm! Minty and festive!",
+                "noelle": "What is this, a barber pole?"
+            }
+        },
+        "ja": {
+            "name": "ジングルブレード",
+            "desc": ["ヤリのような剣。赤と白のストライプ模様。\n馬上ヤリ試合に最適。", "--"],
+            "effect": {
+                "text": "ホリデー"
+            },
+            "reactions": {
+                "susie": "モミくちゃにしてやるぜ！",
+                "ralsei": "ホリデーミント味！",
+                "noelle": "なにこれ？美容院のサイン？"
+            }
+        }
+    },
+    "item_w_lw_holiday_pencil": {
+        "en": {
+            "name": "Holiday Pencil",
+            "desc": ["* \"Holiday Pencil\" - 1 AT{br}{resetx}{sleep(10)}* A festive candycane pencil.{br}{resetx}{sleep(10)}* Do not eat.", "--"]
+        },
+        "ja": {
+            "name": "ホリデーエンピツ",
+            "desc": ["＊ 「ホリデーエンピツ」  - ATK+1{br}{resetx}{sleep(10)}＊ キャンディステッキのかたち。{br}{resetx}{sleep(10)}＊ たべられない。", "--"]
+        }
+    },
+
+    "item_w_mane_ax": {
+        "en": {
+            "name": "Mane Ax",
+            "desc": ["Beginner's ax forged from the mane of a dragon whelp.", "--"],
+            "reactions": {
+                "susie": "I'm too GOOD for that.",
+                "ralsei": "Ummm... it's a bit big.",
+                "noelle": "It... smells nice..."
+            }
+        },
+        "ja": {
+            "name": "ヘアアックス",
+            "desc": ["子ドラゴンのたてがみで作った\n初心者用のアックス。", "--"],
+            "reactions": {
+                "susie": "こんなのは　もう卒業したぜ",
+                "ralsei": "ええぇ…ちょっと大きいな…",
+                "noelle": "ああ…　いいにおい…"
+            }
+        }
+    },
+    "item_w_devilsknife": {
+        "en": {
+            "name": "Devilsknife",
+            "desc": ["Skull-emblazoned scythe-ax.\nReduces Rudebuster's cost by 10", "--"],
+            "effect": {
+                "text": "Buster TP DOWN"
+            },
+            "reactions": {
+                "susie": "Let the games begin!",
+                "ralsei": "It's too, um, evil.",
+                "noelle": "...? It smiled at me?"
+            }
+        },
+        "ja": {
+            "name": "デビルズナイフ",
+            "desc": ["ドクロのマークが刻まれた大ガマのような\n形状のアックス。ルードバスターのコスト10減。", "--"],
+            "effect": {
+                "text": "バスターTPダウン"
+            },
+            "reactions": {
+                "susie": "さあ　ゲームを始めよう！",
+                "ralsei": "ええぇ…悪モノっぽすぎるよ…",
+                "noelle": "え…？　笑いかけてきた…？"
+            }
+        }
+    },
+    "item_w_absorbax": {
+        "en": {
+            "name": "AbsorbAx",
+            "desc": ["A long, curved axe with an indent.\nScoop up HP when you attack.", "--"],
+            "effect": {
+                "text": "Vampire"
+            },
+            "reactions": {
+                "susie": "Scoopin' time.",
+                "ralsei": "Don't scoop me!",
+                "noelle": "That red... is that blood?"
+            }
+        },
+        "ja": {
+            "name": "スクープアックス",
+            "desc": ["刻印がほどこされた　長くて曲がったアックス。\nこうげきすると　HPをすくい取る。", "--"],
+            "effect": {
+                "text": "吸血"
+            },
+            "reactions": {
+                "susie": "すくうぜ！",
+                "ralsei": "ボクは すくわないで！",
+                "noelle": "赤いのは…血？"
+            }
+        }
+    },
+
+    "item_w_red_scarf": {
+        "en": {
+            "name": "Red Scarf",
+            "desc": ["A basic scarf made of lightly\nmagical fiber.", "--"],
+            "reactions": {
+                "susie": "No. Just... no.",
+                "ralsei": "Comfy! Touch it, Kris!",
+                "noelle": "Huh? No, I'm not cold."
+            }
+        },
+        "ja": {
+            "name": "レッドマフラー",
+            "desc": ["わずかに魔力を帯びた毛糸で編んだ\nシンプルなマフラー。", "--"],
+            "reactions": {
+                "susie": "フン…誰が",
+                "ralsei": "フカフカだ！　触ってみて！",
+                "noelle": "え… わたし　寒くないよ？"
+            }
+        }
+    },
+    "item_w_flexscarf": {
+        "en": {
+            "name": "FlexScarf",
+            "desc": ["A scarf that is warm and fuzzy, but with\na metal core that lets it keep its shape.", "--"],
+            "reactions": {
+                "susie": "Looks like a giant caterpillar.",
+                "ralsei": "So pliable, like me!",
+                "noelle": "Twist it and... it's a wreath!"
+            }
+        },
+        "ja": {
+            "name": "ベンドマフラー",
+            "desc": ["ほわほわしていてあったかいマフラー。\n中心に金属の芯が入っていて　形がくずれない。", "--"],
+            "reactions": {
+                "susie": "デカいイモムシみてーだな",
+                "ralsei": "とっても しなやか！",
+                "noelle": "輪っかにすれば…リースのできあがり！"
+            }
+        }
+    },
+    "item_w_puppetscarf": {
+        "en": {
+            "name": "PuppetScarf",
+            "desc": ["A scarf made of strange strings.\nFor those that abandon healing.", "--"],
+            "reactions": {
+                "susie": "No way, that's creepy.",
+                "ralsei": "If I have to fight...",
+                "noelle": "(Feels like guitar strings...)"
+            }
+        },
+        "ja": {
+            "name": "パペットマフラー",
+            "desc": ["ナゾのヒモでできたマフラー。回復をあきらめる者向け。", "--"],
+            "reactions": {
+                "susie": "いや　怪しすぎだろ",
+                "ralsei": "どうしても戦わなきゃダメなら…",
+                "noelle": "(ギターの弦みたいな感触…)"
+            }
+        }
+    },
+
+    "item_w_snowring": {
+        "en": {
+            "name": "SnowRing",
+            "desc": ["A ring with the emblem of the snowflake", "--"],
+            "reactions": {
+                "susie": "Smells like Noelle",
+                "ralsei": "Are you... proposing?",
+                "noelle": "(Thank goodness...)"
+            }
+        },
+        "ja": {
+            "name": "スノーリング",
+            "desc": ["雪の結晶のエンブレムがついた指輪。", "--"],
+            "reactions": {
+                "susie": "ノエルのにおいがする",
+                "ralsei": "…プロポーズするの？",
+                "noelle": "(やっぱり　これが落ち着く…)"
+            }
+        }
+    },
+    "item_w_freezering": {
+        "en": {
+            "name": "FreezeRing",
+            "desc": ["A ring with a snowglobe on it.\n... is that someone inside?", "--"],
+            "reactions": {
+                "susie": "Heh, you steal this? Heh.",
+                "ralsei": "It's beautiful...",
+                "noelle": "..."
+            }
+        },
+        "ja": {
+            "name": "凍てつく指輪",
+            "desc": ["スノードームがついた指輪。\nなかに　だれかいる…？", "--"],
+            "reactions": {
+                "susie": "ヘッ…　盗んだのか？",
+                "ralsei": "きれい…",
+                "noelle": "…"
+            }
+        }
+    }
+}

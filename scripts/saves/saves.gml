@@ -178,6 +178,10 @@
 			_constructor: instanceof(_item),
 			_data: [],
 		}
+        
+        if struct_exists(_item, "_prepare_for_export") {
+            _item._prepare_for_export()
+        }
 		if struct_exists(_item, "_data")
 			struct_set(__d, "_data", _item._data)
 			
@@ -228,6 +232,8 @@
 		global.party = save_party_import(save_get("party_data"))
 		global.states = save_get("states")
 		global.world = save_get("world")
+        global.recruits = save_inv_import(save_get("recruits"))
+        global.recruits_lost = save_inv_import(save_get("recruits_lost"))
 		
 		save_refresh_back()
 	}
@@ -248,6 +254,8 @@
 		global.save.ARMORS = save_inv_export(global.armors)
 		global.save.STORAGE = save_inv_export(global.storage)
 		global.save.LW_ITEMS = save_inv_export(global.lw_items)
+        global.save.RECRUITS = save_inv_export(global.recruits)
+        global.save.RECRUITS_LOST = save_inv_export(global.recruits_lost)
 		
 		global.save.WORLD = global.world
 	}
@@ -256,9 +264,19 @@
 	function save_delete(slot, chapter = global.chapter){
 		file_delete(save_get_fname(slot, chapter))
 	}
+    
+    /// @desc wipe off saves and settings you previously had. irreversible. use sparingly
+    function save_wipe() {
+        var fileName = file_find_first("", 0);
+        while fileName != "" {
+            file_delete(fileName)
+            fileName = file_find_next();
+        }
+        file_find_close();
+    }
 }
 
-//SETTINGS
+// SETTINGS
 {
     ///@desc check whether the settings file exists
 	function save_settings_exists(){
@@ -301,6 +319,9 @@
         
         global.settings.CONTROLS_KEY = InputBindingsExport(false)
         global.settings.CONTROLS_GP = InputBindingsExport(true)
+        
+        global.settings.LANG = global.loc_lang
+        global.settings.VERSION_SAVED = ENGINE_VERSION
 	}
     
     ///@desc loads the settings from the device into global.settings
@@ -312,8 +333,13 @@
             o_world.volume_sfx = global.settings.VOLUME_SFX
             o_world.volume_bgm = global.settings.VOLUME_BGM
             
-            InputBindingsImport(false, global.settings.CONTROLS_KEY)
-            InputBindingsImport(true, global.settings.CONTROLS_GP)
+            if struct_exists(global.settings, "CONTROLS_KEY")
+                InputBindingsImport(false, global.settings.CONTROLS_KEY)
+            if struct_exists(global.settings, "CONTROLS_GP")
+                InputBindingsImport(true, global.settings.CONTROLS_GP)
+            
+            if struct_exists(global.settings, "LANG")
+                global.loc_lang = global.settings.LANG
 		}
 	}
 		

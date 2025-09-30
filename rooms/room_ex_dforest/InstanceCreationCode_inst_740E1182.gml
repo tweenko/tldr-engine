@@ -1,1 +1,1 @@
-global.save.ROOM_NAME = "Example Rooms - Forest"
+global.save.ROOM_NAME = "txt_room_example_forest"

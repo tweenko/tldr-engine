@@ -17,7 +17,7 @@ draw_sprite_ext(sprite_index, 0, x, y, .33, .33, 0, c_white, uialpha)
 x = s_x
 y = s_y
 
-draw_set_font(loc_getfont("main"))
+draw_set_font(loc_font("main"))
 draw_set_color(c_yellow)
 draw_text_transformed(290, 10, "AMMO", 2, 2, 0)
 draw_set_halign(fa_right)

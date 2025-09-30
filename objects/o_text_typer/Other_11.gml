@@ -1,5 +1,5 @@
 /// @description predict text
-var w = 515
+var w = 515 - (loc_getlang() == "ja" ? 5 : 0)
 var manualbreaks = []
 var twb = text
 
@@ -15,12 +15,12 @@ draw_set_font(font)
 
 // account for the clears as dialogue breaks
 if string_contains("{c}", twb) {
-	for (var i = 0; i < string_length(twb)-2; ++i) {
+	for (var i = 0; i < string_length(twb); ++i) {
 	    if string_char_at(twb, i) == "{"
 			&& string_char_at(twb, i + 1) == "c"
 			&& string_char_at(twb, i + 2) == "}" 
 		{
-			twb = string_copy(twb, 0, i-1)
+			twb = string_copy(twb, 1, i-1)
 			break
 		}
 	}
@@ -46,31 +46,36 @@ var lastbreak = 0
 
 // do manual and auto breaks
 for (var i = 0; i < string_length(twb); ++i) {
-	if array_contains(manualbreaks, i) {
+	if array_contains(manualbreaks, i - 1) {
 		stringsofar = "";
 		widthcutter = 16 * xscale
-		if loc_getlang() == "ja" 
+        
+		if loc_getlang() == "ja"
 			widthcutter = string_width("＊ ") * xscale
 	}
-    stringsofar += string_char_at(twb,i)
+    stringsofar += string_char_at(twb, i)
 	
-	if string_char_at(twb, i) == "*" && string_char_at(twb,i + 1) == " "
+	if (string_char_at(twb, i) == "*" && string_char_at(twb, i + 1) == " "
+    || string_char_at(twb, i) == "＊" && string_char_at(twb, i + 1) == " ")
+    || !break_tabulation 
 		widthcutter = 0
+    
 	if string_char_at(twb, i) == " "
 		lastreservedspace = i
 	
-	if string_width(stringsofar) * xscale > (w-widthcutter) - (x-xstart){
+	if string_width(stringsofar) * xscale >= (w - widthcutter) - center_xoff - face_xoff {
 		if lastreservedspace < 3 { // make sure we don't do breaks on the asterisk part
 			stringsofar = ""
 			array_push(linebreaks, i)
 			lastbreak = i
 		}
 		else {
-			stringsofar = string_copy(twb,lastreservedspace,i-lastreservedspace)
+			stringsofar = string_copy(twb, lastreservedspace, i-lastreservedspace)
 			array_push(linebreaks, lastreservedspace + disp_chars)
 			lastbreak = lastreservedspace + disp_chars
 		}
 		
+        widthcutter = 16 * xscale
 		lastreservedspace = 0
 	}
 }

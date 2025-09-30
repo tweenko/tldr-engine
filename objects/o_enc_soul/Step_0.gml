@@ -1,4 +1,4 @@
-if color == 0{
+if color == 0 {
 	if is_transitioning == false {
 		// Movement
 		if InputCheck(INPUT_VERB.CANCEL) 
@@ -47,7 +47,12 @@ if color == 0{
 		}
 	}
 
-	mygraze.x = self.x;
-	mygraze.y = self.y;
-	mygraze.can_graze = (i_frames == 0);
+	inst_graze.x = self.x;
+	inst_graze.y = self.y;
+	inst_graze.can_graze = (i_frames == 0 && !instance_exists(inst_aura));
+}
+
+if instance_exists(inst_aura) {
+    inst_aura.x = self.x
+    inst_aura.y = self.y
 }

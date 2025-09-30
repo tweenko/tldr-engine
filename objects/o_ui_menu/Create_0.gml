@@ -34,7 +34,7 @@ enum C_CONFIG_TYPE {
 }
 c_config = [
     {
-        name: "Master Volume",
+        name: loc("menu_config_master_vol"),
         type: C_CONFIG_TYPE.SLIDER,
     
         call: method(self, function(delta) {
@@ -46,14 +46,14 @@ c_config = [
         }
     },
     {
-        name: "Controls",
+        name: loc("menu_config_controls"),
         type: C_CONFIG_TYPE.BUTTON,
         call: method(self, function() {
             state = 3
         })
     },
     {
-        name: "Simplify VFX",
+        name: loc("menu_config_simplify_vfx"),
         state: function() {
             return global.settings.SIMPLIFY_VFX
         },
@@ -63,7 +63,7 @@ c_config = [
         })
     },
     {
-        name: "Fullscreen",
+        name: loc("menu_config_fullscreen"),
         state: function() {
             return window_get_fullscreen()
         },
@@ -74,7 +74,7 @@ c_config = [
         }),
     },
     {
-        name: "Auto-Run",
+        name: loc("menu_config_auto_run"),
         state: function() {
             return global.settings.AUTO_RUN
         },
@@ -85,7 +85,7 @@ c_config = [
         })
     },
     {
-        name: "Return to Title",
+        name: loc("menu_config_return_title"),
         type: C_CONFIG_TYPE.BUTTON,
         call: method(self, function() {
             music_stop_all()
@@ -93,7 +93,7 @@ c_config = [
         })
     },
     {
-        name: "Back",
+        name: loc("menu_config_back"),
         type: C_CONFIG_TYPE.BUTTON,
         call: method(self, function() {
             state = 0

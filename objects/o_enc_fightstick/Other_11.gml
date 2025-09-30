@@ -27,7 +27,10 @@ dmg = (party_getdata(global.party_names[index],"attack") * accuracy) / 20
 dmg -= 3 * ecaller.encounter_data.enemies[target].defense
 dmg = round(dmg)
 
-ecaller.tp += max(0, round(accuracy / 10 / 2.5))
+if ecaller.tp_constrict
+    ecaller.tp += round(lerp(0, 2, accuracy/150))
+else
+    ecaller.tp += max(0, round(accuracy / 10 / 2.5))
 
 if perfect {
 	repeat(3) {

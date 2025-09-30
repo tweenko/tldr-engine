@@ -1,5 +1,5 @@
 draw_sprite_ext(spr_pixel, 0, 0, 0, 640, 480, 0, c_black, .75)
-draw_set_font(loc_getfont("main"))
+draw_set_font(loc_font("main"))
 
 for (var i = 0; i <= room_last; i++) {
 	var room_name = room_get_name(i)

@@ -1,4 +1,4 @@
-function enemy_base() constructor {
+function enemy() constructor {
 	// base info
 	name = "Test"
 	obj = {
@@ -23,7 +23,7 @@ function enemy_base() constructor {
 	// acts
 	acts = [
 		{
-			name:	"Check",
+			name:	loc("enc_act_check"),
 			party:	[],
 			desc:	-1,
 			exec:	function(){
@@ -33,20 +33,12 @@ function enemy_base() constructor {
 	]
 	acts_special = {
 	}
-	acts_special_desc = "Standard"
+	acts_special_desc = loc("enc_ui_label_standard")
 	
 	// text
 	dialogue =				"Test" // can be a function (can accept slot argument as arg0)
 	dia_bubble_offset =		[0, 0, 0] // x, y, relative to (1 for enemy and 0 for default box pos)
 	dia_bubble_sprites =	[spr_ui_enc_dialogue_box, spr_ui_enc_dialogue_spike]
-	flavor =				function() {
-		var text = ""
-		var priority = 0 //the higher, the more likely to appear
-		return {
-			text,
-			priority,
-		}
-	}
 	
 	turn_object = o_turn_default
 	
@@ -60,33 +52,15 @@ function enemy_base() constructor {
 	ev_post_turn =	-1
 	
 	//recruit
-	recruit = {
-		need: 2,
-		
-		//display
-		name:		"Test",
-		desc:		"Description",
-		sprite:		spr_e_virovirokun_idle,
-		spr_speed:	1,
-		bgcolor:	c_aqua,
-		chapter:	2,
-		
-		//stats
-		level:		0,
-		element:	"NONE:DEBUG",
-		like:		"(None)",
-		dislike:	"(None)",
-		attack:		0,
-		defense:	0,
-	}
+	recruit = new enemy_recruit()
 	
 	//system
 	actor_id =	-1
 	slot =		-1
 }
 
-function enemy_virovirokun() : enemy_base() constructor{
-	name = "Virovirokun"
+function enemy_virovirokun() : enemy() constructor{
+	name = loc("enemy_virovirokun_name")
 	obj = o_actor_e_virovirokun
 	
 	// stats
@@ -100,15 +74,15 @@ function enemy_virovirokun() : enemy_base() constructor{
 	// acts
 	acts = [
 		{
-			name: "Check",
+			name: loc("enc_act_check"),
 			party: [],
 			desc: -1,
 			exec: function() {
-				encounter_scene_dialogue("* Virovirokun - This sick virus needs affordable healthcare.")
+				encounter_scene_dialogue(loc("enemy_virovirokun_act_check"))
 			}
 		},
 		{
-			name: "TakeCare",
+			name: loc("enemy_virovirokun_act_takecare"),
 			party: [],
 			desc: -1,
 			tp_cost: 0,
@@ -135,14 +109,14 @@ function enemy_virovirokun() : enemy_base() constructor{
 					}, o)
 				}, user)
 				
-				cutscene_dialogue("* You treated Virovirokun with care! It's no longer infectious!")
+				cutscene_dialogue(loc("enemy_virovirokun_act_takecare_msg"))
 				
 				cutscene_set_variable(o_enc, "exec_wait", false)
 				cutscene_play()
 			}
 		},
 		{
-			name: "TakeCareX",
+			name: loc("enemy_virovirokun_act_takecarex"),
 			party: -1,
 			desc: -1,
 			tp_cost: 0,
@@ -172,14 +146,14 @@ function enemy_virovirokun() : enemy_base() constructor{
 					}
 					for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 						if enc_enemy_isfighting(i) {
-							if o_enc.encounter_data.enemies[i].name == "Virovirokun" 
+							if is_instanceof(o_enc.encounter_data.enemies[i], enemy_virovirokun)
 								enc_sparepercent_enemy(i, 100)
 							else 
 								enc_sparepercent_enemy(i, 50)
 						}
 					}
 				}, user)
-				cutscene_dialogue("* Everyone treated the enemy with tender loving care!! All the enemies felt great!!!")
+				cutscene_dialogue(loc("enemy_virovirokun_act_takecarex_msg"))
 				
 				cutscene_set_variable(o_enc, "exec_wait", false)
 				cutscene_play()
@@ -190,89 +164,34 @@ function enemy_virovirokun() : enemy_base() constructor{
 		susie: {
 			exec: function(slot){
 				enc_sparepercent_enemy(slot, 50)
-				encounter_scene_dialogue([
-					"* Susie commiserated with the enemy!",
-					"{char(susie, 2)}* Stick it to the man, dude.",
-					"* Even if that means cloning yourself, or, whatever.",
-				])
+				encounter_scene_dialogue(loc("enemy_virovirokun_act_susie"))
 			},
 		},
 		ralsei: {
 			exec: function(slot){
 				enc_sparepercent_enemy(slot, 50)
-				encounter_scene_dialogue([
-					"* Ralsei tried to steer the enemy down the right path.",
-					"{char(ralsei, 3)}* Not everybody knows this, but...",
-					"{f_ex(2)}* Crimes are bad. ... Did you know that?",
-				])
+				encounter_scene_dialogue(loc("enemy_virovirokun_act_ralsei"))
 			},
 		},
 		noelle: {
 			exec: function(slot) {
 				enc_sparepercent_enemy(slot, 50)
-				encounter_scene_dialogue("* Noelle offered a cold compress!")
+				encounter_scene_dialogue(loc("enemy_virovirokun_act_noelle"))
 			},
 		},
 	}
 	
 	// recruit
-	recruit = {
-		need: 4,
-		
-		//display
-		name: "Virovirokun",
-		desc: "idk",
-		sprite: spr_e_virovirokun_idle,
-		spr_speed: 1,
-		bgcolor: c_aqua,
-		chapter: 2,
-		
-		//stats
-		level: 7,
-		element: "VIRUS",
-		like: "Retro Games",
-		dislike: "Federal Justice System",
-		attack: 8,
-		defense: 6,
-	}
+    recruit = new enemy_recruit_virovirokun()
 		
 	// text
 	dialogue = function(slot) {
-		if self.mercy >= 100 {
-			return choose("Just what the doctor ordered!", "Kindness is contagious!")
-		}
-		return choose("I'm the fever, I'm the chill.", 
-			"Don't let this bug ya!", 
-			"Happy new year 1997!", 
-			"I've got a love letter for you."
-		)
-	}
-	flavor = function(slot) {
-		var text = ""
-		var priority = 0 //the higher, the more likely to appear
-		
-		if o_enc.encounter_data.enemies[slot].mercy >= 100 
-			text = "* Virovirokun looks healthy."
-		if text == "" {
-			text = choose("* Virovirokun is sweating suspiciously.", 
-				"* Virovirokun uses a text document as a tissue.", 
-				"* Virovirokun is poking round things with a spear.", 
-				"* Virovirokun is beeping a criminal tune.", 
-				"* Smells like cherry syrup."
-			)
-		}
-		
-		if o_enc.encounter_data.enemies[slot].hp <= o_enc.encounter_data.enemies[slot].max_hp / 3 {
-			text = "* Virovirokun looks extra sick."
-			priority = 1
-		}
-		return {
-			text,
-			priority,
-		}
+		if self.mercy >= 100 
+			return array_shuffle(loc("enemy_virovirokun_mercy"))[0]
+		return array_shuffle(loc("enemy_virovirokun_dialogue"))[0]
 	}
 }
-function enemy_killercar() : enemy_base() constructor{
+function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
 	obj = o_actor_e_killercar
@@ -313,4 +232,6 @@ function enemy_killercar() : enemy_base() constructor{
 	
 	act_desc = array_create(array_length(acts), -1)
 	act_desc[1] = "Kill Em with Ralsei"
+    
+    recruit = new enemy_recruit_killercar()
 }

@@ -17,9 +17,9 @@ function party_getdata(name, value) {
 ///@desc returns the full name of a party member
 function party_getname(name, full = true) {
 	if struct_exists(party_nametostruct(name), "name_t") && !full 
-		return party_getdata(name, "name_t")
+		return loc(party_getdata(name, "name_t"))
 	else 
-		return party_getdata(name, "name")
+		return loc(party_getdata(name, "name"))
 }
 ///@arg {String} name
 ///@desc returns the index of a party member using their name
@@ -47,6 +47,12 @@ function party_geticon(name) {
 	var a = sprite_get_name(party_getdata(name, "s_icon"))
 	return asset_get_index_state(a, party_getdata(name, "s_state"))
 }
+///@desc returns the hurt icon of a party member
+function party_geticon_hurt(name) {
+	var a = sprite_get_name(party_getdata(name, "s_icon"))
+	return asset_get_index_state(a, "hurt" + (party_getdata(name, "s_state") == "" ? "" : "_") + party_getdata(name, "s_state"))
+}
+
 ///@desc returns the overworld icon of a party member
 function party_geticon_ow(name) {
 	var a = sprite_get_name(party_getdata(name, "s_icon_ow"))

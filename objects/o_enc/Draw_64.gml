@@ -40,17 +40,22 @@ surface_set_target(surf) {
 			draw_sprite_ext(spr_pixel, 0, i*213 + xoff + 211, 325 + 80 - roll - off*pmlerp[i], 2, 69, 0, col, 1)
 			draw_sprite_ext(spr_pixel, 0, i*213 + xoff, 325 + 80 - roll - off*pmlerp[i], 2, 69, 0, col, 1)
 		}
-		if char_state[i] == -1 
-			draw_sprite_ext(party_geticon(global.party_names[i]), 0, 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, c_white, 1)
+		if char_state[i] == CHAR_STATE.IDLE {
+            var __icon = party_geticon(global.party_names[i])
+            if pm_hurt[i] > 0
+                __icon = party_geticon_hurt(global.party_names[i])
+            
+            draw_sprite_ext(__icon, 0, 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, c_white, 1)
+        }
 		else
-			draw_sprite_ext(spr_ui_menu_partyiconsenc, char_state[i], 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, party_getdata(global.party_names[i], "iconcolor"), 1)
+			draw_sprite_ext(spr_ui_enc_icons_command, __state_to_icon(char_state[i]), 12 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], 1, 1, 0, party_getdata(global.party_names[i], "iconcolor"), 1)
 		
-		var font = global.partyname_font_2
+		var font = global.font_name[0]
 		
 		if string_length(party_getname(global.party_names[i], false)) > 4
-			font = global.partyname_font_1
+			font = global.font_name[1]
 		if string_length(party_getname(global.party_names[i], false)) > 5
-			font = global.partyname_font_0
+			font = global.font_name[2]
 		
 		draw_set_font(font)
 		draw_text_transformed(51 + 213*i + xoff, 430 - 94 + 80 - roll - off*pmlerp[i], string_upper(party_getname(global.party_names[i], false)), 1, 1, 0)
@@ -74,7 +79,7 @@ surface_set_target(surf) {
 		
 		draw_set_halign(fa_left)
 		draw_set_color(c_white)
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		draw_set_alpha(1)
 	}
 	
@@ -98,9 +103,9 @@ surface_set_target(surf) {
 				draw_set_color(c_white)
 				
 				// image indexes
-				var btns = [0, 10, 4, 6, 8]
+				var btns = ["fight", "power", "item", "spare", "defend"]
 				if can_act[i]
-					btns[1] = 2
+					btns[1] = "act"
 				
 				gpu_set_colorwriteenable(1, 1, 1, 0)
 				for (var j = 0; j < 3; ++j) {
@@ -114,12 +119,14 @@ surface_set_target(surf) {
 				draw_set_color(c_white)
 				
 				for (var j = 0; j < array_length(btns); ++j) {
+                    var __spr = asset_get_index(string(loc("enc_ui_spr_buttons"), btns[j]))
+                    
 					draw_sprite_ext(spr_pixel, 0, 2 + 193 - array_length(btns)*35 + j*35, 1, 31, 25, 0, c_black, 1)
-					draw_sprite_ext(spr_ui_enc_buttons, btns[j] + (bt_selection[selection] == j && i == selection ? 1 : 0), 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, 1)
+					draw_sprite_ext(__spr, (bt_selection[selection] == j && i == selection ? 1 : 0), 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, 1)
 					
 					if i == selection && __bt_highlight(j, global.party_names[i]) && bt_selection[selection] != j {
 						gpu_set_fog(true, c_white, 0, 1)
-						draw_sprite_ext(spr_ui_enc_buttons, btns[j] + 1, 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, .5 + sine(8, .3))
+						draw_sprite_ext(__spr, 1, 2 + 193 - array_length(btns)*35 + j*35, 1, 1, 1, 0, c_white, .5 + sine(8, .3))
 						gpu_set_fog(false, 0, 0, 0)
 					}
 				}
@@ -134,12 +141,12 @@ surface_set_target(surf) {
 	
 	// draw the menu ui
 	if battle_state == "menu" {
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		
 		// enemy selector
 		if state == 1 && (bt_selection[selection] == 0 || bt_selection[selection] == 3 || (bt_selection[selection] == 1 && can_act[selection])) || (bt_selection[selection] == 2 && state == 3) || (!can_act[selection] && bt_selection[selection] == 1 && spells[actselection[selection]].use_type == 2 && state == 3) {
-			draw_text_transformed(424, 364, "HP", 2, 1, 0)
-			draw_text_transformed(524, 364, "MERCY", 2, 1, 0)
+			draw_text_transformed(424, 364, loc("enc_ui_label_hp"), 2, 1, 0)
+			draw_text_transformed(524, 364, loc("enc_ui_label_mercy"), 2, 1, 0)
 			
 			for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 				if !enc_enemy_isfighting(i)
@@ -243,8 +250,10 @@ surface_set_target(surf) {
 					draw_sprite_ext(spr_ui_enc_sparestar, 0, 60 + string_width(encounter_data.enemies[i].name)*2 + 42, 385 + 30*i, 1, 1, 0, c_white, 1)
 				
 				var mercypercent = encounter_data.enemies[i].mercy
-				var desc = item_get_desc(spells[actselection[selection]],2)
-				if desc == "Standard" && encounter_data.enemies[i].acts_special_desc != desc 
+                
+				var desc = item_get_desc(spells[actselection[selection]], 2)
+				if is_instanceof(spells[actselection[selection]], item_s_defaultaction) // change the description if it's the default action
+                && encounter_data.enemies[i].acts_special_desc != desc 
 					desc = encounter_data.enemies[i].acts_special_desc
 				
 				draw_set_color(merge_color(party_getdata(global.party_names[selection], "color"), c_white, .5))
@@ -413,45 +422,75 @@ surface_set_target(surf) {
 		var tpxx = tproll - 80
 		var full = false
 		
-		draw_sprite_ext(spr_ui_enc_tpbar_caption, 0, 10 + tpxx, 77, 2, 2, 0, c_white, 1)
+        if !surface_exists(tp_surf)
+            tp_surf = surface_create(640, 480)
+        
+        surface_set_target(tp_surf) {
+            draw_clear_alpha(0,0)
+            
+    		draw_sprite_ext(spr_ui_enc_tpbar_caption, 0, 10 + tpxx, 77, 2, 2, 0, c_white, 1)
+    		
+    		draw_set_font(loc_font("main"))
+    		draw_set_color(c_white)
+    		
+    		if ceil(tplerp) >= 100 {
+    			full = true
+    			
+    			draw_set_color(c_yellow)
+    			draw_text_transformed(10 + tpxx, 118, "M", 2, 2, 0)
+    			draw_text_transformed(14 + tpxx, 138, "A", 2, 2, 0)
+    			draw_text_transformed(18 + tpxx, 158, "X", 2, 2, 0)
+    		}
+    		else {
+    			draw_text_transformed(8 + tpxx, 110, round(tplerp), 2, 2, 0)
+    			draw_text_transformed(13 + tpxx, 135, "%", 2, 2, 0)
+    		}
+        }
+        surface_reset_target()
+        
+        draw_surface(tp_surf, 0, 0)
+        draw_set_alpha(tp_glow_alpha)
+        gpu_set_blendmode(bm_add)
+        for (var i = 0; i < 360; i += 45) {
+            
+            draw_surface(tp_surf, lengthdir_x(2, i), lengthdir_y(2, i))
+        }
+        gpu_set_blendmode(bm_normal)
+        draw_set_alpha(1)
 		
-		draw_set_font(loc_getfont("main"))
-		draw_set_color(c_white)
-		
-		if ceil(tplerp) >= 100 {
-			full = true
-			
-			draw_set_color(c_yellow)
-			draw_text_transformed(10 + tpxx, 118, "M", 2, 2, 0)
-			draw_text_transformed(14 + tpxx, 138, "A", 2, 2, 0)
-			draw_text_transformed(18 + tpxx, 158, "X", 2, 2, 0)
-		}
-		else {
-			draw_text_transformed(8 + tpxx, 110, round(tplerp), 2, 2, 0)
-			draw_text_transformed(13 + tpxx, 135, "%", 2, 2, 0)
-		}
-		
-		draw_sprite_ext(spr_ui_enc_tpbar, 1, 38 + tpxx, 40, 1, 1, 0, c_white, 1)
-		
+        var __c_unfilled = c_red
+        var __c_filled = (!full ? c_orange : c_yellow)
+        var __c_outline = c_white
+        
+        if tp_constrict {
+            __c_unfilled = c_blue
+            
+            __c_filled = merge_color(c_blue, c_teal, 0.5)
+            if full
+                __c_filled = merge_color(c_teal, __c_filled, 0.5)
+        }
+        
+        draw_sprite_ext(spr_ui_enc_tpbar, (tp_constrict ? 2 : 1), 38 + tpxx, 40, 1, 1, 0, c_white, 1)
+        
 		if tplerp2 < tplerp {
 			draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
 				0, (100-tplerp) / 100 * 187, 
 				18, tplerp/100 * 187, 41 + tpxx,
 				46 + (100-tplerp)/100 * 187,
-				1, 1, c_red, 1
+				1, 1, __c_unfilled, 1
 			)
 			draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
 				0, (100-tplerp2)/100 * 187,
 				18, tplerp2/100 * 187, 
 				41 + tpxx, 46 + (100-tplerp2)/100 * 187,
-				1, 1, (!full ? c_orange : c_yellow), 1)
+				1, 1, __c_filled, 1)
 			
 			if !full {
 				draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
 					0, (100-tplerp)/100 * 187,
 					18, 2,
 					41 + tpxx, 46 + (100-tplerp)/100 * 187,
-					1, 1, c_white, 1
+					1, 1, __c_outline, 1
 				)
 			}
 		}
@@ -460,13 +499,13 @@ surface_set_target(surf) {
 				0, (100-tplerp2)/100 * 187,
 				18, tplerp2/100 * 187, 
 				41 + tpxx, 46 + (100-tplerp2)/100 * 187,
-				1, 1, c_white, 1
+				1, 1, __c_outline, 1
 			)
 			draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
 				0, (100-tplerp)/100 * 187, 
 				18, tplerp/100 * 187,
 				41 + tpxx, 46 + (100-tplerp)/100 * 187,
-				1, 1, (!full ? c_orange : c_yellow) ,1
+				1, 1, __c_filled ,1
 			)
 			
 			if !full {
@@ -474,13 +513,15 @@ surface_set_target(surf) {
 					0, (100-tplerp2)/100 * 187,
 					18, 2, 
 					41 + tpxx, 46 + (100-tplerp2)/100 * 187,
-					1, 1, c_white, 1
+					1, 1, __c_outline, 1
 				)
 			}
 		}
+        
+        draw_sprite_ext(spr_ui_enc_tpfilling, 0, 41 + tpxx, 46, 1, 1, 0, c_white, tp_glow_alpha)
 	}
 
 }
 surface_reset_target()
 
-draw_surface(surf,0,0)
+draw_surface(surf, 0, 0)

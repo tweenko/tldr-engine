@@ -98,7 +98,7 @@ function item_add(item_struct, type = ITEM_TYPE.CONSUMABLE) {
 		if item_get_count(type) >= item_get_maxcount(type) 
 			can = false
 	
-	var txt = "* ({col(y)}" + item_struct.name[0] + "{col(w)} was added to your {col(y)}" + item_get_store_name(type) + "{col(w)}.)"
+	var txt = string(loc("item_added"), item_get_name(item_struct), item_get_store_name(type))
 	if can {
 		if type == ITEM_TYPE.STORAGE {
 			var i = 0
@@ -112,14 +112,14 @@ function item_add(item_struct, type = ITEM_TYPE.CONSUMABLE) {
 			array_push(item_get_array(type), item_struct)
 	}
 	else
-		txt = "* (You didn't have enough space.)"
+		txt = loc("item_added_no_space")
 	
 	return txt
 }
 
 ///@desc replaces an item in the array
 function item_set(item_struct, index, type = ITEM_TYPE.CONSUMABLE) {
-	if index >= item_get_count(type) 
+	if index >= item_get_count(type) && type != ITEM_TYPE.STORAGE
 		index = item_get_count(type)
 	array_set(item_get_array(type), index, item_struct)
 }
@@ -213,17 +213,17 @@ function item_get_array(type){
 function item_get_store_name(type){
 	switch(type) {
 		case ITEM_TYPE.CONSUMABLE:
-			return "ITEMs"
+			return loc("item_type_items")
 		case ITEM_TYPE.KEY:
-			return "KEY ITEMs"
+			return loc("item_type_key_items")
 		case ITEM_TYPE.WEAPON:
-			return "WEAPONs"
+			return loc("item_type_weapons")
 		case ITEM_TYPE.ARMOR:
-			return "ARMORs"
+			return loc("item_type_armors")
 		case ITEM_TYPE.STORAGE:
-			return "STORAGE"
+			return loc("item_type_storage")
 		case ITEM_TYPE.LIGHT:
-			return "ITEMs"
+			return loc("item_type_items")
 	}
 }
 
@@ -311,16 +311,16 @@ function item_get_equipped(_item_ref, _party_name = undefined) {
 		}
 		
 		if __item.type == 2 {
-			var __a = party_getdata(global.party_names, "weapon")
+			var __a = party_getdata(_party_name, "weapon")
 			if !is_undefined(__a) && instanceof(__a) == __iteminst
 				__equipped ++
 		}
 		else if __item.type == 3 {
-			var __a = party_getdata(global.party_names, "armor1")
+			var __a = party_getdata(_party_name, "armor1")
 			if !is_undefined(__a) && instanceof(__a) == __iteminst
 				__equipped ++
 					
-			var __b = party_getdata(global.party_names, "armor2")
+			var __b = party_getdata(_party_name, "armor2")
 			if !is_undefined(__b) && instanceof(__b) == __iteminst
 				__equipped ++
 		}
@@ -405,4 +405,44 @@ function item_spell_reload(_party_name, _spell_index, _data = undefined) {
     	_n = new __iteminst()
         
     party_getdata(_party_name, "spells")[_spell_index] = _n
+}
+
+/// @desc for weapons and armors
+function item_apply(item_struct, party_name) {
+    if !is_undefined(item_struct) {
+        var structnames = struct_get_names(item_struct.stats)
+        for (var i = 0; i < array_length(structnames); ++i) {
+            party_adddata(party_name, structnames[i], struct_get(item_struct.stats, structnames[i]))
+        }
+    }
+}
+/// @desc for weapons and armors
+function item_deapply(item_struct, party_name) {
+    if !is_undefined(item_struct) {
+        var structnames = struct_get_names(item_struct.stats)
+        for (var i = 0; i < array_length(structnames); ++i) {
+            party_subtractdata(party_name, structnames[i], struct_get(item_struct.stats, structnames[i]))
+        }
+    }
+}
+
+/**
+ * localizes the item using the struct in the localization file
+ * @param {string} _loc the loc_id of the item struct
+ */
+function item_localize(_loc) {
+    var __data = loc(_loc)
+    var __names = struct_get_names(__data)
+    
+    for (var i = 0; i < array_length(__names); i ++) {
+        var __value = struct_get(__data, __names[i])
+        if is_struct(__value) && is_struct(struct_get(__data, __names[i])) { // loop through the struct and avoid deleting already existing hashes
+            for (var j = 0; j < struct_names_count(__value); j ++) {
+                var n = struct_get_names(__value)[j]
+                struct_set(struct_get(self, __names[i]), n, struct_get(__value, n))
+            }
+        }
+        else
+            struct_set(self, __names[i], __value)
+    }
 }

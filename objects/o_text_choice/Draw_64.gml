@@ -1,7 +1,7 @@
 if !on 
 	exit
 
-draw_set_font(loc_getfont("main"))
+draw_set_font(loc_font("main"))
 
 if array_length(choices) > 0 {
 	if selection == 0 {

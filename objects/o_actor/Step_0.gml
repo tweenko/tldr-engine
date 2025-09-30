@@ -84,7 +84,7 @@ if is_player && check_canmove {
 	// menu
 	if InputPressed(INPUT_VERB.SPECIAL) && !dodge_mode { // only allow while not in an overworld dodging section
 		// swap the menu object depending on the world
-		if global.world == 0 // dark world
+		if global.world == WORLD_TYPE.DARK // dark world
 			instance_create(o_ui_menu)
 		else // light world
 			instance_create(o_ui_menu_lw)

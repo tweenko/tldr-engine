@@ -2,7 +2,7 @@
 
 { // configuration
 	text = ""
-	font = loc_getfont("text")
+	font = loc_font("text")
 	gui = false
 	destroy_caller = false
 	
@@ -10,7 +10,7 @@
 	yspace = 18
 	
 	char = "none"
-	shadow = (global.world == 0 ? true : false)
+	shadow = (global.world == WORLD_TYPE.DARK ? true : false)
 	
 	typespd = 1
 	
@@ -74,7 +74,7 @@
 	
 	choice_inst = noone
 	looping = false
-	break_tabulation = 0
+	break_tabulation = true
 	current_box = 0
 	
 	auto_pauses = true

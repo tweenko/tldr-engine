@@ -4,7 +4,7 @@ if transition_mode == 0 {
 } 
 else {
 	is_transitioning = false;
-	instance_destroy(mygraze);
+	instance_destroy(inst_graze);
 	instance_destroy();
 }
 

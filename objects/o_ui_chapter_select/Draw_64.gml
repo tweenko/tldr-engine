@@ -4,7 +4,7 @@ if !surface_exists(surf)
 if state == -1 {
 	surface_set_target(surf){
 		draw_clear_alpha(0, 0)
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		
 		draw_set_halign(fa_center)
 		draw_set_alpha(alpha)
@@ -34,7 +34,7 @@ else {
 	
 		var total = array_length(chapters)
 
-		draw_set_font(loc_getfont("main"))
+		draw_set_font(loc_font("main"))
 		draw_set_alpha(alpha)
 
 		for (var i = 0; i < array_length(chapters); ++i) {
@@ -53,7 +53,7 @@ else {
 			
 			draw_set_font(font_main)
 		    draw_text_transformed(50, 24 - 8 + i*60 + yadd, "Chapter " + string(i + 1), 2, 2, 0)
-			draw_set_font(loc_getfont("main"))
+			draw_set_font(loc_font("main"))
 			
 			for (var j = 0; j < SAVE_SLOTS; ++j) {
 				if save_chs[i]!=-1 && save_chs[i][j]!=-1 && save_chs[i][j][1] {
@@ -75,7 +75,7 @@ else {
 					draw_set_color(c_yellow)
 				}
 				
-				draw_text_transformed(264 - (loc_getlang()=="ja" ? 16 : 0), 24-8+i*60+yadd, loc("ui_chs_play"), 2, 2, 0)
+				draw_text_transformed(264 - (loc_getlang()=="ja" ? 16 : 0), 24-8+i*60+yadd, loc("chapter_select_play"), 2, 2, 0)
 				draw_set_color(c_white)
 				
 				if confirmselection == 1 { 
@@ -86,7 +86,7 @@ else {
 					draw_set_color(c_yellow)
 				}
 				
-				draw_text_transformed(414 + (loc_getlang()=="ja" ? 12 : 0), 24-8+i*60+yadd, loc("ui_chs_donot"), 2, 2, 0)
+				draw_text_transformed(414 + (loc_getlang()=="ja" ? 12 : 0), 24-8+i*60+yadd, loc("chapter_select_donot"), 2, 2, 0)
 				draw_set_color(c_yellow)
 			}
 			else {
@@ -121,17 +121,17 @@ else {
 			}
 		
 			draw_set_font(font_main_ja)
-			draw_text_transformed(350, 440 - 6 + yadd, loc("ui_chs_lanswitch"), 2, 2, 0)
-			draw_set_font(loc_getfont("main"))
+			draw_text_transformed(350, 440 - 6 + yadd, loc("chapter_select_lanswitch"), 2, 2, 0)
+			draw_set_font(loc_font("main"))
 		}
 		else {
 			draw_set_halign(fa_center)
 			
 			if selection == total+1 && horselection == 0 {
 				draw_set_color(c_yellow)
-				draw_sprite_ext(spr_ui_soul, 0, 320 - string_width(loc("ui_chs_quit")) - 30, 442, 2, 2, 0, c_red, alpha)
+				draw_sprite_ext(spr_ui_soul, 0, 320 - string_width(loc("chapter_select_quit")) - 30, 442, 2, 2, 0, c_red, alpha)
 			}
-			draw_text_transformed(320, 440-6 + yadd, loc("ui_chs_quit"), 2, 2, 0)
+			draw_text_transformed(320, 440-6 + yadd, loc("chapter_select_quit"), 2, 2, 0)
 		}
 		
 		draw_set_alpha(alpha * vtext_alpha)
@@ -159,7 +159,7 @@ else {
 
 surface_set_target(surf) {
 	draw_set_valign(fa_bottom)
-	draw_set_font(loc_getfont("main"))
+	draw_set_font(loc_font("main"))
 	draw_set_alpha(vtext_alpha)
 	draw_set_color(c_gray)
 	

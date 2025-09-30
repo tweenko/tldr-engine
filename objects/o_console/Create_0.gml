@@ -47,13 +47,38 @@ registred_commands = {
         desc: "Lets you end an encounter instantly.",
         execute: function() {
             if instance_exists(o_enc) {
-                for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
-                    if enc_enemy_isfighting(i)
-                        instance_destroy(o_enc.encounter_data.enemies[i].actor_id)
+                if o_enc.battle_state == "turn" {
+                    for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
+                        if enc_enemy_isfighting(i)
+                            instance_destroy(o_enc.turn_objects[i])
+                    }
                 }
-                instance_destroy(o_enc.menutext)
-                
-                o_enc.battle_state = "win"
+                else if o_enc.battle_state == "dialogue" {
+                    o_enc.battle_state = "turn"
+                    with o_enc {
+                        for (var i = 0; i < array_length(dialogueinstances); ++i) {
+                            if enc_enemy_isfighting(i)
+                    	        instance_destroy(dialogueinstances[i])
+                    	}
+                    }
+                    
+                    call_later(1, time_source_units_frames, function() {
+                        for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
+                            if enc_enemy_isfighting(i)
+                                instance_destroy(o_enc.turn_objects[i])
+                        }
+                    })
+                }
+                else {
+                    instance_destroy(o_enc.menutext)
+                    o_enc.battle_state = "win"
+                    
+                    // destroy the enemy actors
+                    for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
+                        if enc_enemy_isfighting(i)
+                            instance_destroy(o_enc.encounter_data.enemies[i].actor_id)
+                    }
+                }
             }
             else 
                 show_debug_message("CONSOLE: o_enc not found, no encounter ended")

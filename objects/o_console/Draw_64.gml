@@ -1,6 +1,6 @@
-loc_getfont("main")
+loc_font("main")
 if active {
-	draw_set_font(loc_getfont("main"))
+	draw_set_font(loc_font("main"))
 	
 	var curkey = chr(keyboard_key)
 	if keyboard_key == vk_tab

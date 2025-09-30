@@ -4,7 +4,7 @@ function item_armor() : item() constructor {
 }
 
 function item_a_ambercard() : item_armor() constructor {
-    name = ["Silver Card"]
+    name = ["Amber Card"]
 	desc = ["A thin square charm that sticks to you, increasing defense.", "--", "Defensive charm"]
 	
 	stats = {
@@ -16,6 +16,8 @@ function item_a_ambercard() : item_armor() constructor {
 		ralsei: "It's sticky, huh, Kris...",
 		noelle: "It's like a name-tag!",
 	}
+    
+    item_localize("item_a_amber_card")
 }
 function item_a_silvercard() : item_armor() constructor {
 	name = ["Silver Card"]
@@ -38,36 +40,15 @@ function item_a_silvercard() : item_armor() constructor {
 		ralsei: "Do they take credit?",
 		noelle: "It goes with my watch!",
 	}
+    
+    item_localize("item_a_silver_card")
 }
 
-function item_a_elementtest() : item_armor() constructor {
-	name = ["Element Charm"]
-	desc = ["A peculiar object. Shines brightly. Protects from PUPPET/CAT elemental attacks.", "--"]
-	
-	stats = {
-		defense: 3,
-		element_resistance: {
-			puppet_cat: 20,
-		},
-	}
-	effect = {
-        text: "P/C -20%",
-        sprite: spr_ui_menu_icon_downb
-    }
-	icon = spr_ui_menu_icon_armor
-	
-	reactions = {
-		susie: "This smells like cat food.",
-		ralsei: "Shiny!!",
-		noelle: "Yuck. it's smelly...",
-	}
-}
-
-function item_a_pinkribbon() : item_armor() constructor {
+function item_a_pink_ribbon() : item_armor() constructor {
 	name = ["Pink Ribbon"]
 	desc = ["A cute hair ribbon. Increases the range at which bullets raise tension.", "--"]
 	
-	armor_blacklist = ["susie"]
+	a_blacklist = ["susie"]
 	
 	stats = {
 		defense: 1,
@@ -82,12 +63,14 @@ function item_a_pinkribbon() : item_armor() constructor {
 		ralsei: "Um... D-do I look cute...?",
 		noelle: "... feels familiar.",
 	}
+    
+    item_localize("item_a_pink_ribbon")
 }
-function item_a_whiteribbon() : item_armor() constructor {
+function item_a_white_ribbon() : item_armor() constructor {
 	name = ["White Ribbon"]
 	desc = ["A crinkly hair ribbon that slightly\nincreases your defense.", "--"]
 	
-	armor_blacklist = ["susie"]
+	a_blacklist = ["susie"]
 	
 	stats = {
 		defense: 2,
@@ -102,12 +85,14 @@ function item_a_whiteribbon() : item_armor() constructor {
 		ralsei: "Um... D-do I look cute...?",
 		noelle: "... feels familiar.",
 	}
+    
+    item_localize("item_a_white_ribbon")
 }
-function item_a_twinribbon() : item_armor() constructor {
+function item_a_twin_ribbon() : item_armor() constructor {
 	name = ["Twin Ribbon"]
 	desc = ["Two ribbons. You'll have to put\nyour hair into pigtails.", "--"]
 	
-	armor_blacklist = ["susie"]
+	a_blacklist = ["susie"]
 	
 	stats = {
 		defense: 3,
@@ -122,9 +107,11 @@ function item_a_twinribbon() : item_armor() constructor {
 		ralsei: "Try around my horns!",
 		noelle: "... nostalgic, huh.",
 	}
+    
+    item_localize("item_a_twin_ribbon")
 }
 
-function item_a_royalpin() : item_armor() constructor {
+function item_a_royal_pin() : item_armor() constructor {
     name = ["Royal Pin"]
     desc = ["A brooch engraved with Queen's face. Careful of the sharp point.", "--", "Luxurious brooch."]
     
@@ -138,8 +125,10 @@ function item_a_royalpin() : item_armor() constructor {
 		ralsei: "I'm a cute little corkboard!",
 		noelle: "Queen... gave this to me.",
 	}
+    
+    item_localize("item_a_royal_pin")
 }
-function item_a_silverwatch() : item_armor() constructor {
+function item_a_silver_watch() : item_armor() constructor {
     name = ["Silver Watch"]
     desc = ["Grazing bullets affects the turn length by 10% more", "--"]
 	lw_counterpart = item_a_lw_wristwatch
@@ -157,14 +146,18 @@ function item_a_silverwatch() : item_armor() constructor {
 		ralsei: "I'm late, I'm late!",
 		noelle: "(Th-this was mine...)",
 	}
+    
+    item_localize("item_a_silver_watch")
 }
 function item_a_lw_wristwatch() : item_armor() constructor {
     name = ["Wristwatch"]
-    desc = ["Maybe an expensive antique. Stuck before half past noon.", "--"]
+    desc = ["* Maybe an expensive antique. Stuck before half past noon.", "--"]
 	
 	stats = {
 		defense: 1,
 	}
+    
+    item_localize("item_a_wristwatch")
 }
 
 function item_a_dealmaker() : item_armor() constructor {
@@ -175,7 +168,7 @@ function item_a_dealmaker() : item_armor() constructor {
 		defense: 5,
         magic: 5,
         element_resistance: {
-			puppet_cat: 40,
+			puppet_cat: .4,
 		},
 	}
     stats_misc = {
@@ -191,17 +184,19 @@ function item_a_dealmaker() : item_armor() constructor {
 		ralsei: "Two pairs of glasses?",
 		noelle: "(Seems... familiar?)",
 	}
+    
+    item_localize("item_a_dealmaker")
 }
 function item_a_shadowmantle() : item_armor() constructor {
     name = ["ShadowMantle"]
     desc = ["Shadows slip off like water.\nGreatly protects against Dark and Star attacks.", "--"]
     
-    armor_blacklist = ["noelle"]
+    a_blacklist = ["noelle"]
     
 	stats = {
 		defense: 3,
         element_resistance: {
-			dark_star: 66,
+			dark_star: .66,
 		},
 	}
 	effect = {
@@ -214,4 +209,6 @@ function item_a_shadowmantle() : item_armor() constructor {
 		ralsei: "Sh-should I wear this...?",
 		noelle: "No... it's for someone... taller.",
 	}
+    
+    item_localize("item_a_shadowmantle")
 }

@@ -22,13 +22,13 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
 
 // setup the shadowguys to have socks and move
 for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
-	var enemy = o_enc.encounter_data.enemies[i]
-	if enemy.name == "Shadowguy" && enc_enemy_isfighting(i) && instance_exists(enemy.actor_id){
-		array_push(saved_pos, [enemy.actor_id.x, enemy.actor_id.y])
-		do_animate(1, 0, 10, "linear", enemy.actor_id, "flash")
-		enemy.actor_id.image_index = 0
+	var _enemy = o_enc.encounter_data.enemies[i]
+	if _enemy.name == "Shadowguy" && enc_enemy_isfighting(i) && instance_exists(_enemy.actor_id){
+		array_push(saved_pos, [_enemy.actor_id.x, _enemy.actor_id.y])
+		do_animate(1, 0, 10, "linear", _enemy.actor_id, "flash")
+		_enemy.actor_id.image_index = 0
 		
-		with(enemy.actor_id){ // create socks
+		with(_enemy.actor_id){ // create socks
 			moveseed = [random_range(10, 14), random_range(-90, 90)]
 			my_socks = instance_create(o_ex_enc_m_sguy_socks, 
 				x, y, DEPTH_ENCOUNTER.BULLETS_OUTSIDE, 
