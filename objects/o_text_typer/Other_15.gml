@@ -43,13 +43,13 @@ while looping || normalupd {
 				if is_array(struct_get(char_presets, char).voice_pitchrange){
 					pitch = random_range(
 						struct_get(char_presets, char).voice_pitchrange[0],
-						struct_get(char_presets, char).voice_pitchrange[0]
+						struct_get(char_presets, char).voice_pitchrange[1]
 					)
 				}
 				
 				// play unless it's a punctuation sign
 				if struct_get(char_presets, char).voice != -1 
-					&& curchar != "." && curchar != " " 
+					&& curchar != "." && curchar != " " && curchar != "　"
 					&& curchar != "," && curchar != "!" 
 					&& curchar != "?" && curchar != "-" 
 				{
@@ -83,7 +83,7 @@ while looping || normalupd {
 				{ // en
 					if (curchar == "." || curchar == "?" || curchar == "!")
 					&& string_length(text) > 1 
-					&& string_char_at(text, 1) == " "
+					&& (string_char_at(text, 1) == " " || string_char_at(text, 1) == "　")
 						pause = 10
 					
 					if curchar == ","
@@ -91,7 +91,7 @@ while looping || normalupd {
 					
 					if curchar == "-" 
 					&& string_length(text) > 1 
-					&& string_char_at(text, 1) == " "
+					&& (string_char_at(text, 1) == " " || string_char_at(text, 1) == "　")
 						pause = 5
 				}
 				{ // ja
@@ -206,7 +206,8 @@ else {
 	
 if _face == noone && instance_exists(face_inst) {
 	instance_clean(face_inst)
-	x -= 116
+	x -= face_xoff
+    face_xoff = 0
 }
 if face_expression != face_expression_prev {
 	face_inst.f_index = face_expression

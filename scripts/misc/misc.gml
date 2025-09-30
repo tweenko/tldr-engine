@@ -20,12 +20,15 @@ function string_to_color(color_string){
 			return c_gray
 		case "c_silver":
 			return c_silver
+        case "c_orange":
+            return c_orange
 		default:
 			return c_white
 	}
 }
 function color_to_string(color){
 	var cc = merge_color(c_aqua, c_blue, 0.3)
+    
 	switch color {
 		case c_red:
 			return "c_red"
@@ -75,9 +78,9 @@ function afterimage(_decay_speed = 0.1, inst = id, gui = false){
 }
 
 ///@desc draws the deltarune dialogue box
-function ui_dialoguebox_create(xx, yy, width, height){
+function ui_dialoguebox_create(xx, yy, width, height, world = global.world){
 	var frame = (o_world.frames/10) % 8
-	if global.world == 0 {
+	if world == WORLD_TYPE.DARK {
 		draw_sprite_ext(spr_pixel, 0, xx + 12, yy + 12, width - 24, height - 24, 0, c_black, 1);
         
 		draw_sprite_ext(spr_ui_dkbox_top, 0, xx + 16, yy, width - 32, 2, 0, c_white, 1)
@@ -175,7 +178,7 @@ function input_binding_to_string(bind, upper = true, _is_gamepad = InputDeviceIs
 	return (upper ? string_upper(__ret) : __ret)
 }
 /// @desc converts a bind to text (or sprite) - gets it ready for use in dialogue
-function input_binding_intext(verb){
+function input_binding_intext(verb) {
 	if InputPlayerUsingGamepad() {
 		if is_array(verb) {
 			var res = ""
@@ -198,6 +201,41 @@ function input_binding_intext(verb){
 	}
 	
 	return $"[{input_binding_to_string(verb)}]"
+}
+
+/// @desc converts a bind to text (or sprite) - gets it ready for use in dialogue
+function input_binding_draw(verb, xx, yy, scale, label = "", pre_label = "", _is_gamepad = InputDeviceIsGamepad(InputPlayerGetDevice())) {
+	if _is_gamepad {
+        draw_text_transformed(xx, yy, pre_label, scale, scale, 0)
+        xx += string_width(pre_label) * scale
+        
+		if is_array(verb) {
+			for (var i = 0; i < array_length(verb); ++i) {
+                draw_sprite_ext(InputIconGet(verb[i]), 0, xx, yy-scale + 2.5*scale, scale, scale, 0, c_white, 1)
+                xx += sprite_get_width(InputIconGet(verb[i])) * scale
+			}
+		}
+		else {
+            draw_sprite_ext(InputIconGet(verb), 0, xx, yy-scale + 2.5*scale, scale, scale, 0, c_white, 1)
+            xx += sprite_get_width(InputIconGet(verb)) * scale
+        }
+        draw_text_transformed(xx, yy, label, scale, scale, 0)
+        
+        return true
+	}
+    
+	if is_array(verb) {
+		var res = ""
+		for (var i = 0; i < array_length(verb); ++i) {
+			res += input_binding_to_string(InputBindingGet(false, verb[i]), true, _is_gamepad) + "/"
+		}
+		res = string_delete(res, string_width(res)-1, 1)
+		
+        draw_text_transformed(xx, yy, pre_label + $"[{res}]" + label, scale, scale, 0)
+        return true
+	}
+	
+    draw_text_transformed(xx, yy, pre_label + $"[{input_binding_to_string(InputBindingGet(false, verb), true, _is_gamepad)}]" + label, scale, scale, 0)
 }
 
 /// @ignore

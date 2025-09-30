@@ -1,4 +1,4 @@
-function ex_enemy_shadowguy() : enemy_base() constructor{
+function ex_enemy_shadowguy() : enemy() constructor{
 	name = "Shadowguy"
 	obj = o_ex_actor_e_sguy
 	turn_object = o_ex_turn_sguy
@@ -83,28 +83,105 @@ function ex_enemy_shadowguy() : enemy_base() constructor{
 	//text
 	dialogue = function(slot){
 	}
-	flavor = function(slot){
-		var text = ""
-		var priority = 0 //the higher, the more likely to appear
-		if o_enc.encounter_data.enemies[slot].mercy >= 100 
-            text = "* Shadowguy shuffles their feet in a celebratory manner."
-		if text == "" {
-			var a = [
-				"* Smells like jam."
-			]
-			
-			if o_enc.encounter_data.debug_name == "shadowguys" 
-                array_push(a, "* Shadowguys argue over who gets the next solo.")
-			text = a[irandom(array_length(a)-1)]
-		}
-		
-		if o_enc.encounter_data.enemies[slot].hp <= o_enc.encounter_data.enemies[slot].max_hp/3 {
-			text = "* Shadowguy skips a beat!"
-			priority = 1
-		}
-		return {
-			text,
-			priority,
-		}
+}
+
+function ex_enemy_spawnling() : enemy() constructor{
+	name = "Spawnling"
+	obj = {
+        obj: o_ex_actor_e_spawnling,
+        var_struct: {
+            s_hurt: spr_ex_e_spawnling_hurt,
+            s_spared: spr_ex_e_spawnling,
+        }
+    }
+	turn_object = o_turn_default_dark
+	
+	//stats
+	hp =		5000
+	max_hp =	5000
+	attack =	30
+	defense =	6
+	
+	//acts
+	acts = [
+		{
+			name: "Check",
+			party: [],
+			desc: -1,
+			exec: function() {
+				encounter_scene_dialogue("* SPAWNLING - Common TITAN SPAWN. Use {col(c_orange)}FOCUS{col(w)} to burn its shell.")
+			}
+		},
+	]
+    
+	//text
+	dialogue = function(slot){
+	}
+}
+function ex_enemy_dentos() : enemy() constructor{
+	name = "Dentos"
+	obj = {
+        obj: o_ex_actor_e_dentos,
+        var_struct: {
+            s_hurt: spr_ex_e_dentos_hurt,
+            s_spared: spr_ex_e_dentos,
+        }
+    }
+	turn_object = o_ex_turn_dentos
+	
+	//stats
+	hp =		5000
+	max_hp =	5000
+	attack =	30
+	defense =	6
+	
+	//acts
+	acts = [
+		{
+			name: "Check",
+			party: [],
+			desc: -1,
+			exec: function() {
+				encounter_scene_dialogue("* DENTOS - Beware of its sharp teeth. Use {col(c_orange)}FOCUS{col(w)} to burn its shell.")
+			}
+		},
+	]
+    
+	//text
+	dialogue = function(slot){
+	}
+}
+
+function ex_enemy_knight() : enemy() constructor{
+	name = "Knight"
+	obj = {
+        obj: o_ex_actor_e_knight,
+        var_struct: {
+            s_hurt: spr_ex_e_knight,
+            s_spared: spr_ex_e_knight,
+        }
+    }
+	turn_object = o_ex_turn_knight
+	
+	//stats
+	hp =		7300
+	max_hp =	7300
+	attack =	230
+	defense =	0
+	
+	//acts
+	acts = [
+		{
+			name: "Check",
+			party: [],
+			desc: -1,
+			exec: function() {
+				encounter_scene_dialogue("* DENTOS - Beware of its sharp teeth. Use {col(c_orange)}FOCUS{col(w)} to burn its shell.")
+			}
+		},
+	]
+    
+	//text
+	dialogue = function(slot){
 	}
 }

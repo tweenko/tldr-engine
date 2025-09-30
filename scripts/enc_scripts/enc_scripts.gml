@@ -50,9 +50,22 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
 			else if seed == "" {
 				o.run_away = true
 				audio_play(snd_defeatrun)
+                
+                if !recruit_islost(o_enc.encounter_data.enemies[target]) {
+                    instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {
+                        draw: "lost",
+                        mode: 4,
+                    })
+                    recruit_lose(o_enc.encounter_data.enemies[target])
+                }
 			}
             else if seed == "freeze" {
                 do_animate(0, 1, 20, "linear", o, "freeze")
+                
+                instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {
+                    draw: "frozen",
+                    mode: 4,
+                })
                 audio_play(snd_petrify)
             }
 		}
@@ -125,7 +138,7 @@ function enc_start(set) {
 }
 
 ///@desc returns the enemy count during the current encounter
-function enc_enemy_count(only_alive = true){
+function enc_enemy_count(only_alive = true) {
 	if only_alive {
 		var c = 0
 		for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
@@ -156,24 +169,24 @@ function enc_gameover(){
 
 /// @arg {real,array} index could be an index or array if there are multiple enemies to spare
 function cutscene_spare_enemy(index) {
-    var enemy = o_enc.encounter_data.enemies
+    var _enemy = o_enc.encounter_data.enemies
     
     if !is_array(index)
         index = [index]
     
     for (var i = 0; i < array_length(index); i ++) {
-        var obj = enemy[index[i]].actor_id
+        var obj = _enemy[index[i]].actor_id
         
         if !enc_enemy_isfighting(index[i])
             continue
         
-        recruit_advance(enemy[index[i]])
+        recruit_advance(_enemy[index[i]])
         
         cutscene_set_variable(obj, "sprite_index", obj.s_spared)
         cutscene_instance_create(o_text_hpchange, 
             obj.x, obj.y - obj.myheight/2, 
             obj.depth - 100, {
-                draw: $"{recruit_get(enemy[index[i]])}/{recruit_getneed(enemy[index[i]])}", 
+                draw: $"{recruit_get_progress(_enemy[index[i]])}/{recruit_getneed(_enemy[index[i]])}", 
                 mode: 3
             }
         )
@@ -189,7 +202,7 @@ function cutscene_spare_enemy(index) {
     cutscene_sleep(4)
     
     for (var i = 0; i < array_length(index); i ++) {
-        var obj = enemy[index[i]].actor_id
+        var obj = _enemy[index[i]].actor_id
         
         cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
             sprite_index: obj.sprite_index, 

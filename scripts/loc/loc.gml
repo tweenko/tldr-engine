@@ -52,21 +52,30 @@ function loc(loc_id) {
 		
 	return loc_id
 }
+///@desc used to localize sprites. if unable to do so, spr_default will be returned
+///@arg {string} loc_id the id of the localized sprite you want to get
+function loc_sprite(loc_id) {
+    if struct_exists(global.loc_source, loc_id)
+		return asset_get_index(struct_get(global.loc_source, loc_id))
+		
+	return spr_default
+}
+///@desc used to localize fonts
+///@arg {string} font_id the id of the localized font you want to get
+function loc_font(font_id){
+	return asset_get_index(loc("font_" + font_id))
+}
 
 function loc_error(err_text = "Undefined", critical = false) {
 	show_error(string(" \nLOCALIZATION ERROR:\n{0}\n ", err_text), critical)
-}
-
-function loc_getfont(font_id){
-	return asset_get_index(loc("font_"+font_id))
 }
 
 function loc_getlang() {
 	return global.loc_lang
 }
 
-/// @desc the language changes usually fully apply after the game is restarted, so it's highly recommended
-function loc_switch_lang(lang = undefined, restart_game = true) {
+/// @desc the language changes usually fully apply after the room is restarted, so it's highly recommended; however, if your room supports live language switching, feel free to set it to false.
+function loc_switch_lang(lang = undefined, restart_room = true) {
 	if is_undefined(lang) {
 		var __cur = array_get_index(LOC_LANG_LIST, global.loc_lang)
 		global.loc_lang = LOC_LANG_LIST[(__cur + 1) % array_length(LOC_LANG_LIST)]
@@ -75,7 +84,9 @@ function loc_switch_lang(lang = undefined, restart_game = true) {
 		global.loc_lang = lang
 	
 	loc_load()
+    with o_world
+        event_user(0)
     
-    if restart_game
-        game_restart()
+    if restart_room
+        room_goto(room)
 }

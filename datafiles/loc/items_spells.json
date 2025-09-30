@@ -1,0 +1,80 @@
+{
+    "spell_act_name": {
+        "en": "ACT", "ja": "こうどう"
+    },
+    "spell_act_desc": {
+        "en": "You can do many things.\nDon't confuse it with magic.",
+        "ja": "いろんなことをする。\nまほうではない。"
+    },
+
+    "spell_rude_buster_name": {
+        "en": "Rude Buster", "ja": "ルードバスター"
+    },
+    "spell_rude_buster_desc": {
+        "en": ["Deals moderate Rude-elemental damage to one foe. Depends on Attack & Magic.", "Rude Damage"],
+        "ja": ["敵1体に中程度の暴属性ダメージ。\nこうげきまりょく値によりダメージ量変化。", "暴属性\nダメージ"]
+    },
+
+    "spell_susieheal_name": {
+        "en": ["UltimateHeal", "UltraHeal", "OKHeal", "BetterHeal"], 
+        "ja": ["ウルティマヒール", "ウルトラヒール", "OKヒール", "ヒール"]
+    },
+    "spell_susieheal_desc": {
+        "en": [
+            ["Heals 1 party member to the best of Susie's ability.", "Best Healing"],
+            ["An awesome healing spell. ... right?", "Best Healing"],
+            ["It's not the best healing spell, but it may have its uses.", "OK healing"],
+            ["A healing spell that has grown with practice and confidence.", "Heal Ally"]
+        ],
+        "ja": [
+            ["味方１人を\nスージィのMAXパワーで回復", "最強の\n回復まほう"],
+            ["最強の回復まほう。\n…のはず？,", "最強の\n回復まほう"],
+            ["カンペキな回復まほうではないものの\nなにか使い道があるかも。", "並みの\n回復"],
+            ["練習をつんで自信を得て\n効果がアップした回復まほう", "仲間を\n回復"]
+        ]
+    },
+
+    "spell_pacify_name": {
+        "en": "Pacify", "ja": "スリープ"
+    },
+    "spell_pacify_desc": {
+        "en": ["SPARE a tired enemy by putting them to sleep.", "Spare TIRED foe", "* {0} cast {1}!{br}{resetx}{sleep(10)}* But the enemy wasn't {col(tired_aqua)}TIRED{reset_col}..."],
+        "ja": ["「くたびれ」状態の敵を眠らせて逃がす。", "くたびれた\n敵を逃がす", "＊ {0}は{1}を唱えた！{br}{resetx}{sleep(10)}＊ しかし　敵は{col(tired_aqua)}くたびれて{reset_col}いない…"]
+    },
+
+    "spell_heal_prayer_name": {
+        "en": "Heal Prayer", "ja": "いやしの詩"
+    },
+    "spell_heal_prayer_desc": {
+        "en": ["Heavenly Light restores a little HP to\none party member. Depends on Magic.", "Heal Ally"],
+        "ja": ["天から降り注ぐ光が仲間1人のHPを少量回復。\nまりょくによって回復量変化。", "仲間を\n回復"]
+    },
+
+    "spell_sleep_mist_name": {
+        "en": "Sleep Mist", "ja": "スリープミスト"
+    },
+    "spell_sleep_mist_desc": {
+        "en": ["A cold mist sweeps through, sparing all TIRED enemies.", "Spare TIRED foes"],
+        "ja": ["冷たい霧混じりの風が吹き\nくたびれた敵を全員逃がす。", "くたびれた\n敵を逃がす"]
+    },
+
+    "spell_iceshock_name": {
+        "en": "IceShock", "ja": "アイスショック"
+    },
+    "spell_iceshock_desc": {
+        "en": ["Deal magical ICE damage to one enemy.", "Damage w/ ICE"],
+        "ja": ["氷属性のまほう。\n敵１体を　こうげきする。", "氷属性の\nこうげき"]
+    },
+
+    "spell_party_action_name": {
+        "en": "{0}-Action", "ja": "{0}アクション"
+    },
+    "spell_party_action_desc": {
+        "en": "Standard", "ja": "標準"
+    },
+
+    "spell_cast" : {
+      "en" : "* {0} cast {1}!",
+      "ja" : "＊ {0}は{1}を唱えた！"
+    }
+}

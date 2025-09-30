@@ -1,1 +1,1 @@
-item_inside = new item_a_pinkribbon()
+item_inside = new item_a_pink_ribbon()

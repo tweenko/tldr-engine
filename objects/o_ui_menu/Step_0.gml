@@ -304,7 +304,7 @@ if !only_hp {
 				{
 					allow = false
 					customreaction = true
-					item_menu_party_react("susie", "Hey, hands off!")
+					item_menu_party_react("susie", loc("item_susie_comment"))
 				}
 				
 				if allow {
@@ -319,6 +319,7 @@ if !only_hp {
 							item_delete(e_selection-1, (e_pselection>0 ? 3 : 2))
 						else 
 							item_set(equipment[e_pselection], e_selection-1, (e_pselection>0 ? 3 : 2))
+                        
 						party_setdata(global.party_names[e_pmselection], order[e_pselection], arr_mod[e_selection])
 					}
 					else {
@@ -327,20 +328,9 @@ if !only_hp {
 							party_setdata(global.party_names[e_pmselection], order[e_pselection], undefined)
 						}
 					}
-					
-					if !is_undefined(prev_item) {
-						var structnames = struct_get_names(prev_item.stats)
-						for (var i = 0; i < array_length(structnames); ++i) {
-							party_subtractdata(global.party_names[e_pmselection], structnames[i], struct_get(prev_item.stats, structnames[i]))
-						}
-					}
-					
-					if !is_undefined(arr_mod[e_selection]) {
-						var structnames2 = struct_get_names(arr_mod[e_selection].stats)
-						for (var i = 0; i < array_length(structnames2); ++i) {
-						    party_adddata(global.party_names[e_pmselection], structnames2[i], struct_get(arr_mod[e_selection].stats, structnames2[i]))
-						}
-					}
+                    
+                    item_deapply(prev_item, global.party_names[e_pmselection])
+                    item_apply(arr_mod[e_selection], global.party_names[e_pmselection])
 					
 					audio_play(snd_equip)
 				}

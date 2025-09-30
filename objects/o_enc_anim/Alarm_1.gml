@@ -9,16 +9,12 @@ party_setfollow(false)
 // animate the party in
 for (var i = 0; i < array_length(global.party_names); ++i) {
 	var obj = party_get_inst(global.party_names[i])
-	var startpos = guipos_y() + 130 - 20*array_length(global.party_names)
 	
-	if array_length(global.party_names) == 3 
-		startpos = guipos_y() + 64
-	
-	do_anime(obj.x, guipos_x() + 52, 10, "linear", function(v, obj) {
+	do_anime(obj.x, encounter_data.party_pos(i)[0], 10, "linear", function(v, obj) {
 		if instance_exists(obj) 
 			obj.x = v
 	}, obj)
-	do_anime(obj.y, startpos + i*44, 10, "linear", function(v, obj) {
+	do_anime(obj.y, encounter_data.party_pos(i)[1], 10, "linear", function(v, obj) {
 		if instance_exists(obj) 
 			obj.y = v
 	}, obj)

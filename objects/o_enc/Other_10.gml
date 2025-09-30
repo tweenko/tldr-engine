@@ -14,12 +14,6 @@
 	mysoul = noone
 }
 { // arrays for each party member
-	can_act = array_create_ext(
-		array_length(global.party_names), 
-		function(index) {
-			return array_equals(party_getdata(global.party_names[index], "spells")[0].name, ["ACT"])
-		}
-	)
 	pmlerp = array_create(array_length(global.party_names), 0)
 	bt_selection = array_create(array_length(global.party_names), 0)
 	
@@ -38,7 +32,7 @@
 	partyactselection = array_create(array_length(global.party_names), 0)
 	together_with = array_create(array_length(global.party_names), [])
 	
-	char_state = array_create(array_length(global.party_names), -1)
+	char_state = array_create(array_length(global.party_names), CHAR_STATE.IDLE)
 }
 
 { // action execution - party turn

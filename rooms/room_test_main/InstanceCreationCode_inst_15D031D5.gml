@@ -1,1 +1,1 @@
-global.save.ROOM_NAME = "Test Zone - Entrance"
+global.save.ROOM_NAME = "txt_room_test_zone_entrance"

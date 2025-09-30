@@ -1,4 +1,4 @@
-draw_set_font(loc_getfont("main"))
+draw_set_font(loc_font("main"))
 draw_set_color(white)
 
 if bg != -1 {
@@ -36,7 +36,7 @@ if display_chapter {
 var t = msg
 if msg_time > 0 
 	t = msg_temp
-draw_text_transformed_shadow(80, 60, t, 2, 2, 0, 2, shadow)
+draw_text_transformed_shadow(80, 60, string(struct_get(localized_messages, t), global.chapter, global.chapter-1, selection + 1), 2, 2, 0, 2, shadow)
 
 for (var i = 0; i < SAVE_SLOTS; ++i) {
 	var s = selection
@@ -65,7 +65,7 @@ for (var i = 0; i < SAVE_SLOTS; ++i) {
 		draw_sprite_ext(spr_pixel, 0, 106, 106+i*90, 428, outline_thickness, 0, col, 1)
 		
 		if outline_thickness == 4 {
-			// recreate the weird visual bug from the bottom right corner
+			// recreate the weird visual bug from the bottom right corner (yes, i know...)
 			draw_sprite_ext(spr_pixel, 0, 106+426, 106+i*90, 1, 86, 0, col, 1)
 			draw_sprite_ext(spr_pixel, 0, 106, 106+i*90+86, 427, 1, 0, col, 1)
 			draw_sprite_ext(spr_pixel, 0, 106+426+2, 106+i*90, 1, 88, 0, col, 1)
@@ -86,18 +86,18 @@ for (var i = 0; i < SAVE_SLOTS; ++i) {
 			draw_text_transformed_shadow(160, 120 + i*90, files_prev[i].NAME, 2, 2, 0, 2, shadow)
 		
 			if (state != 41) || s != i {
-				draw_text_transformed_shadow(160, 154 + i*90, files_prev[i].COMPLETE_ROOM, 2, 2, 0, 2, shadow)
+				draw_text_transformed_shadow(160, 154 + i*90, loc(files_prev[i].COMPLETE_ROOM), 2, 2, 0, 2, shadow)
 			}
 			else {
 				draw_set_color(white)
 				if s_hor != 0 
 					draw_set_color(dark)
-				draw_text_transformed_shadow(180, 154 + i*90, "Start", 2, 2, 0, 2, shadow)
+				draw_text_transformed_shadow(180, 154 + i*90, loc("save_select_start"), 2, 2, 0, 2, shadow)
 			
 				draw_set_color(white)
 				if s_hor!=1 
 					draw_set_color(dark)
-				draw_text_transformed_shadow(360, 154 + i*90, "Back", 2, 2, 0, 2, shadow)
+				draw_text_transformed_shadow(360, 154 + i*90, loc("save_select_back"), 2, 2, 0, 2, shadow)
 			}
 			
 			draw_set_color(col)
@@ -107,26 +107,26 @@ for (var i = 0; i < SAVE_SLOTS; ++i) {
 			draw_set_halign(fa_left)
 		}
 		else {
-			draw_text_transformed_shadow(160, 120 + i*90, "Completion FILE not found.", 2, 2, 0, 2, shadow)
-			draw_text_transformed_shadow(160, 154 + i*90, "[Made on seeing credits.]", 2, 2, 0, 2, shadow)
+			draw_text_transformed_shadow(160, 120 + i*90, loc("save_select_completion_file")[0], 2, 2, 0, 2, shadow)
+			draw_text_transformed_shadow(160, 154 + i*90, loc("save_select_completion_file")[1], 2, 2, 0, 2, shadow)
 		}
 	}
 	else {
 		if files[i] != -1 {
 			if state == 22 && s == i // copy
-				draw_text_transformed_shadow(160, 120 + i*90, "Copy over this file?", 2, 2, 0, 2, shadow)
+				draw_text_transformed_shadow(160, 120 + i*90, loc("save_select_copy_query"), 2, 2, 0, 2, shadow)
 			else if state == 31 && s == i // erase (stg 1)
-				draw_text_transformed_shadow(160, 120 + i*90, "Erase this file?", 2, 2, 0, 2, shadow)
+				draw_text_transformed_shadow(160, 120 + i*90, loc("save_select_erase_query"), 2, 2, 0, 2, shadow)
 			else if state == 32 && s == i { // erase (stg 2)
 				draw_set_color(c_red)
-				draw_text_transformed_shadow(160, 120 + i*90, "Really erase it?", 2, 2, 0, 2, shadow)
+				draw_text_transformed_shadow(160, 120 + i*90, loc("save_select_erase_query_confirm"), 2, 2, 0, 2, shadow)
 				draw_set_color(col)
 			}
 			else 
 				draw_text_transformed_shadow(160, 120 + i*90, files[i].NAME, 2, 2, 0, 2, shadow)
 		
 			if (state != 1 && state != 22 && state != 31 && state != 32) || s != i {
-				draw_text_transformed_shadow(160, 154 + i*90, files[i].ROOM_NAME, 2, 2, 0, 2, shadow)
+				draw_text_transformed_shadow(160, 154 + i*90, loc(files[i].ROOM_NAME), 2, 2, 0, 2, shadow)
 			}
 			else {
 				if state == 22 { // copy
@@ -134,45 +134,45 @@ for (var i = 0; i < SAVE_SLOTS; ++i) {
 					if s_hor != 0 
 						draw_set_color(dark)
 					
-					draw_text_transformed_shadow(180, 154 + i*90, "Yes", 2, 2, 0, 2, shadow)
+					draw_text_transformed_shadow(180, 154 + i*90, loc("save_select_yes"), 2, 2, 0, 2, shadow)
 			
 					draw_set_color(white)
 					if s_hor != 1 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(360, 154 + i*90, "No", 2, 2, 0, 2, shadow)
+					draw_text_transformed_shadow(360, 154 + i*90, loc("save_select_no"), 2, 2, 0, 2, shadow)
 				}
 				else if state == 31 { // erase (stg 1)
 					draw_set_color(white)
 					if s_hor != 0 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(180, 154 + i*90, "Yes", 2, 2, 0, 2, shadow)
+					draw_text_transformed_shadow(180, 154 + i*90, loc("save_select_yes"), 2, 2, 0, 2, shadow)
 			
 					draw_set_color(white)
 					if s_hor != 1 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(360, 154 + i*90, "No", 2, 2, 0, 2, shadow)
+					draw_text_transformed_shadow(360, 154 + i*90, loc("save_select_no"), 2, 2, 0, 2, shadow)
 				}
 				else if state == 32 { // erase (stg 2)
 					draw_set_color(white)
 					if s_hor != 0 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(180, 154 + i*90, "Yes!", 2, 2, 0, 2, shadow)
+					draw_text_transformed_shadow(180, 154 + i*90, loc("save_select_yes!"), 2, 2, 0, 2, shadow)
 			
 					draw_set_color(white)
 					if s_hor != 1 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(360, 154 + i*90, "No!", 2, 2, 0, 2, shadow)
+					draw_text_transformed_shadow(360, 154 + i*90, loc("save_select_no!"), 2, 2, 0, 2, shadow)
 				}
 				else {
 					draw_set_color(white)
 					if s_hor!=0 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(180, 154 + i*90, "Continue", 2,2,0,2, shadow)
+					draw_text_transformed_shadow(180, 154 + i*90, loc("save_select_continue"), 2,2,0,2, shadow)
 			
 					draw_set_color(white)
 					if s_hor!=1 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(360, 154 + i*90, "Back", 2,2,0,2, shadow)
+					draw_text_transformed_shadow(360, 154 + i*90, loc("save_select_back"), 2,2,0,2, shadow)
 				}
 			}
 			draw_set_color(col)
@@ -184,7 +184,7 @@ for (var i = 0; i < SAVE_SLOTS; ++i) {
 			}
 		}
 		else {
-			draw_text_transformed_shadow(160, 120 + i*90, "[EMPTY]", 2, 2, 0, 2, shadow)
+			draw_text_transformed_shadow(160, 120 + i*90, loc("save_select_empty"), 2, 2, 0, 2, shadow)
 		
 			if (state != 1 && state != 22) || s != i {
 				draw_text_transformed_shadow(160, 154 + i*90, "------------", 2, 2, 0, 2, shadow)
@@ -194,23 +194,23 @@ for (var i = 0; i < SAVE_SLOTS; ++i) {
 					draw_set_color(white)
 					if s_hor != 0 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(180, 154 + i*90, "Yes", 2, 2, 0, 2, shadow)
+					draw_text_transformed_shadow(180, 154 + i*90, loc("save_select_yes"), 2, 2, 0, 2, shadow)
 			
 					draw_set_color(white)
 					if s_hor != 1 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(360, 154 + i*90, "No", 2, 2, 0, 2, shadow)
+					draw_text_transformed_shadow(360, 154 + i*90, loc("save_select_no"), 2, 2, 0, 2, shadow)
 				}
 				else {
 					draw_set_color(white)
 					if s_hor != 0 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(180, 154 + i*90, "Start", 2,2,0,2, shadow)
+					draw_text_transformed_shadow(180, 154 + i*90, loc("save_select_start"), 2,2,0,2, shadow)
 			
 					draw_set_color(white)
 					if s_hor != 1 
 						draw_set_color(dark)
-					draw_text_transformed_shadow(360, 154 + i*90, "Back", 2,2,0,2, shadow)
+					draw_text_transformed_shadow(360, 154 + i*90, loc("save_select_back"), 2,2,0,2, shadow)
 				}
 			}
 		
@@ -226,27 +226,27 @@ for (var i = 0; i < SAVE_SLOTS; ++i) {
 }
 
 if state < 2 { // main
-	option_draw(108, 380, "Copy", SAVE_SLOTS)
-	option_draw(280, 380, "Erase", SAVE_SLOTS+1)
-	option_draw(408, 380, "Chapter Select", SAVE_SLOTS+2)
+	option_draw(108, 380, loc("save_select_copy"), SAVE_SLOTS)
+	option_draw(280, 380, loc("save_select_erase"), SAVE_SLOTS+1)
+	option_draw(408, 380, loc("save_select_chapter_select"), SAVE_SLOTS+2)
 	if ch_file 
-		option_draw(108, 420, $"Ch {global.chapter-1} Files", SAVE_SLOTS+3)
+		option_draw(108, 420, string(loc("save_select_ch_files"), global.chapter-1), SAVE_SLOTS+3)
 	if language {
         draw_set_font(font_main_ja)
-		option_draw(280, 420, $"{loc("ui_chs_lanswitch")}", SAVE_SLOTS+4)
+		option_draw(280, 420, $"{loc("chapter_select_lanswitch")}", SAVE_SLOTS+4)
     }
     
-    draw_set_font(loc_getfont("main"))
-	option_draw(408, 420, "End Program", SAVE_SLOTS+5)
+    draw_set_font(loc_font("main"))
+	option_draw(408, 420, loc("save_select_endprogram"), SAVE_SLOTS+5)
 }
 else if state == 2 || state == 21 || state == 22 { // copy
-	option_draw(108, 380,"Cancel", SAVE_SLOTS, subselection)
+	option_draw(108, 380, loc("save_select_cancel"), SAVE_SLOTS, subselection)
 }
 else if state == 3 || state == 31 || state == 32 { // erase
-	option_draw(108, 380,"Cancel", SAVE_SLOTS, subselection)
+	option_draw(108, 380, loc("save_select_cancel"), SAVE_SLOTS, subselection)
 }
 else if state == 4 || state == 41 {
-	option_draw(108, 380, string("Don't Use Chapter {0} FILE", global.chapter - 1), SAVE_SLOTS, subselection)
+	option_draw(108, 380, string(loc("save_select_dont_use_file"), global.chapter - 1), SAVE_SLOTS, subselection)
 }
 
 draw_set_color(c_white)

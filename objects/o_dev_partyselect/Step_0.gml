@@ -25,10 +25,16 @@ if InputPressed(INPUT_VERB.SELECT) {
 		party_member_create(name)
 		party_reposition(lx, ly)
 	}
-	else{
+	else {
 		instance_destroy(party_get_inst(name))
 		array_delete(global.party_names, party_getpos(name), 1)
 		party_reposition(lx, ly)
+        
+        with get_leader() {
+            is_player = true
+            is_follower = false
+        	event_user(2)
+        }
 	}
 }
 if InputPressed(INPUT_VERB.CANCEL) {

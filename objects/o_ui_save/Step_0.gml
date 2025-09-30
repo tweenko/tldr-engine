@@ -17,20 +17,25 @@ if page == 0 { // main menu
 		m_selection = 0
 	
 	if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-		page = m_buttons[m_selection].page
-		if page != -1 
-			audio_play(snd_ui_select)
-		
-		buffer = 1
-		prog = 0
-		
-		if page == 2 {
-			st_page = 0
-			
-			var xx = (st_selection[st_page] % 2 == 0 ? 155 : 375)
-			st_soulx = xx - 15
-			st_souly = 145 + floor(st_selection[st_page]/2)*20 + 3
-		}
+        if !m_buttons[m_selection].on {
+            audio_play(snd_ui_cant_select)
+        }
+        else {
+    		page = m_buttons[m_selection].page
+    		if page != -1 
+    			audio_play(snd_ui_select)
+    		
+    		buffer = 1
+    		prog = 0
+    		
+    		if page == 2 {
+    			st_page = 0
+    			
+    			var xx = (st_selection[st_page] % 2 == 0 ? 155 : 375)
+    			st_soulx = xx - 15
+    			st_souly = 145 + floor(st_selection[st_page]/2)*20 + 3
+    		}
+        }
 	}
 	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0{
 		instance_destroy()
@@ -103,7 +108,7 @@ if page == 2 { // storage
 	if InputPressed(INPUT_VERB.LEFT) && st_selection[st_page] % 2 > 0 
 		st_selection[st_page] --
 	else if InputPressed(INPUT_VERB.LEFT) && st_selection[st_page] % 2 == 0 && st_page == 1 {
-		st_stpage = (st_stpage - 1) % st_maxstpage
+		st_stpage = (st_stpage - 1 + st_maxstpage) % st_maxstpage
 		
 		st_selection[st_page] -= 11
 		if st_selection[st_page] < 0 
@@ -113,7 +118,7 @@ if page == 2 { // storage
 	if InputPressed(INPUT_VERB.RIGHT) && st_selection[st_page] % 2 < 1
 		st_selection[st_page] ++
 	else if InputPressed(INPUT_VERB.RIGHT) && st_selection[st_page] % 2 == 1 && st_page == 1 {
-		st_stpage = (st_stpage + 1) % st_maxstpage
+		st_stpage = (st_stpage + 1 + st_maxstpage) % st_maxstpage
 		
 		st_selection[st_page] += 11
 		if st_selection[st_page] >= 12 * st_maxstpage
@@ -138,15 +143,17 @@ if page == 2 { // storage
 			if st_selection[1] < array_length(global.storage) && global.storage[st_selection[1]] != undefined 
 				i2 = global.storage[st_selection[1]]
 			
-			if !is_undefined(i1)
-				item_set(i1,st_selection[1], 5)
-			else 
-				item_delete(st_selection[1], 5)
-			
-			if !is_undefined(i2)
-				item_set(i2,st_selection[0], 0)
-			else 
-				item_delete(st_selection[0])
+            if !(is_undefined(i1) && is_undefined(i2)) {
+    			if !is_undefined(i1)
+    				item_set(i1, st_selection[1], ITEM_TYPE.STORAGE)
+    			else 
+    				item_delete(st_selection[1], ITEM_TYPE.STORAGE)
+    			
+    			if !is_undefined(i2)
+    				item_set(i2, st_selection[0], ITEM_TYPE.CONSUMABLE)
+    			else 
+    				item_delete(st_selection[0], ITEM_TYPE.CONSUMABLE)
+            }
 			
 			st_page = 0
 		}
@@ -164,6 +171,10 @@ if page == 2 { // storage
 }
 if page == -1 {
 	instance_destroy()
+}
+if page == 3 { // recruits
+    instance_destroy()
+    instance_create(o_ui_recruits)
 }
 
 if buffer > 0 

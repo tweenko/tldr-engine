@@ -109,8 +109,8 @@ complete_ch = 0
 incomplete_ch = 0
 tselec = 0
 
-yes = loc("ui_chs_yes")
-no = loc("ui_chs_no")
+yes = loc("chapter_select_yes")
+no = loc("chapter_select_no")
 
 txt = ""
 

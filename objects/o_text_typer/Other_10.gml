@@ -82,12 +82,12 @@ if command == "instant" { // instant(bool = true)
 	skipping = __arg
 }
 if command == "break_tabulation" { // break_tabulation(bool)
-	break_tabulation = real(arg[0])
+	break_tabulation = bool(arg[0])
 }
 if command == "preset" { // preset(type) out of "enemy_text", "god_text", "light_world"
 	if arg[0] == "enemy_text" {
-		break_tabulation = 1
-		font = loc_getfont("enc")
+		break_tabulation = false
+		font = loc_font("enc")
 		shadow = false
 		xscale = 1
 		yscale = 1
@@ -95,7 +95,7 @@ if command == "preset" { // preset(type) out of "enemy_text", "god_text", "light
 		yspace = 20
 	}
 	if arg[0] == "god_text" {
-		break_tabulation = 1
+		break_tabulation = false
 		shadow = false
 		god = true
 		
@@ -124,11 +124,11 @@ if command == "reset_col" { // reset_col() OR reset_col
 }
 if command == "font" { // font(string) out of "main", "text", "enc"
 	if arg[0] == "enc"
-		font = loc_getfont("enc")
+		font = loc_font("enc")
 	else if arg[0] == "text"
-		font = loc_getfont("text")
+		font = loc_font("text")
 	else if arg[0] == "main"
-		font = loc_getfont("main")
+		font = loc_font("main")
 	else{
 		font=asset_get_index(arg[0])
 	}
