@@ -26,6 +26,7 @@ global.current_light = c_white
 
 global.temp_choice = 0
 global.simplify_vfx = false
+global.time = 0
 
 { // emmiters
 	emitter_sfx = audio_emitter_create();

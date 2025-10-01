@@ -1,18 +1,29 @@
-party_init()
-
-for (var i = 0; i < array_length(global.party_names); i ++) {
-    item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
-    item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
-    item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
-}
-
-pal_swap_init_system(shd_pal_swapper)
-
 instance_create(o_camera)
 instance_create(o_window)
 instance_create(o_dev_musiccontrol)
 instance_create(o_fader)
-instance_create(o_ui_quit)
+if !allow_incompatible_saves {
+    var __v = (struct_exists(global.settings, "VERSION_SAVED") ? global.settings.VERSION_SAVED : "v0.0.0")
+    if !__engine_versions_compare(__v, ENGINE_LAST_COMPATIBLE_VERSION) {
+        progress = false
+        incompatible_save_warning = true
+        incompatible_save_sleep = 20
+    }
+}
+
+party_init()
+
+if progress { // don't load if there are problems with the save
+    for (var i = 0; i < array_length(global.party_names); i ++) {
+        item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
+        item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
+        item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
+    }
+}
+
+pal_swap_init_system(shd_pal_swapper)
+if progress
+    instance_create(o_ui_quit)
 
 { // get window ready
 	var divide = 480
@@ -110,20 +121,11 @@ global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 		global.save = global.saves[global.save_slot]
 }
 
-save_load(global.save_slot)
+if progress
+    save_load(global.save_slot)
 
 global.charmove_insts = array_create(party_getpossiblecount() + 10, undefined)
-
 randomize()
-
-if !allow_incompatible_saves {
-    var __v = (struct_exists(global.settings, "VERSION_SAVED") ? global.settings.VERSION_SAVED : "v0.0.0")
-    if !__engine_versions_compare(__v, ENGINE_LAST_COMPATIBLE_VERSION) {
-        progress = false
-        incompatible_save_warning = true
-        incompatible_save_sleep = 20
-    }
-}
 
 if progress
     room_goto_next()

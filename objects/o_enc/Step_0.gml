@@ -111,7 +111,8 @@ if battle_state == "menu" {
 				array_delete(ignore, array_get_index(ignore, selection), 1)
 				selection --
 			}
-			while !party_isup(global.party_names[selection]) {
+            
+			while !party_isup(global.party_names[selection]) && selection > 0 {
 				if char_state[selection] != CHAR_STATE.IDLE {
 					char_state[selection] = CHAR_STATE.IDLE;
 					

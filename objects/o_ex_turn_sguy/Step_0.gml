@@ -90,11 +90,12 @@ else { // gun attack
 		ttimer = 0
 		count = 0
 	}
-	if timer == timer_end - 15 {
+	if timer >= timer_end - 17 && !ending_turn {
 		var o = enemy_struct.actor_id
 		o.gun = false
 		o.sprite_index = spr_ex_e_sguy_reload
 		do_animate(o.x, o.x-20, 15, "cubic_out", o, "x")
+        ending_turn = true
 	}
 	if timer == timer_end {
 		var o = enemy_struct.actor_id

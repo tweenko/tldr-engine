@@ -51,6 +51,10 @@
 }
 
 selection = 0
+while !party_isup(global.party_names[selection]) && selection < array_length(global.party_names)-1 {
+    selection ++
+}
+
 state = 0 // how deep we are in the menu
 battle_state = "menu"
 

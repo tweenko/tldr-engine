@@ -10,7 +10,7 @@ if incompatible_save_warning {
     draw_text_transformed(320, 120 + __c, "WARNING!", 2, 2, 0)
     
     draw_set_color(c_white)
-    draw_text_transformed(320, 160 + __c, "Your Save File was recorded\non an older version of the engine.\nIt's highly recommended to clear your SAVE DATA.\nIf you wish to proceed, you may experience issues.", 1, 1, 0)
+    draw_text_transformed(320, 160 + __c, "Your Save File was recorded\non an older version of the engine.\nIt's highly recommended to clear your SAVE DATA.\nThe game will be closed once you select an option.", 1, 1, 0)
     
     draw_set_color(c_aqua)
     draw_text_transformed(320, 250 + __c, "Would you like to clear your SAVE DATA?\n(It will be impossible to recover)", 1, 1, 0)

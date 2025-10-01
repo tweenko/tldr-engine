@@ -29,7 +29,7 @@ if incompatible_save_warning && incompatible_save_sleep == 0 {
             audio_play(snd_ui_cancel)
             incompatible_save_warning = false
             
-            room_goto_next()
+            game_end()
         }
         else {
             save_wipe()
