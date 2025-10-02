@@ -46,9 +46,7 @@ if progress { // fonts
 	global.font_numbers_g = font_add_sprite_ext(spr_ui_numbers_gfont,"0123456789+-%/",false,1);
 }
 
-global.items = [
-    new item_top_cake()
-]
+global.items = []
 global.key_items = [
     new item_key_cell_phone() 
 ]
