@@ -591,7 +591,7 @@ if battle_state == "menu" {
 			itempage[selection] = 0
 		
 		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-			if items[itemselection[selection]].use_type == 0 {
+			if items[itemselection[selection]].use_type == ITEM_USE.INDIVIDUAL {
 				state = 2
 				buffer = 1
 				
@@ -599,10 +599,10 @@ if battle_state == "menu" {
 				
 				updateglowing_party()
 			}
-			else if items[itemselection[selection]].use_type == 1 {
+			else if items[itemselection[selection]].use_type == ITEM_USE.EVERYONE {
 				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "itemready")
 				party_get_inst(global.party_names[selection]).image_speed = 1
-				char_state[selection] = CHAR_STATE.ACT
+				char_state[selection] = CHAR_STATE.ITEM
 				
 				array_push(items_using, item_get_name(items[itemselection[selection]]))
 				
@@ -612,7 +612,7 @@ if battle_state == "menu" {
 				
 				audio_play(snd_ui_select)
 			}
-			else if items[itemselection[selection]].use_type == 2 {
+			else if items[itemselection[selection]].use_type == ITEM_USE.ENEMY {
 				state = 3
 				buffer = 1
 				
@@ -707,7 +707,7 @@ if battle_state == "menu" {
 			}
 		}
 	}
-	if state == 2 && (bt_selection[selection] == 2 || (!can_act[selection] && bt_selection[selection] == 1 && spells[actselection[selection]].use_type == 0)) { // item chooser
+	if state == 2 && (bt_selection[selection] == 2 || (!can_act[selection] && bt_selection[selection] == 1 && spells[actselection[selection]].use_type == ITEM_USE.INDIVIDUAL)) { // item/spell target chooser
 		var delta = false
 		
 		if InputPressed(INPUT_VERB.UP){
@@ -737,7 +737,7 @@ if battle_state == "menu" {
 			}
 		}
 		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-			if bt_selection[selection] == 1 && spells[actselection[selection]].use_type == 0 {
+			if bt_selection[selection] == 1 && spells[actselection[selection]].use_type == ITEM_USE.INDIVIDUAL {
 				party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, "spellready")
 				party_get_inst(global.party_names[selection]).image_speed = 1
 				char_state[selection] = CHAR_STATE.POWER

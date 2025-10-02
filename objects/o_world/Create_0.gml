@@ -60,7 +60,7 @@ global.settings = {
     LANG: "en",
     VERSION_SAVED: ENGINE_VERSION,
 }
-save_settings_load()
 
+save_settings_load()
 if struct_exists(global.settings, "LANG")
     loc_load(global.settings.LANG)

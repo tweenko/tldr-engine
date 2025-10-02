@@ -11,9 +11,8 @@ if !allow_incompatible_saves {
     }
 }
 
-party_init()
-
 if progress { // don't load if there are problems with the save
+    party_init()
     for (var i = 0; i < array_length(global.party_names); i ++) {
         item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
         item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
@@ -22,6 +21,7 @@ if progress { // don't load if there are problems with the save
 }
 
 pal_swap_init_system(shd_pal_swapper)
+
 if progress
     instance_create(o_ui_quit)
 
@@ -37,7 +37,7 @@ if progress
 	application_surface_draw_enable(false);
 	window_center();
 }
-{ // fonts
+if progress { // fonts
     event_user(0)
     
 	global.font_ui_hp = font_add_sprite_ext(spr_ui_hpfont, "1234567890-", true, 2);
@@ -46,7 +46,9 @@ if progress
 	global.font_numbers_g = font_add_sprite_ext(spr_ui_numbers_gfont,"0123456789+-%/",false,1);
 }
 
-global.items = []
+global.items = [
+    new item_top_cake()
+]
 global.key_items = [
     new item_key_cell_phone() 
 ]
@@ -70,7 +72,7 @@ enum WORLD_TYPE {
 }
 global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 
-{ // saves
+if progress { // saves
 	global.chapter = 2
 	global.time = 0
 
@@ -120,7 +122,6 @@ global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 	if global.saves[global.save_slot] != -1 
 		global.save = global.saves[global.save_slot]
 }
-
 if progress
     save_load(global.save_slot)
 
