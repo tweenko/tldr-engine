@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_trigger",
-    "path":"sprites/spr_trigger/spr_trigger.yy",
+    "name":"spr_trigger_dodge",
+    "path":"sprites/spr_trigger_dodge/spr_trigger_dodge.yy",
   },
   "spriteMaskId":null,
   "visible":false,

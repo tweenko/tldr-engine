@@ -16,10 +16,10 @@ if instance_exists(get_leader()) {
 		}
 	}
 }
-call_later(1,time_source_units_frames,function() {
-	do_anime(1,0,10,"linear",function(v){
+call_later(1, time_source_units_frames, function() {
+	do_anime(1, 0, 10, "linear", function(v){
 		if instance_exists(o_fader) 
-			o_fader.image_alpha=v
+			o_fader.image_alpha = v
 	})
 })
 instance_destroy()

@@ -47,7 +47,6 @@ if progress { // fonts
 }
 
 global.items = [
-    new item_top_cake()
 ]
 global.key_items = [
     new item_key_cell_phone() 
