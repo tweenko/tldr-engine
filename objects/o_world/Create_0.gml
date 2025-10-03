@@ -27,6 +27,7 @@ global.current_light = c_white
 global.temp_choice = 0
 global.simplify_vfx = false
 global.time = 0
+global.states = {}
 
 { // emmiters
 	emitter_sfx = audio_emitter_create();
@@ -60,7 +61,21 @@ global.settings = {
     LANG: "en",
     VERSION_SAVED: ENGINE_VERSION,
 }
-
 save_settings_load()
 if struct_exists(global.settings, "LANG")
     loc_load(global.settings.LANG)
+
+// set up the inventory
+global.items = []
+global.key_items = []
+global.weapons = []
+global.armors = []
+
+global.recruits = []
+global.recruits_lost = []
+
+global.storage = array_create(item_get_maxcount(ITEM_TYPE.STORAGE), undefined)
+
+global.lw_items = []
+global.lw_weapon = undefined
+global.lw_armor = undefined
