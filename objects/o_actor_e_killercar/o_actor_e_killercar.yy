@@ -6,7 +6,9 @@
   ],
   "managed":true,
   "name":"o_actor_e_killercar",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_actor_e","path":"objects/o_actor_e/o_actor_e.yy",},"propertyId":{"name":"encounter","path":"objects/o_actor_e/o_actor_e.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"new enc_set_ex()",},
+  ],
   "parent":{
     "name":"enemies",
     "path":"folders/@Engine/objects/actors/enemies.yy",

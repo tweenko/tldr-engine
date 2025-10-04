@@ -1,9 +1,9 @@
 {
   "$GMPath":"",
-  "%Name":"path_ex_test_shadowguy",
+  "%Name":"path_ex_test_killer_car",
   "closed":true,
   "kind":0,
-  "name":"path_ex_test_shadowguy",
+  "name":"path_ex_test_killer_car",
   "parent":{
     "name":"Paths",
     "path":"folders/zzz Examples/Paths.yy",

@@ -4,26 +4,18 @@ s_hurt = spr_e_virovirokun_hurt
 s_spared = spr_e_virovirokun_spare
 
 is_enemy = true
+chase_encounter = false
 
-idle_path = undefined
-idle_path_spd = 1
-idle_path_autodir = true
-sprite_facing_dir = DIR.LEFT
+// idle_path, idle_path_spd, idle_path_autodir, sprite_facing_dir configured in variable difinitions
+// chase_zone, chase_zone_auto, chase_dist and chase_spd are configured in variable definitions
 
 chasing = false
-chase_spd = 3
-chase_zone = noone
-chase_zone_auto = true
-chase_dist = undefined
-
 notice_timer = -1
 notice = false
 
 // visual animation
 drawsiner = 0
-
-// the encounter that would be initialized upon collision
-encounter = new enc_set_ex()
+// the encounter that would be initialized upon collision is in variable definitions
 encounter_started = false
 
 __start_chasing = function() {
@@ -33,7 +25,7 @@ __start_chasing = function() {
     if !is_undefined(idle_path)
         path_end()
     
-    can_encounter = true
+    chase_encounter = true
 }
 
 xprev_real = 0
