@@ -1,6 +1,6 @@
-#macro SAVE_FORMAT "save_ch{1}_{0}"
+#macro SAVE_FORMAT "save_ch{1}_{0}.json"
 #macro SAVE_SLOTS 3
-#macro SAVE_SETTINGS_FORMAT "settings"
+#macro SAVE_SETTINGS_FORMAT "settings.json"
 
 //SAVE
 {
@@ -267,14 +267,14 @@
     
     /// @desc wipe off saves and settings you previously had. irreversible. use sparingly
     function save_wipe() {
-        var fileName = file_find_first("*.*", 0);
-        while fileName != "" {
-            file_delete(fileName);
-            fileName = file_find_next();
+        // delete saves
+        var f = file_find_first(game_save_id + "*", fa_none);
+        while f != "" {
+            file_delete(game_save_id + f);
+            f = file_find_next();
         }
         file_find_close();
     }
-    
 }
 
 // SETTINGS
@@ -330,9 +330,9 @@
 		if save_settings_exists() {
 			global.settings = save_settings_read()
             
-            o_world.volume_master = global.settings.VOLUME_MASTER
-            o_world.volume_sfx = global.settings.VOLUME_SFX
-            o_world.volume_bgm = global.settings.VOLUME_BGM
+            o_world.volume_master = global.settings.VOL_MASTER
+            o_world.volume_sfx = global.settings.VOL_SFX
+            o_world.volume_bgm = global.settings.VOL_BGM
             
             if struct_exists(global.settings, "CONTROLS_KEY")
                 InputBindingsImport(false, global.settings.CONTROLS_KEY)

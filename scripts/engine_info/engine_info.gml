@@ -1,4 +1,4 @@
-#macro ENGINE_VERSION "v1.2.0-hotfix5"
+#macro ENGINE_VERSION "v1.2.0-hotfix6"
 #macro ENGINE_NAME "tlDR Engine"
 #macro ENGINE_LAST_COMPATIBLE_VERSION "v1.2.0"
 
