@@ -59,30 +59,11 @@ function ex_enemy_shadowguy() : enemy() constructor{
 		}
 	]
 	
-	//recruit
-	recruit = {
-		need: 4,
-		
-		//display
-		name: "Virovirokun",
-		desc: "idk",
-		sprite: spr_e_virovirokun_idle,
-		spr_speed: 1,
-		bgcolor: c_aqua,
-		chapter: 2,
-		
-		//stats
-		level: 7,
-		element: "VIRUS",
-		like: "Retro Games",
-		dislike: "Federal Justice System",
-		attack: 8,
-		defense: 6,
-	}
-		
-	//text
-	dialogue = function(slot){
-	}
+	// recruit
+	recruit = new ex_enemy_recruit_shadowguy()
+    
+	// text
+	dialogue = function(slot){}
 }
 
 function ex_enemy_spawnling() : enemy() constructor{

@@ -1,9 +1,8 @@
 function enc_set() constructor { // base
 	debug_name	=	"undefined"
-	enemies	= [
-	]
-	enemies_pos = [ // x, y, relative (bool) -- if not relative, guipos is added
-	]
+	enemies	= []
+    
+	enemies_pos = undefined // x, y, relative (bool) -- if not relative, guipos is added OR just a function
     party_pos = function(i) { // returns [x, y]
         return [
             guipos_x() + 52,
@@ -16,7 +15,7 @@ function enc_set() constructor { // base
 		return text
 	}
 	bgm = mus_battle
-	bg_type = 0 // default, no bg
+	bg_type = ENC_BG.GRID
     
     can_change_turnlen = true
     enc_var_struct = {}	

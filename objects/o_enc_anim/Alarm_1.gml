@@ -38,18 +38,23 @@ for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 	var yy = guipos_y() + 130 - 20*array_length(encounter_data.enemies) + 40*i
 	
 	if struct_exists(encounter_data, "enemies_pos") {
-		if i < array_length(encounter_data.enemies_pos) {
-			if !array_equals(encounter_data.enemies_pos[i], []) {
-				if encounter_data.enemies_pos[i][2] {
-					xx += encounter_data.enemies_pos[i][0]
-					yy += encounter_data.enemies_pos[i][1]
-				}
-				else {
-					xx = encounter_data.enemies_pos[i][0] + guipos_x()
-					yy = encounter_data.enemies_pos[i][1] + guipos_y()
-				}
-			}
-		}
+        if is_array(encounter_data.enemies_pos) 
+            && i < array_length(encounter_data.enemies_pos) 
+            && is_array(encounter_data.enemies_pos[i]) 
+        {
+            if encounter_data.enemies_pos[i][2] {
+                xx += encounter_data.enemies_pos[i][0]
+                yy += encounter_data.enemies_pos[i][1]
+            }
+            else {
+                xx = encounter_data.enemies_pos[i][0] + guipos_x()
+                yy = encounter_data.enemies_pos[i][1] + guipos_y()
+            }
+        }
+        else if is_callable(encounter_data.enemies_pos) {
+            xx = encounter_data.enemies_pos(i, xx, yy)[0]
+            yy = encounter_data.enemies_pos(i, xx, yy)[1]
+        }
 	}
 	
 	var obj = noone

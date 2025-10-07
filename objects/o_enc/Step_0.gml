@@ -1305,6 +1305,14 @@ if battle_state == "post_turn" {
 			do_animate(.5 ,0, 15, "linear", party_get_inst(global.party_names[i]), "darken")
 		}
 	}
+    for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+        if enc_enemy_isfighting(i) {
+            // call the post turn event for the enemies
+            if struct_exists(encounter_data.enemies[i], "ev_post_turn") && is_callable(encounter_data.enemies[i].ev_post_turn)
+                encounter_data.enemies[i].ev_post_turn()
+        }
+    }
+    
 	{ //set the flavor text
 		var flav = encounter_data.flavor
         if is_callable(flav)

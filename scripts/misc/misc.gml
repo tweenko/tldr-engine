@@ -193,14 +193,14 @@ function input_binding_intext(verb) {
 	if is_array(verb){
 		var res = ""
 		for (var i = 0; i < array_length(verb); ++i) {
-			res += input_binding_to_string(verb[i]) + "/"
+			res += input_binding_to_string(InputBindingGet(false, verb[i])) + "/"
 		}
 		res = string_delete(res, string_width(res)-1, 1)
 		
 		return $"[{res}]"
 	}
 	
-	return $"[{input_binding_to_string(verb)}]"
+	return $"[{input_binding_to_string(InputBindingGet(false, verb))}]"
 }
 
 /// @desc converts a bind to text (or sprite) - gets it ready for use in dialogue
