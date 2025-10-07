@@ -151,37 +151,3 @@ function ex_enemy_dentos() : enemy() constructor{
 	dialogue = function(slot){
 	}
 }
-
-function ex_enemy_knight() : enemy() constructor{
-	name = "Knight"
-	obj = {
-        obj: o_ex_actor_e_knight,
-        var_struct: {
-            s_hurt: spr_ex_e_knight,
-            s_spared: spr_ex_e_knight,
-        }
-    }
-	turn_object = o_ex_turn_knight
-	
-	//stats
-	hp =		7300
-	max_hp =	7300
-	attack =	230
-	defense =	0
-	
-	//acts
-	acts = [
-		{
-			name: "Check",
-			party: [],
-			desc: -1,
-			exec: function() {
-				encounter_scene_dialogue("* DENTOS - Beware of its sharp teeth. Use {col(c_orange)}FOCUS{col(w)} to burn its shell.")
-			}
-		},
-	]
-    
-	//text
-	dialogue = function(slot){
-	}
-}
