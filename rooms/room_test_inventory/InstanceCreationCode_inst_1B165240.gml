@@ -1,1 +1,0 @@
-item_inside = new item_a_silver_watch()

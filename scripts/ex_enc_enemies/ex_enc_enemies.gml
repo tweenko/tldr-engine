@@ -59,30 +59,11 @@ function ex_enemy_shadowguy() : enemy() constructor{
 		}
 	]
 	
-	//recruit
-	recruit = {
-		need: 4,
-		
-		//display
-		name: "Virovirokun",
-		desc: "idk",
-		sprite: spr_e_virovirokun_idle,
-		spr_speed: 1,
-		bgcolor: c_aqua,
-		chapter: 2,
-		
-		//stats
-		level: 7,
-		element: "VIRUS",
-		like: "Retro Games",
-		dislike: "Federal Justice System",
-		attack: 8,
-		defense: 6,
-	}
-		
-	//text
-	dialogue = function(slot){
-	}
+	// recruit
+	recruit = new ex_enemy_recruit_shadowguy()
+    
+	// text
+	dialogue = function(slot){}
 }
 
 function ex_enemy_spawnling() : enemy() constructor{
@@ -134,40 +115,6 @@ function ex_enemy_dentos() : enemy() constructor{
 	max_hp =	5000
 	attack =	30
 	defense =	6
-	
-	//acts
-	acts = [
-		{
-			name: "Check",
-			party: [],
-			desc: -1,
-			exec: function() {
-				encounter_scene_dialogue("* DENTOS - Beware of its sharp teeth. Use {col(c_orange)}FOCUS{col(w)} to burn its shell.")
-			}
-		},
-	]
-    
-	//text
-	dialogue = function(slot){
-	}
-}
-
-function ex_enemy_knight() : enemy() constructor{
-	name = "Knight"
-	obj = {
-        obj: o_ex_actor_e_knight,
-        var_struct: {
-            s_hurt: spr_ex_e_knight,
-            s_spared: spr_ex_e_knight,
-        }
-    }
-	turn_object = o_ex_turn_knight
-	
-	//stats
-	hp =		7300
-	max_hp =	7300
-	attack =	230
-	defense =	0
 	
 	//acts
 	acts = [

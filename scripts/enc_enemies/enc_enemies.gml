@@ -19,6 +19,7 @@ function enemy() constructor {
 	
 	mercy =	0
 	tired =	false
+    can_spare = true
 	
 	// acts
 	acts = [
@@ -197,6 +198,7 @@ function enemy_killercar() : enemy() constructor{
 	obj = o_actor_e_killercar
 	tired = true
 	defense = 0
+    can_spare = false
 	
 	acts = [
 		{

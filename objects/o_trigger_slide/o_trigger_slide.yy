@@ -36,9 +36,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_trigger",
-    "path":"sprites/spr_trigger/spr_trigger.yy",
+    "name":"spr_trigger_slide",
+    "path":"sprites/spr_trigger_slide/spr_trigger_slide.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

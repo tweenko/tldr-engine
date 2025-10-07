@@ -53,7 +53,7 @@ if chasing && !is_in_battle
 }
 
 // collision, initiate encounter
-if place_meeting(x, y, get_leader()) && !encounter_started && can_encounter {
+if place_meeting(x, y, get_leader()) && !encounter_started && (can_idle_encounter || chase_encounter) {
     chasing = false
     encounter_started = true
     hurt = 20

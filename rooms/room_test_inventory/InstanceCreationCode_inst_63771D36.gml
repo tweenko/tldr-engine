@@ -1,1 +1,0 @@
-item_inside = new item_w_absorbax()

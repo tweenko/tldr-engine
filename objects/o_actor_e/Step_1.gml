@@ -1,4 +1,4 @@
-if !is_undefined(idle_path) && idle_path_autodir && !encounter_started {
+if !is_undefined(idle_path) && idle_path_autodir && !encounter_started && !is_in_battle {
     var _xo = sign(x - xprev_real)
     var _d = (sprite_facing_dir == DIR.RIGHT ? 1 : -1)
     

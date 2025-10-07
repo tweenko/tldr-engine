@@ -33,7 +33,6 @@ is_player = false
 { // enemy specific
 	chaser = false
 	chasing = false
-    can_encounter = false
     
     carrying_money = 0
 }

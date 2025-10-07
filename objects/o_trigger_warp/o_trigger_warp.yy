@@ -31,13 +31,18 @@
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
-  "properties":[],
+  "properties":[
+    {"$GMObjectProperty":"v1","%Name":"target_room","filters":[
+        "GMRoom",
+      ],"listItems":[],"multiselect":false,"name":"target_room","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"room_test_main","path":"rooms/room_test_main/room_test_main.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"room_test_main","varType":5,},
+    {"$GMObjectProperty":"v1","%Name":"target_marker","filters":[],"listItems":[],"multiselect":false,"name":"target_marker","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
+  ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_trigger",
-    "path":"sprites/spr_trigger/spr_trigger.yy",
+    "name":"spr_trigger_warp",
+    "path":"sprites/spr_trigger_warp/spr_trigger_warp.yy",
   },
   "spriteMaskId":null,
   "visible":false,

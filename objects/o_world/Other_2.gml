@@ -20,11 +20,10 @@ if progress { // don't load if there are problems with the save
     instance_create(o_ui_quit)
     
     party_init()
-    for (var i = 0; i < array_length(global.party_names); i ++) {
-        item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
-        item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
-        item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
-    }
+    global.party_names = [   // <-- if you wish to change the default team members, change them here
+        "kris", "susie", "ralsei"
+    ]
+    party_apply_equipment()
     
     // load the fonts
     event_user(0)

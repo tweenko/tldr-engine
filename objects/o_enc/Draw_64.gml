@@ -164,12 +164,12 @@ surface_set_target(surf) {
 					col2 = merge_color(c_aqua, c_blue, 0.3)
 				}
 				else if tired {
-					col1=merge_color(c_aqua, c_blue, 0.3);
-					col2=merge_color(c_aqua, c_blue, 0.3)
+					col1 = merge_color(c_aqua, c_blue, 0.3);
+					col2 = merge_color(c_aqua, c_blue, 0.3)
 				}
 				else if spare {
-					col1=c_yellow;
-					col2=c_yellow
+					col1 = c_yellow;
+					col2 = c_yellow
 				}
 				
 			    draw_text_transformed_color(80, 375 + 30*i, encounter_data.enemies[i].name, 2, 2, 0, col1, col2, col2, col1, 1)
@@ -183,7 +183,7 @@ surface_set_target(surf) {
 						status_eff = "(Tired)"
 				}
 				if spare
-					draw_sprite_ext(spr_ui_enc_sparestar,0,60+string_width(encounter_data.enemies[i].name)*2+42,385+30*i,1,1,0,c_white,1)
+					draw_sprite_ext(spr_ui_enc_sparestar, 0, 60+string_width(encounter_data.enemies[i].name)*2 + 42, 385 + 30*i, 1, 1,0 , c_white, 1)
 					
 				if status_eff != "" {
 					draw_set_color(c_gray)
@@ -201,8 +201,14 @@ surface_set_target(surf) {
 		
 				draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81, 16, 0, merge_color(c_orange, c_red, 0.5), 1)
 				draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81 * (mercypercent/100), 16, 0, c_yellow, 1)
+                
 				draw_set_color(c_maroon); 
-				draw_text_transformed(524, 380 + 30*i, string("{0}%", round(mercypercent)), 2, 1, 0)
+                if encounter_data.enemies[i].can_spare
+				    draw_text_transformed(524, 380 + 30*i, string("{0}%", round(mercypercent)), 2, 1, 0)
+                else {
+                	draw_line_width(520 - 1, 380 + i*30, 600, 380 + i*30 + 15, 2)
+                    draw_line_width(520 - 1, 380 + i*30 + 15, 600, 380 + (i * 30), 2)
+                }
 				draw_set_color(c_white)
 			}
 		}
@@ -264,7 +270,12 @@ surface_set_target(surf) {
 				draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81 * (mercypercent/100), 16, 0, c_yellow, 1)
 				
 				draw_set_color(c_maroon); 
-				draw_text_transformed(524, 380 + 30*i, string("{0}%", round(mercypercent)), 2, 1, 0)
+                if encounter_data.enemies[i].can_spare
+				    draw_text_transformed(524, 380 + 30*i, string("{0}%", round(mercypercent)), 2, 1, 0)
+                else {
+                	draw_line_width(520 - 1, 380 + i*30, 600, 380 + i*30 + 15, 2)
+                    draw_line_width(520 - 1, 380 + i*30 + 15, 600, 380 + (i * 30), 2)
+                }
 				draw_set_color(c_white)
 			}
 		}

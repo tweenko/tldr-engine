@@ -8,12 +8,18 @@ function party_init() {
     party_m_initialize("noelle", party_m_noelle)
     
 	global.party_names = []
-		array_push(global.party_names, "kris")
-		array_push(global.party_names, "susie")
-		array_push(global.party_names, "ralsei")
 }
 function party_m_initialize(_name, _constructor) {
     struct_set(global.party, _name, new _constructor())
+}
+
+/// @desc applies the equipment to party members (only for raw saves)
+function party_apply_equipment() {
+    for (var i = 0; i < array_length(global.party_names); i ++) {
+        item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
+        item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
+        item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
+    }
 }
 
 function party_m() constructor {

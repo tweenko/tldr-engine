@@ -1,0 +1,22 @@
+{
+  "$GMPath":"",
+  "%Name":"path_ex_test_killer_car",
+  "closed":true,
+  "kind":0,
+  "name":"path_ex_test_killer_car",
+  "parent":{
+    "name":"Paths",
+    "path":"folders/zzz Examples/Paths.yy",
+  },
+  "points":[
+    {"speed":100.0,"x":170.0,"y":230.0,},
+    {"speed":100.0,"x":170.0,"y":350.0,},
+    {"speed":100.0,"x":270.0,"y":350.0,},
+    {"speed":100.0,"x":270.0,"y":250.0,},
+    {"speed":100.0,"x":220.0,"y":250.0,},
+    {"speed":100.0,"x":220.0,"y":230.0,},
+  ],
+  "precision":3,
+  "resourceType":"GMPath",
+  "resourceVersion":"2.0",
+}

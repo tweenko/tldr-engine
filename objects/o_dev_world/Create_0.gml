@@ -1,1 +1,1 @@
-// just set it yourself in the creation code and move it before any of the instances create
+world_switch(world)
