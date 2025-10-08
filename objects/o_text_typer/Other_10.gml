@@ -264,8 +264,8 @@ if command == "voice" { // voice(asset OR nil, pitch_range = undefined, interrup
 if command == "mini" { // mini(text, char = undefined, face_expression = undefined, x = auto, y = auto)
     var __char = undefined
     var __face_ex = 0
-    var __xx = 420
-    var __yy = 410
+    var __xx = x + 380
+    var __yy = y + 70
     
     if array_length(arg) > 1 __char = arg[1]
     if array_length(arg) > 2 __face_ex = arg[2]

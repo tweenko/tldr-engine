@@ -6,7 +6,7 @@ if x_offset > 0
 
 if !instance_exists(face_inst) {
     face_inst = instance_create(face, x + x_offset, y - 6, depth, {
-        facename: face_expression,
+        f_index: face_expression,
         visible: true
     })
 }
