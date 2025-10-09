@@ -1267,8 +1267,15 @@ if battle_state == "turn" {
 					}
 				}
 			}
+            for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+    			if enc_enemy_isfighting(i) {
+    				// call the turn start event for the enemies
+    				if struct_exists(encounter_data.enemies[i],"ev_turn_start") && is_callable(encounter_data.enemies[i].ev_turn_start)
+    					encounter_data.enemies[i].ev_turn_start()
+    			}
+    		}
 		}
-		turn_timer++
+		turn_timer ++
 		
 		var move_on = true
 		for (var i = 0; i < array_length(turn_objects); ++i) {

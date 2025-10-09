@@ -27,7 +27,7 @@ function enemy() constructor {
 			name:	loc("enc_act_check"),
 			party:	[],
 			desc:	-1,
-			exec:	function(){
+			exec:	function(enemy_slot, user_index){
 				encounter_scene_dialogue("* Empty CHECK text.")
 			}
 		},
@@ -50,6 +50,7 @@ function enemy() constructor {
 	// misc (in-fight events)
 	ev_dialogue =	-1
 	ev_turn =		-1
+    ev_turn_start = -1
 	ev_post_turn =	-1
 	
 	//recruit
@@ -192,6 +193,7 @@ function enemy_virovirokun() : enemy() constructor{
 		return array_shuffle(loc("enemy_virovirokun_dialogue"))[0]
 	}
 }
+
 function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	

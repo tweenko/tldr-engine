@@ -2,28 +2,28 @@ if color == 0 {
 	if is_transitioning == false {
 		// Movement
 		if InputCheck(INPUT_VERB.CANCEL) 
-			movespd = 1;
+			real_spd = 1;
 		else
-			movespd = 2;
+			real_spd = spd;
 		
 		if InputCheck(INPUT_VERB.LEFT) 
-			x -= movespd
+			x -= real_spd
 		else if InputCheck(INPUT_VERB.RIGHT) 
-			x += movespd
+			x += real_spd
 		if InputCheck(INPUT_VERB.UP) 
-			y -= movespd
+			y -= real_spd
 		else if InputCheck(INPUT_VERB.DOWN) 
-			y += movespd
+			y += real_spd
 		
 		if (InputCheck(INPUT_VERB.LEFT) 
             || InputCheck(INPUT_VERB.UP) 
             || InputCheck(INPUT_VERB.RIGHT) 
             || InputCheck(INPUT_VERB.DOWN)) 
 		&& (x != xprevious || y != yprevious) {
-			moving=true
+			moving = true
 		}
 		else 
-			moving=false
+			moving = false
 	
 		// "Collisions"
 		if instance_exists(o_enc_box) {

@@ -200,11 +200,12 @@ surface_set_target(surf) {
 				draw_text_transformed(424, 380 + 30*i, string("{0}%", round(hppercent * 100)), 2, 1, 0)
 		
 				draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81, 16, 0, merge_color(c_orange, c_red, 0.5), 1)
-				draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81 * (mercypercent/100), 16, 0, c_yellow, 1)
-                
+				
 				draw_set_color(c_maroon); 
-                if encounter_data.enemies[i].can_spare
+                if encounter_data.enemies[i].can_spare {
+                    draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81 * (mercypercent/100), 16, 0, c_yellow, 1)
 				    draw_text_transformed(524, 380 + 30*i, string("{0}%", round(mercypercent)), 2, 1, 0)
+                }
                 else {
                 	draw_line_width(520 - 1, 380 + i*30, 600, 380 + i*30 + 15, 2)
                     draw_line_width(520 - 1, 380 + i*30 + 15, 600, 380 + (i * 30), 2)
@@ -267,11 +268,12 @@ surface_set_target(surf) {
 				draw_set_color(c_white)
 		
 				draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81, 16, 0, merge_color(c_orange, c_red, 0.5), 1)
-				draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81 * (mercypercent/100), 16, 0, c_yellow, 1)
 				
 				draw_set_color(c_maroon); 
-                if encounter_data.enemies[i].can_spare
+                if encounter_data.enemies[i].can_spare {
+                    draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81 * (mercypercent/100), 16, 0, c_yellow, 1)
 				    draw_text_transformed(524, 380 + 30*i, string("{0}%", round(mercypercent)), 2, 1, 0)
+                }
                 else {
                 	draw_line_width(520 - 1, 380 + i*30, 600, 380 + i*30 + 15, 2)
                     draw_line_width(520 - 1, 380 + i*30 + 15, 600, 380 + (i * 30), 2)

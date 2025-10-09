@@ -9,7 +9,7 @@
 	tproll = 0
 	
 	buttonsurf = array_create(array_length(global.party_names), -1)
-	uisticks = [0, -3,- 6]
+	uisticks = [0, -3, -6]
 }
 { // generic (misc) 
 	buffer = 0
@@ -75,14 +75,11 @@
 	fighters = []
 	fighterselection = []
 }
-{ // act execution
-	acttimer = 0
-}
 { // party actions (aside from s-action and alike)
 	bonus_actions = {}
 	var names = struct_get_names(global.party)
 	for (var i = 0; i < array_length(names); ++i) {
-	    struct_set(bonus_actions, names[i], [new item_s_defaultaction(names[i])] )
+	    struct_set(bonus_actions, names[i], [new item_s_defaultaction(names[i])])
 	}
 }
 
