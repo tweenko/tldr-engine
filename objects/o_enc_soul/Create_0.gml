@@ -11,7 +11,7 @@ image_yscale = 0.5;
 image_blend = c_red
 
 i_frames = 0;
-spd = 1;
+spd = 2;
 real_spd = 1
 
 graze_buffer = 0;
