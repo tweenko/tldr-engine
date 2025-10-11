@@ -3,7 +3,8 @@ event_inherited()
 if timer == 0
     exit
 
-if timer % 25 == 0 {
+var __buffed_period = clamp(25 - (5 * buff), 15, 25)
+if timer % __buffed_period == 0 {
     instance_create(o_enc_bullet_dark, 
         o_enc_box.x + random_range(40, 70)*choose(-1, 1), 
         o_enc_box.y + random_range(40, 70)*choose(-1, 1), DEPTH_ENCOUNTER.BULLETS_OUTSIDE, {
@@ -11,13 +12,4 @@ if timer % 25 == 0 {
     })
 }
 
-var end_turn = true
-for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
-    if instance_exists(o_enc.turn_objects[i]) && o_enc.turn_objects[i] != id {
-        end_turn = false
-        break
-    }
-}
-
-if end_turn
-    instance_destroy()
+__support_destroy_check()

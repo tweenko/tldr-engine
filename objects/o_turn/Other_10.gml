@@ -1,6 +1,7 @@
 /// @description initialize
 var count = 0
 var iid = id
+
 with object_index {
 	count ++
 	
@@ -8,4 +9,4 @@ with object_index {
 		instance_destroy()
 }
 
-buff = count
+buff = count - 1 // remove yourself

@@ -1168,8 +1168,6 @@ if battle_state == "dialogue" {
 				enemy_index: i, 
 				enemy_struct: encounter_data.enemies[i]
 			}))
-			with turn_objects[i] 
-				event_user(0) // initialize them
 			
 			var xx = encounter_data.enemies[i].actor_id.x - guipos_x()
 			var yy = encounter_data.enemies[i].actor_id.y - guipos_y()

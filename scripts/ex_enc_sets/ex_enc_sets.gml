@@ -15,7 +15,8 @@ function ex_enc_set_spawn() : enc_set() constructor {
 	debug_name	=	"spawnlings"
 	enemies = [
 		new ex_enemy_spawnling(),
-		new ex_enemy_dentos(),
+		new ex_enemy_spawnling(),
+		//new ex_enemy_dentos(),
 	]
     enemies_pos = function(i, xx, yy) {
         return [
