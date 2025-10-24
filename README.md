@@ -18,14 +18,6 @@ Something important, too. This engine is still very much under semi-active devel
 If you want to request a feature or want me to change something, you may put that 
 request in the according channel in the server mentioned above.
 
-> Before doing anything though, I want to discourage you from making any changes 
-to the things inside the @engine folder, because it is likely they may change over 
-time and your code may break when pulling a new version. 
-Be careful about changing source code!
-
-> If you do plan on making changes there, however, you shouldn't update your engine to the newest version.
-A workaround for this MAY be in the works.
-
 There is no straight up documentation per se, (at least for now) so the Discord server can be considered a very interactive documentation, if you will.
 
 ---
