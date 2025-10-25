@@ -1,5 +1,5 @@
 /// @description predict text
-var w = 515 - (loc_getlang() == "ja" ? 5 : 0)
+var w = 540
 var manualbreaks = []
 var twb = text
 
@@ -7,11 +7,20 @@ if caller.object_index == o_ui_enemydialogue // make the width smaller for battl
 	w = 174
 
 linebreaks = []
-
 maxw = 0
 maxh = 0
 
 draw_set_font(font)
+
+// initialize the break x offsets
+switch break_system { // then scaled by the scale_x factor
+    default:
+        break_xoff = string_width("* ")
+        break
+    case "ja":
+        break_xoff = string_width("＊ ")
+        break
+}
 
 // account for the clears as dialogue breaks
 if string_contains("{c}", twb) {
@@ -48,10 +57,7 @@ var lastbreak = 0
 for (var i = 0; i < string_length(twb); ++i) {
 	if array_contains(manualbreaks, i - 1) {
 		stringsofar = "";
-		widthcutter = 16 * xscale
-        
-		if loc_getlang() == "ja"
-			widthcutter = string_width("＊ ") * xscale
+		widthcutter = break_xoff * xscale
 	}
     stringsofar += string_char_at(twb, i)
 	
@@ -60,12 +66,15 @@ for (var i = 0; i < string_length(twb); ++i) {
     || !break_tabulation 
 		widthcutter = 0
     
-	if string_char_at(twb, i) == " "
+	if string_char_at(twb, i) == " " && break_system != "ja"
 		lastreservedspace = i
 	
 	if string_width(stringsofar) * xscale >= (w - widthcutter) - center_xoff - face_xoff {
-		if lastreservedspace < 3 { // make sure we don't do breaks on the asterisk part
-			stringsofar = ""
+		if lastreservedspace < 3 { // make sure we don't do breaks on the asterisk part (or this is japanese)
+			while string_char_at(twb, i+1) == " " 
+                i ++
+            
+            stringsofar = ""
 			array_push(linebreaks, i)
 			lastbreak = i
 		}
@@ -75,7 +84,7 @@ for (var i = 0; i < string_length(twb); ++i) {
 			lastbreak = lastreservedspace + disp_chars
 		}
 		
-        widthcutter = 16 * xscale
+        widthcutter = break_xoff * xscale
 		lastreservedspace = 0
 	}
 }

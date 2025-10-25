@@ -15,25 +15,6 @@ if !allow_incompatible_saves {
         incompatible_save_sleep = 20
     }
 }
-
-if progress { // don't load if there are problems with the save
-    instance_create(o_ui_quit)
-    
-    party_init()
-    global.party_names = [   // <-- if you wish to change the default team members, change them here
-        "kris", "susie", "ralsei"
-    ]
-    party_apply_equipment()
-    
-    // load the fonts
-    event_user(0)
-	global.font_ui_hp = font_add_sprite_ext(spr_ui_hpfont, "1234567890-", true, 2);
-	global.font_numbers_w = font_add_sprite_ext(spr_ui_numbers_wfont,"0123456789+-%/",false, 1);
-	global.font_numbers_g = font_add_sprite_ext(spr_ui_numbers_gfont,"0123456789+-%/",false, 1);
-    
-    // load the default items
-    array_push(global.key_items, new item_key_cell_phone())
-}
 { // get window ready
 	var divide = 480
 	if display_get_width() < display_get_height() {
@@ -55,7 +36,9 @@ global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
 global.charmove_insts = array_create(party_getpossiblecount() + 10, undefined)
 
 if progress { // set up saves
-	global.chapter = 2
+    instance_create(o_ui_quit)
+
+	global.chapter = 1
 	global.time = 0
 
 	// get saves ready
@@ -65,9 +48,9 @@ if progress { // set up saves
 		ROOM:			room_test_main,
 		ROOM_NAME:		"",
 		TIME:			global.time,
-		PARTY_DATA:		global.party,
-		PARTY_NAMES:	global.party_names,
-		CHAPTER:		0,
+		PARTY_DATA:		undefined, // set later
+		PARTY_NAMES:	undefined, // set later
+		CHAPTER:		global.chapter,
 		PLOT:			0,
         MONEY:          0,
         EXP:            0,
@@ -99,12 +82,30 @@ if progress { // set up saves
 		COMPLETE_ROOM:	"undefined",
 		COMPLETE_TIME:	0,
 	}
-	global.saves = save_read_all() // saves saved on device
     
+    party_init()
+    global.party_names = [   // <-- if you wish to change the default team members, change them here
+        "kris", "susie", "ralsei"
+    ]
+    party_apply_equipment()
+    
+    // load the fonts
+    event_user(0)
+	global.font_ui_hp = font_add_sprite_ext(spr_ui_hpfont, "1234567890-", true, 2);
+	global.font_numbers_w = font_add_sprite_ext(spr_ui_numbers_wfont,"0123456789+-%/",false, 1);
+	global.font_numbers_g = font_add_sprite_ext(spr_ui_numbers_gfont,"0123456789+-%/",false, 1);
+    
+    // load the default items
+    array_push(global.key_items, new item_key_cell_phone())
+    global.save.PARTY_DATA = global.party
+    global.save.PARTY_NAMES = global.party_names
+    
+	global.saves = save_read_all() // saves saved on device
 	if global.saves[global.save_slot] != -1 
 		global.save = global.saves[global.save_slot]
     
     save_load(global.save_slot)
 }
+
 if progress
     room_goto_next()

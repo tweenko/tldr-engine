@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"lb_mp_scripts",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lb_mp_scripts",
+  "parent":{
+    "name":"music_pitcher",
+    "path":"folders/@Libraries/music_pitcher.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

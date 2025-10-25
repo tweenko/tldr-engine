@@ -282,7 +282,7 @@ if !only_hp {
 					party_getdata(global.party_names[e_pmselection], "armor1"),
 					party_getdata(global.party_names[e_pmselection], "armor2"),
 				]
-				var order=["weapon", "armor1", "armor2"]
+				var order = ["weapon", "armor1", "armor2"]
 				
 				var allow = true
 				var customreaction = false
@@ -292,12 +292,12 @@ if !only_hp {
 						if !array_contains(arr_mod[e_selection].weapon_whitelist, global.party_names[e_pmselection]) 
 							allow = false
 					}
-					else{
+					else {
 						if array_contains(arr_mod[e_selection].armor_blacklist, global.party_names[e_pmselection]) 
 							allow = false
 					}
 				}
-				if allow 
+				if allow // susie not allowing to touch her stuff
 					&& is_undefined(arr_mod[e_selection]) 
 					&& global.party_names[e_pmselection] == "susie" 
 					&& !is_undefined(party_getdata("susie", order[e_pselection]))

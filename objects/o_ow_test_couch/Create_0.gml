@@ -42,10 +42,10 @@ interaction_code = function() {
             if party_ismember("ralsei")
                 __put("ralsei", xx + 16, yy, _depth)
             if party_ismember("noelle")
-                actor_move(o_actor_noelle, new actor_movement(xx, yy + 40, 15,,, DIR.UP))
+                actor_move(o_actor_noelle, new actor_movement(xx, yy + 40, 20,,, DIR.UP))
             
         }, [x, y, depth])
-        cutscene_sleep(15)
+        cutscene_sleep(20)
         
         cutscene_audio_play(snd_noise)
         cutscene_func(function() {
@@ -109,13 +109,13 @@ interaction_code = function() {
                 "{char(noelle, 17)}* (Um...)",
                 "{char(susie, 10)}* Noelle, did you say something? I didn't hear much if you did.",
                 "{char(noelle, 18)}* Oh, no. I... Uh...",
-                "{char(susie, 2)}* Cool.{mini(`(I'll just... sit here.)`, noelle, 6, -30, -10)}",
+                "{char(susie, 2)}* Cool.{mini(`(I'll just... sit here.)`, noelle, 6)}",
             ])
         }
         else if party_ismember("ralsei") {
             cutscene_dialogue([
                 "{char(noelle, 17)}* (Um...)",
-                "{char(ralsei, 3)}* Kris, are you cozy?.{mini(`(I'll just... sit here.)`, noelle, 6, -30, -10)}",
+                "{char(ralsei, 3)}* Kris, are you cozy?{mini(`(I'll just... sit here.)`, noelle, 6)}",
             ])
         }
         else {

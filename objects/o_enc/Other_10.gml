@@ -42,6 +42,10 @@
 	exec_wait = false
 	exec_waiting = false
 }
+{ // attack execution
+	fighters = []
+	fighterselection = []
+}
 { // enemy's turn
 	turn_timer = 0
 	turn_objects = []

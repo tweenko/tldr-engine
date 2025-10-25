@@ -336,7 +336,7 @@ function item_s_iceshock() : item_spell() constructor {
 }
 
 function item_s_defaultaction(nname) : item_spell() constructor {
-	name = string(loc("spell_party_action_name"), string_upper(string_copy(party_getname(nname), 0, 1)))
+	name = string(loc("spell_party_action_name"), loc($"party_{nname}_action_letter"))
 	desc = ["", "", loc("spell_party_action_desc")]
 	
 	use_type = ITEM_USE.ENEMY

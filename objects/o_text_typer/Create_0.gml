@@ -23,11 +23,13 @@
 	
 	npc_link = noone
 	xcolor = c_white
+    solid_color = false
 	effect = 0
 	god = 0
     predict_text = true
      
 	can_skip = true
+    break_system = loc_getlang()
 }
 { // face & voice
 	_face = 0
@@ -63,6 +65,7 @@
     center_xoff = 0
     center_yoff = 0
     face_xoff = 0
+    break_xoff = 16
 	
 	timer = 0
 	pause = 0

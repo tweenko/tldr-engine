@@ -70,8 +70,9 @@ while looping || normalupd {
 			inst.effect = effect
 			inst.timer = chartimeroff * chars
 			inst.god = god
+            inst.solid_color = solid_color
 			
-			array_push(mychars, inst)
+			array_push(mychars, inst) 
 			disp_chars ++
 			
 			xoff += string_width(curchar) * xscale

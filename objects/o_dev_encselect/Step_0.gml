@@ -14,7 +14,7 @@ if InputRepeat(INPUT_VERB.DOWN){
 
 if InputPressed(INPUT_VERB.SELECT) {
 	instance_destroy()
-	encounters[selection]._start()
+	new encounters[selection]()._start()
 }
 
 if InputPressed(INPUT_VERB.CANCEL) {

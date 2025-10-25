@@ -28,7 +28,7 @@ trigger_code = function() {
     
     cutscene_sleep(30)
     cutscene_dialogue([
-        "{char(susie, 26)}* Heh. You might want to sit down for this. {mini(`(I'd need a chair...)`, noelle, 7, -10)}"
+        "{char(susie, 26)}* Heh. You might want to sit down for this. {mini(`(I'd need a chair...)`, noelle, 7)}"
     ])
     
     var __healdir = -1

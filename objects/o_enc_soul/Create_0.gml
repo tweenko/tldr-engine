@@ -1,4 +1,4 @@
-// the soul and box system is by jevilhumor (callum)
+// the soul and box system made by jevilhumor (callum)
 
 event_inherited();
 

@@ -73,6 +73,9 @@ if command == "auto_breaks" { // auto_breaks(bool)
 	else
 		show_error("Command auto_breaks recieved a non-boolean argument", true)
 }
+if command == "break_system" { // break_system(language_id = string)
+	break_system = arg[0]
+}
 
 if command == "instant" { // instant(bool = true)
     var __arg = true
@@ -118,6 +121,9 @@ if command == "col" || command == "color" { // col(string) OR color(string)
 	xcolor = string_to_color(arg[0])
 	if arg[0] == "tired_aqua" 
 		xcolor = merge_color(c_aqua, c_blue, 0.3)
+}
+if command == "solid_col" || command = "solid_color" { // solid_col(bool)
+    solid_color = arg[0]
 }
 if command == "reset_col" { // reset_col() OR reset_col
 	xcolor = saved_color
@@ -249,7 +255,7 @@ if command == "voice" { // voice(asset OR nil, pitch_range = undefined, interrup
 			voice = -1
 		else
 			voice = asset_get_index(arg[0])
-	}
+	} 
 	if array_length(arg) > 1 && arg[1] != "nil" {
 		voice_pitchrange = arg[1]
 		voice_pitchrange = string_copy(voice_pitchrange, 1, string_width(voice_pitchrange)-2)
@@ -264,8 +270,8 @@ if command == "voice" { // voice(asset OR nil, pitch_range = undefined, interrup
 if command == "mini" { // mini(text, char = undefined, face_expression = undefined, x = auto, y = auto)
     var __char = undefined
     var __face_ex = 0
-    var __xx = x + 380
-    var __yy = y + 70
+    var __xx = x + 386 - string_width(arg[0])
+    var __yy = y + 64
     
     if array_length(arg) > 1 __char = arg[1]
     if array_length(arg) > 2 __face_ex = arg[2]

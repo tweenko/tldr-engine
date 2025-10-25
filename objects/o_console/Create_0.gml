@@ -83,6 +83,13 @@ registred_commands = {
             else 
                 show_debug_message("CONSOLE: o_enc not found, no encounter ended")
         }
+    },
+    l: {
+        name: "language_switch",
+        desc: "switches the language of the session",
+        execute: function() {
+            loc_switch_lang()
+        }
     }
 }
 

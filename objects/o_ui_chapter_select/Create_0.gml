@@ -108,6 +108,12 @@ musplayed=  0
 complete_ch = 0
 incomplete_ch = 0
 tselec = 0
+possible_chapters = 0
+for (var i = 0; i < array_length(chapters); i ++) {
+    if !is_struct(chapters[i])
+        break
+    possible_chapters ++
+}
 
 yes = loc("chapter_select_yes")
 no = loc("chapter_select_no")

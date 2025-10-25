@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"mus_ex_test_zone",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":3,
+  "conversionMode":0,
+  "duration":103.70612,
+  "name":"mus_ex_test_zone",
+  "parent":{
+    "name":"Music",
+    "path":"folders/zzz Examples/Music.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"mus_ex_test_zone.mp3",
+  "type":0,
+  "volume":0.46,
+}

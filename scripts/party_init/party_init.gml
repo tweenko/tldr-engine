@@ -21,7 +21,15 @@ function party_apply_equipment() {
         item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
     }
 }
-
+function party_m_calculate_hp(base_hp, level) {
+    if level == 1
+        return base_hp
+    else if level == 2
+        return base_hp + 30
+    else
+        return base_hp + 30 + 40*level
+}
+    
 function party_m() constructor {
 	name = "???"
 	
@@ -97,7 +105,7 @@ function party_m() constructor {
 	actor_id = noone
 	is_down = false
 }
-	
+
 function party_m_kris() : party_m() constructor {
 	name = "party_kris_name"
 	
@@ -107,7 +115,7 @@ function party_m_kris() : party_m() constructor {
 	iconcolor = #00A2E8
 	
 	// stats
-	lv =	2
+	lv =	save_get("chapter")
 	desc =	"party_kris_desc"
 	power_stats = [
 		"???",
@@ -115,8 +123,8 @@ function party_m_kris() : party_m() constructor {
 		["party_stat_guts", 2, spr_ui_menu_icon_fire],
 	]
 	
-	hp =		120
-	max_hp =	120
+	max_hp =	party_m_calculate_hp(90, lv)
+    hp =		max_hp
 	attack =	12
 	defense =	2
 	magic =		0
@@ -175,7 +183,7 @@ function party_m_susie() : party_m() constructor {
 	iconcolor = #EA79C8
 	
 	// stats
-	lv =	2
+	lv =	save_get("chapter")
 	desc =	"party_susie_desc"
 	power_stats = [
 		["party_susie_stat_rudeness", 89, spr_ui_menu_icon_demon],
@@ -183,8 +191,8 @@ function party_m_susie() : party_m() constructor {
 		["party_stat_guts", 2, spr_ui_menu_icon_fire],
 	]
 	
-	hp =		140
-	max_hp =	140
+	max_hp =	party_m_calculate_hp(110, lv)
+    hp =        max_hp
 	attack =	16
 	defense =	2
 	magic =		1
@@ -248,7 +256,7 @@ function party_m_ralsei() : party_m() constructor {
 	iconcolor = #B5E61D
 	
 	// stats
-	lv =	2
+	lv =	save_get("chapter")
 	desc =	"party_ralsei_desc"
 	power_stats = [
 		["party_ralsei_stat_sweetness", 97, spr_ui_menu_icon_lollipop],
@@ -256,8 +264,8 @@ function party_m_ralsei() : party_m() constructor {
 		["party_stat_guts", 0, spr_ui_menu_icon_fire],
 	]
 	
-	hp =		100
-	max_hp =	100
+	max_hp =	party_m_calculate_hp(70, lv)
+    hp =		max_hp
 	attack =	8
 	defense =	2
 	magic =		9
@@ -325,10 +333,10 @@ function party_m_noelle() : party_m() constructor {
 		["party_noelle_stat_coldness", 47, spr_ui_menu_icon_snow],
 		["party_noelle_stat_boldness", 100, spr_ui_menu_icon_exclamation],
 		["party_stat_guts", 0, spr_ui_menu_icon_fire],
-	]
-	
-	hp =		90
-	max_hp =	90
+	] 
+    
+    max_hp =	party_m_calculate_hp(90, lv)
+	hp =		max_hp
 	attack =	3
 	defense =	1
 	magic =		11

@@ -9,8 +9,9 @@
         "ja": [
             "＊ （これはローカライズシステムのテストです。）",
             "＊ スージィ？ ボクさまの飼育環境を改善してくれる？",
-            "{char(susie)}＊ あー…カベにコブシで穴あけて 中にオモチャ隠したりとかかな？",
-            "{char(none)}＊ ありがとう。いつかボクさまも スージィに 同じことしてあげる…"
+            "{char(susie)}＊ あー… カベにコブシで穴あけて 中にオモチャ隠したりとかかな？",
+            "{char(none)}＊ ありがとう。いつかボクさまも スージィに 同じことしてあげる…",
+            "{break_system(`en`)}* Yeah this is now a different break system, and as such it should use stuff."
         ]
     },
     "txt_debug_save_erase": {

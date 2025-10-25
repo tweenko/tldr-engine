@@ -12,6 +12,10 @@
         "en": "Bed Inspector Inspects all beds inexplicably.",
         "ja": "ベッドボス\nなぜか ベッドを\n調べまくる。"
     },
+    "party_kris_action_letter": {
+        "en": "K",
+        "ja": "Ｋ"
+    },
 
     "party_susie_name": {
         "en": "Susie",
@@ -33,6 +37,10 @@
         "en": "Yes",
         "ja": "はい"
     },
+    "party_susie_action_letter": {
+        "en": "S",
+        "ja": "Ｓ"
+    },
 
     "party_ralsei_name": {
         "en": "Ralsei",
@@ -50,6 +58,10 @@
         "en": "Fluffiness",
         "ja": "ふわふわ感"
     },
+    "party_ralsei_action_letter": {
+        "en": "R",
+        "ja": "Ｒ"
+    },
 
     "party_noelle_name": {
         "en": "Noelle",
@@ -66,5 +78,9 @@
     "party_noelle_stat_boldness": {
         "en": "Boldness",
         "ja": "大胆さ"
+    },
+    "party_noelle_action_letter": {
+        "en": "N",
+        "ja": "Ｎ"
     }
 }

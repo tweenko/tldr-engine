@@ -96,7 +96,7 @@ else {
 		horselection = 0
 
 	if InputPressed(INPUT_VERB.SELECT) {
-		if selection < total {
+		if selection <= total {
 			if is_struct(chapters[selection - 1]) {
 				if confirming == true && confirmselection == 0{
 					audio_play(snd_ui_select)

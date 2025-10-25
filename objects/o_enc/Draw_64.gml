@@ -145,8 +145,8 @@ surface_set_target(surf) {
 		
 		// enemy selector
 		if state == 1 && (bt_selection[selection] == 0 || bt_selection[selection] == 3 || (bt_selection[selection] == 1 && can_act[selection])) || (bt_selection[selection] == 2 && state == 3) || (!can_act[selection] && bt_selection[selection] == 1 && spells[actselection[selection]].use_type == 2 && state == 3) {
-			draw_text_transformed(424, 364, loc("enc_ui_label_hp"), 2, 1, 0)
-			draw_text_transformed(524, 364, loc("enc_ui_label_mercy"), 2, 1, 0)
+			draw_text_transformed(424, 364, loc("enc_ui_label_hp"), (global.loc_lang == "en" ? 2 : 1), 1, 0)
+			draw_text_transformed(524, 364, loc("enc_ui_label_mercy"), (global.loc_lang == "en" ? 2 : 1), 1, 0)
 			
 			for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 				if !enc_enemy_isfighting(i)
@@ -224,7 +224,7 @@ surface_set_target(surf) {
 			    longestx = max(string_width(encounter_data.enemies[i].name)*2, longestx)
 			}
 			
-			draw_text_transformed(524, 364, "MERCY", 2, 1, 0)
+			draw_text_transformed(524, 364, loc("enc_ui_label_mercy"), (global.loc_lang == "en" ? 2 : 1), 1, 0)
 			for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 				if !enc_enemy_isfighting(i)
 					continue

@@ -48,7 +48,7 @@ function item_a_pink_ribbon() : item_armor() constructor {
 	name = ["Pink Ribbon"]
 	desc = ["A cute hair ribbon. Increases the range at which bullets raise tension.", "--"]
 	
-	a_blacklist = ["susie"]
+	armor_blacklist = ["susie"]
 	
 	stats = {
 		defense: 1,
@@ -70,7 +70,7 @@ function item_a_white_ribbon() : item_armor() constructor {
 	name = ["White Ribbon"]
 	desc = ["A crinkly hair ribbon that slightly\nincreases your defense.", "--"]
 	
-	a_blacklist = ["susie"]
+	armor_blacklist = ["susie"]
 	
 	stats = {
 		defense: 2,
@@ -92,7 +92,7 @@ function item_a_twin_ribbon() : item_armor() constructor {
 	name = ["Twin Ribbon"]
 	desc = ["Two ribbons. You'll have to put\nyour hair into pigtails.", "--"]
 	
-	a_blacklist = ["susie"]
+	armor_blacklist = ["susie"]
 	
 	stats = {
 		defense: 3,
@@ -191,7 +191,7 @@ function item_a_shadowmantle() : item_armor() constructor {
     name = ["ShadowMantle"]
     desc = ["Shadows slip off like water.\nGreatly protects against Dark and Star attacks.", "--"]
     
-    a_blacklist = ["noelle"]
+    armor_blacklist = ["noelle"]
     
 	stats = {
 		defense: 3,
