@@ -54,7 +54,6 @@ function enc_set_ex() : enc_set() constructor {
 	]
 	
 	flavor = "* The test crew is approaching!!"
-	bgm = -1
     
     _target_calculation = function() {
         var __targets = []
@@ -79,5 +78,4 @@ function enc_set_virovirokun() : enc_set() constructor {
 		[-20, 0, true]
 	]
 	flavor = "* Virovirokun floated in!"
-	bgm = -1
 }

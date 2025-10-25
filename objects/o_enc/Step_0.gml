@@ -1374,7 +1374,7 @@ if battle_state == "win" {
 		
         cutscene_func(instance_destroy, [id])
 		cutscene_set_variable(o_eff_bg, "destroy", true)
-		cutscene_func(music_fade, [1])
+		cutscene_func(music_fade, [1, 0, 15])
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			var o = party_get_inst(global.party_names[i])
 			
@@ -1411,6 +1411,11 @@ if battle_state == "win" {
 		
         cutscene_set_variable(o_camera, "target", o_actor_kris)
 		cutscene_set_variable(get_leader(), "moveable_battle", true)
+        
+        if music_isplaying(0) {
+            cutscene_func(music_resume, [0])
+            cutscene_func(music_fade, [0, 1])
+        }
 		
         for (var i = 0; i < array_length(save_follow); i ++) {
             cutscene_set_variable(party_get_inst(global.party_names[i]), "follow", save_follow[i])

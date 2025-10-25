@@ -82,9 +82,10 @@ function music_resume(slot){
 
 /// @desc fade a song in a certain slot
 /// @arg {real} slot the channel you want to get fade out
+/// @arg {real} target_gain the gain you'd like to reach
 /// @arg {real} time the time in frames you want to fade out the music
-function music_fade(slot, time = 30){
+function music_fade(slot, target_gain, time = 30){
 	if instance_exists(o_dev_musiccontrol){
-		audio_sound_gain(o_dev_musiccontrol.curplaying_id[slot], 0, 1000 * time/30)
+		audio_sound_gain(o_dev_musiccontrol.curplaying_id[slot], target_gain * volume_get(1), 1000 * time/30)
 	}
 }

@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":103.70612,
+  "duration":89.608345,
   "name":"mus_ex_test_zone",
   "parent":{
     "name":"Music",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"mus_ex_test_zone.mp3",
-  "type":0,
-  "volume":0.46,
+  "soundFile":"mus_ex_test_zone.ogg",
+  "type":1,
+  "volume":1.0,
 }

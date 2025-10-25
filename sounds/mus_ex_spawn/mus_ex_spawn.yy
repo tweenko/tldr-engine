@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":71.111115,
+  "duration":0.0,
   "name":"mus_ex_spawn",
   "parent":{
     "name":"Music",

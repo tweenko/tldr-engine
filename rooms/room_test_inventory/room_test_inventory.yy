@@ -34,6 +34,7 @@
     {"name":"inst_407BBE","path":"rooms/room_test_inventory/room_test_inventory.yy",},
     {"name":"inst_70FA01F0","path":"rooms/room_test_inventory/room_test_inventory.yy",},
     {"name":"inst_35651FA3","path":"rooms/room_test_inventory/room_test_inventory.yy",},
+    {"name":"inst_5F0E8A33","path":"rooms/room_test_inventory/room_test_inventory.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -94,6 +95,10 @@
         {"$GMRInstance":"v2","%Name":"inst_35651FA3","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_35651FA3","objectId":{"name":"o_dev_marker_land","path":"objects/o_dev_marker_land/o_dev_marker_land.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_dev_marker","path":"objects/o_dev_marker/o_dev_marker.yy",},"propertyId":{"name":"m_id","path":"objects/o_dev_marker/o_dev_marker.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"1",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":480.0,"y":180.0,},
+        {"$GMRInstance":"v2","%Name":"inst_5F0E8A33","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_5F0E8A33","objectId":{"name":"o_dev_music","path":"objects/o_dev_music/o_dev_music.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_dev_music","path":"objects/o_dev_music/o_dev_music.yy",},"propertyId":{"name":"mus","path":"objects/o_dev_music/o_dev_music.yy",},"resource":{"name":"mus_ex_test_zone","path":"sounds/mus_ex_test_zone/mus_ex_test_zone.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"mus_ex_test_zone",},
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_dev_music","path":"objects/o_dev_music/o_dev_music.yy",},"propertyId":{"name":"pitch","path":"objects/o_dev_music/o_dev_music.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"0.95",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":0.0,"y":-40.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRAssetLayer":"","%Name":"Assets_1","assets":[
         {"$GMRSpriteGraphic":"v1","%Name":"graphic_1B8F5356","animationSpeed":1.0,"colour":4294967295,"frozen":false,"headPosition":0.0,"ignore":false,"inheritedItemId":null,"inheritItemSettings":false,"name":"graphic_1B8F5356","resourceType":"GMRSpriteGraphic","resourceVersion":"2.0","rotation":0.0,"scaleX":15.500001,"scaleY":1.0,"spriteId":{"name":"spr_default","path":"sprites/spr_default/spr_default.yy",},"x":100.0,"y":0.0,},

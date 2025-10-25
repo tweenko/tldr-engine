@@ -14,6 +14,7 @@ trigger_code = function() {
     cutscene_player_canmove(false)
     cutscene_party_follow(false)
     cutscene_set_variable(o_camera, "target", noone)
+    cutscene_func(music_fade, [0, 0])
     
     cutscene_func(function() {
         party_set_state("susie", "serious")
@@ -36,6 +37,7 @@ trigger_code = function() {
         ), i, false)
     }
     cutscene_camera_pan(undefined, 220, 30)
+    cutscene_func(music_pause, 0)
     
     cutscene_actor_move(party_get_inst("susie"), new actor_movement(
         0,
@@ -143,6 +145,12 @@ trigger_code = function() {
         camera_unpan(get_leader(), 10)
     })
     cutscene_sleep(10)
+    
+    cutscene_func(music_resume, 0)
+    cutscene_func(function() {
+        music_resume(0)
+        music_fade(0, 1, 30)
+    })
     
     cutscene_party_follow(true)
     cutscene_party_interpolate()
