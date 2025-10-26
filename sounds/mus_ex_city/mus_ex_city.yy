@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":70.86213,
+  "duration":110.52633,
   "name":"mus_ex_city",
   "parent":{
     "name":"Music",

@@ -289,17 +289,25 @@ function cutscene_func(func, args = []){
 	})
 }
 
-/// @arg {real} x_dest set to undefined if you don't want to move on this axis
-/// @arg {real} y_dest set to undefined if you don't want to move on this axis
-function cutscene_camera_pan(x_dest, y_dest, time, wait = true, ease_type = "linear") {
+/// @desc pan the camera using two animation instances during a cutscene
+/// @param {real} x_dest  set to undefined if you don't want to move on this axis
+/// @param {real} y_dest  set to undefined if you don't want to move on this axis
+/// @param {real} time the amount of time the camera will take to fully animate
+/// @param {bool} wait whether the cutscene should be paused until the camera reaches its destination
+/// @param {string} [ease_type] the ease type the animation will use, look in lerp_type script to find the full list
+/// @param {bool} [confined_x] whether the camera is confined within the bounds of the room on the x axis (true by default)
+/// @param {bool} [confined_y] whether the camera is confined within the bounds of the room on the y axis (true by default)
+function cutscene_camera_pan(x_dest, y_dest, time, wait = true, ease_type = "linear", confined_x = true, confined_y = true) {
     var data = {
         x_dest: x_dest,
         y_dest: y_dest,
         time: time,
         wait: wait,
         ease_type: ease_type,
+        confined_x, confined_y,
+        
         timer: 0,
-        action: [camera_pan, x_dest, y_dest, time, ease_type]
+        action: [camera_pan, x_dest, y_dest, time, ease_type, confined_x, confined_y]
     };
 
     // First arg is the struct itself

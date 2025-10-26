@@ -337,16 +337,23 @@ function camera_confine_y(yy) {
     return yy
 }
 
-/// @arg {real} x_dest set to undefined if you don't want to move on this axis
-/// @arg {real} y_dest set to undefined if you don't want to move on this axis
-function camera_pan(x_dest, y_dest, time, ease_type = "linear") {
+/// @desc pan the camera using two animation instances
+/// @param {real} x_dest  set to undefined if you don't want to move on this axis
+/// @param {real} y_dest  set to undefined if you don't want to move on this axis
+/// @param {real} time the amount of time the camera will take to fully animate
+/// @param {string} [ease_type] the ease type the animation will use, look in lerp_type script to find the full list
+/// @param {bool} [confined_x] whether the camera is confined within the bounds of the room on the x axis (true by default)
+/// @param {bool} [confined_y] whether the camera is confined within the bounds of the room on the y axis (true by default)
+function camera_pan(x_dest, y_dest, time, ease_type = "linear", confined_x = true, confined_y = true) {
     if is_undefined(x_dest) 
         x_dest = o_camera.x
     if is_undefined(y_dest) 
         y_dest = o_camera.y
     
-    x_dest = camera_confine_x(x_dest)
-    y_dest = camera_confine_y(y_dest)
+    if confined_x
+        x_dest = camera_confine_x(x_dest)
+    if confined_y
+        y_dest = camera_confine_y(y_dest)
     
     if o_camera.x != x_dest && !is_undefined(x_dest)
         o_camera.animation_x = do_animate(o_camera.x, x_dest, time, ease_type, o_camera, "x")
