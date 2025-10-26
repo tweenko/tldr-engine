@@ -215,6 +215,7 @@ if face_expression != face_expression_prev {
 	face_expression_prev = face_expression
 }
 
-if InputPressed(INPUT_VERB.CANCEL) && skipping == false && can_skip && !command_mode {
+if InputPressed(INPUT_VERB.CANCEL) && !skipping && can_skip && !command_mode && pause >= 0 {
 	skipping = true
-}  
+    pause = 0
+}
