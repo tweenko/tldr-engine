@@ -206,14 +206,15 @@
     /// @arg {any} _default_value the default value of the entry
     /// @arg {function|undefined} _import_method a function the save system will use to import the raw data. argument 0 is the raw data of the hash, should return nothing and set the variable in it
     /// @arg {function|undefined} _export_method a function the save system will use to export the raw data. should return what will be stored in the hash
-    function save_entry(_name, _default_value, _import_method = undefined, _export_method = undefined) constructor {
-        name = _name
+    function save_entry(_name, _default_value, _import_method = undefined, _export_method = undefined) {
+        var __entry_struct = {
+            name: _name,
+            __import: _import_method,
+            __export: _export_method
+        }
         
-        __import = _import_method
-        __export = _export_method
-        
-        array_push(global.save_recording, self)
-        struct_set(global.save, name, _default_value)
+        array_push(global.save_recording, __entry_struct)
+        struct_set(global.save, _name, _default_value)
     }
     
     

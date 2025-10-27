@@ -49,76 +49,76 @@ global.save_recording = []
 global.save = {}
 #region create the save entries
     // base player data
-    new save_entry("NAME", "PLAYER")
-    new save_entry("ROOM", room_test_main, undefined, function() { return room })
-    new save_entry("ROOM_NAME", "", function(_raw_data){ global.room_name = _raw_data }, function(){ return global.room_name })
+    save_entry("NAME", "PLAYER")
+    save_entry("ROOM", room_test_main, undefined, function() { return room })
+    save_entry("ROOM_NAME", "", function(_raw_data){ global.room_name = _raw_data }, function(){ return global.room_name })
     
-    new save_entry("TIME", global.time, function(_raw_data){ global.time = _raw_data }, function(){ return global.time })
-    new save_entry("CHAPTER", global.chapter, function(_raw_data){ global.chapter = _raw_data }, function(){ return global.chapter })
-    new save_entry("PLOT", 0)
-    new save_entry("MONEY", 0)
-    new save_entry("EXP", 0)
+    save_entry("TIME", global.time, function(_raw_data){ global.time = _raw_data }, function(){ return global.time })
+    save_entry("CHAPTER", global.chapter, function(_raw_data){ global.chapter = _raw_data }, function(){ return global.chapter })
+    save_entry("PLOT", 0)
+    save_entry("MONEY", 0)
+    save_entry("EXP", 0)
     
-    new save_entry("CRYSTAL", false)
-    new save_entry("COMPLETED", false)
-    new save_entry("COMPLETE_ROOM", "undefined")
-    new save_entry("COMPLETE_TIME", 0)
+    save_entry("CRYSTAL", false)
+    save_entry("COMPLETED", false)
+    save_entry("COMPLETE_ROOM", "undefined")
+    save_entry("COMPLETE_TIME", 0)
     
     // light world data
-    new save_entry("LW_NAME", "Kris")
-    new save_entry("LW_LV", 1)
-    new save_entry("LW_HP", 20)
-    new save_entry("LW_MAXHP", 20)
-    new save_entry("LW_MONEY", 0)
-    new save_entry("LW_SINCE_CHAPTER", 0)
+    save_entry("LW_NAME", "Kris")
+    save_entry("LW_LV", 1)
+    save_entry("LW_HP", 20)
+    save_entry("LW_MAXHP", 20)
+    save_entry("LW_MONEY", 0)
+    save_entry("LW_SINCE_CHAPTER", 0)
     
-    new save_entry("LW_WEAPON", 
+    save_entry("LW_WEAPON", 
         undefined, 
         function(_raw_data){ global.lw_weapon = save_inv_single_import(_raw_data) }, 
         function(){ return save_inv_single_export(global.lw_weapon) }
     )
-    new save_entry("LW_ARMOR", 
+    save_entry("LW_ARMOR", 
         undefined, 
         function(_raw_data){ global.lw_armor = save_inv_single_import(_raw_data) }, 
         function(){ return save_inv_single_export(global.lw_armor) }
     )
-    new save_entry("LW_ITEMS", 
+    save_entry("LW_ITEMS", 
         global.lw_items, 
         function(_raw_data){ global.lw_items = save_inv_import(_raw_data) }, 
         function(){ return save_inv_export(global.lw_items) }
     )
     
     // inventory
-    new save_entry("ITEMS", global.items, 
+    save_entry("ITEMS", global.items, 
         function(_raw_data){ global.items = save_inv_import(_raw_data) }, 
         function(){ return save_inv_export(global.items) }
     )
-    new save_entry("KEY_ITEMS", global.key_items, 
+    save_entry("KEY_ITEMS", global.key_items, 
         function(_raw_data){ global.key_items = save_inv_import(_raw_data) }, 
         function(){ return save_inv_export(global.key_items) }
     )
-    new save_entry("WEAPONS", global.weapons, 
+    save_entry("WEAPONS", global.weapons, 
         function(_raw_data){ global.weapons = save_inv_import(_raw_data) }, 
         function(){ return save_inv_export(global.weapons) }
     )
-    new save_entry("ARMORS", global.armors, 
+    save_entry("ARMORS", global.armors, 
         function(_raw_data){ global.armors = save_inv_import(_raw_data) }, 
         function(){ return save_inv_export(global.armors) }
     )
-    new save_entry("STORAGE", global.storage, 
+    save_entry("STORAGE", global.storage, 
         function(_raw_data){ global.storage = save_inv_import(_raw_data) }, 
         function(){ return save_inv_export(global.storage) }
     )
     
     // misc
-    new save_entry("STATES", global.states, function(_raw_data){ global.states = _raw_data }, function(){ return global.states })
-    new save_entry("WORLD", global.world, function(_raw_data){ global.world = _raw_data }, function(){ return global.world })
+    save_entry("STATES", global.states, function(_raw_data){ global.states = _raw_data }, function(){ return global.states })
+    save_entry("WORLD", global.world, function(_raw_data){ global.world = _raw_data }, function(){ return global.world })
     
-    new save_entry("RECRUITS", global.recruits, 
+    save_entry("RECRUITS", global.recruits, 
         function(_raw_data){ global.recruits = save_inv_import(_raw_data) }, 
         function(){ return save_inv_export(global.recruits) }
     )
-    new save_entry("RECRUITS_LOST", global.recruits_lost, function(_raw_data){ global.recruits_lost = _raw_data }, function(){ return global.recruits_lost })
+    save_entry("RECRUITS_LOST", global.recruits_lost, function(_raw_data){ global.recruits_lost = _raw_data }, function(){ return global.recruits_lost })
 #endregion
 
 // if you wish to add new save entries, please add them here ⌄⌄⌄⌄⌄⌄⌄⌄
@@ -141,11 +141,11 @@ global.font_numbers_g = font_add_sprite_ext(spr_ui_numbers_gfont,"0123456789+-%/
 array_push(global.key_items, new item_key_cell_phone())
 
 // create entries for the party stuff later since we must first apply their equipment
-new save_entry("PARTY_DATA", global.party, 
+save_entry("PARTY_DATA", global.party, 
     function(_raw_data) { global.party = save_party_import(_raw_data) },
     function() { return save_party_export(global.party) }
 )
-new save_entry("PARTY_NAMES", global.party_names, 
+save_entry("PARTY_NAMES", global.party_names, 
     function(_raw_data) { global.party_names = _raw_data },
     function() { return global.party_names }
 )
