@@ -121,11 +121,10 @@ if state == 1 {
 		state = 0
 	}
 	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 { // load file
-		save_refresh_back()
-		save_load(selection,global.chapter)
-		
+		save_load(selection, global.chapter)
+        
 		room_goto(save_get("room"))
-		fader_fade(1, 0, 15)
+        fader_fade(1, 0, 15)
 	}
 }
 	

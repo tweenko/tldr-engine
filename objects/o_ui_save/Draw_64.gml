@@ -39,7 +39,7 @@ if page == 1 { // save menu
 	
 	draw_set_halign(fa_center)
 	draw_text_transformed(320, 32, save_get("name"), 2, 2, 0)
-	draw_text_transformed(320, 64, loc(save_get("room_name")), 2, 2, 0)
+	draw_text_transformed(320, 64, loc(global.room_name), 2, 2, 0)
 	
 	draw_set_halign(fa_left)
 	draw_text_transformed(100, 32, $"LV {global.chapter}", 2, 2, 0)
@@ -120,7 +120,7 @@ if page == 1 { // save menu
 		draw_set_color(c_yellow)
 	}
 	if prog != 1 
-		draw_text_transformed(320, 402 - 8, loc(loc("save_menu_return")), 2, 2, 0)
+		draw_text_transformed(320, 402 - 8, loc("save_menu_return"), 2, 2, 0)
 	
 	draw_set_color(c_white)
 	draw_set_halign(fa_left)
@@ -136,7 +136,7 @@ if page == 1 { // save menu
 			draw_set_halign(fa_center)
 			draw_text_transformed(320, 131 - 8, string(loc("save_menu_overwrite_query"), s_selection + 1), 2, 2, 0)
 			draw_text_transformed(320, 173 - 8, save_s_get(s_selection, "name"), 2, 2, 0)
-			draw_text_transformed(320, 203 - 8, save_s_get(s_selection, "room_NAME"), 2, 2, 0)
+			draw_text_transformed(320, 203 - 8, loc(save_s_get(s_selection, "room_name")), 2, 2, 0)
 			draw_set_halign(fa_left)
 		
 			draw_text_transformed(80, 173 - 8, $"LV {save_s_get(s_selection, "chapter")}", 2, 2, 0)
@@ -151,7 +151,7 @@ if page == 1 { // save menu
 		
 			draw_set_halign(fa_center)
 			draw_text_transformed(320, 173 - 8 + yy, save_get("name"), 2, 2, 0)
-			draw_text_transformed(320, 203 - 8 + yy, save_get("room_NAME"), 2, 2, 0)
+			draw_text_transformed(320, 203 - 8 + yy, loc(global.room_name), 2, 2, 0)
 			draw_set_halign(fa_left)
 		
 			draw_text_transformed(80, 173 - 8 + yy, $"LV {save_get("chapter")}", 2, 2, 0)

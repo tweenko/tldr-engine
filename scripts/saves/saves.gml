@@ -18,7 +18,6 @@
 		else
 			return struct_get(retrieve_from, string_upper(data))
 	}
-	
 	///@desc gets data from the PC SAVE
 	///@arg {real} slot save slot
 	///@arg {string|real} data just use -1 if you want the whole struct
@@ -64,7 +63,6 @@
 		}
 		return arr
 	}
-	
 	///@desc read a save slot
 	function save_read(slot, chapter = global.chapter){
 		var retst = {}
@@ -88,14 +86,13 @@
 	function save_update_loaded(slot, data){
 		global.saves[slot] = data
 	}
-	
 	///@desc updates the save on pc
-	function save_update_pc(slot, chapter = global.chapter){
-		save_refresh_back()
+	function save_export(slot, chapter = global.chapter){
+		save_export_to_loaded()
         
 		var data = global.save
-		save_update_loaded(slot,data)
-		save_write(slot,data,chapter)
+		save_update_loaded(slot, data)
+		save_write(slot, data, chapter)
 		
 		save_reload()
 	}
@@ -106,7 +103,6 @@
 	}
 	
 	#macro _save_structs_to_convert [ "weapon", "armor1", "armor2", "spells" ]
-    
     ///@desc get ready the party data for import
 	function save_party_import(_p_data) {
 		for (var i = 0; i < party_getpossiblecount(); ++i) {
@@ -199,14 +195,28 @@
     ///@desc get the inventory ready for export
 	function save_inv_export(arr){
 		var ret = []
-		
 		for (var i = 0; i < array_length(arr); ++i) {
 			array_push(ret, save_inv_single_export(arr[i])) 
 		}
-		
 		return ret
 	}
-	
+    
+    /// @desc creates a new save entry and automatically adds it to the save recording global variable
+    /// @arg {string} _name the name you will use as reference in save_get to retrieve the data
+    /// @arg {any} _default_value the default value of the entry
+    /// @arg {function|undefined} _import_method a function the save system will use to import the raw data. argument 0 is the raw data of the hash, should return nothing and set the variable in it
+    /// @arg {function|undefined} _export_method a function the save system will use to export the raw data. should return what will be stored in the hash
+    function save_entry(_name, _default_value, _import_method = undefined, _export_method = undefined) constructor {
+        name = _name
+        
+        __import = _import_method
+        __export = _export_method
+        
+        array_push(global.save_recording, self)
+        struct_set(global.save, name, _default_value)
+    }
+    
+    
     ///@desc load a save
 	function save_load(slot, chapter = global.chapter) {
 		music_stop_all()
@@ -214,50 +224,20 @@
 		if global.saves[slot] != -1 
             global.save = global.saves[slot]
         
-        global.lw_weapon = save_inv_single_import(save_get("lw_weapon"))
-        global.lw_armor = save_inv_single_import(save_get("lw_armor"))
-		
-		global.chapter = chapter
-		save_set(slot)
-		
-		global.items = save_inv_import(save_get("items"))
-		global.key_items = save_inv_import(save_get("key_items"))
-		global.weapons = save_inv_import(save_get("weapons"))
-		global.armors = save_inv_import(save_get("armors"))
-		global.storage = save_inv_import(save_get( "storage"))
-		global.lw_items = save_inv_import(save_get("lw_items"))
-		
-		global.time = save_get("time")
-		global.party_names = save_get("party_names")
-		global.party = save_party_import(save_get("party_data"))
-		global.states = save_get("states")
-		global.world = save_get("world")
-        global.recruits = save_inv_import(save_get("recruits"))
-        global.recruits_lost = save_get("recruits_lost")
-		
-		save_refresh_back()
+        save_set(slot)
+        for (var i = 0; i < array_length(global.save_recording); i ++) {
+            var __recording = global.save_recording[i]
+            if is_callable(__recording.__import)
+                __recording.__import(save_get(__recording.name))
+        }
 	}
 	///@desc refreshes the back-loaded save
-    function save_refresh_back() {
-		global.save.PARTY_DATA = save_party_export(global.party)
-		global.save.PARTY_NAMES = global.party_names
-		global.save.STATES = global.states
-		global.save.CHAPTER = global.chapter
-		global.save.TIME = global.time
-		
-        global.save.LW_WEAPON = save_inv_single_export(global.lw_weapon)
-        global.save.LW_ARMOR = save_inv_single_export(global.lw_armor)
-        
-		global.save.ITEMS = save_inv_export(global.items)
-		global.save.KEY_ITEMS = save_inv_export(global.key_items)
-		global.save.WEAPONS = save_inv_export(global.weapons)
-		global.save.ARMORS = save_inv_export(global.armors)
-		global.save.STORAGE = save_inv_export(global.storage)
-		global.save.LW_ITEMS = save_inv_export(global.lw_items)
-        global.save.RECRUITS = save_inv_export(global.recruits)
-        global.save.RECRUITS_LOST = global.recruits_lost
-		
-		global.save.WORLD = global.world
+    function save_export_to_loaded() {
+        for (var i = 0; i < array_length(global.save_recording); i ++) {
+            var __recording = global.save_recording[i]
+            if is_callable(__recording.__export)
+                struct_set(global.save, string_upper(__recording.name), __recording.__export())
+        }
 	}
 	
 	///@desc delete a save slot from the machine
