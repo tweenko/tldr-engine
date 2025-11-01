@@ -16,7 +16,6 @@ var inst = instance_create(o_enc,,,,{
 var __vs = encounter_data.enc_var_struct
 var __names = struct_get_names(__vs)
 for (var i = 0; i < array_length(__names); i ++) {
-    show_debug_message($"{__names[i]}: {struct_get(__vs, __names[i])}")
     variable_instance_set(inst, __names[i], struct_get(__vs, __names[i]))
 }
 
