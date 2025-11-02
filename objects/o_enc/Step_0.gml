@@ -1421,6 +1421,10 @@ if battle_state == "win" {
             cutscene_set_variable(party_get_inst(global.party_names[i]), "follow", save_follow[i])
         }
         
+        cutscene_func(function() { // reset the battle music slot
+            music_slot_reset(1)
+        })
+        
 		cutscene_play()
 	}
 	wininit = true
