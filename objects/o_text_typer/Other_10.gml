@@ -37,7 +37,7 @@ if command == "br" { // br() or br
 }
 if command == "p" || command == "pause"  { // pause(frames)
 	pause = -1
-	looping=  false
+	looping = false
 }
 if command == "c" || command == "clear"  { // clear() OR clear
 	event_user(2)

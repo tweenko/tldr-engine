@@ -90,6 +90,12 @@ registred_commands = {
         execute: function() {
             loc_switch_lang()
         }
+    },
+    d: {
+        name: "save_wipe",
+        desc: "Deletes all the save files (including settings!) permanently.",
+        execute: function() {
+        }
     }
 }
 

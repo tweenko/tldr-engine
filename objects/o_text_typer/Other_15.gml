@@ -17,18 +17,18 @@ while looping || normalupd {
 			event_user(1);
 			init = false
 		}
-		if timer % typespd == 0 && pause == 0 {
+		if ((timer % typespd == 0) || skipping) && pause == 0 {
 			draw_set_font(font)
 			
 			var __v = voice
 			// choose the voice blip randomly if it's an array
 			if is_array(voice)
 				__v = array_shuffle(__v)[0]
-			if audio_exists(__v) && !skipping && timer % voice_skip == 0{
+			if audio_exists(__v) && !skipping && timer % voice_skip == 0 {
 				var pitch = 1
 				
 				// stop the previous sounds if ordered to
-				if struct_get(char_presets, char).voice_interrupt{
+				if struct_get(char_presets, char).voice_interrupt {
 					audio_stop_sound(__v)
 					
 					// stop all the voice instances if it's an array
@@ -164,7 +164,7 @@ while looping || normalupd {
 		chars ++
 		
 		event_user(0)
-		if string_char_at(text,0) != "{" || string_length(text) == 0
+		if string_char_at(text, 0) != "{" || string_length(text) == 0
 			looping = false
 	}
 		

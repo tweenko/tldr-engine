@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"spr_bnoelle_nurse",
   "bboxMode":0,
   "bbox_bottom":60,
@@ -12,9 +12,9 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"b1f99633-ec2c-4b2a-b695-cceb68c3bb80","name":"b1f99633-ec2c-4b2a-b695-cceb68c3bb80","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"fec847ab-daf7-4d53-a270-90c160c9fd8b","name":"fec847ab-daf7-4d53-a270-90c160c9fd8b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"b94cbaa2-f9b5-4c77-b06e-bf51f57fdcc3","name":"b94cbaa2-f9b5-4c77-b06e-bf51f57fdcc3","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"b1f99633-ec2c-4b2a-b695-cceb68c3bb80","name":"b1f99633-ec2c-4b2a-b695-cceb68c3bb80","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"fec847ab-daf7-4d53-a270-90c160c9fd8b","name":"fec847ab-daf7-4d53-a270-90c160c9fd8b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"b94cbaa2-f9b5-4c77-b06e-bf51f57fdcc3","name":"b94cbaa2-f9b5-4c77-b06e-bf51f57fdcc3","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -70,15 +70,9 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"b1f99633-ec2c-4b2a-b695-cceb68c3bb80","path":"sprites/spr_bnoelle_nurse/spr_bnoelle_nurse.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"5e8483cb-9f40-42d6-bdb0-6717b66640fb","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"fec847ab-daf7-4d53-a270-90c160c9fd8b","path":"sprites/spr_bnoelle_nurse/spr_bnoelle_nurse.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"f74255dc-c15b-48aa-a5e3-baaa0e6e8459","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"b94cbaa2-f9b5-4c77-b06e-bf51f57fdcc3","path":"sprites/spr_bnoelle_nurse/spr_bnoelle_nurse.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"bb5998c9-3dde-42a1-a300-fb0b05830e0d","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"b1f99633-ec2c-4b2a-b695-cceb68c3bb80","path":"sprites/spr_bnoelle_nurse/spr_bnoelle_nurse.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"5e8483cb-9f40-42d6-bdb0-6717b66640fb","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"fec847ab-daf7-4d53-a270-90c160c9fd8b","path":"sprites/spr_bnoelle_nurse/spr_bnoelle_nurse.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"f74255dc-c15b-48aa-a5e3-baaa0e6e8459","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"b94cbaa2-f9b5-4c77-b06e-bf51f57fdcc3","path":"sprites/spr_bnoelle_nurse/spr_bnoelle_nurse.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"bb5998c9-3dde-42a1-a300-fb0b05830e0d","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

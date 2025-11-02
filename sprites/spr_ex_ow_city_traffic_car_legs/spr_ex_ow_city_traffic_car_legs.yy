@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"spr_ex_ow_city_traffic_car_legs",
   "bboxMode":0,
   "bbox_bottom":28,
@@ -12,10 +12,10 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"7d3b2a3e-ed13-4a8c-a546-ea3043ed53bd","name":"7d3b2a3e-ed13-4a8c-a546-ea3043ed53bd","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"dde5c298-47cc-453a-b517-8a67ec8bd128","name":"dde5c298-47cc-453a-b517-8a67ec8bd128","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"713bb4c0-9e06-456a-8811-deeccfd0d471","name":"713bb4c0-9e06-456a-8811-deeccfd0d471","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"afddeab5-9bca-46f2-b2db-080b6cfa50aa","name":"afddeab5-9bca-46f2-b2db-080b6cfa50aa","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"7d3b2a3e-ed13-4a8c-a546-ea3043ed53bd","name":"7d3b2a3e-ed13-4a8c-a546-ea3043ed53bd","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"dde5c298-47cc-453a-b517-8a67ec8bd128","name":"dde5c298-47cc-453a-b517-8a67ec8bd128","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"713bb4c0-9e06-456a-8811-deeccfd0d471","name":"713bb4c0-9e06-456a-8811-deeccfd0d471","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"afddeab5-9bca-46f2-b2db-080b6cfa50aa","name":"afddeab5-9bca-46f2-b2db-080b6cfa50aa","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -71,18 +71,10 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"7d3b2a3e-ed13-4a8c-a546-ea3043ed53bd","path":"sprites/spr_ex_ow_city_traffic_car_legs/spr_ex_ow_city_traffic_car_legs.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"51427981-e92c-4da5-b4ee-1cc899f9e8d0","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"dde5c298-47cc-453a-b517-8a67ec8bd128","path":"sprites/spr_ex_ow_city_traffic_car_legs/spr_ex_ow_city_traffic_car_legs.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"f5eef1d0-0429-41cd-9994-a1e365f7a488","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"713bb4c0-9e06-456a-8811-deeccfd0d471","path":"sprites/spr_ex_ow_city_traffic_car_legs/spr_ex_ow_city_traffic_car_legs.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"3bf118d0-504c-4877-a67c-c6c257c5b927","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"afddeab5-9bca-46f2-b2db-080b6cfa50aa","path":"sprites/spr_ex_ow_city_traffic_car_legs/spr_ex_ow_city_traffic_car_legs.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"d1f9539d-05d3-45d9-8960-2920b841358e","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"7d3b2a3e-ed13-4a8c-a546-ea3043ed53bd","path":"sprites/spr_ex_ow_city_traffic_car_legs/spr_ex_ow_city_traffic_car_legs.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"51427981-e92c-4da5-b4ee-1cc899f9e8d0","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"dde5c298-47cc-453a-b517-8a67ec8bd128","path":"sprites/spr_ex_ow_city_traffic_car_legs/spr_ex_ow_city_traffic_car_legs.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"f5eef1d0-0429-41cd-9994-a1e365f7a488","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"713bb4c0-9e06-456a-8811-deeccfd0d471","path":"sprites/spr_ex_ow_city_traffic_car_legs/spr_ex_ow_city_traffic_car_legs.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"3bf118d0-504c-4877-a67c-c6c257c5b927","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"afddeab5-9bca-46f2-b2db-080b6cfa50aa","path":"sprites/spr_ex_ow_city_traffic_car_legs/spr_ex_ow_city_traffic_car_legs.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"d1f9539d-05d3-45d9-8960-2920b841358e","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
