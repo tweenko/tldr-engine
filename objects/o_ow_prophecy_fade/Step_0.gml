@@ -1,2 +1,2 @@
-if instance_exists(get_leader())
-	image_alpha = get_leader().s_lightalpha
+if instance_exists(o_lighting_controller)
+	image_alpha = o_lighting_controller.lighting_alpha

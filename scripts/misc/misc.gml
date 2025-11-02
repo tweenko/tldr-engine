@@ -99,42 +99,7 @@ function ui_dialoguebox_create(xx, yy, width, height, world = global.world){
 	}
 }
 
-///@desc draw_self except it darkens depending on dodge_lerper (overworld battle darken)
-function dodge_darken_self(){
-	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * .5)
-}
-///@desc returns the lerper of the overworld battle mode
-function dodge_getalpha(){
-	if instance_exists(get_leader())
-		return get_leader().dodge_lerper
-	return 0
-}
-///@desc game over!
-function dodge_gameover(){
-	instance_create(o_gameover, 
-		o_dodge_soul.x - guipos_x(), o_dodge_soul.y - guipos_y(), DEPTH_ENCOUNTER.UI,
-		{
-			image_blend: o_dodge_soul.image_blend,
-			freezeframe: sprite_create_from_surface(application_surface, 0, 0, 640, 480, 0, 0, 0, 0),
-			freezeframe_gui: sprite_create_from_surface((instance_exists(o_ui_menu) ? o_ui_menu.surf : -1), 0, 0, 640, 480, 0, 0, 0, 0),
-		}
-	)
-	
-	room_goto(room_gameover)
-	
-	audio_stop_all()
-	audio_play(snd_hurt)
-}
 
-///@desc draw_self but it darkens depending on the lighting the player is recieving
-function lighting_darken_self() {
-	if s_lightalpha > 0 && !am_emmiting_light {
-		draw_sprite_ext(sprite_index, image_index,
-			x, y, image_xscale, image_yscale,
-			image_angle, c_black, s_lightalpha * lighting_darken
-		)
-	}
-}
 
 ///@desc returns time in the format of HH:MM:SS (hours can overflow)
 ///@arg {bool} display_hours if asked not to, it will return the MM:SS format instead
@@ -345,15 +310,15 @@ function camera_confine_y(yy) {
 /// @param {bool} [confined_x] whether the camera is confined within the bounds of the room on the x axis (true by default)
 /// @param {bool} [confined_y] whether the camera is confined within the bounds of the room on the y axis (true by default)
 function camera_pan(x_dest, y_dest, time, ease_type = "linear", confined_x = true, confined_y = true) {
-    if is_undefined(x_dest) 
-        x_dest = o_camera.x
-    if is_undefined(y_dest) 
-        y_dest = o_camera.y
+    x_dest ??= o_camera.x
+    y_dest ??= o_camera.y
     
     if confined_x
         x_dest = camera_confine_x(x_dest)
     if confined_y
         y_dest = camera_confine_y(y_dest)
+    
+    camera_stop_animations()
     
     if o_camera.x != x_dest && !is_undefined(x_dest)
         o_camera.animation_x = do_animate(o_camera.x, x_dest, time, ease_type, o_camera, "x")
@@ -365,6 +330,8 @@ function camera_unpan(target, time, ease_type = "linear") {
     
     o_camera.offset_x = guipos_x() - camera_confine_x(target.x)
     o_camera.offset_y = guipos_y() - camera_confine_y(target.y)
+    
+    camera_stop_animations()
     
     o_camera.animation_x = do_animate(o_camera.offset_x, 0, time, ease_type, o_camera, "offset_x")
     o_camera.animation_y = do_animate(o_camera.offset_y, 0, time, ease_type, o_camera, "offset_y")

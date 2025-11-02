@@ -24,10 +24,6 @@ is_player = false
 	stepsound = 0 // if the stepsound was played
 	stepsoundprefix = "snd_step"
 	
-	under_lighting = false
-	lighting_color = c_white
-	lighting_darken = .75
-	
 	spacing = (global.world == WORLD_TYPE.LIGHT ? 15 : 12) // make the party member spacing bigger in the light world
 }
 { // enemy specific
@@ -73,9 +69,6 @@ is_player = false
 	
 		s_walk_ispd = 1
 		s_run_ispd = 2
-		
-		s_lightsurf = -1
-		s_lightalpha = 0
 	}
 	
 	s_drawer = function(_sprite, _index, _xx, _yy, _xscale, _yscale, _angle, _blend, _alpha) {
@@ -128,7 +121,8 @@ is_player = false
 	run_away_timer = 0
     
     freeze = 0
-	
+    
+	running = false
 	sliding = false
 	prevsliding = false
 	slideinst = noone
@@ -136,13 +130,9 @@ is_player = false
 	init = false
 	
 	record = []
-	running = false
-}
-{ // overworld battle
-	dodge_mode = false
-	dodge_lerper = 0
-	dodge_outline_surf = -1
-	dodge_mysoul = noone
+    
+    dodge_outline_surf = -1
+    dodge_mysoul = noone
 }
 { // moveables
 	moveable = true // the user-defined one, used in cutscenes and such. not touched by any of the systems in the engine by default
@@ -174,5 +164,7 @@ is_player = false
 
 alarm[0] = 1
 
-if !instance_exists(o_dodge_layerhandler) 
-	instance_create(o_dodge_layerhandler)
+if !instance_exists(o_dodge_controller) 
+	instance_create(o_dodge_controller)
+if !instance_exists(o_lighting_controller)
+    instance_create(o_lighting_controller)

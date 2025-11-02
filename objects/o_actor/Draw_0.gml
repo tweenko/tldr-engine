@@ -15,11 +15,11 @@ var yy = y + yoff
 var isave = image_blend
 image_blend = merge_color(c_white, c_black, darken)
 
-if dodge_lerper > 0 && is_player { // outline and bg darkener
+if dodge_getalpha() > 0 && is_player { // outline and bg darkener
 	if !surface_exists(dodge_outline_surf) // create outline surface
 		dodge_outline_surf = surface_create(320, 240)
 	
-	surface_set_target(dodge_outline_surf){ // draw red outline
+	surface_set_target(dodge_outline_surf) { // draw red outline
 		draw_clear_alpha(0, 0)
 		gpu_set_fog(true, c_red, 0, 0)
 	
@@ -34,11 +34,11 @@ if dodge_lerper > 0 && is_player { // outline and bg darkener
 			)
 		}
 		
-		gpu_set_fog(false,c_white,0,0)
+		gpu_set_fog(false, c_white, 0, 0)
 	}
 	surface_reset_target()
 	
-	draw_surface_ext(dodge_outline_surf, xx - 160, yy - 120, 1, 1, 0, c_white, dodge_lerper)
+	draw_surface_ext(dodge_outline_surf, xx - 160, yy - 120, 1, 1, 0, c_white, dodge_getalpha())
 }
 
 // draw the sprite
@@ -68,26 +68,25 @@ if freeze > 0 {
     gpu_set_blendmode(bm_normal);
 }
 
-if !surface_exists(s_lightsurf)
-	s_lightsurf = surface_create(320, 240)
-
 // the light on the top of the character's sprite
-if s_lightalpha > 0 {
-	surface_set_target(s_lightsurf) {
-		draw_clear_alpha(0, 0)
-	
-		gpu_set_fog(true, lighting_color, 0, 1)
+if instance_exists(o_lighting_controller) && o_lighting_controller.lighting_alpha > 0 {
+    var __l_alpha = o_lighting_controller.lighting_alpha
+    var __l_darken = o_lighting_controller.lighting_darken
+    var __l_off = o_lighting_controller.surf_border/2
+    
+	surface_set_target(o_lighting_controller.surf) {
+		gpu_set_fog(true, c_white, 0, 1)
 		s_drawer(spr, image_index, 
-			sprite_xoffset, sprite_yoffset, 
-			image_xscale, image_yscale, 
+			(xx - guipos_x() + __l_off)*2, (yy - guipos_y() + __l_off)*2, 
+			image_xscale*2, image_yscale*2, 
 			image_angle, c_white, 1
 		)
 		gpu_set_fog(false, 0, 0, 0)
 	
 		gpu_set_blendmode(bm_subtract)
 		s_drawer(spr, image_index, 
-			sprite_xoffset, sprite_yoffset + 1, 
-			image_xscale, image_yscale, 
+			(xx - guipos_x() + __l_off)*2, (yy+1 - guipos_y() + __l_off)*2, 
+			image_xscale*2, image_yscale*2, 
 			image_angle, c_black, 1
 		)
 		gpu_set_blendmode(bm_normal)
@@ -98,15 +97,14 @@ if s_lightalpha > 0 {
 	s_drawer(spr, image_index, 
 		xx, yy, 
 		image_xscale, image_yscale, 
-		image_angle, c_black, s_lightalpha * lighting_darken
+		image_angle, c_black, __l_alpha * __l_darken
 	)
-	draw_surface_ext(s_lightsurf, xx - sprite_xoffset, yy - sprite_yoffset, 1, 1, 0, c_white, s_lightalpha)
 
 	// the shadow on the ground
 	s_drawer(spr, image_index, 
 		xx, yy, 
-		image_xscale, lerp_type(0, -2, s_lightalpha, "cubic_out"), 
-		image_angle, c_black, image_alpha
+		image_xscale, lerp_type(0, -2, __l_alpha, "linear"), 
+		image_angle, c_black, image_alpha * o_lighting_controller.lighting_alpha
 	)
 }
 
@@ -121,27 +119,25 @@ if sweat {
 }
 	
 // dim the leader while dodging
-if dodge_lerper > 0 && is_player{ 
-	gpu_set_fog(true, merge_color(c_black, c_dkgray, .5), 0, 0)
-	s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, image_blend, .8 * dodge_lerper)
-	gpu_set_fog(false,c_white,0,0)
+if dodge_getalpha() > 0 { 
+    if is_player {
+        gpu_set_fog(true, merge_color(c_black, c_dkgray, .5), 0, 0)
+    	s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, image_blend, .8 * dodge_getalpha())
+    	gpu_set_fog(false, c_white, 0, 0)
+    }
+    else
+        s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * o_dodge_controller.dodge_darken)
 }
 
 if flashing { // battle select flash
 	gpu_set_fog(true, c_white, 0, 0)
-	s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, c_white, (((-(cos((fsiner / 5)))) * 0.4) + 0.6))
-	gpu_set_fog(false,c_white,0,0)
+	s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, c_white, -cos(fsiner / 5)*0.4 + 0.6)
+	gpu_set_fog(false, c_white, 0, 0)
 }
 if flash > 0 { // normal flash
 	gpu_set_fog(true, flash_color, 0, 0)
 	s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, c_white, flash)
 	gpu_set_fog(false, flash_color, 0, 0)
-}
-
-if instance_exists(get_leader()) && !is_player{
-	if get_leader().dodge_lerper > 0{
-		s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, c_black, get_leader().dodge_lerper * .5)
-	}
 }
 
 image_blend = isave

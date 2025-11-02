@@ -111,6 +111,7 @@ linebreaks = allbreaks
 
 maxw = line_longest_width * xscale
 maxw += string_length(line_longest_txt) * xspace * xscale // add the xspace
+show_debug_message($"\"{line_longest_txt}\"")
         
 maxh = (array_length(linebreaks) + 1) * yspace * yscale
 
@@ -122,21 +123,21 @@ x -= center_xoff
 y -= center_yoff
         
 if instance_exists(caller) {
-	if center_x {
+    // make the enemy dialogue centered right-center
+	if caller.object_index == o_ui_enemydialogue {
+        var __xoff = -maxw
+		x += __xoff
+        center_xoff = __xoff
+    }
+	else if center_x {
         var __xoff = -maxw/2
 		x += __xoff
         center_xoff = __xoff
     }
+    
 	if center_y {
-		var __hoff = -maxh/2
-		x += __hoff
-        center_yoff = __hoff
-    }
-	
-	// make the enemy dialogue centered right-center
-	if caller.object_index == o_ui_enemydialogue {
-        var __xoff = -maxw/2
-		x += __xoff
-        center_xoff += __xoff
+		var __yoff = -maxh/2
+		y += __yoff
+        center_yoff = __yoff
     }
 }
