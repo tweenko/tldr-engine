@@ -71,7 +71,7 @@ for (var i = 0; i < string_length(twb); ++i) {
 	
 	if string_width(stringsofar) * xscale >= (w - widthcutter) - center_xoff - face_xoff {
 		if lastreservedspace < 3 { // make sure we don't do breaks on the asterisk part (or this is japanese)
-			while string_char_at(twb, i+1) == " " 
+			while string_char_at(twb, i+1) == " " || string_char_at(twb, i+1) == "　"
                 i ++
             
             stringsofar = ""

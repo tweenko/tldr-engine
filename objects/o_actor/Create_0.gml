@@ -133,6 +133,7 @@ is_player = false
     
     dodge_outline_surf = -1
     dodge_mysoul = noone
+    spawn_buffer = 4
 }
 { // moveables
 	moveable = true // the user-defined one, used in cutscenes and such. not touched by any of the systems in the engine by default
@@ -157,6 +158,7 @@ is_player = false
         && moveable_recruits
 		
 		&& hurt == 0
+        && spawn_buffer <= 0
 		
 		&& !global.console
 	}

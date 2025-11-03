@@ -63,7 +63,7 @@ surface_set_target(surf_text)
     draw_clear_alpha(0,0)
 
     draw_set_colour(0xFFD042)
-    draw_set_font(font_prophecy)
+    draw_set_font(loc_font("prophecy"))
     
     var __text_array = string_split(prophecy_text, "\n")
     var __char_space = 1

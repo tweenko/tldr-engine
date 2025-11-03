@@ -1,6 +1,6 @@
 trigger_code = function() {
     o_camera.follow_y = false
-    camera_pan(undefined, 180, 40, "sine_out", true)
+    camera_pan(undefined, 186, 40, "sine_out", true)
     
     lighting_on(0xFFD042)
 }

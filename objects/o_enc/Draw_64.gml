@@ -455,7 +455,7 @@ surface_set_target(surf) {
     			draw_text_transformed(18 + tpxx, 158, "X", 2, 2, 0)
     		}
     		else {
-    			draw_text_transformed(8 + tpxx, 110, round(tplerp), 2, 2, 0)
+    			draw_text_transformed(8 + tpxx, 110, round(tplerp2), 2, 2, 0)
     			draw_text_transformed(13 + tpxx, 135, "%", 2, 2, 0)
     		}
         }

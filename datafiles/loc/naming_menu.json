@@ -1,0 +1,14 @@
+{
+    "naming_menu_txt_enter": {
+        "en": "ENTER YOUR OWN NAME.", "ja": "自分ノ　名前ヲ　入力シテクダサイ。"
+    },
+    "naming_menu_txt_confirm": {
+        "en": "THIS IS YOUR NAME.", "ja": "コレガ　アナタノ　名前デス。"
+    },
+    "naming_menu_no": {
+        "en": "NO", "ja": "いいえ"
+    },
+    "naming_menu_yes": {
+        "en": "YES", "ja": "はい"
+    }
+}

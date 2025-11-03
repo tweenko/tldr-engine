@@ -11,7 +11,7 @@ if page == 0 { // main menu
 	draw_text_transformed(522, 120, time, 2,2, 0)
 	
 	draw_set_halign(fa_center)
-	draw_text_transformed(320, 170, loc(save_get("room_name")), 2, 2, 0)
+	draw_text_transformed(320, 170, loc(global.room_name), 2, 2, 0)
 	
 	draw_set_halign(fa_left)
 

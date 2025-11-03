@@ -95,6 +95,7 @@ registred_commands = {
         name: "save_wipe",
         desc: "Deletes all the save files (including settings!) permanently.",
         execute: function() {
+            instance_create(o_dev_savewipe_prompt)
         }
     }
 }

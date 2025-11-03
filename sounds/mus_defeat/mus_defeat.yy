@@ -10,7 +10,7 @@
   "compression":3,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":50.34783,
+  "duration":50.347847,
   "exportDir":"",
   "name":"mus_defeat",
   "parent":{

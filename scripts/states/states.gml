@@ -1,6 +1,5 @@
-/// @desc **STATES** are just shelves where you can put things on. 
-/// you can only check if the thing is there and cannot set its value, and **the same thing cannot be added twice**.
-/// --------
+/// @desc STATES are just shelves where you can put things on. 
+/// you can only check if the thing is there and cannot set its value, and the same thing cannot be added twice.
 /// this particular command allows you to fill a state slot if it's not yet been added
 /// 
 /// @arg {string} type the type of state you want to work with
@@ -13,9 +12,8 @@ function state_add(type, identificator = id) {
         array_push(struct_get(global.states, type), identificator)
 }
 
-/// @desc **STATES** are just shelves where you can put things on. 
-/// you can only check if the thing is there and cannot set its value, and **the same thing cannot be added twice**.
-/// --------
+/// @desc STATES are just shelves where you can put things on. 
+/// you can only check if the thing is there and cannot set its value, and the same thing cannot be added twice.
 /// this particular command allows you to retrieve whether the state slot is filled or not
 /// 
 /// @arg {string} type the type of state you want to work with

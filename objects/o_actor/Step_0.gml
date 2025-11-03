@@ -7,6 +7,8 @@ if is_enemy && freeze > 0 {
     
     exit
 }
+if spawn_buffer > 0
+    spawn_buffer --
 
 if !init {
 	exit

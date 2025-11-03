@@ -2,6 +2,8 @@ msg = ""
 msg_temp = ""
 msg_time = 0
 
+allow_savename = true
+
 { // theme
 	white = c_white
 	dark = #b39a9a
@@ -34,6 +36,7 @@ msg_time = 0
     loc_id_messages = "save_select_messages_normal"
 }
 
+target_music = mus_story
 event_user(1)
 
 files = []
@@ -51,6 +54,7 @@ selection_hor = 0
 subselection = 0
 buffer = 0
 threat = 0
+currently_naming = false
 
 copy_from = 0
 copy_to = 0
@@ -112,3 +116,5 @@ msg_set = function(str, time = 120){
 }
 	
 msg_set(m_main, 0)
+
+alarm[0] = 2 // music

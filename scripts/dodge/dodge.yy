@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"dodge",
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"engine",
+    "path":"folders/@Engine/scripts/systems/engine.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -212,7 +212,7 @@ function party_m_susie() : party_m() constructor {
 	]
 	
 	// sprites
-	s_state =		""
+	s_state =		"" // serious, eyes, serious_eyes, bangs
 	s_substate =	""
 	s_icon =		spr_ui_susie_icon
 	s_icon_ow =		spr_ui_susie_head
@@ -286,7 +286,7 @@ function party_m_ralsei() : party_m() constructor {
 	]
 	
 	// sprites
-	s_state =		""
+	s_state =		"" // sad, sad_subtle, hat
 	s_substate =	""
 	s_icon =		spr_ui_ralsei_icon
 	s_icon_ow =		spr_ui_ralsei_head

@@ -61,7 +61,7 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
 			if o_world.sound_on_frame != sound {
 				ret = audio_play_sound_on(o_world.emitter_music, 
                     sound, loop, 0, 
-                    volume_get(type) * gain, 
+                    gain, 
                     0, pitch
                 )
 				o_world.sound_on_frame = sound
@@ -72,7 +72,7 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
         else {
 			ret = audio_play_sound_on(o_world.emitter_music, 
                 sound, loop, 
-                0, volume_get(type) * gain, 
+                0, gain, 
                 0, pitch
             )
 		}
@@ -274,8 +274,27 @@ function volume_get(type){
 ///@arg {real}	end
 ///@arg {real}	time
 function fader_fade(a, b, time){
-	if instance_exists(o_fader) 
+	if !instance_exists(o_fader)
+        return false
+    
+    if time == 0
+        o_fader.image_alpha = b
+    else 
         do_animate(a, b, time, "linear", o_fader, "image_alpha")
+}
+///@desc starts a flash animation, color of which you can change
+///@arg {real}	start
+///@arg {real}	end
+///@arg {real}	time
+function flash_fade(a, b, time, color = c_white){
+	if !instance_exists(o_flash)
+        return false
+    
+    o_flash.color = color
+    if time == 0
+        o_flash.image_alpha = b
+    else 
+        do_animate(a, b, time, "linear", o_flash, "image_alpha")
 }
 
 /// @desc returns an asset index with specified name but if the prefix version does not exists, returns the normal sprite

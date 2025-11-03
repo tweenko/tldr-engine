@@ -6,6 +6,7 @@ instance_create(o_camera)
 instance_create(o_window)
 instance_create(o_dev_musiccontrol)
 instance_create(o_fader)
+instance_create(o_flash)
 
 if !allow_incompatible_saves {
     var __v = (struct_exists(global.settings, "VERSION_SAVED") ? global.settings.VERSION_SAVED : "v0.0.0")

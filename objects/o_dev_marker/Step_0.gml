@@ -4,7 +4,7 @@ if walk_toggle {
 			var idd = m_toggle_group
 			with(o_dev_marker) {
 				if idd == m_toggle_group 
-					toggled=false
+					toggled = false
 			}
 			toggled = true
 		}
