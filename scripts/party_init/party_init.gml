@@ -32,6 +32,7 @@ function party_m_calculate_hp(base_hp, level) {
     
 function party_m() constructor {
 	name = "???"
+    action_letter = "?"
 	
 	// colors
 	color =		c_gray
@@ -108,6 +109,7 @@ function party_m() constructor {
 
 function party_m_kris() : party_m() constructor {
 	name = "party_kris_name"
+    action_letter = "party_kris_action_letter"
 	
 	// colors
 	color = c_aqua
@@ -176,6 +178,7 @@ function party_m_kris() : party_m() constructor {
 }
 function party_m_susie() : party_m() constructor {
 	name = "party_susie_name"
+    action_letter = "party_susie_action_letter"
 	
 	// colors
 	color = c_fuchsia
@@ -209,7 +212,7 @@ function party_m_susie() : party_m() constructor {
 	]
 	
 	// sprites
-	s_state =		""
+	s_state =		"" // serious, eyes, serious_eyes, bangs
 	s_substate =	""
 	s_icon =		spr_ui_susie_icon
 	s_icon_ow =		spr_ui_susie_head
@@ -249,6 +252,7 @@ function party_m_susie() : party_m() constructor {
 }
 function party_m_ralsei() : party_m() constructor {
 	name = "party_ralsei_name"
+    action_letter = "party_ralsei_action_letter"
 	
 	// colors
 	color = c_lime
@@ -282,7 +286,7 @@ function party_m_ralsei() : party_m() constructor {
 	]
 	
 	// sprites
-	s_state =		""
+	s_state =		"" // sad, sad_subtle, hat
 	s_substate =	""
 	s_icon =		spr_ui_ralsei_icon
 	s_icon_ow =		spr_ui_ralsei_head
@@ -320,6 +324,7 @@ function party_m_ralsei() : party_m() constructor {
 }
 function party_m_noelle() : party_m() constructor {
 	name = "party_noelle_name"
+    action_letter = "party_noelle_action_letter"
 	
 	// colors
 	color = c_yellow

@@ -71,7 +71,7 @@ for (var i = 0; i < string_length(twb); ++i) {
 	
 	if string_width(stringsofar) * xscale >= (w - widthcutter) - center_xoff - face_xoff {
 		if lastreservedspace < 3 { // make sure we don't do breaks on the asterisk part (or this is japanese)
-			while string_char_at(twb, i+1) == " " 
+			while string_char_at(twb, i+1) == " " || string_char_at(twb, i+1) == "　"
                 i ++
             
             stringsofar = ""
@@ -91,16 +91,30 @@ for (var i = 0; i < string_length(twb); ++i) {
 
 var strformatted = twb
 var allbreaks = array_concat(linebreaks, manualbreaks)
-for (var i = 0; i < array_length(allbreaks); ++i) {
-	var spaces = ""
-	
+for (var i = 0; i < array_length(allbreaks); ++i) { // add \n to the string to format it
 	strformatted = string_delete(strformatted, allbreaks[i], 1)
     strformatted = string_insert("\n", strformatted, allbreaks[i])
 }
+        
+var line_longest_txt = 0
+var line_longest_width = 0
+var __all_lines = string_split(strformatted, "\n")
+for (var i = 0; i < array_length(__all_lines); ++i) { // add \n to the string to format it
+	var curw = string_width(__all_lines[i])
+    if curw > line_longest_width {
+        line_longest_width = curw
+        line_longest_txt = __all_lines[i]
+    }
+}
 	
 linebreaks = allbreaks
-maxw = string_width(strformatted) * xscale
+
+maxw = line_longest_width * xscale
+maxw += string_length(line_longest_txt) * xspace * xscale // add the xspace
+show_debug_message($"\"{line_longest_txt}\"")
+        
 maxh = (array_length(linebreaks) + 1) * yspace * yscale
+
 if maxw == 0 {
 	maxw = string_width(twb) * xscale
 }
@@ -109,18 +123,21 @@ x -= center_xoff
 y -= center_yoff
         
 if instance_exists(caller) {
-	if center_x {
-		x -= maxw/2
-        center_xoff = -maxw/2
-    }
-	if center_y {
-		y -= maxh/2
-        center_yoff = -maxh/2
-    }
-	
-	// make the enemy dialogue centered right-center
+    // make the enemy dialogue centered right-center
 	if caller.object_index == o_ui_enemydialogue {
-		x -= maxw/2
-        center_xoff += -maxw/2
+        var __xoff = -maxw
+		x += __xoff
+        center_xoff = __xoff
+    }
+	else if center_x {
+        var __xoff = -maxw/2
+		x += __xoff
+        center_xoff = __xoff
+    }
+    
+	if center_y {
+		var __yoff = -maxh/2
+		y += __yoff
+        center_yoff = __yoff
     }
 }

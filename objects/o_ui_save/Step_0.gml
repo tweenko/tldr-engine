@@ -57,7 +57,7 @@ if page == 1 { // save menu
 			if s_selection != global.save_slot && global.saves[s_selection] != -1 
 				prog = 2
 			else {
-				save_update_pc(s_selection)
+				save_export(s_selection)
 				save_set(s_selection)
 				
 				audio_play(snd_save)
@@ -83,7 +83,7 @@ if page == 1 { // save menu
 		
 		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if s_o_selection == 0 {
-				save_update_pc(s_selection)
+				save_export(s_selection)
 				save_set(s_selection)
 				audio_play(snd_save)
 				

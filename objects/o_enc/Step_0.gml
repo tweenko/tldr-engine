@@ -1111,9 +1111,18 @@ if battle_state == "exec" {
 			// if not defending, go back to the idle sprite
 			if char_state[exec_current[1]] != CHAR_STATE.DEFEND {
 				char_state[exec_current[1]] = CHAR_STATE.IDLE;
-				party_get_inst(global.party_names[exec_current[1]]).sprite_index = enc_getparty_sprite(exec_current[1], "idle")
-				party_get_inst(global.party_names[exec_current[1]]).image_index = 0
-				party_get_inst(global.party_names[exec_current[1]]).image_speed = 1
+                
+                // play the act end animation
+                if party_get_inst(global.party_names[exec_current[1]]).sprite_index == enc_getparty_sprite(exec_current[1], "act") {
+                    party_get_inst(global.party_names[exec_current[1]]).sprite_index = enc_getparty_sprite(exec_current[1], "actend")
+                    party_get_inst(global.party_names[exec_current[1]]).image_index = 0
+                    party_get_inst(global.party_names[exec_current[1]]).image_speed = 1
+                }
+                else {
+                    party_get_inst(global.party_names[exec_current[1]]).sprite_index = enc_getparty_sprite(exec_current[1], "idle")
+                    party_get_inst(global.party_names[exec_current[1]]).image_index = 0
+                    party_get_inst(global.party_names[exec_current[1]]).image_speed = 1
+                }
 				
 				if is_array(together_with[exec_current[1]]) {
 					if !array_equals(together_with[exec_current[1]], []) {

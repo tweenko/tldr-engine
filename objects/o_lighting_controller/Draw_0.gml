@@ -1,0 +1,1 @@
+draw_surface_ext(surf, guipos_x() - surf_border/2, guipos_y() - surf_border/2, .5, .5, 0, color, lighting_alpha)

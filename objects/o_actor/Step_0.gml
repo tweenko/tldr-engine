@@ -7,6 +7,8 @@ if is_enemy && freeze > 0 {
     
     exit
 }
+if spawn_buffer > 0
+    spawn_buffer --
 
 if !init {
 	exit
@@ -82,7 +84,7 @@ if is_player && check_canmove {
 	}
 	
 	// menu
-	if InputPressed(INPUT_VERB.SPECIAL) && !dodge_mode { // only allow while not in an overworld dodging section
+	if InputPressed(INPUT_VERB.SPECIAL) && !o_dodge_controller.dodge_mode { // only allow while not in an overworld dodging section
 		// swap the menu object depending on the world
 		if global.world == WORLD_TYPE.DARK // dark world
 			instance_create(o_ui_menu)
@@ -274,28 +276,8 @@ if !is_in_battle && !is_enemy && s_dynamic && !s_override{
 }
 		
 // overworld battle
-if dodge_mode && is_player {
-	if dodge_lerper < 1 
-		dodge_lerper += .1
+if o_dodge_controller.dodge_mode && is_player {
 	if !instance_exists(dodge_mysoul) {
 		dodge_mysoul = instance_create(o_dodge_soul, x, y - sprite_height/2 + 4, depth, {caller: id})
 	}
 }
-else if is_player {
-	if dodge_lerper > 0{
-		dodge_lerper -= .1
-		if instance_exists(o_ui_menu) 
-			o_ui_menu.close = true
-	}
-}
-
-// make the lighting fade in and fade out
-if is_player {
-	if under_lighting
-		s_lightalpha += 1/30
-	else 
-		s_lightalpha -= 1/30
-	s_lightalpha = clamp(s_lightalpha, 0, 1)
-}
-if instance_exists(get_leader())
-	s_lightalpha = get_leader().s_lightalpha

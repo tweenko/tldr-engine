@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"spr_ex_ow_city_traffic_light",
   "bboxMode":0,
   "bbox_bottom":45,
@@ -12,9 +12,9 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"51b85a37-88b9-4a0d-9eed-173a36b3555a","name":"51b85a37-88b9-4a0d-9eed-173a36b3555a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"d6a14cda-ae5b-430d-9324-b8dd272dbfb4","name":"d6a14cda-ae5b-430d-9324-b8dd272dbfb4","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"7b2739dd-6a38-4bb4-b473-b43a2be2f86a","name":"7b2739dd-6a38-4bb4-b473-b43a2be2f86a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"51b85a37-88b9-4a0d-9eed-173a36b3555a","name":"51b85a37-88b9-4a0d-9eed-173a36b3555a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"d6a14cda-ae5b-430d-9324-b8dd272dbfb4","name":"d6a14cda-ae5b-430d-9324-b8dd272dbfb4","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"7b2739dd-6a38-4bb4-b473-b43a2be2f86a","name":"7b2739dd-6a38-4bb4-b473-b43a2be2f86a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -72,15 +72,9 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"51b85a37-88b9-4a0d-9eed-173a36b3555a","path":"sprites/spr_ex_ow_city_traffic_light/spr_ex_ow_city_traffic_light.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"551c4c0b-9b0f-4458-8c93-122fc3c8109f","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d6a14cda-ae5b-430d-9324-b8dd272dbfb4","path":"sprites/spr_ex_ow_city_traffic_light/spr_ex_ow_city_traffic_light.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"82cb1ee9-3a2d-457c-8dfa-47b794dc59f3","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"7b2739dd-6a38-4bb4-b473-b43a2be2f86a","path":"sprites/spr_ex_ow_city_traffic_light/spr_ex_ow_city_traffic_light.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"db765aeb-0913-4c04-be03-54437436a201","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"51b85a37-88b9-4a0d-9eed-173a36b3555a","path":"sprites/spr_ex_ow_city_traffic_light/spr_ex_ow_city_traffic_light.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"551c4c0b-9b0f-4458-8c93-122fc3c8109f","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"d6a14cda-ae5b-430d-9324-b8dd272dbfb4","path":"sprites/spr_ex_ow_city_traffic_light/spr_ex_ow_city_traffic_light.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"82cb1ee9-3a2d-457c-8dfa-47b794dc59f3","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"7b2739dd-6a38-4bb4-b473-b43a2be2f86a","path":"sprites/spr_ex_ow_city_traffic_light/spr_ex_ow_city_traffic_light.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"db765aeb-0913-4c04-be03-54437436a201","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

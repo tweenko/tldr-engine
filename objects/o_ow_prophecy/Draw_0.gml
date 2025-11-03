@@ -51,3 +51,45 @@ for (var i = 1; i < 3; i++) {
 	draw_surface_ext(surf_aura, x - sprite_xoffset + _offset * i, y + yoff - sprite_yoffset + _offset * i, image_xscale, image_yscale, image_angle, c_white, image_alpha/4)
 }
 draw_surface_ext(surf_aura, x - sprite_xoffset, y + yoff - sprite_yoffset, image_xscale, image_yscale, image_angle, c_white, image_alpha)
+
+// draw the text
+if prophecy_text == ""
+    exit
+
+if !surface_exists(surf_text)
+    surf_text = surface_create(320, 240)
+
+surface_set_target(surf_text)
+    draw_clear_alpha(0,0)
+
+    draw_set_colour(0xFFD042)
+    draw_set_font(loc_font("prophecy"))
+    
+    var __text_array = string_split(prophecy_text, "\n")
+    var __char_space = 1
+    var __line_h = 16
+    
+    var __text_x = x - guipos_x()
+    var __text_y = y - guipos_y() - sprite_yoffset - 6 - array_length(__text_array) * __line_h
+    
+    for (var i = 0; i < array_length(__text_array); i ++) {
+       var cur = __text_array[i]
+       var xx = __text_x - (string_width(cur) + (string_length(cur)-1)*__char_space)/2
+       var yy = __text_y + __line_h*i
+       
+       for (var j = 1; j <= string_length(__text_array[i]); j ++) {
+           var pos = string_char_at(__text_array[i], j)
+           draw_text_transformed(xx, yy, pos, 1, 1 , 0)
+           
+           xx += string_width(pos) + __char_space
+       }
+    }
+
+    gpu_set_colourwriteenable(1, 1, 1, 0)
+    gpu_set_blendmode(bm_add)
+    draw_sprite_tiled(spr_depth_blur_loop, 0, round_p(siner/2, 2), round_p(siner/2, 2))
+    gpu_set_blendmode(bm_normal)
+    gpu_set_colourwriteenable(1, 1, 1, 1)
+surface_reset_target()
+
+draw_surface_ext(surf_text, guipos_x(), guipos_y() + cosine(12, 2), 1, 1, 0, c_white, image_alpha)

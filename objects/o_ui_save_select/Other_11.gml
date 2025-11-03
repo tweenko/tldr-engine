@@ -99,7 +99,7 @@ if theme == "ominous" {
         loc_id_messages = "save_select_messages_ominous"
 	}
 	
-	music_play(mus_drone,0)
+	target_music = mus_drone
 }
 else if theme == "finished" {
 	{ // theme
@@ -112,10 +112,10 @@ else if theme == "finished" {
 		image_alpha = 0
 	}
 	
-	music_play(mus_story, 0)
+	target_music = mus_story
 }
 else {
-	music_play(mus_menu, 0)
+	target_music = mus_menu
 }
 	
 fader_fade(1, 0, 15)

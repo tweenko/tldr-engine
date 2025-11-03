@@ -32,6 +32,8 @@ if bg != -1 {
 if display_chapter {
 	draw_text_transformed_shadow(16, 8, $"CHAPTER {global.chapter}", 2, 2, 0, 2, shadow)
 }
+if currently_naming
+    exit
 
 var t = msg
 if msg_time > 0 

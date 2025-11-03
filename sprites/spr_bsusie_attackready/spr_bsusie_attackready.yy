@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"spr_bsusie_attackready",
   "bboxMode":0,
   "bbox_bottom":67,
@@ -12,21 +12,21 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"8079de09-d5bb-4ba8-9f35-a6ad653190ca","name":"8079de09-d5bb-4ba8-9f35-a6ad653190ca","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"22376b18-020c-4844-b94d-adc317b8d26e","name":"22376b18-020c-4844-b94d-adc317b8d26e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":71,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"b330014e-0b0e-4bd9-adb1-d136720c0079","blendMode":0,"displayName":"default","isLocked":false,"name":"b330014e-0b0e-4bd9-adb1-d136720c0079","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"c95519fd-1bd4-49d4-8146-4970023a79fb","blendMode":0,"displayName":"default","isLocked":false,"name":"c95519fd-1bd4-49d4-8146-4970023a79fb","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_bsusie_attackready",
   "nineSlice":null,
   "origin":9,
   "parent":{
-    "name":"battle",
-    "path":"folders/@Engine/sprites/actors/susie/battle.yy",
+    "name":"bangs",
+    "path":"folders/@Engine/sprites/actors/susie/battle/bangs.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
@@ -69,8 +69,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"8079de09-d5bb-4ba8-9f35-a6ad653190ca","path":"sprites/spr_bsusie_attackready/spr_bsusie_attackready.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"b589f266-1b89-488b-84b4-da6a41d40741","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"22376b18-020c-4844-b94d-adc317b8d26e","path":"sprites/spr_bsusie_attackready/spr_bsusie_attackready.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"6980e96d-2d1b-48e0-a26c-7698bfadca49","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

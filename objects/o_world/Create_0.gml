@@ -28,6 +28,7 @@ global.temp_choice = 0
 global.simplify_vfx = false
 global.time = 0
 global.states = {}
+global.room_name = ""
 
 { // emmiters
 	emitter_sfx = audio_emitter_create();

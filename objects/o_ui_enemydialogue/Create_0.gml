@@ -11,6 +11,6 @@ balloonheight = 0
 inited = false
 
 alarm[0] = 1
-alarm[1] = 4
+alarm[1] = 3
 
 spr = [spr_ui_enc_dialogue_box, spr_ui_enc_dialogue_spike]

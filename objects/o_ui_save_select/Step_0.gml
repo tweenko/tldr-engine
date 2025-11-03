@@ -1,6 +1,10 @@
 if global.console 
 	exit
 
+currently_naming = instance_exists(o_ui_naming)
+if currently_naming
+    exit
+
 if state == 0 { // choose
 	if selection < SAVE_SLOTS {
 		soul_put(130, 144 + 90*selection)
@@ -121,11 +125,16 @@ if state == 1 {
 		state = 0
 	}
 	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 { // load file
-		save_refresh_back()
-		save_load(selection,global.chapter)
-		
-		room_goto(save_get("room"))
-		fader_fade(1, 0, 15)
+        if files[selection] != -1 {
+            save_load(selection, global.chapter)
+            
+    		room_goto(save_get("room"))
+            fader_fade(1, 0, 15)
+        }
+		else {
+            currently_naming = true
+            instance_create(o_ui_naming,,, depth - 10, {target_save_index: selection})
+        }
 	}
 }
 	

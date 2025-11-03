@@ -17,9 +17,7 @@ interaction_code = function() {
     
     cutscene_set_variable(o_camera, "target", noone)
     
-    if array_length(sitting) == 1 && sitting[0] = "kris" {
-        
-    }
+    if array_length(sitting) == 1 && sitting[0] = "kris" { }
     else {
         cutscene_audio_play(snd_jump)
         cutscene_func(function(xx, yy, _depth) {
