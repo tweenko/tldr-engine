@@ -20,6 +20,12 @@ request in the according channel in the server mentioned above.
 
 There is no straight up documentation per se, (at least for now) so the Discord server can be considered a very interactive documentation, if you will.
 
+## Jumpstart
+If you are planning to pull new versions once they are released, please open the repository with GitHub Desktop and clone it on your local device. Once you're all set, you'll be able to fetch and pull the new versions from origin.
+<img width="1845" height="899" alt="image" src="https://github.com/user-attachments/assets/4be9eb9e-87c2-4266-91cf-d38bd49cfaab" />
+
+If not, however, you can download the engine like a zip file or copy it as a template to a new repository. 
+
 ---
 
 ### Credits and Thanks
