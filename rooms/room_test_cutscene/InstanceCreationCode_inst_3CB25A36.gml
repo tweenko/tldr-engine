@@ -26,7 +26,10 @@ trigger_code = function() {
             ), i, false)
     }
     
-    cutscene_sleep(30)
+    cutscene_sleep(40)
+    
+    cutscene_set_variable(party_get_inst("susie"), "s_override", true)
+    cutscene_set_variable(o_actor_susie, "sprite_index", spr_susie_arm_cross)
     cutscene_dialogue([
         "{char(susie, 26)}* Heh. You might want to sit down for this. {mini(`(I'd need a chair...)`, noelle, 7)}"
     ])
@@ -34,7 +37,6 @@ trigger_code = function() {
     var __healdir = -1
     
     cutscene_sleep(10)
-    cutscene_set_variable(party_get_inst("susie"), "s_override", true)
     cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_heal)
     cutscene_set_variable(party_get_inst("susie"), "image_speed", 0)
     cutscene_set_variable(party_get_inst("susie"), "image_index", 0)

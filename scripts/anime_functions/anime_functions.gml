@@ -112,8 +112,10 @@ function __anime_class(start_val) constructor {
 	///@desc	Stops the animation.
 	///@return {Struct.__anime_class}
 	static stop = function() {
-		call_cancel(timeSource);
-        timeSource = -1;
+		if (timeSource != -1) {
+			call_cancel(timeSource);
+			timeSource = -1;
+		}
         
 		return self;
 	}

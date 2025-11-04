@@ -567,5 +567,3 @@ draw_set_valign(fa_top)
 
 surface_reset_target()
 draw_surface_ext(surf, 0, 0, 1, 1, 0, c_white, 1)
-
-//draw_sprite_ext(item_ja_ref, 0, 0, 0, 1, 1, 0, c_white, .3)

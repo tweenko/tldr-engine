@@ -84,7 +84,7 @@ if is_player && check_canmove {
 	}
 	
 	// menu
-	if InputPressed(INPUT_VERB.SPECIAL) && !o_dodge_controller.dodge_mode { // only allow while not in an overworld dodging section
+	if InputPressed(INPUT_VERB.SPECIAL) && !o_dodge_controller.dodge_mode && !instance_exists(o_ui_menu) { // only allow while not in an overworld dodging section
 		// swap the menu object depending on the world
 		if global.world == WORLD_TYPE.DARK // dark world
 			instance_create(o_ui_menu)

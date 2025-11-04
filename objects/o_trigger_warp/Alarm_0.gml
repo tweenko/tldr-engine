@@ -1,11 +1,14 @@
 room_goto(target_room)
+if audio_exists(exit_sound)
+    audio_play(exit_sound)
+
 call_later(2, time_source_units_frames, function() {
     if instance_exists(get_leader()) {
-    	var pos = marker_getpos("land", target_marker)
+    	var marker = marker_get("land", target_marker)
         
-    	if is_struct(pos) {
-    		get_leader().x = pos.x
-    		get_leader().y = pos.y
+    	if instance_exists(marker) {
+    		get_leader().x = marker.x
+    		get_leader().y = marker.y
     		get_leader().dir = savedir
     	}
     	for (var i = 0; i < array_length(global.party_names); ++i) {
@@ -18,6 +21,7 @@ call_later(2, time_source_units_frames, function() {
     		}
     	}
     }
+    
     call_later(1, time_source_units_frames, function() {
     	do_anime(1, 0, 10, "linear", function(v){
     		if instance_exists(o_fader) 

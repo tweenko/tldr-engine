@@ -511,8 +511,6 @@ if battle_state == "menu" {
 						}
 					}
 				}
-                
-                show_debug_message(together_with)
 			}
 			
 			if struct_exists(acts[ii], "tp_cost") && tp < acts[ii].tp_cost 

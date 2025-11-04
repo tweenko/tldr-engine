@@ -1,6 +1,6 @@
 {
   "$GMSound":"v2",
-  "%Name":"mus_battle",
+  "%Name":"mus_ex_church",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -8,19 +8,19 @@
   "bitDepth":1,
   "channelFormat":1,
   "compression":3,
-  "compressionQuality":6,
+  "compressionQuality":4,
   "conversionMode":0,
-  "duration":75.42857,
+  "duration":166.63467,
   "exportDir":"",
-  "name":"mus_battle",
+  "name":"mus_ex_church",
   "parent":{
-    "name":"music",
-    "path":"folders/@Engine/music.yy",
+    "name":"Music",
+    "path":"folders/zzz Examples/Music.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"mus_battle.ogg",
+  "soundFile":"mus_ex_church.ogg",
   "volume":1.0,
 }

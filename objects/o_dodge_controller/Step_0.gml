@@ -7,6 +7,3 @@ if !dodge_override {
     
 	dodge_alpha = clamp(dodge_alpha, 0, 1)
 }
-
-if instance_exists(o_ui_menu) && dodge_mode
-    o_ui_menu.close = true

@@ -35,6 +35,12 @@
         "GMRoom",
       ],"listItems":[],"multiselect":false,"name":"target_room","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"room_test_main","path":"rooms/room_test_main/room_test_main.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"room_test_main","varType":5,},
     {"$GMObjectProperty":"v2","%Name":"target_marker","filters":[],"listItems":[],"multiselect":false,"name":"target_marker","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"enter_sound","filters":[
+        "GMSound",
+      ],"listItems":[],"multiselect":false,"name":"enter_sound","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"","varType":5,},
+    {"$GMObjectProperty":"v2","%Name":"exit_sound","filters":[
+        "GMSound",
+      ],"listItems":[],"multiselect":false,"name":"exit_sound","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"","varType":5,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

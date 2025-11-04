@@ -111,7 +111,6 @@ linebreaks = allbreaks
 
 maxw = line_longest_width * xscale
 maxw += string_length(line_longest_txt) * xspace * xscale // add the xspace
-show_debug_message($"\"{line_longest_txt}\"")
         
 maxh = (array_length(linebreaks) + 1) * yspace * yscale
 
