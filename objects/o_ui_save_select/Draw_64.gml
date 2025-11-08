@@ -38,7 +38,7 @@ if currently_naming
 var t = msg
 if msg_time > 0 
 	t = msg_temp
-draw_text_transformed_shadow(80, 60, string(struct_get(localized_messages, t), global.chapter, global.chapter-1, selection + 1), 2, 2, 0, 2, shadow)
+draw_text_transformed_shadow(80, 60, string(struct_get(localized_messages, t), global.chapter, global.chapter-1, selection+1, subselection+1), 2, 2, 0, 2, shadow)
 
 for (var i = 0; i < SAVE_SLOTS; ++i) {
 	var s = selection

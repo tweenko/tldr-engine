@@ -17,7 +17,7 @@
             "eraseempty": "There's nothing to erase.",
 
             "chfile": "Start Chapter {0} from Chapter {1}'s FILE.", 
-            "chfileconfirm": "This will start Chapter {0} in FILE Slot {2}."
+            "chfileconfirm": "This will start Chapter {0} in FILE Slot {3}."
         },
         "ja": {
             "main": "ファイルを選んでください。",
@@ -72,7 +72,7 @@
             "eraseempty_all": "BUT THERE WAS NOTHING LEFT TO ERASE.",
 
             "chfile": "Start Chapter {0} from Chapter {1}'s FILE.", 
-            "chfileconfirm": "This will start Chapter {0} in FILE Slot {2}."
+            "chfileconfirm": "This will start Chapter {0} in FILE Slot {3}."
         },
         "ja": {
             "main": "",
@@ -106,7 +106,7 @@
             "eraseempty_all": "消去スベキ　モノガ　残ッテイマセン。",
 
             "chfile": "Chapter {1}のファイルで Chapter {0}を始める。", 
-            "chfileconfirm": "スロット{2}で Chapter {0}を始めます。"
+            "chfileconfirm": "スロット{3}で Chapter {0}を始めます。"
         }
     },
 

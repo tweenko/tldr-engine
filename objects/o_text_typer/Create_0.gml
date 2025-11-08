@@ -38,7 +38,7 @@
 	face_expression_prev = 0
 	
 	voice = snd_text
-	voice_pitchrange = 0
+	voice_pitchrange = undefined
 	voice_interrupt = 0
 	voice_skip = 1
 	
@@ -50,6 +50,7 @@
 	
 	skipping = false
 	superskipping = false
+    superskipping_buffer = 0
 	
 	chars = 0
 	disp_chars = 0 //displayed characters
@@ -84,19 +85,21 @@
 	auto_breaks = true
 	
 	_facechange = function(char, expression = 0, change_delay = 4) {
-		_face = struct_get(struct_get(char_presets, char), "_face")
+		var __face = struct_get(struct_get(char_presets, char), "face_create")(x, y, depth - 100)
+        
 		if instance_exists(face_inst) {
 			x -= face_xoff
             face_xoff = 0
             
 			instance_destroy(face_inst)
 		}
-		if object_exists(_face) {
+		if instance_exists(__face) {
             if string_length(expression) == string_length(string_digits(expression))
                 expression = real(expression)
-            
 			face_expression = expression
-			face_inst = instance_create(_face, x, y, depth - 100)
+            
+			face_inst = __face
+            
 			face_inst.f_index = face_expression
 			face_inst.caller = id
 			face_inst.alarm[0] = change_delay
@@ -111,47 +114,12 @@
 	}
 }
 
-char_presets = {
-	none: {
-		_face: noone,
-		voice: snd_text,
-		voice_pitchrange: 0,
-		voice_interrupt: false,
-		voice_skip: 1,
-	},
-	susie: {
-		_face: o_face_susie,
-		voice: snd_text_susie,
-		voice_pitchrange: 0,
-		voice_interrupt: false,
-		voice_skip: 1,
-	},
-	susie_bangs: {
-		_face: o_face_susie_bangs,
-		voice: snd_text_susie,
-		voice_pitchrange: 0,
-		voice_interrupt: false,
-		voice_skip: 1,
-	},
-	ralsei: {
-		_face: o_face_ralsei,
-		voice: snd_text_ralsei,
-		voice_pitchrange: 0,
-		voice_interrupt: false,
-		voice_skip: 1,
-	},
-	ralsei_hat: {
-		_face: o_face_ralsei_hat,
-		voice: snd_text_ralsei,
-		voice_pitchrange: 0,
-		voice_interrupt: false,
-		voice_skip: 1,
-	},
-	noelle: {
-		_face: o_face_noelle,
-		voice: snd_text_noelle,
-		voice_pitchrange: 0,
-		voice_interrupt: false,
-		voice_skip: 1,
-	},
-}
+char_presets = {}
+
+new typer_char_none().__initialize(id)
+
+new typer_char_susie().__initialize(id)
+new typer_char_susie_bangs().__initialize(id)
+new typer_char_ralsei().__initialize(id)
+new typer_char_ralsei_hat().__initialize(id)
+new typer_char_noelle().__initialize(id)

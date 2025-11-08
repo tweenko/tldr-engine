@@ -41,6 +41,13 @@
     {"$GMObjectProperty":"v2","%Name":"exit_sound","filters":[
         "GMSound",
       ],"listItems":[],"multiselect":false,"name":"exit_sound","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"","varType":5,},
+    {"$GMObjectProperty":"v2","%Name":"exit_direction","filters":[],"listItems":[
+        "undefined",
+        "DIR.RIGHT",
+        "DIR.LEFT",
+        "DIR.UP",
+        "DIR.DOWN",
+      ],"multiselect":false,"name":"exit_direction","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"undefined","varType":6,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

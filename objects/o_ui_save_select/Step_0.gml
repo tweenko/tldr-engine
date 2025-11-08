@@ -491,9 +491,10 @@ if state == 41 {
 	}
 	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 {
 		audio_play(snd_ui_select)
-		state = 0
-		buffer = 1
-		msg_set(m_main, 0)
+        
+        save_load(subselection, global.chapter - 1) // load the previous chapter
+        room_goto(save_get("room"))
+        fader_fade(1, 0, 15)
 	}
 }
 

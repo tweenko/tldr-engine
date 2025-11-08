@@ -27,7 +27,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_default_alt_3",
+    "path":"sprites/spr_default_alt_3/spr_default_alt_3.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

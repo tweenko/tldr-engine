@@ -19,6 +19,19 @@
         "ja": "そして それは{br}呑まれた{sleep(10)}{br}永劫の闇に。"
     },
 
+    "txt_shortcut_door": {
+        "en": "* (It's a door.){br}{resetx}* (Where will you go?)",
+        "ja": "＊ (とびらだ){br}{resetx}＊ (どこへ行く？)"
+    },
+    "txt_shortcut_door_open": {
+        "en": "* (The door opened...)",
+        "ja": "＊ (とびらが　開いた…)"
+    },
+    "txt_shortcut_door_already": {
+        "en": "* (Amazingly, you are already there.)",
+        "ja": "＊ (どういうわけか　もう　そこにいる)"
+    },
+
     "txt_room_test_zone_entrance": {
         "en": "Test Zone - Entrance",
         "ja": "テストエリア - エントランス"

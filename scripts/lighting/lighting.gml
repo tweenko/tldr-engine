@@ -14,8 +14,9 @@ function lighting_off() {
     o_lighting_controller.under_lighting = false
 }
 
-///@desc draw_self but it darkens depending on the lighting the player is recieving
-function lighting_darken_self() {
+/// @desc draw_self but it darkens depending on the lighting the player is recieving
+/// @arg {function|undefined} drawer the function that draws your object
+function lighting_darken_self(drawer = undefined) {
     if !instance_exists(o_lighting_controller)
         return false
     
@@ -24,9 +25,15 @@ function lighting_darken_self() {
         __emitting_light = am_emmiting_light
     
 	if o_lighting_controller.lighting_alpha > 0 && !__emitting_light {
-		draw_sprite_ext(sprite_index, image_index,
-			x, y, image_xscale, image_yscale,
-			image_angle, c_black, o_lighting_controller.lighting_alpha * o_lighting_controller.lighting_darken
-		)
+        if !is_undefined(drawer) && is_callable(drawer)
+            drawer(sprite_index, image_index,
+    			x, y, image_xscale, image_yscale,
+    			image_angle, c_black, o_lighting_controller.lighting_alpha * o_lighting_controller.lighting_darken
+    		)
+        else
+     		draw_sprite_ext(sprite_index, image_index,
+     			x, y, image_xscale, image_yscale,
+     			image_angle, c_black, o_lighting_controller.lighting_alpha * o_lighting_controller.lighting_darken
+     		)
 	}
 }

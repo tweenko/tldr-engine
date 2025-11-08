@@ -38,6 +38,7 @@ if command == "br" { // br() or br
 if command == "p" || command == "pause"  { // pause(frames)
 	pause = -1
 	looping = false
+    superskipping_buffer = 2
 }
 if command == "c" || command == "clear"  { // clear() OR clear
 	event_user(2)
@@ -232,9 +233,10 @@ if command == "char" { // char(char_preset_string, face_expression = undefined) 
 	_facechange(arg[0], __exp)
 	
 	voice = struct_get(struct_get(char_presets, arg[0]), "voice")
-	voice_pitchrange = struct_get(struct_get(char_presets, arg[0]), "voice_pitchrange")
+	voice_pitch_calc = struct_get(struct_get(char_presets, arg[0]), "voice_pitch_calc")
 	voice_interrupt = struct_get(struct_get(char_presets, arg[0]), "voice_interrupt")
 	voice_skip = struct_get(struct_get(char_presets, arg[0]), "voice_skip")
+    voice_pitchrange = undefined
 	
 	char = arg[0]
 	looping = false
@@ -250,6 +252,8 @@ if command == "f_ex" || command == "face_ex" { // f_ex(string OR real) OR face_e
         face_expression = real(face_expression)
 }
 if command == "voice" { // voice(asset OR nil, pitch_range = undefined, interrupt = undefined, skip_frames = undefined)  write it with the `` things
+    voice_pitchrange = undefined
+    
 	if array_length(arg) > 0 {
 		if arg[0] == "nil"
 			voice = -1

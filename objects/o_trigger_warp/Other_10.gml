@@ -6,9 +6,7 @@ savedir = get_leader().dir
 if audio_exists(enter_sound)
     audio_play(enter_sound)
 
-do_anime(0, 1, 8, "linear", function(v) {
-	if instance_exists(o_fader) o_fader.image_alpha=v
-})
+fader_fade(0, 1, 7)
 
 alarm[0] = 8
 get_leader().moveable = false
