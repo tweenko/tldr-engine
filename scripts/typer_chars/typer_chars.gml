@@ -1,3 +1,12 @@
+/// @desc init for the typer characters
+function typer_chars_init()  {
+    new typer_char_none().__initialize()
+    new typer_char_susie().__initialize()
+    new typer_char_susie_bangs().__initialize()
+    new typer_char_ralsei().__initialize()
+    new typer_char_ralsei_hat().__initialize()
+    new typer_char_noelle().__initialize()
+}
 /// @desc creates a struct with a typer character
 function typer_char() constructor {
     name = "none" // the hash of the typer char
@@ -20,9 +29,11 @@ function typer_char() constructor {
     
     /// @desc initialize the typer char - add to the typer's char presets
     __initialize = method(self, function(typer) {
-        struct_set(typer.char_presets, name, self)
+        struct_set(global.typer_chars, name, self)
     })
 }
+
+// -------------------- child constructors --------------------
 
 function typer_char_none() : typer_char() constructor {
 }

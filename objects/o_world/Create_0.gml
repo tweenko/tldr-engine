@@ -25,6 +25,7 @@ global.console = false
 global.current_light = c_white
 
 global.temp_choice = 0
+global.typer_chars = {}
 global.simplify_vfx = false
 global.time = 0
 global.states = {}

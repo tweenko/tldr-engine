@@ -114,12 +114,4 @@
 	}
 }
 
-char_presets = {}
-
-new typer_char_none().__initialize(id)
-
-new typer_char_susie().__initialize(id)
-new typer_char_susie_bangs().__initialize(id)
-new typer_char_ralsei().__initialize(id)
-new typer_char_ralsei_hat().__initialize(id)
-new typer_char_noelle().__initialize(id)
+char_presets = global.typer_chars
