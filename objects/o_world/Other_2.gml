@@ -40,7 +40,7 @@ if !progress
     exit
 instance_create(o_ui_quit)
 
-// -------------------------------- set up saves --------------------------------------
+// -------------------------------- set up saves -------------------------------------
 global.chapter = 1
 global.time = 0
 
@@ -155,5 +155,9 @@ global.saves = save_read_all() // saves saved on device
 if global.saves[global.save_slot] != -1 
     global.save = global.saves[global.save_slot]
 save_load(global.save_slot)
+
+// init the typer chars
+typer_chars_init()
+// << initialize your typer chars here
 
 room_goto_next()

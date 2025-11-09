@@ -7,6 +7,6 @@ if place_meeting(x, y, get_leader()) {
     if triggered
         trigger_step_code()
 }
-else if trigger_exit{
+else if trigger_exit {
 	event_user(1)
 }

@@ -40,13 +40,18 @@ while looping || normalupd {
 				}
 				
 				// work on the pitch
-				if is_array(struct_get(char_presets, char).voice_pitchrange){
-					pitch = random_range(
-						struct_get(char_presets, char).voice_pitchrange[0],
-						struct_get(char_presets, char).voice_pitchrange[1]
+                var __pitch_calc = struct_get(char_presets, char).voice_pitch_calc
+                
+                if !is_undefined(voice_pitchrange)
+                    pitch = random_range(
+						voice_pitchrange[0],
+						voice_pitchrange[1]
 					)
-				}
-				
+                else if is_real(__pitch_calc)
+                    pitch = __pitch_calc
+				else if is_callable(__pitch_calc)
+					pitch = __pitch_calc()
+                
 				// play unless it's a punctuation sign
 				if struct_get(char_presets, char).voice != -1 
 					&& curchar != "." && curchar != " " && curchar != "　"
@@ -179,7 +184,10 @@ if pause > 0 {
 // -1 in pauses stands for "waiting for confirmation to resume"
 // -2 in pauses stands for "waiting until pause variable is set to something else"
 if pause == -1 || pause == -2 {
-	skipping = false
+    if pause == -2
+        superskipping = false
+    if !superskipping
+	   skipping = false
 	
 	if instance_exists(npc_link) {
 		if variable_instance_exists(npc_link, "s_talking")
@@ -189,7 +197,8 @@ if pause == -1 || pause == -2 {
 	if instance_exists(caller) && pause != -2 {
 		caller.can_proceed = true
 	}
-	if InputPressed(INPUT_VERB.SELECT) && pause != -2 {
+    
+	if (InputPressed(INPUT_VERB.SELECT) || InputCheck(INPUT_VERB.SPECIAL)) && pause == -1 || (superskipping && superskipping_buffer == 0 && pause == -1) {
 		pause = 0
 	}
 }
@@ -215,7 +224,18 @@ if face_expression != face_expression_prev {
 	face_expression_prev = face_expression
 }
 
-if InputPressed(INPUT_VERB.CANCEL) && !skipping && can_skip && !command_mode && pause >= 0 {
+if InputPressed(INPUT_VERB.CANCEL) && !skipping && can_skip && !command_mode && pause >= 0 && !superskipping {
 	skipping = true
+    pause = 0
+}
+
+superskipping = false
+if InputCheck(INPUT_VERB.SPECIAL) && can_skip && !command_mode {
+    skipping = true
+    superskipping = true
+    
+    if instance_exists(face_inst)
+        face_inst.visible = true
+    
     pause = 0
 }

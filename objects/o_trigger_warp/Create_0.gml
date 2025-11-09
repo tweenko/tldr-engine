@@ -1,2 +1,2 @@
 event_inherited()
-savedir = 0
+savedir = DIR.DOWN

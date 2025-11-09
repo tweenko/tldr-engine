@@ -13,12 +13,16 @@ function dodge_off() {
     o_dodge_controller.dodge_mode = false
 }
 
-///@desc draw_self except it darkens depending on dodge_alpha (overworld battle darken)
-function dodge_darken_self() {
+/// @desc draw_self except it darkens depending on dodge_alpha (overworld battle darken)
+/// @arg {function|undefined} drawer the function that draws your object
+function dodge_darken_self(drawer = undefined) {
     if !instance_exists(o_dodge_controller)
         return false
     
-	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * o_dodge_controller.dodge_darken)
+    if !is_undefined(drawer) && is_callable(drawer)
+        drawer(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * o_dodge_controller.dodge_darken)
+    else
+	   draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * o_dodge_controller.dodge_darken)
 }
 ///@desc returns the alpha of the overworld battle mode
 function dodge_getalpha(){

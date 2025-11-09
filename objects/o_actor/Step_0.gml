@@ -140,7 +140,7 @@ else if sliding{
 }
 
 moving = false
-if lockeddir != -1 && move[lockeddir] == 0 // no clue what this does
+if lockeddir != -1 && move[lockeddir] == 0 // no clue what this does (i coded this a while ago sorry)
 	lockeddir = -1
 
 // actually move now
@@ -168,7 +168,7 @@ for (var i = 0; i < 360; i += 90) {
 		}
 		for (var j = 0; j < array_length(collsy); ++j) {
 		    if instance_exists(collsy[j]) && collsy[j].collide {
-				canmove_y=false 
+				canmove_y = false 
 				break
 			}
 		}
@@ -189,10 +189,10 @@ for (var i = 0; i < 360; i += 90) {
 		
 		// diagonal collisions
 		if place_meeting(x + xx, y, o_block_diag) {
-			y += sign(instance_place(x + xx, y, o_block_diag).image_yscale) * spd
+			y += sign(instance_place(x + xx, y, o_block_diag).image_yscale) * currentspd
 		}
-		if place_meeting(x,y + yy, o_block_diag){
-			x += sign(instance_place(x, y + yy, o_block_diag).image_xscale) * spd
+		if place_meeting(x, y + yy, o_block_diag) {
+			x += sign(instance_place(x, y + yy, o_block_diag).image_xscale) * currentspd
 		}
 		
 		moving = true;
@@ -204,7 +204,7 @@ if !is_player
     && (x != xprevious || y != yprevious)
     && !is_in_battle && !is_enemy || sliding
     	moving = true
-    else if moving // if you are already "moving," and it is confirmed by checking your x and y positions, let you still be moving
+else if moving // if you are already "moving," and it is confirmed by checking your x and y positions, let you still be moving
     && (x != xprevious || y != yprevious)
     && !is_in_battle && !is_enemy {
         

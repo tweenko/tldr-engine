@@ -28,7 +28,8 @@ if !is_in_battle && freeze == 0 { // enemy aura, toby code
 	s_drawer(spr, image_index, 
 		xx, yy, 
 		image_xscale, image_yscale,
-	image_angle, image_blend, image_alpha)
+	   image_angle, image_blend, image_alpha
+    )
 }
 else {
 	event_inherited()

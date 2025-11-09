@@ -62,7 +62,7 @@ if !surface_exists(surf_text)
 surface_set_target(surf_text)
     draw_clear_alpha(0,0)
 
-    draw_set_colour(0xFFD042)
+    draw_set_color(0xFFD042)
     draw_set_font(loc_font("prophecy"))
     
     var __text_array = string_split(prophecy_text, "\n")
@@ -90,6 +90,8 @@ surface_set_target(surf_text)
     draw_sprite_tiled(spr_depth_blur_loop, 0, round_p(siner/2, 2), round_p(siner/2, 2))
     gpu_set_blendmode(bm_normal)
     gpu_set_colourwriteenable(1, 1, 1, 1)
+
+    draw_set_color(c_white)
 surface_reset_target()
 
 draw_surface_ext(surf_text, guipos_x(), guipos_y() + cosine(12, 2), 1, 1, 0, c_white, image_alpha)
