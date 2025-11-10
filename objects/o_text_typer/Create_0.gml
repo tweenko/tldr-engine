@@ -51,6 +51,7 @@
 	skipping = false
 	superskipping = false
     superskipping_buffer = 0
+    allow_skip_internal = true
 	
 	chars = 0
 	disp_chars = 0 //displayed characters
@@ -77,6 +78,7 @@
 	argstrings = ""
 	
 	choice_inst = noone
+    choice_save_allow_skip = true
 	looping = false
 	break_tabulation = true
 	current_box = 0
@@ -85,14 +87,14 @@
 	auto_breaks = true
 	
 	_facechange = function(char, expression = 0, change_delay = 4) {
-		var __face = struct_get(struct_get(char_presets, char), "face_create")(x, y, depth - 100)
-        
 		if instance_exists(face_inst) {
 			x -= face_xoff
             face_xoff = 0
             
 			instance_destroy(face_inst)
 		}
+        
+        var __face = struct_get(struct_get(char_presets, char), "face_create")(x, y, depth - 100)
 		if instance_exists(__face) {
             if string_length(expression) == string_length(string_digits(expression))
                 expression = real(expression)

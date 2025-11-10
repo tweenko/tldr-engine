@@ -169,6 +169,12 @@ if command == "choice" { // choice(choice1, choice2, ...)  create a choice box f
     
 	pause = -2
 	looping = false
+    
+    choice_save_allow_skip = allow_skip_internal
+    
+    skipping = false
+    superskipping = false
+    allow_skip_internal = false
 }
 
 if command == "xscale" { // xscale(real)
@@ -223,6 +229,11 @@ if command == "sound" || command == "snd" { // snd(sound_index) OR sound(sound_i
 
 if command == "can_skip" { // can_skip(bool)
 	can_skip = bool(arg[0])
+    if !can_skip {
+        allow_skip_internal = false
+        skipping = false
+        superskipping = false
+    }
 }
 if command == "speed" { // speed(real)
 	typespd = real(arg[0])
@@ -288,7 +299,7 @@ if command == "mini" { // mini(text, char = undefined, face_expression = undefin
     array_push(mini_faces, 
         instance_create(o_text_mini, __xx, __yy, depth, {
             x: __xx, y: __yy,
-            face: struct_get(char_presets, __char)._face,
+            face_creator: struct_get(struct_get(char_presets, __char), "face_create"),
             face_expression: __face_ex,
             text: arg[0]
         })

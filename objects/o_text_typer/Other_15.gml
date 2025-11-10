@@ -224,13 +224,17 @@ if face_expression != face_expression_prev {
 	face_expression_prev = face_expression
 }
 
-if InputPressed(INPUT_VERB.CANCEL) && !skipping && can_skip && !command_mode && pause >= 0 && !superskipping {
+if (InputPressed(INPUT_VERB.CANCEL) || (timer == 0 && InputCheck(INPUT_VERB.CANCEL))) 
+    && !skipping && can_skip && !command_mode && pause >= 0 
+    && !superskipping && allow_skip_internal 
+{
 	skipping = true
     pause = 0
 }
 
+// refresh it every frame
 superskipping = false
-if InputCheck(INPUT_VERB.SPECIAL) && can_skip && !command_mode {
+if InputCheck(INPUT_VERB.SPECIAL) && can_skip && !command_mode && allow_skip_internal {
     skipping = true
     superskipping = true
     

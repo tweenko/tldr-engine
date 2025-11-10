@@ -1,7 +1,7 @@
 x_offset = 50
 image_alpha = 0
 
-face = undefined
+face_creator = undefined
 face_expression = 0
 text = ""
 
