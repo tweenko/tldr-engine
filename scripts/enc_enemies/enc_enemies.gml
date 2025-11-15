@@ -48,10 +48,12 @@ function enemy() constructor {
     defeat_marker = 0 // marker id
     
 	// misc (in-fight events)
-	ev_dialogue =	-1
-	ev_turn =		-1
-    ev_turn_start = -1
-	ev_post_turn =	-1
+    ev_pre_dialogue =   -1
+	ev_dialogue =	    -1
+	ev_turn =	  	    -1
+    ev_turn_start =     -1
+	ev_post_turn =	    -1
+    ev_win =            -1
 	
 	//recruit
 	recruit = new enemy_recruit()
@@ -90,7 +92,7 @@ function enemy_virovirokun() : enemy() constructor{
 			tp_cost: 0,
 			exec: function(slot, user) {
 				cutscene_create()
-				cutscene_set_variable(o_enc, "exec_wait", true)
+				cutscene_set_variable(o_enc, "waiting", true)
 				
 				cutscene_func(enc_sparepercent_enemy, [slot, 100])
 				cutscene_func(function(user) {
@@ -113,7 +115,7 @@ function enemy_virovirokun() : enemy() constructor{
 				
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecare_msg"))
 				
-				cutscene_set_variable(o_enc, "exec_wait", false)
+				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 			}
 		},
@@ -124,7 +126,7 @@ function enemy_virovirokun() : enemy() constructor{
 			tp_cost: 0,
 			exec: function(slot, user) {
 				cutscene_create()
-				cutscene_set_variable(o_enc, "exec_wait", true)
+				cutscene_set_variable(o_enc, "waiting", true)
 				
 				cutscene_func(function(user) {
 					for (var i = 0; i < array_length(global.party_names); ++i) {
@@ -157,7 +159,7 @@ function enemy_virovirokun() : enemy() constructor{
 				}, user)
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecarex_msg"))
 				
-				cutscene_set_variable(o_enc, "exec_wait", false)
+				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 			}
 		},
@@ -197,10 +199,19 @@ function enemy_virovirokun() : enemy() constructor{
 function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
-	obj = o_actor_e_killercar
+	obj = {
+        obj: o_actor_e,
+        var_struct: {
+            s_hurt: spr_e_killercar_hurt,
+            s_spared: spr_e_killercar_hurt,
+        }
+    }
 	tired = true
 	defense = 0
     can_spare = false
+    
+    hp = 600
+    max_hp = 600
 	
 	acts = [
 		{
@@ -217,7 +228,7 @@ function enemy_killercar() : enemy() constructor{
 			desc: "Fatal",
 			exec: function(slot, user) {
 				cutscene_create()
-				cutscene_set_variable(o_enc, "exec_wait", true)
+				cutscene_set_variable(o_enc, "waiting", true)
 				
 				cutscene_dialogue([
 					"{char(susie, 21)}* I have an idea.",
@@ -227,7 +238,7 @@ function enemy_killercar() : enemy() constructor{
 				cutscene_func(enc_hurt_enemy, [slot, 100 * party_getdata("susie", "attack") * party_getdata("susie", "magic"), user, snd_damage, 0, 0, true])
 				cutscene_sleep(30)
 				
-				cutscene_set_variable(o_enc, "exec_wait", false)
+				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 				
 			}
@@ -236,6 +247,62 @@ function enemy_killercar() : enemy() constructor{
 	
 	act_desc = array_create(array_length(acts), -1)
 	act_desc[1] = "Kill Em with Ralsei"
+    
+    my_inst_almond = noone
+    ev_post_turn = method(self, function() {
+        if hp > max_hp/1.5
+            return false
+        
+        o_enc.waiting = true
+        
+        cutscene_create()
+        cutscene_sleep(10)
+        cutscene_dialogue([
+            "* Killer Car felt like it needed to aura-farm a bit.",
+            "{can_skip(false)}* Killer Car practiced self-care!{s(50)}"
+        ],, false)
+        cutscene_wait_dialogue_boxes(1)
+        
+        cutscene_func(method(self, function(__enemy) {
+            var inst = instance_create(o_dummy, __enemy.x - 50, __enemy.y - __enemy.myheight/2, __enemy.depth - 50, {
+                sprite_index: spr_ex_almond_milk
+            })
+            do_animate(2.5, 1, 10, "linear", inst, "image_xscale")
+            do_animate(2.5, 1, 10, "linear", inst, "image_yscale")
+            do_animate(0, 1, 10, "linear", inst, "image_alpha")
+            
+            my_inst_almond = inst
+        }), [actor_id])
+        cutscene_sleep(15)
+        
+        cutscene_func(method(self, function(__enemy) {
+            do_animate(my_inst_almond.x, __enemy.x, 10, "cubic_in", my_inst_almond, "x")
+            do_animate(1, 0, 10, "cubic_in", my_inst_almond, "image_alpha")
+        }), [actor_id])
+        cutscene_sleep(10)
+        
+        cutscene_func(method(self, function(__enemy) {
+            instance_destroy(my_inst_almond)
+            instance_create(o_eff_healeffect,,,, {
+                target: __enemy
+            })
+        }), [actor_id])
+        cutscene_animate(0, 1, 3, "linear", actor_id, "flash")
+        cutscene_sleep(3)
+        
+        cutscene_audio_play(snd_heal)
+        cutscene_func(function(o) {
+            instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth-100, {
+				draw: 300, 
+				mode: 0
+			})
+        }, [actor_id])
+        cutscene_animate(1, 0, 10, "linear", actor_id, "flash")
+        
+        cutscene_wait_dialogue_finish()
+        cutscene_set_variable(o_enc, "waiting", false)
+        cutscene_play()
+    })
     
     recruit = new enemy_recruit_killercar()
 }

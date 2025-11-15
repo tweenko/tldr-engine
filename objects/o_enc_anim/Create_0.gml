@@ -8,3 +8,6 @@ save_pos = []
 
 encounter_data = {}
 save_follow = []
+
+enemy_objects = []
+alarm[4] = 1

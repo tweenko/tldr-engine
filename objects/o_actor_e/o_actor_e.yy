@@ -36,7 +36,7 @@
   "physicsStartAwake":true,
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"encounter","filters":[],"listItems":[],"multiselect":false,"name":"encounter","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"new enc_set_ex()","varType":4,},
-    {"$GMObjectProperty":"v2","%Name":"chase_spd","filters":[],"listItems":[],"multiselect":false,"name":"chase_spd","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"chase_spd","filters":[],"listItems":[],"multiselect":false,"name":"chase_spd","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"4","varType":1,},
     {"$GMObjectProperty":"v2","%Name":"chase_zone","filters":[],"listItems":[],"multiselect":false,"name":"chase_zone","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"noone","varType":4,},
     {"$GMObjectProperty":"v2","%Name":"chase_zone_auto","filters":[],"listItems":[],"multiselect":false,"name":"chase_zone_auto","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"chase_dist","filters":[],"listItems":[],"multiselect":false,"name":"chase_dist","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"undefined","varType":0,},
@@ -44,6 +44,8 @@
         "GMPath",
       ],"listItems":[],"multiselect":false,"name":"idle_path","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"","varType":5,},
     {"$GMObjectProperty":"v2","%Name":"idle_path_spd","filters":[],"listItems":[],"multiselect":false,"name":"idle_path_spd","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"idle_path_autopos","filters":[],"listItems":[],"multiselect":false,"name":"idle_path_autopos","rangeEnabled":true,"rangeMax":1.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},
+    {"$GMObjectProperty":"v2","%Name":"idle_path_manualpos_optional","filters":[],"listItems":[],"multiselect":false,"name":"idle_path_manualpos_optional","rangeEnabled":true,"rangeMax":1.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":0,},
     {"$GMObjectProperty":"v2","%Name":"idle_path_autodir","filters":[],"listItems":[],"multiselect":false,"name":"idle_path_autodir","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"sprite_facing_dir","filters":[],"listItems":[
         "DIR.LEFT",

@@ -20,6 +20,7 @@
 	hideui = false
 	wininit = false
     earned_money = 0
+    flavor = ""
 	
 	save_pos = []
     save_follow = []
@@ -32,6 +33,8 @@
 	mysoul = noone
     
     win_message = ""
+    
+    waiting = false // the waiting variable for EVERYTHING
 }
 
 { // arrays for each party member
@@ -67,8 +70,8 @@
 	exec_queue = ds_queue_create()
 	exec_calculated = false
 	exec_current = undefined
-	exec_wait = false
-	exec_waiting = false
+	waiting = false
+	waiting = false
 }
 
 { // attack execution
@@ -94,6 +97,7 @@
 selection = 0
 state = 0 // how deep we are in the menu
 battle_state = "menu"
+battle_state_prev = "menu"
 
 encounter_data = {} // the information about the encounter: enemies, music, text and such
 

@@ -13,6 +13,13 @@ var inst = instance_create(o_enc,,,,{
     save_follow,
 })
 
+// do the initial flavor text
+var flavor_text = encounter_data.flavor
+if is_callable(flavor_text)
+    flavor_text = flavor_text()
+
+inst.flavor = flavor_text
+
 var __vs = encounter_data.enc_var_struct
 var __names = struct_get_names(__vs)
 for (var i = 0; i < array_length(__names); i ++) {

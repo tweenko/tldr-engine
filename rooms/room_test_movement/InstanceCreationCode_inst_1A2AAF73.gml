@@ -1,0 +1,1 @@
+path_position = random(1)

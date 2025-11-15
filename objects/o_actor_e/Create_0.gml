@@ -8,6 +8,8 @@ chase_encounter = false
 
 // idle_path, idle_path_spd, idle_path_autodir, sprite_facing_dir configured in variable difinitions
 // chase_zone, chase_zone_auto, chase_dist and chase_spd are configured in variable definitions
+// idle_path_autopos will make it so the enemy is snapped to the closest point on the path its linked to.
+// idle_path_manualpos_optional will be the position on the path if the autopos is declined
 
 chasing = false
 notice_timer = -1
