@@ -57,19 +57,9 @@ for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
         }
 	}
 	
-	var obj = noone
-	var a = actor_find(encounter_data.enemies[i].obj, x, y)
-	
-	var create = true // whether to create the actors
-	
-	if a != noone {
-		if !a.is_in_battle {
-			obj = a
-			create = false
-		}
-	}
-	if create 
-		obj = actor_create(encounter_data.enemies[i].obj, guipos_x() + 320 + 100,guipos_y() + 120, 0)
+	var obj = enemy_objects[i]
+    if !instance_exists(obj)
+        obj = actor_create(encounter_data.enemies[i].obj, guipos_x() + 320 + 100, guipos_y() + 120, 0)
 	
 	do_animate(obj.x, xx, 10, "linear", obj, "x")
 	do_animate(obj.y, yy, 10, "linear", obj, "y")

@@ -15,16 +15,20 @@ function actor_create(obj, xx = 0, yy = 0, ddepth = 0){
     }
 }
 
-/// @desc (MIGHT be memory heavy) finds an actor in the room
+/// @desc finds an actor in the room
 /// @arg {asset.GMObject|struct} obj
 /// @arg {real} xx the x position relative to which the nearest instance should be found
 /// @arg {real} yy the y position relative to which the nearest instance should be found
-function actor_find(obj, xx = x, yy = y) {
+/// @arg {real} snap if the distance is lower than the value of snap, then the loop will be broken and the instance returned. set to 0 to disable
+function actor_find(obj, xx = x, yy = y, snap = 10) {
 	if is_struct(obj) {
-		var a = noone
+        var record_dist = infinity
+        var record_instance = noone
+        
 		with obj.obj {
 			var n = struct_get_names(obj.var_struct)
 			var me = true
+            
 			for (var i = 0; i < array_length(n); ++i) {
 				if struct_get(obj.var_struct, n[i]) == variable_instance_get(id, n[i]) {}
 				else {
@@ -33,16 +37,24 @@ function actor_find(obj, xx = x, yy = y) {
 				}
 			}
 			if me {
-				a = id;
-				break
+				var __mydist = point_distance(xx, yy, x, y)
+                
+                if __mydist < record_dist {
+                    record_dist = __mydist
+                    record_instance = id
+                }
+                if __mydist < snap
+                    break
 			}
 		}
-		return a
+        
+		return record_instance
 	}
 	else {
 		if instance_exists(obj)
 			return instance_nearest(xx, yy, obj)
 	}
+    
 	return noone
 }
 

@@ -133,7 +133,7 @@ function enc_enemy_isfighting(target) {
 
 ///@desc starts an encounter
 function enc_start(set) {
-	var inst = instance_create(o_enc_anim,,,, {encounter_data: set})
+	var inst = instance_create(o_enc_anim, get_leader().x, get_leader().y,, {encounter_data: set})
 	return inst
 }
 

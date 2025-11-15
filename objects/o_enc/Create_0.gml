@@ -32,6 +32,8 @@
 	mysoul = noone
     
     win_message = ""
+    
+    waiting = false // the waiting variable for EVERYTHING
 }
 
 { // arrays for each party member

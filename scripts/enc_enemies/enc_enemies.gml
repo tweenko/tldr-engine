@@ -197,7 +197,13 @@ function enemy_virovirokun() : enemy() constructor{
 function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
-	obj = o_actor_e_killercar
+	obj = {
+        obj: o_actor_e,
+        var_struct: {
+            s_hurt: spr_e_killercar_hurt,
+            s_spared: spr_e_killercar_hurt,
+        }
+    }
 	tired = true
 	defense = 0
     can_spare = false
