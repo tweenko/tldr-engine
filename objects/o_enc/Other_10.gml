@@ -39,8 +39,8 @@
 	exec_queue = ds_queue_create()
 	exec_calculated = false
 	exec_current = undefined
-	exec_wait = false
-	exec_waiting = false
+	waiting = false
+	waiting = false
 }
 { // attack execution
 	fighters = []

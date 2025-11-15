@@ -53,7 +53,7 @@ trigger_code = function() {
     
     cutscene_func(function(__healdir) {
         var inst = instance_create(o_dummy, party_get_inst("susie").x + 20 * __healdir, party_get_inst("susie").y - party_get_inst("susie").myheight/2, party_get_inst("susie").depth - 10, {
-            sprite_index: spr_susieheal_beam,
+            sprite_index: spr_ex_susieheal_beam,
             image_xscale: __healdir,
         })
         do_animate(inst.x, party_get_inst("noelle").x, 30, "linear", inst, "x")

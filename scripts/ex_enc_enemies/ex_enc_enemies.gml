@@ -33,7 +33,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				var me = o_enc.encounter_data.enemies[slot]
 				
 				cutscene_create()
-				cutscene_set_variable(o_enc, "exec_wait", true)
+				cutscene_set_variable(o_enc, "waiting", true)
 				
 				cutscene_sleep(10)
 				
@@ -53,7 +53,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				cutscene_func(function(){instance_destroy(o_ui_dialogue)})
 				cutscene_sleep(30)
 				
-				cutscene_set_variable(o_enc, "exec_wait", false)
+				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 			}
 		}

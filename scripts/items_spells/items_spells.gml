@@ -18,7 +18,7 @@ function item_s_rudebuster() : item_spell() constructor {
         var __name = global.party_names[index]
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
         
-        cutscene_set_variable(o_enc, "exec_waiting", true)
+        cutscene_set_variable(o_enc, "waiting", true)
 		cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), string_upper(loc("spell_rude_buster_name"))),, false)
         cutscene_sleep(20)
         cutscene_set_partysprite(index, "rudebuster")
@@ -44,7 +44,7 @@ function item_s_rudebuster() : item_spell() constructor {
             do_animate(0, 1, 3, "linear", inst, "image_alpha")
         }, [__e_obj, party_get_inst(__name), target, __name])
         cutscene_sleep(50)
-		cutscene_set_variable(o_enc, "exec_waiting", false)
+		cutscene_set_variable(o_enc, "waiting", false)
     }
     
 	tp_cost = 50
@@ -113,7 +113,7 @@ function item_s_susieheal(data = {
     use = function(index, target, caller, _name, _calc, _use) {
         var __name = global.party_names[index]
         
-        cutscene_set_variable(o_enc, "exec_waiting", true)
+        cutscene_set_variable(o_enc, "waiting", true)
 		cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
         
         cutscene_sleep(10)
@@ -125,7 +125,7 @@ function item_s_susieheal(data = {
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
-		cutscene_set_variable(o_enc, "exec_waiting", false)
+		cutscene_set_variable(o_enc, "waiting", false)
     }
     
     __update_spell(_data)
@@ -137,10 +137,10 @@ function item_s_testdmg() : item_spell() constructor {
 	use_type = ITEM_USE.ENEMY
 	
 	use = function() {
-		cutscene_set_variable(o_enc, "exec_waiting", true)
+		cutscene_set_variable(o_enc, "waiting", true)
 		cutscene_func(enc_hurt_enemy, [target, 10, user])
 		cutscene_dialogue(string(loc("spell_cast"), party_getname(global.party_names[user]), "TEST DAMAGE"),, true)
-		cutscene_set_variable(o_enc, "exec_waiting", false)
+		cutscene_set_variable(o_enc, "waiting", false)
 	}
 	
 	tp_cost = 16
@@ -174,7 +174,7 @@ function item_s_pacify() : item_spell() constructor {
         var __name = global.party_names[index]
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
         
-        cutscene_set_variable(o_enc, "exec_waiting", true)
+        cutscene_set_variable(o_enc, "waiting", true)
         
         if o_enc.encounter_data.enemies[target].tired {
 		    cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
@@ -199,7 +199,7 @@ function item_s_pacify() : item_spell() constructor {
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
-		cutscene_set_variable(o_enc, "exec_waiting", false)
+		cutscene_set_variable(o_enc, "waiting", false)
     }
     use_args = [name[0]]
     
@@ -213,7 +213,7 @@ function item_s_healprayer() : item_spell() constructor {
     use = function(index, target, caller, _name) {
         var __name = global.party_names[index]
         
-        cutscene_set_variable(o_enc, "exec_waiting", true)
+        cutscene_set_variable(o_enc, "waiting", true)
 		cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
         
         cutscene_sleep(10)
@@ -223,7 +223,7 @@ function item_s_healprayer() : item_spell() constructor {
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
-		cutscene_set_variable(o_enc, "exec_waiting", false)
+		cutscene_set_variable(o_enc, "waiting", false)
     }
     use_args = [name[0]]
     
@@ -258,7 +258,7 @@ function item_s_sleepmist() : item_spell() constructor {
     use = function(index, target, caller, _name) {
         var __name = global.party_names[index]
         
-        cutscene_set_variable(o_enc, "exec_waiting", true)
+        cutscene_set_variable(o_enc, "waiting", true)
     
         cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
     
@@ -289,7 +289,7 @@ function item_s_sleepmist() : item_spell() constructor {
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
-		cutscene_set_variable(o_enc, "exec_waiting", false)
+		cutscene_set_variable(o_enc, "waiting", false)
     }
     use_args = [name[0]]
     
@@ -304,7 +304,7 @@ function item_s_iceshock() : item_spell() constructor {
         var __name = global.party_names[index]
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
         
-        cutscene_set_variable(o_enc, "exec_waiting", true)
+        cutscene_set_variable(o_enc, "waiting", true)
     
         cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
     
@@ -328,7 +328,7 @@ function item_s_iceshock() : item_spell() constructor {
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
-		cutscene_set_variable(o_enc, "exec_waiting", false)
+		cutscene_set_variable(o_enc, "waiting", false)
     }
     use_args = [name[0]]
     
