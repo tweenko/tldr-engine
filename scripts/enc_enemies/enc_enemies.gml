@@ -200,7 +200,7 @@ function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
 	obj = {
-        obj: o_actor_e,
+        obj: o_actor_e_killercar,
         var_struct: {
             s_hurt: spr_e_killercar_hurt,
             s_spared: spr_e_killercar_hurt,
@@ -259,7 +259,7 @@ function enemy_killercar() : enemy() constructor{
         cutscene_sleep(10)
         cutscene_dialogue([
             "* Killer Car felt like it needed to aura-farm a bit.",
-            "{can_skip(false)}* Killer Car practiced self-care!{s(50)}"
+            "{can_skip(false)}* Killer Car practiced self-care!{s(30)}"
         ],, false)
         cutscene_wait_dialogue_boxes(1)
         
@@ -286,6 +286,8 @@ function enemy_killercar() : enemy() constructor{
             instance_create(o_eff_healeffect,,,, {
                 target: __enemy
             })
+            
+            hp += 300
         }), [actor_id])
         cutscene_animate(0, 1, 3, "linear", actor_id, "flash")
         cutscene_sleep(3)

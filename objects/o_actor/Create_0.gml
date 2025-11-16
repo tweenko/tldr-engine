@@ -8,6 +8,7 @@ state = -1
 is_enemy = false
 is_follower = false
 is_in_battle = false
+is_selected_for_battle = false
 is_player = false
 
 { // player specific

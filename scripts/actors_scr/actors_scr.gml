@@ -20,17 +20,20 @@ function actor_create(obj, xx = 0, yy = 0, ddepth = 0){
 /// @arg {real} xx the x position relative to which the nearest instance should be found
 /// @arg {real} yy the y position relative to which the nearest instance should be found
 /// @arg {real} snap if the distance is lower than the value of snap, then the loop will be broken and the instance returned. set to 0 to disable
-function actor_find(obj, xx = x, yy = y, snap = 10) {
+/// @arg {struct} require the required variables and their values for the actor to be registered as the same
+function actor_find(obj, xx = x, yy = y, snap = 10, require = {}) {
 	if is_struct(obj) {
         var record_dist = infinity
         var record_instance = noone
         
+        var full_struct = struct_merge(obj.var_struct, require, false)
+        var n = struct_get_names(full_struct)
+        
 		with obj.obj {
-			var n = struct_get_names(obj.var_struct)
 			var me = true
             
 			for (var i = 0; i < array_length(n); ++i) {
-				if struct_get(obj.var_struct, n[i]) == variable_instance_get(id, n[i]) {}
+				if struct_get(full_struct, n[i]) == variable_instance_get(id, n[i]) {}
 				else {
 					me = false
 					break
@@ -51,8 +54,35 @@ function actor_find(obj, xx = x, yy = y, snap = 10) {
 		return record_instance
 	}
 	else {
-		if instance_exists(obj)
-			return instance_nearest(xx, yy, obj)
+		var record_dist = infinity
+        var record_instance = noone
+        
+        var full_struct = require
+        var n = struct_get_names(full_struct)
+        
+		with obj {
+			var me = true
+            
+			for (var i = 0; i < array_length(n); ++i) {
+				if struct_get(full_struct, n[i]) == variable_instance_get(id, n[i]) {}
+				else {
+					me = false
+					break
+				}
+			}
+			if me {
+				var __mydist = point_distance(xx, yy, x, y)
+                
+                if __mydist < record_dist {
+                    record_dist = __mydist
+                    record_instance = id
+                }
+                if __mydist < snap
+                    break
+			}
+		}
+        
+        return record_instance
 	}
     
 	return noone
