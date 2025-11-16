@@ -16,7 +16,7 @@ function __engine_version_to_real(version) {
     
     var __ret = 0
     for (var i = 0; i < array_length(__version_array); i ++) {
-        __ret += real(__version_array[i]) * (10 ^ ((array_length(__version_array) - 1) - i))
+        __ret += real(__version_array[i]) * (10 ^^ ((array_length(__version_array) - 1) - i))
     }
     
     return __ret * 100 + __hotfix
