@@ -1,11 +1,9 @@
-if white == true
-	gpu_set_fog(true,c_white,0,0)
-if addblend
-	gpu_set_blendmode(bm_add)
+if white
+	gpu_set_fog(true, c_white, 0, 0)
 
-draw_self()
+gpu_set_blendmode(blend)
+drawer(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha)
+gpu_set_blendmode(bm_normal)
 
-if addblend
-	gpu_set_blendmode(bm_normal)
-if white == true
-	gpu_set_fog(false,c_white,0,0)
+if white
+	gpu_set_fog(false, c_white, 0, 0)

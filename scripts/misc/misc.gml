@@ -60,7 +60,7 @@ function screen_shake(pow, timelen = undefined){
 }
 
 ///@desc creates a trail of the object that calls this function
-function afterimage(_decay_speed = 0.1, inst = id, gui = false){
+function afterimage(_decay_speed = 0.1, inst = id, gui = false, drawer = undefined){
     var _afterimage = instance_create_depth(inst.x, inst.y, inst.depth, o_afterimage)
 
     _afterimage.sprite_index = inst.sprite_index
@@ -72,7 +72,10 @@ function afterimage(_decay_speed = 0.1, inst = id, gui = false){
     _afterimage.image_xscale = inst.image_xscale
     _afterimage.image_yscale = inst.image_yscale
     _afterimage.image_angle = inst.image_angle
-    _afterimage.decay_speed=_decay_speed
+    _afterimage.decay_speed = _decay_speed
+    
+    if !is_undefined(drawer) && is_callable(drawer)
+        _afterimage.drawer = drawer
 
     return _afterimage;
 }

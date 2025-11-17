@@ -1305,7 +1305,7 @@ if battle_state == "turn" {
 			if instance_exists(turn_objects[i]) move_on = false
 		}
 		if move_on {
-			mybox.alarm[0] = 1
+			mybox.__close()
 			mysoul.alarm[0] = 1
 			turn_goingback = true
 		}

@@ -2,18 +2,32 @@ if color == 0 {
 	if is_transitioning == false {
 		// Movement
 		if InputCheck(INPUT_VERB.CANCEL) 
-			real_spd = 1;
+			real_spd = spd/2;
 		else
 			real_spd = spd;
 		
+        var xx = 0
+        var yy = 0
+        
 		if InputCheck(INPUT_VERB.LEFT) 
-			x -= real_spd
+			xx -= real_spd
 		else if InputCheck(INPUT_VERB.RIGHT) 
-			x += real_spd
+			xx += real_spd
 		if InputCheck(INPUT_VERB.UP) 
-			y -= real_spd
+			yy -= real_spd
 		else if InputCheck(INPUT_VERB.DOWN) 
-			y += real_spd
+			yy += real_spd
+        
+        var xstep = .5 * sign(xx)
+        for (var i = 0; i < abs(xx); i ++) { // horizontal collisions
+            if !place_meeting(x + xstep, y, [o_enc_box_solid, o_enc_box])
+                x += xstep
+        }
+        var ystep = .5 * sign(yy)
+        for (var i = 0; i < abs(yy); i ++) { // vertical collisions
+            if !place_meeting(x, y + ystep, [o_enc_box_solid, o_enc_box])
+                y += ystep
+        }
 		
 		if (InputCheck(INPUT_VERB.LEFT) 
             || InputCheck(INPUT_VERB.UP) 
@@ -24,12 +38,7 @@ if color == 0 {
 		}
 		else 
 			moving = false
-	
-		// "Collisions"
-		if instance_exists(o_enc_box) {
-			x = clamp(x, o_enc_box.x + 6 - o_enc_box.width/2, o_enc_box.x - 6 + o_enc_box.width/2);
-			y = clamp(y, o_enc_box.y + 6.5-o_enc_box.height/2, o_enc_box.y - 5.5 + o_enc_box.height/2);
-		}
+        
 		if place_meeting(x, y, o_enc_bullet) {
 			with instance_place(x, y, o_enc_bullet){
 				event_user(0);
