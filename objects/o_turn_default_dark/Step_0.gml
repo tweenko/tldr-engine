@@ -12,6 +12,4 @@ if timer % __buffed_period == 0 {
     })
 }
 
-o_enc_box.angle ++
-
 __support_destroy_check()

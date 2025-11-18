@@ -1343,6 +1343,7 @@
     {"id":{"name":"spr_ui_timer_off","path":"sprites/spr_ui_timer_off/spr_ui_timer_off.yy",},},
     {"id":{"name":"spr_ui_timer_on","path":"sprites/spr_ui_timer_on/spr_ui_timer_on.yy",},},
     {"id":{"name":"spr_uisoul","path":"sprites/spr_uisoul/spr_uisoul.yy",},},
+    {"id":{"name":"Sprite498","path":"sprites/Sprite498/Sprite498.yy",},},
     {"id":{"name":"tile_ex_church_library","path":"tilesets/tile_ex_church_library/tile_ex_church_library.yy",},},
     {"id":{"name":"tile_ex_church","path":"tilesets/tile_ex_church/tile_ex_church.yy",},},
     {"id":{"name":"tile_ex_dforest_battle","path":"tilesets/tile_ex_dforest_battle/tile_ex_dforest_battle.yy",},},

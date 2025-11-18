@@ -11,15 +11,11 @@ if is_transitioning {
     
     image_alpha = lerp(.5, 1, trans_lerp)
 }
-if !is_transitioning {
-    //angle ++
-}
 
 if timer == 15
     is_transitioning = false
 
 image_xscale = width/40
 image_yscale = height/40
-image_angle = angle
 
 timer ++

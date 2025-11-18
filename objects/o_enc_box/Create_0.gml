@@ -1,3 +1,5 @@
+event_inherited()
+
 bullet_surf = -1
 
 x = 320/2
@@ -8,11 +10,10 @@ x += guipos_x()
 y += guipos_y()
 
 // customizable
-width = 75;
-height = 75;
+width = 20;
+height = 100;
 color = c_green;
 flash = 0
-angle = 0
 timer = 0
 
 temp_scale = 0
@@ -27,10 +28,6 @@ is_transitioning = true
 trans_sprite = -1
 trans_surf = -1
 trans_lerp = 0
-
-prev_x     = x;
-prev_y     = y;
-prev_angle = image_angle;
 
 drawer = function(_sprite, _index, _xx, _yy, width, height, angle, _blend, _alpha) {
     var xscale = width / 40
