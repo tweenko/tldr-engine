@@ -20,6 +20,9 @@ request in the according channel in the server mentioned above.
 
 There is no straight up documentation per se, (at least for now) so the Discord server can be considered a very interactive documentation, if you will.
 
+Please also link the engine somewhere on your game page or recordings and please do not re-destribute the engine.
+Framing the engine as your own is not too cool, either.
+
 ## Jumpstart
 If you are planning to pull new versions once they are released, please open the repository with GitHub Desktop and clone it on your local device. Once you're all set, you'll be able to fetch and pull the new versions from origin.
 <img width="1845" height="899" alt="image" src="https://github.com/user-attachments/assets/4be9eb9e-87c2-4266-91cf-d38bd49cfaab" />
