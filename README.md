@@ -32,9 +32,9 @@ If not, however, you can download the engine like a zip file or copy it as a tem
 ---
 
 ### Credits and Thanks
-- The Soul and Box system originally created by **Callum** (jevilhumor)
 - Amazing Libraries made by [Juju Adams](https://www.jujuadams.com/)
 - The Anime Library was made by [futuregamer25](https://futuregamer25.github.io/) (It's really good. Thanks a lot!)
+- The Soul and Box system loosely based on the one created by **Callum** (jevilhumor)
 - Some code in the engine was made by **doedreemurr**
 - Japanese Translation and localization assistance by たまご (egg_sushi) and Techoskiller
 - Small contributions from other people, as well!
