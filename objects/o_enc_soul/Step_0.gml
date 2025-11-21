@@ -20,12 +20,12 @@ if color == 0 {
         
         var xstep = .25 * sign(xx)
         for (var i = 0; i < abs(xx); i ++) { // horizontal collisions
-            if !place_meeting(x + xstep + sign(xstep), y, o_enc_box_solid)
+            if !place_meeting(x + xstep + sign(xstep)*1.5, y, o_enc_box_solid)
                 x += xstep
         }
         var ystep = .25 * sign(yy)
         for (var i = 0; i < abs(yy); i ++) { // vertical collisions
-            if !place_meeting(x, y + ystep + sign(ystep), o_enc_box_solid)
+            if !place_meeting(x, y + ystep + sign(ystep)*1.5, o_enc_box_solid)
                 y += ystep
         }
 		

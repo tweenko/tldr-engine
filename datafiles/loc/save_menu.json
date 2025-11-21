@@ -11,6 +11,9 @@
     "save_menu_recruits": {
         "en": "Recruits", "ja": "なかま"
     },
+    "save_menu_to_title": {
+        "en": "Return To Title", "ja": "タイトル画面へ"
+    },
 
     "save_menu_file_saved": {
         "en": "File Saved", "ja": "セーブしました"

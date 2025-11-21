@@ -10,8 +10,8 @@ x += guipos_x()
 y += guipos_y()
 
 // customizable
-width = 20;
-height = 100;
+width = 75;
+height = 75;
 color = c_green;
 flash = 0
 timer = 0
@@ -29,11 +29,15 @@ trans_sprite = -1
 trans_surf = -1
 trans_lerp = 0
 
-drawer = function(_sprite, _index, _xx, _yy, width, height, angle, _blend, _alpha) {
-    var xscale = width / 40
-    var yscale = height / 40
+sprite_w = sprite_get_width(sprite_index)
+sprite_h = sprite_get_height(sprite_index)
+prev_sprite = sprite_index
+
+drawer = method(self, function(_sprite, _index, _xx, _yy, width, height, angle, _blend, _alpha) {
+    var xscale = width / sprite_w
+    var yscale = height / sprite_h
     draw_sprite_ext(_sprite, _index, _xx, _yy, xscale, yscale, angle, _blend, _alpha)
-}
+})
 
 do_animate(0, 1, 15, "linear", id, "temp_scale")
 do_animate(-180, 0, 15, "linear", id, "temp_angle")

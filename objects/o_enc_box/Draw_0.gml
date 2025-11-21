@@ -11,6 +11,6 @@ if !sprite_exists(trans_sprite) {
 }
 
 if is_transitioning
-    drawer(trans_sprite, image_index, x - 1/2, y - 1/2, 40 * temp_scale, 40 * temp_scale, temp_angle, c_white, image_alpha)
+    drawer(trans_sprite, image_index, x - 1/2, y - 1/2, sprite_w * temp_scale, sprite_h * temp_scale, temp_angle, c_white, image_alpha)
 else 
     drawer(sprite_index, image_index, x, y, width * temp_scale, height * temp_scale, image_angle + temp_angle, c_white, image_alpha)

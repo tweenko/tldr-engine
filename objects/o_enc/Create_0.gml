@@ -70,6 +70,7 @@
 	exec_queue = ds_queue_create()
 	exec_calculated = false
 	exec_current = undefined
+    exec_buffer = 0
 	waiting = false
 	waiting = false
 }

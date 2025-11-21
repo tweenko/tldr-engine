@@ -3,8 +3,8 @@ if is_transitioning {
     
     inst.sprite_index = trans_sprite
     inst.image_alpha = lerp(.7, .2, trans_lerp)
-    inst.image_xscale = 40 * temp_scale
-    inst.image_yscale = 40 * temp_scale
+    inst.image_xscale = sprite_w * temp_scale
+    inst.image_yscale = sprite_h * temp_scale
     inst.image_angle = temp_angle
     inst.depth -= 10
     inst.blend = bm_zero
@@ -15,7 +15,7 @@ if is_transitioning {
 if timer == 15
     is_transitioning = false
 
-image_xscale = width/40
-image_yscale = height/40
+image_xscale = width/sprite_w
+image_yscale = height/sprite_h
 
 timer ++

@@ -219,7 +219,9 @@
     {"$GMFolder":"","%Name":"city","folderPath":"folders/zzz Examples/Tile Sets/city.yy","name":"city","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"dforest","folderPath":"folders/zzz Examples/Tile Sets/dforest.yy","name":"dforest","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
-  "ForcedPrefabProjectReferences":[],
+  "ForcedPrefabProjectReferences":[
+    {"link":"io.gamemaker.gm_filter_hue-1.0.0","name":"io.gamemaker.gm_filter_hue-1.0.0","path":"io.gamemaker.gm_filter_hue-1.0.0.yyp",},
+  ],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"gamecontrollerdb.txt","CopyToMask":-1,"filePath":"datafiles","name":"gamecontrollerdb.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"input_license.txt","CopyToMask":-1,"filePath":"datafiles","name":"input_license.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
@@ -244,7 +246,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.0.207",
+    "IDEVersion":"2024.14.1.210",
   },
   "name":"tldr-engine",
   "resources":[
@@ -352,6 +354,7 @@
     {"id":{"name":"o_ex_ow_city_traffic","path":"objects/o_ex_ow_city_traffic/o_ex_ow_city_traffic.yy",},},
     {"id":{"name":"o_ex_ow_dforest_sparkle","path":"objects/o_ex_ow_dforest_sparkle/o_ex_ow_dforest_sparkle.yy",},},
     {"id":{"name":"o_ex_sguy_notepath","path":"objects/o_ex_sguy_notepath/o_ex_sguy_notepath.yy",},},
+    {"id":{"name":"o_ex_turn_complex_box","path":"objects/o_ex_turn_complex_box/o_ex_turn_complex_box.yy",},},
     {"id":{"name":"o_ex_turn_dentos","path":"objects/o_ex_turn_dentos/o_ex_turn_dentos.yy",},},
     {"id":{"name":"o_ex_turn_sguy","path":"objects/o_ex_turn_sguy/o_ex_turn_sguy.yy",},},
     {"id":{"name":"o_fader","path":"objects/o_fader/o_fader.yy",},},
@@ -971,6 +974,8 @@
     {"id":{"name":"spr_enc_bullet_test","path":"sprites/spr_enc_bullet_test/spr_enc_bullet_test.yy",},},
     {"id":{"name":"spr_enc_target","path":"sprites/spr_enc_target/spr_enc_target.yy",},},
     {"id":{"name":"spr_ex_almond_milk","path":"sprites/spr_ex_almond_milk/spr_ex_almond_milk.yy",},},
+    {"id":{"name":"spr_ex_box_complex_mask","path":"sprites/spr_ex_box_complex_mask/spr_ex_box_complex_mask.yy",},},
+    {"id":{"name":"spr_ex_box_complex","path":"sprites/spr_ex_box_complex/spr_ex_box_complex.yy",},},
     {"id":{"name":"spr_ex_e_dentos_diamond","path":"sprites/spr_ex_e_dentos_diamond/spr_ex_e_dentos_diamond.yy",},},
     {"id":{"name":"spr_ex_e_dentos_eye","path":"sprites/spr_ex_e_dentos_eye/spr_ex_e_dentos_eye.yy",},},
     {"id":{"name":"spr_ex_e_dentos_hurt","path":"sprites/spr_ex_e_dentos_hurt/spr_ex_e_dentos_hurt.yy",},},
@@ -1343,7 +1348,6 @@
     {"id":{"name":"spr_ui_timer_off","path":"sprites/spr_ui_timer_off/spr_ui_timer_off.yy",},},
     {"id":{"name":"spr_ui_timer_on","path":"sprites/spr_ui_timer_on/spr_ui_timer_on.yy",},},
     {"id":{"name":"spr_uisoul","path":"sprites/spr_uisoul/spr_uisoul.yy",},},
-    {"id":{"name":"Sprite498","path":"sprites/Sprite498/Sprite498.yy",},},
     {"id":{"name":"tile_ex_church_library","path":"tilesets/tile_ex_church_library/tile_ex_church_library.yy",},},
     {"id":{"name":"tile_ex_church","path":"tilesets/tile_ex_church/tile_ex_church.yy",},},
     {"id":{"name":"tile_ex_dforest_battle","path":"tilesets/tile_ex_dforest_battle/tile_ex_dforest_battle.yy",},},

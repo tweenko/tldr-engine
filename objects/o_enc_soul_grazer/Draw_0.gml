@@ -1,3 +1,6 @@
+x = round(x)
+y = round(y)
+
 image_blend = c_red
 
 draw_sprite_ext(sprite_index, image_index,

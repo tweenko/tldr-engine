@@ -37,7 +37,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				
 				cutscene_sleep(10)
 				
-				var dia = "* Aim with " + input_binding_intext([INPUT_VERB.LEFT, INPUT_VERB.RIGHT])
+				var dia = "{can_skip(false)}* Aim with " + input_binding_intext([INPUT_VERB.LEFT, INPUT_VERB.RIGHT])
 				dia += " and " + input_binding_intext([INPUT_VERB.UP, INPUT_VERB.DOWN]) + "! "
 				dia += "{br}{resetx}{s(10)}* Fire with " + input_binding_intext(INPUT_VERB.SPECIAL) + "!{stop}"
 				

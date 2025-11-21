@@ -2,8 +2,10 @@ if global.console
 	exit
 
 currently_naming = instance_exists(o_ui_naming)
-if currently_naming
+if currently_naming {
+    buffer = 2 
     exit
+}
 
 if state == 0 { // choose
 	if selection < SAVE_SLOTS {
@@ -117,7 +119,7 @@ if state == 1 {
 		selection_hor = 0
 		audio_play(snd_ui_move)
 	}
-	if InputPressed(INPUT_VERB.CANCEL) || InputPressed(INPUT_VERB.SELECT) && selection_hor == 1 && buffer == 0 {
+	if (InputPressed(INPUT_VERB.CANCEL) && buffer == 0) || InputPressed(INPUT_VERB.SELECT) && selection_hor == 1 && buffer == 0 {
 		audio_play(snd_ui_cancel)
 		
 		selection_hor = 0
@@ -133,7 +135,10 @@ if state == 1 {
         }
 		else {
             currently_naming = true
-            instance_create(o_ui_naming,,, depth - 10, {target_save_index: selection})
+            instance_create(o_ui_naming,,, depth - 10, {
+                target_save_index: selection,
+                caller: id
+            })
         }
 	}
 }

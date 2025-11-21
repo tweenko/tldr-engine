@@ -209,6 +209,7 @@ function enemy_killercar() : enemy() constructor{
 	tired = true
 	defense = 0
     can_spare = false
+    turn_object = o_ex_turn_complex_box
     
     hp = 600
     max_hp = 600
@@ -250,7 +251,7 @@ function enemy_killercar() : enemy() constructor{
     
     my_inst_almond = noone
     ev_post_turn = method(self, function() {
-        if hp > max_hp/1.5
+        if hp < max_hp/1.5
             return false
         
         o_enc.waiting = true
@@ -281,14 +282,20 @@ function enemy_killercar() : enemy() constructor{
         }), [actor_id])
         cutscene_sleep(10)
         
-        cutscene_func(method(self, function(__enemy) {
+        cutscene_func(method(self, function(__enemy, callback) {
             instance_destroy(my_inst_almond)
             instance_create(o_eff_healeffect,,,, {
                 target: __enemy
             })
             
-            hp += 300
-        }), [actor_id])
+            callback()
+        }), [
+                actor_id, 
+                method(self, function() {
+                    hp += 300
+                })
+            ]
+        )
         cutscene_animate(0, 1, 3, "linear", actor_id, "flash")
         cutscene_sleep(3)
         

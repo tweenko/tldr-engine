@@ -154,7 +154,7 @@ function enc_enemy_count(only_alive = true) {
 function enc_gameover(){
 	instance_create(o_gameover, 
 		o_enc_soul.x - guipos_x(), o_enc_soul.y - guipos_y(), DEPTH_ENCOUNTER.UI,
-		{
+		{ 
 			image_blend: o_enc_soul.image_blend,
 			freezeframe: sprite_create_from_surface(application_surface, 0, 0, 640, 480, 0, 0, 0, 0),
 			freezeframe_gui: sprite_create_from_surface((instance_exists(o_enc) ? o_enc.surf : -1), 0, 0, 640, 480, 0, 0, 0, 0),
@@ -183,13 +183,14 @@ function cutscene_spare_enemy(index) {
         recruit_advance(_enemy[index[i]])
         
         cutscene_set_variable(obj, "sprite_index", obj.s_spared)
-        cutscene_instance_create(o_text_hpchange, 
-            obj.x, obj.y - obj.myheight/2, 
-            obj.depth - 100, {
-                draw: $"{recruit_get_progress(_enemy[index[i]])}/{recruit_getneed(_enemy[index[i]])}", 
-                mode: 3
-            }
-        )
+        if !recruit_islost(_enemy[index[i]])
+           cutscene_instance_create(o_text_hpchange, 
+               obj.x, obj.y - obj.myheight/2, 
+               obj.depth - 100, {
+                   draw: $"{recruit_get_progress(_enemy[index[i]])}/{recruit_getneed(_enemy[index[i]])}", 
+                   mode: 3
+               }
+           )
         
         // flash the enemy
         cutscene_anim(.5, 1, 4, "linear", function(v, o) {
