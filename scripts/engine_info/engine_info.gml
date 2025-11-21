@@ -1,10 +1,10 @@
-#macro ENGINE_VERSION "v1.4.2-hotfix1"
+#macro ENGINE_VERSION "v1.5.0"
 #macro ENGINE_NAME "tlDR Engine"
 #macro ENGINE_LAST_COMPATIBLE_VERSION "v1.2.0"
 
 /// @arg {real} version
 function __engine_version_to_real(version) {
-    version = string_delete(version, 0, 1)
+    version = string_delete(version, 1, 1)
     
     var __version_array = string_split(string_split(version, "-")[0], ".") // version number array
     var __hotfix = string_split(version, "-")

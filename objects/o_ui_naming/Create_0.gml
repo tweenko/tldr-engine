@@ -1,3 +1,5 @@
+caller = noone
+
 naming_text = noone
 keyboard = [
     ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"],

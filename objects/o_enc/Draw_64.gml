@@ -319,7 +319,7 @@ surface_set_target(surf) {
 				// draw the act tp cost if applicable
 				draw_set_color(c_orange)
 				if struct_exists(acts[actselection[selection]], "tp_cost") && acts[actselection[selection]].tp_cost > 0 
-					draw_text_ext_transformed(500, 440, string("{0}% TP", acts[actselection[selection]].tp_cost), 15, 130/2, 2, 2, 0)
+					draw_text_ext_transformed(500, 440, string("{0}% TP", acts[actselection[selection]].tp_cost), 15, 70, 2, 2, 0)
 				
                 draw_set_color(c_white)
                 if struct_exists(acts[i], "color") {
@@ -343,7 +343,7 @@ surface_set_target(surf) {
 			// draw the act description if applicable
 			if struct_exists(acts[actselection[selection]], "desc") && is_string(acts[actselection[selection]].desc) {
 				draw_set_color(c_gray)
-				draw_text_ext_transformed(500, 375, acts[actselection[selection]].desc, 15, 130/2, 2, 2, 0)
+				draw_text_ext_transformed(500, 375, acts[actselection[selection]].desc, 15, 70, 2, 2, 0)
 				draw_set_color(c_white)
 			}
 		}
@@ -361,7 +361,7 @@ surface_set_target(surf) {
 			// draw the item description if applicable
 			if is_string(item_get_desc(items[itemselection[selection]], 1)){
 				draw_set_color(c_gray)
-				draw_text_ext_transformed(500,375,item_get_desc(items[itemselection[selection]],1),15,130/2,2,2,0)
+				draw_text_ext_transformed(500, 375, item_get_desc(items[itemselection[selection]], 1), 15, 70, 2, 2, 0)
 				draw_set_color(c_white)
 			}
 			
@@ -397,14 +397,14 @@ surface_set_target(surf) {
 			}
 			if is_string(item_get_desc(spells[actselection[selection]], 1)) {
 				draw_set_color(c_gray)
-				draw_text_ext_transformed(500, 375, item_get_desc(spells[actselection[selection]], 1), 15, 130/2, 2, 2, 0)
+				draw_text_ext_transformed(500, 375, item_get_desc(spells[actselection[selection]], 1), 15, 70, 2, 2, 0)
 				draw_set_color(c_white)
 			}
 			
 			// draw the tp cost if applicable
 			draw_set_color(c_orange)
 			if spells[actselection[selection]].tp_cost > 0 
-				draw_text_ext_transformed(500, 440, string("{0}% TP", spells[actselection[selection]].tp_cost), 15, 130/2, 2, 2, 0)
+				draw_text_ext_transformed(500, 440, string("{0}% TP", spells[actselection[selection]].tp_cost), 15, 70, 2, 2, 0)
 			draw_set_color(c_white)
 			
 			// pages

@@ -11,8 +11,8 @@ if page == 0 { // main menu
 	if InputPressed(INPUT_VERB.UP) && m_selection > 1
 		m_selection -= 2
 	
-	if m_selection > 3 
-		m_selection = 3
+	if m_selection > array_length(m_buttons) - 1
+		m_selection = array_length(m_buttons) - 1
 	if m_selection < 0 
 		m_selection = 0
 	
@@ -175,6 +175,17 @@ if page == -1 {
 if page == 3 { // recruits
     instance_destroy()
     instance_create(o_ui_recruits)
+}
+if page == 4 && !fading_out { // return to title
+    // auto save
+    save_export(global.save_slot)
+    save_set(global.save_slot)
+    
+    fader_fade(0, 1, 20)
+    music_fade(0, 0, 15)
+    
+    alarm[2] = 20
+    fading_out = true
 }
 
 if buffer > 0 

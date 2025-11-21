@@ -6,7 +6,7 @@ while looping || normalupd {
 	
 	// start checking for commands upon reaching a bracket
 	if string_char_at(text, 0) == "{" {
-		text = string_delete(text, 0, 1)
+		text = string_delete(text, 1, 1)
 		command = ""
 		command_mode = true
 	}
@@ -82,7 +82,7 @@ while looping || normalupd {
 			
 			xoff += string_width(curchar) * xscale
 			xoff += xspace * xscale
-			text = string_delete(text, 0, 1)
+			text = string_delete(text, 1, 1)
 			chars ++
 			
 			if auto_pauses { // automatic pause times based on the punctuation
@@ -125,25 +125,25 @@ while looping || normalupd {
 		if string_contains("(", ccommand) {
 			while string_char_at(text, 0) != "(" {
 				command += string_char_at(text, 0)
-				text = string_delete(text, 0, 1)
+				text = string_delete(text, 1, 1)
 				
 				chars ++
 			}
 			
-			text = string_delete(text, 0, 1)
+			text = string_delete(text, 1, 1)
 			chars ++
 			
 			while string_char_at(text, 0) != ")" || command_string_mode {
                 if string_char_at(text, 0) == "`" {
                     argstrings += string_char_at(text, 0)
                     command_string_mode = !command_string_mode
-                    text = string_delete(text, 0, 1)
+                    text = string_delete(text, 1, 1)
                     
                     chars ++
                 }
                 else {
     				argstrings += string_char_at(text, 0)
-    				text = string_delete(text, 0, 1)
+    				text = string_delete(text, 1, 1)
     				
     				chars ++
                 }
@@ -152,12 +152,12 @@ while looping || normalupd {
 		// otherwise just collect it as is
 		else {
 			command = ccommand
-			text = string_delete(text, 0, string_pos("}", text) - 1)
+			text = string_delete(text, 1, string_pos("}", text) - 1)
 		}
 		
 		// loop until the end of the bracketed string
 		while string_char_at(text, 0) != "}" {
-			text = string_delete(text, 0, 1)
+			text = string_delete(text, 1, 1)
 			chars ++
 		}
 	}
@@ -165,7 +165,7 @@ while looping || normalupd {
 	// stop checking for commands if we've reached the closing bracket
 	if command_mode && string_char_at(text, 0) == "}" {
 		command_mode = false
-		text = string_delete(text, 0, 1)
+		text = string_delete(text, 1, 1)
 		chars ++
 		
 		event_user(0)

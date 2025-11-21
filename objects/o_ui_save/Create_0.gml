@@ -23,6 +23,15 @@ m_buttons = [
 	},
 ]
 
+if global.world == WORLD_TYPE.LIGHT {
+    m_buttons[2] = {
+        name: loc("save_menu_to_title"),
+		on: true,
+		page: 4,
+    }
+    array_pop(m_buttons)
+}
+
 m_selection = 0
 s_selection = global.save_slot
 s_o_selection = 0
@@ -39,3 +48,4 @@ page = 0
 
 prog = 0
 buffer = 0
+fading_out = false

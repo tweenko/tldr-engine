@@ -1,8 +1,5 @@
-if !surface_exists(surface_board)
-    surface_board = surface_create(width, height);
-
 if !surface_exists(bullet_surf)
-    bullet_surf = surface_create(room_width, room_height);
+    bullet_surf = surface_create(320, 240);
 surface_set_target(bullet_surf) 
     draw_clear_alpha(0, 0)
 

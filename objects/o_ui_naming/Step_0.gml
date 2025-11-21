@@ -90,6 +90,7 @@ else if state == NAMING_STATE.CONFIRM {
     }
 }
 else if state == NAMING_STATE.START_SAVE {
+    name_angle = random(4)
     if confirm_alpha < 1
         confirm_alpha -= .1
 }
