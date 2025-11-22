@@ -48,6 +48,11 @@ if command == "e" || command == "end" { // end() OR end
 }
 if command == "stop" { // stop() or stop
 	pause = -2
+    
+    looping = false
+    allow_skip_internal = false
+    skipping = false
+    superskipping = false
 }
 	
 if command == "auto_pauses" { // auto_pauses(bool)
@@ -235,6 +240,15 @@ if command == "can_skip" { // can_skip(bool)
         superskipping = false
     }
 }
+if command == "can_superskip" { // can_superskip(bool)
+	can_superskip = bool(arg[0])
+    if !can_superskip {
+        allow_skip_internal = false
+        skipping = false
+        superskipping = false
+    }
+}
+
 if command == "speed" { // speed(real)
 	typespd = real(arg[0])
 }

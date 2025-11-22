@@ -1,16 +1,19 @@
 {
   "$GMRoom":"v1",
-  "%Name":"room_ex_newchange",
+  "%Name":"room_ex_multi_path",
   "creationCodeFile":"",
   "inheritCode":false,
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
-    {"name":"inst_6C8707A7","path":"rooms/room_ex_newchange/room_ex_newchange.yy",},
-    {"name":"inst_6A396201","path":"rooms/room_ex_newchange/room_ex_newchange.yy",},
-    {"name":"inst_37136FD8","path":"rooms/room_ex_newchange/room_ex_newchange.yy",},
-    {"name":"inst_2F9BB4A2","path":"rooms/room_ex_newchange/room_ex_newchange.yy",},
-    {"name":"inst_76803CA","path":"rooms/room_ex_newchange/room_ex_newchange.yy",},
+    {"name":"inst_6C8707A7","path":"rooms/room_ex_multi_path/room_ex_multi_path.yy",},
+    {"name":"inst_6A396201","path":"rooms/room_ex_multi_path/room_ex_multi_path.yy",},
+    {"name":"inst_37136FD8","path":"rooms/room_ex_multi_path/room_ex_multi_path.yy",},
+    {"name":"inst_2F9BB4A2","path":"rooms/room_ex_multi_path/room_ex_multi_path.yy",},
+    {"name":"inst_76803CA","path":"rooms/room_ex_multi_path/room_ex_multi_path.yy",},
+    {"name":"inst_38BB0A82","path":"rooms/room_ex_multi_path/room_ex_multi_path.yy",},
+    {"name":"inst_33CDCC5A","path":"rooms/room_ex_multi_path/room_ex_multi_path.yy",},
+    {"name":"inst_7F780715","path":"rooms/room_ex_multi_path/room_ex_multi_path.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -30,6 +33,9 @@
         {"$GMRInstance":"v4","%Name":"inst_76803CA","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_76803CA","objectId":{"name":"o_actor_e_killercar","path":"objects/o_actor_e_killercar/o_actor_e_killercar.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_actor_e","path":"objects/o_actor_e/o_actor_e.yy",},"propertyId":{"name":"idle_path","path":"objects/o_actor_e/o_actor_e.yy",},"resource":{"name":"path_ex_newchange","path":"paths/path_ex_newchange/path_ex_newchange.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"path_ex_newchange",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":280.0,"y":140.0,},
+        {"$GMRInstance":"v4","%Name":"inst_38BB0A82","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_38BB0A82","objectId":{"name":"o_dev_world","path":"objects/o_dev_world/o_dev_world.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":20.0,"y":-20.0,},
+        {"$GMRInstance":"v4","%Name":"inst_33CDCC5A","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_33CDCC5A","objectId":{"name":"o_dev_music","path":"objects/o_dev_music/o_dev_music.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":0.0,"y":-20.0,},
+        {"$GMRInstance":"v4","%Name":"inst_7F780715","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_7F780715","objectId":{"name":"o_dev_ambiance","path":"objects/o_dev_ambiance/o_dev_ambiance.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":40.0,"y":-20.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRPathLayer":"","%Name":"Path_1","colour":4278190335,"depth":100,"effectEnabled":true,"effectType":null,"gridX":20,"gridY":20,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Path_1","pathId":{"name":"path_ex_newchange","path":"paths/path_ex_newchange/path_ex_newchange.yy",},"properties":[],"resourceType":"GMRPathLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRAssetLayer":"","%Name":"Assets_1","assets":[
@@ -51,7 +57,7 @@
       ],"depth":200,"effectEnabled":true,"effectType":null,"gridX":10,"gridY":10,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Assets_1","properties":[],"resourceType":"GMRAssetLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":15.0,"animationSpeedType":0,"colour":4278190080,"depth":300,"effectEnabled":true,"effectType":null,"gridX":20,"gridY":20,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":null,"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],
-  "name":"room_ex_newchange",
+  "name":"room_ex_multi_path",
   "parent":{
     "name":"Rooms",
     "path":"folders/zzz Examples/Rooms.yy",

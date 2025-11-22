@@ -234,7 +234,7 @@ if (InputPressed(INPUT_VERB.CANCEL) || (timer == 0 && InputCheck(INPUT_VERB.CANC
 
 // refresh it every frame
 superskipping = false
-if InputCheck(INPUT_VERB.SPECIAL) && can_skip && !command_mode && allow_skip_internal {
+if InputCheck(INPUT_VERB.SPECIAL) && can_skip && !command_mode && allow_skip_internal && can_superskip {
     skipping = true
     superskipping = true
     

@@ -33,5 +33,15 @@
     },
     "save_menu_s_page": {
         "en": "Page\n{0}/{1}", "ja": "PAGE\n{0}/{1}"
+    },
+
+    "save_menu_return_confirm": {
+        "en": "Really return to title?", "ja": "タイトル画面にもどる？"
+    },
+    "save_menu_return_yes": {
+        "en": "Yes", "ja": "はい"
+    },
+    "save_menu_return_no": {
+        "en": "No", "ja": "いいえ"
     }
 }

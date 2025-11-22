@@ -44,8 +44,11 @@ st_maxstpage = 2
 st_soulx = 155 - 15
 st_souly = 145 + floor(st_selection[st_page]/2)*20 + 3
 
+return_selection = 0
+
 page = 0
 
 prog = 0
 buffer = 0
 fading_out = false
+size_increment = (global.world == WORLD_TYPE.LIGHT ? 5 : 0)

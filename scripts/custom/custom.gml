@@ -372,3 +372,23 @@ function struct_merge(primary, secondary, shared) {
 	}
 	return _ReturnStruct;
 }
+
+/// @desc a function that creates a text typer and returns its instance
+/// @arg {string|array<string>} text the text that the instance will print out. can be both an array that will be split by {p}{c} and a simple string
+/// @arg {real} x the x position of the to be created text typer instance
+/// @arg {real} y the y position of the to be created text typer instance
+/// @arg {real} depth the depth of the to be created text typer instance
+/// @arg {string} prefix the string that will be added to the beginning of text
+/// @arg {string} postfix the string that will be added to the tail of text (before {stop})
+/// @arg {struct} var_struct the variable struct of the text typer. is a post variable struct
+/// @arg {bool} end_with_stop true by default. whether the function should add "{stop}" after the string. highly recommended, since the abscence of stop can lead to softlocks
+function text_typer_create(text, _xx, _yy, _depth = 0, prefix = "", postfix = "", var_struct = {}, end_with_stop = true) {
+    var inst = instance_create(
+        o_text_typer, 
+        _xx, _yy, _depth, 
+        var_struct
+    )
+    inst.text = prefix + dialogue_array_to_string(text) + postfix + (end_with_stop ? "{stop}" : "")
+    
+    return inst
+}

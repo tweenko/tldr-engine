@@ -104,10 +104,10 @@ __selection_move = function(di, dj) {
 }
 __create_text = function(text) {
     instance_destroy(naming_text)
-    naming_text = instance_create(o_text_typer, 320 + 6, 40, -999, {
-        text: "{preset(god_text)}{xspace(1.5)}{instant}" + text + "{stop}",
+    naming_text = text_typer_create(text, 320 + 6, 40, -999, "{preset(god_text)}{xspace(1.5)}{instant}",, {
         gui: true,
         center_x: true,
+        can_superskip: false,
     })
 }
 __create_text(loc("naming_menu_txt_enter"))

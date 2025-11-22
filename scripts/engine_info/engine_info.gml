@@ -1,6 +1,6 @@
-#macro ENGINE_VERSION "v1.5.0"
+#macro ENGINE_VERSION "v1.5.1"
 #macro ENGINE_NAME "tlDR Engine"
-#macro ENGINE_LAST_COMPATIBLE_VERSION "v1.2.0"
+#macro ENGINE_LAST_COMPATIBLE_VERSION "v1.2.0" // last compatible save version
 
 /// @arg {real} version
 function __engine_version_to_real(version) {

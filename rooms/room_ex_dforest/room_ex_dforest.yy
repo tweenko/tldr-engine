@@ -128,6 +128,8 @@
     {"name":"inst_4D082D70","path":"rooms/room_ex_dforest/room_ex_dforest.yy",},
     {"name":"inst_740E1182","path":"rooms/room_ex_dforest/room_ex_dforest.yy",},
     {"name":"inst_31D3A639","path":"rooms/room_ex_dforest/room_ex_dforest.yy",},
+    {"name":"inst_6370B178","path":"rooms/room_ex_dforest/room_ex_dforest.yy",},
+    {"name":"inst_7DF148BD","path":"rooms/room_ex_dforest/room_ex_dforest.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -298,6 +300,8 @@
         {"$GMRInstance":"v4","%Name":"inst_740E1182","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_740E1182","objectId":{"name":"o_ow_save","path":"objects/o_ow_save/o_ow_save.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_ow_save","path":"objects/o_ow_save/o_ow_save.yy",},"propertyId":{"name":"save_room_name","path":"objects/o_ow_save/o_ow_save.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"txt_room_example_forest",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":122.0,"y":152.0,},
+        {"$GMRInstance":"v4","%Name":"inst_6370B178","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_6370B178","objectId":{"name":"o_dev_world","path":"objects/o_dev_world/o_dev_world.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":20.0,"y":-20.0,},
+        {"$GMRInstance":"v4","%Name":"inst_7DF148BD","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_7DF148BD","objectId":{"name":"o_dev_ambiance","path":"objects/o_dev_ambiance/o_dev_ambiance.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":40.0,"y":-20.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRLayer":"","%Name":"area","depth":1000,"effectEnabled":true,"effectType":null,"gridX":20,"gridY":20,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[
         {"$GMRTileLayer":"","%Name":"t_trees1","depth":1100,"effectEnabled":true,"effectType":null,"gridX":20,"gridY":20,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"t_trees1","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":37,"SerialiseWidth":41,"TileCompressedData":[

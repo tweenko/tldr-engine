@@ -33,7 +33,6 @@ __support_destroy_check = function() {
     else {
         for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
             if instance_exists(o_enc.turn_objects[i]) && o_enc.turn_objects[i].id != id {
-                show_debug_message($"({id}) found instance: {object_get_name(o_enc.turn_objects[i].object_index)} ({o_enc.turn_objects[i]})")
                 end_turn = false
                 break
             }

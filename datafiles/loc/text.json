@@ -40,6 +40,10 @@
         "en": "Example Room - Forest",
         "ja": "サンプルルーム - 森"
     },
+    "txt_room_example_light": {
+        "en": "Example Room - Light World",
+        "ja": "サンプルルーム - 光の世界"
+    },
 
     "txt_room_example_church_cutscene": {
         "en": [

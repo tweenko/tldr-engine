@@ -42,10 +42,10 @@ if incompatible_save_warning && incompatible_save_sleep == 0 {
             cutscene_animate(1, 0, 20, "linear", id, "incompatible_alpha")
             cutscene_sleep(10)
             cutscene_func(function() {
-                inst_dialogue = instance_create(o_text_typer, 130, 160, depth, {
-        			text: "{auto_breaks(false)}{preset(god_text)}{can_skip(false)}" + loc("txt_debug_save_erase") + "{p}{e}",
+                inst_dialogue = text_typer_create(loc("txt_debug_save_erase"), 130, 160, depth, "{auto_breaks(false)}{preset(god_text)}{can_skip(false)}", "{p}{e}", {
         			caller: id,
-        			gui: true
+        			gui: true,
+                    can_superskip: false,
         		})
             })
             cutscene_wait_until(function() {

@@ -74,6 +74,8 @@ function enemy_virovirokun() : enemy() constructor{
 	defense =	0
 	status_effect = ""
     freezable = true
+    
+    mercy = 100
 	
 	// acts
 	acts = [
@@ -251,7 +253,7 @@ function enemy_killercar() : enemy() constructor{
     
     my_inst_almond = noone
     ev_post_turn = method(self, function() {
-        if hp < max_hp/1.5
+        if hp > max_hp/1.5
             return false
         
         o_enc.waiting = true

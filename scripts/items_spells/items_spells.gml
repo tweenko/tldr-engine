@@ -183,6 +183,8 @@ function item_s_pacify() : item_spell() constructor {
             cutscene_instance_create(o_eff_pacify, __e_obj.x, __e_obj.y - __e_obj.myheight/2, __e_obj.depth - 10)
             cutscene_audio_play(snd_spell_pacify)
             cutscene_spare_enemy(target)
+            
+            cutscene_sleep(30)
         }
         else {
             cutscene_dialogue(string(loc("spell_pacify_desc")[2], party_getname(__name), _name),, false)
@@ -194,10 +196,8 @@ function item_s_pacify() : item_spell() constructor {
             cutscene_animate(.75, 0, 7, "linear", __e_obj, "flash")
             cutscene_sleep(10)
             cutscene_set_variable(__e_obj, "flash_color", c_white)
-            cutscene_sleep(20)
         }
         
-        cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
 		cutscene_set_variable(o_enc, "waiting", false)
     }

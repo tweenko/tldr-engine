@@ -29,6 +29,7 @@
     predict_text = true
      
 	can_skip = true
+    can_superskip = true
     break_system = loc_getlang()
 }
 { // face & voice

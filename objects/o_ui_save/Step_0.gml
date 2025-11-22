@@ -177,16 +177,26 @@ if page == 3 { // recruits
     instance_create(o_ui_recruits)
 }
 if page == 4 && !fading_out { // return to title
-    // auto save
-    save_export(global.save_slot)
-    save_set(global.save_slot)
+    if InputPressed(INPUT_VERB.RIGHT)
+        return_selection --
+    else if InputPressed(INPUT_VERB.LEFT)
+        return_selection ++
     
-    fader_fade(0, 1, 20)
-    music_fade(0, 0, 15)
+    return_selection = (return_selection + 2) % 2
     
-    alarm[2] = 20
-    fading_out = true
+    if InputPressed(INPUT_VERB.SELECT) && buffer == 0 && return_selection == 0 {
+        audio_play(snd_ui_select)
+        
+        fader_fade(0, 1, 20)
+        music_fade(0, 0, 0)
+        
+        alarm[2] = 40
+        fading_out = true
+    }
+    else if (InputPressed(INPUT_VERB.CANCEL) || (InputPressed(INPUT_VERB.SELECT) && return_selection == 1)) && buffer == 0 {
+        page = 0
+    }
 }
 
 if buffer > 0 
-	buffer--
+	buffer --

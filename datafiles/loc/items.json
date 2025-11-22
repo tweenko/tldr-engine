@@ -33,6 +33,10 @@
         "en": "* (You opened the treasure chest.){s(10)}{br}{resetx}* (Inside was {col(y)}{0}{col(w)}.)",
         "ja": "＊ (宝箱を開けた){s(10)}{br}{resetx}＊ ({col(y)}{0}{col(w)}が{br}　 入っていた)"
     },
+    "item_chest_empty": {
+        "en": "* (The chest is empty.)",
+        "ja": "＊ (宝箱は　からっぽだ)"
+    },
 
     "item_susie_comment": {
         "en": "Hey, hands off!",

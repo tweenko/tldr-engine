@@ -33,7 +33,7 @@
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"item_inside","filters":[
         "GMScript",
-      ],"listItems":[],"multiselect":false,"name":"item_inside","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"new item_a_pink_ribbon()","varType":4,},
+      ],"listItems":[],"multiselect":false,"name":"item_inside","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"noone","varType":4,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

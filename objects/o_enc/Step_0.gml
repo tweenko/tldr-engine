@@ -802,11 +802,11 @@ if battle_state == "menu" {
 			if dialogue_autoskip 
                 pre += "{instant}"
             
-			menutext = instance_create(o_text_typer, 30, 376, DEPTH_ENCOUNTER.UI,{
-				text: pre + flavor + "{stop}", 
+			menutext = text_typer_create(flavor, 30, 376, DEPTH_ENCOUNTER.UI, pre,, {
 				gui: true, 
 				caller: id,
-				destroy_caller: true
+				destroy_caller: true,
+                can_superskip: false
 			})
 		}
 	}
