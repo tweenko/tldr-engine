@@ -1,8 +1,9 @@
 # Welcome to tlDR[^1] Engine!
 
-One of the first 1:1 DELTARUNE Engines on Gamemaker Studio 2, the software that was used to create DELTARUNE. 
-The Engine is very straightforward and advanced at the same time. Encounters, cutscenes and menus are 
-all there (even including chapter select and save select somehow).
+One of the first 1:1 DELTARUNE Engines built in Gamemaker Studio 2, the software that was used to create DELTARUNE. This Engine is very customizable as well, and is being actively supported by its developers.
+The Engine is very straightforward and advanced at the same time. Encounters, cutscenes and menus are all there! (The Engine also includes all UI elements of base deltarune, like the chapter select screen and the save select menu.)
+
+This engine also has a [Gamejolt page](https://gamejolt.com/games/tldr_engine/1031570). Please follow it there if you like the engine!
 
 
 <img width="2562" height="1964" alt="tldr-promo-pacify" src="https://github.com/user-attachments/assets/91b0fc9b-3af7-49c4-92c9-1c4fda95e53d" />
