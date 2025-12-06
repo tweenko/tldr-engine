@@ -10,13 +10,13 @@ if transition_mode == 0 {
 	var xx = o_enc.mybox.x;
 	var yy = o_enc.mybox.y;
 	
-	do_animate(kris.x, xx, 8, "linear", id, "x")
-	do_animate(char_y, yy, 8, "linear", id, "y")
-	do_animate(0, 1, 4, "linear", id, "image_alpha")
+	animate(kris.x, xx, 8, "linear", id, "x")
+	animate(char_y, yy, 8, "linear", id, "y")
+	animate(0, 1, 4, "linear", id, "image_alpha")
 } 
 else {
-	do_animate(x, kris.x, 8, "linear", id, "x")
-	do_animate(y, char_y, 8, "linear", id, "y")
+	animate(x, kris.x, 8, "linear", id, "x")
+	animate(y, char_y, 8, "linear", id, "y")
 }
 
 is_transitioning = true;

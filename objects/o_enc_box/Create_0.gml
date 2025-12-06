@@ -39,17 +39,17 @@ drawer = method(self, function(_sprite, _index, _xx, _yy, width, height, angle, 
     draw_sprite_ext(_sprite, _index, _xx, _yy, xscale, yscale, angle, _blend, _alpha)
 })
 
-do_animate(0, 1, 15, "linear", id, "temp_scale")
-do_animate(-180, 0, 15, "linear", id, "temp_angle")
-do_animate(0, 1, 18, "linear", id, "trans_lerp")
+animate(0, 1, 15, "linear", id, "temp_scale")
+animate(-180, 0, 15, "linear", id, "temp_angle")
+animate(0, 1, 18, "linear", id, "trans_lerp")
 
 __close = function() {
     timer = 0
     
     is_transitioning = true
-    do_animate(1, 0, 15, "linear", id, "temp_scale")
-    do_animate(0, 180, 15, "linear", id, "temp_angle")
-    do_animate(1, 0, 18, "linear", id, "trans_lerp")
+    animate(1, 0, 15, "linear", id, "temp_scale")
+    animate(0, 180, 15, "linear", id, "temp_angle")
+    animate(1, 0, 18, "linear", id, "trans_lerp")
     
     alarm[0] = 15
 }

@@ -50,14 +50,14 @@ else { // gun attack
 		var o = enemy_struct.actor_id
 		o.gun = true
 		o.gun_angle = 0
-		do_animate(o.x, o.x + 20, 15, "cubic_out", o, "x")
+		animate(o.x, o.x + 20, 15, "cubic_out", o, "x")
         
 		o.custom_depth = DEPTH_ENCOUNTER.BULLETS_OUTSIDE - (o.y-guipos_y())
 	}
 	if timer > 6 + 15 && timer % 5 == 0 && count < 12 && timer < timer_end - 15 {
 		var o = enemy_struct.actor_id
         
-		do_animate(1, 3, 2, 0, o, "gun_img")
+		animate(1, 3, 2, 0, o, "gun_img")
 		o.gun_angle = point_direction(o.x - 6, o.y - 16, o_enc_soul.x, o_enc_soul.y) + random_range(-25, 25) - 180
 		var a = o.gun_angle - 180
 		
@@ -94,7 +94,7 @@ else { // gun attack
 		var o = enemy_struct.actor_id
 		o.gun = false
 		o.sprite_index = spr_ex_e_sguy_reload
-		do_animate(o.x, o.x-20, 15, "cubic_out", o, "x")
+		animate(o.x, o.x-20, 15, "cubic_out", o, "x")
         ending_turn = true
 	}
 	if timer == timer_end {

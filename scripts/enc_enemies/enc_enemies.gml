@@ -106,13 +106,10 @@ function enemy_virovirokun() : enemy() constructor{
 					inst.speed = 1
 					inst = afterimage(.04, o)
 					inst.speed = 2
-					
-					var a = create_anime(0.5)
-					.add(1, 4, "linear")
-					.add(0, 6, "linear")
-					.start(function(v, o) {
-						o.flash = v
-					}, o)
+                    
+                    var a = animate(.5, 1, 4, anime_curve.linear, o, "flash")
+                        a._add(0, 6, anime_curve.linear)
+                        a._start()
 				}, user)
 				
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecare_msg"))
@@ -143,12 +140,9 @@ function enemy_virovirokun() : enemy() constructor{
 						inst = afterimage(.04, o)
 						inst.speed = 2
 						
-						var a = create_anime(.5)
-						.add(1, 4, "linear")
-						.add(0, 6, "linear")
-						.start(function(v, o) {
-							o.flash = v
-						}, o)
+                        var a = animate(.5, 1, 4, anime_curve.linear, o, "flash")
+                            a._add(0, 6, anime_curve.linear)
+                            a._start()
 					}
 					for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 						if enc_enemy_isfighting(i) {
@@ -270,17 +264,17 @@ function enemy_killercar() : enemy() constructor{
             var inst = instance_create(o_dummy, __enemy.x - 50, __enemy.y - __enemy.myheight/2, __enemy.depth - 50, {
                 sprite_index: spr_ex_almond_milk
             })
-            do_animate(2.5, 1, 10, "linear", inst, "image_xscale")
-            do_animate(2.5, 1, 10, "linear", inst, "image_yscale")
-            do_animate(0, 1, 10, "linear", inst, "image_alpha")
+            animate(2.5, 1, 10, "linear", inst, "image_xscale")
+            animate(2.5, 1, 10, "linear", inst, "image_yscale")
+            animate(0, 1, 10, "linear", inst, "image_alpha")
             
             my_inst_almond = inst
         }), [actor_id])
         cutscene_sleep(15)
         
         cutscene_func(method(self, function(__enemy) {
-            do_animate(my_inst_almond.x, __enemy.x, 10, "cubic_in", my_inst_almond, "x")
-            do_animate(1, 0, 10, "cubic_in", my_inst_almond, "image_alpha")
+            animate(my_inst_almond.x, __enemy.x, 10, "cubic_in", my_inst_almond, "x")
+            animate(1, 0, 10, "cubic_in", my_inst_almond, "image_alpha")
         }), [actor_id])
         cutscene_sleep(10)
         

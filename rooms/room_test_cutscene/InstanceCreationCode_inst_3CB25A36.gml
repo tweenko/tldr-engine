@@ -56,7 +56,7 @@ trigger_code = function() {
             sprite_index: spr_ex_susieheal_beam,
             image_xscale: __healdir,
         })
-        do_animate(inst.x, party_get_inst("noelle").x, 30, "linear", inst, "x")
+        animate(inst.x, party_get_inst("noelle").x, 30, "linear", inst, "x")
     }, [__healdir])
     cutscene_sleep(30)
     

@@ -28,25 +28,14 @@ else if seed[step] == "jump" {
 	time[step] = max(1, time[step])
 	
 	audio_play(snd_jump,,,, 1)
-	
-	var xxdiff = xreq[step] - character.x
-	var yydiff = yreq[step] - character.y
-	do_anime(character.x, character.x + xxdiff, time[step], "linear", function(v) {
-		if instance_exists(character) 
-			character.x = v
-	})
-	do_anime(character.y, character.y + yydiff, time[step], "linear", function(v) {
-		if instance_exists(character) 
-			character.y = v
-	})
-	
-	var a = create_anime(0)
-		.add(-30, floor(time[step]/2), "cubic_out")
-		.add(0, floor(time[step]/2), "cubic_in")
-		.start(function(v) {
-			if instance_exists(character)
-				character.yoff = v
-		})
+    
+    animate(character.x, xreq[step], time[step], anime_curve.linear, character, "x")
+    animate(character.y, yreq[step], time[step], anime_curve.linear, character, "y")
+    
+    var a = animate(0, -30, floor(time[step]/2), anime_curve.cubic_out, character, "yoff", false)
+        a._add(0, floor(time[step]/2), anime_curve.cubic_in)
+        a._start()
+    
 	
 	var spr = character.s_ball
 	if sprite_exists(spr) {

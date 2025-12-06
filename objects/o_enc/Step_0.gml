@@ -1184,7 +1184,7 @@ if battle_state == "dialogue" {
     if !waiting {
     	if dialogue_init {
     		// fade the bg
-    		do_animate(0, .75, 15, "linear", o_eff_bg, "fade")
+    		animate(0, .75, 15, "linear", o_eff_bg, "fade")
     		
             turn_objects = array_create(array_length(encounter_data.enemies), noone)
     		for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
@@ -1234,7 +1234,7 @@ if battle_state == "dialogue" {
     			}
     			else {
     				var o = party_get_inst(global.party_names[i])
-    				do_animate(0, .5, 15, "linear", o, "darken")
+    				animate(0, .5, 15, "linear", o, "darken")
     			}
     		}
     		
@@ -1354,7 +1354,7 @@ if battle_state == "post_turn" {
             char_state[i] = CHAR_STATE.IDLE
             
             if !array_contains(turn_targets, global.party_names[i]) // if i wasn't target, stop being dimmed
-                do_animate(.5 ,0, 15, "linear", party_get_inst(global.party_names[i]), "darken")
+                animate(.5 ,0, 15, "linear", party_get_inst(global.party_names[i]), "darken")
        	    if party_getdata(global.party_names[i], "is_down")
                 party_heal(global.party_names[i], round(party_getdata(global.party_names[i], "max_hp") * .13))
         }

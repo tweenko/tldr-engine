@@ -24,8 +24,8 @@ interaction_code = function() {
             var __put = function(name, xx, yy, _depth) {
                 var _inst = party_get_inst(name)
                 
-                var _anim_x = do_animate(_inst.x, xx, 15, "linear", _inst, "x")
-                var _anim_y = do_animate(_inst.y, yy - 30, 10, "cubic_out", _inst, "y")
+                var _anim_x = animate(_inst.x, xx, 15, "linear", _inst, "x")
+                var _anim_y = animate(_inst.y, yy - 30, 10, "cubic_out", _inst, "y")
                     .add(yy - 5, 5, "sine_in")
                 
                 _inst.custom_depth = _depth - 10 + party_getpos(name)
@@ -54,7 +54,7 @@ interaction_code = function() {
                 _inst.image_index = 0
                 _inst.image_speed = 0
                 
-                do_animate(5, 0, 10, "linear", _inst, "shake")
+                animate(5, 0, 10, "linear", _inst, "shake")
             }
             
             if party_ismember("susie")
@@ -97,7 +97,7 @@ interaction_code = function() {
         _inst.image_index = 0
         _inst.image_speed = 0
         
-        do_animate(5, 0, 10, "linear", _inst, "shake")
+        animate(5, 0, 10, "linear", _inst, "shake")
     })
     cutscene_sleep(5)
     

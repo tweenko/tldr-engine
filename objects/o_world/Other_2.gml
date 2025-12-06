@@ -135,8 +135,8 @@ party_apply_equipment()
 // load the fonts
 event_user(0)
 global.font_ui_hp = font_add_sprite_ext(spr_ui_hpfont, "1234567890-", true, 2);
-global.font_numbers_w = font_add_sprite_ext(spr_ui_numbers_wfont,"0123456789+-%/",false, 1);
-global.font_numbers_g = font_add_sprite_ext(spr_ui_numbers_gfont,"0123456789+-%/",false, 1);
+global.font_numbers_w = font_add_sprite_ext(spr_ui_numbers_wfont,"0123456789+-%/", false, 1);
+global.font_numbers_g = font_add_sprite_ext(spr_ui_numbers_gfont,"0123456789+-%/", false, 1);
 
 // load the default items
 array_push(global.key_items, new item_key_cell_phone())

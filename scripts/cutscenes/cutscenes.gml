@@ -246,7 +246,7 @@ function cutscene_set_partysprite(selection, spritename ){
 function cutscene_anim(val1, val2, frames, ease_type, call_method, array = []){
 	cutscene_custom({
 		val1, val2, frames, ease_type, call_method, array,
-		action: [do_anime, val1, val2, frames, ease_type, call_method, array]
+		action: [anime_do, val1, val2, frames, ease_type, call_method, array]
 	})
 }
 
@@ -264,7 +264,7 @@ function cutscene_anim(val1, val2, frames, ease_type, call_method, array = []){
 function cutscene_animate(val1, val2, frames, ease_type, inst, var_name){
 	cutscene_custom({
 		val1, val2, frames, ease_type, inst, var_name,
-		action: [do_animate, val1, val2, frames, ease_type, inst, var_name]
+		action: [animate, val1, val2, frames, ease_type, inst, var_name]
 	})
 }
 
