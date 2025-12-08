@@ -1,3 +1,9 @@
+if !surface_exists(surf)
+    surf = surface_create(640, 480, surface_rgba32float)
+
+surface_set_target(surf)
+draw_clear_alpha(c_black, 0)
+
 draw_set_font(loc_font("main"))
 draw_set_color(white)
 
@@ -32,8 +38,15 @@ if bg != -1 {
 if display_chapter {
 	draw_text_transformed_shadow(16, 8, $"CHAPTER {global.chapter}", 2, 2, 0, 2, shadow)
 }
-if currently_naming
+if currently_naming {
+    surface_reset_target()
+    
+    gpu_set_blendenable(false)
+    draw_surface_ext(surf, 0, 0, 1, 1, 0, c_white, 1)
+    gpu_set_blendenable(true)
+    
     exit
+}
 
 var t = msg
 if msg_time > 0 
@@ -261,3 +274,9 @@ draw_text_transformed(640 - 10, 480 - 6, credit, 1, 1, 0)
 
 draw_set_halign(fa_left); draw_set_valign(fa_top)
 draw_set_alpha(1)
+
+surface_reset_target()
+
+gpu_set_blendenable(false)
+draw_surface_ext(surf, 0, 0, 1, 1, 0, c_white, 1)
+gpu_set_blendenable(true)

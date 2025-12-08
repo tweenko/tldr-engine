@@ -10,17 +10,10 @@ party_setfollow(false)
 for (var i = 0; i < array_length(global.party_names); ++i) {
 	var obj = party_get_inst(global.party_names[i])
 	
-	do_anime(obj.x, encounter_data.party_pos(i)[0], 10, "linear", function(v, obj) {
-		if instance_exists(obj) 
-			obj.x = v
-	}, obj)
-	do_anime(obj.y, encounter_data.party_pos(i)[1], 10, "linear", function(v, obj) {
-		if instance_exists(obj) 
-			obj.y = v
-	}, obj)
+    animate(obj.x, encounter_data.party_pos(i)[0], 10, anime_curve.linear, obj, "x")
+    animate(obj.y, encounter_data.party_pos(i)[1], 10, anime_curve.linear, obj, "y")
 	
 	var m = party_getdata(global.party_names[i], "s_battle_intro")
-	
 	if m == 0 
 		obj.sprite_index = enc_getparty_sprite(i, "intro")
 	else if m == 1 {}
@@ -61,8 +54,8 @@ for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
     if !instance_exists(obj)
         obj = actor_create(encounter_data.enemies[i].obj, guipos_x() + 320 + 100, guipos_y() + 120, 0)
 	
-	do_animate(obj.x, xx, 10, "linear", obj, "x")
-	do_animate(obj.y, yy, 10, "linear", obj, "y")
+	animate(obj.x, xx, 10, "linear", obj, "x")
+	animate(obj.y, yy, 10, "linear", obj, "y")
 	
 	obj.image_index = 0
 	obj.hurt = 0

@@ -29,7 +29,7 @@ __find_target_layers = function() {
         var lay_id = target_layers[i]
     	layer_script_begin(lay_id, function() {
     		shader_set(shd_transparent)
-    		shader_set_uniform_f(shader_get_uniform(shd_transparent, "alpha"), o_lighting_controller.lighting_alpha)
+    		shader_set_uniform_f(shader_get_uniform(shd_transparent, "alpha"), o_eff_lighting_controller.lighting_alpha)
     	})
     	
     	layer_script_end(lay_id, function() {

@@ -23,10 +23,7 @@ if state == -1 {
 		}
 		else {
 			yadd = -80
-			do_anime(0, 1, 20, "linear", function(v){
-				if instance_exists(id) 
-					id.alpha = v
-			})
+            animate(0, 1, 20, anime_curve.linear, id, "alpha")
 			
 			state = 0
 		}

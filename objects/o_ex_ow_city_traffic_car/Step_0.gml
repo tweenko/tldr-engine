@@ -41,8 +41,8 @@ else {
                 continue
 			o.image_alpha = .5
 			o.follow = false
-			do_animate(o.x, tgt_marker.x, 30, "linear", o, "x")
-			do_animate(o.y, tgt_marker.y, 30, "linear", o, "y")
+			animate(o.x, tgt_marker.x, 30, "linear", o, "x")
+			animate(o.y, tgt_marker.y, 30, "linear", o, "y")
 		}
 	}
 	

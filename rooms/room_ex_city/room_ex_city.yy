@@ -54,6 +54,7 @@
     {"name":"inst_3AE19AE0","path":"rooms/room_ex_city/room_ex_city.yy",},
     {"name":"inst_282E622C","path":"rooms/room_ex_city/room_ex_city.yy",},
     {"name":"inst_56BF3ED6","path":"rooms/room_ex_city/room_ex_city.yy",},
+    {"name":"inst_100AE9D5","path":"rooms/room_ex_city/room_ex_city.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -139,6 +140,9 @@
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":160.0,"y":140.0,},
         {"$GMRInstance":"v4","%Name":"inst_282E622C","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_282E622C","objectId":{"name":"o_dev_world","path":"objects/o_dev_world/o_dev_world.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":20.0,"y":-20.0,},
         {"$GMRInstance":"v4","%Name":"inst_56BF3ED6","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_56BF3ED6","objectId":{"name":"o_dev_ambiance","path":"objects/o_dev_ambiance/o_dev_ambiance.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":40.0,"y":-20.0,},
+        {"$GMRInstance":"v4","%Name":"inst_100AE9D5","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_100AE9D5","objectId":{"name":"o_dev_border","path":"objects/o_dev_border/o_dev_border.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_dev_border","path":"objects/o_dev_border/o_dev_border.yy",},"propertyId":{"name":"_border_name","path":"objects/o_dev_border/o_dev_border.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"ex_border_city",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":60.0,"y":-20.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRLayer":"","%Name":"area","depth":400,"effectEnabled":true,"effectType":null,"gridX":20,"gridY":20,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[
         {"$GMRTileLayer":"","%Name":"t_buildingstop","depth":500,"effectEnabled":true,"effectType":null,"gridX":20,"gridY":20,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"t_buildingstop","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":12,"SerialiseWidth":58,"TileCompressedData":[

@@ -7,7 +7,7 @@ if !confirmation {
 
 	var txt = "---"
 	if is_struct(items[selection]) && is_struct(items[selection].result)
-		txt = item_get_desc(items[selection].result)
+		txt = item_get_desc(items[selection].result, ITEM_DESC_TYPE.FULL)
 	
 	draw_text_ext_transformed(20, 20, txt, 16, 300, 2, 2, 0)
 }

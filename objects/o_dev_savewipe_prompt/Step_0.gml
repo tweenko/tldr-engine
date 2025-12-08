@@ -39,6 +39,7 @@ if InputPressed(INPUT_VERB.SELECT) && selection != -1 {
             })
         }))
         cutscene_wait_until(method(id, function() {
+            show_debug_message(inst_dialogue.chars)
             return !instance_exists(inst_dialogue)
         }))
         cutscene_func(function() {

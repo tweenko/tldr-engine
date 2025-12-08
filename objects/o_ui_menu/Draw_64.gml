@@ -131,7 +131,7 @@ if selection == 0 { // items
 			draw_rectangle(0, 0, 640, 79, 0)
 			draw_set_color(c_white)
 			
-			var txt = item_get_desc(arr[i_selection],0)
+			var txt = item_get_desc(arr[i_selection], ITEM_DESC_TYPE.FULL)
 			if i_pselection == 1 && state == 3
 				txt = string(loc("menu_item_toss_confirm"), item_get_name(arr[i_selection]))
 			
@@ -315,7 +315,7 @@ if selection == 1 { // equip
 			draw_rectangle(0, 0, 640, 79, 0)
 			draw_set_color(c_white)
 			if !is_undefined(equipped[e_pselection][1]) {
-				var txt = item_get_desc(equipped[e_pselection][1], 0)
+				var txt = item_get_desc(equipped[e_pselection][1], ITEM_DESC_TYPE.FULL)
 				draw_text_ext_transformed(20 + _l_offset, 10, txt, 16, __top_txt_len, 2, 2, 0)
 			}
 		}
@@ -326,7 +326,7 @@ if selection == 1 { // equip
 			
 			draw_set_color(c_white)
 			if !is_undefined(arr_mod[e_selection]) {
-				var txt=item_get_desc(arr_mod[e_selection], 0)
+				var txt = item_get_desc(arr_mod[e_selection], ITEM_DESC_TYPE.FULL)
 				draw_text_ext_transformed(20 + _l_offset, 10, txt, 16, __top_txt_len, 2, 2, 0)
 			}
 		}
@@ -474,7 +474,7 @@ if selection == 2 { // power
 			draw_set_color(c_white)
 			
 			if !is_undefined(party_getdata(global.party_names[p_pmselection], "spells")[p_selection]){
-				var txt = item_get_desc(party_getdata(global.party_names[p_pmselection],"spells")[p_selection], 0)
+				var txt = item_get_desc(party_getdata(global.party_names[p_pmselection],"spells")[p_selection], ITEM_DESC_TYPE.FULL)
 				draw_text_ext_transformed(20, 10, txt, 16, __top_txt_len, 2, 2, 0)
 			}
 		}
@@ -484,12 +484,12 @@ if selection == 3 && state > 0 { // config
     draw_set_font(loc_font("main"))
     ui_dialoguebox_create(58, 88, 583 - 58, 413 - 88)
     
-    if state == 1 || state == 2 {
+    if state == 1 || state == 2 || state == 4 {
         draw_text_transformed(270, 100, loc("menu_config_header"), 2, 2, 0)
         draw_sprite_ext(spr_soul, 0, 152, 168 + c_selection*35, 1, 1, 0, c_red, 1)
         
         for (var i = 0; i < array_length(c_config); i ++) {
-            if c_selection == i && state == 2
+            if c_selection == i && (state == 2 || state == 4)
                 draw_set_color(c_yellow)
             
             draw_text_transformed(170, 150 + i*35, c_config[i].name, 2, 2, 0)
@@ -512,12 +512,14 @@ if selection == 3 && state > 0 { // config
                     
                     draw_text_transformed(430, 150 + i*35, __txt, 2, 2, 0)
                     break
+                case C_CONFIG_TYPE.SINGLE_SLIDER:
+                    draw_text_transformed(430, 150 + i*35, c_config[i].display(), 2, 2, 0)
+                    break
             }
             
             draw_set_color(c_white)
-            
-            }
         }
+    }
     else if state == 3 {
         var __isgamepad = InputDeviceIsGamepad(InputPlayerGetDevice())
         

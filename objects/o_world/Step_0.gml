@@ -8,8 +8,12 @@ if keyboard_check_pressed(vk_f2)
 if keyboard_check_pressed(vk_f4)
 	window_set_fullscreen(!window_get_fullscreen())
 
+if keyboard_check_pressed(vk_f3) { // debug
+    borders_toggle()
+}
+
 // always set the music emitter volume
-audio_emitter_gain(o_world.emitter_music, volume_get(1))
+audio_emitter_gain(o_world.emitter_music, volume_get(AUDIO.MUSIC))
 
 if frames % 30 == 0
 	global.time ++

@@ -36,13 +36,10 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 				mode: 0
 			})
 			instance_create(o_eff_healeffect,,,, {target: o})
-		
-			var a = create_anime(.5)
-    			.add(1, 4, "linear")
-    			.add(0, 6, "linear")
-    			.start(function(val, o){
-    				o.flash = val
-    			}, o)
+            
+            var a = animate(.5, 1, 4, anime_curve.linear, o, "flash")
+                a._add(0, 6, anime_curve.linear)
+                a._start()
 		}
 	}
 	else if heal == 0 { // miss
@@ -73,10 +70,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			if o.is_in_battle {
 				o.hurt = 20
                 screen_shake(5)
-				do_anime(6, 0, 10, "linear", function(v, o){
-					if instance_exists(o) 
-						o.shake = v
-				}, o)
+				animate(6, 0, 10, anime_curve.linear, o, "shake")
 				
 				if !party_getdata(name, "is_down") && !party_isup(name) {
 					party_setdata(name, "hp", round(party_getdata(name, "max_hp") / -2))

@@ -55,6 +55,7 @@ subselection = 0
 buffer = 0
 threat = 0
 currently_naming = false
+surf = -1
 
 copy_from = 0
 copy_to = 0

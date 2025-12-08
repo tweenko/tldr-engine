@@ -41,7 +41,7 @@ function item_s_rudebuster() : item_spell() constructor {
             inst.friction = -1.5/2
             inst.direction = inst.image_angle
             
-            do_animate(0, 1, 3, "linear", inst, "image_alpha")
+            animate(0, 1, 3, "linear", inst, "image_alpha")
         }, [__e_obj, party_get_inst(__name), target, __name])
         cutscene_sleep(50)
 		cutscene_set_variable(o_enc, "waiting", false)
@@ -321,7 +321,7 @@ function item_s_iceshock() : item_spell() constructor {
             var __fatal = ((o_enc.encounter_data.enemies[target].hp - __dmg) <= 0)
             
             if !__fatal 
-                do_animate(1, 0, 5, "linear", __o, "flash")
+                animate(1, 0, 5, "linear", __o, "flash")
             
             enc_hurt_enemy(target, __dmg, index,,, 20,, "freeze")
         }, [target, __name, index])

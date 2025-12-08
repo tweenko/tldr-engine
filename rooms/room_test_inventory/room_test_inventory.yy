@@ -35,6 +35,7 @@
     {"name":"inst_5F0E8A33","path":"rooms/room_test_inventory/room_test_inventory.yy",},
     {"name":"inst_7409BC2A","path":"rooms/room_test_inventory/room_test_inventory.yy",},
     {"name":"inst_326C7B","path":"rooms/room_test_inventory/room_test_inventory.yy",},
+    {"name":"inst_2D4F2B56","path":"rooms/room_test_inventory/room_test_inventory.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -103,6 +104,9 @@
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_dev_music","path":"objects/o_dev_music/o_dev_music.yy",},"propertyId":{"name":"mus","path":"objects/o_dev_music/o_dev_music.yy",},"resource":{"name":"mus_ex_test_zone","path":"sounds/mus_ex_test_zone/mus_ex_test_zone.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"mus_ex_test_zone",},
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_dev_music","path":"objects/o_dev_music/o_dev_music.yy",},"propertyId":{"name":"pitch","path":"objects/o_dev_music/o_dev_music.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"0.95",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":0.0,"y":-40.0,},
+        {"$GMRInstance":"v4","%Name":"inst_2D4F2B56","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_2D4F2B56","objectId":{"name":"o_dev_border","path":"objects/o_dev_border/o_dev_border.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_dev_border","path":"objects/o_dev_border/o_dev_border.yy",},"propertyId":{"name":"_border_name","path":"objects/o_dev_border/o_dev_border.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"border_simple",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":20.0,"y":-40.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"triggers","depth":300,"effectEnabled":true,"effectType":null,"gridX":20,"gridY":20,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_7409BC2A","colour":4294940745,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_7409BC2A","objectId":{"name":"o_trigger","path":"objects/o_trigger/o_trigger.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":9.0,"scaleY":6.0,"x":220.0,"y":20.0,},

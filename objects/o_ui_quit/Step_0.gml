@@ -1,3 +1,6 @@
+if global.console
+    exit
+
 if keyboard_check(vk_escape) {
     if image_index >= 5 {
         game_end()

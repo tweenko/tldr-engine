@@ -18,7 +18,7 @@ count = 0
 path_set_closed(path, false)
 path_set_kind(path, 1)
 
-do_animate(0, 1, 15, "linear", id, "prog")
-do_animate(0, 2, 30, "linear", id, "red")
+animate(0, 1, 15, "linear", id, "prog")
+animate(0, 2, 30, "linear", id, "red")
 
 alarm[0] = 35

@@ -85,6 +85,22 @@
     "menu_config_back": {
         "en": "Back", "ja": "もどる"
     },
+    "menu_config_border": {
+        "en": "Border", "ja": "フレーム"
+    },
+
+    "menu_config_border_mode_0": {
+        "en": "Dynamic", "ja": "ダイナミック"
+    },
+    "menu_config_border_mode_1": {
+        "en": "Simple", "ja": "シンプル"
+    },
+    "menu_config_border_mode_2": {
+        "en": "None", "ja": "なし"
+    },
+    "menu_config_border_mode_3": {
+        "en": "OFF", "ja": "OFF"
+    },
 
     "menu_controls_function": {
         "en": "Function", "ja": "機能"

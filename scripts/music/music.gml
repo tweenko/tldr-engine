@@ -99,5 +99,5 @@ function music_fade(slot, target_gain, time = 30){
 	if !instance_exists(o_dev_musiccontrol)
         return false
     
-    audio_sound_gain(o_dev_musiccontrol.music_actual[slot], target_gain * volume_get(1), 1000 * time/30)
+    audio_sound_gain(o_dev_musiccontrol.music_actual[slot], target_gain * volume_get(AUDIO.MUSIC), 1000 * time/30)
 }

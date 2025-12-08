@@ -31,7 +31,7 @@ if point_distance(x, y, target_x, target_y) < 20 {
     x = target_x
     y = target_y
     
-    do_animate(6, 0, 15, "linear", enemy_o, "shake")
+    animate(6, 0, 15, "linear", enemy_o, "shake")
     enc_hurt_enemy(slot, dmg, party_getpos(user))
     audio_play(snd_rudebuster_hit)
     

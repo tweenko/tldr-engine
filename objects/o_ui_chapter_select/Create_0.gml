@@ -5,7 +5,7 @@ chapters = [
 			music_stop(0)
 			audio_play(snd_ui_scary)
 			
-			do_animate(0, 1, 20, "linear", caller, "trans_shrink")
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 1
@@ -25,7 +25,7 @@ chapters = [
 			music_stop(0)
 			audio_play(snd_chs_ch2)
 			
-			do_animate(0, 1, 20, "linear", caller, "trans_shrink")
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 2
@@ -45,7 +45,7 @@ chapters = [
 			music_stop(0)
 			audio_play(snd_chs_ch3)
 			
-			do_animate(0, 1, 20, "linear", caller, "trans_shrink")
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 3
@@ -65,7 +65,7 @@ chapters = [
 			music_stop(0)
 			audio_play(snd_chs_ch4)
 			
-			do_animate(0, 1, 20, "linear", caller, "trans_shrink")
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 4
@@ -126,7 +126,4 @@ event_user(0)
 
 // transitions
 trans_shrink = 0
-do_anime(0, 1, 20, "linear", function(v) {
-	if instance_exists(id) 
-		id.alpha = v
-})
+animate(0, 1, 20, anime_curve.linear, id, "alpha")

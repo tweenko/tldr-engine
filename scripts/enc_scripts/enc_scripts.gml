@@ -60,7 +60,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
                 }
 			}
             else if seed == "freeze" {
-                do_animate(0, 1, 20, "linear", o, "freeze")
+                animate(0, 1, 20, "linear", o, "freeze")
                 
                 instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {
                     draw: "frozen",
@@ -73,9 +73,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
 			o.hurt = 20
 		audio_play(sfx)
 		
-		do_anime(6, 0, 10, "linear", function(v, o) {
-			if instance_exists(o) o.shake = v
-		}, o)
+		animate(6, 0, 10, anime_curve.linear, o, "shake")
 	}
 }
 

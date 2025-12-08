@@ -194,11 +194,11 @@ if page == 2 { // storage
 	var desc = "---"
 	if st_page == 0 {
 		if st_selection[0] < array_length(global.items) 
-			desc = item_get_desc(global.items[st_selection[0]])
+			desc = item_get_desc(global.items[st_selection[0]], ITEM_DESC_TYPE.FULL)
 	}
 	else {
 		if st_selection[1] < array_length(global.storage) && global.storage[st_selection[1]] != undefined 
-			desc = item_get_desc(global.storage[st_selection[1]])
+			desc = item_get_desc(global.storage[st_selection[1]], ITEM_DESC_TYPE.FULL)
 	}
 	draw_text_ext_transformed(20, 20, desc, 16, 300, 2, 2, 0)
 	

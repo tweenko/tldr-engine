@@ -23,8 +23,8 @@ if pattern == 0 { // explosions
                     targety = o_enc_box.y + random_range(-70, 70)
                 }
                 
-                do_animate(__eye.x, targetx, 20, "cubic_out", __eye, "x")
-                do_animate(__eye.y, targety, 20, "cubic_out", __eye, "y")
+                animate(__eye.x, targetx, 20, "cubic_out", __eye, "x")
+                animate(__eye.y, targety, 20, "cubic_out", __eye, "y")
             }, [inst])
             cutscene_set_variable(inst, "image_speed", 1)
             

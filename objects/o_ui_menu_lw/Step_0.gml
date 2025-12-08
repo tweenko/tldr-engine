@@ -97,7 +97,7 @@ if state == 2 {
 			item_use(_item, i_selection, 0)
 		}
 		else if ip_selection == 1{
-			dialogue_start(item_get_desc(_item))
+			dialogue_start(item_get_desc(_item, ITEM_DESC_TYPE.FULL))
 		}
 		else if ip_selection == 2{
 			_item.throw_scripts.execute_code(i_selection)

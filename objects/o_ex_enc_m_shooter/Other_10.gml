@@ -25,7 +25,7 @@ for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 	var _enemy = o_enc.encounter_data.enemies[i]
 	if _enemy.name == "Shadowguy" && enc_enemy_isfighting(i) && instance_exists(_enemy.actor_id){
 		array_push(saved_pos, [_enemy.actor_id.x, _enemy.actor_id.y])
-		do_animate(1, 0, 10, "linear", _enemy.actor_id, "flash")
+		animate(1, 0, 10, "linear", _enemy.actor_id, "flash")
 		_enemy.actor_id.image_index = 0
 		
 		with(_enemy.actor_id){ // create socks

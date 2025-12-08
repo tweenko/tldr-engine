@@ -22,7 +22,7 @@ function typer_char() constructor {
         return inst
     }
     
-    voice = snd_text // the voice sound
+    voice = snd_text // the voice sound (can be a callable, is fed the argument of the displayed characters)
     voice_pitch_calc = 1 // the pitch of the voice (could be either a function or a real number)
     voice_interrupt = false // whether to stop the voice sound every time a new blip is played
     voice_skip = 1 // every (how many?) frames to play the sound

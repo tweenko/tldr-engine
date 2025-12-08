@@ -16,10 +16,8 @@ if seed[step] == "jump" { // jump animation
 		var spr = character.s_landed
         
 		if sprite_exists(spr) {
-			do_anime(0, 2, 15, "linear", function(v) {
-				if instance_exists(character) 
-					character.image_index = v
-			})
+            animate(0, 2, 15, anime_curve.linear, character, "image_index")
+            
 			character.image_speed = 0
 			character.sprite_index = spr
 		}
@@ -60,10 +58,10 @@ else { // walk over
 		character.s_override = true
 		
 		if xdiff != 0 {
-			array_push(anims, do_animate(character.x, character.x + xdiff, time[step], "linear", character, "x"))
+			array_push(anims, animate(character.x, character.x + xdiff, time[step], "linear", character, "x"))
 		}
 		if ydiff != 0 {
-			array_push(anims, do_animate(character.y, character.y + ydiff, time[step], "linear", character, "y"))
+			array_push(anims, animate(character.y, character.y + ydiff, time[step], "linear", character, "y"))
 		}
 		
 		stage = 1
