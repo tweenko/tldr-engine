@@ -11,7 +11,9 @@ This engine also has a [Gamejolt page](https://gamejolt.com/games/tldr_engine/10
 <img width="2564" height="1967" alt="tldr-promo-chest" src="https://github.com/user-attachments/assets/94d0cee3-90a1-4480-8944-15b65f62a20b" />
 <img width="2564" height="1967" alt="tldr-promo-menu" src="https://github.com/user-attachments/assets/df8559ae-5d26-49c0-a8aa-6041bb5bb92d" />
 <img width="2564" height="1967" alt="tldr-promo-japanese" src="https://github.com/user-attachments/assets/a5c7311d-b81c-4345-b9e2-cd68416c45a8" />
+<img width="2884" height="1667" alt="image" src="https://github.com/user-attachments/assets/9494972f-75bb-49b6-a71c-e28ac83094a3" />
 
+---
 
 This engine is quite simple to use, but in case you have any questions, 
 please ask them in [this Discord server](https://discord.gg/x3t8JTyC2p). 
