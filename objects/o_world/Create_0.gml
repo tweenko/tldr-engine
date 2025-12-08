@@ -4,7 +4,7 @@ volume_bgm = 1
 volume_master = .6
 
 gamepad = false
-windowsize = 1
+window_scale = 1
 
 allow_incompatible_saves = false
 incompatible_save_warning = false
@@ -30,6 +30,9 @@ global.simplify_vfx = false
 global.time = 0
 global.states = {}
 global.room_name = ""
+
+global.player_moveable_global = true
+global.border_mode = BORDER_MODE.OFF
 
 { // emmiters
 	emitter_sfx = audio_emitter_create();
@@ -62,7 +65,9 @@ global.settings = {
     
     LANG: "en",
     VERSION_SAVED: ENGINE_VERSION,
+    BORDER_MODE: global.border_mode
 }
+
 save_settings_load()
 if struct_exists(global.settings, "LANG")
     loc_load(global.settings.LANG)

@@ -24,6 +24,9 @@ while looping || normalupd {
 			// choose the voice blip randomly if it's an array
 			if is_array(voice)
 				__v = array_shuffle(__v)[0]
+            else if is_callable(voice)
+                __v = voice(disp_chars)
+            
 			if audio_exists(__v) && !skipping && timer % voice_skip == 0 {
 				var pitch = 1
 				

@@ -257,10 +257,10 @@ surface_set_target(surf) {
 					draw_sprite_ext(spr_ui_enc_sparestar, 0, 60 + string_width(encounter_data.enemies[i].name)*2 + 42, 385 + 30*i, 1, 1, 0, c_white, 1)
 				
 				var mercypercent = encounter_data.enemies[i].mercy
+				var desc = item_get_desc(spells[actselection[selection]], ITEM_DESC_TYPE.PARTY_ACTION)
                 
-				var desc = item_get_desc(spells[actselection[selection]], 2)
 				if is_instanceof(spells[actselection[selection]], item_s_defaultaction) // change the description if it's the default action
-                && encounter_data.enemies[i].acts_special_desc != desc 
+                    && encounter_data.enemies[i].acts_special_desc != desc 
 					desc = encounter_data.enemies[i].acts_special_desc
 				
 				draw_set_color(merge_color(party_getdata(global.party_names[selection], "color"), c_white, .5))
@@ -359,9 +359,9 @@ surface_set_target(surf) {
 			    draw_text_transformed(30 + (i % 2 == 1 ? 230 : 0), 375 + 30 * floor(i/2) - 90 * itempage[selection], txt, 2, 2, 0)
 			}
 			// draw the item description if applicable
-			if is_string(item_get_desc(items[itemselection[selection]], 1)){
+			if is_string(item_get_desc(items[itemselection[selection]], ITEM_DESC_TYPE.SHORTENED)){
 				draw_set_color(c_gray)
-				draw_text_ext_transformed(500, 375, item_get_desc(items[itemselection[selection]], 1), 15, 70, 2, 2, 0)
+				draw_text_ext_transformed(500, 375, item_get_desc(items[itemselection[selection]], ITEM_DESC_TYPE.SHORTENED), 15, 70, 2, 2, 0)
 				draw_set_color(c_white)
 			}
 			
@@ -383,6 +383,7 @@ surface_set_target(surf) {
 					draw_sprite_ext(spr_uisoul, 0, 10 + (i%2 == 1 ? 230 : 0), 385 + 30 * floor(i/2) - 90*spellpage[selection], 1, 1, 0, c_red, 1)
 				
                 draw_set_color(c_white)
+                
 				if tp < spells[i].tp_cost 
 					draw_set_color(c_gray)
 				else if struct_exists(spells[i], "color") {
@@ -395,9 +396,9 @@ surface_set_target(surf) {
 			    draw_text_transformed(30 + (i % 2 == 1 ? 230 : 0), 375 + 30 * floor(i/2) - 90*spellpage[selection], txt, 2, 2, 0)
 				draw_set_color(c_white)
 			}
-			if is_string(item_get_desc(spells[actselection[selection]], 1)) {
+			if is_string(item_get_desc(spells[actselection[selection]], ITEM_DESC_TYPE.SHORTENED)) {
 				draw_set_color(c_gray)
-				draw_text_ext_transformed(500, 375, item_get_desc(spells[actselection[selection]], 1), 15, 70, 2, 2, 0)
+				draw_text_ext_transformed(500, 375, item_get_desc(spells[actselection[selection]], ITEM_DESC_TYPE.SHORTENED), 15, 70, 2, 2, 0)
 				draw_set_color(c_white)
 			}
 			

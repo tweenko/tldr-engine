@@ -1427,12 +1427,8 @@ if battle_state == "win" {
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			var o = party_get_inst(global.party_names[i])
 			
-		    cutscene_anim(o.x, save_pos[i][0], 12, "linear", function(v,o) {
-				o.x = v
-			}, o)
-		    cutscene_anim(o.y, save_pos[i][1], 12, "linear", function(v,o) {
-				o.y = v
-			}, o)
+            cutscene_animate(o.x, save_pos[i][0], 12, "linear", o, "x")
+		    cutscene_animate(o.y, save_pos[i][1], 12, "linear", o, "y")
 		}
         for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
             if is_struct(encounter_data.enemies[i]) {
@@ -1458,14 +1454,14 @@ if battle_state == "win" {
             }
 		}
 		
-        cutscene_set_variable(o_camera, "target", o_actor_kris)
+        cutscene_set_variable(o_camera, "target", get_leader())
 		cutscene_set_variable(get_leader(), "moveable_battle", true)
         
         if music_isplaying(0) {
             cutscene_func(music_resume, [0])
             cutscene_func(music_fade, [0, 1])
         }
-		
+        
         for (var i = 0; i < array_length(save_follow); i ++) {
             cutscene_set_variable(party_get_inst(global.party_names[i]), "follow", save_follow[i])
         }

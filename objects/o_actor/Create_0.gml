@@ -162,6 +162,7 @@ is_player = false
         && spawn_buffer <= 0
 		
 		&& !global.console
+        && global.player_moveable_global
 	}
 }
 
@@ -169,5 +170,5 @@ alarm[0] = 1
 
 if !instance_exists(o_dodge_controller) 
 	instance_create(o_dodge_controller)
-if !instance_exists(o_lighting_controller)
-    instance_create(o_lighting_controller)
+if !instance_exists(o_eff_lighting_controller)
+    instance_create(o_eff_lighting_controller)

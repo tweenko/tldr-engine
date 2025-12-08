@@ -12,4 +12,4 @@ image_yscale = image_xscale
 x = 6
 y = 6
 
-depth = DEPTH_UI.CONSOLE
+depth = DEPTH_UI.CONSOLE + 10

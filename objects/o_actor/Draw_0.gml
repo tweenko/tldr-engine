@@ -69,12 +69,12 @@ if freeze > 0 {
 }
 
 // the light on the top of the character's sprite
-if instance_exists(o_lighting_controller) && o_lighting_controller.lighting_alpha > 0 {
-    var __l_alpha = o_lighting_controller.lighting_alpha
-    var __l_darken = o_lighting_controller.lighting_darken
-    var __l_off = o_lighting_controller.surf_border/2
+if instance_exists(o_eff_lighting_controller) && o_eff_lighting_controller.lighting_alpha > 0 {
+    var __l_alpha = o_eff_lighting_controller.lighting_alpha
+    var __l_darken = o_eff_lighting_controller.lighting_darken
+    var __l_off = o_eff_lighting_controller.surf_border/2
     
-	surface_set_target(o_lighting_controller.surf) {
+	surface_set_target(o_eff_lighting_controller.surf) {
 		gpu_set_fog(true, c_white, 0, 1)
 		s_drawer(spr, image_index, 
 			(xx - guipos_x() + __l_off)*2, (yy - guipos_y() + __l_off)*2, 
@@ -100,7 +100,7 @@ if instance_exists(o_lighting_controller) && o_lighting_controller.lighting_alph
 	s_drawer(spr, image_index, 
 		xx, yy, 
 		image_xscale, lerp_type(0, -2, __l_alpha, "linear"), 
-		image_angle, c_black, image_alpha * o_lighting_controller.lighting_alpha
+		image_angle, c_black, image_alpha * o_eff_lighting_controller.lighting_alpha
 	)
 }
 

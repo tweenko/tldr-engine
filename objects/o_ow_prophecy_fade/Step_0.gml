@@ -1,2 +1,2 @@
-if instance_exists(o_lighting_controller)
-	image_alpha = o_lighting_controller.lighting_alpha
+if instance_exists(o_eff_lighting_controller)
+	image_alpha = o_eff_lighting_controller.lighting_alpha

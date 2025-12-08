@@ -7,17 +7,17 @@ function guipos_y() {
 }
 
 ///@desc Used to check if an instance is on the screen.
-///@arg {Id.Instance|Asset.GMObject} instance
-///@arg {Real} tolerance
+///@arg {Id.Instance|Asset.GMObject} [instance]
+///@arg {Real} [tolerance]
 /// @return {Bool}
 function onscreen(instance = id, tolerance = 0) {	
     if !instance_exists(instance)
         exit
     
     if instance.x + instance.sprite_width + tolerance < guipos_x() 
-        || instance.x - tolerance > guipos_x() + GAME_GUI_W 
+        || instance.x - tolerance > guipos_x() + 640
         || instance.y + instance.sprite_height + tolerance < guipos_y() 
-        || instance.y - tolerance > guipos_y() + GAME_GUI_H
+        || instance.y - tolerance > guipos_y() + 480
         return false
     else
         return true
@@ -66,9 +66,9 @@ function camera_unpan(target, time, ease_type = "linear") {
 }
 function camera_stop_animations() {
     if is_struct(o_camera.animation_x)
-        o_camera.animation_x.stop()
+        o_camera.animation_x._stop()
     if is_struct(o_camera.animation_y)
-        o_camera.animation_y.stop()
+        o_camera.animation_y._stop()
 }
 
 function camera_confine_x(xx) {
@@ -426,7 +426,7 @@ function afterimage(_decay_speed = 0.1, inst = id, gui = false, drawer = undefin
 }
 
 ///@desc returns time in the format of HH:MM:SS (hours can overflow)
-///@arg {bool} display_hours if asked not to, it will return the MM:SS format instead
+///@arg {bool} [display_hours] if asked not to, it will return the MM:SS format instead
 function time_format(time_s, display_hours = true){
 	time_s = round(time_s)
     

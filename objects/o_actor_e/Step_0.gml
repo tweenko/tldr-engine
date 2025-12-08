@@ -25,8 +25,10 @@ else
 if notice_timer == 30
     chasing = true
 
+if !instance_exists(get_leader())
+    exit
+
 if chasing && !is_in_battle
-	&& instance_exists(get_leader()) 
 	&& get_leader()._checkmove() 
 {
 	var xx = dcos(point_direction(x, y, get_leader().x, get_leader().y))
@@ -56,6 +58,7 @@ if chasing && !is_in_battle
 if place_meeting(x, y, get_leader()) 
     && !encounter_started && (can_idle_encounter || chase_encounter) 
     && !instance_exists(o_enc) && !instance_exists(o_enc_anim) 
+    && get_leader()._checkmove()
 {
     chasing = false
     encounter_started = true

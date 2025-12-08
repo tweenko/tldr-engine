@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"lerp_type",
+  "%Name":"ex_borders",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"lerp_type",
+  "name":"ex_borders",
   "parent":{
-    "name":"anime",
-    "path":"folders/@Engine/scripts/systems/general/internal/anime.yy",
+    "name":"Scripts",
+    "path":"folders/zzz Examples/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

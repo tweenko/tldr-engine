@@ -30,7 +30,8 @@ c_holdtimer = 0
 enum C_CONFIG_TYPE {
     SLIDER,
     BUTTON,
-    SWITCH
+    SWITCH,
+    SINGLE_SLIDER,
 }
 c_config = [
     {
@@ -62,17 +63,7 @@ c_config = [
             global.settings.SIMPLIFY_VFX = _bool
         })
     },
-    {
-        name: loc("menu_config_fullscreen"),
-        state: function() {
-            return window_get_fullscreen()
-        },
-        type: C_CONFIG_TYPE.SWITCH,
-    
-        call: method(self, function(_bool) {
-            window_set_fullscreen(_bool)
-        }),
-    },
+    // fullscreen ?
     {
         name: loc("menu_config_auto_run"),
         state: function() {
@@ -84,6 +75,7 @@ c_config = [
             global.settings.AUTO_RUN = _bool
         })
     },
+    // border ?
     {
         name: loc("menu_config_return_title"),
         type: C_CONFIG_TYPE.BUTTON,
@@ -100,6 +92,48 @@ c_config = [
         })
     },
 ]
+
+if !global.can_use_borders {
+    array_insert(c_config, 3, {
+        name: loc("menu_config_fullscreen"),
+        state: function() {
+            return window_get_fullscreen()
+        },
+        type: C_CONFIG_TYPE.SWITCH,
+    
+        call: method(self, function(_bool) {
+            window_set_fullscreen(_bool)
+        }),
+    })
+}
+else {
+    array_insert(c_config, 5, {
+        name: loc("menu_config_border"),
+        display: function() {
+            return loc($"menu_config_border_mode_{global.border_mode}")
+        },
+        type: C_CONFIG_TYPE.SINGLE_SLIDER,
+    
+        call: method(self, function(delta) {
+            global.border_mode += delta
+            global.border_mode = (global.border_mode + global.border_mode_count) % global.border_mode_count
+            
+            if global.border_mode == BORDER_MODE.OFF
+                borders_toggle(false)
+            else
+                borders_toggle(true)
+            
+            if global.border_mode == BORDER_MODE.DYNAMIC
+                border_set(global.current_dynamic_border)
+            else if global.border_mode == BORDER_MODE.SIMPLE
+                border_set(border_simple)
+            else if global.border_mode == BORDER_MODE.NONE
+                border_set(border_none)
+        }),
+    })
+}
+
+
 c_controls = [
     INPUT_VERB.DOWN,
     INPUT_VERB.RIGHT,

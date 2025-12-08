@@ -1,0 +1,1 @@
+text = "{char(gerson)}* Kids, look where you're wandering into! Beware, there are these HUGE pests around..."

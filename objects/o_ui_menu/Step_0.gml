@@ -425,6 +425,9 @@ if !only_hp {
                         
                         c_config[c_selection].call(__tmp)
                         break
+                    case C_CONFIG_TYPE.SINGLE_SLIDER:
+                        state = 4
+                        break
                 }
             }
             if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
@@ -530,6 +533,18 @@ if !only_hp {
                         }
                     }
                 }
+            }
+        }
+        if state == 4 { // single slider
+            if InputPressed(INPUT_VERB.LEFT)
+                c_config[c_selection].call(-1)
+            else if InputPressed(INPUT_VERB.RIGHT)
+                c_config[c_selection].call(1)
+            
+            if (InputPressed(INPUT_VERB.SELECT) || InputPressed(INPUT_VERB.CANCEL)) && buffer == 0 {
+                state = 1
+                buffer = 1
+                audio_play(snd_ui_select)
             }
         }
     }

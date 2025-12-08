@@ -79,7 +79,7 @@ if command == "auto_breaks" { // auto_breaks(bool)
 	else
 		show_error("Command auto_breaks recieved a non-boolean argument", true)
 }
-if command == "break_system" { // break_system(language_id = string)
+if command == "break_system" { // break_system(`language_id`)
 	break_system = arg[0]
 }
 
@@ -93,7 +93,7 @@ if command == "instant" { // instant(bool = true)
 if command == "break_tabulation" { // break_tabulation(bool)
 	break_tabulation = bool(arg[0])
 }
-if command == "preset" { // preset(type) out of "enemy_text", "god_text", "light_world"
+if command == "preset" { // preset(`type`) out of `enemy_text`, `god_text`, `light_world`
 	if arg[0] == "enemy_text" {
 		break_tabulation = false
 		font = loc_font("enc")
@@ -134,7 +134,7 @@ if command == "solid_col" || command = "solid_color" { // solid_col(bool)
 if command == "reset_col" { // reset_col() OR reset_col
 	xcolor = saved_color
 }
-if command == "font" { // font(string) out of "main", "text", "enc"
+if command == "font" { // font(`string`) out of "main", "text", "enc"
 	if arg[0] == "enc"
 		font = loc_font("enc")
 	else if arg[0] == "text"
@@ -142,7 +142,7 @@ if command == "font" { // font(string) out of "main", "text", "enc"
 	else if arg[0] == "main"
 		font = loc_font("main")
 	else{
-		font=asset_get_index(arg[0])
+		font = asset_get_index(arg[0])
 	}
 }
 if command == "shadow" { // shadow(bool)
@@ -166,7 +166,7 @@ if command == "npc_link" { // npc_link(real)  you can link an npc to this and th
 	
 	npc_link = o
 }
-if command == "choice" { // choice(choice1, choice2, ...)  create a choice box for the player
+if command == "choice" { // choice(`choice1`, `choice2`, ...)  create a choice box for the player
 	choice_inst = instance_create(o_text_choice, x, y, depth, {
 		choices: arg,
 		caller: id,
@@ -253,7 +253,7 @@ if command == "speed" { // speed(real)
 	typespd = real(arg[0])
 }
 
-if command == "char" { // char(char_preset_string, face_expression = undefined)  optional argument 1 for changing the expression - could be either the name of the expression or the index of it in the sprite
+if command == "char" { // char(`char_preset_string`, face_expression = undefined)  optional argument 1 for changing the expression - could be either the name of the expression or the index of it in the sprite
 	var __exp = (array_length(arg) > 1 ? real(arg[1]) : 0)
 	_facechange(arg[0], __exp)
 	
@@ -266,7 +266,7 @@ if command == "char" { // char(char_preset_string, face_expression = undefined) 
 	char = arg[0]
 	looping = false
 }
-if command == "face" { // face(face_preset_string, face_expression)  optional argument 1 for changing the expression - could be either the name of the expression or the index of it in the sprite
+if command == "face" { // face(`face_preset_string`, face_expression)  optional argument 1 for changing the expression - could be either the name of the expression or the index of it in the sprite
 	var __exp = (array_length(arg) > 1 ? real(arg[1]) : 0)
 	_facechange(arg[0], __exp)
 	looping = false
@@ -296,7 +296,7 @@ if command == "voice" { // voice(asset OR nil, pitch_range = undefined, interrup
 		voice_skip = bool(arg[3])
 }
 
-if command == "mini" { // mini(text, char = undefined, face_expression = undefined, x = auto, y = auto)
+if command == "mini" { // mini(`text`, char = undefined, face_expression = undefined, x = auto, y = auto)
     var __char = undefined
     var __face_ex = 0
     var __xx = x + 386 - string_width(arg[0])

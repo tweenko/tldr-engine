@@ -60,6 +60,11 @@ enum ITEM_USE {
 	EVERYONE,
 	ENEMY,
 }
+enum ITEM_DESC_TYPE {
+    FULL = 0,
+    SHORTENED = 1,
+    PARTY_ACTION = 2
+}
 
 ///@desc returns the maximum amount of items you can hold depending on the item type
 function item_get_maxcount(type = ITEM_TYPE.CONSUMABLE) {
@@ -84,7 +89,7 @@ function item_delete(item_slot, type = ITEM_TYPE.CONSUMABLE) {
 function item_add(item_struct, type = ITEM_TYPE.CONSUMABLE) {
 	var can = true
 	
-	if struct_exists(item_struct, "type") && type == 0
+	if struct_exists(item_struct, "type") && type == ITEM_TYPE.CONSUMABLE
 		type = item_struct.type
 	if type == ITEM_TYPE.CONSUMABLE {
 		if item_get_count(type) >= item_get_maxcount(type) {
@@ -160,9 +165,9 @@ function item_get_name(item_struct) {
 }
 
 ///@desc returns the description of an item
-///@arg item_struct the struct of the item
-///@arg desc_type the type of the description that will be returned (0 for full, 1 for shortened)
-function item_get_desc(item_struct, desc_type = 0){
+///@arg {struct.item} item_struct the struct of the item
+///@arg {enum.ITEM_DESC_TYPE} desc_type the type of the description that will be returned
+function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE){
     if is_undefined(item_struct)
         return undefined
 	var ret = item_struct.desc

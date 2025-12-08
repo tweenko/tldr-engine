@@ -48,8 +48,8 @@ if page == 1 { // save menu
 		if InputPressed(INPUT_VERB.UP)
 			s_selection --
 		
-		if s_selection > 4 
-			s_selection = 4
+		if s_selection > 3
+			s_selection = 3
 		if s_selection < 0 
 			s_selection = 0
 	

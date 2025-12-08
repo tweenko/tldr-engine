@@ -303,6 +303,7 @@
         global.settings.CONTROLS_GP = InputBindingsExport(true)
         
         global.settings.LANG = global.loc_lang
+        global.settings.BORDER_MODE = global.border_mode
         global.settings.VERSION_SAVED = ENGINE_VERSION
 	}
     
@@ -322,6 +323,8 @@
             
             if struct_exists(global.settings, "LANG")
                 global.loc_lang = global.settings.LANG
+            if struct_exists(global.settings, "BORDER_MODE")
+                global.border_mode = global.settings.BORDER_MODE
 		}
 	}
 		
