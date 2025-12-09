@@ -69,6 +69,12 @@ function border_set(_border, _force = false) {
         surface_reset_target()
         
         surface_copy(surf_prev, 0, 0, surf_border)
+        
+        surface_set_target(surf_prev)
+        gpu_set_blendmode(bm_subtract)
+        draw_rectangle(960/2 - 320, 540/2 - 240, 960/2 + 320 - 1, 540/2 + 240 - 1, false) // the cut-out
+        gpu_set_blendmode(bm_normal)
+        surface_reset_target()
     }
     
     global.border_struct = new _border() // update the border struct
