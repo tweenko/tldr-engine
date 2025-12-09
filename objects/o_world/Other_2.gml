@@ -22,7 +22,7 @@ if !allow_incompatible_saves {
 		divide = 960
     
 	window_scale = floor( min(display_get_width() - 100, display_get_height() - 100) / divide )
-    fullscreen_scale = floor( min(display_get_width(), display_get_height()) / divide )
+    fullscreen_scale = min(display_get_width(), display_get_height()) / divide
     
     borders_toggle(global.border_mode != BORDER_MODE.OFF)
     borders_window_resize()

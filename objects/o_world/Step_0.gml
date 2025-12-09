@@ -5,11 +5,10 @@ if incompatible_end_cutscene
 
 if keyboard_check_pressed(vk_f2)
 	game_restart()
-if keyboard_check_pressed(vk_f4)
+if keyboard_check_pressed(vk_f4) {
 	window_set_fullscreen(!window_get_fullscreen())
-
-if keyboard_check_pressed(vk_f3) { // debug
-    borders_toggle()
+    if !window_get_fullscreen()
+        window_center()
 }
 
 // always set the music emitter volume
