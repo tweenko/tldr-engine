@@ -1,6 +1,6 @@
 // the general battle ui naviagation and execution
 
-if battle_state == "menu" {
+if battle_state == BATTLE_STATE.MENU {
 	var items = __item_sort()
 	var spells = array_clone(party_getdata(global.party_names[selection], "spells"))
 	for (var i = 0; i < array_length(struct_get(bonus_actions, global.party_names[selection])); ++i) { // add the actions aside from s-action or alike
@@ -792,13 +792,14 @@ if battle_state == "menu" {
 	}
 	if selection > array_length(global.party_names) - 1 {
 		tp = tp_clamp(tp)
-		battle_state = "exec"
+		__battle_state_advance()
+        
 		instance_clean(menutext)
 	}
 }
 
 // the party executes commands
-if battle_state == "exec" {
+if battle_state == BATTLE_STATE.EXEC {
 	// initially calculate and queue the execution of commands
 	if !exec_calculated {
 		var review_queue_states = [CHAR_STATE.ACT, CHAR_STATE.ITEM, CHAR_STATE.POWER, CHAR_STATE.DEFEND, CHAR_STATE.SPARE, CHAR_STATE.FIGHT] // the original order: act, item, magic, (defend), spare, attack
@@ -1078,7 +1079,7 @@ if battle_state == "exec" {
     			}
     		}
     		else 
-    			battle_state = "dialogue"
+    			__battle_state_advance()
     	}
     	else {
     		if !waiting {
@@ -1121,32 +1122,26 @@ if battle_state == "exec" {
     				}
     			}
     			
-    			var stillfighting = false
-    			for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-    			    if enc_enemy_isfighting(i) {
-    					stillfighting = true; 
-    					break
-    				}
-    			}
-    			if !stillfighting
-    				battle_state = "win"
-    			
+    			if win_condition()
+    				battle_state = BATTLE_STATE.WIN
     			exec_current = undefined
-    		}		
+    		}
     	}
     }
 }
 
 // turn preperation and enemy dialogue writer
-if battle_state == "dialogue" {
+if battle_state == BATTLE_STATE.DIALOGUE {
     if battle_state != battle_state_prev {
         for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
             if enc_enemy_isfighting(i) {
                 // call the post turn event for the enemies
-                if struct_exists(encounter_data.enemies[i], "ev_pre_dialogue") && is_callable(encounter_data.enemies[i].ev_pre_dialogue)
+                if is_callable(encounter_data.enemies[i].ev_pre_dialogue)
                     encounter_data.enemies[i].ev_pre_dialogue()
             }
         }
+        if is_callable(encounter_data.ev_pre_dialogue)
+            encounter_data.ev_pre_dialogue()
     }
     
     if !waiting {
@@ -1180,7 +1175,8 @@ if battle_state == "dialogue" {
     			var text = encounter_data.enemies[i].dialogue
     			if is_callable(text)
     				text = text(i)
-    			if struct_exists(encounter_data.enemies[i],"ev_dialogue") && is_callable(encounter_data.enemies[i].ev_dialogue)
+                
+    			if is_callable(encounter_data.enemies[i].ev_dialogue)
     				encounter_data.enemies[i].ev_dialogue() // call the enemies' dialogue event
     			
     			if is_string(text) {
@@ -1190,6 +1186,9 @@ if battle_state == "dialogue" {
     			    array_push(dialogueinstances, inst)
     			}
     		}
+            
+            if is_callable(encounter_data.ev_dialogue)
+                encounter_data.ev_dialogue() // call the set's dialogue event
             
             // choose turn targets
             turn_targets = encounter_data._target_calculation()
@@ -1202,7 +1201,7 @@ if battle_state == "dialogue" {
     			}
     			else {
     				var o = party_get_inst(global.party_names[i])
-    				animate(0, .5, 15, "linear", o, "darken")
+    				animate(o.darken, .5, 15, "linear", o, "darken")
     			}
     		}
     		
@@ -1216,14 +1215,16 @@ if battle_state == "dialogue" {
     			break
     		}
     	}
-    	
-    	if move_on
-    		battle_state = "turn"
+        
+    	if move_on && win_condition()
+            battle_state = BATTLE_STATE.WIN
+    	else if move_on
+    		__battle_state_advance()
     }
 }
 
 // the enemy turn
-if battle_state == "turn" {
+if battle_state == BATTLE_STATE.TURN {
 	if !turn_init {
 		instance_destroy(o_enc_target)
 		
@@ -1251,16 +1252,21 @@ if battle_state == "turn" {
         for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 			if enc_enemy_isfighting(i) {
 				// call the turn event for the enemies
-				if struct_exists(encounter_data.enemies[i],"ev_turn") && is_callable(encounter_data.enemies[i].ev_turn)
+				if is_callable(encounter_data.enemies[i].ev_turn)
 					encounter_data.enemies[i].ev_turn()
 			}
 		}
+        if is_callable(encounter_data.ev_turn)
+            encounter_data.ev_turn()
 		
 		turn_init = true
 		turn_timer = 0
 	}
 	else if !instance_exists(mybox) {
-		battle_state = "post_turn"
+        if win_condition()
+            battle_state = BATTLE_STATE.WIN
+        else
+		  __battle_state_advance()
 	}
 	else if !mybox.is_transitioning {
 		if turn_timer == 0 {
@@ -1275,10 +1281,12 @@ if battle_state == "turn" {
             for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
     			if enc_enemy_isfighting(i) {
     				// call the turn start event for the enemies
-    				if struct_exists(encounter_data.enemies[i],"ev_turn_start") && is_callable(encounter_data.enemies[i].ev_turn_start)
+    				if is_callable(encounter_data.enemies[i].ev_turn_start)
     					encounter_data.enemies[i].ev_turn_start()
     			}
     		}
+            if is_callable(encounter_data.ev_turn_start)
+                encounter_data.ev_turn_start()
 		}
 		turn_timer ++
 		
@@ -1301,15 +1309,18 @@ if battle_state == "turn" {
 }
 
 // get ready to go back on the loop
-if battle_state == "post_turn" {
+if battle_state == BATTLE_STATE.POST_TURN {
     if battle_state != battle_state_prev {
         for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
             if enc_enemy_isfighting(i) {
                 // call the post turn event for the enemies
-                if struct_exists(encounter_data.enemies[i], "ev_post_turn") && is_callable(encounter_data.enemies[i].ev_post_turn)
+                if is_callable(encounter_data.enemies[i].ev_post_turn)
                     encounter_data.enemies[i].ev_post_turn()
             }
         }
+        
+        if is_callable(encounter_data.ev_post_turn)
+            encounter_data.ev_post_turn()
     }
     
     if !waiting {
@@ -1320,7 +1331,7 @@ if battle_state == "post_turn" {
             char_state[i] = CHAR_STATE.IDLE
             
             if !array_contains(turn_targets, global.party_names[i]) // if i wasn't target, stop being dimmed
-                animate(.5 ,0, 15, "linear", party_get_inst(global.party_names[i]), "darken")
+                animate(party_get_inst(global.party_names[i]).darken, 0, 15, "linear", party_get_inst(global.party_names[i]), "darken")
        	    if party_getdata(global.party_names[i], "is_down")
                 party_heal(global.party_names[i], round(party_getdata(global.party_names[i], "max_hp") * .13))
         }
@@ -1332,11 +1343,16 @@ if battle_state == "post_turn" {
             flavor = flav
        	
         event_user(0) // reset variable values
+        
+        if win_condition()
+            battle_state = BATTLE_STATE.WIN
+        else
+            __battle_state_advance()
     }
 }
 
 // do the fight end animation and such
-if battle_state == "win" {
+if battle_state == BATTLE_STATE.WIN {
 	tproll = lerp(tproll, 0, .5)
 	if hideui
 		roll = lerp(roll, -40, .4)
@@ -1345,10 +1361,12 @@ if battle_state == "win" {
         for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
             if enc_enemy_isfighting(i) {
                 // call the win event for the enemies
-                if struct_exists(encounter_data.enemies[i], "ev_win") && is_callable(encounter_data.enemies[i].ev_win)
+                if is_callable(encounter_data.enemies[i].ev_win)
                     encounter_data.enemies[i].ev_win()
             }
         }
+        if is_callable(encounter_data.ev_win)
+            encounter_data.ev_win()
     }
     
 	if !wininit && !waiting {

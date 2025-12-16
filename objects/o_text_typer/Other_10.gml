@@ -170,6 +170,8 @@ if command == "npc_link" { // npc_link(real)  you can link an npc to this and th
 	npc_link = o
 }
 if command == "choice" { // choice(`choice1`, `choice2`, ...)  create a choice box for the player
+    _facechange("none")
+    
 	choice_inst = instance_create(o_text_choice, x, y, depth, {
 		choices: arg,
 		caller: id,

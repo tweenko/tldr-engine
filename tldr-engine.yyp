@@ -232,6 +232,7 @@
     {"$GMIncludedFile":"","%Name":"encounter.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"encounter.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"examples.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"examples.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"fonts.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"fonts.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"game_over.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"game_over.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"items_armors.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"items_armors.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"items_consumables.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"items_consumables.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"items_key.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"items_key.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
@@ -1382,6 +1383,7 @@
   "RoomOrderNodes":[
     {"roomId":{"name":"room_init","path":"rooms/room_init/room_init.yy",},},
     {"roomId":{"name":"room_test_main","path":"rooms/room_test_main/room_test_main.yy",},},
+    {"roomId":{"name":"room_ex_multi_path","path":"rooms/room_ex_multi_path/room_ex_multi_path.yy",},},
     {"roomId":{"name":"room_test_movement","path":"rooms/room_test_movement/room_test_movement.yy",},},
     {"roomId":{"name":"room_test_inventory","path":"rooms/room_test_inventory/room_test_inventory.yy",},},
     {"roomId":{"name":"room_test_cutscene","path":"rooms/room_test_cutscene/room_test_cutscene.yy",},},
@@ -1389,7 +1391,6 @@
     {"roomId":{"name":"room_ex_dforest","path":"rooms/room_ex_dforest/room_ex_dforest.yy",},},
     {"roomId":{"name":"room_ex_city","path":"rooms/room_ex_city/room_ex_city.yy",},},
     {"roomId":{"name":"room_ex_church","path":"rooms/room_ex_church/room_ex_church.yy",},},
-    {"roomId":{"name":"room_ex_multi_path","path":"rooms/room_ex_multi_path/room_ex_multi_path.yy",},},
     {"roomId":{"name":"room_ex_light_world","path":"rooms/room_ex_light_world/room_ex_light_world.yy",},},
     {"roomId":{"name":"room_save_select","path":"rooms/room_save_select/room_save_select.yy",},},
     {"roomId":{"name":"room_chapter_select","path":"rooms/room_chapter_select/room_chapter_select.yy",},},

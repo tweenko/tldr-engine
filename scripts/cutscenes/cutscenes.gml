@@ -339,7 +339,7 @@ function cutscene_spare_enemy(index) {
         recruit_advance(_enemy[index[i]])
         
         cutscene_set_variable(obj, "sprite_index", obj.s_spared)
-        if !recruit_islost(_enemy[index[i]])
+        if !recruit_islost(_enemy[index[i]]) && enc_enemy_is_recruitable(_enemy[index[i]])
            cutscene_instance_create(o_text_hpchange, 
                obj.x, obj.y - obj.myheight/2, 
                obj.depth - 100, {

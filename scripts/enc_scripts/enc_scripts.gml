@@ -183,3 +183,13 @@ function enc_party_set_battle_sprite(name, sprite_ref, index = undefined, speed 
     if !is_undefined(speed)
         inst.image_speed = speed
 }
+
+/// @desc returns whether an enemy is recruitable
+/// @arg {function|struct.enemy} ref_or_struct
+/// @return {bool}
+function enc_enemy_is_recruitable(ref_or_struct) {
+    if is_callable(ref_or_struct)
+        ref_or_struct = new ref_or_struct()
+    
+    return is_struct(ref_or_struct.recruit)
+}

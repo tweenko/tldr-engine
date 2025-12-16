@@ -159,20 +159,6 @@ function enemy_virovirokun() : enemy() constructor{
 				cutscene_play()
 			}
 		},
-        {
-            name: "all action",
-            party: -1,
-			desc: "Good Action",
-            exec: function(slot, user) {
-				cutscene_create()
-				cutscene_set_variable(o_enc, "waiting", true)
-				
-				cutscene_dialogue(loc("enemy_virovirokun_act_takecarex_msg"))
-				
-				cutscene_set_variable(o_enc, "waiting", false)
-				cutscene_play()
-			}
-        }
     ]
 	acts_special = {
 		susie: {
@@ -209,13 +195,7 @@ function enemy_virovirokun() : enemy() constructor{
 function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
-	obj = {
-        obj: o_actor_e_killercar,
-        var_struct: {
-            s_hurt: spr_e_killercar_hurt,
-            s_spared: spr_e_killercar_hurt,
-        }
-    }
+	obj = o_actor_e_killercar
 	tired = true
 	defense = 0
     can_spare = false

@@ -60,6 +60,4 @@ while !party_isup(global.party_names[selection]) && selection < array_length(glo
 }
 
 state = 0 // how deep we are in the menu
-battle_state = "menu"
-
 ignore = [] // the "busy" party members

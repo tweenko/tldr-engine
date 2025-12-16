@@ -5,7 +5,7 @@ surface_set_target(surf) {
 	draw_clear_alpha(0, 0)
 
 	var spells = []
-	if battle_state == "menu" {
+	if battle_state == BATTLE_STATE.MENU {
 		// sort the spells
 		spells = array_clone(party_getdata(global.party_names[selection], "spells"))
 		for (var i = 0; i < array_length(struct_get(bonus_actions, global.party_names[selection])); ++i) {
@@ -87,7 +87,7 @@ surface_set_target(surf) {
 	draw_sprite_ext(spr_pixel, 0, 0, 363 + 80 - roll, 640, 156, 0, c_black, 1)
 	draw_sprite_ext(spr_pixel, 0, 0, 362 + 80 - roll, 640, 3, 0, bcolor, 1)
  	for (var i = 0; i < array_length(global.party_names); ++i) {
-		if pmlerp[i] > .1 && battle_state == "menu" {
+		if pmlerp[i] > .1 && battle_state == BATTLE_STATE.MENU {
 			surface_set_target(buttonsurf[i]) {
 				var xoff = 319.5 + array_length(global.party_names) * -213/2
 				var off = 32
@@ -140,7 +140,7 @@ surface_set_target(surf) {
 	}
 	
 	// draw the menu ui
-	if battle_state == "menu" {
+	if battle_state == BATTLE_STATE.MENU {
 		draw_set_font(loc_font("main"))
 		
 		// enemy selector

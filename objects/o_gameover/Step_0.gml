@@ -52,7 +52,7 @@ if state == 2 {
 }
 if state == 3 {
 	if !dia_created {
-		inst_dialogue = text_typer_create(dialogue, 100, 300, DEPTH_UI.DIALOGUE_UI, "{can_skip(false)}{shadow(0)}{speed(3)}{xspace(3)}{yspace(18)}", "{p}{e}", {
+		inst_dialogue = text_typer_create(dialogue, 100, 300, DEPTH_UI.DIALOGUE_UI, "{can_skip(false)}{shadow(0)}{speed(3)}{xspace(3)}{yspace(18)}{break_tabulation(false)}", "{p}{e}", {
 			gui: true,
 			caller: id,
 		})
@@ -99,7 +99,7 @@ if state == 5 && selection == 1 {
 	
 	if timer == 1 {
 		music_stop(0)
-		inst_dialogue = text_typer_create("THEN THE WORLD{br}{s(20)}WAS COVERED{br}{s(20)}IN DARKNESS.", 130, 160, depth, "{preset(god_text)}{can_skip(false)}", "{p}{e}", {
+		inst_dialogue = text_typer_create(loc("game_over_dialogue_give_up"), 130, 160, depth, "{preset(god_text)}{can_skip(false)}", "{p}{e}", {
 			caller: id,
 			gui: true
 		})

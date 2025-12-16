@@ -22,6 +22,14 @@ function enc_set() constructor { // base
     
 	display_target = true // whether to display the targets of the enemy's attack
 	
+    // misc (in-fight events)
+    ev_pre_dialogue =   -1
+	ev_dialogue =	    -1
+	ev_turn =	  	    -1
+    ev_turn_start =     -1
+	ev_post_turn =	    -1
+    ev_win =            -1
+    
 	// methods
     _target_calculation = function() { // should return an array of indexes of party members who are targeted
         var __targets = []
