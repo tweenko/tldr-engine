@@ -7,8 +7,10 @@ if menuroll < .1 && close
 
 if !only_hp {
 	if state == 0 {
-		if (InputPressed(INPUT_VERB.SPECIAL) || InputPressed(INPUT_VERB.CANCEL)) && !close 
+		if (InputPressed(INPUT_VERB.SPECIAL) || InputPressed(INPUT_VERB.CANCEL)) && !close {
 			close = true
+            global.menu_page = selection
+        }
 		
 		if InputPressed(INPUT_VERB.RIGHT) {
 			selection ++
@@ -24,7 +26,7 @@ if !only_hp {
 		if selection > 3
 			selection = 0
 		
-		if InputPressed(INPUT_VERB.SELECT) {
+		if InputPressed(INPUT_VERB.SELECT) && !close {
 			state = 1; 
 			buffer = 1
 			

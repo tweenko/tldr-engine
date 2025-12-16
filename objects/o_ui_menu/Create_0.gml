@@ -6,7 +6,7 @@ close = false
 timer = 80
 surf = -1
 
-selection = 0
+selection = global.menu_page
 
 // item
 i_pselection = 0

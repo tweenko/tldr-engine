@@ -4,9 +4,9 @@
 
 //SAVE
 {
-	///@arg {real} save
-	function save_set(save) {
-		global.save_slot = save
+	///@arg {real} slot
+	function save_set_slot(slot) {
+		global.save_slot = slot
 	}
 	
 	///@desc gets data from the LOADED SAVE
@@ -59,7 +59,7 @@
 	function save_read_all(chapter = global.chapter){
 		var arr = []
 		for (var i = 0; i < SAVE_SLOTS; ++i) {
-			array_push(arr, save_read(i,chapter))
+			array_push(arr, save_read(i, chapter))
 		}
 		return arr
 	}
@@ -209,6 +209,7 @@
     function save_entry(_name, _default_value, _import_method = undefined, _export_method = undefined) {
         var __entry_struct = {
             name: _name,
+            default_value: deep_clone(_default_value),
             __import: _import_method,
             __export: _export_method
         }
@@ -216,18 +217,39 @@
         array_push(global.save_recording, __entry_struct)
         struct_set(global.save, _name, _default_value)
     }
+    /// @desc returns you the default value of a save entry set in the `save_entry` functions
+    /// @arg {string} _entry_name the name of the save entry
+    /// @return {any}
+    function save_entry_get_default(_entry_name) {
+        for (var i = 0; i < array_length(global.save_recording); i ++) {
+            if string_lower(global.save_recording[i].name) == string_lower(_entry_name) {
+                return global.save_recording[i].default_value
+            }
+        }
+        return undefined
+    }
     
-    
-    ///@desc load a save
-	function save_load(slot, chapter = global.chapter) {
+    /// @desc load a save
+    /// @arg {real} slot the save slot to load from memory
+    /// @arg {real} chapter the chapter to look in
+    /// @arg {bool} to_default_values whether to set all variables to their default values
+	function save_load(slot, chapter = global.chapter, to_default_values = false) {
 		music_stop_all()
 		
 		if global.saves[slot] != -1 
             global.save = global.saves[slot]
         
-        save_set(slot)
+        save_set_slot(slot)
         for (var i = 0; i < array_length(global.save_recording); i ++) {
             var __recording = global.save_recording[i]
+            if to_default_values {
+                struct_set(global.save, string_upper(__recording.name), __recording.default_value)
+                if is_callable(__recording.__import)
+                    __recording.__import(__recording.default_value)
+                
+                continue
+            }
+            
             if is_callable(__recording.__import)
                 __recording.__import(save_get(__recording.name))
         }

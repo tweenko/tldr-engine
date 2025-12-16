@@ -159,7 +159,21 @@ function enemy_virovirokun() : enemy() constructor{
 				cutscene_play()
 			}
 		},
-	]
+        {
+            name: "all action",
+            party: -1,
+			desc: "Good Action",
+            exec: function(slot, user) {
+				cutscene_create()
+				cutscene_set_variable(o_enc, "waiting", true)
+				
+				cutscene_dialogue(loc("enemy_virovirokun_act_takecarex_msg"))
+				
+				cutscene_set_variable(o_enc, "waiting", false)
+				cutscene_play()
+			}
+        }
+    ]
 	acts_special = {
 		susie: {
 			exec: function(slot){

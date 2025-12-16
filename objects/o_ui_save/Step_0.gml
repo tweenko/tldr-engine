@@ -58,7 +58,7 @@ if page == 1 { // save menu
 				prog = 2
 			else {
 				save_export(s_selection)
-				save_set(s_selection)
+				save_set_slot(s_selection)
 				
 				audio_play(snd_save)
 				prog ++
@@ -84,7 +84,7 @@ if page == 1 { // save menu
 		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if s_o_selection == 0 {
 				save_export(s_selection)
-				save_set(s_selection)
+				save_set_slot(s_selection)
 				audio_play(snd_save)
 				
 				prog = 1

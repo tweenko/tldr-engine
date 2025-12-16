@@ -10,5 +10,7 @@ loop = array_create(channels, 1)
 slot = 0
 
 __get_actual_music_asset = function(slot) {
+    if !audio_is_playing(music_actual[slot])
+        return noone
     return audio_sound_get_asset(music_actual[slot])
 }

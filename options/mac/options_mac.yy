@@ -31,7 +31,7 @@
   "option_mac_team_id":"",
   "option_mac_texture_page":"8192x8192",
   "option_mac_version":"1.0.0.0",
-  "option_mac_vsync":false,
+  "option_mac_vsync":true,
   "option_mac_x86_64":true,
   "resourceType":"GMMacOptions",
   "resourceVersion":"2.0",
