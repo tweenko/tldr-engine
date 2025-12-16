@@ -9,7 +9,7 @@ if is_enemy && freeze > 0 {
 
 drawsiner += 0.25
 
-if !is_undefined(chase_dist) && !chasing && notice_timer == -1 {
+if !is_undefined(chase_dist) && !chasing && notice_timer == -1 && enable_chasing {
     if distance_to_point(get_leader().x, get_leader().y) < chase_dist {
         __start_chasing()
     }

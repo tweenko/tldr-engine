@@ -294,7 +294,7 @@ function party_m_ralsei() : party_m() constructor {
 	s_battle_intro =	1 // 1 for attack, 0 for full intro	
 	
 	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed)]
-		act: [spr_bralsei_act, true],
+		act: [spr_bralsei_act, true, 1],
 		actready: spr_bralsei_actready,
 		actend: [spr_bralsei_actend, "idle", 1],
 		attack: [spr_bralsei_attack, true],

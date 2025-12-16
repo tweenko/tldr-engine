@@ -23,7 +23,7 @@ else if dist < 14
 else if dist >= 14
 	accuracy = round(max(0, 100 - (dist / 7 * 2)))
 
-dmg = (party_getdata(global.party_names[index],"attack") * accuracy) / 20
+dmg = (party_getdata(global.party_names[index], "attack") * accuracy) / 20
 dmg -= 3 * ecaller.encounter_data.enemies[target].defense
 dmg = round(dmg)
 

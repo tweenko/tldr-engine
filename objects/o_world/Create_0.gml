@@ -30,6 +30,7 @@ global.simplify_vfx = false
 global.time = 0
 global.states = {}
 global.room_name = ""
+global.menu_page = 0
 
 global.player_moveable_global = true
 global.border_mode = BORDER_MODE.OFF

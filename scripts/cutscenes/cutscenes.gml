@@ -222,11 +222,9 @@ function cutscene_set_variable(obj, variable, value) {
 }
 
 /// @desc sets a party member's sprite accordingly to the battle sprites struct from party_data
-function cutscene_set_partysprite(selection, spritename ){
+function cutscene_set_partysprite(selection, spritename){
 	var set = function(selection, spritename) {
-		party_get_inst(global.party_names[selection]).sprite_index = enc_getparty_sprite(selection, spritename)
-		party_get_inst(global.party_names[selection]).image_index = 0
-		party_get_inst(global.party_names[selection]).image_speed = 1
+		enc_party_set_battle_sprite(global.party_names[selection], spritename, 0, 1)
 	}
 	cutscene_custom({
 		selection, spritename, set,
@@ -323,4 +321,71 @@ function cutscene_camera_pan(x_dest, y_dest, time, wait = true, ease_type = "lin
     data.continue_args = [data, wait, time]
 
     cutscene_custom(data);
+}
+
+/// @arg {real,array} index could be an index or array if there are multiple enemies to spare
+function cutscene_spare_enemy(index) {
+    var _enemy = o_enc.encounter_data.enemies
+    
+    if !is_array(index)
+        index = [index]
+    
+    for (var i = 0; i < array_length(index); i ++) {
+        var obj = _enemy[index[i]].actor_id
+        
+        if !enc_enemy_isfighting(index[i])
+            continue
+        
+        recruit_advance(_enemy[index[i]])
+        
+        cutscene_set_variable(obj, "sprite_index", obj.s_spared)
+        if !recruit_islost(_enemy[index[i]]) && enc_enemy_is_recruitable(_enemy[index[i]])
+           cutscene_instance_create(o_text_hpchange, 
+               obj.x, obj.y - obj.myheight/2, 
+               obj.depth - 100, {
+                   draw: $"{recruit_get_progress(_enemy[index[i]])}/{recruit_getneed(_enemy[index[i]])}", 
+                   mode: 3
+               }
+           )
+        
+        // flash the enemy
+        cutscene_anim(.5, 1, 4, "linear", function(v, o) {
+            if instance_exists(o) 
+                o.flash = v
+        }, obj)
+    }
+    
+    cutscene_audio_play(snd_spare)
+    cutscene_sleep(4)
+    
+    for (var i = 0; i < array_length(index); i ++) {
+        var obj = _enemy[index[i]].actor_id
+        
+        cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
+            sprite_index: obj.sprite_index, 
+            image_index: obj.image_index, 
+            white: true, 
+            image_alpha: 1, 
+            speed: 2
+        })
+        cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
+            sprite_index: obj.sprite_index,
+            image_index: obj.image_index, 
+            white: true, 
+            image_alpha: 1, 
+            speed: 4
+        })
+        cutscene_instance_create(o_eff_spareeffect, 
+            obj.x - obj.sprite_xoffset, obj.y - obj.sprite_yoffset,
+            obj.depth - 6, {
+                w: obj.sprite_width,
+                h: obj.sprite_height
+            }
+        )
+        
+        cutscene_func(instance_destroy, [obj])
+        cutscene_func(function(e) {
+            o_enc.encounter_data.enemies[e] = "spared"
+        }, [index[i]])
+    }
 }

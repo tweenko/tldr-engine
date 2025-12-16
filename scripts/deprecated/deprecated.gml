@@ -13,3 +13,8 @@ function do_animate(_val1, _val2, _time, _ease_type, _instance, _var_name) {
 function do_anime(_val1,_val2, _time, _ease_type, _call_method, _call_args) {
     return anime_tween(_val1, _val2, _time, _ease_type, _call_method, _call_args)._start()
 }
+
+/// @ignore
+function save_set(slot) {
+    global.save_slot = slot
+}

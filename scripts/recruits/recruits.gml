@@ -2,6 +2,8 @@
 ///@arg {struct.enemy} _enemy the struct of the enemy you want to check for
 function recruit_advance(_enemy) {
 	var r = global.recruits
+    if !enc_enemy_is_recruitable(_enemy)
+        return
 	
 	if recruit_isrecruited(_enemy) || recruit_islost(_enemy) // already full
 		return -1
@@ -15,6 +17,8 @@ function recruit_advance(_enemy) {
 ///@desc adds recruit to the LOST recruits so you cannot recruit them again
 function recruit_lose(_enemy) {
     var r = global.recruits
+    if !enc_enemy_is_recruitable(_enemy)
+        return
     
     if !recruit_islost(_enemy) {
         array_push(global.recruits_lost, instanceof(_enemy.recruit))

@@ -1,0 +1,1 @@
+global.menu_page = 0 // reset the menu page back to item when entering a new room

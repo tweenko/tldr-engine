@@ -69,7 +69,7 @@ if !only_hp { // top
 		draw_set_color(c_white)
 		
 		if is_string(partyreaction[i]) 
-			draw_text_transformed(213*i+xoff, 456, partyreaction[i], 1, 1, 0)
+			draw_text_transformed(213*i+xoff, 456 + 80 - roll, partyreaction[i], 1, 1, 0)
 		draw_set_alpha(1)
 	}
 }	

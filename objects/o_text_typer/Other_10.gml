@@ -120,6 +120,9 @@ if command == "preset" { // preset(`type`) out of `enemy_text`, `god_text`, `lig
 }
 if command == "box_pos" { // box_pos(bool)
     caller._reposition_self_to(arg[0])
+    
+    if instance_exists(face_inst)
+        face_inst.y = y
 }
 
 if command == "col" || command == "color" { // col(string) OR color(string)
@@ -134,7 +137,7 @@ if command == "solid_col" || command = "solid_color" { // solid_col(bool)
 if command == "reset_col" { // reset_col() OR reset_col
 	xcolor = saved_color
 }
-if command == "font" { // font(`string`) out of "main", "text", "enc"
+if command == "font" { // font(`string`) out of `main`, `text`, `enc`
 	if arg[0] == "enc"
 		font = loc_font("enc")
 	else if arg[0] == "text"
@@ -167,6 +170,8 @@ if command == "npc_link" { // npc_link(real)  you can link an npc to this and th
 	npc_link = o
 }
 if command == "choice" { // choice(`choice1`, `choice2`, ...)  create a choice box for the player
+    _facechange("none")
+    
 	choice_inst = instance_create(o_text_choice, x, y, depth, {
 		choices: arg,
 		caller: id,

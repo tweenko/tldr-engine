@@ -1,4 +1,4 @@
-save_load(target_save_index, global.chapter)
+save_load(target_save_index, global.chapter, true)
 global.save.NAME = name
 
 room_goto(save_get("room"))
@@ -7,5 +7,5 @@ flash_fade(0, 0, 0)
 
 call_later(1, time_source_units_frames, function() {
     save_export(target_save_index)
-    save_set(target_save_index)
+    save_set_slot(target_save_index)
 })
