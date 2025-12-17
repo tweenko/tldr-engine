@@ -115,7 +115,7 @@ function actor_movement_jump(_x, _y, _absolute = true) : actor_movement(_x, _y, 
 ///@desc	moves an actor using a struct
 ///@arg		{Id.Instance|Asset.GMObject}	actor		the actor to move
 ///@arg		{array|struct.actor_movement}	movement	array of the movement pattern
-function actor_move(_actor, movement, pos = 0){
+function actor_move(_actor, movement, pos = 0, override = false){
 	if !instance_exists(_actor) 
         exit
 	
@@ -129,6 +129,7 @@ function actor_move(_actor, movement, pos = 0){
 	inst.time = []
 	inst.char_dir = []
     inst.pos = pos
+    inst.override = override
 	
 	if !is_array(movement) 
         movement = [movement]

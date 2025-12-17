@@ -13,3 +13,5 @@ reflection_code = function(){
 s_lightalpha = 0
 lighting_darken = 0
 am_emmiting_light = false
+
+custom_depth = undefined

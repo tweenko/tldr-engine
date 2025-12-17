@@ -164,16 +164,17 @@ function cutscene_party_follow(follow){
 /// @param {array<struct.actor_movement>} movement the movement struct based on actor_movement
 /// @param {real} [pos] the array index of global.charmove_insts. needed only if there are multiple of these running at once
 /// @param {bool} [wait] whether to wait until this is all done or not
-function cutscene_actor_move(target, movement, pos = 0, wait = true) {
+function cutscene_actor_move(target, movement, pos = 0, wait = true,override = false) {
 	cutscene_custom({
 		target,
 		movement,
         pos: pos,
         wait: wait,
+        override: override,
 		
-		action: [function(target, movement, wait, pos) {
-            actor_move(target, movement, pos)
-        }, target, movement, wait, pos],
+		action: [function(target, movement, wait, pos,override) {
+            actor_move(target, movement, pos,override)
+        }, target, movement, wait, pos,override],
 		continue_func: function(wait, pos) {
             if !wait
                 return true

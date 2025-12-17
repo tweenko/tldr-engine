@@ -1,3 +1,11 @@
 array_set(global.charmove_insts, pos, undefined)
 character.moveable_move = true
-character.s_override = false
+if override = false
+{
+    character.s_override = false
+}
+else {
+	character.s_override = true
+    character.image_index = 0
+    character.image_speed = 0
+}

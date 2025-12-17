@@ -18,3 +18,5 @@ time = undefined
 state = 0
 
 anims = []
+
+override = false

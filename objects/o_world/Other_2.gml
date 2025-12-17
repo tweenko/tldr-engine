@@ -44,7 +44,7 @@ if !progress
 instance_create(o_ui_quit)
 
 // -------------------------------- set up saves -------------------------------------
-global.chapter = 1
+global.chapter = 5
 global.time = 0
 
 // get saves ready
@@ -54,7 +54,7 @@ global.save = {}
 #region create the save entries
     // base player data
     save_entry("NAME", "PLAYER")
-    save_entry("ROOM", room_test_main, undefined, function() { return room })
+    save_entry("ROOM", room_castle_town_cutscene_1, undefined, function() { return room })
     save_entry("ROOM_NAME", "", function(_raw_data){ global.room_name = _raw_data }, function(){ return global.room_name })
     
     save_entry("TIME", global.time, function(_raw_data){ global.time = _raw_data }, function(){ return global.time })

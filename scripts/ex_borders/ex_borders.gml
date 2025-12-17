@@ -1,4 +1,4 @@
-function ex_border_castle() : border() constructor {
+function border_castle() : border() constructor {
     _name = "Castle"
     _sprite = spr_ex_border_castle
 }
