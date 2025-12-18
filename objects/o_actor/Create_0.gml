@@ -15,8 +15,9 @@ is_player = false
 	spd = 2
 	runspd = 4
 	basespd = spd
-	lockeddir = -1
+    
     auto_run = global.settings.AUTO_RUN
+    noclip = false
 	
 	slide_vertical_allow = false // can move vertically while sliding
 	diagonal = true // can move diagonally
@@ -43,7 +44,6 @@ is_player = false
 	custom_depth = undefined
 	pos = 0
     
-    /// @desc needs to return true to function
     interaction_code = function() {
         return false
     }
@@ -107,12 +107,8 @@ is_player = false
 	}
 }
 { // internal variables
-	move[DIR.UP] = 0
-	move[DIR.RIGHT] = 0
-	move[DIR.DOWN] = 0
-	move[DIR.LEFT] = 0
-	
 	dir = DIR.DOWN
+    movement_dir = undefined
 	
 	startedmoving = false
 	moving = false

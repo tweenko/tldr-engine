@@ -154,6 +154,7 @@ save_entry("PARTY_NAMES", global.party_names,
     function() { return global.party_names }
 )
 
+
 global.saves = save_read_all() // saves saved on device
 if global.saves[global.save_slot] != -1 
     global.save = global.saves[global.save_slot]

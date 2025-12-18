@@ -35,7 +35,7 @@ if state < 3 {
 		state = 3
 	}
 		
-	if timer < 200 {
+	if timer < 200 && timer > 31 {
 		if InputPressed(INPUT_VERB.SELECT) 
             confirm_pressed ++
         

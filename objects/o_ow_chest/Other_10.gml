@@ -18,7 +18,11 @@ if is_struct(item_inside) && is_instanceof(item_inside, item) {
     txt += item_add(item_inside)
     dialogue_start(txt)
 }
-else 
-    empty_callback()
+else {
+    image_index = 1
+    audio_play(snd_locker)
+    
+    dialogue_start(loc("item_chest_empty"))
+}
 
 state_add(state_group, id)

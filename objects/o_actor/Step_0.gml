@@ -1,5 +1,7 @@
 var currentspd = spd
 var check_canmove = _checkmove()
+var x_move = 0
+var y_move = 0
 
 if is_enemy && freeze > 0 {
     image_speed = 0
@@ -16,8 +18,8 @@ if !init {
 
 // player movement
 if is_player && check_canmove {
-	var am_moving = 0
-	
+	var am_moving = false
+    
 	// movement speed control
 	if ((!auto_run && InputCheck(INPUT_VERB.CANCEL)) || (auto_run && !InputCheck(INPUT_VERB.CANCEL))) && moving {
 		running = true
@@ -29,58 +31,58 @@ if is_player && check_canmove {
 		running = false
 		spd = basespd // instantly return to base speed
 	}
-	
+    
 	// move upon pressing keys
+    var target_dir = undefined
+    var moving_in_directions = []
+    
 	if InputCheck(INPUT_VERB.RIGHT) {
-		if !diagonal 
-			for(var i = 0; i < 360; i += 90) if i != DIR.RIGHT move[i] = 0
-		
-		move[DIR.RIGHT] = 1
-		move[DIR.LEFT] = 0 // set the other direction to not move
-		
+        target_dir = DIR.RIGHT
+        array_push(moving_in_directions, DIR.RIGHT)
+        
+		x_move = currentspd
 		am_moving = true
 	}
 	if InputCheck(INPUT_VERB.LEFT) {
-		if !diagonal 
-			for(var i = 0; i < 360; i += 90) if i != DIR.LEFT move[i] = 0
-		
-		move[DIR.LEFT] = 1
-		move[DIR.RIGHT] = 0 // set the other direction to not move
-		
+        target_dir = DIR.LEFT
+        array_push(moving_in_directions, DIR.LEFT)
+        
+		x_move = -currentspd
 		am_moving = true
 	}
 	if InputCheck(INPUT_VERB.DOWN) && (!sliding || slide_vertical_allow) {
-		if !diagonal 
-			for(var i = 0; i < 360; i += 90) if i != DIR.DOWN move[i] = 0
-		
-		move[DIR.DOWN] = 1
-		move[DIR.UP] = 0 // set the other direction to not move
-		
+        target_dir = DIR.DOWN
+        array_push(moving_in_directions, DIR.DOWN)
+        
+        y_move = currentspd
 		am_moving = true
 	}
 	if InputCheck(INPUT_VERB.UP) && (!sliding || slide_vertical_allow) {
-		if !diagonal 
-			for(var i = 0; i < 360; i += 90) if i != DIR.UP move[i] = 0
-		
-		move[DIR.UP] = 1
-		move[DIR.DOWN] = 0 // set the other direction to not move
-		
+        target_dir = DIR.UP
+        array_push(moving_in_directions, DIR.UP)
+        
+		y_move = -currentspd
 		am_moving = true
 	}
+    
+    if !is_undefined(movement_dir) && !array_contains(moving_in_directions, movement_dir)
+        movement_dir = undefined
+    if is_undefined(movement_dir) && am_moving {
+        movement_dir = target_dir
+        dir = target_dir
+    }
 	
 	// interact
 	if InputPressed(INPUT_VERB.SELECT) {
 		var w = 2
-        var __interactable_instances = array_concat([o_ow_interactable], interactable_instances)
-		
 		var __xw = -lengthdir_x(w, dir + 90)
 		var __yw = lengthdir_y(w, dir + 90)
-		
-		if place_meeting(x + __xw, y + __yw, __interactable_instances) {
-			var inst = instance_place(x + __xw, y + __yw, __interactable_instances)
-			with inst
-				event_user(0)
-		}
+        
+        var __interactable_instances = instance_place_list_ext(x + __xw, y + __yw, array_concat([o_ow_interactable, o_actor_interactable], interactable_instances), false)
+        for (var i = 0; i < array_length(__interactable_instances); i ++) {
+            with __interactable_instances[i]
+                event_user(0)
+        }
 	}
 	
 	// menu
@@ -140,63 +142,71 @@ else if sliding{
 }
 
 moving = false
-if lockeddir != -1 && move[lockeddir] == 0 // no clue what this does (i coded this a while ago sorry)
-	lockeddir = -1
 
 // actually move now
-for (var i = 0; i < 360; i += 90) {
-    if move[i] > 0 {
-		if lockeddir == -1 {
-			lockeddir = i
-			dir = i
-		}
-		move[i] -= 1
-		
-		var xx = -lengthdir_x(currentspd, i + 90)
-		var yy = lengthdir_y(currentspd, i + 90)
-		
-		var collsx = instance_place_list_ext(x + xx, y, o_block, 1)
-		var collsy = instance_place_list_ext(x, y + yy, o_block, 1)
-		var canmove_x = true
-		var canmove_y = true
-		
-		for (var j = 0; j < array_length(collsx); ++j) {
-		    if instance_exists(collsx[j]) && collsx[j].collide {
-				canmove_x = false
-				break
-			}
-		}
-		for (var j = 0; j < array_length(collsy); ++j) {
-		    if instance_exists(collsy[j]) && collsy[j].collide {
-				canmove_y = false 
-				break
-			}
-		}
-		
-		// collisions when sliding
-		if sliding {
-			if instance_exists(slideinst) {
-				if !place_meeting(x + xx, y, slideinst) {
-					canmove_x = false
-				}
-			}
-		}
-		
-		if canmove_x 
-			x += xx
-		if canmove_y 
-			y += yy
-		
-		// diagonal collisions
-		if place_meeting(x + xx, y, o_block_diag) {
-			y += sign(instance_place(x + xx, y, o_block_diag).image_yscale) * currentspd
-		}
-		if place_meeting(x, y + yy, o_block_diag) {
-			x += sign(instance_place(x, y + yy, o_block_diag).image_xscale) * currentspd
-		}
-		
-		moving = true;
-	}
+if x_move != 0 || y_move != 0 {
+    var xx = 0
+    var yy = 0
+    var canmove_x = true
+    var canmove_y = true
+    
+    var perc_x = .5 * sign(x_move)
+    for (var j = 0; abs(j) < abs(x_move); j += perc_x) {
+        var __collisions = instance_place_list_ext(x + xx + perc_x, y + yy, o_block, true) 
+        var __canmove = true
+        
+        for (var m = 0; m < array_length(__collisions); m ++) {
+            if instance_exists(__collisions[m]) && __collisions[m].collide {
+                __canmove = false
+                break
+            }
+        }
+        
+        if __canmove
+            xx += perc_x
+        else 
+            break
+    }
+    
+    var perc_y = .5 * sign(y_move)
+    for (var j = 0; abs(j) < abs(y_move); j += perc_y) {
+        var __collisions = instance_place_list_ext(x + xx, y + yy + perc_y, o_block, true) 
+        var __canmove = true
+        
+        for (var m = 0; m < array_length(__collisions); m ++) {
+            if instance_exists(__collisions[m]) && __collisions[m].collide {
+                __canmove = false
+                break
+            }
+        }
+        
+        if __canmove
+            yy += perc_y
+        else
+            break
+    }
+    
+    // collisions when sliding
+    if sliding {
+        if instance_exists(slideinst) {
+            if !place_meeting(x + xx, y, slideinst) {
+                canmove_x = false
+            }
+        }
+    }
+    
+    if canmove_x 
+        x += xx
+    if canmove_y 
+        y += yy
+    
+    // diagonal collisions
+    if place_meeting(x + xx, y, o_block_diag) 
+        y += sign(instance_place(x + xx, y, o_block_diag).image_yscale) * currentspd
+    if place_meeting(x, y + yy, o_block_diag)
+        x += sign(instance_place(x, y + yy, o_block_diag).image_xscale) * currentspd
+    
+    moving = true
 }
 
 // just make it known that you are moving (if you are not the player)
@@ -207,22 +217,21 @@ if !is_player
 else if moving // if you are already "moving," and it is confirmed by checking your x and y positions, let you still be moving
     && (x != xprevious || y != yprevious)
     && !is_in_battle && !is_enemy {
-        
+       
 }
 else
 	moving = false
 
 // sprites
-if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override{
+if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override {
 	if !startedmoving {
 		startedmoving = true
 		image_index = 1
 	}
-	if !running {
+	if !running
 		image_speed = s_walk_ispd
-	}
 }
-else if !is_in_battle && !is_enemy{
+else if !is_in_battle && !is_enemy {
 	startedmoving = false
 	
 	if floor(image_index) % 2 == 0 && !s_override && s_dynamic {
@@ -232,14 +241,13 @@ else if !is_in_battle && !is_enemy{
 }
 
 // running sprites, walking sprites
-if !is_in_battle && !is_enemy && s_dynamic && !s_override{
+if !is_in_battle && !is_enemy && s_dynamic && !s_override {
 	if running && moving {
 		image_speed = lerp(s_walk_ispd, s_run_ispd, (get_leader().spd - basespd) / (runspd - basespd))
 		sprite_index = asset_get_index(sprite_get_name(s_move[dir]) + s_run_postfix)
 	}
-	else {
+	else
 		sprite_index = s_move[dir]
-	}
 }
 
 { // timers and siners

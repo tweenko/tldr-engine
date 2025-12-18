@@ -32,6 +32,9 @@ function dodge_getalpha(){
 }
 ///@desc game over!
 function dodge_gameover(){
+    if instance_exists(o_gameover)
+        exit
+    
 	instance_create(o_gameover, 
 		o_dodge_soul.x - guipos_x(), o_dodge_soul.y - guipos_y(), DEPTH_ENCOUNTER.UI,
 		{

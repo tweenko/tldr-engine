@@ -65,18 +65,17 @@
 	}
 	///@desc read a save slot
 	function save_read(slot, chapter = global.chapter){
-		var retst = {}
 		var save_file = save_get_fname(slot, chapter)
 	
-		if (file_exists(save_file)) {
-		    var file = file_text_open_read(save_file);
-		    var json_data = "";
-		    while (!file_text_eof(file)) {
-		        json_data += file_text_readln(file);
-		    }
-		    file_text_close(file);
+		if file_exists(save_file) {
+		    var file = file_text_open_read(save_file)
+		    var json_data = ""
+            
+		    while (!file_text_eof(file)) 
+		        json_data += file_text_readln(file)
+		    file_text_close(file)
 
-		    return json_parse(json_data);
+		    return json_parse(json_data)
 		} 
         else
 		    return -1
@@ -105,6 +104,8 @@
 	#macro _save_structs_to_convert [ "weapon", "armor1", "armor2", "spells" ]
     ///@desc get ready the party data for import
 	function save_party_import(_p_data) {
+		_p_data = variable_clone(_p_data)
+        
 		for (var i = 0; i < party_getpossiblecount(); ++i) {
 			var __d = struct_get(_p_data, struct_get_names(_p_data)[i])
 			
@@ -128,7 +129,7 @@
 	}
 	///@desc get ready the party data for export
     function save_party_export(_p_data) {
-		_p_data = deep_clone(_p_data)
+		_p_data = variable_clone(_p_data)
 		
 		for (var i = 0; i < party_getpossiblecount(); ++i) {
 			var __d = struct_get(_p_data, struct_get_names(_p_data)[i])
@@ -209,7 +210,7 @@
     function save_entry(_name, _default_value, _import_method = undefined, _export_method = undefined) {
         var __entry_struct = {
             name: _name,
-            default_value: deep_clone(_default_value),
+            default_value: _default_value,
             __import: _import_method,
             __export: _export_method
         }
@@ -243,10 +244,7 @@
         for (var i = 0; i < array_length(global.save_recording); i ++) {
             var __recording = global.save_recording[i]
             if to_default_values {
-                struct_set(global.save, string_upper(__recording.name), __recording.default_value)
-                if is_callable(__recording.__import)
-                    __recording.__import(__recording.default_value)
-                
+                struct_set(global.save, string_upper(__recording.name), variable_clone(__recording.default_value))
                 continue
             }
             

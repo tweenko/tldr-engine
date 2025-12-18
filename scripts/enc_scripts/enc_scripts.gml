@@ -150,6 +150,9 @@ function enc_enemy_count(only_alive = true) {
 
 ///@desc game over!
 function enc_gameover(){
+    if instance_exists(o_gameover)
+        exit
+    
 	instance_create(o_gameover, 
 		o_enc_soul.x - guipos_x(), o_enc_soul.y - guipos_y(), DEPTH_ENCOUNTER.UI,
 		{ 

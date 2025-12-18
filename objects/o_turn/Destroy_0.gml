@@ -1,2 +1,3 @@
 /// @description turn ends
-enemy_struct.actor_id.sprite_index = enemy_base_spr
+if instance_exists(enemy_struct.actor_id)
+    enemy_struct.actor_id.sprite_index = enemy_base_spr
