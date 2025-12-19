@@ -1,0 +1,1 @@
+global.world = 0

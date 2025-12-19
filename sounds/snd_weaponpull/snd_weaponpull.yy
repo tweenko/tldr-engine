@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.071429,
+  "duration":1.0714285,
   "exportDir":"",
   "name":"snd_weaponpull",
   "parent":{

@@ -1,3 +1,6 @@
+cant_right = 0
+cant_left = 0
+
 if room == room_castle_town_cutscene_1 and global.save.PLOT = 0
 {
     cutscene_create()
@@ -515,5 +518,220 @@ if room == room_castle_town_cutscene_1 and global.save.PLOT = 1
     ])
     cutscene_func(fader_fade,[0,1,60])
     cutscene_sleep(90)
+    cutscene_func(room_goto,[room_castle_town_cutscene_0])
+    cutscene_play()
+}
+
+if room == room_castle_town_cutscene_0 and global.save.PLOT = -1
+{
+    cutscene_create()
+    cutscene_func(fader_fade,[1,0,180])
+    cutscene_func(music_play,[snd_w,0,true,0,0.2])
+    cutscene_func(music_fade,[0,1,180])
+    cutscene_sleep(300)
+    cutscene_dialogue([
+        "{speed(3)}{voice(nil)}* (Do you want to think about Susie?)",
+        "{choice(Yes,No)}"
+    ],"{e}",true,false)
+    cutscene_func(function(){
+        if global.temp_choice = 0
+        {
+            cutscene_create()
+            cutscene_func(fader_fade,[0,1,90])
+            cutscene_func(music_fade,[0,0,90])
+            cutscene_sleep(120)
+            cutscene_func(room_goto,[room_castle_town_cutscene_1])
+            cutscene_play()
+        }
+        else {
+        	cutscene_create()
+            cutscene_func(fader_fade,[0,1,90])
+            cutscene_func(music_fade,[0,0,90])
+            cutscene_sleep(120)
+            cutscene_func(function(){
+                global.save.PLOT = 1
+                room_restart()
+            })
+            cutscene_play()
+        }
+    })
+    cutscene_play()
+}
+
+if room == room_castle_town_cutscene_0 and global.save.PLOT = 0
+{
+    cutscene_create()
+    cutscene_func(fader_fade,[1,0,60])
+    cutscene_func(music_play,[snd_w,0,true,0,0.2])
+    cutscene_func(music_fade,[0,1,60])
+    cutscene_sleep(120)
+    cutscene_audio_play(snd_dooropen)
+    cutscene_sleep(30)
+    cutscene_audio_play(snd_doorclose)
+    cutscene_sleep(30)
+    cutscene_func(function(){
+        instance_create(o_actor_kris,160,300)
+        o_actor_kris.s_move[DIR.UP] = spr_kris_soulless_upright
+        o_actor_kris.s_move[DIR.LEFT] = spr_kris_left_light
+        o_actor_kris.s_move[DIR.DOWN] = spr_kris_down_light
+    })
+    cutscene_audio_play(snd_step1)
+    cutscene_animate(5,0,5,anime_curve.linear,o_actor_kris,"shake")
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(160,270,5,,,DIR.UP)
+        ,,true,true)
+    cutscene_set_variable(o_actor_kris,"image_index",1)
+    cutscene_sleep(10)
+    cutscene_audio_play(snd_step2)
+    cutscene_animate(5,0,5,anime_curve.linear,o_actor_kris,"shake")
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(160,260,5,,,DIR.UP)
+        ,,true,true)
+    cutscene_set_variable(o_actor_kris,"image_index",1)
+    cutscene_sleep(10)
+    cutscene_audio_play(snd_step1)
+    cutscene_animate(5,0,5,anime_curve.linear,o_actor_kris,"shake")
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(160,250,5,,,DIR.UP)
+        ,,true,true)
+    cutscene_set_variable(o_actor_kris,"image_index",1)
+    cutscene_sleep(10)
+    cutscene_audio_play(snd_step2)
+    cutscene_animate(5,0,5,anime_curve.linear,o_actor_kris,"shake")
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(160,240,5,,,DIR.UP)
+        ,,true,true)
+    cutscene_set_variable(o_actor_kris,"image_index",1)
+    cutscene_sleep(10)
+    cutscene_audio_play(snd_step1)
+    cutscene_animate(5,0,5,anime_curve.linear,o_actor_kris,"shake")
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(160,230,5,,,DIR.UP)
+        ,,true,true)
+    cutscene_set_variable(o_actor_kris,"image_index",1)
+    cutscene_sleep(10)
+    cutscene_play()
+    cutscene_audio_play(snd_step2)
+    cutscene_animate(5,0,5,anime_curve.linear,o_actor_kris,"shake")
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(160,220,5,,,DIR.UP)
+        ,,true,true)
+    cutscene_set_variable(o_actor_kris,"image_index",1)
+    cutscene_sleep(10)
+    cutscene_audio_play(snd_step1)
+    cutscene_animate(5,0,5,anime_curve.linear,o_actor_kris,"shake")
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(160,210,5,,,DIR.UP)
+        ,,true,true)
+    cutscene_set_variable(o_actor_kris,"image_index",1)
+    cutscene_sleep(10)
+    cutscene_play()
+    cutscene_audio_play(snd_step2)
+    cutscene_animate(5,0,5,anime_curve.linear,o_actor_kris,"shake")
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(160,200,5,,,DIR.UP)
+        ,,true,true)
+    cutscene_set_variable(o_actor_kris,"image_index",1)
+    cutscene_sleep(10)
+    cutscene_audio_play(snd_step1)
+    cutscene_animate(5,0,5,anime_curve.linear,o_actor_kris,"shake")
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(160,190,5,,,DIR.UP)
+        ,,true,true)
+    cutscene_set_variable(o_actor_kris,"image_index",1)
+    cutscene_sleep(10)
+    cutscene_play()
+    cutscene_audio_play(snd_step2)
+    cutscene_animate(5,0,5,anime_curve.linear,o_actor_kris,"shake")
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(160,180,5,,,DIR.UP)
+        ,,true,true)
+    cutscene_sleep(60)
+    cutscene_actor_move(o_actor_kris,
+    new actor_movement(240,180,150,,,DIR.UP)
+        ,,false,true)
+    cutscene_audio_play(snd_step1)
+    cutscene_sleep(20)
+    cutscene_audio_play(snd_step2)
+    cutscene_sleep(20)
+    cutscene_audio_play(snd_step1)
+    cutscene_sleep(20)
+    cutscene_audio_play(snd_step2)
+    cutscene_sleep(20)
+    cutscene_audio_play(snd_step1)
+    cutscene_sleep(20)
+    cutscene_audio_play(snd_step2)
+    cutscene_sleep(20)
+    cutscene_audio_play(snd_step1)
+    cutscene_sleep(20)
+    cutscene_audio_play(snd_step2)
+    cutscene_sleep(90)
+    cutscene_func(fader_fade,[0,1,0])
+    cutscene_audio_play(snd_locker)
+    cutscene_sleep(30)
+    cutscene_audio_play(snd_spawn_attack)
+    cutscene_sleep(360)
+    cutscene_audio_play(snd_noise)
+    cutscene_func(music_stop,[0])
+    cutscene_func(fader_fade,[1,0,0])
+    cutscene_set_variable(o_actor_kris,"sprite_index",spr_kris_down_light)
+    cutscene_set_variable(o_ow_soul,"visible",false)
+    cutscene_sleep(90)
+    cutscene_actor_move(o_actor_kris,new actor_movement(inst_phone.x,inst_phone.y+1,60,,,DIR.LEFT),,true,true)
+    cutscene_set_variable(o_actor_kris,"sprite_index",spr_kris_up_light)
+    cutscene_sleep(20)
+    cutscene_audio_play(snd_item)
+    cutscene_set_variable(inst_phone,"visible",false)
+    cutscene_sleep(30)
+    cutscene_actor_move(o_actor_kris,new actor_movement(165,180,40,,,DIR.DOWN),,true,true)
+    cutscene_actor_move(o_actor_kris,new actor_movement(165,300,60,,,DIR.DOWN),,false,true)
+    cutscene_sleep(30)
+    cutscene_func(fader_fade,[0,1,30])
+    cutscene_sleep(30)
+    cutscene_audio_play(snd_dooropen)
+    cutscene_sleep(30)
+    cutscene_func(room_goto,[room_castle_town_cutscene_5])
+    cutscene_play()
+}
+
+if room == room_castle_town_cutscene_5
+{
+    cutscene_create()
+    cutscene_set_variable(self,"cant_right",1)
+    cutscene_func(function(){
+        instance_create(o_actor_susie,200,132)
+        o_actor_susie.s_override = true
+        o_actor_susie.sprite_index = spr_susie_leaning_light
+        instance_create(o_actor_kris,136,127)
+        o_actor_kris.s_move[DIR.LEFT] = spr_kris_left_light
+        o_actor_kris.s_move[DIR.RIGHT] = spr_kris_right_light
+        o_actor_kris.s_move[DIR.DOWN] = spr_kris_down_light
+        o_actor_susie.s_move[DIR.UP] = spr_susie_up_light_serious
+        o_actor_susie.s_move[DIR.LEFT] = spr_susie_left_light_serious
+        o_actor_susie.s_move[DIR.DOWN] = spr_susie_down_light_serious
+        fader_fade(1,0,30)
+    })
+    cutscene_audio_play(snd_doorclose)
+    cutscene_actor_move(o_actor_kris,new actor_movement(136,140,30,,,DIR.DOWN),,true,true)
+    cutscene_set_variable(o_actor_kris,"sprite_index",spr_kris_right_light)
+    cutscene_sleep(30)
+    cutscene_dialogue([
+        "{char(susie,31)}* Kris..."
+    ],,true,false)
+    cutscene_actor_move(o_actor_susie,new actor_movement(165,140,30,,,DIR.LEFT),,true,true)
+    cutscene_sleep(30)
+    cutscene_dialogue([
+        "{char(susie,1)}* ... You good?",
+        "{char(none)}{choice(`Yes`,`No`)",
+        "{char(susie,0)}* ... Okay.",
+        "{f_ex(13)}* ... (You're so weird sometimes...)"
+    ],,true,false)
+    cutscene_set_variable(o_actor_susie,"sprite_index",spr_susie_right_light_serious)
+    cutscene_set_variable(self,"cant_right",0)
+    cutscene_set_variable(self,"cant_left",1)
+    cutscene_dialogue([
+        "{char(susie,0)}* ...",
+        "{f_ex(3)}* So, hey, I was thinking..."
+    ],,true,false)
     cutscene_play()
 }
