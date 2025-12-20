@@ -150,6 +150,9 @@ function enc_enemy_count(only_alive = true) {
 
 ///@desc game over!
 function enc_gameover(){
+    if instance_exists(o_gameover)
+        exit
+    
 	instance_create(o_gameover, 
 		o_enc_soul.x - guipos_x(), o_enc_soul.y - guipos_y(), DEPTH_ENCOUNTER.UI,
 		{ 
@@ -165,69 +168,31 @@ function enc_gameover(){
 	audio_play(snd_hurt)
 }
 
-/// @arg {real,array} index could be an index or array if there are multiple enemies to spare
-function cutscene_spare_enemy(index) {
-    var _enemy = o_enc.encounter_data.enemies
+/// @arg {string} name party member name
+/// @arg {Asset.GMSprite|string} sprite_ref the sprite to use. can be either a string that will be put into `enc_getparty_sprite` or a sprite index
+/// @arg {real} index the image index of the sprite, by default doesn't change it
+/// @arg {real} speed the speed of the sprite, by default doesn't change it
+function enc_party_set_battle_sprite(name, sprite_ref, index = undefined, speed = undefined) {
+    index ??= 0; speed ??= 1
     
-    if !is_array(index)
-        index = [index]
+    var inst = party_get_inst(name)
+    if is_string(sprite_ref)
+        inst.sprite_index = enc_getparty_sprite(party_getpos(name), sprite_ref)
+    else if sprite_exists(sprite_ref)
+        inst.sprite_index = sprite_ref
     
-    for (var i = 0; i < array_length(index); i ++) {
-        var obj = _enemy[index[i]].actor_id
-        
-        if !enc_enemy_isfighting(index[i])
-            continue
-        
-        recruit_advance(_enemy[index[i]])
-        
-        cutscene_set_variable(obj, "sprite_index", obj.s_spared)
-        if !recruit_islost(_enemy[index[i]])
-           cutscene_instance_create(o_text_hpchange, 
-               obj.x, obj.y - obj.myheight/2, 
-               obj.depth - 100, {
-                   draw: $"{recruit_get_progress(_enemy[index[i]])}/{recruit_getneed(_enemy[index[i]])}", 
-                   mode: 3
-               }
-           )
-        
-        // flash the enemy
-        cutscene_anim(.5, 1, 4, "linear", function(v, o) {
-            if instance_exists(o) 
-                o.flash = v
-        }, obj)
-    }
+    if !is_undefined(index)
+        inst.image_index = index
+    if !is_undefined(speed)
+        inst.image_speed = speed
+}
+
+/// @desc returns whether an enemy is recruitable
+/// @arg {function|struct.enemy} ref_or_struct
+/// @return {bool}
+function enc_enemy_is_recruitable(ref_or_struct) {
+    if is_callable(ref_or_struct)
+        ref_or_struct = new ref_or_struct()
     
-    cutscene_audio_play(snd_spare)
-    cutscene_sleep(4)
-    
-    for (var i = 0; i < array_length(index); i ++) {
-        var obj = _enemy[index[i]].actor_id
-        
-        cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
-            sprite_index: obj.sprite_index, 
-            image_index: obj.image_index, 
-            white: true, 
-            image_alpha: 1, 
-            speed: 2
-        })
-        cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
-            sprite_index: obj.sprite_index,
-            image_index: obj.image_index, 
-            white: true, 
-            image_alpha: 1, 
-            speed: 4
-        })
-        cutscene_instance_create(o_eff_spareeffect, 
-            obj.x - obj.sprite_xoffset, obj.y - obj.sprite_yoffset,
-            obj.depth - 6, {
-                w: obj.sprite_width,
-                h: obj.sprite_height
-            }
-        )
-        
-        cutscene_func(instance_destroy, [obj])
-        cutscene_func(function(e) {
-            o_enc.encounter_data.enemies[e] = "spared"
-        }, [index[i]])
-    }
+    return is_struct(ref_or_struct.recruit)
 }

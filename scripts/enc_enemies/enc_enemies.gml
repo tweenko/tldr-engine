@@ -159,7 +159,7 @@ function enemy_virovirokun() : enemy() constructor{
 				cutscene_play()
 			}
 		},
-	]
+    ]
 	acts_special = {
 		susie: {
 			exec: function(slot){
@@ -195,13 +195,7 @@ function enemy_virovirokun() : enemy() constructor{
 function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
-	obj = {
-        obj: o_actor_e_killercar,
-        var_struct: {
-            s_hurt: spr_e_killercar_hurt,
-            s_spared: spr_e_killercar_hurt,
-        }
-    }
+	obj = o_actor_e_killercar
 	tired = true
 	defense = 0
     can_spare = false

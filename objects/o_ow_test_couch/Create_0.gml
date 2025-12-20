@@ -26,7 +26,7 @@ interaction_code = function() {
                 
                 var _anim_x = animate(_inst.x, xx, 15, "linear", _inst, "x")
                 var _anim_y = animate(_inst.y, yy - 30, 10, "cubic_out", _inst, "y")
-                    .add(yy - 5, 5, "sine_in")
+                    ._add(yy - 5, 5, anime_curve.sine_in)
                 
                 _inst.custom_depth = _depth - 10 + party_getpos(name)
                 

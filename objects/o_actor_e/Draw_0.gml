@@ -1,4 +1,4 @@
-if !is_in_battle && freeze == 0 { // enemy aura, toby code
+if !is_in_battle && freeze == 0 && enable_chasing { // enemy aura, toby code
 	var spr = sprite_index
 	if hurt > 0  
 		spr = s_hurt

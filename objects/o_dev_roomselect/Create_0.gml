@@ -22,5 +22,3 @@ select = function(_item, _item_index) {
 item_name = function(_item, _item_index) {
     return room_get_name(_item)
 }
-
-show_debug_message(item_blocked)

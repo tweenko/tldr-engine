@@ -307,36 +307,6 @@ function round_p(value, precision){
 	return round(value/precision) * precision
 }
 
-/// @desc Recursively clones a struct or array
-function deep_clone(src) {
-    if is_array(src) {
-        var new_arr = array_create(array_length(src));
-        for (var i = 0; i < array_length(src); i++) {
-            new_arr[i] = deep_clone(src[i]);
-        }
-        return new_arr;
-    }
-    else if is_struct(src) {
-        var new_struct = {};
-        var keys = variable_struct_get_names(src);
-        for (var i = 0; i < array_length(keys); i++) {
-            var key = keys[i];
-            var val = struct_get(src, key);
-
-            // Only clone if it's cloneable
-            if (is_array(val) || is_struct(val)) {
-                struct_set(new_struct, key, deep_clone(val))
-            } 
-			else {
-				struct_set(new_struct, key, val)
-            }
-        }
-        return new_struct;
-    }
-    else {
-        return src;
-    }
-}
 /// @desc merge two structs. created by u/MD__Wade
 function struct_merge(primary, secondary, shared) {
 	var _ReturnStruct = primary;
@@ -355,6 +325,11 @@ function struct_merge(primary, secondary, shared) {
 		}
 	}
 	return _ReturnStruct;
+}
+
+/// @desc returns the sum of two angles within the angle range
+function angle_add(x, y) {
+    return x + angle_difference(x, y)
 }
 
 

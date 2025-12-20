@@ -36,6 +36,7 @@
   "physicsStartAwake":true,
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"encounter","filters":[],"listItems":[],"multiselect":false,"name":"encounter","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"new enc_set_ex()","varType":4,},
+    {"$GMObjectProperty":"v2","%Name":"enable_chasing","filters":[],"listItems":[],"multiselect":false,"name":"enable_chasing","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"True","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"chase_spd","filters":[],"listItems":[],"multiselect":false,"name":"chase_spd","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"4","varType":1,},
     {"$GMObjectProperty":"v2","%Name":"chase_zone","filters":[],"listItems":[],"multiselect":false,"name":"chase_zone","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"noone","varType":4,},
     {"$GMObjectProperty":"v2","%Name":"chase_zone_auto","filters":[],"listItems":[],"multiselect":false,"name":"chase_zone_auto","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},

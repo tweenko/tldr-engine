@@ -97,8 +97,33 @@
 
 selection = 0
 state = 0 // how deep we are in the menu
-battle_state = "menu"
-battle_state_prev = "menu"
+
+enum BATTLE_STATE {
+    MENU,
+    EXEC,
+    DIALOGUE,
+    TURN,
+    POST_TURN,
+    WIN
+}
+
+battle_state = BATTLE_STATE.MENU
+battle_state_prev = BATTLE_STATE.MENU
+battle_state_order = [
+    BATTLE_STATE.MENU,
+    BATTLE_STATE.EXEC,
+    BATTLE_STATE.DIALOGUE,
+    BATTLE_STATE.TURN,
+    BATTLE_STATE.POST_TURN,
+]
+win_condition = function() { // if this is true, the battle will end
+    for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+        if enc_enemy_isfighting(i)
+            return false
+    }
+    
+    return true
+}
 
 encounter_data = {} // the information about the encounter: enemies, music, text and such
 
@@ -202,6 +227,12 @@ __state_to_icon = function(state) {
         case CHAR_STATE.DEFEND:     return 4
         case CHAR_STATE.POWER:      return 5
     }
+}
+__battle_state_advance = function(state = battle_state) {
+    var cur_state = array_get_index(battle_state_order, state)
+    var next_state = (cur_state + array_length(battle_state_order) + 1) % array_length(battle_state_order)
+    
+    battle_state = battle_state_order[next_state]
 }
 
 enum CHAR_STATE {
