@@ -69,3 +69,19 @@ if place_meeting(x, y, get_leader())
     
     image_xscale = 1
 }
+
+if run_away && hurt <= 0 { // spawn the trail upon running away
+    for (var i = 0; i <= 30; i += 2) {
+        var o = afterimage()
+        o.x += i
+        o.sprite_index = s_hurt
+        o.image_alpha = 1
+        o.depth = depth-10
+    }
+    x += 30
+
+    run_away_timer ++
+    
+    if run_away_timer > 4
+        instance_destroy()
+}

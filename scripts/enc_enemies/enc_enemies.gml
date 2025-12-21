@@ -6,7 +6,6 @@ function enemy() constructor {
 		var_struct: {
 			s_hurt: spr_e_virovirokun_hurt,
 			s_spared: spr_e_virovirokun_spare,
-            carrying_money: 10
 		},
 	}
 	
@@ -16,6 +15,7 @@ function enemy() constructor {
 	attack =	0
 	defense =	0
 	status_effect = ""
+    carrying_money = 0
 	
 	mercy =	0
 	tired =	false
@@ -61,6 +61,59 @@ function enemy() constructor {
 	//system
 	actor_id =	-1
 	slot =		-1
+    
+    // methods
+    __defeat = method(self, function(way_of_defeat = undefined) {
+        if instance_exists(o_enc) {
+            if !is_undefined(way_of_defeat)
+                o_enc.encounter_data.enemies[slot] = way_of_defeat
+            o_enc.earned_money += carrying_money // add money
+        }
+    })
+    
+    __run_defeat = method(self, function() {
+        actor_id.run_away = true
+        audio_play(snd_defeatrun)
+        
+        __defeat("ran away")
+        if !recruit_islost(self) {
+            instance_create(o_text_hpchange, actor_id.x, actor_id.s_get_middle_y(), actor_id.depth - 100, {
+                draw: "lost",
+                mode: 4,
+            })
+            recruit_lose(self)
+        }
+    })
+    __fatal_defeat = method(self, function() {
+        with actor_id
+            instance_create(o_eff_fatal_damage, x, y, depth, {
+                sprite_index: s_hurt,
+                image_xscale: image_xscale,
+                image_yscale: image_yscale,
+                image_index: image_index,
+                image_speed: 0,
+                shake: 6,
+            })
+        instance_destroy(actor_id)
+        
+        __defeat("fatal")
+        if !recruit_islost(self)
+            recruit_lose(self)
+    })
+    __freeze_defeat = method(self, function() {
+        animate(0, 1, 20, "linear", actor_id, "freeze")
+        
+        with actor_id
+            instance_create(o_text_hpchange, x, s_get_middle_y(), depth - 100, {
+                draw: "frozen",
+                mode: 4,
+            })
+        audio_play(snd_petrify)
+        
+        if !recruit_islost(self)
+            recruit_lose(self)
+        __defeat()
+    })
 }
 
 function enemy_virovirokun() : enemy() constructor{
@@ -74,6 +127,7 @@ function enemy_virovirokun() : enemy() constructor{
 	defense =	0
 	status_effect = ""
     freezable = true
+    carrying_money = 84
     
     mercy = 100
 	
@@ -191,7 +245,6 @@ function enemy_virovirokun() : enemy() constructor{
 		return array_shuffle(loc("enemy_virovirokun_dialogue"))[0]
 	}
 }
-
 function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
@@ -200,6 +253,7 @@ function enemy_killercar() : enemy() constructor{
 	defense = 0
     can_spare = false
     turn_object = o_ex_turn_complex_box
+    carrying_money = 1
     
     hp = 600
     max_hp = 600
@@ -234,6 +288,24 @@ function enemy_killercar() : enemy() constructor{
 				
 			}
 		},
+		{
+			name: "Ralsei's Idea",
+			party: ["ralsei"],
+			desc: "Fatal?",
+			exec: function(slot, user) {
+				cutscene_create()
+				cutscene_set_variable(o_enc, "waiting", true)
+				
+				cutscene_set_partysprite(party_getpos("susie"), "spell")
+				cutscene_sleep(30)
+				cutscene_func(enc_hurt_enemy, [slot, 100 * party_getdata("susie", "attack") * party_getdata("susie", "magic"), user, snd_damage, 0, 0, true])
+				cutscene_sleep(30)
+				
+				cutscene_set_variable(o_enc, "waiting", false)
+				cutscene_play()
+				
+			}
+		},
 	]
 	
 	act_desc = array_create(array_length(acts), -1)
@@ -255,7 +327,7 @@ function enemy_killercar() : enemy() constructor{
         cutscene_wait_dialogue_boxes(1)
         
         cutscene_func(method(self, function(__enemy) {
-            var inst = instance_create(o_dummy, __enemy.x - 50, __enemy.y - __enemy.myheight/2, __enemy.depth - 50, {
+            var inst = instance_create(o_dummy, __enemy.x - 50, __enemy.s_get_middle_y(), __enemy.depth - 50, {
                 sprite_index: spr_ex_almond_milk
             })
             animate(2.5, 1, 10, "linear", inst, "image_xscale")
@@ -291,7 +363,7 @@ function enemy_killercar() : enemy() constructor{
         
         cutscene_audio_play(snd_heal)
         cutscene_func(function(o) {
-            instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth-100, {
+            instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {
 				draw: 300, 
 				mode: 0
 			})

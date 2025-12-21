@@ -47,14 +47,14 @@ registred_commands = {
         desc: "Lets you end an encounter instantly.",
         execute: function() {
             if instance_exists(o_enc) {
-                if o_enc.battle_state == "turn" {
+                if o_enc.battle_state == BATTLE_STATE.TURN {
                     for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
                         if enc_enemy_isfighting(i)
                             instance_destroy(o_enc.turn_objects[i])
                     }
                 }
                 else if o_enc.battle_state == "dialogue" {
-                    o_enc.battle_state = "turn"
+                    o_enc.battle_state = BATTLE_STATE.TURN
                     with o_enc {
                         for (var i = 0; i < array_length(dialogueinstances); ++i) {
                             if enc_enemy_isfighting(i)
@@ -71,7 +71,8 @@ registred_commands = {
                 }
                 else {
                     instance_destroy(o_enc.menutext)
-                    o_enc.battle_state = "win"
+                    o_enc.battle_state = BATTLE_STATE.WIN
+                    o_enc.selection = -1
                     
                     // destroy the enemy actors
                     for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {

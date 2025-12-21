@@ -36,7 +36,7 @@ if perfect {
 	repeat(3) {
 		instance_create(o_eff_criticalsparkle, 
 			o.x + 10 + random(20), 
-			o.y - o.myheight/2 - random(6), 
+			o.s_get_middle_y() - random(6), 
 			o.depth - 10
 		)
 	}

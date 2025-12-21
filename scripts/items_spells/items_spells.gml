@@ -27,16 +27,16 @@ function item_s_rudebuster() : item_spell() constructor {
         }, [__name])
         cutscene_func(instance_destroy, [o_ui_dialogue])
         cutscene_func(function(tgt, m, _slot, name) {
-            var inst = instance_create(o_eff_rudebuster, m.x + m.sprite_width/2 - 30, m.y - m.myheight/2, tgt.depth - 50)
+            var inst = instance_create(o_eff_rudebuster, m.x + m.sprite_width/2 - 30, m.s_get_middle_y(), tgt.depth - 50)
             inst.target_x = tgt.x
-            inst.target_y = tgt.y - tgt.myheight/2
+            inst.target_y = tgt.s_get_middle_y()
             
             inst.enemy_o = tgt
             inst.slot = _slot
             inst.dmg = party_getdata(name, "attack") * 11 + party_getdata(name, "magic") * 5 - o_enc.encounter_data.enemies[_slot].defense * 3
             inst.user = name
             
-            inst.image_angle = point_direction(inst.x, inst.y, tgt.x, tgt.y - tgt.myheight/2) - 20
+            inst.image_angle = point_direction(inst.x, inst.y, tgt.x, tgt.s_get_middle_y()) - 20
             inst.speed = 12
             inst.friction = -1.5/2
             inst.direction = inst.image_angle
@@ -180,7 +180,7 @@ function item_s_pacify() : item_spell() constructor {
 		    cutscene_dialogue(string(loc("spell_cast"), party_getname(__name), _name),, false)
            
             cutscene_sleep(10)
-            cutscene_instance_create(o_eff_pacify, __e_obj.x, __e_obj.y - __e_obj.myheight/2, __e_obj.depth - 10)
+            cutscene_instance_create(o_eff_pacify, __e_obj.x, __e_obj.s_get_middle_y(), __e_obj.depth - 10)
             cutscene_audio_play(snd_spell_pacify)
             cutscene_spare_enemy(target)
             
@@ -274,7 +274,7 @@ function item_s_sleepmist() : item_spell() constructor {
                 continue
             
             cutscene_instance_create(o_eff_sleepmist, 
-                __e_obj.x, __e_obj.y - __e_obj.myheight/2, 
+                __e_obj.x, __e_obj.s_get_middle_y(), 
                 __e_obj.depth - 10, {
                     success: __success
             })
@@ -310,7 +310,7 @@ function item_s_iceshock() : item_spell() constructor {
     
         cutscene_sleep(10)
         cutscene_audio_play(snd_icespell)
-        cutscene_instance_create(o_eff_iceshock, __e_obj.x, __e_obj.y - __e_obj.myheight/2, __e_obj.depth - 20)
+        cutscene_instance_create(o_eff_iceshock, __e_obj.x, __e_obj.s_get_middle_y(), __e_obj.depth - 20)
         
         cutscene_wait_until(function() {
             return !instance_exists(o_eff_iceshock)

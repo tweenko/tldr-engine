@@ -1,6 +1,17 @@
 if inside { // draws on the box surface
+    if !instance_exists(o_enc_box)
+        exit
 	surface_set_target(o_enc_box.bullet_surf)
-	event_user(1)
+        gpu_set_colourwriteenable(true, true, true, false)
+        
+        var savex = x; var savey = y
+        x -= guipos_x(); x += o_enc_box.bullet_surf_safe
+        y -= guipos_y(); y += o_enc_box.bullet_surf_safe
+        
+    	event_user(1)
+        x = savex; y = savey
+        
+        gpu_set_colourwriteenable(true, true, true, true)
 	surface_reset_target()
 }
 else

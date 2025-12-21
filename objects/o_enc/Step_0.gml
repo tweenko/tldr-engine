@@ -1196,7 +1196,7 @@ if battle_state == BATTLE_STATE.DIALOGUE {
     		    if array_contains(turn_targets, global.party_names[i]) {
                     if encounter_data.display_target {
     				    var o = party_get_inst(global.party_names[i])
-                        instance_create(o_enc_target, o.x, o.y - o.myheight/2, o.depth-10)
+                        instance_create(o_enc_target, o.x, o.s_get_middle_y(), o.depth-10)
                     }
     			}
     			else {
@@ -1230,7 +1230,7 @@ if battle_state == BATTLE_STATE.TURN {
 		
 		mybox = instance_create(o_enc_box)
 		mysoul = instance_create(o_enc_soul, 
-			get_leader().x, get_leader().y - get_leader().myheight/2, 
+			get_leader().x, get_leader().s_get_middle_y(), 
 			DEPTH_ENCOUNTER.SOUL
 		)
         

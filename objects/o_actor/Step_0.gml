@@ -260,32 +260,13 @@ if !is_in_battle && !is_enemy && s_dynamic && !s_override {
 		sweat = false
 	
 	if flashing 
-		fsiner++
-}
-{ // trail 
-	if run_away && hurt <= 0 && is_enemy { // spawn the trail upon running away
-		afterimage()
-		for (var i = 2; i <= 30; i += 2) {
-			var o = afterimage()
-			o.x += i
-			o.sprite_index = s_hurt
-			o.image_alpha = 1
-			o.depth = depth-10
-		}
-		x += 30
-	
-		run_away_timer ++
-		if run_away_timer > 4 
-			instance_destroy()
-	}
-
-	if trail 
-		afterimage()
+		fsiner ++
+    if trail 
+        afterimage()
 }
 		
 // overworld battle
 if o_dodge_controller.dodge_mode && is_player {
-	if !instance_exists(dodge_mysoul) {
+	if !instance_exists(dodge_mysoul)
 		dodge_mysoul = instance_create(o_dodge_soul, x, y - sprite_height/2 + 4, depth, {caller: id})
-	}
 }

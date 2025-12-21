@@ -15,59 +15,46 @@ function enc_getparty_sprite(index, sprname) {
 /// @param {real} target_index
 /// @param {real} hurt 
 /// @param {real} user_index
-/// @param {asset.gmsound} [sfx]
+/// @param {asset.GMSound} [sfx]
 /// @param {real} [xoff]
 /// @param {real} [yoff]
 /// @param {bool} [fatal]
 /// @param {string} [seed]
 function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0, fatal = false, seed = "") {
-	if o_enc.encounter_data.enemies[target].hp <= 0 
+	var enemy_struct = o_enc.encounter_data.enemies[target]
+    
+    if enemy_struct.hp <= 0 
 		exit
-	o_enc.encounter_data.enemies[target].hp -= hurt
+	enemy_struct.hp -= hurt
 	
-	var o = o_enc.encounter_data.enemies[target].actor_id
+	var o = enemy_struct.actor_id
 	var txt = -hurt
+    
 	if hurt == 0
 		txt = "miss"
 	
 	if !instance_exists(o) 
 		exit
-	instance_create(o_text_hpchange, o.x + xoff, o.y - o.myheight/2 + yoff, o.depth-100, {draw: txt, mode: 1, user: global.party_names[user],})
+	instance_create(o_text_hpchange, o.x + xoff, o.s_get_middle_y() + yoff, o.depth-100, {draw: txt, mode: 1, user: global.party_names[user],})
 	
 	if hurt > 0 {
-		if o_enc.encounter_data.enemies[target].hp <= 0 {
-			if fatal {
-				instance_create(o_eff_fatal_damage, o.x, o.y, o.depth, {
-					sprite_index: o.s_hurt,
-					image_xscale: o.image_xscale,
-					image_yscale: o.image_yscale,
-					image_index: o.image_index,
-					image_speed: 0,
-					shake: 6,
-				})
-				instance_destroy(o)
-			}
+        
+		if enemy_struct.hp <= 0 {
+			if fatal
+                enemy_struct.__fatal_defeat()
 			else if seed == "" {
-				o.run_away = true
-				audio_play(snd_defeatrun)
+                enemy_struct.__run_defeat()
                 
-                if !recruit_islost(o_enc.encounter_data.enemies[target]) {
-                    instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {
+                if !recruit_islost(enemy_struct) {
+                    instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {
                         draw: "lost",
                         mode: 4,
                     })
-                    recruit_lose(o_enc.encounter_data.enemies[target])
+                    recruit_lose(enemy_struct)
                 }
 			}
-            else if seed == "freeze" {
-                animate(0, 1, 20, "linear", o, "freeze")
-                
-                instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {
-                    draw: "frozen",
-                    mode: 4,
-                })
-                audio_play(snd_petrify)
-            }
+            else if seed == "freeze"
+                enemy_struct.__freeze_defeat()
 		}
 		if instance_exists(o) 
 			o.hurt = 20
@@ -89,7 +76,7 @@ function enc_sparepercent_enemy(target, percent, sfx = snd_mercyadd) {
 	var o = o_enc.encounter_data.enemies[target].actor_id
 	var txt = $"+{percent}%"
 	
-	instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {draw: txt, mode: 2})
+	instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {draw: txt, mode: 2})
 	
 	if sfx == snd_mercyadd {
 		var _pitch = 0.8

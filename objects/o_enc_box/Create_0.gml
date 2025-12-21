@@ -1,10 +1,11 @@
 event_inherited()
 
 bullet_surf = -1
+bullet_surf_safe = 40
 
 x = 320/2
 y = 170/2
-depth = DEPTH_ENCOUNTER.BOX;
+depth = DEPTH_ENCOUNTER.BOX
 
 x += guipos_x()
 y += guipos_y()
@@ -18,11 +19,6 @@ timer = 0
 
 temp_scale = 0
 temp_angle = -180
-
-solid_left = noone
-solid_top = noone
-solid_right = noone
-solid_bottom = noone
 
 is_transitioning = true
 trans_sprite = -1

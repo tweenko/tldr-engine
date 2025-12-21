@@ -31,7 +31,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			if party_getdata(name, "hp") >= party_getdata(name, "max_hp")
 				txt = "max"
 			
-			instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth-100, {
+			instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {
 				draw: txt, 
 				mode: 0
 			})
@@ -47,7 +47,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			||caller.object_index == o_enc 
 		{
 			var o = party_get_inst(name)
-			instance_create(o_text_hpchange, o.x, o.y-o.myheight/2, o.depth-100, {draw: "miss", mode: 0})
+			instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: "miss", mode: 0})
 		}
 	}
 	else if heal < 0 { // hurt
@@ -108,7 +108,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 				}
 			}
 			
-			instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {
+			instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {
 				draw: txt, 
 				mode: 0
 			})

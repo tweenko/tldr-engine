@@ -250,7 +250,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.2.212",
+    "IDEVersion":"2024.14.2.213",
   },
   "name":"tldr-engine",
   "resources":[
@@ -1058,6 +1058,7 @@
     {"id":{"name":"spr_ex_ow_prophecy_main2","path":"sprites/spr_ex_ow_prophecy_main2/spr_ex_ow_prophecy_main2.yy",},},
     {"id":{"name":"spr_ex_ow_prophecy_main3","path":"sprites/spr_ex_ow_prophecy_main3/spr_ex_ow_prophecy_main3.yy",},},
     {"id":{"name":"spr_ex_ralsei_costume","path":"sprites/spr_ex_ralsei_costume/spr_ex_ralsei_costume.yy",},},
+    {"id":{"name":"spr_ex_ralsei_plush","path":"sprites/spr_ex_ralsei_plush/spr_ex_ralsei_plush.yy",},},
     {"id":{"name":"spr_ex_susie_costume","path":"sprites/spr_ex_susie_costume/spr_ex_susie_costume.yy",},},
     {"id":{"name":"spr_ex_susieheal_beam","path":"sprites/spr_ex_susieheal_beam/spr_ex_susieheal_beam.yy",},},
     {"id":{"name":"spr_ex_tasque_window","path":"sprites/spr_ex_tasque_window/spr_ex_tasque_window.yy",},},

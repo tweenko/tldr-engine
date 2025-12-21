@@ -44,9 +44,7 @@ is_player = false
 	custom_depth = undefined
 	pos = 0
     
-    interaction_code = function() {
-        return false
-    }
+    interaction_code = function() {}
     interaction_args = []
     interactable_instances = []
 }
@@ -79,6 +77,9 @@ is_player = false
 			_angle, _blend, _alpha
 		)
 	}
+    s_get_middle_y = function() {
+        return y - myheight/2
+    }
 	
 	snapping = 1 // 1 for none
 	

@@ -12,5 +12,7 @@ if !sprite_exists(trans_sprite) {
 
 if is_transitioning
     drawer(trans_sprite, image_index, x - 1/2, y - 1/2, sprite_w * temp_scale, sprite_h * temp_scale, temp_angle, c_white, image_alpha)
-else 
+else {
     drawer(sprite_index, image_index, x, y, width * temp_scale, height * temp_scale, image_angle + temp_angle, c_white, image_alpha)
+    draw_surface_ext(bullet_surf, guipos_x() - bullet_surf_safe, guipos_y() - bullet_surf_safe, 1, 1, 0, c_white, image_alpha)
+}
