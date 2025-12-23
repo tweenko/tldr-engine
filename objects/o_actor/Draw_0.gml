@@ -138,4 +138,24 @@ if flash > 0 { // normal flash
 	gpu_set_fog(false, flash_color, 0, 0)
 }
 
+if instance_exists(o_lb_dl_controller) {
+    surface_set_target(o_lb_dl_controller.surf_light)
+        gpu_set_fog(true, highlight_color, 0, 1)
+        s_drawer(spr, image_index, 
+            (xx - guipos_x())*2, (yy - guipos_y())*2, 
+            image_xscale*2, image_yscale*2, 
+            image_angle, c_white, 1
+        )
+        gpu_set_fog(false, 0, 0, 0)
+        
+        gpu_set_blendmode(bm_subtract)
+        s_drawer(spr, image_index, 
+            (xx - guipos_x())*2, (yy+1 - guipos_y())*2, 
+            image_xscale*2, image_yscale*2, 
+            image_angle, c_black, 1
+        )
+        gpu_set_blendmode(bm_normal)
+    surface_reset_target()
+}
+
 image_blend = isave

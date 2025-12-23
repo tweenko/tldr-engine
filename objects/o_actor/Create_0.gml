@@ -31,8 +31,6 @@ is_player = false
 { // enemy specific
 	chaser = false
 	chasing = false
-    
-    carrying_money = 0
 }
 { // actor variables
 	follow = true
@@ -96,6 +94,8 @@ is_player = false
     flash_color = c_white
 	fsiner = 0 // flash siner
 	flash = 0
+    
+    highlight_color = c_white
 	
 	can_reflect = true
 	reflection_code = function() {

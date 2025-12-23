@@ -1,7 +1,7 @@
 /// @description turn starts
 event_inherited()
 
-var inst = instance_create(o_enc_bullet, o_enc.mybox.x, o_enc.mybox.y + 10, 0, {
+var inst = instance_create(o_enc_bullet, o_enc.mybox.x, o_enc.mybox.y + 10, DEPTH_ENCOUNTER.BULLETS_INSIDE, {
     inside: true
 })
 
