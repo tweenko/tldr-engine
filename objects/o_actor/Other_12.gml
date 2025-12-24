@@ -26,5 +26,7 @@ if s_auto && name != "" {
     s_ball = __conv_sprite_pm("ball", sp, fstate)
     s_landed = __conv_sprite_pm("landed", sp, fstate)
     s_slide = __conv_sprite_pm("slide", sp, fstate)
-    highlight_color = merge_colour(party_getdata(name, "iconcolor"), c_white, .4)
+    
+    if is_follower || is_player
+        highlight_color = merge_colour(party_getdata(name, "iconcolor"), c_white, .4)
 }

@@ -98,6 +98,9 @@ if battle_state == BATTLE_STATE.MENU {
 			selection --
 			buffer = 1
 			
+            show_debug_message(ignore)
+            show_debug_message(together_with)
+            
 			while array_contains(ignore, selection) {
 				if char_state[selection] != CHAR_STATE.IDLE {
 					char_state[selection] = CHAR_STATE.IDLE
@@ -158,6 +161,9 @@ if battle_state == BATTLE_STATE.MENU {
 			// return the tp if i was defending
 			if char_state[selection] == CHAR_STATE.DEFEND
 				tp -= __defend_tp
+            
+            show_debug_message(ignore)
+            show_debug_message(together_with)
 			
 			// get back to being idle
 			char_state[selection] = CHAR_STATE.IDLE
