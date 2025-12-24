@@ -2,110 +2,31 @@
 	bcolor = merge_color(c_purple, c_black, 0.7)
 	bcolor = merge_color(bcolor, c_dkgray, 0.5)
 }
-{ // visual variables
-	surf = -1 // the main surface
-    tp_surf = -1
-	roll = 0
-	tproll = 0
-	
-	buttonsurf = array_create(array_length(global.party_names), -1)
-	uisticks = [0, -3, -6]
-}
 { // generic (misc) 
 	buffer = 0
-	
-	dialogue_init = true
-	dialogue_autoskip = false
-	
-	hideui = false
-	wininit = false
-    earned_money = 0
-    flavor = ""
-	
-	save_pos = []
-    save_follow = []
-    
-	items_using = []
-    
-	dialogueinstances = []
-	menutext = noone
-	mybox = noone
-	mysoul = noone
-    
-    win_message = ""
-    
     waiting = false // the waiting variable for EVERYTHING
+    surf = -1
+}
+{ // unsorted
+    ui_main_lerp = 0
+    ui_party_sticks = [0, -3, -6]
+    ui_hp_danger_zone = 30
+    ui_menu_state = 0
+    
+    party_ui_lerp = array_create(array_length(global.party_names), 0)
+    party_ui_button_surf = array_create(array_length(global.party_names), -1)
+    party_state = array_create(array_length(global.party_names), PARTY_STATE.IDLE)
+    party_hurt_timer = array_create(array_length(global.party_names), 0)
+    party_buttons = array_create_ext(array_length(global.party_names), function(index) {
+        var order = [PARTY_BUTTONS.FIGHT, PARTY_BUTTONS.POWER, PARTY_BUTTONS.ITEM, PARTY_BUTTONS.SPARE, PARTY_BUTTONS.DEFEND]
+        if item_spell_get_exists(item_s_act, global.party_names[index])
+            order[1] = PARTY_BUTTONS.ACT
+        return order
+    })
+    party_button_selection = array_create(array_length(global.party_names), 0)
 }
 
-{ // arrays for each party member
-	can_act = array_create_ext(
-		array_length(global.party_names), 
-		function(index) {
-			return item_spell_get_exists(item_s_act, global.party_names[index])
-		}
-	)
-	pmlerp = array_create(array_length(global.party_names), 0)
-	bt_selection = array_create(array_length(global.party_names), 0)
-    pm_hurt = array_create(array_length(global.party_names), 0)
-	
-	fightselection = array_create(array_length(global.party_names), 0)
-	
-	actselection = array_create(array_length(global.party_names), 0)
-	
-	itemselection = array_create(array_length(global.party_names), 0)
-	itempage = array_create(array_length(global.party_names), 0)
-	itemuserselection = array_create(array_length(global.party_names), 0)
-	
-	spellpage = array_create(array_length(global.party_names), 0)
-	spell_using = array_create(array_length(global.party_names), -1)
-	tp_upon_spell = array_create(array_length(global.party_names), -1)
-	
-	partyactselection = array_create(array_length(global.party_names), 0)
-	together_with = array_create(array_length(global.party_names), [])
-	
-	char_state = array_create(array_length(global.party_names), CHAR_STATE.IDLE)
-}
-
-{ // action execution - party turn
-	exec_queue = ds_queue_create()
-	exec_calculated = false
-	exec_current = undefined
-    exec_buffer = 0
-	waiting = false
-	waiting = false
-}
-
-{ // attack execution
-	fighters = []
-	fighterselection = []
-}
-{ // party actions (aside from s-action and alike)
-	bonus_actions = {}
-	var names = struct_get_names(global.party)
-	for (var i = 0; i < array_length(names); ++i) {
-	    struct_set(bonus_actions, names[i], [new item_s_defaultaction(names[i])])
-	}
-}
-
-{ // enemy's turn
-	turn_timer = 0
-	turn_objects = []
-	turn_targets = [] // determined in-turn
-	turn_init = false
-	turn_goingback = false
-}
-
-selection = 0
-state = 0 // how deep we are in the menu
-
-enum BATTLE_STATE {
-    MENU,
-    EXEC,
-    DIALOGUE,
-    TURN,
-    POST_TURN,
-    WIN
-}
+action_queue = []
 
 battle_state = BATTLE_STATE.MENU
 battle_state_prev = BATTLE_STATE.MENU
@@ -121,56 +42,20 @@ win_condition = function() { // if this is true, the battle will end
         if enc_enemy_isfighting(i)
             return false
     }
-    
     return true
 }
 
 encounter_data = {} // the information about the encounter: enemies, music, text and such
 
 tp = 0
-tplerp = 0
-tplerp2 = 0
 tp_constrict = false // darkness constriction
 tp_glow_alpha = 0
 
-ignore = [] // the "busy" party members
+party_selection = 0
+party_busy = []
 
-// methods
-__act_sort = function() {
-	var acts = encounter_data.enemies[fightselection[selection]].acts
-	
-	for (var i = 0; i < array_length(acts); ++i) {
-		if is_array(acts[i].party) && array_length(acts[i].party) > 0 {
-			var contains = true
-			
-			for (var j = 0; j < array_length(acts[i].party); ++j) {
-			    contains = array_contains(global.party_names, acts[i].party[j])
-				if !contains 
-					break
-			}
-			if !contains 
-				array_delete(acts, i, 1)
-		}
-	}
-	
-	return acts
-}
-__item_sort = function(at_point = array_length(items_using)) {
-	var items = array_clone(item_get_array(0))
-	var itemsusing = []
-	
-	array_copy(itemsusing, 0, items_using, 0, at_point)
-	
-	for (var i = 0; i < array_length(items); ++i) {
-	    if array_contains(itemsusing, item_get_name(items[i])){
-			array_delete(itemsusing, array_get_index(itemsusing, item_get_name(items[i])), 1)
-			array_delete(items, i, 1)
-		}
-	}
-	return items
-}
-__bt_highlight = function(button_index, party_name) {
-	if button_index == 1 { // pacify
+__button_highlight = function(button, party_name) {
+	if button == PARTY_BUTTONS.POWER { // pacify
 		var __tgt_spell = undefined
 		var __can_spellspare = false
 		
@@ -198,7 +83,7 @@ __bt_highlight = function(button_index, party_name) {
 		
 		return __can_spellspare
 	}
-	else if button_index == 3 { // spare
+	else if button == PARTY_BUTTONS.SPARE { // spare
 		var __can_spare = false
 		
 		// check whether we can spare the enemy
@@ -234,9 +119,49 @@ __battle_state_advance = function(state = battle_state) {
     
     battle_state = battle_state_order[next_state]
 }
+__button_to_sprite = function(button) {
+    var suffix = ""
+    switch button {
+        case PARTY_BUTTONS.FIGHT: 
+            suffix = "fight"
+            break
+        case PARTY_BUTTONS.ACT: 
+            suffix = "act"
+            break
+        case PARTY_BUTTONS.POWER: 
+            suffix = "power"
+            break
+        case PARTY_BUTTONS.ITEM: 
+            suffix = "item"
+            break
+        case PARTY_BUTTONS.SPARE: 
+            suffix = "spare"
+            break
+        case PARTY_BUTTONS.DEFEND: 
+            suffix = "defend"
+            break
+    }
+    return asset_get_index(string(loc("enc_ui_spr_buttons"), suffix))
+}
 
-enum CHAR_STATE {
+enum BATTLE_STATE {
+    MENU,
+    EXEC,
+    DIALOGUE,
+    TURN,
+    POST_TURN,
+    WIN
+}
+enum PARTY_STATE {
     IDLE, 
+    FIGHT,
+    ACT,
+    POWER,
+    ITEM,
+    SPARE,
+    DEFEND
+}
+enum PARTY_BUTTONS {
     FIGHT,
     ACT,
     POWER,
