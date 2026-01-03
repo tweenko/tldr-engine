@@ -108,7 +108,7 @@ is_player = false
 }
 { // internal variables
 	dir = DIR.DOWN
-    movement_dir = undefined
+    held_directions = []
 	
 	startedmoving = false
 	moving = false
