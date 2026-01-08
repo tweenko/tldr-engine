@@ -7,12 +7,13 @@
     waiting = false // the waiting variable for EVERYTHING
     surf = -1
 }
-{ // unsorted
+{ // ui
     ui_main_lerp = 0
     ui_party_sticks = [0, -3, -6]
     ui_hp_danger_zone = 30
     ui_menu_state = 0
-    
+}
+{ // party
     party_ui_lerp = array_create(array_length(global.party_names), 0)
     party_ui_button_surf = array_create(array_length(global.party_names), -1)
     party_state = array_create(array_length(global.party_names), PARTY_STATE.IDLE)
@@ -24,6 +25,11 @@
         return order
     })
     party_button_selection = array_create(array_length(global.party_names), 0)
+}
+{ // instances
+    inst_tp_bar = instance_create(o_enc_tp_bar)
+    inst_tp_bar.caller = id
+    animate(-80, 0, 10, anime_curve.circ_out, inst_tp_bar, "x_offset")
 }
 
 action_queue = []

@@ -14,7 +14,7 @@ function enc_set() constructor { // base
 		var text = "* undefined"
 		return text
 	}
-	bgm = mus_battle
+	bgm = noone
 	bg_type = ENC_BG.GRID
     
     can_change_turnlen = true
