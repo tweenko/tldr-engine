@@ -3,8 +3,7 @@
 ///could be either an array or just a string. if it's an array, between the array entries the box will pause and clear itself afterwards.
 function dialogue_start(text) {
 	var inst = instance_create(o_ui_dialogue)
-	text = dialogue_array_to_string(text)
-	inst.text = text
+	inst.text = dialogue_array_to_string(text)
 	
 	return inst
 }

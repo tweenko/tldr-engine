@@ -1,12 +1,12 @@
 ///@desc returns the battle sprite of a party member from the battle_sprites struct inside party data
-function enc_getparty_sprite(index, sprname) {
-	var ret = struct_get(party_getdata(global.party_names[index], "battle_sprites"), sprname)
+function enc_getparty_sprite(party_name, sprname) {
+	var ret = struct_get(party_getdata(party_name, "battle_sprites"), sprname)
 	
 	if is_array(ret) 
 		ret = ret[0]
-	party_get_inst(global.party_names[index]).sprname = sprname
+	party_get_inst(party_name).sprname = sprname
 	
-	ret = asset_get_index_state(sprite_get_name(ret), party_getdata(global.party_names[index], "s_state"))
+	ret = asset_get_index_state(sprite_get_name(ret), party_getdata(party_name, "s_state"))
 	
 	return ret
 }
@@ -155,16 +155,16 @@ function enc_gameover(){
 	audio_play(snd_hurt)
 }
 
-/// @arg {string} name party member name
+/// @arg {string} party_name party member name
 /// @arg {Asset.GMSprite|string} sprite_ref the sprite to use. can be either a string that will be put into `enc_getparty_sprite` or a sprite index
 /// @arg {real} index the image index of the sprite, by default doesn't change it
 /// @arg {real} speed the speed of the sprite, by default doesn't change it
-function enc_party_set_battle_sprite(name, sprite_ref, index = undefined, speed = undefined) {
+function enc_party_set_battle_sprite(party_name, sprite_ref, index = undefined, speed = undefined) {
     index ??= 0; speed ??= 1
     
-    var inst = party_get_inst(name)
+    var inst = party_get_inst(party_name)
     if is_string(sprite_ref)
-        inst.sprite_index = enc_getparty_sprite(party_getpos(name), sprite_ref)
+        inst.sprite_index = enc_getparty_sprite(party_name, sprite_ref)
     else if sprite_exists(sprite_ref)
         inst.sprite_index = sprite_ref
     
@@ -182,4 +182,10 @@ function enc_enemy_is_recruitable(ref_or_struct) {
         ref_or_struct = new ref_or_struct()
     
     return is_struct(ref_or_struct.recruit)
+}
+
+function enc_get_flavor(data) {
+    if is_callable(data.flavor)
+        return data.flavor()
+    return data.flavor
 }

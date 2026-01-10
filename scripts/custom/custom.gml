@@ -502,3 +502,7 @@ function input_binding_draw(verb, xx, yy, scale, label = "", pre_label = "", _is
 	
     draw_text_transformed(xx, yy, pre_label + $"[{input_binding_to_string(InputBindingGet(false, verb), true, _is_gamepad)}]" + label, scale, scale, 0)
 }
+
+function cap_wraparound(value, maxvalue) {
+    return (value + maxvalue) % maxvalue
+}

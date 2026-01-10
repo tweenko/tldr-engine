@@ -42,6 +42,6 @@ if perfect {
 	}
 }
 
-o.sprite_index = enc_getparty_sprite(index, "attack")
+o.sprite_index = enc_getparty_sprite(global.party_names[index], "attack")
 o.image_index = 0
 o.image_speed = 1

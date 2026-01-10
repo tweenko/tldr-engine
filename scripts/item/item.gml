@@ -239,7 +239,7 @@ function item_menu_party_react(name, reaction) {
 	if is_struct(reaction) {
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			if struct_exists(reaction, global.party_names[i]) {
-				var u = party_getpos(global.party_names[i])
+				var u = party_get_index(global.party_names[i])
 				
 				o_ui_menu.partyreaction[u] = struct_get(reaction, global.party_names[i])
 				o_ui_menu.partyreactiontimer[u] = o_ui_menu.partyreactionlen
@@ -247,7 +247,7 @@ function item_menu_party_react(name, reaction) {
 		}
 	}
 	else {
-		var user = party_getpos(name)
+		var user = party_get_index(name)
 		
 		o_ui_menu.partyreaction[user] = reaction
 		o_ui_menu.partyreactiontimer[user] = o_ui_menu.partyreactionlen

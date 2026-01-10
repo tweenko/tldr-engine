@@ -278,7 +278,7 @@ function enemy_killercar() : enemy() constructor{
 				cutscene_dialogue([
 					"{char(susie, 21)}* I have an idea.",
 				])
-				cutscene_set_partysprite(party_getpos("susie"), "spell")
+				cutscene_set_partysprite(party_get_index("susie"), "spell")
 				cutscene_sleep(30)
 				cutscene_func(enc_hurt_enemy, [slot, 100 * party_getdata("susie", "attack") * party_getdata("susie", "magic"), user, snd_damage, 0, 0, true])
 				cutscene_sleep(30)
@@ -296,7 +296,7 @@ function enemy_killercar() : enemy() constructor{
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
 				
-				cutscene_set_partysprite(party_getpos("susie"), "spell")
+				cutscene_set_partysprite(party_get_index("susie"), "spell")
 				cutscene_sleep(30)
 				cutscene_func(enc_hurt_enemy, [slot, 100 * party_getdata("susie", "attack") * party_getdata("susie", "magic"), user, snd_damage, 0, 0, true])
 				cutscene_sleep(30)

@@ -15,10 +15,10 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
 	
 	var m = party_getdata(global.party_names[i], "s_battle_intro")
 	if m == 0 
-		obj.sprite_index = enc_getparty_sprite(i, "intro")
+		obj.sprite_index = enc_getparty_sprite(global.party_names[i], "intro")
 	else if m == 1 {}
 	else if m == 2 
-		obj.sprite_index = enc_getparty_sprite(i, "introb")
+		obj.sprite_index = enc_getparty_sprite(global.party_names[i], "introb")
 	
 	obj.image_speed = 1
 	obj.trail = true

@@ -64,7 +64,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			var o = party_get_inst(name)
 			
             if instance_exists(o_enc) {
-                o_enc.pm_hurt[party_getpos(name)] = 15
+                o_enc.pm_hurt[party_get_index(name)] = 15
             }
             
 			if o.is_in_battle {
@@ -240,7 +240,7 @@ function damage(attack, party_name, element){
 	
 	// check if member is defending
 	if instance_exists(o_enc){
-		if o_enc.char_state[party_getpos(party_name)] == CHAR_STATE.DEFEND // defending
+		if o_enc.char_state[party_get_index(party_name)] == CHAR_STATE.DEFEND // defending
             hurt *= 2/3
 	}
 	// apply element protection

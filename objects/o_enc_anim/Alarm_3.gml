@@ -2,7 +2,7 @@
 for (var i = 0; i < array_length(global.party_names); ++i) {
 	var obj = party_get_inst(global.party_names[i])
 	
-    obj.sprite_index = enc_getparty_sprite(i, "idle")
+    obj.sprite_index = enc_getparty_sprite(global.party_names[i], "idle")
     obj.image_speed = 1
     obj.image_index = 0
 }

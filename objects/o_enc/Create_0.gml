@@ -6,6 +6,7 @@
 	buffer = 0
     waiting = false // the waiting variable for EVERYTHING
     surf = -1
+    flavor_seen = false
 }
 { // ui
     ui_main_lerp = 0
@@ -19,17 +20,32 @@
     party_state = array_create(array_length(global.party_names), PARTY_STATE.IDLE)
     party_hurt_timer = array_create(array_length(global.party_names), 0)
     party_buttons = array_create_ext(array_length(global.party_names), function(index) {
-        var order = [PARTY_BUTTONS.FIGHT, PARTY_BUTTONS.POWER, PARTY_BUTTONS.ITEM, PARTY_BUTTONS.SPARE, PARTY_BUTTONS.DEFEND]
-        if item_spell_get_exists(item_s_act, global.party_names[index])
-            order[1] = PARTY_BUTTONS.ACT
-        return order
+        var buttons = [
+            new enc_button_fight(),
+            undefined, // determined to be spell or act later
+            new enc_button_item(),
+            new enc_button_spare(),
+            new enc_button_defend(),
+        ]
+        
+        if is_undefined(buttons[1]) {
+            if item_spell_get_exists(item_s_act, global.party_names[index])
+                buttons[1] = new enc_button_act()
+            else 
+                buttons[1] = new enc_button_power()
+        }
+        
+        return buttons
     })
     party_button_selection = array_create(array_length(global.party_names), 0)
+    party_enemy_selection = array_create(array_length(global.party_names), 0)
 }
 { // instances
     inst_tp_bar = instance_create(o_enc_tp_bar)
     inst_tp_bar.caller = id
     animate(-80, 0, 10, anime_curve.circ_out, inst_tp_bar, "x_offset")
+    
+    inst_flavor = noone
 }
 
 action_queue = []
@@ -43,6 +59,10 @@ battle_state_order = [
     BATTLE_STATE.TURN,
     BATTLE_STATE.POST_TURN,
 ]
+
+battle_menu = BATTLE_MENU.BUTTON_SELECTION
+battle_menu_init = false
+
 win_condition = function() { // if this is true, the battle will end
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
         if enc_enemy_isfighting(i)
@@ -58,10 +78,11 @@ tp_constrict = false // darkness constriction
 tp_glow_alpha = 0
 
 party_selection = 0
+party_busy_internal = []
 party_busy = []
 
 __button_highlight = function(button, party_name) {
-	if button == PARTY_BUTTONS.POWER { // pacify
+	if button.name == "power" { // pacify & sleepmist
 		var __tgt_spell = undefined
 		var __can_spellspare = false
 		
@@ -89,7 +110,7 @@ __button_highlight = function(button, party_name) {
 		
 		return __can_spellspare
 	}
-	else if button == PARTY_BUTTONS.SPARE { // spare
+	else if button.name == "spare" { // spare
 		var __can_spare = false
 		
 		// check whether we can spare the enemy
@@ -111,12 +132,12 @@ __button_highlight = function(button, party_name) {
 __state_to_icon = function(state) {
     switch state {
         default: return -1
-        case CHAR_STATE.FIGHT:      return 0
-        case CHAR_STATE.ACT:        return 1
-        case CHAR_STATE.ITEM:       return 2
-        case CHAR_STATE.SPARE:      return 3
-        case CHAR_STATE.DEFEND:     return 4
-        case CHAR_STATE.POWER:      return 5
+        case PARTY_STATE.FIGHT:      return 0
+        case PARTY_STATE.ACT:        return 1
+        case PARTY_STATE.ITEM:       return 2
+        case PARTY_STATE.SPARE:      return 3
+        case PARTY_STATE.DEFEND:     return 4
+        case PARTY_STATE.POWER:      return 5
     }
 }
 __battle_state_advance = function(state = battle_state) {
@@ -125,31 +146,36 @@ __battle_state_advance = function(state = battle_state) {
     
     battle_state = battle_state_order[next_state]
 }
-__button_to_sprite = function(button) {
-    var suffix = ""
-    switch button {
-        case PARTY_BUTTONS.FIGHT: 
-            suffix = "fight"
-            break
-        case PARTY_BUTTONS.ACT: 
-            suffix = "act"
-            break
-        case PARTY_BUTTONS.POWER: 
-            suffix = "power"
-            break
-        case PARTY_BUTTONS.ITEM: 
-            suffix = "item"
-            break
-        case PARTY_BUTTONS.SPARE: 
-            suffix = "spare"
-            break
-        case PARTY_BUTTONS.DEFEND: 
-            suffix = "defend"
-            break
+__enemy_highlight = function(enemy_index) {
+    for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+        if !enc_enemy_isfighting(i)
+            continue
+        if !instance_exists(encounter_data.enemies[i].actor_id)
+            continue
+        
+        if enemy_index == i
+            encounter_data.enemies[i].actor_id.flashing = true
+        else
+            encounter_data.enemies[i].actor_id.flashing = false
     }
-    return asset_get_index(string(loc("enc_ui_spr_buttons"), suffix))
+}
+__enemy_highlight_reset = function() {
+    for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+        if !enc_enemy_isfighting(i)
+            continue
+        if !instance_exists(encounter_data.enemies[i].actor_id)
+            continue
+        
+        encounter_data.enemies[i].actor_id.flashing = false
+    }
 }
 
+enum BATTLE_MENU {
+    BUTTON_SELECTION,
+    ENEMY_SELECTION,
+    ACT_SELECTION,
+    INV_SELECTION,
+}
 enum BATTLE_STATE {
     MENU,
     EXEC,
@@ -167,11 +193,7 @@ enum PARTY_STATE {
     SPARE,
     DEFEND
 }
-enum PARTY_BUTTONS {
-    FIGHT,
-    ACT,
-    POWER,
-    ITEM,
-    SPARE,
-    DEFEND
-}
+
+
+party_busy = ["susie"]
+party_state[1] = PARTY_STATE.FIGHT

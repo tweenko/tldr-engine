@@ -86,7 +86,7 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
     if !surface_exists(party_ui_button_surf[i])
         party_ui_button_surf[i] = surface_create(211, 33)
     surface_set_target(party_ui_button_surf[i]) {
-        var button_order = party_buttons[i]
+        var buttons = party_buttons[i]
         draw_clear_alpha(0,0)
         
         draw_set_color(c_black)
@@ -108,16 +108,16 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
         draw_set_alpha(1)
         draw_set_color(c_white)
         
-        for (var j = 0; j < array_length(button_order); ++j) {
-            var __spr = __button_to_sprite(button_order[j])
-            var __x_off = 111 - floor(array_length(button_order)*35/2) + j*35
+        for (var j = 0; j < array_length(buttons); ++j) {
+            var __spr = buttons[j].sprite
+            var __x_off = 111 - floor(array_length(buttons)*35/2) + j*35
             var __selection = party_button_selection[party_selection]
             
             draw_sprite_ext(spr_pixel, 0, __x_off, 1, 31, 25, 0, c_black, 1)
             if sprite_exists(__spr)
                 draw_sprite_ext(__spr, (__selection == j && i == party_selection ? 1 : 0), __x_off, 1, 1, 1, 0, c_white, 1)
             
-            if i == party_selection && __button_highlight(button_order[j], global.party_names[i]) && __selection != j {
+            if i == party_selection && __button_highlight(buttons[j], global.party_names[i]) && __selection != j {
                 gpu_set_fog(true, c_white, 0, 1)
                 draw_sprite_ext(__spr, 1, __x_off, 1, 1, 1, 0, c_white, .5 + sine(8, .3))
                 gpu_set_fog(false, 0, 0, 0)
@@ -136,6 +136,82 @@ for (var i = 0; i < array_length(global.party_names); i ++) { // draw buttons
     var xoff = i*213 + 319.5 + array_length(global.party_names) * -213/2
     if party_ui_lerp[i] > .1 && battle_state == BATTLE_STATE.MENU
         draw_surface(party_ui_button_surf[i], xoff, 332 + __roll)
+}
+
+if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
+    draw_text_transformed(424, 364, loc("enc_ui_label_hp"), (global.loc_lang == "en" ? 2 : 1), 1, 0)
+    draw_text_transformed(524, 364, loc("enc_ui_label_mercy"), (global.loc_lang == "en" ? 2 : 1), 1, 0)
+    
+    for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+        if !enc_enemy_isfighting(i)
+            continue
+        
+        var enemy_struct = encounter_data.enemies[i]
+        var col1 = c_white
+        var col2 = c_white
+        var tired = enemy_struct.tired
+        var spare = enemy_struct.mercy >= 100
+        var status_eff = enemy_struct.status_effect
+        
+        // set the enemy name colors
+        if tired && spare {
+            col1 = c_yellow
+            col2 = merge_color(c_aqua, c_blue, 0.3)
+        }
+        else if tired {
+            col1 = merge_color(c_aqua, c_blue, 0.3)
+            col2 = merge_color(c_aqua, c_blue, 0.3)
+        }
+        else if spare {
+            col1 = c_yellow
+            col2 = c_yellow
+        }
+        
+        // draw the soul as an indicator
+        if party_enemy_selection[party_selection] == i 
+            draw_sprite_ext(spr_uisoul, 0, 55, 385 + 30*i, 1, 1, 0, c_red, 1)
+        
+        draw_text_transformed_color(80, 375 + 30*i, enemy_struct.name, 2, 2, 0, col1, col2, col2, col1, 1)
+        
+        // draw status effects
+        if tired {
+            draw_sprite_ext(spr_ui_enc_tiredmark, 0, 80 + string_width(enemy_struct.name)*2 + 42, 385 + 30*i, 1, 1, 0, c_white, 1)
+            if status_eff == "" 
+                status_eff = "(Tired)"
+        }
+        if spare {
+            draw_sprite_ext(spr_ui_enc_sparestar, 0, 60+string_width(enemy_struct.name)*2 + 42, 385 + 30*i, 1, 1,0 , c_white, 1)
+        }
+        if status_eff != "" {
+            draw_set_color(c_gray)
+            draw_text_transformed(100 + string_width(enemy_struct.name)*2 + 42, 375 + 30*i, status_eff, 2, 2, 0)
+            draw_set_color(c_white)
+        }
+        
+        var hppercent = enemy_struct.hp / enemy_struct.max_hp
+        var mercypercent = enemy_struct.mercy
+        
+        // draw the hp bar
+        draw_sprite_ext(spr_pixel, 0, 420, 380 + 30*i, 81, 16, 0, c_maroon, 1)
+        draw_sprite_ext(spr_pixel, 0, 420, 380 + 30*i, 81*hppercent, 16, 0, c_lime, 1)
+        
+        draw_set_color(c_white)
+        draw_text_transformed(424, 380 + 30*i, string("{0}%", round(hppercent * 100)), 2, 1, 0)
+        
+        // draw the spare bar base
+        draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81, 16, 0, merge_color(c_orange, c_red, 0.5), 1)
+        // draw a cross on the mercy bar or draw progress
+        draw_set_color(c_maroon)
+        if enemy_struct.can_spare {
+            draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81 * (mercypercent/100), 16, 0, c_yellow, 1)
+            draw_text_transformed(524, 380 + 30*i, string("{0}%", round(mercypercent)), 2, 1, 0)
+        }
+        else {
+            draw_line_width(520 - 1, 380 + i*30, 600, 380 + i*30 + 15, 2)
+            draw_line_width(520 - 1, 380 + i*30 + 15, 600, 380 + (i * 30), 2)
+        }
+        draw_set_color(c_white)
+    }
 }
 
 surface_reset_target()
