@@ -123,7 +123,7 @@ if battle_state == BATTLE_STATE.MENU {
             }
         }
         if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.POWER {
-            list = __spell_sort()
+            list = __spell_sort(global.party_names[party_selection])
             selection_var_name = "party_spell_selection"
             selection_operate = function(_delta, _abs = false) {
                 if _abs     party_spell_selection[party_selection] = _delta
@@ -132,6 +132,7 @@ if battle_state == BATTLE_STATE.MENU {
         }
         
         var selected_item_index = variable_instance_get(self, selection_var_name)[party_selection]
+        selected_item_index = clamp(selected_item_index, 0, array_length(list)-1)
         
         // four direction ui movement
         if InputPressed(INPUT_VERB.RIGHT) && selected_item_index < array_length(list) - 1 {
@@ -163,18 +164,50 @@ if battle_state == BATTLE_STATE.MENU {
         selection_operate(cap_wraparound(selected_item_index, array_length(list)), true)
         
         if InputPressed(INPUT_VERB.SELECT) {
-            audio_play(snd_ui_select)
-            __button.submit_action(list[selected_item_index])
-            
-            buffer = 1
-            if party_selection >= array_length(global.party_names) {
-                __battle_state_advance()
-                exit
+            var can_perform = true
+            if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.ACT { // disable the act if some member is not up
+                if list[selected_item_index].party == -1 {
+                    for (var j = 0; j < array_length(global.party_names); j ++) {
+                        if !party_isup(global.party_names[j]) {
+                            can_perform = false
+                            break
+                        }
+                    }
+                }
+                else {
+                    for (var j = 0; j < array_length(list[selected_item_index].party); j ++) {
+                        var name = list[selected_item_index].party[j]
+                        if !party_isup(name) {
+                            can_perform = false
+                            break
+                        }
+                    }
+                }
             }
+            if struct_exists(list[selected_item_index], "tp_cost") {
+                if list[selected_item_index].tp_cost > tp
+                    can_perform = false
+            }
+            
+            if can_perform {
+                audio_play(snd_ui_select)
+                __button.submit_action(list[selected_item_index])
+                
+                buffer = 1
+                if party_selection >= array_length(global.party_names) {
+                    __battle_state_advance()
+                    exit
+                }
+            }
+            else {}
         }
         if InputPressed(INPUT_VERB.CANCEL) {
             if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.ACT {
                 battle_menu = BATTLE_MENU.ENEMY_SELECTION
+                buffer = 1
+            }
+            else {
+                battle_menu_cancel()
                 buffer = 1
             }
         }
@@ -185,7 +218,7 @@ if battle_state == BATTLE_STATE.MENU {
         && !(party_isup(global.party_names[party_selection]) 
             && !array_contains(party_busy, global.party_names[party_selection]) 
             && !array_contains(party_busy_internal, global.party_names[party_selection])
-        ) 
+        )
     {
         party_selection ++
     }

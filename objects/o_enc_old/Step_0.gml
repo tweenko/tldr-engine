@@ -1071,7 +1071,7 @@ if battle_state == BATTLE_STATE.EXEC {
     				cutscene_set_variable(o_enc, "waiting", true)
     				cutscene_set_partysprite(user, "spell")
     				cutscene_sleep(4)
-                    item_use(spells[actselection[user]], user, selected)
+                    item_spell_use(spells[actselection[user]], user, selected)
     				cutscene_func(function(user) {
     					o_enc.char_state[user] = CHAR_STATE.IDLE
     				}, [user])

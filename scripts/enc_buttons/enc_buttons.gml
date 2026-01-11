@@ -108,6 +108,22 @@ function enc_button_power() : enc_button() constructor {
     name = "power"
     target_menu = BATTLE_MENU.INV_SELECTION
     
+    press = function(_tp) {
+        with other {
+            battle_menu_proceed = other.menu_proceed
+            battle_menu_cancel = other.menu_cancel
+            battle_inv_menu_type = BATTLE_INV_MENU_TYPE.POWER
+        }
+        return target_menu
+    }
+    
+    menu_proceed = function() {
+    }
+    menu_cancel = function() {
+        with other
+            battle_menu = BATTLE_MENU.BUTTON_SELECTION
+    }
+    
     __determine_sprite()
 }
 function enc_button_item() : enc_button() constructor {

@@ -216,19 +216,20 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
 else if battle_menu == BATTLE_MENU.INV_SELECTION {
     var list = __act_sort(party_enemy_selection[party_selection])
     var selected_item_index = party_act_selection[party_selection]
+    selected_item_index = clamp(selected_item_index, 0, array_length(list)-1)
     
     if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.ITEM {
-        var list = __item_sort()
-        var selected_item_index = party_item_selection[party_selection]
+        list = __item_sort()
+        selected_item_index = party_item_selection[party_selection]
     }
     if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.POWER {
-        var list = __spell_sort()
-        var selected_item_index = party_spell_selection[party_selection]
+        list = __spell_sort(global.party_names[party_selection])
+        selected_item_index = party_spell_selection[party_selection]
     }
     
     for (var i = 0; i < array_length(list); i ++) {
         var can_do = true
-        var txt = list[i].name
+        var txt = item_get_name(list[i])
         var item_xoffset = 0
         
         // draw the icons (act exclusive)
@@ -295,9 +296,10 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
     }
     
     // draw the selected item's description if applicable
-    if struct_exists(list[selected_item_index], "desc") && is_string(list[selected_item_index].desc) {
+    var item_desc = item_get_desc(list[selected_item_index], ITEM_DESC_TYPE.SHORTENED)
+    if is_string(item_desc) {
         draw_set_color(c_gray)
-        draw_text_ext_transformed(500, 375, list[selected_item_index].desc, 15, 70, 2, 2, 0)
+        draw_text_ext_transformed(500, 375, item_desc, 15, 70, 2, 2, 0)
         draw_set_color(c_white)
     }
 }

@@ -39,7 +39,7 @@ function item() constructor {
 	
 	reactions = {
 	}
-	use = -1
+	use = function(item_index, target, caller = -1) {}
 	use_args = []
 	
 	shop = {
@@ -130,13 +130,24 @@ function item_set(item_struct, index, type = ITEM_TYPE.CONSUMABLE) {
 }
 
 ///@desc calls the item's use method
-function item_use(item_struct, index, target) {
+function item_use(item_struct, item_index, target) {
     if is_undefined(item_struct)
         return undefined
 	if is_callable(item_struct.use) {
 		if !is_array(item_struct.use_args) 
 			item_struct.use_args = [item_struct.use_args]
-		script_execute_ext(item_struct.use, array_concat([index, target, id], item_struct.use_args))
+		script_execute_ext(item_struct.use, array_concat([item_index, target, id], item_struct.use_args))
+	}
+}
+
+///@desc calls the spell's use method
+function item_spell_use(spell_struct, spell_user, target) {
+    if is_undefined(spell_struct)
+        return undefined
+	if is_callable(spell_struct.use) {
+		if !is_array(spell_struct.use_args) 
+			spell_struct.use_args = [spell_struct.use_args]
+		script_execute_ext(spell_struct.use, array_concat([spell_user, target, id], spell_struct.use_args))
 	}
 }
 
@@ -155,8 +166,10 @@ function item_get_count(type = ITEM_TYPE.CONSUMABLE){
 function item_get_name(item_struct) {
     if is_undefined(item_struct)
         return undefined
+    if !struct_exists(item_struct, "name")
+        return
+    
 	var ret = item_struct.name
-	
 	if is_array(ret)
 		return ret[0]
 	if is_string(ret)
@@ -167,11 +180,13 @@ function item_get_name(item_struct) {
 ///@desc returns the description of an item
 ///@arg {struct.item} item_struct the struct of the item
 ///@arg {enum.ITEM_DESC_TYPE} desc_type the type of the description that will be returned
-function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE){
+function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL){
     if is_undefined(item_struct)
-        return undefined
+        return
+    if !struct_exists(item_struct, "desc")
+        return
+    
 	var ret = item_struct.desc
-	
 	if is_array(ret)
 		return ret[desc_type]
 	if is_string(ret)

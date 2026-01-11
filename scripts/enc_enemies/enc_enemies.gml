@@ -167,7 +167,8 @@ function enemy_virovirokun() : enemy() constructor{
 				}, user)
 				
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecare_msg"))
-				
+                
+                cutscene_set_partysprite(user, "idle")
 				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 			}
@@ -208,6 +209,12 @@ function enemy_virovirokun() : enemy() constructor{
 				}, user)
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecarex_msg"))
 				
+                // go back to idle sprites
+                cutscene_func(function(user) {
+					for (var i = 0; i < array_length(global.party_names); ++i) {
+					    enc_party_set_battle_sprite(global.party_names[i], "idle")
+					}
+				}, user)
 				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 			}
@@ -278,29 +285,12 @@ function enemy_killercar() : enemy() constructor{
 				cutscene_dialogue([
 					"{char(susie, 21)}* I have an idea.",
 				])
-				cutscene_set_partysprite(party_get_index("susie"), "spell")
+				cutscene_set_partysprite("susie", "spell")
 				cutscene_sleep(30)
 				cutscene_func(enc_hurt_enemy, [slot, 100 * party_getdata("susie", "attack") * party_getdata("susie", "magic"), user, snd_damage, 0, 0, true])
 				cutscene_sleep(30)
 				
-				cutscene_set_variable(o_enc, "waiting", false)
-				cutscene_play()
-				
-			}
-		},
-		{
-			name: "Ralsei's Idea",
-			party: ["ralsei"],
-			desc: "Fatal?",
-			exec: function(slot, user) {
-				cutscene_create()
-				cutscene_set_variable(o_enc, "waiting", true)
-				
-				cutscene_set_partysprite(party_get_index("susie"), "spell")
-				cutscene_sleep(30)
-				cutscene_func(enc_hurt_enemy, [slot, 100 * party_getdata("susie", "attack") * party_getdata("susie", "magic"), user, snd_damage, 0, 0, true])
-				cutscene_sleep(30)
-				
+                cutscene_set_partysprite("susie", "idle")
 				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 				

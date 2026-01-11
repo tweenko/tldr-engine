@@ -222,13 +222,19 @@ function cutscene_set_variable(obj, variable, value) {
 }
 
 /// @desc sets a party member's sprite accordingly to the battle sprites struct from party_data
-function cutscene_set_partysprite(selection, spritename){
-	var set = function(selection, spritename) {
-		enc_party_set_battle_sprite(global.party_names[selection], spritename, 0, 1)
-	}
+/// @arg {string} party_name party member name
+/// @arg {Asset.GMSprite|string} sprite_ref the sprite to use. can be either a string that will be put into `enc_getparty_sprite` or a sprite index
+/// @arg {real} index the image index of the sprite, by default doesn't change it
+/// @arg {real} speed the speed of the sprite, by default doesn't change it
+function cutscene_set_partysprite(party_name, sprite_ref, image_index = undefined, image_speed = undefined){
 	cutscene_custom({
-		selection, spritename, set,
-		action: [set, selection, spritename]
+		party_name, sprite_ref, image_index, image_speed,
+		action: [
+            function(party_name, sprite_ref, _image_index, _image_speed) {
+                enc_party_set_battle_sprite(party_name, sprite_ref, _image_index, _image_speed)
+            }, 
+            party_name, sprite_ref, image_index, image_speed
+        ]
 	})
 }
 
