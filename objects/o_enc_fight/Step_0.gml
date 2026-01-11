@@ -11,7 +11,7 @@ for (var i = 0; i < array_length(sticks); ++i) {
 }
 
 if go && diestate == 0 {
-	diestate=1 
+	diestate = 1 
 	alarm[1] = 30
 }
 if diestate == 2 

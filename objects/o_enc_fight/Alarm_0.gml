@@ -14,12 +14,13 @@ for (var i = 0; i < array_length(pattern); ++i) {
 
 for (var i = 0; i < array_length(fighting); ++i) {
 	var spacing = 14*8
-	var yy = 38 * array_get_index(global.party_names, fighting[i])
+    var index = party_get_index(fighting[i])
+	var yy = 38 * index
 	array_push(sticks, instance_create(o_enc_fightstick, 80 + 30*7 + pattern[i]*spacing, 365 + yy + 19, depth - 10, {
 		order: pattern[i],
 		caller: id,
 		ecaller: caller,
-		index: array_get_index(global.party_names, fighting[i]),
+		index: index,
 		ii: i,
 		target: fighterselection[i],
 	}))

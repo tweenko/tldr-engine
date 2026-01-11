@@ -111,7 +111,7 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
         for (var j = 0; j < array_length(buttons); ++j) {
             var __spr = buttons[j].sprite
             var __x_off = 111 - floor(array_length(buttons)*35/2) + j*35
-            var __selection = party_button_selection[party_selection]
+            var __selection = party_button_selection[i]
             
             draw_sprite_ext(spr_pixel, 0, __x_off, 1, 31, 25, 0, c_black, 1)
             if sprite_exists(__spr)

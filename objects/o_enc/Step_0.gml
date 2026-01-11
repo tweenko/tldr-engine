@@ -19,6 +19,11 @@ if battle_state == BATTLE_STATE.MENU {
             audio_play(snd_ui_select)
             battle_menu = party_buttons[party_selection][party_button_selection[party_selection]].press(__defend_tp)
             battle_menu_init = true
+            
+            if party_selection >= array_length(global.party_names) {
+                __battle_state_advance()
+                exit
+            }
         }
         if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 && party_selection > 0 {
             var __selection = party_selection
@@ -87,6 +92,11 @@ if battle_state == BATTLE_STATE.MENU {
             
             // reset enemy flashing
 			__enemy_highlight_reset()
+            
+            if party_selection >= array_length(global.party_names) {
+                __battle_state_advance()
+                exit
+            }
         }
 		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
 			__button.menu_cancel()
@@ -109,15 +119,6 @@ if battle_state == BATTLE_STATE.MENU {
         party_selection ++
     }
     
-    if party_selection < array_length(global.party_names) {
-        for (var i = 0; i < array_length(global.party_names); i ++) {
-            if i == party_selection 
-                party_ui_lerp[i] = lerp(party_ui_lerp[i], 1, .5)
-            else
-                party_ui_lerp[i] = lerp(party_ui_lerp[i], 0, .5)
-        }
-    }
-    
     // the sticks in the ui
     for (var i = 0; i < 3; ++i) {
 	    ui_party_sticks[i] += .25
@@ -127,12 +128,99 @@ if battle_state == BATTLE_STATE.MENU {
             ui_party_sticks[i] = 0
 	}
 }
+else if battle_state == BATTLE_STATE.EXEC {
+    if !exec_init {
+        action_queue = __order_action_queue()
+        exec_init = true
+    }
+    if !__check_waiting() {
+        if array_length(action_queue) > 0 {
+            var action = action_queue[0]
+            array_delete(action_queue, 0, 1) // dequeue the action
+            
+            action.perform(action_queue)
+        }
+        else 
+            __battle_state_advance()
+    }
+}
+else if battle_state == BATTLE_STATE.DIALOGUE {
+    if !__check_waiting() {
+        if !dialogue_init {
+            __call_enc_event("ev_pre_dialogue")
+            
+            animate(0, .75, 15, "linear", o_eff_bg, "fade")
+            turn_objects = array_create(array_length(encounter_data.enemies), noone)
+    		for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+    			if !enc_enemy_isfighting(i)
+    				continue
+    			
+    			// create turn objects feed the information to them
+    			array_set(turn_objects, i, instance_create(encounter_data.enemies[i].turn_object,,,, {
+    				enemy_index: i, 
+    				enemy_struct: encounter_data.enemies[i]
+    			}))
+    			
+    			var xx = encounter_data.enemies[i].actor_id.x - guipos_x()
+    			var yy = encounter_data.enemies[i].actor_id.y - guipos_y()
+    			
+    			if encounter_data.enemies[i].dia_bubble_offset[2] == 0 {
+    				xx -= encounter_data.enemies[i].actor_id.sprite_xoffset
+    				yy -= encounter_data.enemies[i].actor_id.myheight/2
+    			}
+    			else {
+    				xx += encounter_data.enemies[i].dia_bubble_offset[0]
+    				yy += encounter_data.enemies[i].dia_bubble_offset[1]
+    			}
+    			
+    			var text = encounter_data.enemies[i].dialogue
+    			if is_callable(text)
+    				text = text(i)
+                
+                
+    			
+    			if is_string(text) {
+    				var inst = instance_create(o_ui_enemydialogue, xx*2, yy*2, DEPTH_ENCOUNTER.UI, {text})
+    				inst.spr = encounter_data.enemies[i].dia_bubble_sprites
+    				
+    			    array_push(dialogueinstances, inst)
+    			}
+    		}
+            
+            __call_enc_event("ev_dialogue")
+            
+            // choose turn targets
+            turn_targets = encounter_data._target_calculation()
+    		for (var i = 0; i < array_length(global.party_names); ++i) {
+    		    if array_contains(turn_targets, global.party_names[i]) {
+                    if encounter_data.display_target {
+    				    var o = party_get_inst(global.party_names[i])
+                        instance_create(o_enc_target, o.x, o.s_get_middle_y(), o.depth-10)
+                    }
+    			}
+    			else {
+    				var o = party_get_inst(global.party_names[i])
+    				animate(o.darken, .5, 15, "linear", o, "darken")
+    			}
+    		}
+    		
+    		dialogue_init = true
+        }
+    }
+}
 
 // destroy flavor text when not in the selection screen
 if (battle_state != BATTLE_STATE.MENU || battle_menu != BATTLE_MENU.BUTTON_SELECTION) && instance_exists(inst_flavor)
     instance_destroy(inst_flavor)
 
 ui_main_lerp = lerp(ui_main_lerp, 1, .5)
+// do party ui lerping
+for (var i = 0; i < array_length(global.party_names); i ++) {
+    if i == party_selection 
+        party_ui_lerp[i] = lerp(party_ui_lerp[i], 1, .5)
+    else
+        party_ui_lerp[i] = lerp(party_ui_lerp[i], 0, .5)
+}
 
 if buffer > 0
     buffer --

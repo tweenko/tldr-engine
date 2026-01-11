@@ -4,9 +4,16 @@
 }
 { // generic (misc) 
 	buffer = 0
-    waiting = false // the waiting variable for EVERYTHING
+    waiting = false // the waiting variable for YOU
+    waiting_internal = false // the waiting variable for ME!! me onLY!!!!!!! nGHHHHH im evil
     surf = -1
+    
+    // initializers
     flavor_seen = false
+    exec_init = false
+    dialogue_init = false
+    
+    earned_money = 0
 }
 { // ui
     ui_main_lerp = 0
@@ -49,6 +56,17 @@
 }
 
 action_queue = []
+action_order = [
+    enc_action_act,
+    enc_action_item,
+    enc_action_power,
+    enc_action_spare,
+    enc_action_fight,
+    enc_action_defend,
+]
+for (var i = 0; i < array_length(action_order); i ++) { // convert to script names
+    action_order[i] = script_get_name(action_order[i])
+}
 
 battle_state = BATTLE_STATE.MENU
 battle_state_prev = BATTLE_STATE.MENU
@@ -169,6 +187,38 @@ __enemy_highlight_reset = function() {
         encounter_data.enemies[i].actor_id.flashing = false
     }
 }
+__order_action_queue = function(_action_queue = action_queue) {
+    var output = array_sort_ext(_action_queue, function(current, next) {
+        var cur_order = array_get_index(action_order, instanceof(current))
+        var next_order = array_get_index(action_order, instanceof(current))
+        
+        return cur_order - next_order
+    })
+    // remove defend
+    output = array_filter(output, function(element, index) {
+        if is_instanceof(element, enc_action_defend)
+            return false
+        return true
+    })
+    
+    return output
+}
+__check_waiting = function() {
+    return waiting || waiting_internal
+}
+/// @description calls events for all enemies and the encounter struct
+/// @arg {string} event_name starts with "ev_" (e.g. "ev_pre_dialogue")
+__call_enc_event = function(event_name) {
+    for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+        if enc_enemy_isfighting(i) {
+            // call the pre-dialogue event for the enemies
+            if is_callable(variable_struct_get(encounter_data.enemies[i], event_name))
+                variable_struct_get(encounter_data.enemies[i], event_name)()
+        }
+    }
+    if is_callable(variable_struct_get(encounter_data, event_name))
+        variable_struct_get(encounter_data, event_name)()
+}
 
 enum BATTLE_MENU {
     BUTTON_SELECTION,
@@ -194,6 +244,6 @@ enum PARTY_STATE {
     DEFEND
 }
 
-
 party_busy = ["susie"]
 party_state[1] = PARTY_STATE.FIGHT
+array_push(action_queue, new enc_action_fight("susie", 0))

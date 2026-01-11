@@ -1,5 +1,5 @@
 for (var i = 0; i < array_length(fighting); ++i) {
-	var yy = 38 * array_get_index(global.party_names, fighting[i])
+	var yy = 38 * party_get_index(fighting[i])
 	
 	draw_sprite_stretched_ext(spr_pixel, 0, 79, 365 + yy, 125, 38, merge_color(party_getdata(fighting[i], "darkcolor"), c_white, lightup), image_alpha)
 	draw_sprite_stretched_ext(spr_pixel, 0, 79 + 2, 365 + yy+2, 125-4, 38-4, c_black, image_alpha)

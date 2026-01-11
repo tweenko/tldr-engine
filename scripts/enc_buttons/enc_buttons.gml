@@ -21,7 +21,7 @@ function enc_button_fight() : enc_button() constructor {
         var targets = [global.party_names[other.party_selection]]
         
         with other {
-            array_push(action_queue, new enc_action_fight(targets, party_enemy_selection[party_selection]))
+            array_push(action_queue, new enc_action_fight(targets[0], party_enemy_selection[party_selection]))
             
             for (var i = 0; i < array_length(targets); i ++) {
                 var index = party_get_index(targets[i])
