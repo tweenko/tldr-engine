@@ -3,7 +3,7 @@ var w = 540
 var manualbreaks = []
 var twb = text
 
-if caller.object_index == o_ui_enemydialogue // make the width smaller for battles
+if caller.object_index == o_ui_actordialogue // make the width smaller for battles
 	w = 174
 
 linebreaks = []
@@ -54,7 +54,7 @@ var widthcutter = 0
 var lastbreak = 0
 
 // do manual and auto breaks
-for (var i = 0; i < string_length(twb); ++i) {
+for (var i = 1; i <= string_length(twb); ++i) {
 	if array_contains(manualbreaks, i - 1) {
 		stringsofar = "";
 		widthcutter = break_xoff * xscale
@@ -123,7 +123,7 @@ y -= center_yoff
         
 if instance_exists(caller) {
     // make the enemy dialogue centered right-center
-	if caller.object_index == o_ui_enemydialogue {
+	if caller.object_index == o_ui_actordialogue {
         var __xoff = -maxw
 		x += __xoff
         center_xoff = __xoff
@@ -138,5 +138,15 @@ if instance_exists(caller) {
 		var __yoff = -maxh/2
 		y += __yoff
         center_yoff = __yoff
+    }
+}
+
+if caller.object_index == o_ui_actordialogue { // update enemy dialogue bubble size
+    with caller {
+        textx = other.x
+        texty = other.y
+        balloonwidth = other.maxw + 8
+        balloonheight = other.maxh + 4
+        inited = true
     }
 }

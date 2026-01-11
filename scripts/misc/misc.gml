@@ -183,6 +183,11 @@ function world_switch(world) {
         convert_leader_equipment()
 }
 
+enum BUBBLE_RELATIVE {
+    TO_ACTOR_BASE,
+    TO_DEFAULT_POS,
+}
+
 /// @desc a function that creates a text typer and returns its instance
 /// @arg {string|array<string>} text the text that the instance will print out. can be both an array that will be split by {p}{c} and a simple string
 /// @arg {real} x the x position of the to be created text typer instance
@@ -199,6 +204,46 @@ function text_typer_create(text, _xx, _yy, _depth = 0, prefix = "", postfix = ""
         var_struct
     )
     inst.text = prefix + dialogue_array_to_string(text) + postfix + (end_with_stop ? "{stop}" : "")
+    
+    return inst
+}
+
+/// @desc spawns an actor dialogue instance
+/// @arg {string|array<string>} text the text that the instance will print out. can be both an array that will be split by {p}{c} and a simple string
+/// @arg {Id.Instance} _actor_inst the actor you want the dialogue to be coming from
+/// @arg {string} [prefix] the string that will be added to the beginning of text
+/// @arg {string} [postfix] the string that will be added to the tail of text (before {stop})
+/// @arg {struct} [var_struct] the variable struct of the text typer. is a post variable struct
+/// @arg {real} [bubble_off_x] the x offset of the bubble from actor origin, overrides the default centering
+/// @arg {real} [bubble_off_y] the y offset of the bubble from actor origin, overrides the default centering
+/// @arg {enum.BUBBLE_RELATIVE} [bubble_off_type] the offset type
+/// @return {Id.Instance}
+function actor_dialogue_create(_text, _actor_inst, prefix = "", postfix = "", var_struct = {}, bubble_off_x = 0, bubble_off_y = 0, bubble_off_type = BUBBLE_RELATIVE.TO_DEFAULT_POS) {
+    var xx = 0
+    var yy = 0
+    
+    if instance_exists(_actor_inst) {
+        xx = _actor_inst.x - guipos_x()
+        yy = _actor_inst.y - guipos_y()
+    }
+    else {
+        show_debug_message($"actor \"{_actor_inst}\" not found. aborting actor dialogue box creation.")
+        return noone
+    }
+    
+    xx += bubble_off_x
+    yy += bubble_off_y
+    if bubble_off_type == BUBBLE_RELATIVE.TO_DEFAULT_POS {
+        xx -= _actor_inst.sprite_xoffset
+        yy += _actor_inst.s_get_middle_y(true)
+    }
+    
+    var inst = instance_create(
+        o_ui_actordialogue, 
+        xx*2, yy*2, DEPTH_ENCOUNTER.UI, 
+        var_struct
+    )
+    inst.text = prefix + dialogue_array_to_string(_text) + postfix
     
     return inst
 }

@@ -75,8 +75,8 @@ is_player = false
 			_angle, _blend, _alpha
 		)
 	}
-    s_get_middle_y = function() {
-        return y - myheight/2
+    s_get_middle_y = function(relative = false) {
+        return (relative ? 0 : y) - myheight/2
     }
 	
 	snapping = 1 // 1 for none

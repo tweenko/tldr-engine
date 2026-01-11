@@ -8,10 +8,15 @@
     waiting_internal = false // the waiting variable for ME!! me onLY!!!!!!! nGHHHHH im evil
     surf = -1
     
+    turn_timer = 0
+    
     // initializers
     flavor_seen = false
     exec_init = false
     dialogue_init = false
+    turn_init = false
+    pre_dialogue_init = false
+    post_turn_init = false
     
     earned_money = 0
 }
@@ -46,6 +51,10 @@
     })
     party_button_selection = array_create(array_length(global.party_names), 0)
     party_enemy_selection = array_create(array_length(global.party_names), 0)
+    
+    party_selection = 0
+    party_busy_internal = []
+    party_busy = []
 }
 { // instances
     inst_tp_bar = instance_create(o_enc_tp_bar)
@@ -53,6 +62,7 @@
     animate(-80, 0, 10, anime_curve.circ_out, inst_tp_bar, "x_offset")
     
     inst_flavor = noone
+    inst_dialogues = []
 }
 
 action_queue = []
@@ -94,10 +104,6 @@ encounter_data = {} // the information about the encounter: enemies, music, text
 tp = 0
 tp_constrict = false // darkness constriction
 tp_glow_alpha = 0
-
-party_selection = 0
-party_busy_internal = []
-party_busy = []
 
 __button_highlight = function(button, party_name) {
 	if button.name == "power" { // pacify & sleepmist
@@ -244,6 +250,6 @@ enum PARTY_STATE {
     DEFEND
 }
 
-party_busy = ["susie"]
-party_state[1] = PARTY_STATE.FIGHT
-array_push(action_queue, new enc_action_fight("susie", 0))
+//party_busy = ["susie"]
+//party_state[1] = PARTY_STATE.FIGHT
+//array_push(action_queue, new enc_action_fight("susie", 0))

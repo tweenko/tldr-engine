@@ -38,7 +38,9 @@ function enemy() constructor {
 	
 	// text
 	dialogue =				"Test" // can be a function (can accept slot argument as arg0)
-	dia_bubble_offset =		[0, 0, 0] // x, y, relative to (1 for enemy and 0 for default box pos)
+	dia_bubble_off_x =		0
+	dia_bubble_off_y =		0
+    dia_bubble_off_type =	BUBBLE_RELATIVE.TO_DEFAULT_POS
 	dia_bubble_sprites =	[spr_ui_enc_dialogue_box, spr_ui_enc_dialogue_spike]
 	
 	turn_object = o_turn_default

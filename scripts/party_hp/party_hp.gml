@@ -240,7 +240,7 @@ function damage(attack, party_name, element){
 	
 	// check if member is defending
 	if instance_exists(o_enc){
-		if o_enc.char_state[party_get_index(party_name)] == CHAR_STATE.DEFEND // defending
+		if o_enc.party_state[party_get_index(party_name)] == PARTY_STATE.DEFEND // defending
             hurt *= 2/3
 	}
 	// apply element protection

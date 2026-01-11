@@ -32,7 +32,7 @@
 	partyactselection = array_create(array_length(global.party_names), 0)
 	together_with = array_create(array_length(global.party_names), [])
 	
-	char_state = array_create(array_length(global.party_names), CHAR_STATE.IDLE)
+	char_state = array_create(array_length(global.party_names), PARTY_STATE.IDLE)
 }
 
 { // action execution - party turn

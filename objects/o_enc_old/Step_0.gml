@@ -1186,7 +1186,7 @@ if battle_state == BATTLE_STATE.DIALOGUE {
     				encounter_data.enemies[i].ev_dialogue() // call the enemies' dialogue event
     			
     			if is_string(text) {
-    				var inst = instance_create(o_ui_enemydialogue, xx*2, yy*2, DEPTH_ENCOUNTER.UI, {text})
+    				var inst = instance_create(o_ui_actordialogue, xx*2, yy*2, DEPTH_ENCOUNTER.UI, {text})
     				inst.spr = encounter_data.enemies[i].dia_bubble_sprites
     				
     			    array_push(dialogueinstances, inst)
