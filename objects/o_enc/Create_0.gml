@@ -56,6 +56,7 @@
     party_act_selection = array_create(array_length(global.party_names), 0)
     party_item_selection = array_create(array_length(global.party_names), 0)
     party_spell_selection = array_create(array_length(global.party_names), 0)
+    party_ally_selection = array_create(array_length(global.party_names), 0)
     
     party_selection = 0
     party_busy_internal = []
@@ -94,10 +95,22 @@ battle_state_order = [
 ]
 
 battle_menu = BATTLE_MENU.BUTTON_SELECTION
-battle_inv_menu_type = BATTLE_INV_MENU_TYPE.ACT
 battle_menu_init = false
-battle_menu_proceed = function() {}
-battle_menu_cancel = function() {}
+
+battle_menu_enemy_proceed = function() {}
+battle_menu_enemy_cancel = function() {}
+
+battle_menu_inv_proceed = function(item_struct) {}
+battle_menu_inv_cancel = function() {}
+battle_menu_inv_list = []
+battle_menu_inv_var_name = ""
+battle_menu_inv_var_operate = function(_delta, _abs = false) {
+    if _abs     party_act_selection_selection[party_selection] = _delta
+    else        party_act_selection[party_selection] += _delta
+}
+
+battle_menu_party_proceed = function() {}
+battle_menu_party_cancel = function() {}
 
 win_condition = function() { // if this is true, the battle will end
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
@@ -112,6 +125,7 @@ encounter_data = {} // the information about the encounter: enemies, music, text
 tp = 0
 tp_constrict = false // darkness constriction
 tp_glow_alpha = 0
+tp_defend = 16
 
 __button_highlight = function(button, party_name) {
 	if button.name == "power" { // pacify & sleepmist
@@ -178,6 +192,7 @@ __battle_state_advance = function(state = battle_state) {
     
     battle_state = battle_state_order[next_state]
 }
+
 __enemy_highlight = function(enemy_index) {
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
         if !enc_enemy_isfighting(i)
@@ -201,6 +216,32 @@ __enemy_highlight_reset = function() {
         encounter_data.enemies[i].actor_id.flashing = false
     }
 }
+__ally_highlight = function(ally_index) {
+    for (var i = 0; i < array_length(global.party_names); ++i) {
+        var inst = party_get_inst(global.party_names[i])
+        if !party_isup(global.party_names[i])
+            continue
+        if !instance_exists(inst)
+            continue
+        
+        if ally_index == i
+            inst.flashing = true
+        else
+            inst.flashing = false
+    }
+}
+__ally_highlight_reset = function() {
+    for (var i = 0; i < array_length(global.party_names); ++i) {
+        var inst = party_get_inst(global.party_names[i])
+        if !party_isup(global.party_names[i])
+            continue
+        if !instance_exists(inst)
+            continue
+        
+        inst.flashing = false
+    }
+}
+
 __order_action_queue = function(_action_queue = action_queue) {
     var output = array_sort_ext(_action_queue, function(current, next) {
         var cur_order = array_get_index(action_order, instanceof(current))
@@ -275,15 +316,11 @@ __call_enc_event = function(event_name) {
         variable_struct_get(encounter_data, event_name)()
 }
 
-enum BATTLE_INV_MENU_TYPE {
-    ACT,
-    ITEM,
-    POWER
-}
 enum BATTLE_MENU {
     BUTTON_SELECTION,
     ENEMY_SELECTION,
     INV_SELECTION,
+    PARTY_SELECTION,
 }
 enum BATTLE_STATE {
     MENU,

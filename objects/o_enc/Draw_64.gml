@@ -214,18 +214,10 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
     }
 }
 else if battle_menu == BATTLE_MENU.INV_SELECTION {
-    var list = __act_sort(party_enemy_selection[party_selection])
-    var selected_item_index = party_act_selection[party_selection]
+    var __button = party_buttons[party_selection][party_button_selection[party_selection]]
+    var list = battle_menu_inv_list
+    var selected_item_index = variable_instance_get(self, battle_menu_inv_var_name)[party_selection]
     selected_item_index = clamp(selected_item_index, 0, array_length(list)-1)
-    
-    if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.ITEM {
-        list = __item_sort()
-        selected_item_index = party_item_selection[party_selection]
-    }
-    if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.POWER {
-        list = __spell_sort(global.party_names[party_selection])
-        selected_item_index = party_spell_selection[party_selection]
-    }
     
     for (var i = 0; i < array_length(list); i ++) {
         var can_do = true
@@ -233,7 +225,7 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
         var item_xoffset = 0
         
         // draw the icons (act exclusive)
-        if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.ACT {
+        if __button.name == "act" {
             if array_length(list[i].party) > 0 || list[i].party == -1 {
                 item_xoffset = array_length(list[i].party)
                 
@@ -301,6 +293,19 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
         draw_set_color(c_gray)
         draw_text_ext_transformed(500, 375, item_desc, 15, 70, 2, 2, 0)
         draw_set_color(c_white)
+    }
+}
+else if battle_menu == BATTLE_MENU.PARTY_SELECTION {
+    for (var i = 0; i < array_length(global.party_names); ++i) {
+        draw_text_transformed(80, 375 + 30 * i, party_getname(global.party_names[i]), 2, 2, 0)
+        
+        if party_ally_selection[party_selection] == i 
+            draw_sprite_ext(spr_uisoul, 0, 55, 385 + 30*i, 1, 1, 0, c_red, 1)
+        
+        var hp_ratio = party_getdata(global.party_names[i], "hp") / party_getdata(global.party_names[i], "max_hp")
+        var hp_bar_width = 101
+        draw_sprite_ext(spr_pixel, 0, 400, 380 + 30*i, hp_bar_width, 16, 0, c_maroon, 1)
+        draw_sprite_ext(spr_pixel, 0, 400, 380 + 30*i, hp_bar_width*hp_ratio, 16, 0, c_lime, 1)
     }
 }
 

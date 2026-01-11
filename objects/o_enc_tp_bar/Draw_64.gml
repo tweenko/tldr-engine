@@ -61,7 +61,7 @@ surface_set_target(surf)
         draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
             0, __tp_fill * 187, 
             18, tp_visual/100 * 187,
-            __tp_x_origin, y-92 + __tp_fill/100 * 187,
+            __tp_x_origin, y-92 + __tp_fill * 187,
             1, 1, __c_unfilled, 1
         )
         draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
@@ -72,9 +72,9 @@ surface_set_target(surf)
         
         if !full {
             draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
-                0, __tp_fill/100 * 187,
+                0, __tp_fill * 187,
                 18, 2,
-                __tp_x_origin, y-92 + __tp_fill/100 * 187,
+                __tp_x_origin, y-92 + __tp_fill * 187,
                 1, 1, __c_outline, 1
             )
         }

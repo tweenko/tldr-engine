@@ -136,7 +136,7 @@ function item_use(item_struct, item_index, target) {
 	if is_callable(item_struct.use) {
 		if !is_array(item_struct.use_args) 
 			item_struct.use_args = [item_struct.use_args]
-		script_execute_ext(item_struct.use, array_concat([item_index, target, id], item_struct.use_args))
+		script_execute_ext(item_struct.use, array_concat([item_index, target, self], item_struct.use_args))
 	}
 }
 
@@ -147,7 +147,7 @@ function item_spell_use(spell_struct, spell_user, target) {
 	if is_callable(spell_struct.use) {
 		if !is_array(spell_struct.use_args) 
 			spell_struct.use_args = [spell_struct.use_args]
-		script_execute_ext(spell_struct.use, array_concat([spell_user, target, id], spell_struct.use_args))
+		script_execute_ext(spell_struct.use, array_concat([spell_user, target, self], spell_struct.use_args))
 	}
 }
 

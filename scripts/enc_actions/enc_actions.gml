@@ -7,7 +7,6 @@ function enc_action(_party_names) constructor {
         array_copy(other_members, 0, _party_names, 1, array_length(_party_names))
     
     target = -1
-    party_state = PARTY_STATE.IDLE
     
     cancel = function() {
         with other {
@@ -28,7 +27,10 @@ function enc_action(_party_names) constructor {
                     array_delete(party_busy_internal, array_get_index(party_busy_internal, other.party_names), 1)
             }
         }
+        cancel_effects()
     }
+    /// @desc called together with the cancel method
+    cancel_effects = function() {}
     
     /// @desc the function that will be called when the action is performed during action execution
     perform = function() {}
@@ -38,7 +40,6 @@ function enc_action(_party_names) constructor {
 /// @arg {real} _enemy_target index of the target enemy
 function enc_action_fight(_party_names, _enemy_target) : enc_action(_party_names) constructor {
     target = _enemy_target
-    party_state = PARTY_STATE.FIGHT
     
     perform = function(_action_queue) {
         var names = [acting_member]
@@ -70,12 +71,9 @@ function enc_action_fight(_party_names, _enemy_target) : enc_action(_party_names
 function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_names) constructor {
     target = _enemy_target
     target_act = _act
-    party_state = PARTY_STATE.ACT
     
     perform = function(_action_queue) {
         if enc_enemy_isfighting(target) {
-            other.waiting = true
-            
             // set the party sprites accordingly
             for (var i = 0; i < array_length(party_names); i ++) {
                 enc_party_set_battle_sprite(party_names[i], "act")
@@ -100,21 +98,62 @@ function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_n
         }
     }
 }
+
+/// @arg {string|array<string>} _party_names name/names of party members who will perform the action
+/// @arg {real} _target index of the target
+/// @arg {struct.item_spell} _spell the spell struct
 function enc_action_power(_party_names, _target, _spell) : enc_action(_party_names) constructor {
     target = _target
     target_spell = _spell
-    party_state = PARTY_STATE.POWER
+    tp_taken = _spell.tp_cost
+    
+    perform = function(_action_queue) {
+        // set the party sprites accordingly
+        for (var i = 0; i < array_length(party_names); i ++) {
+            enc_party_set_battle_sprite(party_names[i], "spell")
+        }
+        
+        // find other enemies if the target is not fighting
+        if target_spell.use_type == ITEM_USE.ENEMY {
+            if !enc_enemy_isfighting(target)
+                for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
+                    if enc_enemy_isfighting(i) {
+                        target = i
+                        break
+                    }
+                }
+        }
+        
+        cutscene_create()
+        item_spell_use(target_spell, acting_member, target) // creates a cutscene
+        cutscene_sleep(4)
+        cutscene_func(function(party_names) { // go back to idle
+            for (var i = 0; i < array_length(party_names); i ++) {
+                o_enc.party_state[party_get_index(party_names[i])] = PARTY_STATE.IDLE
+            }
+        }, [party_names])
+        
+        cutscene_wait_until(function() {
+            return !o_enc.__check_waiting()
+        })
+        cutscene_play()
+    }
+    cancel_effects = function() {
+        with other
+            tp += other.tp_taken
+    }
 }
 function enc_action_item(_party_names, _target, _item) : enc_action(_party_names) constructor {
     target = _target
     target_item = _item
-    
-    party_state = PARTY_STATE.ITEM
 }
 function enc_action_spare(_party_names, _enemy_target) : enc_action(_party_names) constructor {
     target = _enemy_target
-    party_state = PARTY_STATE.SPARE
 }
 function enc_action_defend(_party_names) : enc_action(_party_names) constructor {
-    party_state = PARTY_STATE.DEFEND
+    tp_given = other.tp_defend
+    cancel_effects = function() {
+        with other
+            tp -= other.tp_given
+    }
 }

@@ -212,9 +212,9 @@ function item_s_healprayer() : item_spell() constructor {
 		cutscene_dialogue(string(loc("spell_cast"), party_getname(spell_user), _name),, false)
         
         cutscene_sleep(10)
-        cutscene_func(function(index, target, _name) {
+        cutscene_func(function(spell_user, target, _name) {
             party_heal(global.party_names[target], party_getdata(spell_user, "magic") * 5)
-        }, [index, target, _name])
+        }, [spell_user, target, _name])
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
