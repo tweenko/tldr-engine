@@ -87,36 +87,111 @@ if battle_state == BATTLE_STATE.MENU {
 		
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 { 
             audio_play(snd_ui_select)
-            __button.menu_proceed()
+            battle_menu_proceed()
+            
             buffer = 1
-            
-            // reset enemy flashing
-			__enemy_highlight_reset()
-            
             if party_selection >= array_length(global.party_names) {
                 __battle_state_advance()
                 exit
             }
         }
 		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
-			__button.menu_cancel()
+			battle_menu_cancel()
 			buffer = 1
-			
-            // reset enemy flashing
-			__enemy_highlight_reset()
 		}
 		
 		// if we changed selection, update the enemies flashing
 		if __delta_selection != 0
 			__enemy_highlight(party_enemy_selection[party_selection])
     }
+    else if battle_menu == BATTLE_MENU.INV_SELECTION {
+        var __button = party_buttons[party_selection][party_button_selection[party_selection]]
+        
+        var list = __act_sort(party_enemy_selection[party_selection])
+        var selection_var_name = "party_act_selection"
+        var selection_operate = function(_delta, _abs = false) {
+            if _abs     party_act_selection[party_selection] = _delta
+            else        party_act_selection[party_selection] += _delta
+        }
+        
+        if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.ITEM {
+            list = __item_sort()
+            selection_var_name = "party_item_selection"
+            selection_operate = function(_delta, _abs = false) {
+                if _abs     party_item_selection[party_selection] = _delta
+                else        party_item_selection[party_selection] += _delta
+            }
+        }
+        if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.POWER {
+            list = __spell_sort()
+            selection_var_name = "party_spell_selection"
+            selection_operate = function(_delta, _abs = false) {
+                if _abs     party_spell_selection[party_selection] = _delta
+                else        party_spell_selection[party_selection] += _delta
+            }
+        }
+        
+        var selected_item_index = variable_instance_get(self, selection_var_name)[party_selection]
+        
+        // four direction ui movement
+        if InputPressed(INPUT_VERB.RIGHT) && selected_item_index < array_length(list) - 1 {
+            selected_item_index ++
+			if selected_item_index % 2 == 0
+				selected_item_index -= 2
+			
+			audio_play(snd_ui_move)
+		}
+		if InputPressed(INPUT_VERB.DOWN) && selected_item_index < array_length(list) - 2 {
+			selected_item_index += 2
+			audio_play(snd_ui_move)
+		}
+		if InputPressed(INPUT_VERB.LEFT) && selected_item_index > 0 {
+			selected_item_index -= 1
+			if selected_item_index % 2 == 1
+				selected_item_index += 2
+			audio_play(snd_ui_move)
+		}
+		else if InputPressed(INPUT_VERB.LEFT) && selected_item_index == 0 && array_length(list) > 1 {
+			selected_item_index -= 1
+			audio_play(snd_ui_move)
+		}
+		if InputPressed(INPUT_VERB.UP) && selected_item_index > 1 {
+			selected_item_index -= 2
+			audio_play(snd_ui_move)
+		}
+        
+        selection_operate(cap_wraparound(selected_item_index, array_length(list)), true)
+        
+        if InputPressed(INPUT_VERB.SELECT) {
+            audio_play(snd_ui_select)
+            __button.submit_action(list[selected_item_index])
+            
+            buffer = 1
+            if party_selection >= array_length(global.party_names) {
+                __battle_state_advance()
+                exit
+            }
+        }
+        if InputPressed(INPUT_VERB.CANCEL) {
+            if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.ACT {
+                battle_menu = BATTLE_MENU.ENEMY_SELECTION
+                buffer = 1
+            }
+        }
+    }
     
     // skip if the party member is busy at the moment
-    while !(party_isup(global.party_names[party_selection]) 
-        && !array_contains(party_busy, global.party_names[party_selection]) 
-        && !array_contains(party_busy_internal, global.party_names[party_selection])
-    ) {
+    while party_selection < array_length(global.party_names)
+        && !(party_isup(global.party_names[party_selection]) 
+            && !array_contains(party_busy, global.party_names[party_selection]) 
+            && !array_contains(party_busy_internal, global.party_names[party_selection])
+        ) 
+    {
         party_selection ++
+    }
+    if party_selection >= array_length(global.party_names) {
+        __battle_state_advance()
+        exit
     }
     
     // the sticks in the ui
@@ -315,6 +390,9 @@ else if battle_state == BATTLE_STATE.POST_TURN {
             party_state = array_create(array_length(global.party_names), PARTY_STATE.IDLE)
             party_button_selection = array_create(array_length(global.party_names), 0)
             party_enemy_selection = array_create(array_length(global.party_names), 0)
+            party_act_selection = array_create(array_length(global.party_names), 0)
+            party_item_selection = array_create(array_length(global.party_names), 0)
+            party_spell_selection = array_create(array_length(global.party_names), 0)
             
             party_busy_internal = []
             party_selection = 0

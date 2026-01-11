@@ -136,10 +136,10 @@ function item_s_testdmg() : item_spell() constructor {
 	desc = ["Deals little damage to a foe.", "Test Damage"]
 	use_type = ITEM_USE.ENEMY
 	
-	use = function() {
+	use = function(index, target, caller) {
 		cutscene_set_variable(o_enc, "waiting", true)
 		cutscene_func(enc_hurt_enemy, [target, 10, user])
-		cutscene_dialogue(string(loc("spell_cast"), party_getname(global.party_names[user]), "TEST DAMAGE"),, true)
+		cutscene_dialogue(string(loc("spell_cast"), party_getname(global.party_names[index]), "TEST DAMAGE"),, true)
 		cutscene_set_variable(o_enc, "waiting", false)
 	}
 	
@@ -323,7 +323,7 @@ function item_s_iceshock() : item_spell() constructor {
             if !__fatal 
                 animate(1, 0, 5, "linear", __o, "flash")
             
-            enc_hurt_enemy(target, __dmg, index,,, 20,, "freeze")
+            enc_hurt_enemy(target, __dmg, global.party_names[index],,, 20,, "freeze")
         }, [target, __name, index])
         
         cutscene_sleep(30)

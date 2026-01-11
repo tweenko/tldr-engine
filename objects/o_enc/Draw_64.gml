@@ -213,6 +213,94 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
         draw_set_color(c_white)
     }
 }
+else if battle_menu == BATTLE_MENU.INV_SELECTION {
+    var list = __act_sort(party_enemy_selection[party_selection])
+    var selected_item_index = party_act_selection[party_selection]
+    
+    if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.ITEM {
+        var list = __item_sort()
+        var selected_item_index = party_item_selection[party_selection]
+    }
+    if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.POWER {
+        var list = __spell_sort()
+        var selected_item_index = party_spell_selection[party_selection]
+    }
+    
+    for (var i = 0; i < array_length(list); i ++) {
+        var can_do = true
+        var txt = list[i].name
+        var item_xoffset = 0
+        
+        // draw the icons (act exclusive)
+        if battle_inv_menu_type == BATTLE_INV_MENU_TYPE.ACT {
+            if array_length(list[i].party) > 0 || list[i].party == -1 {
+                item_xoffset = array_length(list[i].party)
+                
+                if list[i].party == -1 {
+                    var n_drawn = 0
+                    for (var j = 0; j < array_length(global.party_names); ++j) {
+                        if !party_isup(global.party_names[j]) 
+                            can_do = false
+                        if j == party_selection // don't draw the one calling the act
+                            continue
+                        
+                        draw_sprite_ext(party_geticon(global.party_names[j]), 0, (i % 2 == 1 ? 260 : 30) + 30*n_drawn - 1, 375 + 30 * floor(i/2), 1, 1, 0, c_white, 1)
+                        n_drawn ++
+                    }
+                    item_xoffset = n_drawn*30
+                }
+                else {
+                    var n_drawn = 0
+                    for (var j = 0; j < array_length(list[i].party); ++j) {
+                        var name = list[i].party[j]
+                        if !party_isup(name) 
+                            can_do = false
+                        if list[i].party[j] == global.party_names[party_selection] // don't draw the one calling the act
+                            continue
+                        
+                        draw_sprite_ext(party_geticon(name), 0, 30 + (i % 2 == 1 ? 230 : 0) + 30*n_drawn - 1, 375 + 30 * floor(i/2), 1, 1, 0, c_white, 1)
+                        n_drawn ++
+                    }
+                    item_xoffset = n_drawn*30
+                }
+            }
+        }
+        if i == selected_item_index
+            draw_sprite_ext(spr_uisoul, 0, 10 + (i % 2 == 1 ? 230 : 0), 385 + 30 * floor(i/2), 1, 1, 0, c_red, 1)
+    
+        // draw the item tp cost if applicable
+        draw_set_color(c_orange)
+        if struct_exists(list[selected_item_index], "tp_cost") && list[selected_item_index].tp_cost > 0 
+            draw_text_ext_transformed(500, 440, string("{0}% TP", list[selected_item_index].tp_cost), 15, 70, 2, 2, 0)
+        
+        // set item color
+        draw_set_color(c_white)
+        if struct_exists(list[i], "color") {
+            if is_callable(list[i].color) 
+                draw_set_color(list[i].color())
+            else
+                draw_set_color(list[i].color)
+        }
+        
+        // dim the item color if needed
+        if struct_exists(list[i], "tp_cost") && list[i].tp_cost > 0
+            if tp < list[i].tp_cost 
+                draw_set_color(c_gray)
+        if !can_do 
+            draw_set_color(c_gray)
+        
+        // draw the actual item name
+        draw_text_transformed(30 + (i % 2 == 1 ? 230 : 0) + item_xoffset, 375 + 30 * floor(i/2), txt, 2, 2, 0)
+        draw_set_color(c_white)
+    }
+    
+    // draw the selected item's description if applicable
+    if struct_exists(list[selected_item_index], "desc") && is_string(list[selected_item_index].desc) {
+        draw_set_color(c_gray)
+        draw_text_ext_transformed(500, 375, list[selected_item_index].desc, 15, 70, 2, 2, 0)
+        draw_set_color(c_white)
+    }
+}
 
 surface_reset_target()
 

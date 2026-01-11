@@ -19,6 +19,8 @@
     post_turn_init = false
     
     earned_money = 0
+    
+    items_using = []
 }
 { // ui
     ui_main_lerp = 0
@@ -51,6 +53,9 @@
     })
     party_button_selection = array_create(array_length(global.party_names), 0)
     party_enemy_selection = array_create(array_length(global.party_names), 0)
+    party_act_selection = array_create(array_length(global.party_names), 0)
+    party_item_selection = array_create(array_length(global.party_names), 0)
+    party_spell_selection = array_create(array_length(global.party_names), 0)
     
     party_selection = 0
     party_busy_internal = []
@@ -89,7 +94,10 @@ battle_state_order = [
 ]
 
 battle_menu = BATTLE_MENU.BUTTON_SELECTION
+battle_inv_menu_type = BATTLE_INV_MENU_TYPE.ACT
 battle_menu_init = false
+battle_menu_proceed = function() {}
+battle_menu_cancel = function() {}
 
 win_condition = function() { // if this is true, the battle will end
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
@@ -212,6 +220,47 @@ __order_action_queue = function(_action_queue = action_queue) {
 __check_waiting = function() {
     return waiting || waiting_internal
 }
+
+__act_sort = function(enemy_index) {
+	var acts = encounter_data.enemies[enemy_index].acts
+	for (var i = 0; i < array_length(acts); ++i) {
+		if is_array(acts[i].party) && array_length(acts[i].party) > 0 {
+			var contains = true
+			for (var j = 0; j < array_length(acts[i].party); ++j) {
+			    contains = array_contains(global.party_names, acts[i].party[j])
+				if !contains 
+					break
+			}
+			if !contains 
+				array_delete(acts, i, 1)
+		}
+	}
+	
+	return acts
+}
+__item_sort = function(at_point = array_length(items_using)) {
+	var items = variable_clone(item_get_array(0))
+	var itemsusing = []
+	
+	array_copy(itemsusing, 0, items_using, 0, at_point)
+	
+	for (var i = 0; i < array_length(items); ++i) {
+	    if array_contains(itemsusing, item_get_name(items[i])){
+			array_delete(itemsusing, array_get_index(itemsusing, item_get_name(items[i])), 1)
+			array_delete(items, i, 1)
+		}
+	}
+	return items
+}
+__spell_sort = function(party_name) {
+    var spells = []
+    spells = variable_clone(party_getdata(party_name, "spells"))
+    for (var i = 0; i < array_length(struct_get(encounter_data.party_actions, party_name)); ++i) {
+        array_insert(spells, i, struct_get(encounter_data.party_actions, party_name)[i])
+    }
+    return spells
+}
+
 /// @description calls events for all enemies and the encounter struct
 /// @arg {string} event_name starts with "ev_" (e.g. "ev_pre_dialogue")
 __call_enc_event = function(event_name) {
@@ -226,10 +275,14 @@ __call_enc_event = function(event_name) {
         variable_struct_get(encounter_data, event_name)()
 }
 
+enum BATTLE_INV_MENU_TYPE {
+    ACT,
+    ITEM,
+    POWER
+}
 enum BATTLE_MENU {
     BUTTON_SELECTION,
     ENEMY_SELECTION,
-    ACT_SELECTION,
     INV_SELECTION,
 }
 enum BATTLE_STATE {

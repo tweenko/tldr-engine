@@ -24,16 +24,16 @@ function enemy() constructor {
 	// acts
 	acts = [
 		{
-			name:	loc("enc_act_check"),
-			party:	[],
-			desc:	-1,
-			exec:	function(enemy_slot, user_index){
+			name: loc("enc_act_check"),
+			party: [],
+			desc: -1,
+            tp_cost: 0,
+			exec: function(enemy_slot, user_index){
 				encounter_scene_dialogue("* Empty CHECK text.")
 			}
 		},
 	]
-	acts_special = {
-	}
+	acts_special = {}
 	acts_special_desc = loc("enc_ui_label_standard")
 	
 	// text
@@ -147,16 +147,14 @@ function enemy_virovirokun() : enemy() constructor{
 			name: loc("enemy_virovirokun_act_takecare"),
 			party: [],
 			desc: -1,
-			tp_cost: 0,
 			exec: function(slot, user) {
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
 				
 				cutscene_func(enc_sparepercent_enemy, [slot, 100])
 				cutscene_func(function(user) {
-					var name = global.party_names[user]
-					var o = party_get_inst(name)
-					o.sprite_index = asset_get_index($"spr_b{name}_nurse")
+					var o = party_get_inst(user)
+					o.sprite_index = asset_get_index($"spr_b{user}_nurse")
 					
 					var inst = afterimage(.03,o)
 					inst.speed = 1
@@ -178,7 +176,6 @@ function enemy_virovirokun() : enemy() constructor{
 			name: loc("enemy_virovirokun_act_takecarex"),
 			party: -1,
 			desc: -1,
-			tp_cost: 0,
 			exec: function(slot, user) {
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
@@ -257,7 +254,7 @@ function enemy_killercar() : enemy() constructor{
     turn_object = o_ex_turn_complex_box
     carrying_money = 1
     
-    hp = 600
+    hp = 200
     max_hp = 600
 	
 	acts = [
@@ -273,6 +270,7 @@ function enemy_killercar() : enemy() constructor{
 			name: "Susie's Idea",
 			party: ["susie"],
 			desc: "Fatal",
+            tp_cost: 32,
 			exec: function(slot, user) {
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)

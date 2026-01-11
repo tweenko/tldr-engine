@@ -1,6 +1,11 @@
 /// @arg {string|array<string>} _party_names name/names of party members who will perform the action
 function enc_action(_party_names) constructor {
-    party_names = _party_names // can be array/string
+    party_names = variable_clone(_party_names) // can be array/string
+    acting_member = (is_array(_party_names) ? _party_names[0] : _party_names)
+    other_members = []
+    if is_array(_party_names)
+        array_copy(other_members, 0, _party_names, 1, array_length(_party_names))
+    
     target = -1
     party_state = PARTY_STATE.IDLE
     
@@ -36,7 +41,7 @@ function enc_action_fight(_party_names, _enemy_target) : enc_action(_party_names
     party_state = PARTY_STATE.FIGHT
     
     perform = function(_action_queue) {
-        var names = [party_names]
+        var names = [acting_member]
         var targets = [target]
         for (var i = array_length(_action_queue)-1; i >= 0; i --) {
             if is_instanceof(_action_queue[i], enc_action_fight) {
@@ -58,10 +63,42 @@ function enc_action_fight(_party_names, _enemy_target) : enc_action(_party_names
         }
     }
 }
+
+/// @arg {string|array<string>} _party_names name/names of party members who will perform the action
+/// @arg {real} _enemy_target index of the target enemy
+/// @arg {struct} _act act struct
 function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_names) constructor {
     target = _enemy_target
     target_act = _act
     party_state = PARTY_STATE.ACT
+    
+    perform = function(_action_queue) {
+        if enc_enemy_isfighting(target) {
+            other.waiting = true
+            
+            // set the party sprites accordingly
+            for (var i = 0; i < array_length(party_names); i ++) {
+                enc_party_set_battle_sprite(party_names[i], "act")
+            }
+        
+            // perform the act
+            script_execute(target_act.exec, target, acting_member)
+            
+            cutscene_create()
+            cutscene_wait_until(function() {
+                return !o_enc.__check_waiting()
+            })
+            cutscene_func(function(party_names) {
+                for (var i = 0; i < array_length(party_names); i ++) {
+                    var p_inst = party_get_inst(party_names[i])
+                    if instance_exists(p_inst) && party_get_inst(party_names[i]).sprite_index == enc_getparty_sprite(party_names[i], "act")
+                        enc_party_set_battle_sprite(party_names[i], "actend")
+                    o_enc.party_state[party_get_index(party_names[i])] = PARTY_STATE.IDLE
+                }
+            }, [party_names])
+            cutscene_play()
+        }
+    }
 }
 function enc_action_power(_party_names, _target, _spell) : enc_action(_party_names) constructor {
     target = _target

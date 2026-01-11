@@ -13,8 +13,8 @@ function enc_getparty_sprite(party_name, sprname) {
 
 /// @desc  hurts an enemy and makes it run away if needed. if the damage is FATAL, specify in the optional argument
 /// @param {real} target_index
-/// @param {real} hurt 
-/// @param {real} user_index
+/// @param {real} hurt_amount
+/// @param {string} party_name
 /// @param {asset.GMSound} [sfx]
 /// @param {real} [xoff]
 /// @param {real} [yoff]
@@ -35,7 +35,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
 	
 	if !instance_exists(o) 
 		exit
-	instance_create(o_text_hpchange, o.x + xoff, o.s_get_middle_y() + yoff, o.depth-100, {draw: txt, mode: 1, user: global.party_names[user],})
+	instance_create(o_text_hpchange, o.x + xoff, o.s_get_middle_y() + yoff, o.depth-100, {draw: txt, mode: 1, user: user,})
 	
 	if hurt > 0 {
         
