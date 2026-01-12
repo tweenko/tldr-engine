@@ -248,12 +248,98 @@ function enc_button_power() : enc_button() constructor {
 function enc_button_item() : enc_button() constructor {
     name = "item"
     target_menu = BATTLE_MENU.INV_SELECTION
+    
     press = function() {
         with other {
-            battle_menu_inv_proceed = other.menu_proceed
-            battle_menu_inv_proceed = other.menu_cancel
+            battle_menu_inv_list = __item_sort(items_using)
+            battle_menu_inv_var_name = "party_item_selection"
+            battle_menu_inv_var_operate = function(_delta, _abs = false) {
+                if _abs     party_item_selection[party_selection] = _delta
+                else        party_item_selection[party_selection] += _delta
+            }
+            
+            battle_menu_inv_proceed = function(item_struct) {
+                var can_perform = true
+                if struct_exists(item_struct, "tp_cost") {
+                    if item_struct.tp_cost > tp
+                        can_perform = false
+                }
+                
+                if can_perform {
+                    audio_play(snd_ui_select)
+                    switch item_struct.use_type {
+                        case ITEM_USE.EVERYONE: // continue right away
+                            var __button = party_buttons[party_selection][party_button_selection[party_selection]]
+                            __button.submit_action(item_struct, -1)
+                            break
+                        case ITEM_USE.INDIVIDUAL: // let the player choose an ally
+                            battle_menu = BATTLE_MENU.PARTY_SELECTION
+                            __ally_highlight(party_ally_selection[party_selection])
+                            
+                            battle_menu_party_proceed = function() {
+                                audio_play(snd_ui_select)
+                                
+                                var __button = party_buttons[party_selection][party_button_selection[party_selection]]
+                                var __target_spell = battle_menu_inv_list[party_spell_selection[party_selection]]
+                                __button.submit_action(__target_spell, party_ally_selection[party_selection])
+                            }
+                            battle_menu_party_cancel = function() {
+                                battle_menu = BATTLE_MENU.INV_SELECTION
+                                __ally_highlight_reset()
+                            }
+                            break
+                        case ITEM_USE.ENEMY: // let the player choose a target enemy
+                            battle_menu = BATTLE_MENU.ENEMY_SELECTION
+                            __enemy_highlight(party_enemy_selection[party_selection])
+                            
+                            battle_menu_enemy_proceed = function() {
+                                audio_play(snd_ui_select)
+                                
+                                var __button = party_buttons[party_selection][party_button_selection[party_selection]]
+                                var __target_spell = battle_menu_inv_list[party_spell_selection[party_selection]]
+                                __button.submit_action(__target_spell, party_enemy_selection[party_selection])
+                            }
+                            battle_menu_enemy_cancel = function() {
+                                battle_menu = BATTLE_MENU.INV_SELECTION
+                                __enemy_highlight_reset()
+                            }
+                            break
+                    }
+                }
+            }
+            battle_menu_inv_cancel = function() {
+                battle_menu = BATTLE_MENU.BUTTON_SELECTION
+            }
         }
         return target_menu
+    }
+    submit_action = function(item_struct, target) {
+        var __party_members = [global.party_names[other.party_selection]]
+        with other {
+            array_push(action_queue, new enc_action_power(__party_members, target, item_struct))
+            tp -= item_struct.tp_cost
+            
+            for (var i = 0; i < array_length(__party_members); i ++) {
+                var index = party_get_index(__party_members[i])
+                
+                if item_struct.is_party_act {
+                    party_state[index] = PARTY_STATE.ACT
+                    enc_party_set_battle_sprite(__party_members[i], "actready")
+                }
+                else {
+                    party_state[index] = PARTY_STATE.POWER
+                    enc_party_set_battle_sprite(__party_members[i], "spellready")
+                }
+                
+                if __party_members[i] != global.party_names[party_selection]
+                    array_push(party_busy_internal, __party_members[i])
+            }
+            
+            party_selection ++
+            battle_menu = BATTLE_MENU.BUTTON_SELECTION
+            __enemy_highlight_reset()
+            __ally_highlight_reset()
+        }
     }
     
     __determine_sprite()
