@@ -8,17 +8,34 @@
     waiting_internal = false // the waiting variable for ME!! me onLY!!!!!!! nGHHHHH im evil
     surf = -1
     
+    save_follow = array_create_ext(array_length(global.party_names), function(index) {
+        return party_get_inst(global.party_names[index]).follow
+    })
+    save_pos = array_create_ext(array_length(global.party_names), function(index) {
+        return [
+            party_get_inst(global.party_names[index]).x,
+            party_get_inst(global.party_names[index]).y
+        ]
+    })
+    
     turn_timer = 0
+    turn_objects = []
     
     // initializers
     flavor_seen = false
     exec_init = false
     dialogue_init = false
+    pre_turn_init = false
     turn_init = false
     pre_dialogue_init = false
     post_turn_init = false
+    win_screen_init = false
+    win_init = false
     
     earned_money = 0
+    win_screen_show = true
+    win_message = ""
+    win_hide_ui = false
     
     items_using = []
 }
@@ -54,9 +71,11 @@
     party_button_selection = array_create(array_length(global.party_names), 0)
     party_enemy_selection = array_create(array_length(global.party_names), 0)
     party_act_selection = array_create(array_length(global.party_names), 0)
+    party_act_page = array_create(array_length(global.party_names), 0)
     party_item_selection = array_create(array_length(global.party_names), 0)
+    party_item_page = array_create(array_length(global.party_names), 0)
     party_spell_selection = array_create(array_length(global.party_names), 0)
-    party_ally_selection = array_create(array_length(global.party_names), 0)
+    party_spell_page = array_create(array_length(global.party_names), 0)
     
     party_selection = 0
     party_busy_internal = []
@@ -95,7 +114,6 @@ battle_state_order = [
 ]
 
 battle_menu = BATTLE_MENU.BUTTON_SELECTION
-battle_menu_init = false
 
 battle_menu_enemy_proceed = function() {}
 battle_menu_enemy_cancel = function() {}
@@ -104,6 +122,7 @@ battle_menu_inv_proceed = function(item_struct) {}
 battle_menu_inv_cancel = function() {}
 battle_menu_inv_list = []
 battle_menu_inv_var_name = ""
+battle_menu_inv_page_var_name = ""
 battle_menu_inv_var_operate = function(_delta, _abs = false) {
     if _abs     party_act_selection_selection[party_selection] = _delta
     else        party_act_selection[party_selection] += _delta
@@ -191,6 +210,8 @@ __battle_state_advance = function(state = battle_state) {
     var next_state = (cur_state + array_length(battle_state_order) + 1) % array_length(battle_state_order)
     
     battle_state = battle_state_order[next_state]
+    if win_condition()
+        battle_state = BATTLE_STATE.WIN
 }
 
 __enemy_highlight = function(enemy_index) {
@@ -280,18 +301,12 @@ __act_sort = function(enemy_index) {
 	return acts
 }
 __item_sort = function(at_point = array_length(items_using)) {
-	var items = variable_clone(item_get_array(0))
-	var itemsusing = []
-	
-	array_copy(itemsusing, 0, items_using, 0, at_point)
-	
-	for (var i = 0; i < array_length(items); ++i) {
-	    if array_contains(itemsusing, item_get_name(items[i])){
-			array_delete(itemsusing, array_get_index(itemsusing, item_get_name(items[i])), 1)
-			array_delete(items, i, 1)
-		}
-	}
-	return items
+	var __items = variable_clone(item_get_array(0))
+	for (var i = array_length(__items)-1; i >= 0; i --) {
+        if array_contains(items_using, i)
+            array_delete(__items, i, 1)
+    }
+	return __items
 }
 __spell_sort = function(party_name) {
     var spells = []
@@ -339,7 +354,3 @@ enum PARTY_STATE {
     SPARE,
     DEFEND
 }
-
-//party_busy = ["susie"]
-//party_state[1] = PARTY_STATE.FIGHT
-//array_push(action_queue, new enc_action_fight("susie", 0))

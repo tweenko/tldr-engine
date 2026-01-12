@@ -23,7 +23,7 @@ function enc_set() constructor { // base
 	    struct_set(party_actions, global.party_names[i], [new item_s_defaultaction(global.party_names[i])])
 	}
     
-    can_change_turnlen = true
+    can_change_turnlen = true // by defending
     enc_var_struct = {}	
     
 	display_target = true // whether to display the targets of the enemy's attack

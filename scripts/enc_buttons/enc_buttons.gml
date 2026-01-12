@@ -5,23 +5,22 @@ function enc_button() constructor {
     name = "undefined"
     target_menu = BATTLE_MENU.BUTTON_SELECTION
     
-    press = function() {
-        return target_menu
-    } // return the target battle menu enumerator
+    press = function() {}
     submit_action = function() {} // called when finishing the target menu and submitting the action
     
-    __determine_sprite = function() {
+    __determine_sprite = function() { // internal
         sprite = asset_get_index(string(loc("enc_ui_spr_buttons"), name))
     }
 }
 
 function enc_button_fight() : enc_button() constructor {
     name = "fight"
-    target_menu = BATTLE_MENU.ENEMY_SELECTION
-    
     press = function(_tp) {
+        audio_play(snd_ui_select)
         with other {
+            battle_menu = BATTLE_MENU.ENEMY_SELECTION
             __enemy_highlight(party_enemy_selection[party_selection])
+            
             battle_menu_enemy_proceed = function() {
                 audio_play(snd_ui_select)
                 
@@ -46,22 +45,25 @@ function enc_button_fight() : enc_button() constructor {
                 __enemy_highlight_reset()
             }
         }
-        return target_menu
     }
     
     __determine_sprite()
 }
 function enc_button_act() : enc_button() constructor {
     name = "act"
-    target_menu = BATTLE_MENU.ENEMY_SELECTION
-    
     press = function() {
+        audio_play(snd_ui_select)
         with other {
+            battle_menu = BATTLE_MENU.ENEMY_SELECTION
             __enemy_highlight(party_enemy_selection[party_selection])
+            
             battle_menu_enemy_proceed = function() {
+                audio_play(snd_ui_select)
+                
                 battle_menu = BATTLE_MENU.INV_SELECTION
                 battle_menu_inv_list = __act_sort(party_enemy_selection[party_selection])
                 battle_menu_inv_var_name = "party_act_selection"
+                battle_menu_inv_page_var_name = "party_act_page"
                 battle_menu_inv_var_operate = function(_delta, _abs = false) {
                     if _abs     party_act_selection[party_selection] = _delta
                     else        party_act_selection[party_selection] += _delta
@@ -109,7 +111,6 @@ function enc_button_act() : enc_button() constructor {
                 __enemy_highlight_reset()
             }
         }
-        return target_menu
     }
     submit_action = function(item_struct) {
         var __party_members = [global.party_names[other.party_selection]]
@@ -148,12 +149,14 @@ function enc_button_act() : enc_button() constructor {
 }
 function enc_button_power() : enc_button() constructor {
     name = "power"
-    target_menu = BATTLE_MENU.INV_SELECTION
-    
     press = function() {
+        audio_play(snd_ui_select)
         with other {
+            battle_menu = BATTLE_MENU.INV_SELECTION
+            
             battle_menu_inv_list = __spell_sort(global.party_names[party_selection])
             battle_menu_inv_var_name = "party_spell_selection"
+            battle_menu_inv_page_var_name = "party_spell_page"
             battle_menu_inv_var_operate = function(_delta, _abs = false) {
                 if _abs     party_spell_selection[party_selection] = _delta
                 else        party_spell_selection[party_selection] += _delta
@@ -212,12 +215,11 @@ function enc_button_power() : enc_button() constructor {
                 battle_menu = BATTLE_MENU.BUTTON_SELECTION
             }
         }
-        return target_menu
     }
     submit_action = function(spell_struct, target) {
         var __party_members = [global.party_names[other.party_selection]]
         with other {
-            array_push(action_queue, new enc_action_power(__party_members, target, spell_struct))
+            array_push(action_queue, new enc_action_power(__party_members, target, spell_struct, party_spell_selection[party_selection]))
             tp -= spell_struct.tp_cost
             
             for (var i = 0; i < array_length(__party_members); i ++) {
@@ -247,12 +249,20 @@ function enc_button_power() : enc_button() constructor {
 }
 function enc_button_item() : enc_button() constructor {
     name = "item"
-    target_menu = BATTLE_MENU.INV_SELECTION
-    
     press = function() {
+        if array_length(other.__item_sort()) == 0 {
+            audio_play(snd_ui_cant_select)
+            return
+        }
+        else
+            audio_play(snd_ui_select)
+        
         with other {
-            battle_menu_inv_list = __item_sort(items_using)
+            battle_menu = BATTLE_MENU.INV_SELECTION
+            
+            battle_menu_inv_list = __item_sort()
             battle_menu_inv_var_name = "party_item_selection"
+            battle_menu_inv_page_var_name = "party_item_page"
             battle_menu_inv_var_operate = function(_delta, _abs = false) {
                 if _abs     party_item_selection[party_selection] = _delta
                 else        party_item_selection[party_selection] += _delta
@@ -311,25 +321,19 @@ function enc_button_item() : enc_button() constructor {
                 battle_menu = BATTLE_MENU.BUTTON_SELECTION
             }
         }
-        return target_menu
     }
     submit_action = function(item_struct, target) {
         var __party_members = [global.party_names[other.party_selection]]
         with other {
-            array_push(action_queue, new enc_action_power(__party_members, target, item_struct))
+            array_push(action_queue, new enc_action_item(__party_members, target, item_struct, party_item_selection[party_selection]))
+            array_push(items_using, party_item_selection[party_selection])
             tp -= item_struct.tp_cost
             
             for (var i = 0; i < array_length(__party_members); i ++) {
                 var index = party_get_index(__party_members[i])
                 
-                if item_struct.is_party_act {
-                    party_state[index] = PARTY_STATE.ACT
-                    enc_party_set_battle_sprite(__party_members[i], "actready")
-                }
-                else {
-                    party_state[index] = PARTY_STATE.POWER
-                    enc_party_set_battle_sprite(__party_members[i], "spellready")
-                }
+                party_state[index] = PARTY_STATE.ITEM
+                enc_party_set_battle_sprite(__party_members[i], "itemready")
                 
                 if __party_members[i] != global.party_names[party_selection]
                     array_push(party_busy_internal, __party_members[i])
@@ -346,15 +350,38 @@ function enc_button_item() : enc_button() constructor {
 }
 function enc_button_spare() : enc_button() constructor {
     name = "spare"
-    target_menu = BATTLE_MENU.ENEMY_SELECTION
+    press = function(_tp) {
+        audio_play(snd_ui_select)
+        with other {
+            battle_menu = BATTLE_MENU.ENEMY_SELECTION
+            __enemy_highlight(party_enemy_selection[party_selection])
+            
+            battle_menu_enemy_proceed = function() {
+                audio_play(snd_ui_select)
+                
+                array_push(action_queue, new enc_action_spare(global.party_names[other.party_selection], other.party_enemy_selection[other.party_selection]))
+                enc_party_set_battle_sprite(global.party_names[other.party_selection], "actready")
+                other.party_state[other.party_selection] = PARTY_STATE.SPARE
+                
+                party_selection ++
+                battle_menu = BATTLE_MENU.BUTTON_SELECTION
+                __enemy_highlight_reset()
+            }
+            battle_menu_enemy_cancel = function() {
+                battle_menu = BATTLE_MENU.BUTTON_SELECTION
+                __enemy_highlight_reset()
+            }
+        }
+    }
     
     __determine_sprite()
 }
 function enc_button_defend() : enc_button() constructor {
     name = "defend"
-    
     press = function() {
+        audio_play(snd_ui_select)
         with other {
+            battle_menu = BATTLE_MENU.BUTTON_SELECTION
             array_push(action_queue, new enc_action_defend(global.party_names[party_selection]))
             
             party_state[party_selection] = PARTY_STATE.DEFEND
@@ -363,8 +390,6 @@ function enc_button_defend() : enc_button() constructor {
             party_selection ++
             tp += tp_defend
         }
-        
-        return BATTLE_MENU.BUTTON_SELECTION
     }
     
     __determine_sprite()

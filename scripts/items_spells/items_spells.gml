@@ -45,6 +45,7 @@ function item_s_rudebuster() : item_spell() constructor {
             animate(0, 1, 3, "linear", inst, "image_alpha")
         }, [__e_obj, party_get_inst(spell_user), target, spell_user])
         cutscene_sleep(50)
+        cutscene_set_partysprite(spell_user, "idle")
 		cutscene_set_variable(o_enc, "waiting", false)
     }
     

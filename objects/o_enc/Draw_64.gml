@@ -215,11 +215,14 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
 }
 else if battle_menu == BATTLE_MENU.INV_SELECTION {
     var __button = party_buttons[party_selection][party_button_selection[party_selection]]
+    var __drawn = 0
+    
     var list = battle_menu_inv_list
     var selected_item_index = variable_instance_get(self, battle_menu_inv_var_name)[party_selection]
+    var page_index = variable_instance_get(self, battle_menu_inv_page_var_name)[party_selection]
     selected_item_index = clamp(selected_item_index, 0, array_length(list)-1)
     
-    for (var i = 0; i < array_length(list); i ++) {
+    for (var i = page_index*6; i < min(page_index*6 + 6, array_length(list)); i ++) {
         var can_do = true
         var txt = item_get_name(list[i])
         var item_xoffset = 0
@@ -237,7 +240,7 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
                         if j == party_selection // don't draw the one calling the act
                             continue
                         
-                        draw_sprite_ext(party_geticon(global.party_names[j]), 0, (i % 2 == 1 ? 260 : 30) + 30*n_drawn - 1, 375 + 30 * floor(i/2), 1, 1, 0, c_white, 1)
+                        draw_sprite_ext(party_geticon(global.party_names[j]), 0, (__drawn % 2 == 1 ? 260 : 30) + 30*n_drawn - 1, 375 + 30 * floor(__drawn/2), 1, 1, 0, c_white, 1)
                         n_drawn ++
                     }
                     item_xoffset = n_drawn*30
@@ -251,7 +254,7 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
                         if list[i].party[j] == global.party_names[party_selection] // don't draw the one calling the act
                             continue
                         
-                        draw_sprite_ext(party_geticon(name), 0, 30 + (i % 2 == 1 ? 230 : 0) + 30*n_drawn - 1, 375 + 30 * floor(i/2), 1, 1, 0, c_white, 1)
+                        draw_sprite_ext(party_geticon(name), 0, 30 + (__drawn % 2 == 1 ? 230 : 0) + 30*n_drawn - 1, 375 + 30 * floor(__drawn/2), 1, 1, 0, c_white, 1)
                         n_drawn ++
                     }
                     item_xoffset = n_drawn*30
@@ -259,7 +262,7 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
             }
         }
         if i == selected_item_index
-            draw_sprite_ext(spr_uisoul, 0, 10 + (i % 2 == 1 ? 230 : 0), 385 + 30 * floor(i/2), 1, 1, 0, c_red, 1)
+            draw_sprite_ext(spr_uisoul, 0, 10 + (__drawn % 2 == 1 ? 230 : 0), 385 + 30 * floor(__drawn/2), 1, 1, 0, c_red, 1)
     
         // draw the item tp cost if applicable
         draw_set_color(c_orange)
@@ -283,8 +286,10 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
             draw_set_color(c_gray)
         
         // draw the actual item name
-        draw_text_transformed(30 + (i % 2 == 1 ? 230 : 0) + item_xoffset, 375 + 30 * floor(i/2), txt, 2, 2, 0)
+        draw_text_transformed(30 + (__drawn % 2 == 1 ? 230 : 0) + item_xoffset, 375 + 30 * floor(__drawn/2), txt, 2, 2, 0)
         draw_set_color(c_white)
+        
+        __drawn ++
     }
     
     // draw the selected item's description if applicable
@@ -294,6 +299,11 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
         draw_text_ext_transformed(500, 375, item_desc, 15, 70, 2, 2, 0)
         draw_set_color(c_white)
     }
+    
+    if array_length(list) > 6 && selected_item_index < 6
+        draw_sprite_ext(spr_ui_arrow_down, 0, 470, 446 + round(sine(12,3)), 1, 1, 0, c_white, 1)
+    if array_length(list) > 6 && selected_item_index > 6
+        draw_sprite_ext(spr_ui_arrow_up, 0, 470, 382 + round(sine(12,3)), 1, 1, 0, c_white, 1)
 }
 else if battle_menu == BATTLE_MENU.PARTY_SELECTION {
     for (var i = 0; i < array_length(global.party_names); ++i) {

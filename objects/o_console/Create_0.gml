@@ -56,9 +56,9 @@ registred_commands = {
                 else if o_enc.battle_state == "dialogue" {
                     o_enc.battle_state = BATTLE_STATE.TURN
                     with o_enc {
-                        for (var i = 0; i < array_length(dialogueinstances); ++i) {
+                        for (var i = 0; i < array_length(inst_dialogues); ++i) {
                             if enc_enemy_isfighting(i)
-                    	        instance_destroy(dialogueinstances[i])
+                    	        instance_destroy(inst_dialogues[i])
                     	}
                     }
                     
@@ -70,9 +70,8 @@ registred_commands = {
                     })
                 }
                 else {
-                    instance_destroy(o_enc.menutext)
                     o_enc.battle_state = BATTLE_STATE.WIN
-                    o_enc.selection = -1
+                    o_enc.party_selection = -1
                     
                     // destroy the enemy actors
                     for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {

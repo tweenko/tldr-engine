@@ -6,6 +6,8 @@ function enc_getparty_sprite(party_name, sprname) {
 		ret = ret[0]
 	party_get_inst(party_name).sprname = sprname
 	
+    if !sprite_exists(ret)
+        return undefined
 	ret = asset_get_index_state(sprite_get_name(ret), party_getdata(party_name, "s_state"))
 	
 	return ret
@@ -163,8 +165,10 @@ function enc_party_set_battle_sprite(party_name, sprite_ref, index = undefined, 
     index ??= 0; speed ??= 1
     
     var inst = party_get_inst(party_name)
-    if is_string(sprite_ref)
-        inst.sprite_index = enc_getparty_sprite(party_name, sprite_ref)
+    if is_string(sprite_ref) {
+        var target_sprite = enc_getparty_sprite(party_name, sprite_ref)
+        inst.sprite_index = (sprite_exists(target_sprite) ? target_sprite : inst.sprite_index)
+    }
     else if sprite_exists(sprite_ref)
         inst.sprite_index = sprite_ref
     

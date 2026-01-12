@@ -104,6 +104,25 @@ function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_do
 		pause: wait,
 	})
 }
+function cutscene_actor_dialogue(dialogue, actor_inst, prefix = "", postfix = "{p}{e}", wait = true) {
+	cutscene_custom({
+		dialogue, actor_inst, 
+        prefix, postfix, 
+		wait,
+
+		action: [
+            actor_dialogue_create,
+            dialogue, actor_inst, 
+            prefix, postfix,
+        ],
+
+		continue_func: function(wait) {
+			return (wait ? !instance_exists(o_ui_actordialogue) : true)
+		},
+		continue_args: [wait],
+		pause: wait,
+	})
+}
 
 ///@desc pauses the cutscene until a certain amount of dialogue boxes has been seen
 ///@arg {real} boxes_to_wait_for

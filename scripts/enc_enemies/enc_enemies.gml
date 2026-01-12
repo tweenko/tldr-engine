@@ -222,21 +222,21 @@ function enemy_virovirokun() : enemy() constructor{
     ]
 	acts_special = {
 		susie: {
-			exec: function(slot){
-				enc_sparepercent_enemy(slot, 50)
-				encounter_scene_dialogue(loc("enemy_virovirokun_act_susie"))
+			exec: function(enemy_slot){
+				enc_sparepercent_enemy(enemy_slot, 50)
+				cutscene_dialogue(loc("enemy_virovirokun_act_susie"))
 			},
 		},
 		ralsei: {
-			exec: function(slot){
-				enc_sparepercent_enemy(slot, 50)
-				encounter_scene_dialogue(loc("enemy_virovirokun_act_ralsei"))
+			exec: function(enemy_slot){
+				enc_sparepercent_enemy(enemy_slot, 50)
+				cutscene_dialogue(loc("enemy_virovirokun_act_ralsei"))
 			},
 		},
 		noelle: {
-			exec: function(slot) {
-				enc_sparepercent_enemy(slot, 50)
-				encounter_scene_dialogue(loc("enemy_virovirokun_act_noelle"))
+			exec: function(enemy_slot) {
+				enc_sparepercent_enemy(enemy_slot, 50)
+				cutscene_dialogue(loc("enemy_virovirokun_act_noelle"))
 			},
 		},
 	}

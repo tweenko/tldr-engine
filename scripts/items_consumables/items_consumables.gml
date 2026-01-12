@@ -2,8 +2,8 @@ function item_lightcandy() : item() constructor {
 	name = ["LightCandy"]
 	desc = ["White candy with a chalky texture.\nIt'll recover 120HP.", "Heals 120HP"]
 	
-	use = function(item_index, target, caller = -1) {
-		party_heal(target, 120, caller)
+	use = function(item_index, target_index, caller = -1) {
+		party_heal(global.party_names[target_index], 120, caller)
 		item_delete(item_index)
 	}
 	reactions = {
@@ -18,8 +18,8 @@ function item_darker_candy() : item() constructor {
 	name = ["Darker Candy"]
 	desc = ["A candy that has grown sweeter with time.\nSaid to taste like toasted marshmallow. +120HP", "Heals 120HP"]
 	
-	use = function(item_index, target, caller = -1) {
-		party_heal(target, 40, caller)
+	use = function(item_index, target_index, caller = -1) {
+		party_heal(global.party_names[target_index], 40, caller)
 		item_delete(item_index)
 	}
 	reactions = {
@@ -38,7 +38,7 @@ function item_top_cake() : item() constructor {
 	desc = ["This cake will make your taste buds spin! Heals 160HP to the team", "Heals team 160HP"]
 	
 	use_type = ITEM_USE.EVERYONE
-	use = function(item_index, target, caller = -1) {
+	use = function(item_index, target_index, caller = -1) {
 		party_heal_all(160, caller)
 		item_delete(item_index)
 	}
@@ -67,7 +67,9 @@ function item_revivemint() : item() constructor {
 		},
 		noelle: "Mints? I love mints!",
 	}
-	use = function(item_index, target, caller) {
+	use = function(item_index, target_index, caller) {
+        var target = global.party_names[target_index]
+        
 		if party_getdata(target, "hp") > 0{
 			var heal = party_getdata(target, "max_hp") / 2
 			party_heal(target, heal, caller)
@@ -86,12 +88,12 @@ function item_lw_shit() : item() constructor {
 	name = ["Actual Shit"]
 	desc = ["* Nobody knows what it actually does...", "HOW"]
 	
-	use = function(item_index, target, caller) {
+	use = function(item_index, target_index, caller) {
 		dialogue_start("* You smell the shit...{br}{resetx}{s(10)}* Ew. Why did you do that.")
 	}
 	throw_scripts = {
 		can: true,
-		execute_code: function(index){
+		execute_code: function(index, item_index){
 			dialogue_start("* You dropped the shit. Now the room stinks. Thanks.")
 			item_delete(item_index, 6)
 		}
