@@ -33,43 +33,58 @@ if is_player && check_canmove {
 	}
     
 	// move upon pressing keys
-    var target_dir = undefined
-    var moving_in_directions = []
+    var hor_dir = DIR.RIGHT
+    var ver_dir = DIR.DOWN
+    var __setdir = function(target_dir) {
+        var opposite_direction = angle_add(target_dir, 180)
+        
+        if !array_contains(held_directions, target_dir)
+            array_push(held_directions, target_dir)
+        if array_contains(held_directions, opposite_direction)
+            array_delete(held_directions, array_get_index(held_directions, opposite_direction), 1)
+    }
+    var __unset_dir = function(target_dir) {
+        if !array_contains(held_directions, target_dir)
+            return false
+        array_delete(held_directions, array_get_index(held_directions, target_dir), 1)
+    }
     
 	if InputCheck(INPUT_VERB.RIGHT) {
-        target_dir = DIR.RIGHT
-        array_push(moving_in_directions, DIR.RIGHT)
+        __setdir(DIR.RIGHT)
         
 		x_move = currentspd
 		am_moving = true
 	}
+    else
+        __unset_dir(DIR.RIGHT)
 	if InputCheck(INPUT_VERB.LEFT) {
-        target_dir = DIR.LEFT
-        array_push(moving_in_directions, DIR.LEFT)
+        __setdir(DIR.LEFT)
         
 		x_move = -currentspd
 		am_moving = true
 	}
+    else
+        __unset_dir(DIR.LEFT)
+    
 	if InputCheck(INPUT_VERB.DOWN) && (!sliding || slide_vertical_allow) {
-        target_dir = DIR.DOWN
-        array_push(moving_in_directions, DIR.DOWN)
+        __setdir(DIR.DOWN)
         
         y_move = currentspd
 		am_moving = true
 	}
+    else
+        __unset_dir(DIR.DOWN)
 	if InputCheck(INPUT_VERB.UP) && (!sliding || slide_vertical_allow) {
-        target_dir = DIR.UP
-        array_push(moving_in_directions, DIR.UP)
+        __setdir(DIR.UP)
         
 		y_move = -currentspd
 		am_moving = true
 	}
+    else
+        __unset_dir(DIR.UP)
     
-    if !is_undefined(movement_dir) && !array_contains(moving_in_directions, movement_dir)
-        movement_dir = undefined
-    if is_undefined(movement_dir) && am_moving {
-        movement_dir = target_dir
-        dir = target_dir
+    if am_moving && array_length(held_directions) > 0 {
+        dir = held_directions[0]
     }
 	
 	// interact
@@ -80,8 +95,10 @@ if is_player && check_canmove {
         
         var __interactable_instances = instance_place_list_ext(x + __xw, y + __yw, array_concat([o_ow_interactable, o_actor_interactable], interactable_instances), false)
         for (var i = 0; i < array_length(__interactable_instances); i ++) {
-            with __interactable_instances[i]
-                event_user(0)
+            with __interactable_instances[i] {
+                if other._checkmove()
+                    event_user(0)
+            }
         }
 	}
 	

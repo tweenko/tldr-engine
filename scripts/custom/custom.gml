@@ -332,7 +332,7 @@ function struct_merge(primary, secondary, shared) {
 
 /// @desc returns the sum of two angles within the angle range
 function angle_add(x, y) {
-    return x + angle_difference(x, y)
+    return (x + y + 360) % 360
 }
 
 
