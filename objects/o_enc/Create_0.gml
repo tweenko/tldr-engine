@@ -8,6 +8,11 @@
     waiting_internal = false // the waiting variable for ME!! me onLY!!!!!!! nGHHHHH im evil
     surf = -1
     
+    tp = 0
+    tp_constrict = false // darkness constriction
+    tp_glow_alpha = 0
+    tp_defend = 16
+    
     save_follow = array_create_ext(array_length(global.party_names), function(index) {
         return party_get_inst(global.party_names[index]).follow
     })
@@ -32,6 +37,7 @@
     win_screen_init = false
     win_init = false
     
+    // win stuff
     earned_money = 0
     win_screen_show = true
     win_message = ""
@@ -44,6 +50,24 @@
     ui_party_sticks = [0, -3, -6]
     ui_hp_danger_zone = 30
     ui_menu_state = 0
+    
+    battle_menu = BATTLE_MENU.BUTTON_SELECTION
+    
+    battle_menu_enemy_proceed = function() {}
+    battle_menu_enemy_cancel = function() {}
+    
+    battle_menu_inv_proceed = function(item_struct) {}
+    battle_menu_inv_cancel = function() {}
+    battle_menu_inv_list = []
+    battle_menu_inv_var_name = ""
+    battle_menu_inv_page_var_name = ""
+    battle_menu_inv_var_operate = function(_delta, _abs = false) {
+        if _abs     party_act_selection_selection[party_selection] = _delta
+        else        party_act_selection[party_selection] += _delta
+    }
+    
+    battle_menu_party_proceed = function() {}
+    battle_menu_party_cancel = function() {}
 }
 { // party
     party_ui_lerp = array_create(array_length(global.party_names), 0)
@@ -90,6 +114,9 @@
     inst_dialogues = []
 }
 
+encounter_data = {} // the information about the encounter: enemies, music, text and such
+
+
 action_queue = []
 action_order = [
     enc_action_act,
@@ -113,24 +140,6 @@ battle_state_order = [
     BATTLE_STATE.POST_TURN,
 ]
 
-battle_menu = BATTLE_MENU.BUTTON_SELECTION
-
-battle_menu_enemy_proceed = function() {}
-battle_menu_enemy_cancel = function() {}
-
-battle_menu_inv_proceed = function(item_struct) {}
-battle_menu_inv_cancel = function() {}
-battle_menu_inv_list = []
-battle_menu_inv_var_name = ""
-battle_menu_inv_page_var_name = ""
-battle_menu_inv_var_operate = function(_delta, _abs = false) {
-    if _abs     party_act_selection_selection[party_selection] = _delta
-    else        party_act_selection[party_selection] += _delta
-}
-
-battle_menu_party_proceed = function() {}
-battle_menu_party_cancel = function() {}
-
 win_condition = function() { // if this is true, the battle will end
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
         if enc_enemy_isfighting(i)
@@ -138,13 +147,6 @@ win_condition = function() { // if this is true, the battle will end
     }
     return true
 }
-
-encounter_data = {} // the information about the encounter: enemies, music, text and such
-
-tp = 0
-tp_constrict = false // darkness constriction
-tp_glow_alpha = 0
-tp_defend = 16
 
 __button_highlight = function(button, party_name) {
 	if button.name == "power" { // pacify & sleepmist

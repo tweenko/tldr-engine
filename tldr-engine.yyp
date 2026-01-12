@@ -330,7 +330,6 @@
     {"id":{"name":"o_enc_bullet","path":"objects/o_enc_bullet/o_enc_bullet.yy",},},
     {"id":{"name":"o_enc_fight","path":"objects/o_enc_fight/o_enc_fight.yy",},},
     {"id":{"name":"o_enc_fightstick","path":"objects/o_enc_fightstick/o_enc_fightstick.yy",},},
-    {"id":{"name":"o_enc_old","path":"objects/o_enc_old/o_enc_old.yy",},},
     {"id":{"name":"o_enc_soul_aura","path":"objects/o_enc_soul_aura/o_enc_soul_aura.yy",},},
     {"id":{"name":"o_enc_soul_grazer","path":"objects/o_enc_soul_grazer/o_enc_soul_grazer.yy",},},
     {"id":{"name":"o_enc_soul","path":"objects/o_enc_soul/o_enc_soul.yy",},},
