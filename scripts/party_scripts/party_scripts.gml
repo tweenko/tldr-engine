@@ -20,7 +20,7 @@ function party_leader_create(name, xx, yy, ddepth){
 function party_member_create(name, recordnow = true, xx = get_leader().x, yy = get_leader().y){
 	var inst = actor_create(party_get_obj(name), xx, yy, get_leader().depth)
 	inst.is_follower = true
-	inst.pos = get_leader().spacing * party_getpos(name)
+	inst.pos = get_leader().spacing * party_get_index(name)
 	
 	with inst {
 		if recordnow 
@@ -74,7 +74,7 @@ function party_reposition(lx = get_leader().x, ly = get_leader().y){
 		if instance_exists(party_get_inst(global.party_names[i])) {
 			var inst = party_get_inst(global.party_names[i])
 			inst.is_follower = true
-			inst.pos = get_leader().spacing * party_getpos(global.party_names[i])
+			inst.pos = get_leader().spacing * party_get_index(global.party_names[i])
 			
 			with inst { // set position, initialize the followers
 				if array_length(record) == 0 

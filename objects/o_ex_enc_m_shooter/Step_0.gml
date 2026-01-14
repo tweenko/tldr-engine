@@ -55,8 +55,8 @@ else {
 			
 			ammo -= 1
 			
-			instance_create(o_ex_enc_m_sguy_soul, o.x + 16, o.y-o.myheight/2, DEPTH_ENCOUNTER.BULLETS_OUTSIDE-10, {
-				direction: point_direction(o.x + 16, o.y-o.myheight/2, 
+			instance_create(o_ex_enc_m_sguy_soul, o.x + 16, o.s_get_middle_y(), DEPTH_ENCOUNTER.BULLETS_OUTSIDE-10, {
+				direction: point_direction(o.x + 16, o.s_get_middle_y(), 
 					x + random_range(-5, 5), 
 					y + random_range(-5, 5)
 				),

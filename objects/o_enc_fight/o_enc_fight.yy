@@ -13,8 +13,8 @@
   "name":"o_enc_fight",
   "overriddenProperties":[],
   "parent":{
-    "name":"enc",
-    "path":"folders/@Engine/objects/enc.yy",
+    "name":"ui elements",
+    "path":"folders/@Engine/objects/enc/ui elements.yy",
   },
   "parentObjectId":null,
   "persistent":false,

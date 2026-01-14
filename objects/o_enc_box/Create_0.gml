@@ -1,10 +1,11 @@
 event_inherited()
 
 bullet_surf = -1
+bullet_surf_safe = 40
 
 x = 320/2
 y = 170/2
-depth = DEPTH_ENCOUNTER.BOX;
+depth = DEPTH_ENCOUNTER.BOX
 
 x += guipos_x()
 y += guipos_y()
@@ -19,16 +20,12 @@ timer = 0
 temp_scale = 0
 temp_angle = -180
 
-solid_left = noone
-solid_top = noone
-solid_right = noone
-solid_bottom = noone
-
 is_transitioning = true
 trans_sprite = -1
 trans_surf = -1
 trans_lerp = 0
 
+sprite_back = spr_enc_box_back_2x // < -- this sprite needs to be 2x if you use nine-slice, 1x if not
 sprite_w = sprite_get_width(sprite_index)
 sprite_h = sprite_get_height(sprite_index)
 prev_sprite = sprite_index

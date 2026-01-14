@@ -31,8 +31,6 @@ is_player = false
 { // enemy specific
 	chaser = false
 	chasing = false
-    
-    carrying_money = 0
 }
 { // actor variables
 	follow = true
@@ -44,9 +42,7 @@ is_player = false
 	custom_depth = undefined
 	pos = 0
     
-    interaction_code = function() {
-        return false
-    }
+    interaction_code = function() {}
     interaction_args = []
     interactable_instances = []
 }
@@ -79,6 +75,9 @@ is_player = false
 			_angle, _blend, _alpha
 		)
 	}
+    s_get_middle_y = function(relative = false) {
+        return (relative ? 0 : y) - myheight/2
+    }
 	
 	snapping = 1 // 1 for none
 	
@@ -95,6 +94,8 @@ is_player = false
     flash_color = c_white
 	fsiner = 0 // flash siner
 	flash = 0
+    
+    highlight_color = c_white
 	
 	can_reflect = true
 	reflection_code = function() {

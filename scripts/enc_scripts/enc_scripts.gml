@@ -1,73 +1,60 @@
 ///@desc returns the battle sprite of a party member from the battle_sprites struct inside party data
-function enc_getparty_sprite(index, sprname) {
-	var ret = struct_get(party_getdata(global.party_names[index], "battle_sprites"), sprname)
+function enc_getparty_sprite(party_name, sprname) {
+	var ret = struct_get(party_getdata(party_name, "battle_sprites"), sprname)
 	
 	if is_array(ret) 
 		ret = ret[0]
-	party_get_inst(global.party_names[index]).sprname = sprname
+	party_get_inst(party_name).sprname = sprname
 	
-	ret = asset_get_index_state(sprite_get_name(ret), party_getdata(global.party_names[index], "s_state"))
+    if !sprite_exists(ret)
+        return undefined
+	ret = asset_get_index_state(sprite_get_name(ret), party_getdata(party_name, "s_state"))
 	
 	return ret
 }
 
 /// @desc  hurts an enemy and makes it run away if needed. if the damage is FATAL, specify in the optional argument
 /// @param {real} target_index
-/// @param {real} hurt 
-/// @param {real} user_index
-/// @param {asset.gmsound} [sfx]
-/// @param {real} [xoff]
-/// @param {real} [yoff]
+/// @param {real} hurt_amount
+/// @param {string} party_name
+/// @param {asset.GMSound} [sfx]
 /// @param {bool} [fatal]
 /// @param {string} [seed]
-function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0, fatal = false, seed = "") {
-	if o_enc.encounter_data.enemies[target].hp <= 0 
+function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, fatal = false, seed = "") {
+	var enemy_struct = o_enc.encounter_data.enemies[target]
+    
+    if enemy_struct.hp <= 0 
 		exit
-	o_enc.encounter_data.enemies[target].hp -= hurt
+	enemy_struct.hp -= hurt
 	
-	var o = o_enc.encounter_data.enemies[target].actor_id
+	var o = enemy_struct.actor_id
 	var txt = -hurt
+    
 	if hurt == 0
 		txt = "miss"
 	
 	if !instance_exists(o) 
 		exit
-	instance_create(o_text_hpchange, o.x + xoff, o.y - o.myheight/2 + yoff, o.depth-100, {draw: txt, mode: 1, user: global.party_names[user],})
+	instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: txt, mode: TEXT_HPCHANGE_MODE.ENEMY, user: user,})
 	
 	if hurt > 0 {
-		if o_enc.encounter_data.enemies[target].hp <= 0 {
-			if fatal {
-				instance_create(o_eff_fatal_damage, o.x, o.y, o.depth, {
-					sprite_index: o.s_hurt,
-					image_xscale: o.image_xscale,
-					image_yscale: o.image_yscale,
-					image_index: o.image_index,
-					image_speed: 0,
-					shake: 6,
-				})
-				instance_destroy(o)
-			}
+        
+		if enemy_struct.hp <= 0 {
+			if fatal
+                enemy_struct.__fatal_defeat()
 			else if seed == "" {
-				o.run_away = true
-				audio_play(snd_defeatrun)
+                enemy_struct.__run_defeat()
                 
-                if !recruit_islost(o_enc.encounter_data.enemies[target]) {
-                    instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {
+                if !recruit_islost(enemy_struct) {
+                    instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {
                         draw: "lost",
-                        mode: 4,
+                        mode: TEXT_HPCHANGE_MODE.SCALE,
                     })
-                    recruit_lose(o_enc.encounter_data.enemies[target])
+                    recruit_lose(enemy_struct)
                 }
 			}
-            else if seed == "freeze" {
-                animate(0, 1, 20, "linear", o, "freeze")
-                
-                instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {
-                    draw: "frozen",
-                    mode: 4,
-                })
-                audio_play(snd_petrify)
-            }
+            else if seed == "freeze"
+                enemy_struct.__freeze_defeat()
 		}
 		if instance_exists(o) 
 			o.hurt = 20
@@ -77,9 +64,11 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
 	}
 }
 
-///@desc adds to the mercy bar and makes the enemy spareable if needed
-///@arg slot
-function enc_sparepercent_enemy(target, percent, sfx = snd_mercyadd) {
+/// @desc adds to the mercy bar and spawns a text indicator
+/// @arg {real} target_index the index of the target enemy
+/// @arg {real} percent the amount of percent to add
+/// @arg {Asset.GMSound} sfx the sfx to play upon adding the percentage
+function enc_enemy_add_spare(target, percent, sfx = snd_mercyadd) {
 	o_enc.encounter_data.enemies[target].mercy += percent
 	if o_enc.encounter_data.enemies[target].mercy >= 100
 		percent = 100
@@ -89,29 +78,44 @@ function enc_sparepercent_enemy(target, percent, sfx = snd_mercyadd) {
 	var o = o_enc.encounter_data.enemies[target].actor_id
 	var txt = $"+{percent}%"
 	
-	instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth - 100, {draw: txt, mode: 2})
+	instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {draw: txt, mode: TEXT_HPCHANGE_MODE.PERCENTAGE})
 	
 	if sfx == snd_mercyadd {
 		var _pitch = 0.8
 		
-        if percent < 99
-            _pitch = 1
-        if percent <= 50
-            _pitch = 1.2
         if percent <= 25
             _pitch = 1.4
+        else if percent <= 50
+            _pitch = 1.2
+        else if percent < 100
+            _pitch = 1
 			
         audio_play(sfx,, 0.8, _pitch, 1)
 	}
-	if o_enc.encounter_data.enemies[target].mercy >= 100 {
+	if o_enc.encounter_data.enemies[target].mercy >= 100 
 		o.sprite_index = o.s_spared
-	}
 }
 
-///@arg slot
-function enc_sparepercent_enemy_from_inst(target, instance, variable, sfx = snd_mercyadd){
+/// @desc adds to the mercy bar and spawns a text indicator
+/// @arg {real} target_index the index of the target enemy
+/// @arg {Id.Instnace} instance the instance that holds the percentage variable
+/// @arg {string} var_name the name of the variable that holds the target percentage
+/// @arg {Asset.GMSound} sfx the sfx to play upon adding the percentage
+function enc_enemy_add_spare_from_var(target, instance, variable, sfx = snd_mercyadd){
 	var percent = variable_instance_get(instance, variable)
-	enc_sparepercent_enemy(target, percent, sfx)
+	enc_enemy_add_spare(target, percent, sfx)
+}
+
+/// @desc sets the enemy's tired variable to true
+/// @arg {real} enemy_index the index of the enemy that is to become tired/not-tired
+/// @arg {bool} _tired whether the enemy should become tired or not
+function enc_enemy_set_tired(enemy_index, _tired) {
+    if !instance_exists(o_enc)
+        return
+    if !enc_enemy_isfighting(enemy_index)
+        return
+    
+    o_enc.encounter_data.enemies[enemy_index].tired = _tired
 }
 
 ///@desc clamps a value between 0 and 100
@@ -168,16 +172,18 @@ function enc_gameover(){
 	audio_play(snd_hurt)
 }
 
-/// @arg {string} name party member name
+/// @arg {string} party_name party member name
 /// @arg {Asset.GMSprite|string} sprite_ref the sprite to use. can be either a string that will be put into `enc_getparty_sprite` or a sprite index
 /// @arg {real} index the image index of the sprite, by default doesn't change it
 /// @arg {real} speed the speed of the sprite, by default doesn't change it
-function enc_party_set_battle_sprite(name, sprite_ref, index = undefined, speed = undefined) {
+function enc_party_set_battle_sprite(party_name, sprite_ref, index = undefined, speed = undefined) {
     index ??= 0; speed ??= 1
     
-    var inst = party_get_inst(name)
-    if is_string(sprite_ref)
-        inst.sprite_index = enc_getparty_sprite(party_getpos(name), sprite_ref)
+    var inst = party_get_inst(party_name)
+    if is_string(sprite_ref) {
+        var target_sprite = enc_getparty_sprite(party_name, sprite_ref)
+        inst.sprite_index = (sprite_exists(target_sprite) ? target_sprite : inst.sprite_index)
+    }
     else if sprite_exists(sprite_ref)
         inst.sprite_index = sprite_ref
     
@@ -195,4 +201,10 @@ function enc_enemy_is_recruitable(ref_or_struct) {
         ref_or_struct = new ref_or_struct()
     
     return is_struct(ref_or_struct.recruit)
+}
+
+function enc_get_flavor(data) {
+    if is_callable(data.flavor)
+        return data.flavor()
+    return data.flavor
 }

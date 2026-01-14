@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"box",
-    "path":"folders/@Engine/objects/enc/box.yy",
+    "path":"folders/@Engine/objects/enc/ui elements/box.yy",
   },
   "parentObjectId":null,
   "persistent":false,

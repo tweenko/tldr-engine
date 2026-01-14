@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.4724036,
+  "duration":0.89201814,
   "exportDir":"",
   "name":"snd_spell_pacify",
   "parent":{

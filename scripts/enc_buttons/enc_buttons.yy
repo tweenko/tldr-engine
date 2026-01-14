@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"enc_buttons",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"enc_buttons",
+  "parent":{
+    "name":"encounter",
+    "path":"folders/@Engine/scripts/encounter.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

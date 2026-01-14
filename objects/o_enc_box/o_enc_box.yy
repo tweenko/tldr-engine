@@ -14,8 +14,8 @@
   "name":"o_enc_box",
   "overriddenProperties":[],
   "parent":{
-    "name":"enc",
-    "path":"folders/@Engine/objects/enc.yy",
+    "name":"box",
+    "path":"folders/@Engine/objects/enc/ui elements/box.yy",
   },
   "parentObjectId":{
     "name":"o_enc_box_solid",

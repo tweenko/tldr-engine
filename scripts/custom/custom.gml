@@ -242,6 +242,9 @@ function object_get_base_parent(o_index, stop_at = noone) {
 /// @desc returns an asset index with specified name but if the prefix version does not exists, returns the normal sprite
 function asset_get_index_state(str, state){
 	var ret = asset_get_index(str)
+    if !sprite_exists(ret)
+        return undefined
+    
     var __states = string_split(state, "_", true)
 	
 	for (var i = array_length(__states); i >= 0; i--) {
@@ -501,4 +504,8 @@ function input_binding_draw(verb, xx, yy, scale, label = "", pre_label = "", _is
 	}
 	
     draw_text_transformed(xx, yy, pre_label + $"[{input_binding_to_string(InputBindingGet(false, verb), true, _is_gamepad)}]" + label, scale, scale, 0)
+}
+
+function cap_wraparound(value, maxvalue) {
+    return (value + maxvalue) % maxvalue
 }

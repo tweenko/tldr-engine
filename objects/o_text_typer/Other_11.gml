@@ -1,14 +1,11 @@
 /// @description predict text
-var w = 540
+var w = max_width
 var manualbreaks = []
 var twb = text
 
-if caller.object_index == o_ui_enemydialogue // make the width smaller for battles
-	w = 174
-
 linebreaks = []
-maxw = 0
-maxh = 0
+width = 0
+height = 0
 
 draw_set_font(font)
 
@@ -54,7 +51,7 @@ var widthcutter = 0
 var lastbreak = 0
 
 // do manual and auto breaks
-for (var i = 0; i < string_length(twb); ++i) {
+for (var i = 1; i <= string_length(twb); ++i) {
 	if array_contains(manualbreaks, i - 1) {
 		stringsofar = "";
 		widthcutter = break_xoff * xscale
@@ -109,13 +106,13 @@ for (var i = 0; i < array_length(__all_lines); ++i) { // add \n to the string to
 	
 linebreaks = allbreaks
 
-maxw = line_longest_width * xscale
-maxw += string_length(line_longest_txt) * xspace * xscale // add the xspace
+width = line_longest_width * xscale
+width += string_length(line_longest_txt) * xspace * xscale // add the xspace
         
-maxh = (array_length(linebreaks) + 1) * yspace * yscale
+height = (array_length(linebreaks) + 1) * yspace * yscale
 
-if maxw == 0 {
-	maxw = string_width(twb) * xscale
+if width == 0 {
+	width = string_width(twb) * xscale
 }
         
 x -= center_xoff
@@ -123,20 +120,30 @@ y -= center_yoff
         
 if instance_exists(caller) {
     // make the enemy dialogue centered right-center
-	if caller.object_index == o_ui_enemydialogue {
-        var __xoff = -maxw
+	if caller.object_index == o_ui_actordialogue {
+        var __xoff = -width
 		x += __xoff
         center_xoff = __xoff
     }
 	else if center_x {
-        var __xoff = -maxw/2
+        var __xoff = -width/2
 		x += __xoff
         center_xoff = __xoff
     }
     
 	if center_y {
-		var __yoff = -maxh/2
+		var __yoff = -height/2
 		y += __yoff
         center_yoff = __yoff
+    }
+}
+
+if caller.object_index == o_ui_actordialogue { // update enemy dialogue bubble size
+    with caller {
+        textx = other.x
+        texty = other.y
+        balloonwidth = other.width + 8
+        balloonheight = other.height + 4
+        inited = true
     }
 }

@@ -11,7 +11,7 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
 	var m = party_getdata(global.party_names[i], "s_battle_intro")
 	
 	if m != 0 {
-		obj.sprite_index = enc_getparty_sprite(i, "attack")
+		obj.sprite_index = enc_getparty_sprite(global.party_names[i], "attack")
 		obj.image_speed = 1
 		obj.image_index = 0
 	}

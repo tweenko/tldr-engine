@@ -33,6 +33,12 @@ function party_m_calculate_hp(base_hp, level) {
 function party_m() constructor {
 	name = "???"
     action_letter = "?"
+    obj = {
+		obj: o_actor,
+		var_struct: {
+			name: "susie"
+		},
+	}
 	
 	// colors
 	color =		c_gray
@@ -96,20 +102,13 @@ function party_m() constructor {
 	}
 		
 	// system
-	obj = {
-		obj: o_actor,
-		var_struct: {
-			name: "susie"
-		},
-	}
-	
 	actor_id = noone
-	is_down = false
 }
 
 function party_m_kris() : party_m() constructor {
 	name = "party_kris_name"
     action_letter = "party_kris_action_letter"
+	obj = o_actor_kris
 	
 	// colors
 	color = c_aqua
@@ -167,18 +166,11 @@ function party_m_kris() : party_m() constructor {
 		spare: [spr_bkris_act, "idle", 1],
 		attack_eff: spr_bkris_attackeff,
 	}
-		
-	// system
-	obj = {
-		obj: o_actor_kris,
-		var_struct: {
-			name: "kris"
-		},
-	}
 }
 function party_m_susie() : party_m() constructor {
 	name = "party_susie_name"
     action_letter = "party_susie_action_letter"
+	obj = o_actor_susie
 	
 	// colors
 	color = c_fuchsia
@@ -241,18 +233,11 @@ function party_m_susie() : party_m() constructor {
 				
 		rudebuster: [spr_bsusie_rudebuster, 14],
 	}
-		
-	// system
-	obj = {
-		obj: o_actor_susie,
-		var_struct: {
-			name: "susie"
-		},
-	}
 }
 function party_m_ralsei() : party_m() constructor {
 	name = "party_ralsei_name"
     action_letter = "party_ralsei_action_letter"
+	obj = o_actor_ralsei
 	
 	// colors
 	color = c_lime
@@ -313,18 +298,11 @@ function party_m_ralsei() : party_m() constructor {
 		spare: [spr_bralsei_act, "idle", 1],
 		attack_eff: spr_bralsei_attackeff,
 	}
-		
-	//system
-	obj = {
-		obj: o_actor_ralsei,
-		var_struct: {
-			name: "ralsei"
-		},
-	}
 }
 function party_m_noelle() : party_m() constructor {
 	name = "party_noelle_name"
     action_letter = "party_noelle_action_letter"
+	obj = o_actor_noelle
 	
 	// colors
 	color = c_yellow
@@ -385,13 +363,5 @@ function party_m_noelle() : party_m() constructor {
 		victory: [spr_bnoelle_victory, true],
 		spare: [spr_bnoelle_act, "idle", 1],
 		attack_eff: spr_bnoelle_attackeff,
-	}
-		
-	// system
-	obj = {
-		obj: o_actor_noelle,
-		var_struct: {
-			name: "noelle"
-		},
 	}
 }

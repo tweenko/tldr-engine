@@ -104,6 +104,25 @@ function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_do
 		pause: wait,
 	})
 }
+function cutscene_actor_dialogue(dialogue, actor_inst, prefix = "", postfix = "{p}{e}", wait = true) {
+	cutscene_custom({
+		dialogue, actor_inst, 
+        prefix, postfix, 
+		wait,
+
+		action: [
+            actor_dialogue_create,
+            dialogue, actor_inst, 
+            prefix, postfix,
+        ],
+
+		continue_func: function(wait) {
+			return (wait ? !instance_exists(o_ui_actordialogue) : true)
+		},
+		continue_args: [wait],
+		pause: wait,
+	})
+}
 
 ///@desc pauses the cutscene until a certain amount of dialogue boxes has been seen
 ///@arg {real} boxes_to_wait_for
@@ -222,13 +241,19 @@ function cutscene_set_variable(obj, variable, value) {
 }
 
 /// @desc sets a party member's sprite accordingly to the battle sprites struct from party_data
-function cutscene_set_partysprite(selection, spritename){
-	var set = function(selection, spritename) {
-		enc_party_set_battle_sprite(global.party_names[selection], spritename, 0, 1)
-	}
+/// @arg {string} party_name party member name
+/// @arg {Asset.GMSprite|string} sprite_ref the sprite to use. can be either a string that will be put into `enc_getparty_sprite` or a sprite index
+/// @arg {real} index the image index of the sprite, by default doesn't change it
+/// @arg {real} speed the speed of the sprite, by default doesn't change it
+function cutscene_set_partysprite(party_name, sprite_ref, image_index = undefined, image_speed = undefined){
 	cutscene_custom({
-		selection, spritename, set,
-		action: [set, selection, spritename]
+		party_name, sprite_ref, image_index, image_speed,
+		action: [
+            function(party_name, sprite_ref, _image_index, _image_speed) {
+                enc_party_set_battle_sprite(party_name, sprite_ref, _image_index, _image_speed)
+            }, 
+            party_name, sprite_ref, image_index, image_speed
+        ]
 	})
 }
 
@@ -341,10 +366,10 @@ function cutscene_spare_enemy(index) {
         cutscene_set_variable(obj, "sprite_index", obj.s_spared)
         if !recruit_islost(_enemy[index[i]]) && enc_enemy_is_recruitable(_enemy[index[i]])
            cutscene_instance_create(o_text_hpchange, 
-               obj.x, obj.y - obj.myheight/2, 
+               obj.x, obj.s_get_middle_y(), 
                obj.depth - 100, {
                    draw: $"{recruit_get_progress(_enemy[index[i]])}/{recruit_getneed(_enemy[index[i]])}", 
-                   mode: 3
+                   mode: TEXT_HPCHANGE_MODE.RECRUIT
                }
            )
         

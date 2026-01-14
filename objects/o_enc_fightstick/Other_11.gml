@@ -36,12 +36,12 @@ if perfect {
 	repeat(3) {
 		instance_create(o_eff_criticalsparkle, 
 			o.x + 10 + random(20), 
-			o.y - o.myheight/2 - random(6), 
+			o.s_get_middle_y() - random(6), 
 			o.depth - 10
 		)
 	}
 }
 
-o.sprite_index = enc_getparty_sprite(index, "attack")
+o.sprite_index = enc_getparty_sprite(global.party_names[index], "attack")
 o.image_index = 0
 o.image_speed = 1

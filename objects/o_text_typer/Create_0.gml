@@ -16,10 +16,11 @@
 	
 	xscale = 2
 	yscale = 2
-	maxw = 0
-	maxh = 0
+	width = 0
+	height = 0
 	center_x = false
 	center_y = false
+    max_width = infinity
 	
 	npc_link = noone
 	xcolor = c_white

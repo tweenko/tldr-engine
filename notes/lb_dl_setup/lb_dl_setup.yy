@@ -1,0 +1,11 @@
+{
+  "$GMNotes":"v1",
+  "%Name":"lb_dl_setup",
+  "name":"lb_dl_setup",
+  "parent":{
+    "name":"dark_lighting_ch4",
+    "path":"folders/@Libraries/dark_lighting_ch4.yy",
+  },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
+}

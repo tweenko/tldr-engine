@@ -3,7 +3,9 @@ if !enc_enemy_isfighting(target)
 
 var o = ecaller.encounter_data.enemies[target].actor_id
 
-instance_create(o_eff_attackslash, o.x, o.y - o.myheight/2, DEPTH_ENCOUNTER.ACTORS - 500, {
+with o_enc
+    party_state[other.index] = PARTY_STATE.IDLE
+instance_create(o_eff_attackslash, o.x, o.s_get_middle_y(), DEPTH_ENCOUNTER.ACTORS - 500, {
 	index, caller, dmg,
 	sprite_index: party_getdata(global.party_names[index],"battle_sprites").attack_eff,
 	ii,

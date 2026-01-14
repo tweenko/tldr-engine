@@ -6,7 +6,6 @@ function enemy() constructor {
 		var_struct: {
 			s_hurt: spr_e_virovirokun_hurt,
 			s_spared: spr_e_virovirokun_spare,
-            carrying_money: 10
 		},
 	}
 	
@@ -16,29 +15,34 @@ function enemy() constructor {
 	attack =	0
 	defense =	0
 	status_effect = ""
+    carrying_money = 0
 	
 	mercy =	0
-	tired =	false
+    mercy_add_pity_percent = 20
     can_spare = true
+    
+	tired =	false
 	
 	// acts
 	acts = [
 		{
-			name:	loc("enc_act_check"),
-			party:	[],
-			desc:	-1,
-			exec:	function(enemy_slot, user_index){
+			name: loc("enc_act_check"),
+			party: [],
+			desc: -1,
+            tp_cost: 0,
+			exec: function(enemy_slot, user_index){
 				encounter_scene_dialogue("* Empty CHECK text.")
 			}
 		},
 	]
-	acts_special = {
-	}
+	acts_special = {}
 	acts_special_desc = loc("enc_ui_label_standard")
 	
 	// text
 	dialogue =				"Test" // can be a function (can accept slot argument as arg0)
-	dia_bubble_offset =		[0, 0, 0] // x, y, relative to (1 for enemy and 0 for default box pos)
+	dia_bubble_off_x =		0
+	dia_bubble_off_y =		0
+    dia_bubble_off_type =	BUBBLE_RELATIVE.TO_DEFAULT_POS
 	dia_bubble_sprites =	[spr_ui_enc_dialogue_box, spr_ui_enc_dialogue_spike]
 	
 	turn_object = o_turn_default
@@ -61,6 +65,59 @@ function enemy() constructor {
 	//system
 	actor_id =	-1
 	slot =		-1
+    
+    // methods
+    __defeat = method(self, function(way_of_defeat = undefined) {
+        if instance_exists(o_enc) {
+            if !is_undefined(way_of_defeat)
+                o_enc.encounter_data.enemies[slot] = way_of_defeat
+            o_enc.earned_money += carrying_money // add money
+        }
+    })
+    
+    __run_defeat = method(self, function() {
+        actor_id.run_away = true
+        audio_play(snd_defeatrun)
+        
+        __defeat("ran away")
+        if !recruit_islost(self) {
+            instance_create(o_text_hpchange, actor_id.x, actor_id.s_get_middle_y(), actor_id.depth - 100, {
+                draw: "lost",
+                mode: TEXT_HPCHANGE_MODE.SCALE,
+            })
+            recruit_lose(self)
+        }
+    })
+    __fatal_defeat = method(self, function() {
+        with actor_id
+            instance_create(o_eff_fatal_damage, x, y, depth, {
+                sprite_index: s_hurt,
+                image_xscale: image_xscale,
+                image_yscale: image_yscale,
+                image_index: image_index,
+                image_speed: 0,
+                shake: 6,
+            })
+        instance_destroy(actor_id)
+        
+        __defeat("fatal")
+        if !recruit_islost(self)
+            recruit_lose(self)
+    })
+    __freeze_defeat = method(self, function() {
+        animate(0, 1, 20, "linear", actor_id, "freeze")
+        
+        with actor_id
+            instance_create(o_text_hpchange, x, s_get_middle_y(), depth - 100, {
+                draw: "frozen",
+                mode: TEXT_HPCHANGE_MODE.SCALE,
+            })
+        audio_play(snd_petrify)
+        
+        if !recruit_islost(self)
+            recruit_lose(self)
+        __defeat()
+    })
 }
 
 function enemy_virovirokun() : enemy() constructor{
@@ -74,8 +131,9 @@ function enemy_virovirokun() : enemy() constructor{
 	defense =	0
 	status_effect = ""
     freezable = true
+    carrying_money = 84
     
-    mercy = 100
+    mercy = 0
 	
 	// acts
 	acts = [
@@ -91,16 +149,14 @@ function enemy_virovirokun() : enemy() constructor{
 			name: loc("enemy_virovirokun_act_takecare"),
 			party: [],
 			desc: -1,
-			tp_cost: 0,
 			exec: function(slot, user) {
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
 				
-				cutscene_func(enc_sparepercent_enemy, [slot, 100])
+				cutscene_func(enc_enemy_add_spare, [slot, 100])
 				cutscene_func(function(user) {
-					var name = global.party_names[user]
-					var o = party_get_inst(name)
-					o.sprite_index = asset_get_index($"spr_b{name}_nurse")
+					var o = party_get_inst(user)
+					o.sprite_index = asset_get_index($"spr_b{user}_nurse")
 					
 					var inst = afterimage(.03,o)
 					inst.speed = 1
@@ -113,7 +169,8 @@ function enemy_virovirokun() : enemy() constructor{
 				}, user)
 				
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecare_msg"))
-				
+                
+                cutscene_set_partysprite(user, "idle")
 				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 			}
@@ -122,7 +179,6 @@ function enemy_virovirokun() : enemy() constructor{
 			name: loc("enemy_virovirokun_act_takecarex"),
 			party: -1,
 			desc: -1,
-			tp_cost: 0,
 			exec: function(slot, user) {
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
@@ -147,14 +203,20 @@ function enemy_virovirokun() : enemy() constructor{
 					for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 						if enc_enemy_isfighting(i) {
 							if is_instanceof(o_enc.encounter_data.enemies[i], enemy_virovirokun)
-								enc_sparepercent_enemy(i, 100)
+								enc_enemy_add_spare(i, 100)
 							else 
-								enc_sparepercent_enemy(i, 50)
+								enc_enemy_add_spare(i, 50)
 						}
 					}
 				}, user)
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecarex_msg"))
 				
+                // go back to idle sprites
+                cutscene_func(function(user) {
+					for (var i = 0; i < array_length(global.party_names); ++i) {
+					    enc_party_set_battle_sprite(global.party_names[i], "idle")
+					}
+				}, user)
 				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 			}
@@ -162,25 +224,25 @@ function enemy_virovirokun() : enemy() constructor{
     ]
 	acts_special = {
 		susie: {
-			exec: function(slot){
-				enc_sparepercent_enemy(slot, 50)
-				encounter_scene_dialogue(loc("enemy_virovirokun_act_susie"))
+			exec: function(enemy_slot){
+				enc_enemy_add_spare(enemy_slot, 50)
+				cutscene_dialogue(loc("enemy_virovirokun_act_susie"))
 			},
 		},
 		ralsei: {
-			exec: function(slot){
-				enc_sparepercent_enemy(slot, 50)
-				encounter_scene_dialogue(loc("enemy_virovirokun_act_ralsei"))
+			exec: function(enemy_slot){
+				enc_enemy_add_spare(enemy_slot, 50)
+				cutscene_dialogue(loc("enemy_virovirokun_act_ralsei"))
 			},
 		},
 		noelle: {
-			exec: function(slot) {
-				enc_sparepercent_enemy(slot, 50)
-				encounter_scene_dialogue(loc("enemy_virovirokun_act_noelle"))
+			exec: function(enemy_slot) {
+				enc_enemy_add_spare(enemy_slot, 50)
+				cutscene_dialogue(loc("enemy_virovirokun_act_noelle"))
 			},
 		},
 	}
-	
+    
 	// recruit
     recruit = new enemy_recruit_virovirokun()
 		
@@ -191,18 +253,20 @@ function enemy_virovirokun() : enemy() constructor{
 		return array_shuffle(loc("enemy_virovirokun_dialogue"))[0]
 	}
 }
-
 function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
 	obj = o_actor_e_killercar
 	tired = true
 	defense = 0
-    can_spare = false
     turn_object = o_ex_turn_complex_box
+    carrying_money = 1
     
     hp = 600
     max_hp = 600
+    
+    can_spare = false
+    mercy_add_pity_percent = 0
 	
 	acts = [
 		{
@@ -217,6 +281,7 @@ function enemy_killercar() : enemy() constructor{
 			name: "Susie's Idea",
 			party: ["susie"],
 			desc: "Fatal",
+            tp_cost: 32,
 			exec: function(slot, user) {
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
@@ -224,16 +289,46 @@ function enemy_killercar() : enemy() constructor{
 				cutscene_dialogue([
 					"{char(susie, 21)}* I have an idea.",
 				])
-				cutscene_set_partysprite(party_getpos("susie"), "spell")
+				cutscene_set_partysprite("susie", "spell")
 				cutscene_sleep(30)
-				cutscene_func(enc_hurt_enemy, [slot, 100 * party_getdata("susie", "attack") * party_getdata("susie", "magic"), user, snd_damage, 0, 0, true])
+				cutscene_func(enc_hurt_enemy, [slot, 100 * party_getdata("susie", "attack") * party_getdata("susie", "magic"), user, snd_damage, true])
 				cutscene_sleep(30)
 				
+                cutscene_set_partysprite("susie", "idle")
 				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
-				
 			}
 		},
+        {
+            name: "Tell Story",
+            party: ["ralsei"],
+            desc: "Induce TIRED",
+            exec: function(slot, user) {
+                cutscene_create()
+                cutscene_set_variable(o_enc, "waiting", true)
+                
+                cutscene_dialogue("{auto_breaks(false)}* You and Ralsei told the dummy{br}bedtime story.{br}{resetx}* The enemies became {col(`tired_aqua`)}TIRED{col(w)}...",, false)
+                cutscene_sleep(16)
+                
+                cutscene_audio_play(snd_spellcast)
+                for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
+                    cutscene_func(function(index) {
+                        var __e_obj = o_enc.encounter_data.enemies[index].actor_id
+                        
+                        enc_enemy_set_tired(index, true)
+                        instance_create(o_text_hpchange, __e_obj.x, __e_obj.s_get_middle_y(), __e_obj.depth - 100, {draw: "tired"})
+                    }, [i])
+                }
+                cutscene_sleep(20)
+                
+                cutscene_wait_until(function() {
+                    return !instance_exists(o_ui_dialogue)
+                })
+                
+                cutscene_set_variable(o_enc, "waiting", false)
+                cutscene_play()
+            }
+        }
 	]
 	
 	act_desc = array_create(array_length(acts), -1)
@@ -255,7 +350,7 @@ function enemy_killercar() : enemy() constructor{
         cutscene_wait_dialogue_boxes(1)
         
         cutscene_func(method(self, function(__enemy) {
-            var inst = instance_create(o_dummy, __enemy.x - 50, __enemy.y - __enemy.myheight/2, __enemy.depth - 50, {
+            var inst = instance_create(o_dummy, __enemy.x - 50, __enemy.s_get_middle_y(), __enemy.depth - 50, {
                 sprite_index: spr_ex_almond_milk
             })
             animate(2.5, 1, 10, "linear", inst, "image_xscale")
@@ -291,9 +386,9 @@ function enemy_killercar() : enemy() constructor{
         
         cutscene_audio_play(snd_heal)
         cutscene_func(function(o) {
-            instance_create(o_text_hpchange, o.x, o.y - o.myheight/2, o.depth-100, {
+            instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {
 				draw: 300, 
-				mode: 0
+				mode: TEXT_HPCHANGE_MODE.PARTY
 			})
         }, [actor_id])
         cutscene_animate(1, 0, 10, "linear", actor_id, "flash")

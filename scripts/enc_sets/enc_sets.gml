@@ -1,28 +1,38 @@
 function enc_set() constructor { // base
 	debug_name	=	"undefined"
+    
 	enemies	= []
+    bgm = mus_battle
+	bg_type = ENC_BG.GRID
     
-	enemies_pos = undefined // x, y, relative (bool) -- if not relative, guipos is added OR just a function
-    party_pos = function(i) { // returns [x, y]
-        return [
-            guipos_x() + 52,
-            guipos_y() + 130 - 22*array_length(global.party_names) + i*44,
-        ]
-    }
-    
-	flavor = function() { // can also be a string
+    flavor = function() { // can also be a string
 		var text = "* undefined"
 		return text
 	}
-	bgm = mus_battle
-	bg_type = ENC_BG.GRID
+    win_condition = function() {}
     
-    can_change_turnlen = true
-    enc_var_struct = {}	
-    
-	display_target = true // whether to display the targets of the enemy's attack
+    // positions
+	enemies_pos = undefined // [x, y, relative] OR just a function that returns [x, y]
+    party_pos = function(i) { // returns [x, y]
+        return [
+            guipos_x() + 52,
+            guipos_y() + 130 - 22 * array_length(global.party_names) + i*44,
+        ]
+    }
 	
-    // misc (in-fight events)
+    // actions
+    party_actions = {}
+    // add the default party actions. if you want to remove them from an encounter, just set party_actions back to an empty struct
+	for (var i = 0; i < array_length(global.party_names); ++i) {
+	    struct_set(party_actions, global.party_names[i], [new item_s_defaultaction(global.party_names[i])])
+	}
+    
+    // miscellaneous config
+    can_change_turnlen = true // by defending
+	display_target = true // whether to display the targets of the enemy's attack
+    enc_var_struct = {}
+	
+    // in-fight-events
     ev_pre_dialogue =   -1
 	ev_dialogue =	    -1
 	ev_turn =	  	    -1
@@ -48,6 +58,7 @@ function enc_set() constructor { // base
 
 function enc_set_ex() : enc_set() constructor {
 	debug_name	=	"example"
+    
 	enemies = [
 		new enemy_virovirokun(),
 		new enemy_killercar(),
@@ -55,13 +66,12 @@ function enc_set_ex() : enc_set() constructor {
 	]
     enemies[0].defeat_marker = 0
     enemies[2].defeat_marker = 1
+    flavor = "* The test crew is approaching!!"
     
 	enemies_pos = [
 		[0, 0, true],
 		[-20, 0, true]
 	]
-	
-	flavor = "* The test crew is approaching!!"
     
     _target_calculation = function() {
         var __targets = []
@@ -74,7 +84,6 @@ function enc_set_ex() : enc_set() constructor {
         return [array_shuffle(__targets)[0]]
     }
 }
-
 function enc_set_virovirokun() : enc_set() constructor {
 	debug_name	=	"virovirokun"
 	enemies = [

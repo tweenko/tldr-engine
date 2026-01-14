@@ -6,4 +6,3 @@ destroy = true
 element = ""
 
 inside = false
-alarm[0] = 1

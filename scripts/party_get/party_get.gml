@@ -23,7 +23,7 @@ function party_getname(name, full = true) {
 }
 ///@arg {String} name
 ///@desc returns the index of a party member using their name
-function party_getpos(name) {
+function party_get_index(name) {
 	return array_get_index(global.party_names, name)
 }
 

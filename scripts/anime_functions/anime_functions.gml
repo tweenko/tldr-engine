@@ -124,8 +124,8 @@ function anime_set_method(_anime, _call_method) {
 ///@param {Struct.__anime_class} anime	The anime instance
 ///@param {Function} stop_method		The method to call when the animation stops
 function anime_set_stop_method(_anime, _stop_method) {
-	if (!is_struct(_anime)) return;
-	_anime._set_method(_call_method);
+    if (!is_struct(_anime)) return;
+    _anime._set_stop_method(_stop_method);
 }
 
 ///@desc	Sets the current position of the animation in frames.

@@ -1,5 +1,13 @@
+enum TEXT_HPCHANGE_MODE {
+    PARTY = 0, 
+    ENEMY = 1,
+    PERCENTAGE = 2, 
+    RECRUIT = 3,
+    SCALE = 4
+}
+
 draw = 1
-mode = 0 // 0 for text or heal/damage, 1 for enemy heal/damage, 2 for percent, 3 for recruit, 4 for other stuff that animates in by popping up in scale
+mode = TEXT_HPCHANGE_MODE.PARTY
 user = "kris"
 
 stretch = .2
@@ -10,6 +18,15 @@ x -= guipos_x()
 y -= guipos_y()
 x *= 2
 y *= 2
+
+while instance_place(x+9, y+6, o_text_hpchange)
+    y += 22
+
+visual_x = x
+visual_y = y
+
+x += 9; y += 6
+depth = -2000-y
 
 alarm[0] = 1 // animate
 
