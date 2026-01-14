@@ -14,6 +14,9 @@ if battle_state == BATTLE_STATE.MENU {
             party_button_selection[party_selection] --
         }
         
+        // cap navigation
+        party_button_selection[party_selection] = cap_wraparound(party_button_selection[party_selection], array_length(party_buttons[party_selection]))
+        
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
             party_buttons[party_selection][party_button_selection[party_selection]].press()
             
@@ -41,9 +44,6 @@ if battle_state == BATTLE_STATE.MENU {
                 array_pop(action_queue).cancel() // cancel the last action
             }
         }
-        
-        // cap navigation
-        party_button_selection[party_selection] = cap_wraparound(party_button_selection[party_selection], array_length(party_buttons[party_selection]))
         
         if !instance_exists(inst_flavor) {
             inst_flavor = dialogue_start((flavor_seen ? "{instant}" : "") + enc_get_flavor(encounter_data) + "{stop}")

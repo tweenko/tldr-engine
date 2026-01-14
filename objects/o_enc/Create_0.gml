@@ -94,6 +94,7 @@
     })
     party_button_selection = array_create(array_length(global.party_names), 0)
     party_enemy_selection = array_create(array_length(global.party_names), 0)
+    party_ally_selection = array_create(array_length(global.party_names), 0)
     party_act_selection = array_create(array_length(global.party_names), 0)
     party_act_page = array_create(array_length(global.party_names), 0)
     party_item_selection = array_create(array_length(global.party_names), 0)
@@ -266,17 +267,19 @@ __ally_highlight_reset = function() {
 }
 
 __order_action_queue = function(_action_queue = action_queue) {
-    var output = array_sort_ext(_action_queue, function(current, next) {
-        var cur_order = array_get_index(action_order, instanceof(current))
-        var next_order = array_get_index(action_order, instanceof(current))
-        
-        return cur_order - next_order
-    })
-    // remove defend
-    output = array_filter(output, function(element, index) {
+    var output = array_filter(_action_queue, function(element, index) {// remove defend
         if is_instanceof(element, enc_action_defend)
             return false
         return true
+    })
+    
+    output = array_sort_ext(output, function(current, next) {
+        var cur_order = array_get_index(action_order, instanceof(current))
+        var next_order = array_get_index(action_order, instanceof(current))
+        var party_order = party_get_index(current.acting_member)
+        var next_party_order = party_get_index(next.acting_member)
+        
+        return cur_order - next_order + party_order - next_party_order
     })
     
     return output

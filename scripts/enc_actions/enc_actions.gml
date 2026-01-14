@@ -309,6 +309,9 @@ function enc_action_spare(_party_names, _enemy_target) : enc_action(_party_names
                         txt += string(loc("enc_exec_spare_suggest_spell"), spellowner, string_upper(item_get_name(tgt_spell)))
                     }
                 }
+                if __enemy.can_spare && __enemy.mercy_add_pity_percent > 0 // add pity spare percentage
+                    cutscene_func(enc_enemy_add_spare, [other.target, __enemy.mercy_add_pity_percent])
+                
                 cutscene_dialogue(string(txt, party_getname(other.acting_member), __enemy.name),, true)
                 cutscene_set_variable(o_enc, "waiting_internal", false)
             } 

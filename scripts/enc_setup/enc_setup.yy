@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"enc_steup",
+  "%Name":"enc_setup",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"enc_steup",
+  "name":"enc_setup",
   "parent":{
     "name":"encounter",
     "path":"folders/@Engine/scripts/encounter.yy",

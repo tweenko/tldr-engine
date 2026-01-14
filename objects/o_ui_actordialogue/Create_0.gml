@@ -9,6 +9,7 @@ texty = 0
 balloonwidth = 0
 balloonheight = 0
 inited = false
+max_typer_width = 174
 
 alarm[0] = 1
 

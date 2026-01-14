@@ -20,7 +20,7 @@ surface_set_target(surf)
             draw_set_color(c_yellow)
             draw_text_transformed(x-40 + x_offset, y-20, "M", 2, 2, 0)
             draw_text_transformed(x-36 + x_offset, y, "A", 2, 2, 0)
-            draw_text_transformed(y-32 + x_offset, y+20, "X", 2, 2, 0)
+            draw_text_transformed(x-32 + x_offset, y+20, "X", 2, 2, 0)
         }
         else {
             draw_text_transformed(x-42 + x_offset, y-28, round(tp_visual_fast), 2, 2, 0)

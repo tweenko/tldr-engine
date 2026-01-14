@@ -1,6 +1,6 @@
 if incompatible_save_warning {
     var __coeff = 1 - incompatible_save_sleep/20
-    var __c = lerp_type(30, 0, __coeff, "cubic_out")
+    var __c = anime_curve_lerp(30, 0, __coeff, anime_curve.cubic_out)
     
     draw_set_font(loc_font("main"))
     draw_set_alpha(__coeff * incompatible_alpha)

@@ -33,7 +33,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_ui_damage_collider",
+    "path":"sprites/spr_ui_damage_collider/spr_ui_damage_collider.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

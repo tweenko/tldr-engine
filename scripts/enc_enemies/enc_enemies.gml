@@ -18,8 +18,10 @@ function enemy() constructor {
     carrying_money = 0
 	
 	mercy =	0
-	tired =	false
+    mercy_add_pity_percent = 20
     can_spare = true
+    
+	tired =	false
 	
 	// acts
 	acts = [
@@ -81,7 +83,7 @@ function enemy() constructor {
         if !recruit_islost(self) {
             instance_create(o_text_hpchange, actor_id.x, actor_id.s_get_middle_y(), actor_id.depth - 100, {
                 draw: "lost",
-                mode: 4,
+                mode: TEXT_HPCHANGE_MODE.SCALE,
             })
             recruit_lose(self)
         }
@@ -108,7 +110,7 @@ function enemy() constructor {
         with actor_id
             instance_create(o_text_hpchange, x, s_get_middle_y(), depth - 100, {
                 draw: "frozen",
-                mode: 4,
+                mode: TEXT_HPCHANGE_MODE.SCALE,
             })
         audio_play(snd_petrify)
         
@@ -131,7 +133,7 @@ function enemy_virovirokun() : enemy() constructor{
     freezable = true
     carrying_money = 84
     
-    mercy = 100
+    mercy = 0
 	
 	// acts
 	acts = [
@@ -151,7 +153,7 @@ function enemy_virovirokun() : enemy() constructor{
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
 				
-				cutscene_func(enc_sparepercent_enemy, [slot, 100])
+				cutscene_func(enc_enemy_add_spare, [slot, 100])
 				cutscene_func(function(user) {
 					var o = party_get_inst(user)
 					o.sprite_index = asset_get_index($"spr_b{user}_nurse")
@@ -201,9 +203,9 @@ function enemy_virovirokun() : enemy() constructor{
 					for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 						if enc_enemy_isfighting(i) {
 							if is_instanceof(o_enc.encounter_data.enemies[i], enemy_virovirokun)
-								enc_sparepercent_enemy(i, 100)
+								enc_enemy_add_spare(i, 100)
 							else 
-								enc_sparepercent_enemy(i, 50)
+								enc_enemy_add_spare(i, 50)
 						}
 					}
 				}, user)
@@ -223,24 +225,24 @@ function enemy_virovirokun() : enemy() constructor{
 	acts_special = {
 		susie: {
 			exec: function(enemy_slot){
-				enc_sparepercent_enemy(enemy_slot, 50)
+				enc_enemy_add_spare(enemy_slot, 50)
 				cutscene_dialogue(loc("enemy_virovirokun_act_susie"))
 			},
 		},
 		ralsei: {
 			exec: function(enemy_slot){
-				enc_sparepercent_enemy(enemy_slot, 50)
+				enc_enemy_add_spare(enemy_slot, 50)
 				cutscene_dialogue(loc("enemy_virovirokun_act_ralsei"))
 			},
 		},
 		noelle: {
 			exec: function(enemy_slot) {
-				enc_sparepercent_enemy(enemy_slot, 50)
+				enc_enemy_add_spare(enemy_slot, 50)
 				cutscene_dialogue(loc("enemy_virovirokun_act_noelle"))
 			},
 		},
 	}
-	
+    
 	// recruit
     recruit = new enemy_recruit_virovirokun()
 		
@@ -257,12 +259,14 @@ function enemy_killercar() : enemy() constructor{
 	obj = o_actor_e_killercar
 	tired = true
 	defense = 0
-    can_spare = false
     turn_object = o_ex_turn_complex_box
     carrying_money = 1
     
-    hp = 200
+    hp = 600
     max_hp = 600
+    
+    can_spare = false
+    mercy_add_pity_percent = 0
 	
 	acts = [
 		{
@@ -287,15 +291,44 @@ function enemy_killercar() : enemy() constructor{
 				])
 				cutscene_set_partysprite("susie", "spell")
 				cutscene_sleep(30)
-				cutscene_func(enc_hurt_enemy, [slot, 100 * party_getdata("susie", "attack") * party_getdata("susie", "magic"), user, snd_damage, 0, 0, true])
+				cutscene_func(enc_hurt_enemy, [slot, 100 * party_getdata("susie", "attack") * party_getdata("susie", "magic"), user, snd_damage, true])
 				cutscene_sleep(30)
 				
                 cutscene_set_partysprite("susie", "idle")
 				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
-				
 			}
 		},
+        {
+            name: "Tell Story",
+            party: ["ralsei"],
+            desc: "Induce TIRED",
+            exec: function(slot, user) {
+                cutscene_create()
+                cutscene_set_variable(o_enc, "waiting", true)
+                
+                cutscene_dialogue("{auto_breaks(false)}* You and Ralsei told the dummy{br}bedtime story.{br}{resetx}* The enemies became {col(`tired_aqua`)}TIRED{col(w)}...",, false)
+                cutscene_sleep(16)
+                
+                cutscene_audio_play(snd_spellcast)
+                for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
+                    cutscene_func(function(index) {
+                        var __e_obj = o_enc.encounter_data.enemies[index].actor_id
+                        
+                        enc_enemy_set_tired(index, true)
+                        instance_create(o_text_hpchange, __e_obj.x, __e_obj.s_get_middle_y(), __e_obj.depth - 100, {draw: "tired"})
+                    }, [i])
+                }
+                cutscene_sleep(20)
+                
+                cutscene_wait_until(function() {
+                    return !instance_exists(o_ui_dialogue)
+                })
+                
+                cutscene_set_variable(o_enc, "waiting", false)
+                cutscene_play()
+            }
+        }
 	]
 	
 	act_desc = array_create(array_length(acts), -1)
@@ -355,7 +388,7 @@ function enemy_killercar() : enemy() constructor{
         cutscene_func(function(o) {
             instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {
 				draw: 300, 
-				mode: 0
+				mode: TEXT_HPCHANGE_MODE.PARTY
 			})
         }, [actor_id])
         cutscene_animate(1, 0, 10, "linear", actor_id, "flash")

@@ -18,11 +18,9 @@ function enc_getparty_sprite(party_name, sprname) {
 /// @param {real} hurt_amount
 /// @param {string} party_name
 /// @param {asset.GMSound} [sfx]
-/// @param {real} [xoff]
-/// @param {real} [yoff]
 /// @param {bool} [fatal]
 /// @param {string} [seed]
-function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0, fatal = false, seed = "") {
+function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, fatal = false, seed = "") {
 	var enemy_struct = o_enc.encounter_data.enemies[target]
     
     if enemy_struct.hp <= 0 
@@ -37,7 +35,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
 	
 	if !instance_exists(o) 
 		exit
-	instance_create(o_text_hpchange, o.x + xoff, o.s_get_middle_y() + yoff, o.depth-100, {draw: txt, mode: 1, user: user,})
+	instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: txt, mode: TEXT_HPCHANGE_MODE.ENEMY, user: user,})
 	
 	if hurt > 0 {
         
@@ -50,7 +48,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
                 if !recruit_islost(enemy_struct) {
                     instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {
                         draw: "lost",
-                        mode: 4,
+                        mode: TEXT_HPCHANGE_MODE.SCALE,
                     })
                     recruit_lose(enemy_struct)
                 }
@@ -66,9 +64,11 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, xoff = 0, yoff = 0
 	}
 }
 
-///@desc adds to the mercy bar and makes the enemy spareable if needed
-///@arg slot
-function enc_sparepercent_enemy(target, percent, sfx = snd_mercyadd) {
+/// @desc adds to the mercy bar and spawns a text indicator
+/// @arg {real} target_index the index of the target enemy
+/// @arg {real} percent the amount of percent to add
+/// @arg {Asset.GMSound} sfx the sfx to play upon adding the percentage
+function enc_enemy_add_spare(target, percent, sfx = snd_mercyadd) {
 	o_enc.encounter_data.enemies[target].mercy += percent
 	if o_enc.encounter_data.enemies[target].mercy >= 100
 		percent = 100
@@ -78,29 +78,44 @@ function enc_sparepercent_enemy(target, percent, sfx = snd_mercyadd) {
 	var o = o_enc.encounter_data.enemies[target].actor_id
 	var txt = $"+{percent}%"
 	
-	instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {draw: txt, mode: 2})
+	instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {draw: txt, mode: TEXT_HPCHANGE_MODE.PERCENTAGE})
 	
 	if sfx == snd_mercyadd {
 		var _pitch = 0.8
 		
-        if percent < 99
-            _pitch = 1
-        if percent <= 50
-            _pitch = 1.2
         if percent <= 25
             _pitch = 1.4
+        else if percent <= 50
+            _pitch = 1.2
+        else if percent < 100
+            _pitch = 1
 			
         audio_play(sfx,, 0.8, _pitch, 1)
 	}
-	if o_enc.encounter_data.enemies[target].mercy >= 100 {
+	if o_enc.encounter_data.enemies[target].mercy >= 100 
 		o.sprite_index = o.s_spared
-	}
 }
 
-///@arg slot
-function enc_sparepercent_enemy_from_inst(target, instance, variable, sfx = snd_mercyadd){
+/// @desc adds to the mercy bar and spawns a text indicator
+/// @arg {real} target_index the index of the target enemy
+/// @arg {Id.Instnace} instance the instance that holds the percentage variable
+/// @arg {string} var_name the name of the variable that holds the target percentage
+/// @arg {Asset.GMSound} sfx the sfx to play upon adding the percentage
+function enc_enemy_add_spare_from_var(target, instance, variable, sfx = snd_mercyadd){
 	var percent = variable_instance_get(instance, variable)
-	enc_sparepercent_enemy(target, percent, sfx)
+	enc_enemy_add_spare(target, percent, sfx)
+}
+
+/// @desc sets the enemy's tired variable to true
+/// @arg {real} enemy_index the index of the enemy that is to become tired/not-tired
+/// @arg {bool} _tired whether the enemy should become tired or not
+function enc_enemy_set_tired(enemy_index, _tired) {
+    if !instance_exists(o_enc)
+        return
+    if !enc_enemy_isfighting(enemy_index)
+        return
+    
+    o_enc.encounter_data.enemies[enemy_index].tired = _tired
 }
 
 ///@desc clamps a value between 0 and 100

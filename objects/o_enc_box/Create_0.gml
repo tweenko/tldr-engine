@@ -25,6 +25,7 @@ trans_sprite = -1
 trans_surf = -1
 trans_lerp = 0
 
+sprite_back = spr_enc_box_back_2x // < -- this sprite needs to be 2x if you use nine-slice, 1x if not
 sprite_w = sprite_get_width(sprite_index)
 sprite_h = sprite_get_height(sprite_index)
 prev_sprite = sprite_index

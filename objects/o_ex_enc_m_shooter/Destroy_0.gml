@@ -6,7 +6,7 @@ for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 		var percent = oo.hits/oo.maxhits * 100
 		if percent < 100 percent = 20
 		
-		enc_sparepercent_enemy(i, percent)
+		enc_enemy_add_spare(i, percent)
 		
 		if _enemy.actor_id.my_socks.collide
 			instance_destroy(_enemy.actor_id.my_socks)

@@ -33,7 +33,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			
 			instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {
 				draw: txt, 
-				mode: 0
+				mode: TEXT_HPCHANGE_MODE.PARTY
 			})
 			instance_create(o_eff_healeffect,,,, {target: o})
             
@@ -47,7 +47,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			||caller.object_index == o_enc 
 		{
 			var o = party_get_inst(name)
-			instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: "miss", mode: 0})
+			instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: "miss", mode: TEXT_HPCHANGE_MODE.PARTY})
 		}
 	}
 	else if heal < 0 { // hurt
@@ -110,7 +110,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			
 			instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {
 				draw: txt, 
-				mode: 0
+				mode: TEXT_HPCHANGE_MODE.PARTY
 			})
 			audio_play(sfx,,,,1)
 		}

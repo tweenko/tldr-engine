@@ -316,7 +316,7 @@ function item_s_iceshock() : item_spell() constructor {
             if !__fatal 
                 animate(1, 0, 5, "linear", __o, "flash")
             
-            enc_hurt_enemy(target, __dmg, spell_user,,, 20,, "freeze")
+            enc_hurt_enemy(target, __dmg, spell_user,,, "freeze")
         }, [target, spell_user])
         
         cutscene_sleep(30)

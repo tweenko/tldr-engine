@@ -1,7 +1,7 @@
 draw_set_font(global.font_numbers_w)
 if mode == 3 {
 	draw_sprite_ext(spr_ui_damage_recruit, 0, 
-		x - (align == 1 ? sprite_get_width(spr_ui_damage_recruit) : 0), y, 
+		visual_x - (align == 1 ? sprite_get_width(spr_ui_damage_recruit) : 0), visual_y, 
 		2 - stretch, stretch * image_yscale, 
 		0, c_white, image_alpha
 	)
@@ -10,7 +10,7 @@ if mode == 3 {
 	draw_set_alpha(image_alpha)
 	draw_set_halign(fa_center)
 	
-	draw_text_transformed(x + xoff, y + 35, draw, 1, image_yscale, 0)
+	draw_text_transformed(visual_x + xoff, visual_y + 35, draw, 1, image_yscale, 0)
 	
 	draw_set_halign(fa_left)
 	draw_set_alpha(1)
@@ -34,7 +34,7 @@ else {
 	    if align == 1 
 			draw_set_halign(fa_right)
 		
-	    draw_text_transformed(x + xoff, y, abs(draw), 2 - stretch, stretch * image_yscale, 0)
+	    draw_text_transformed(visual_x + xoff, visual_y, abs(draw), 2 - stretch, stretch * image_yscale, 0)
 		
 	    draw_set_halign(fa_left)
 		draw_set_alpha(1)
@@ -44,7 +44,7 @@ else {
 			if draw == "+100%" {
 				var spr = spr_ui_damage_100
 				draw_sprite_ext(spr, 0, 
-					x - (align == 1 ? sprite_get_width(spr) : 0) + xoff, y, 
+					visual_x - (align == 1 ? sprite_get_width(spr) : 0) + xoff, visual_y, 
 					2 - stretch, stretch * image_yscale, 
 					0, c_white, image_alpha
 				)
@@ -56,7 +56,7 @@ else {
 			    if align == 1 
 					draw_set_halign(fa_right)
 				
-			    draw_text_transformed(x + xoff, y, draw, 2-stretch, stretch * image_yscale, 0)
+			    draw_text_transformed(visual_x + xoff, visual_y, draw, 2-stretch, stretch * image_yscale, 0)
 				
 			    draw_set_halign(fa_left)
 				draw_set_alpha(1)
@@ -89,10 +89,16 @@ else {
                 case "frozen":
                     spr = spr_ui_damage_frozen
                     break
+                case "tired":
+                    spr = spr_ui_damage_tired
+                    break
+                case "awake":
+                    spr = spr_ui_damage_awake
+                    break
 			}
 			
 			draw_sprite_ext(spr, 0,
-				x - (align == 1 ? sprite_get_width(spr) : 0) + xoff, y, 
+				visual_x - (align == 1 ? sprite_get_width(spr) : 0) + xoff, visual_y, 
 				2 - stretch, stretch * image_yscale, 
 				0, c_white, image_alpha
 			)
