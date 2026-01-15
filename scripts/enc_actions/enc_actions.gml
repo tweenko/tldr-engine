@@ -147,7 +147,7 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
             }
             
             if __default_action
-                cutscene_dialogue($"* Default {party_getname(global.party_names[user])} Action")
+                cutscene_dialogue($"* Default {party_getname(global.party_names[party_get_index(acting_member)])} Action")
         }
         else {
             // set the party sprites accordingly

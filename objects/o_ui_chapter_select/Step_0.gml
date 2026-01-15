@@ -121,7 +121,7 @@ else {
             }
         }
 	}
-	if InputPressed(INPUT_VERB.CANCEL) && confirming {
+	else if InputPressed(INPUT_VERB.CANCEL) && confirming {
 		confirming = false
 		confirmselection = 0
 		audio_play(snd_ui_cancel)
