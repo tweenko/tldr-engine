@@ -35,6 +35,7 @@
     {"name":"inst_6295186E","path":"rooms/room_test_movement/room_test_movement.yy",},
     {"name":"inst_13F66B61","path":"rooms/room_test_movement/room_test_movement.yy",},
     {"name":"inst_976E9B1","path":"rooms/room_test_movement/room_test_movement.yy",},
+    {"name":"inst_23FAB79D","path":"rooms/room_test_movement/room_test_movement.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -49,6 +50,7 @@
         {"$GMRInstance":"v4","%Name":"inst_1A2D706C","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1A2D706C","objectId":{"name":"o_block","path":"objects/o_block/o_block.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":3.0,"scaleY":2.0,"x":0.0,"y":360.0,},
         {"$GMRInstance":"v4","%Name":"inst_1E288B83","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1E288B83","objectId":{"name":"o_block","path":"objects/o_block/o_block.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":10.0,"x":0.0,"y":160.0,},
         {"$GMRInstance":"v4","%Name":"inst_3059B78D","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_3059B78D","objectId":{"name":"o_block","path":"objects/o_block/o_block.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":4.0,"x":0.0,"y":40.0,},
+        {"$GMRInstance":"v4","%Name":"inst_23FAB79D","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_23FAB79D","objectId":{"name":"o_block","path":"objects/o_block/o_block.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":5.0,"scaleY":1.0,"x":20.0,"y":40.0,},
       ],"layers":[],"name":"Instances_1","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":false,},
     {"$GMRInstanceLayer":"","%Name":"Instances","depth":100,"effectEnabled":true,"effectType":null,"gridX":10,"gridY":10,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_1A2AAF73","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1A2AAF73","objectId":{"name":"o_actor_e_killercar","path":"objects/o_actor_e_killercar/o_actor_e_killercar.yy",},"properties":[

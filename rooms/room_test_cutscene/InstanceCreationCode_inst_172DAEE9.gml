@@ -1,3 +1,9 @@
+if state_get("cutscene_seen") {
+    instance_destroy()
+    instance_activate_object(inst_3CB25A36)
+    exit
+}
+
 global.party_names = ["kris", "susie", "ralsei"]
 
 var inst = actor_create(party_get_obj("noelle"), 110, 270)
@@ -147,10 +153,11 @@ trigger_code = function() {
     cutscene_sleep(10)
     
     cutscene_func(music_resume, 0)
-    cutscene_func(function() {
+    cutscene_func(function(inst) {
         music_resume(0)
         music_fade(0, 1, 30)
-    })
+        state_add("cutscene_seen", inst)
+    }, [id])
     
     cutscene_party_follow(true)
     cutscene_party_interpolate()
