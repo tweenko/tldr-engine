@@ -65,8 +65,14 @@ function cutscene_custom(_custom = {
 
 ///@desc starts the cutscene (playing the queue in order)
 function cutscene_play() {
-	if instance_exists(global.current_cutscene) 
-		global.current_cutscene.play = true
+	if instance_exists(global.current_cutscene) {
+        with global.current_cutscene {
+            play = true
+            event_user(0)
+            if ds_queue_empty(actions)
+                instance_destroy()
+        }
+    }
 }
 
 // cutscene presets

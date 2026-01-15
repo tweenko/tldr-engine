@@ -1,3 +1,9 @@
+if state_get("cutscene_seen") {
+    instance_destroy()
+    instance_activate_object(inst_3CB25A36)
+    exit
+}
+
 global.party_names = ["kris", "susie", "ralsei"]
 
 var inst = actor_create(party_get_obj("noelle"), 110, 270)
@@ -97,8 +103,8 @@ trigger_code = function() {
     
     cutscene_sleep(30)
     cutscene_dialogue([
-        "{char(noelle, 0)}* I just got really lost in this test place and... fell asleep, haha!",
-        "{char(susie, 7)}* Oh, did you have like, any dreams??",
+        "{auto_breaks(false)}{char(noelle, 0)}* I just got really lost{br}in this test place and...{br}fell asleep, haha!",
+        "{auto_breaks(true}{char(susie, 7)}* Oh, did you have like, any dreams??",
         "{char(noelle, 8)}* Yeah! The dream was cool... there was, like...",
         "{face_ex(25)}* Um...",
     ],, false, false)
@@ -147,10 +153,11 @@ trigger_code = function() {
     cutscene_sleep(10)
     
     cutscene_func(music_resume, 0)
-    cutscene_func(function() {
+    cutscene_func(function(inst) {
         music_resume(0)
         music_fade(0, 1, 30)
-    })
+        state_add("cutscene_seen", inst)
+    }, [id])
     
     cutscene_party_follow(true)
     cutscene_party_interpolate()

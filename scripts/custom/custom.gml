@@ -195,7 +195,7 @@ function draw_sprite_looped(offset, amp, sprite, image, xx, yy, xscale = 1, ysca
 }
 
 
-/// ------------- INSTANCE AND OBJECT STUFF --------------
+// ------------- INSTANCE AND OBJECT STUFF --------------
 
 /// @desc uses post_var_struct instead of just var_struct because it sets the values in the struct after the instance's create event has run.
 function instance_create(obj, xx = 0, yy = 0, dpth = 0, post_var_struct = {}) {

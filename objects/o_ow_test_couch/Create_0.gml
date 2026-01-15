@@ -65,10 +65,11 @@ interaction_code = function() {
         cutscene_sleep(20)
         
         if !__mode {
+            var __onlytwo = array_length(global.party_names) > 2
             cutscene_sleep(30)
             
             if party_ismember("ralsei")
-                cutscene_dialogue("{char(ralsei, 20)}* Kris, are you joining us, or..?")
+                cutscene_dialogue("{char(ralsei, 20)}* Kris, are you joining " + (__onlytwo ? "the couch" : "us")+ ", or..?")
             if party_ismember("susie")
                 cutscene_dialogue([
                     "{char(susie, 1)}* Hey, when we get couch time we ALL get couch time.",
