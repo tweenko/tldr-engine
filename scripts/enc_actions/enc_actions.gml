@@ -159,15 +159,18 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
         }
         
         cutscene_sleep(4)
-        cutscene_func(function(party_names) { // go back to idle
-            for (var i = 0; i < array_length(party_names); i ++) {
-                o_enc.party_state[party_get_index(party_names[i])] = PARTY_STATE.IDLE
-            }
-        }, [party_names])
         
         cutscene_wait_until(function() {
             return !o_enc.waiting
         })
+        cutscene_func(function(party_names) {
+            for (var i = 0; i < array_length(party_names); i ++) {
+                var p_inst = party_get_inst(party_names[i])
+                if instance_exists(p_inst) && party_get_inst(party_names[i]).sprite_index == enc_getparty_sprite(party_names[i], "act")
+                    enc_party_set_battle_sprite(party_names[i], "actend")
+                o_enc.party_state[party_get_index(party_names[i])] = PARTY_STATE.IDLE
+            }
+        }, [party_names])
         
         cutscene_set_variable(o_enc, "waiting_internal", false)
         cutscene_play()
