@@ -104,7 +104,7 @@ trigger_code = function() {
     cutscene_sleep(30)
     cutscene_dialogue([
         "{auto_breaks(false)}{char(noelle, 0)}* I just got really lost{br}in this test place and...{br}fell asleep, haha!",
-        "{auto_breaks(true}{char(susie, 7)}* Oh, did you have like, any dreams??",
+        "{auto_breaks(true)}{char(susie, 7)}* Oh, did you have like, any dreams??",
         "{char(noelle, 8)}* Yeah! The dream was cool... there was, like...",
         "{face_ex(25)}* Um...",
     ],, false, false)
