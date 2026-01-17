@@ -13,6 +13,9 @@ user = "kris"
 stretch = .2
 xoff = 0
 
+visual_x = x
+visual_y = y
+
 // adjust the position to be rendered on the gui layer
 x -= guipos_x()
 y -= guipos_y()
