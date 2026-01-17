@@ -54,6 +54,7 @@
 	superskipping = false
     superskipping_buffer = 0
     allow_skip_internal = true
+    box_init = false
 	
 	chars = 0
 	disp_chars = 0 //displayed characters

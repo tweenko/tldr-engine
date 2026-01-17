@@ -2,7 +2,7 @@ trigger_code = function() {
     o_camera.follow_y = false
     camera_pan(undefined, 340, 40, "sine_out", true)
     
-    lighting_on(0xFFD042)
+    lighting_on(0xFFD042, 0xFF392A)
 }
 trigger_exit_code = function() {
     lighting_off()

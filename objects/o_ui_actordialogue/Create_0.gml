@@ -1,4 +1,9 @@
-side = 1
+enum ACTORDIALOGUE_SIDE {
+    FROM_RIGHT = 1,
+    FROM_LEFT = -1,
+}
+
+side = ACTORDIALOGUE_SIDE.FROM_RIGHT
 preset = "{preset(enemy_text)}"
 
 text = ""

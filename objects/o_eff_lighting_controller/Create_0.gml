@@ -1,6 +1,8 @@
 under_lighting = false
 lighting_override = false // do this if you want to control the lighting amount manually
 
+fade_color = c_gray
+fade_mode = [bm_zero, bm_src_colour]
 color = c_white
 lighting_darken = .75
 lighting_alpha = 0
@@ -41,3 +43,6 @@ __find_target_layers = function() {
 }
 
 __find_target_layers()
+
+if !instance_exists(o_eff_lighting_fade)
+	instance_create(o_eff_lighting_fade)

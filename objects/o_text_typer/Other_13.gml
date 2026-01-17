@@ -28,7 +28,6 @@ instance_clean(face_inst)
 
 dont_update = true
 if instance_exists(npc_link){
-	if variable_instance_exists(npc_link, "s_talking"){
+	if variable_instance_exists(npc_link, "s_talking")
 		npc_link.s_talking = false
-	}
 }

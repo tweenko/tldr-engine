@@ -1,5 +1,10 @@
 var mmin = infinity
 
+enemy_hp = array_create_ext(array_length(caller.encounter_data.enemies), function(index) {
+    if !enc_enemy_isfighting(index)
+        return 0
+    return caller.encounter_data.enemies[index].hp
+})
 for (var i = 0; i < array_length(fighting); ++i) {
 	var rand = irandom(array_length(fighting) - 1)
 	array_push(pattern, rand)

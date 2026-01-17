@@ -93,6 +93,7 @@ confirming = false
 confirmselection = 0
 vtext_alpha = 0
 pause = 0
+acquired_crysyal = false
 
 copyright_text = ""
 gamename = ENGINE_NAME
@@ -113,6 +114,11 @@ for (var i = 0; i < array_length(chapters); i ++) {
     if !is_struct(chapters[i])
         break
     possible_chapters ++
+}
+for (var i = 0; i < array_length(chapters); i ++) {
+    for (var j = 0; j < array_length(SAVE_SLOTS); j ++) {
+        
+    }
 }
 
 yes = loc("chapter_select_yes")

@@ -17,5 +17,6 @@ mini_faces = []
 superskipping_buffer = 1
 
 init = true
+box_init = false
 
 current_box ++

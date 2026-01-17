@@ -1,17 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"o_ow_prophecy_fade",
+  "%Name":"o_eff_lighting_fade",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_ow_prophecy_fade",
+  "name":"o_eff_lighting_fade",
   "overriddenProperties":[],
   "parent":{
-    "name":"misc",
-    "path":"folders/@Engine/objects/ow/misc.yy",
+    "name":"effects",
+    "path":"folders/@Engine/objects/effects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

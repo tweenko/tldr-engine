@@ -1,8 +1,12 @@
 /// @desc turns on the lighting effect with a certain color
-function lighting_on(color) {
+/// @arg {Constant.Colour} color the color the highlight on the characters will be
+/// @arg {Constant.Colour} fade_color the color of the fade that will be applied
+function lighting_on(color, fade_color = c_gray) {
     if !instance_exists(o_eff_lighting_controller)
         return false
+    
     o_eff_lighting_controller.color = color 
+    o_eff_lighting_controller.fade_color = fade_color
     o_eff_lighting_controller.under_lighting = true
 }
 
@@ -21,8 +25,8 @@ function lighting_darken_self(drawer = undefined) {
         return false
     
     var __emitting_light = false
-    if variable_instance_exists(self, "am_emmitting_light")
-        __emitting_light = am_emmiting_light
+    if variable_instance_exists(self, "am_emitting_light")
+        __emitting_light = am_emitting_light
     
 	if o_eff_lighting_controller.lighting_alpha > 0 && !__emitting_light {
         if !is_undefined(drawer) && is_callable(drawer)

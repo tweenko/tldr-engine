@@ -217,8 +217,9 @@ function text_typer_create(text, _xx, _yy, _depth = 0, prefix = "", postfix = ""
 /// @arg {real} [bubble_off_x] the x offset of the bubble from actor origin, overrides the default centering
 /// @arg {real} [bubble_off_y] the y offset of the bubble from actor origin, overrides the default centering
 /// @arg {enum.BUBBLE_RELATIVE} [bubble_off_type] the offset type
+/// @arg {enum.ACTORDIALOGUE_SIDE} [coming_from] the direction the speech is coming from. example: enemies usually have it coming from the right, while the party usually has it come from the left
 /// @return {Id.Instance}
-function actor_dialogue_create(_text, _actor_inst, prefix = "", postfix = "{p}{e}", var_struct = {}, bubble_off_x = 0, bubble_off_y = 0, bubble_off_type = BUBBLE_RELATIVE.TO_DEFAULT_POS) {
+function actor_dialogue_create(_text, _actor_inst, prefix = "", postfix = "{p}{e}", var_struct = {}, bubble_off_x = 0, bubble_off_y = 0, bubble_off_type = BUBBLE_RELATIVE.TO_DEFAULT_POS, coming_from = ACTORDIALOGUE_SIDE.FROM_RIGHT) {
     var xx = 0
     var yy = 0
     
@@ -244,6 +245,7 @@ function actor_dialogue_create(_text, _actor_inst, prefix = "", postfix = "{p}{e
         var_struct
     )
     inst.text = prefix + dialogue_array_to_string(_text) + postfix
+    inst.side = coming_from
     
     return inst
 }

@@ -14,3 +14,4 @@ ii = 0
 
 fading = false
 perfect = false
+enemies_hp = []

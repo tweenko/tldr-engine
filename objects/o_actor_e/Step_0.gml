@@ -29,7 +29,7 @@ if !instance_exists(get_leader())
     exit
 
 if chasing && !is_in_battle
-	&& get_leader()._checkmove() 
+	&& get_leader()._checkmove()
 {
 	var xx = dcos(point_direction(x, y, get_leader().x, get_leader().y))
 	var yy = -dsin(point_direction(x, y, get_leader().x, get_leader().y))
@@ -52,6 +52,13 @@ if chasing && !is_in_battle
 		y += sign(instance_place(x + xx, y, o_block_diag).image_yscale) * chase_spd
 	if place_meeting(x,y + yy, o_block_diag)
 		x += sign(instance_place(x, y + yy, o_block_diag).image_xscale) * chase_spd
+}
+
+if path_exists(path_index) {
+    if get_leader()._checkmove()
+        path_speed = idle_path_spd
+    else
+        path_speed = 0
 }
 
 // collision, initiate encounter

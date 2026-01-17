@@ -18,15 +18,7 @@ x -= guipos_x()
 y -= guipos_y()
 x *= 2
 y *= 2
-
-while instance_place(x+9, y+6, o_text_hpchange)
-    y += 22
-
-visual_x = x
-visual_y = y
-
-x += 9; y += 6
-depth = -2000-y
+depth = -2000 - instance_number(object_index)
 
 alarm[0] = 1 // animate
 

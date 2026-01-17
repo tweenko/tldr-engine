@@ -28,5 +28,5 @@ if s_auto && name != "" {
     s_slide = __conv_sprite_pm("slide", sp, fstate)
     
     if is_follower || is_player
-        highlight_color = merge_colour(party_getdata(name, "iconcolor"), c_white, .4)
+        lb_dl_highlight_color = merge_colour(party_getdata(name, "iconcolor"), c_white, .4)
 }

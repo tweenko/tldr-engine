@@ -1,3 +1,13 @@
+if mode == TEXT_HPCHANGE_MODE.ENEMY || mode == TEXT_HPCHANGE_MODE.PARTY || mode == TEXT_HPCHANGE_MODE.PERCENTAGE {
+    while instance_place(x+9, y+6, o_text_hpchange)
+        y += 22
+}
+
+visual_x = x
+visual_y = y
+
+x += 9; y += 6
+
 if mode == 3 || mode == 4 {
 	var a = animate(.1, 1.5, 6, anime_curve.quad_out, id, "stretch", false)
         a._add(1, 4, anime_curve.linear)

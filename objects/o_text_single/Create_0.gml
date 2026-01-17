@@ -28,6 +28,7 @@ caller = -1
 
 sprite = -1
 img_index = 0
+img_spd = 0
 
 _typer_drawsinglechar = function(xx, yy, opacity) {
 	if sprite != -1 

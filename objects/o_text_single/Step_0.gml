@@ -6,3 +6,6 @@ else if effect == 2 {
 	xoff = random_range(-1, 1)
 	yoff = random_range(-1, 1)
 }
+
+if img_spd != 0
+    img_index += img_spd

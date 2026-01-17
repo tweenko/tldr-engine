@@ -201,9 +201,8 @@ if pause == -1 || pause == -2 {
 		caller.can_proceed = true
 	}
     
-	if (InputPressed(INPUT_VERB.SELECT) || InputCheck(INPUT_VERB.SPECIAL)) && pause == -1 || (superskipping && superskipping_buffer == 0 && pause == -1) {
+	if (InputPressed(INPUT_VERB.SELECT) || InputCheck(INPUT_VERB.SPECIAL)) && pause == -1 || (superskipping && superskipping_buffer == 0 && pause == -1)
 		pause = 0
-	}
 }
 else {
 	if instance_exists(caller) {
@@ -227,7 +226,7 @@ if face_expression != face_expression_prev {
 	face_expression_prev = face_expression
 }
 
-if (InputPressed(INPUT_VERB.CANCEL) || (timer == 0 && InputCheck(INPUT_VERB.CANCEL))) 
+if (InputPressed(INPUT_VERB.CANCEL) || (!box_init && InputCheck(INPUT_VERB.CANCEL))) 
     && !skipping && can_skip && !command_mode && pause >= 0 
     && !superskipping && allow_skip_internal 
 {

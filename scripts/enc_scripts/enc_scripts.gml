@@ -23,7 +23,7 @@ function enc_getparty_sprite(party_name, sprname) {
 function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, fatal = false, seed = "") {
 	var enemy_struct = o_enc.encounter_data.enemies[target]
     
-    if enemy_struct.hp <= 0 
+    if enemy_struct.hp <= 0 || !enc_enemy_isfighting(target)
 		exit
 	enemy_struct.hp -= hurt
 	

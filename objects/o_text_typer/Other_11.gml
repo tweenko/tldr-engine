@@ -121,7 +121,7 @@ y -= center_yoff
 if instance_exists(caller) {
     // make the enemy dialogue centered right-center
 	if caller.object_index == o_ui_actordialogue {
-        var __xoff = -width
+        var __xoff = (caller.side == 1 ? -width : 0)
 		x += __xoff
         center_xoff = __xoff
     }

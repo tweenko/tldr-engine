@@ -95,7 +95,13 @@ is_player = false
 	fsiner = 0 // flash siner
 	flash = 0
     
-    highlight_color = c_white
+    // lighting
+    lighting_highlight_enabled = true
+    lighting_darken_enabled = true
+    lighting_shadow_enabled = true
+    
+    // dark lighting library
+    lb_dl_highlight_color = c_white
 	
 	can_reflect = true
 	reflection_code = function() {

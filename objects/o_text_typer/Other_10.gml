@@ -208,7 +208,7 @@ if command == "resetx" { // resetx() OR resetx  reset the x position of the type
 	chars ++
 }
 
-if command == "spr" || command == "sprite" { // spr(sprite_index) OR sprite(sprite_index)  inserts a sprite into the text
+if command == "spr" || command == "sprite" { // spr(sprite_index, image_speed=0, image_index=0) OR sprite(sprite_index, image_speed=0, image_index=0)  inserts a sprite into the text
 	var spr = asset_get_index(arg[0])
 	var inst = instance_create(o_text_single, x + xoff, y + yoff, depth)
 	
@@ -226,7 +226,12 @@ if command == "spr" || command == "sprite" { // spr(sprite_index) OR sprite(spri
 	inst.timer = chartimeroff * chars
 	inst.god = god
 	inst.sprite = spr
-			
+    
+    if array_length(arg) > 1
+        inst.img_index = arg[1]
+    if array_length(arg) > 2
+        inst.img_spd = arg[2]
+     
 	xoff += sprite_get_width(spr)*xscale
 	xoff += xspace * xscale
 }

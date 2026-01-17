@@ -5,6 +5,7 @@ targets = []
 pattern = []
 sticks = []
 fighterselection = [] // the attack target
+enemy_hp = []
 
 order = 0
 lightup = 0
