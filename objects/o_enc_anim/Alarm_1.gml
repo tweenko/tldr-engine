@@ -60,6 +60,7 @@ for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 	obj.image_index = 0
 	obj.hurt = 0
 	obj.is_in_battle = true
+    obj.enemy_slot = i
 	
 	encounter_data.enemies[i].actor_id = obj
 	encounter_data.enemies[i].slot = i

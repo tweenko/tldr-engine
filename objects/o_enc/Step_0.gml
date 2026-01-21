@@ -46,7 +46,9 @@ if battle_state == BATTLE_STATE.MENU {
         }
         
         if !instance_exists(inst_flavor) {
-            inst_flavor = dialogue_start((flavor_seen ? "{instant}" : "") + enc_get_flavor(encounter_data) + "{stop}")
+            turn_flavor ??= enc_get_flavor(encounter_data)
+            
+            inst_flavor = dialogue_start((flavor_seen ? "{instant}" : "") + turn_flavor + "{stop}")
             inst_flavor.die_delay = 0
             flavor_seen = true
         }
@@ -351,6 +353,8 @@ else if battle_state == BATTLE_STATE.TURN {
 }
 else if battle_state == BATTLE_STATE.POST_TURN {
     if !post_turn_init {
+        turn_count ++
+        
         __call_enc_event("ev_post_turn")
         post_turn_init = true
         buffer = 2

@@ -86,9 +86,12 @@ function cutscene_sleep(sleep) {
 }
 
 ///@desc runs dialogue in a cutscene and waits until the dialogue box is destroyed if asked to
-///@arg {string|array<string>} dialogue
-///could be either an array or just a string. if it's an array, between the array entries the box will pause and clear itself afterwards.
-function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_down = undefined) {
+///@arg {string|array<string>} dialogue could be either an array or just a string. if it's an array, between the array entries the box will pause and clear itself afterwards.
+/// @arg {string} postfix the string added to the end of the text typer. "{p}{e}" by default
+/// @arg {bool} wait whether the cutscene should wait until the dialogue is destroyed
+/// @arg {undefined|bool} box_pos_down whether the box should be forced down (true), up (false) or automatic (undefined, the default)
+/// @arg {bool} destroy_other_instances whether the dialogue should destroy the other already existing dialogue instances before spawning itself
+function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_down = undefined, _destroy_other_instances = true) {
 	dialogue = dialogue_array_to_string(dialogue)
     
 	cutscene_custom({
@@ -96,12 +99,16 @@ function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_do
 		wait,
 		postfix,
         box_pos_down,
+        _destroy_other_instances,
 
-		action: [function(dialogue, postfix, box_pos_down) {
+		action: [function(dialogue, postfix, box_pos_down, _destroy_other_instances) {
+            if _destroy_other_instances
+                instance_destroy(o_ui_dialogue)
+            
             var inst = instance_create(o_ui_dialogue, 0, 0, 0, {text: dialogue, postfix})
             if !is_undefined(box_pos_down)
                 inst._reposition_self_to(box_pos_down)
-        }, dialogue, postfix, box_pos_down],
+        }, dialogue, postfix, box_pos_down, _destroy_other_instances],
 
 		continue_func: function(wait) {
 			return (wait ? !instance_exists(o_ui_dialogue) : true)

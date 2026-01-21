@@ -25,6 +25,8 @@
     
     turn_timer = 0
     turn_objects = []
+    turn_count = 0
+    turn_flavor = undefined
     
     // initializers
     flavor_seen = false
@@ -116,7 +118,6 @@
 }
 
 encounter_data = {} // the information about the encounter: enemies, music, text and such
-
 
 action_queue = []
 action_order = [

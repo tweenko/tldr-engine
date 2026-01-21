@@ -1,5 +1,6 @@
 /// @description reset all variables
 
+turn_flavor = undefined
 flavor_seen = false
 exec_init = false
 dialogue_init = false

@@ -1,5 +1,5 @@
 function string_to_color(color_string){
-	switch color_string{
+	switch color_string {
 		case "c_red":
 		case "r":
 			return c_red

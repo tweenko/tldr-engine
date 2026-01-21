@@ -1,6 +1,6 @@
 event_inherited()
-s_hurt = spr_ex_e_sguy_idle
-s_spared = spr_e_virovirokun_hurt
+s_hurt = spr_ex_e_sguy_hurt
+s_spared = spr_ex_e_sguy_spare
 
 gun = 0
 gun_angle = 0

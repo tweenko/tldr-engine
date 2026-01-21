@@ -36,6 +36,9 @@ function item() constructor {
 	color = c_white
 	is_party_act = false
 	is_mercyspell = false // does it allow to spare enemies?
+    
+    // party act specific
+    perform_act_anim = true
 	
 	reactions = {
 	}

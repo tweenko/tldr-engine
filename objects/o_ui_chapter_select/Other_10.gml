@@ -38,7 +38,7 @@ for (var i = 0; i < array_length(chapters); ++i) {
 			var v = save_read(j, i+1)
 			if is_struct(v) {
 				v = [v.CRYSTAL, v.COMPLETED]
-                if v.CRYSTAL
+                if v[0]
                     acquired_crysyal = true
 			}
 			array_push(arr, v)

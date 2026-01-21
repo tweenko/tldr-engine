@@ -27,12 +27,17 @@ function enemy() constructor {
 	acts = [
 		{
 			name: loc("enc_act_check"),
+			desc: "Useless analysis",
+            
 			party: [],
-			desc: -1,
+            perform_act_anim: false,
             tp_cost: 0,
+            
 			exec: function(enemy_slot, user_index){
 				encounter_scene_dialogue("* Empty CHECK text.")
-			}
+			},
+            exec_args: []
+            
 		},
 	]
 	acts_special = {}
@@ -139,8 +144,8 @@ function enemy_virovirokun() : enemy() constructor{
 	acts = [
 		{
 			name: loc("enc_act_check"),
+			desc: "Useless analysis",
 			party: [],
-			desc: -1,
 			exec: function() {
 				encounter_scene_dialogue(loc("enemy_virovirokun_act_check"))
 			}
@@ -149,6 +154,7 @@ function enemy_virovirokun() : enemy() constructor{
 			name: loc("enemy_virovirokun_act_takecare"),
 			party: [],
 			desc: -1,
+            perform_act_anim: false,
 			exec: function(slot, user) {
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
@@ -179,6 +185,7 @@ function enemy_virovirokun() : enemy() constructor{
 			name: loc("enemy_virovirokun_act_takecarex"),
 			party: -1,
 			desc: -1,
+            perform_act_anim: false,
 			exec: function(slot, user) {
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
@@ -271,6 +278,7 @@ function enemy_killercar() : enemy() constructor{
 	acts = [
 		{
 			name: "Check",
+			desc: "Useless analysis",
 			party: [],
 			desc: -1,
 			exec: function() {

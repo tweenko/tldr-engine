@@ -286,8 +286,10 @@ if !is_in_battle && !is_enemy && s_dynamic && !s_override {
 	
 	if flashing 
 		fsiner ++
-    if trail 
-        afterimage()
+    if trail {
+        var inst = afterimage(.05)
+        inst.depth += 10
+    }
 }
 		
 // overworld battle
