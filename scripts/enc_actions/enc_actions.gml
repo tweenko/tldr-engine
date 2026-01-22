@@ -126,6 +126,8 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
                     }
                 }
         }
+        if !enc_enemy_isfighting(target)
+            exit
         
         cutscene_create()
         cutscene_set_variable(o_enc, "waiting_internal", true)
@@ -215,6 +217,8 @@ function enc_action_item(_party_names, _target, _item, _item_index) : enc_action
                     }
                 }
         }
+        if !enc_enemy_isfighting(target)
+            exit
         
         cutscene_create()
         cutscene_set_variable(o_enc, "waiting_internal", true)
@@ -270,6 +274,8 @@ function enc_action_spare(_party_names, _enemy_target) : enc_action(_party_names
                         break
                 }
             }
+        if !enc_enemy_isfighting(target)
+            exit
         
         with other {
             var __enemy = o_enc.encounter_data.enemies[other.target]

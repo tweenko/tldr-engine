@@ -3,7 +3,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 	obj = o_ex_actor_e_sguy
 	turn_object = o_ex_turn_sguy
 	
-	//stats
+	// stats
 	hp =		240
 	max_hp =	240
 	attack =	5
@@ -18,7 +18,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 		ralsei: spr_ex_ralsei_costume,
 	}
 	
-	//acts
+	// acts
 	acts = [
 		{
 			name: "Check",
@@ -41,7 +41,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				cutscene_set_variable(o_enc, "waiting", true)
 				
 				cutscene_func(enc_enemy_add_spare, [slot, 5])
-                cutscene_func(function(user, boogie_sprites) {
+                cutscene_func(function(user, boogie_sprites, slot) {
                     if struct_exists(boogie_sprites, user) {
                         var o = party_get_inst(user)
                         
@@ -56,8 +56,8 @@ function ex_enemy_shadowguy() : enemy() constructor{
                             a._add(0, 6, anime_curve.linear)
                             a._start()
                     }
-                    instance_create(o_ex_enc_m_boogie_controller)
-                }, [user, boogie_sprites])
+                    instance_create(o_ex_enc_m_boogie_controller,,,, {enemy_index: slot})
+                }, [user, boogie_sprites, slot])
                 
 				cutscene_dialogue("* " + party_getname(user) + " boogies past bullets!{br}{resetx}* SHADOWGUY gains mercy until you get hit!")
                 cutscene_set_partysprite(user, "idle")
@@ -109,6 +109,11 @@ function ex_enemy_shadowguy() : enemy() constructor{
 	
 	// recruit
 	recruit = new ex_enemy_recruit_shadowguy()
+    
+    // in-fight-events
+    ev_post_turn = function() {
+        instance_destroy(o_ex_enc_m_boogie_controller)
+    }
     
 	// text
 	dialogue = function(slot){}

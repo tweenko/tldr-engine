@@ -320,6 +320,8 @@ function enemy_killercar() : enemy() constructor{
                 
                 cutscene_audio_play(snd_spellcast)
                 for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
+                    if !enc_enemy_isfighting(i)
+                        continue
                     cutscene_func(function(index) {
                         var __e_obj = o_enc.encounter_data.enemies[index].actor_id
                         
