@@ -3,7 +3,18 @@ if tp_constrict
 else 
     tp_defend = 16
 
+// call the initializer event
+if !encounter_init {
+    __call_enc_event("ev_init")
+    encounter_init = true
+}
+
 if battle_state == BATTLE_STATE.MENU {
+    if !party_menu_init {
+        party_menu_init = true
+        __call_enc_event("ev_party_turn")
+    }
+    
     if battle_menu == BATTLE_MENU.BUTTON_SELECTION {
         if InputPressed(INPUT_VERB.RIGHT) {
             audio_play(snd_ui_move)
@@ -205,7 +216,7 @@ else if battle_state == BATTLE_STATE.EXEC {
         action_queue = __order_action_queue()
         exec_init = true
     }
-    if !__check_waiting() {
+    else if !__check_waiting() {
         if buffer == 0 {
             if array_length(action_queue) > 0 {
                 var action = action_queue[0]
@@ -421,7 +432,8 @@ else if battle_state == BATTLE_STATE.WIN {
         animate(0, -80, 10, anime_curve.circ_out, inst_tp_bar, "x_offset")
         
 		cutscene_create()
-		cutscene_dialogue(string(loc("enc_win"), __exp, __dd) + win_message)
+        if win_dialogue_show
+		  cutscene_dialogue(string(loc("enc_win"), __exp, __dd) + win_message)
         cutscene_set_variable(self, "win_hide_ui", true)
 		cutscene_sleep(5)
         

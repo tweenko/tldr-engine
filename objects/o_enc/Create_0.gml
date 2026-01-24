@@ -38,10 +38,12 @@
     post_turn_init = false
     win_screen_init = false
     win_init = false
+    party_menu_init = false
+    encounter_init = false
     
     // win stuff
     earned_money = 0
-    win_screen_show = true
+    win_dialogue_show = true
     win_message = ""
     win_hide_ui = false
     
@@ -268,19 +270,22 @@ __ally_highlight_reset = function() {
 }
 
 __order_action_queue = function(_action_queue = action_queue) {
-    var output = array_filter(_action_queue, function(element, index) {// remove defend
+    var output = array_filter(_action_queue, function(element, index) { // remove defend
         if is_instanceof(element, enc_action_defend)
             return false
         return true
     })
     
-    output = array_sort_ext(output, function(current, next) {
+    array_sort_ext(output, function(current, next) {
         var cur_order = array_get_index(action_order, instanceof(current))
-        var next_order = array_get_index(action_order, instanceof(current))
+        var next_order = array_get_index(action_order, instanceof(next))
         var party_order = party_get_index(current.acting_member)
         var next_party_order = party_get_index(next.acting_member)
         
-        return cur_order - next_order + party_order - next_party_order
+        show_debug_message($"action_sort 1: {instanceof(current)}, order value: {cur_order}")
+        show_debug_message($"action_sort 1: {instanceof(next)}, order value: {next_order}, score: {next_order - cur_order}")
+        
+        return next_order - cur_order + party_order - next_party_order
     })
     
     return output

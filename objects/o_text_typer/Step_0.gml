@@ -1,4 +1,4 @@
-if global.console 
+if global.console && !ignore_console
     exit
 
 if !skipping 

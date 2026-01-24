@@ -14,6 +14,7 @@ incompatible_soulx = 320
 incompatible_soulx_target = 320
 incompatible_end_cutscene = false
 incompatible_alpha = 1
+inst_dialogue = noone
 
 progress = true
 
@@ -34,6 +35,8 @@ global.menu_page = 0
 
 global.player_moveable_global = true
 global.border_mode = BORDER_MODE.OFF
+
+global.dev_debug_encounters = []
 
 { // emmiters
 	emitter_sfx = audio_emitter_create();

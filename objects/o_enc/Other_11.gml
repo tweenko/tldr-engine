@@ -1,6 +1,8 @@
 /// @description reset all variables
 
 turn_flavor = undefined
+
+// initializers
 flavor_seen = false
 exec_init = false
 dialogue_init = false
@@ -8,8 +10,9 @@ pre_turn_init = false
 turn_init = false
 pre_dialogue_init = false
 post_turn_init = false
-win_init = false
 win_screen_init = false
+win_init = false
+party_menu_init = false
 
 party_state = array_create(array_length(global.party_names), PARTY_STATE.IDLE)
 party_button_selection = array_create(array_length(global.party_names), 0)

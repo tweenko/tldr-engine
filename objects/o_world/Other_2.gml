@@ -143,6 +143,7 @@ global.font_numbers_g = font_add_sprite_ext(spr_ui_numbers_gfont,"0123456789+-%/
 
 // load the default items
 array_push(global.key_items, new item_key_cell_phone())
+array_push(global.items, new item_revivemint())
 
 // create entries for the party stuff later since we must first apply their equipment
 save_entry("PARTY_DATA", global.party, 

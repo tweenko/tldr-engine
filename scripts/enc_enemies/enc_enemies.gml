@@ -55,6 +55,7 @@ function enemy() constructor {
     // misc
     freezable = false
     defeat_marker = 0 // marker id
+    run_away = true // if set to false, if dealt fatal damage the enemy will die
     
 	// misc (in-fight events)
     ev_pre_dialogue =   -1

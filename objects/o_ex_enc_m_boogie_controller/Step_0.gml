@@ -14,8 +14,13 @@ if timer % 2 == 0 {
     inst_hpchange.draw = $"+{mercy_added}%"
     inst_hpchange.alarm[1] = 20
     
-    if mercy_added >= 0 {
+    if mercy_added >= 100 {
+        instance_destroy(inst_hpchange)
+        
+        var o = o_enc.encounter_data.enemies[enemy_index].actor_id
+        instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth, {draw: "+100%", mode: TEXT_HPCHANGE_MODE.PERCENTAGE})
         audio_play(snd_mercyadd)
+        
         instance_destroy()
     }
 }

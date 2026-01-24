@@ -12,6 +12,7 @@ selection = global.menu_page
 i_pselection = 0
 i_selection = 0
 i_pmselection = 0
+i_select_array = global.items
 
 // equip
 e_pmselection = 0

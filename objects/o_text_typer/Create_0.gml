@@ -32,6 +32,7 @@
 	can_skip = true
     can_superskip = true
     break_system = loc_getlang()
+    ignore_console = false
 }
 { // face & voice
 	_face = 0

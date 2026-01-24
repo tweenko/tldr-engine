@@ -78,6 +78,7 @@ function cutscene_play() {
 // cutscene presets
 
 ///@desc pauses the queue of the cutscene to the set amount of frames
+///@arg {real} sleep the amount of frames to pause the cutscene for
 function cutscene_sleep(sleep) {
 	cutscene_custom({
 		sleep,
@@ -288,7 +289,8 @@ function cutscene_anim(val1, val2, frames, ease_type, call_method, array = []){
 	})
 }
 
-/// @desc	cutscene_anim but has automatic instance existance checking as well as direct instance adressing
+/// @desc	cutscene_anim but has automatic instance existance checking as well as direct instance adressing. 
+///         The cutscene will not wait for the animation to end.
 ///			For built-in easing set ease_type to a string, or for custom easing use a function,
 ///			animation curve struct or ID, or animation curve channel.
 ///@param {Real} val1				The first value of the animation

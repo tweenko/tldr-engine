@@ -29,18 +29,21 @@ if InputPressed(INPUT_VERB.SELECT) && selection != -1 {
         
         cutscene_create()
         cutscene_set_variable(id, "end_cutscene", true)
-        cutscene_animate(1, 0, 20, "linear", id, "alpha")
+        cutscene_animate(1, 0, 20, anime_curve.linear, id, "alpha")
         cutscene_sleep(10)
-        cutscene_func(method(id, function() {
-            inst_dialogue = text_typer_create(loc("txt_debug_save_erase"), 130, 160, depth, "{auto_breaks(false)}{preset(god_text)}{can_skip(false)}", "{p}{e}", {
-                caller: id,
+        
+        cutscene_func(function() {
+            o_dev_savewipe_prompt.inst_dialogue = text_typer_create(loc("txt_debug_save_erase"), 130, 160, DEPTH_UI.CONSOLE - 100, "{auto_breaks(false)}{preset(`god_text`)}{can_skip(false)}", "{p}{e}", {
                 gui: true,
-                can_superskip: false
+                center_x: true,
+                can_superskip: false,
+                ignore_console: true,
             })
-        }))
-        cutscene_wait_until(method(id, function() {
-            return !instance_exists(inst_dialogue)
-        }))
+        })
+        cutscene_wait_until(function() {
+            return !instance_exists(o_dev_savewipe_prompt.inst_dialogue)
+        })
+        
         cutscene_func(function() {
             game_end()
         })

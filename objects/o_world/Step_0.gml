@@ -42,18 +42,21 @@ if incompatible_save_warning && incompatible_save_sleep == 0 {
             
             cutscene_create()
             cutscene_set_variable(id, "incompatible_end_cutscene", true)
-            cutscene_animate(1, 0, 20, "linear", id, "incompatible_alpha")
+            cutscene_animate(1, 0, 20, anime_curve.linear, id, "incompatible_alpha")
             cutscene_sleep(10)
+            
             cutscene_func(function() {
-                inst_dialogue = text_typer_create(loc("txt_debug_save_erase"), 130, 160, depth, "{auto_breaks(false)}{preset(god_text)}{can_skip(false)}", "{p}{e}", {
-        			caller: id,
-        			gui: true,
+                o_dev_savewipe_prompt.inst_dialogue = text_typer_create(loc("txt_debug_save_erase"), 130, 160, DEPTH_UI.CONSOLE - 100, "{auto_breaks(false)}{preset(`god_text`)}{can_skip(false)}", "{p}{e}", {
+                    gui: true,
+                    center_x: true,
                     can_superskip: false,
-        		})
+                    ignore_console: true,
+                })
             })
             cutscene_wait_until(function() {
-                return !instance_exists(o_text_typer)
+                return !instance_exists(o_dev_savewipe_prompt.inst_dialogue)
             })
+            
             cutscene_func(function() {
                 game_end()
             })

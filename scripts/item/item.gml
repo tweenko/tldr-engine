@@ -7,7 +7,7 @@ function item() constructor {
 	
 	// item specific
 	use_type = ITEM_USE.INDIVIDUAL
-	can_use = true // false if cant
+	can_use = true // can also be a function that returns boolean
 	throw_scripts = {
 		can: true,
 		execute_code: function() { //executes this INSTEAD of the default item_delete
@@ -42,7 +42,7 @@ function item() constructor {
 	
 	reactions = {
 	}
-	use = function(item_index, target, caller = -1) {}
+	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
 	
 	shop = {
@@ -287,17 +287,39 @@ function item_menu_reaction(item_struct, user = 0) {
 }
 
 ///@desc checks whether the item is within the inventory
-function item_contains(item_struct){
-	var s = item_get_array(item_struct.type)
+///@arg {Asset.GMScript,struct} _item_ref the item constructor OR item struct that we are looking a match for
+///@return {bool}
+function item_contains(_item_ref){
+	var __item = (is_struct(_item_ref) ? _item_ref : new _item_ref())
+	var __iteminst = (is_struct(_item_ref) ? instanceof(_item_ref) : script_get_name(_item_ref))
+	var s = item_get_array(__item.type)
 	
 	for (var i = 0; i < array_length(s); ++i) {
-		if !is_undefined(s[i])
+		if is_undefined(s[i]) || !is_struct(s[i])
 			continue
-		if instanceof(item_struct) == instanceof(s[i]) 
-			return i
+		if instanceof(__item) == __iteminst
+			return true
 	}
 	
-	return undefined
+	return false
+}
+///@desc counts the items in the inventory that match the instance of the item reference
+///@arg {Asset.GMScript,struct} _item_ref the item constructor OR item struct that we are looking a match for
+///@return {real}
+function item_count(_item_ref){
+	var __item = (is_struct(_item_ref) ? _item_ref : new _item_ref())
+	var __iteminst = (is_struct(_item_ref) ? instanceof(_item_ref) : script_get_name(_item_ref))
+	var s = item_get_array(__item.type)
+	var count = 0
+    
+	for (var i = 0; i < array_length(s); ++i) {
+		if is_undefined(s[i]) || !is_struct(s[i])
+			continue
+		if instanceof(__item) == __iteminst
+			count ++
+	}
+	
+	return count
 }
 
 ///@desc check whether an item is equipped. returns the COUNT of matching items found
@@ -447,6 +469,15 @@ function item_deapply(item_struct, party_name) {
             party_subtractdata(party_name, structnames[i], struct_get(item_struct.stats, structnames[i]))
         }
     }
+}
+
+/// @desc checks whether an item can be used
+function item_check_useable(item_struct) {
+    var can_use = item_struct.can_use
+    if !is_bool(can_use)
+        can_use = can_use()
+    
+    return can_use
 }
 
 /**
