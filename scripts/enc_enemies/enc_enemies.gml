@@ -1,13 +1,7 @@
 function enemy() constructor {
 	// base info
 	name = "Test"
-	obj = {
-		obj: o_actor_e,
-		var_struct: {
-			s_hurt: spr_e_virovirokun_hurt,
-			s_spared: spr_e_virovirokun_spare,
-		},
-	}
+	obj = o_actor_e
 	
 	// stats
 	hp =		170
@@ -56,6 +50,12 @@ function enemy() constructor {
     freezable = false
     defeat_marker = 0 // marker id
     run_away = true // if set to false, if dealt fatal damage the enemy will die
+    
+    // sprites
+    s_idle = spr_e_virovirokun_idle
+    s_spare = spr_e_virovirokun_spare
+    s_hurt = spr_e_virovirokun_hurt
+    s_intro = spr_e_virovirokun_hurt
     
 	// misc (in-fight events)
     ev_pre_dialogue =   -1

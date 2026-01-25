@@ -5,7 +5,6 @@ am_support = false // destroy if no other turn instances detected
 
 enemy_index = 0
 enemy_struct = {}
-enemy_base_spr = 0
 
 timer = 0
 timer_end = 60 // set to undefined for it to not end automatically

@@ -9,6 +9,12 @@ function ex_enemy_shadowguy() : enemy() constructor{
 	attack =	5
 	defense =	0
 	
+    // sprites
+    s_idle = spr_ex_e_sguy_idle
+    s_hurt = spr_ex_e_sguy_hurt
+    s_intro = s_hurt
+    s_spare = spr_ex_e_sguy_spare
+    
     boogie_sprites = {
         kris: spr_ex_kris_boogie
     }
@@ -121,13 +127,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 
 function ex_enemy_spawnling() : enemy() constructor{
 	name = "Spawnling"
-	obj = {
-        obj: o_ex_actor_e_spawnling,
-        var_struct: {
-            s_hurt: spr_ex_e_spawnling_hurt,
-            s_spared: spr_ex_e_spawnling,
-        }
-    }
+	obj = o_ex_actor_e_spawnling
 	turn_object = o_turn_default_dark
 	
 	//stats
@@ -138,6 +138,12 @@ function ex_enemy_spawnling() : enemy() constructor{
     
     can_spare = false
     mercy_add_pity_percent = 0
+    
+    // sprites
+    s_idle = spr_ex_e_spawnling
+    s_hurt = spr_ex_e_spawnling_hurt
+    s_intro = s_hurt
+    s_spare = s_idle
 	
 	//acts
 	acts = [
@@ -157,16 +163,10 @@ function ex_enemy_spawnling() : enemy() constructor{
 }
 function ex_enemy_dentos() : enemy() constructor{
 	name = "Dentos"
-	obj = {
-        obj: o_ex_actor_e_dentos,
-        var_struct: {
-            s_hurt: spr_ex_e_dentos_hurt,
-            s_spared: spr_ex_e_dentos,
-        }
-    }
+	obj = o_ex_actor_e_dentos
 	turn_object = o_ex_turn_dentos
 	
-	//stats
+	// stats
 	hp =		5000
 	max_hp =	5000
 	attack =	30
@@ -175,7 +175,13 @@ function ex_enemy_dentos() : enemy() constructor{
     can_spare = false
     mercy_add_pity_percent = 0
 	
-	//acts
+    // sprites
+    s_idle = spr_ex_e_dentos
+    s_hurt = spr_ex_e_dentos_hurt
+    s_intro = s_hurt
+    s_spare = s_idle
+    
+	// acts
 	acts = [
 		{
 			name: "Check",
@@ -187,7 +193,7 @@ function ex_enemy_dentos() : enemy() constructor{
 		},
 	]
     
-	//text
+	// text
 	dialogue = function(slot){
 	}
 }

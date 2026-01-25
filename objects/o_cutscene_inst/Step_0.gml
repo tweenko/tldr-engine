@@ -1,6 +1,4 @@
 if play {
-    show_debug_message(sleep)
-    
 	event_user(0)
 	if ds_queue_empty(actions)
 		instance_destroy()

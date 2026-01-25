@@ -39,7 +39,7 @@ if type == 0 { // sax attack
 	}
 	if timer == timer_end - 15 {
 		var o = enemy_struct.actor_id
-		o.sprite_index = spr_ex_e_sguy_idle
+		o.sprite_index = enemy_struct.s_idle
 		o.custom_depth = undefined
 	
 		instance_destroy()
@@ -99,7 +99,7 @@ else { // gun attack
 	}
 	if timer == timer_end {
 		var o = enemy_struct.actor_id
-		o.sprite_index = spr_ex_e_sguy_idle
+		o.sprite_index = enemy_struct.s_idle
 		o.custom_depth = undefined
 		instance_destroy()
 	}
