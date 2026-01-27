@@ -365,25 +365,24 @@ function cutscene_camera_pan(x_dest, y_dest, time, wait = true, ease_type = "lin
 
 /// @arg {real,array} index could be an index or array if there are multiple enemies to spare
 function cutscene_spare_enemy(index) {
-    var _enemy = o_enc.encounter_data.enemies
-    
     if !is_array(index)
         index = [index]
     
     for (var i = 0; i < array_length(index); i ++) {
-        var obj = _enemy[index[i]].actor_id
+        var _enemy = o_enc.encounter_data.enemies[index[i]]
+        var obj = _enemy.actor_id
         
         if !enc_enemy_isfighting(index[i])
             continue
         
-        recruit_advance(_enemy[index[i]])
+        recruit_advance(_enemy)
         
-        cutscene_set_variable(obj, "sprite_index", obj.s_spared)
-        if !recruit_islost(_enemy[index[i]]) && enc_enemy_is_recruitable(_enemy[index[i]])
+        cutscene_set_variable(obj, "sprite_index", _enemy.s_spare)
+        if !recruit_islost(_enemy) && enc_enemy_is_recruitable(_enemy)
            cutscene_instance_create(o_text_hpchange, 
                obj.x, obj.s_get_middle_y(), 
                obj.depth - 100, {
-                   draw: $"{recruit_get_progress(_enemy[index[i]])}/{recruit_getneed(_enemy[index[i]])}", 
+                   draw: $"{recruit_get_progress(_enemy)}/{recruit_getneed(_enemy)}", 
                    mode: TEXT_HPCHANGE_MODE.RECRUIT
                }
            )
@@ -399,7 +398,8 @@ function cutscene_spare_enemy(index) {
     cutscene_sleep(4)
     
     for (var i = 0; i < array_length(index); i ++) {
-        var obj = _enemy[index[i]].actor_id
+        var _enemy = o_enc.encounter_data.enemies[index[i]]
+        var obj = _enemy.actor_id
         
         cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
             sprite_index: obj.sprite_index, 

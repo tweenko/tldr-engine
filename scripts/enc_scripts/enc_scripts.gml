@@ -95,8 +95,10 @@ function enc_enemy_add_spare(target, percent, sfx = snd_mercyadd) {
 			
         audio_play(sfx,, 0.8, _pitch, 1)
 	}
-	if o_enc.encounter_data.enemies[target].mercy >= 100 
-		o.sprite_index = o.s_spared
+	if o_enc.encounter_data.enemies[target].mercy >= 100 {
+        o_enc.encounter_data.enemies[target].s_idle = o_enc.encounter_data.enemies[target].s_spare
+        o.sprite_index = o_enc.encounter_data.enemies[target].s_spare
+    }
 }
 
 /// @desc adds to the mercy bar and spawns a text indicator

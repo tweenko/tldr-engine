@@ -1,10 +1,11 @@
 event_inherited()
 
 s_hurt = spr_e_virovirokun_hurt	
-s_spared = spr_e_virovirokun_spare
+s_spare = spr_e_virovirokun_spare
 
 is_enemy = true
 chase_encounter = false
+enemy_struct = {}
 
 // idle_path, idle_path_spd, idle_path_autodir, sprite_facing_dir configured in variable difinitions
 // chase_zone, chase_zone_auto, chase_dist and chase_spd are configured in variable definitions

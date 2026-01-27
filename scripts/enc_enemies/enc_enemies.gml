@@ -97,7 +97,7 @@ function enemy() constructor {
     __fatal_defeat = method(self, function() {
         with actor_id
             instance_create(o_eff_fatal_damage, x, y, depth, {
-                sprite_index: s_hurt,
+                sprite_index: other.s_hurt,
                 image_xscale: image_xscale,
                 image_yscale: image_yscale,
                 image_index: image_index,

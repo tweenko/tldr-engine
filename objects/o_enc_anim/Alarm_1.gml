@@ -51,8 +51,9 @@ for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 	}
 	
 	var obj = enemy_objects[i]
+    var enemy_struct = encounter_data.enemies[i]
     if !instance_exists(obj)
-        obj = actor_create(encounter_data.enemies[i].obj, guipos_x() + 320 + 100, guipos_y() + 120, 0)
+        obj = actor_create(enemy_struct.obj, guipos_x() + 320 + 100, guipos_y() + 120, 0)
 	
 	animate(obj.x, xx, 10, "linear", obj, "x")
 	animate(obj.y, yy, 10, "linear", obj, "y")
@@ -61,9 +62,10 @@ for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 	obj.hurt = 0
 	obj.is_in_battle = true
     obj.enemy_slot = i
+    obj.enemy_struct = enemy_struct
 	
-	encounter_data.enemies[i].actor_id = obj
-	encounter_data.enemies[i].slot = i
+	enemy_struct.actor_id = obj
+	enemy_struct.slot = i
 }
 
 var inst = instance_create(o_eff_bg,,,DEPTH_ENCOUNTER.BACKGROUND)

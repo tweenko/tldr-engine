@@ -2,7 +2,7 @@ event_inherited()
 
 if is_enemy && freeze > 0 {
     image_speed = 0
-    sprite_index = s_hurt
+    sprite_index = enemy_struct.s_hurt
     
     exit
 }
