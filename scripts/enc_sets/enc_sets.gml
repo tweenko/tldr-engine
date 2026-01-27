@@ -56,9 +56,6 @@ function enc_set() constructor { // base
 	_start = function() {
 		enc_start(self)
 	}
-    _init = function() {
-        array_push(global.dev_debug_encounters, self)
-    }
 }
 
 function enc_set_ex() : enc_set() constructor {

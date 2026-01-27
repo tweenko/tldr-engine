@@ -1,6 +1,6 @@
 event_inherited()
 
-if type == 0 { // sax attack
+if pattern == "sax" { // sax attack
 	if timer == 6 {
 		var o = enemy_struct.actor_id
 		o.sprite_index = spr_ex_e_sguy_sax
@@ -45,7 +45,7 @@ if type == 0 { // sax attack
 		instance_destroy()
 	}
 }
-else { // gun attack
+else if pattern == "gun" { // gun attack
 	if timer == 6 {
 		var o = enemy_struct.actor_id
 		o.gun = true

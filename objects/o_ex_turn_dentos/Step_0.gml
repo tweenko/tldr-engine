@@ -1,9 +1,9 @@
 event_inherited()
 var inst = enemy_struct.actor_id
 
-if pattern == 0 { // explosions
+if pattern == "explosions" { // explosions
     if timer > 0 {
-        if timer % 60 == 0 {
+        if timer % 60 == enemy_index*30 {
             current_cutscene = cutscene_create()
             cutscene_set_variable(inst, "image_speed", 0)
             cutscene_set_variable(inst, "image_index", 3)
