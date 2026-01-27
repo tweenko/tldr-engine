@@ -1,9 +1,7 @@
 {
   "$GMObject":"",
   "%Name":"o_actor_e_virovirokun",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "eventList":[],
   "managed":true,
   "name":"o_actor_e_virovirokun",
   "overriddenProperties":[

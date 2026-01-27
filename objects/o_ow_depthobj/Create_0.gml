@@ -9,7 +9,7 @@ reflection_code = function(){
 	image_yscale = ret
 }
 
-
 s_lightalpha = 0
 lighting_darken = 0
 am_emitting_light = false
+depth_override = undefined

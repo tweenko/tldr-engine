@@ -26,3 +26,5 @@ depth = -2000 - instance_number(object_index)
 alarm[0] = 1 // animate
 
 align = 0 // 1 for right
+
+visible = false

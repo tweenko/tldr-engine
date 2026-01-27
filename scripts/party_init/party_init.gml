@@ -10,7 +10,7 @@ function party_init() {
 	global.party_names = []
 }
 function party_m_initialize(_name, _constructor) {
-    struct_set(global.party, _name, new _constructor())
+    struct_set(global.party, _name, new _constructor(_name))
 }
 
 /// @desc applies the equipment to party members (only for raw saves)
@@ -29,9 +29,52 @@ function party_m_calculate_hp(base_hp, level) {
     else
         return base_hp + 30 + 40*level
 }
+
+/// @desc  returns the party sprite with a certain naming scheme.
+/// the examples below are based on the following example sprite:
+/// `spr_ex_berdly_down_sad`
+/// @param {string} name         the name of the party member
+/// @param {string} identifier   the sprite identifier (e.g. `down`)
+/// @param {string} [prefix]     the sprite prefix (e.g. `ex`)
+/// @param {string} [state]      the actor state. always at the very end of the sprite name and not a part of the naming scheme (e.g. `sad`)
+/// @param {string} [scheme]             the sprite name scheme. by default it's `"spr_{0}_{1}_{2}"`, where {0} is the prefix, {1} is the name and {2} is the identifier
+/// @param {array} [scheme_addelements]  an array containing optional elements. in the default scheme there are only three slots for change, but here you can add more, if your scheme requires more
+/// @param {asset.gmsprite} [fallback]   the default sprite to use in case of failure
+/// @returns {asset.GMSprite}
+function party_get_sprite_from_scheme(name, identifier, prefix = "", state = "", scheme = "spr_{0}_{1}_{2}", optional_arguments = [], fallback = spr_default) {
+    var __target_sprite = string_ext(scheme, array_concat([prefix, name, identifier], optional_arguments))
+    while string_contains("__", __target_sprite) {
+        __target_sprite = string_replace_all(__target_sprite, "__", "_")
+    }
     
-function party_m() constructor {
+    var __a = asset_get_index_state(__target_sprite, state)
+    if sprite_exists(__a) 
+        return __a
+    else 
+        return fallback
+}
+
+/// @desc  returns the party sprite with a certain naming scheme.
+/// the examples below are based on the following example sprite:
+/// `spr_ex_berdly_down_sad`
+/// @param {string} name         the name of the party member
+/// @param {string} [prefix]     the sprite prefix (e.g. `ex`)
+/// @param {string} [state]      the actor state. always at the very end of the sprite name and not a part of the naming scheme (e.g. `sad`)
+/// @param {string} [scheme]             the sprite name scheme. by default it's `"spr_{0}_{1}_{2}"`, where {0} is the prefix, {1} is the name and {2} is the identifier
+/// @param {array} [scheme_addelements]  an array containing optional elements. in the default scheme there are only three slots for change, but here you can add more, if your scheme requires more
+/// @param {asset.gmsprite} [fallback]   the default sprite to use in case of failure
+/// @returns {array<Asset.GMSprite>}
+function party_get_cardinal(name, prefix = "", state = "", scheme = "spr_{0}_{1}_{2}", optional_arguments = [], fallback = spr_default) {
+    var cardinal = []
+    for (var i = 0; i < 360; i += 90) {
+        cardinal[i] = party_get_sprite_from_scheme(name, dir_to_string(i), prefix, state, scheme, optional_arguments, fallback)
+    }
+    return cardinal
+}
+    
+function party_m(_initialized_name) constructor {
 	name = "???"
+    initialized_name = _initialized_name
     action_letter = "?"
     obj = {
 		obj: o_actor,
@@ -71,12 +114,18 @@ function party_m() constructor {
 	]
 	
 	// sprites
+    s_name = ""
 	s_state =		""
 	s_substate =	""
 	s_icon =		spr_ui_default_icon
 	s_icon_ow =		spr_ui_default_head
 	s_icon_weapon = spr_ui_menu_weapon_axe
 	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+    
+    s_prefix = ""
+    s_scheme = "spr_{0}_{1}_{2}"
+    s_scheme_addelements = []
+    s_fallback = spr_default
 	
 	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
 		act: [spr_bsusie_act, true],
@@ -103,9 +152,20 @@ function party_m() constructor {
 		
 	// system
 	actor_id = noone
+    
+    // methods
+    /// @arg {enum.WORLD} world the world type to get the sprite of
+    __get_cardinal = function(world = global.world) {
+        return party_get_cardinal(s_name, s_prefix, s_state + (world ==  WORLD_TYPE.LIGHT ? "_light" : ""), s_scheme, s_scheme_addelements, s_fallback)
+    }
+    /// @arg {string} identifier the unique identifier of the sprite you're looking for
+    /// @arg {enum.WORLD} world the world type to get the sprite of
+    __get_sprite = function(identifier, world = global.world) {
+        return party_get_sprite_from_scheme(s_name, identifier, s_prefix, s_state + (world == WORLD_TYPE.LIGHT ? "_light" : ""), s_scheme, s_scheme_addelements, s_fallback)
+    }
 }
 
-function party_m_kris() : party_m() constructor {
+function party_m_kris(_initialized_name) : party_m(_initialized_name) constructor {
 	name = "party_kris_name"
     action_letter = "party_kris_action_letter"
 	obj = o_actor_kris
@@ -141,6 +201,7 @@ function party_m_kris() : party_m() constructor {
 	]
 	
 	// sprites
+    s_name = "kris"
 	s_state =		""
 	s_substate =	""
 	s_icon =		spr_ui_kris_icon
@@ -167,7 +228,7 @@ function party_m_kris() : party_m() constructor {
 		attack_eff: spr_bkris_attackeff,
 	}
 }
-function party_m_susie() : party_m() constructor {
+function party_m_susie(_initialized_name) : party_m(_initialized_name) constructor {
 	name = "party_susie_name"
     action_letter = "party_susie_action_letter"
 	obj = o_actor_susie
@@ -204,6 +265,7 @@ function party_m_susie() : party_m() constructor {
 	]
 	
 	// sprites
+    s_name = "susie"
 	s_state =		"" // serious, eyes, serious_eyes, bangs
 	s_substate =	""
 	s_icon =		spr_ui_susie_icon
@@ -234,7 +296,7 @@ function party_m_susie() : party_m() constructor {
 		rudebuster: [spr_bsusie_rudebuster, 14],
 	}
 }
-function party_m_ralsei() : party_m() constructor {
+function party_m_ralsei(_initialized_name) : party_m(_initialized_name) constructor {
 	name = "party_ralsei_name"
     action_letter = "party_ralsei_action_letter"
 	obj = o_actor_ralsei
@@ -271,12 +333,13 @@ function party_m_ralsei() : party_m() constructor {
 	]
 	
 	// sprites
+    s_name = "ralsei"
 	s_state =		"" // sad, sad_subtle, hat
 	s_substate =	""
 	s_icon =		spr_ui_ralsei_icon
 	s_icon_ow =		spr_ui_ralsei_head
 	s_icon_weapon = spr_ui_menu_weapon_scarf
-	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+	s_battle_intro =	0 // 1 for attack, 0 for full intro	
 	
 	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
 		act: [spr_bralsei_act, true],
@@ -299,7 +362,7 @@ function party_m_ralsei() : party_m() constructor {
 		attack_eff: spr_bralsei_attackeff,
 	}
 }
-function party_m_noelle() : party_m() constructor {
+function party_m_noelle(_initialized_name) : party_m(_initialized_name) constructor {
 	name = "party_noelle_name"
     action_letter = "party_noelle_action_letter"
 	obj = o_actor_noelle
@@ -337,6 +400,7 @@ function party_m_noelle() : party_m() constructor {
 	]
 	
 	// sprites
+    s_name = "noelle"
 	s_state =		""
 	s_substate =	""
 	s_icon =		spr_ui_noelle_icon

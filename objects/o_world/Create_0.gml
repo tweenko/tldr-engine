@@ -14,6 +14,7 @@ incompatible_soulx = 320
 incompatible_soulx_target = 320
 incompatible_end_cutscene = false
 incompatible_alpha = 1
+inst_dialogue = noone
 
 progress = true
 

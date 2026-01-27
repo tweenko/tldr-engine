@@ -72,3 +72,8 @@ function party_get_obj(name) {
 function party_isup(name) {
 	return party_getdata(name, "hp") > 0
 }
+
+/// @desc returns the struct of the party member
+function party_get_struct(name) {
+    return struct_get(global.party, name)
+}

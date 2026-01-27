@@ -69,6 +69,9 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, fatal = false, see
 /// @arg {real} percent the amount of percent to add
 /// @arg {Asset.GMSound} sfx the sfx to play upon adding the percentage
 function enc_enemy_add_spare(target, percent, sfx = snd_mercyadd) {
+    if !enc_enemy_isfighting(target)
+        exit
+    
 	o_enc.encounter_data.enemies[target].mercy += percent
 	if o_enc.encounter_data.enemies[target].mercy >= 100
 		percent = 100
@@ -92,8 +95,10 @@ function enc_enemy_add_spare(target, percent, sfx = snd_mercyadd) {
 			
         audio_play(sfx,, 0.8, _pitch, 1)
 	}
-	if o_enc.encounter_data.enemies[target].mercy >= 100 
-		o.sprite_index = o.s_spared
+	if o_enc.encounter_data.enemies[target].mercy >= 100 {
+        o_enc.encounter_data.enemies[target].s_idle = o_enc.encounter_data.enemies[target].s_spare
+        o.sprite_index = o_enc.encounter_data.enemies[target].s_spare
+    }
 }
 
 /// @desc adds to the mercy bar and spawns a text indicator
@@ -111,9 +116,9 @@ function enc_enemy_add_spare_from_var(target, instance, variable, sfx = snd_merc
 /// @arg {bool} _tired whether the enemy should become tired or not
 function enc_enemy_set_tired(enemy_index, _tired) {
     if !instance_exists(o_enc)
-        return
+        exit
     if !enc_enemy_isfighting(enemy_index)
-        return
+        exit
     
     o_enc.encounter_data.enemies[enemy_index].tired = _tired
 }
@@ -207,4 +212,39 @@ function enc_get_flavor(data) {
     if is_callable(data.flavor)
         return data.flavor()
     return data.flavor
+}
+
+/// @desc returns the amount of enemies that are currently fighting
+function enc_count_fighting_enemies() {
+    var count = 0
+    for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
+        if enc_enemy_isfighting(i)
+            count ++
+    }
+    return count
+}
+
+/// @arg {struct.enc_set|function} set_or_ref the encounter set struct or its reference
+/// @arg {function} enemy_ref the enemy we're looking for
+function enc_set_contains_enemy(set_or_ref, enemy_ref) {
+    if !is_struct(set_or_ref)
+        set_or_ref = new set_or_ref()
+    
+    for (var i = 0; i < array_length(set_or_ref.enemies); i ++) {
+        if enc_enemy_isfighting(i) && is_instanceof(set_or_ref.enemies[i], enemy_ref)
+            return true
+    }
+}
+/// @arg {struct.enc_set|function} set_or_ref the encounter set struct or its reference
+/// @arg {function} enemy_ref the enemy we're counting
+function enc_set_count_enemy(set_or_ref, enemy_ref) {
+    if !is_struct(set_or_ref)
+        set_or_ref = new set_or_ref()
+    
+    var counter = 0
+    for (var i = 0; i < array_length(set_or_ref.enemies); i ++) {
+        if enc_enemy_isfighting(i) && is_instanceof(set_or_ref.enemies[i], enemy_ref)
+            counter ++
+    }
+    return counter
 }

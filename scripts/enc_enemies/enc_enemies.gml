@@ -1,13 +1,7 @@
 function enemy() constructor {
 	// base info
 	name = "Test"
-	obj = {
-		obj: o_actor_e,
-		var_struct: {
-			s_hurt: spr_e_virovirokun_hurt,
-			s_spared: spr_e_virovirokun_spare,
-		},
-	}
+	obj = o_actor_e
 	
 	// stats
 	hp =		170
@@ -27,12 +21,17 @@ function enemy() constructor {
 	acts = [
 		{
 			name: loc("enc_act_check"),
+			desc: "Useless analysis",
+            
 			party: [],
-			desc: -1,
+            perform_act_anim: false,
             tp_cost: 0,
+            
 			exec: function(enemy_slot, user_index){
 				encounter_scene_dialogue("* Empty CHECK text.")
-			}
+			},
+            exec_args: []
+            
 		},
 	]
 	acts_special = {}
@@ -50,6 +49,13 @@ function enemy() constructor {
     // misc
     freezable = false
     defeat_marker = 0 // marker id
+    run_away = true // if set to false, if dealt fatal damage the enemy will die
+    
+    // sprites
+    s_idle = spr_e_virovirokun_idle
+    s_spare = spr_e_virovirokun_spare
+    s_hurt = spr_e_virovirokun_hurt
+    s_intro = spr_e_virovirokun_hurt
     
 	// misc (in-fight events)
     ev_pre_dialogue =   -1
@@ -91,7 +97,7 @@ function enemy() constructor {
     __fatal_defeat = method(self, function() {
         with actor_id
             instance_create(o_eff_fatal_damage, x, y, depth, {
-                sprite_index: s_hurt,
+                sprite_index: other.s_hurt,
                 image_xscale: image_xscale,
                 image_yscale: image_yscale,
                 image_index: image_index,
@@ -139,8 +145,8 @@ function enemy_virovirokun() : enemy() constructor{
 	acts = [
 		{
 			name: loc("enc_act_check"),
+			desc: "Useless analysis",
 			party: [],
-			desc: -1,
 			exec: function() {
 				encounter_scene_dialogue(loc("enemy_virovirokun_act_check"))
 			}
@@ -149,6 +155,7 @@ function enemy_virovirokun() : enemy() constructor{
 			name: loc("enemy_virovirokun_act_takecare"),
 			party: [],
 			desc: -1,
+            perform_act_anim: false,
 			exec: function(slot, user) {
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
@@ -179,6 +186,7 @@ function enemy_virovirokun() : enemy() constructor{
 			name: loc("enemy_virovirokun_act_takecarex"),
 			party: -1,
 			desc: -1,
+            perform_act_anim: false,
 			exec: function(slot, user) {
 				cutscene_create()
 				cutscene_set_variable(o_enc, "waiting", true)
@@ -271,6 +279,7 @@ function enemy_killercar() : enemy() constructor{
 	acts = [
 		{
 			name: "Check",
+			desc: "Useless analysis",
 			party: [],
 			desc: -1,
 			exec: function() {
@@ -312,6 +321,8 @@ function enemy_killercar() : enemy() constructor{
                 
                 cutscene_audio_play(snd_spellcast)
                 for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
+                    if !enc_enemy_isfighting(i)
+                        continue
                     cutscene_func(function(index) {
                         var __e_obj = o_enc.encounter_data.enemies[index].actor_id
                         

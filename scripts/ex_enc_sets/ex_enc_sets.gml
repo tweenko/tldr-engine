@@ -5,7 +5,17 @@ function ex_enc_set_shadowguys() : enc_set() constructor {
 		new ex_enemy_shadowguy(),
 		new ex_enemy_shadowguy(),
 	]
-	flavor = "* Shadowguys Strike!"
+    
+	flavor = function() {
+        if o_enc.turn_count == 0 
+            return "* Shadowguys play on in."
+        return choose(
+            "* Shadowguy plays the blues, blues, blues.",
+            "* Shadowguy snaps their fingers rhythmically.",
+            "* Shadowguy rolls up their socks... secretly.",
+            "* Shadowguy's got the moves and the groove."
+        )
+    }
     
 	enemies_pos = [
 		[-4, -6, true],

@@ -193,6 +193,19 @@ function draw_sprite_looped(offset, amp, sprite, image, xx, yy, xscale = 1, ysca
 	    }
 	}
 }
+/// @desc returns an image index depending on the image count and accounting for the passage of time. useful for drawing multiple things with one instance
+/// @arg {asset.GMSprite} sprite the sprite to get the `img_spd` and `img_number` arguments automatically
+/// @arg {real} timer the timer that will be used for account for the passing of time (`o_world.frames` by default)
+/// @arg {real|undefined} img_fps the fps of the sprite on display. if set to undefined, the value will be auto determined depending on the sprite argument
+/// @arg {real} img_start_index the starting index of the animation. defaults to 0
+/// @arg {real|undefined} img_number the number of frames the animation has in total. if set to undefined, the value will be auto determined depending on the sprite argument
+function draw_get_index_looped(sprite = undefined, timer = o_world.frames, img_fps = undefined, img_start_index = 0, img_number = undefined) {
+    if !is_undefined(sprite) {
+        img_fps ??= sprite_get_speed(sprite)
+        img_number ??= sprite_get_number(sprite)
+    }
+    return floor((img_start_index + timer*img_fps/fps) % img_number)
+}
 
 
 // ------------- INSTANCE AND OBJECT STUFF --------------

@@ -21,7 +21,7 @@ instance_create(o_eff_attackslash, o.x, o.s_get_middle_y(), DEPTH_ENCOUNTER.ACTO
 	sprite_index: party_getdata(global.party_names[index],"battle_sprites").attack_eff,
 	ii,
 	target,
-	fatal: item_get_fatal(party_getdata(global.party_names[index], "weapon"))
+	fatal: (!enemy_struct.run_away ? true : item_get_fatal(party_getdata(global.party_names[index], "weapon")))
 })
 caller.enemy_hp[target] -= dmg
 

@@ -103,7 +103,7 @@ if instance_exists(o_eff_lighting_controller) && o_eff_lighting_controller.light
     if lighting_shadow_enabled
         s_drawer(spr, image_index, 
             xx, yy, 
-            image_xscale, lerp_type(0, -2, __l_alpha, "linear"), 
+            image_xscale, anime_curve_lerp(0, -2, __l_alpha, anime_curve.linear), 
             image_angle, c_black, image_alpha * o_eff_lighting_controller.lighting_alpha
         )
 }

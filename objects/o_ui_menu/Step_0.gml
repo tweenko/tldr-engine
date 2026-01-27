@@ -81,7 +81,7 @@ if !only_hp {
 			var arr = global.items
 			if i_pselection == 2 
 				arr = global.key_items
-			var t = (i_pselection==2 ? 1 : 0)
+			var t = (i_pselection == 2 ? ITEM_TYPE.KEY: ITEM_TYPE.CONSUMABLE)
 			
 			if InputPressed(INPUT_VERB.RIGHT) {
 				i_selection ++; 
@@ -119,28 +119,38 @@ if !only_hp {
 			}
 			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				if i_pselection == 2 {
-					item_use(global.key_items[i_selection], i_selection, 0)
-					if item_get_count(t) == ITEM_TYPE.CONSUMABLE
-						state = 1
-					
-					if i_selection > item_get_count(t) - 1 
-						i_selection = item_get_count(t) - 1
+                    if item_check_useable(arr[i_selection]) {
+                        if item_get_type(arr[i_selection]) == ITEM_TYPE.CONSUMABLE {
+                            state = 3; 
+                            buffer = 1;
+                            i_mode = arr[i_selection].use_type
+                            i_select_array = item_get_array(t)
+                        }
+                        else
+                            item_use(arr[i_selection], i_selection, 0)
+                        
+                        if i_selection > item_get_count(t) - 1 
+                            i_selection = item_get_count(t) - 1
+                    }
 				}
 				else {
-					if arr[i_selection].can_use {
+					if item_check_useable(arr[i_selection]) {
 						state = 3; 
 						buffer = 1;
 						i_mode = arr[i_selection].use_type
+                        i_select_array = item_get_array(t)
 						
 						audio_play(snd_ui_select);
 					}
 					if i_pselection == 1 
 						i_mode = 1
 				}
+                if item_get_count(t) == 0
+					state = 1
 			}
 		}
 		if state == 3 { // choose party member / confirm action
-			var t = (i_pselection == 2 ? 1 : 0)
+			var t = (i_pselection == 2 ? ITEM_TYPE.KEY : ITEM_TYPE.CONSUMABLE)
 			
 			if InputPressed(INPUT_VERB.RIGHT) && i_mode != 1 {
 				i_pmselection ++
@@ -162,27 +172,27 @@ if !only_hp {
 				audio_play(snd_ui_cancel_small)
 			}
 			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-				if i_pselection == 0 {
-					state = 2;
-					i_mode = 0
-					
-					// use the item and apply the reaction
-					item_menu_reaction(global.items[i_selection], i_pmselection)
-					item_use(global.items[i_selection], i_selection, global.party_names[i_pmselection])
-				}
 				if i_pselection == 1 {
 					state = 2;
 					i_mode = 0
 					
-					if global.items[i_selection].throw_scripts.can {
+					if i_select_array[i_selection].throw_scripts.can {
 						item_delete(i_selection)
 						audio_play(snd_ui_cancel);
 					}
 					else
-						global.items[i_selection].throw_scripts.execute_code()
+						i_select_array[i_selection].throw_scripts.execute_code()
 				}
+                else {
+					state = 2;
+					i_mode = 0
+					
+					// use the item and apply the reaction
+					item_menu_reaction(i_select_array[i_selection], i_pmselection)
+					item_use(i_select_array[i_selection], i_selection, i_pmselection)
+                }
 				
-				if item_get_count(t) == ITEM_TYPE.CONSUMABLE
+				if item_get_count(t) == 0
 					state = 1
 				if i_selection > item_get_count(t) - 1
 					i_selection = item_get_count(t) - 1

@@ -1,5 +1,5 @@
 function string_to_color(color_string){
-	switch color_string{
+	switch color_string {
 		case "c_red":
 		case "r":
 			return c_red
@@ -47,6 +47,33 @@ function color_to_string(color){
 		default:
 			return "c_white"
 	}
+}
+
+/// @desc converts `Enum.DIR` to `String`
+/// @arg {Enum.DIR} dir the direction to convert
+/// @arg {Bool} capitalize whether the result should be capitalized. off by default
+/// @return {String}
+function dir_to_string(dir, capitalize = false) {
+    var ret = "Down"
+    
+    switch (dir) {
+        case DIR.UP:
+            ret = "Up"
+            break
+        case DIR.RIGHT:
+            ret = "Right"
+            break
+        case DIR.DOWN:
+            ret = "Down"
+            break
+        case DIR.LEFT:
+            ret = "Left"
+            break
+    }
+    
+    if !capitalize
+        ret = string_lower(ret)
+    return ret
 }
 
 ///@desc draws the deltarune dialogue box

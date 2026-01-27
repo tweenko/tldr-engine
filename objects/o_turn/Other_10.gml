@@ -5,7 +5,7 @@ var iid = id
 with object_index {
 	count ++
 	
-	if id != iid // to avoid creating the same turn objects over and over. instead buff the attack.
+	if id != iid && !allow_same_turns // to avoid creating the same turn objects over and over. instead buff the attack.
 		instance_destroy()
 }
 

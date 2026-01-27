@@ -78,6 +78,7 @@ function cutscene_play() {
 // cutscene presets
 
 ///@desc pauses the queue of the cutscene to the set amount of frames
+///@arg {real} sleep the amount of frames to pause the cutscene for
 function cutscene_sleep(sleep) {
 	cutscene_custom({
 		sleep,
@@ -86,9 +87,12 @@ function cutscene_sleep(sleep) {
 }
 
 ///@desc runs dialogue in a cutscene and waits until the dialogue box is destroyed if asked to
-///@arg {string|array<string>} dialogue
-///could be either an array or just a string. if it's an array, between the array entries the box will pause and clear itself afterwards.
-function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_down = undefined) {
+///@arg {string|array<string>} dialogue could be either an array or just a string. if it's an array, between the array entries the box will pause and clear itself afterwards.
+/// @arg {string} postfix the string added to the end of the text typer. "{p}{e}" by default
+/// @arg {bool} wait whether the cutscene should wait until the dialogue is destroyed
+/// @arg {undefined|bool} box_pos_down whether the box should be forced down (true), up (false) or automatic (undefined, the default)
+/// @arg {bool} destroy_other_instances whether the dialogue should destroy the other already existing dialogue instances before spawning itself
+function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_down = undefined, _destroy_other_instances = true) {
 	dialogue = dialogue_array_to_string(dialogue)
     
 	cutscene_custom({
@@ -96,12 +100,16 @@ function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_do
 		wait,
 		postfix,
         box_pos_down,
+        _destroy_other_instances,
 
-		action: [function(dialogue, postfix, box_pos_down) {
+		action: [function(dialogue, postfix, box_pos_down, _destroy_other_instances) {
+            if _destroy_other_instances
+                instance_destroy(o_ui_dialogue)
+            
             var inst = instance_create(o_ui_dialogue, 0, 0, 0, {text: dialogue, postfix})
             if !is_undefined(box_pos_down)
                 inst._reposition_self_to(box_pos_down)
-        }, dialogue, postfix, box_pos_down],
+        }, dialogue, postfix, box_pos_down, _destroy_other_instances],
 
 		continue_func: function(wait) {
 			return (wait ? !instance_exists(o_ui_dialogue) : true)
@@ -281,7 +289,8 @@ function cutscene_anim(val1, val2, frames, ease_type, call_method, array = []){
 	})
 }
 
-/// @desc	cutscene_anim but has automatic instance existance checking as well as direct instance adressing
+/// @desc	cutscene_anim but has automatic instance existance checking as well as direct instance adressing. 
+///         The cutscene will not wait for the animation to end.
 ///			For built-in easing set ease_type to a string, or for custom easing use a function,
 ///			animation curve struct or ID, or animation curve channel.
 ///@param {Real} val1				The first value of the animation
@@ -356,25 +365,24 @@ function cutscene_camera_pan(x_dest, y_dest, time, wait = true, ease_type = "lin
 
 /// @arg {real,array} index could be an index or array if there are multiple enemies to spare
 function cutscene_spare_enemy(index) {
-    var _enemy = o_enc.encounter_data.enemies
-    
     if !is_array(index)
         index = [index]
     
     for (var i = 0; i < array_length(index); i ++) {
-        var obj = _enemy[index[i]].actor_id
+        var _enemy = o_enc.encounter_data.enemies[index[i]]
+        var obj = _enemy.actor_id
         
         if !enc_enemy_isfighting(index[i])
             continue
         
-        recruit_advance(_enemy[index[i]])
+        recruit_advance(_enemy)
         
-        cutscene_set_variable(obj, "sprite_index", obj.s_spared)
-        if !recruit_islost(_enemy[index[i]]) && enc_enemy_is_recruitable(_enemy[index[i]])
+        cutscene_set_variable(obj, "sprite_index", _enemy.s_spare)
+        if !recruit_islost(_enemy) && enc_enemy_is_recruitable(_enemy)
            cutscene_instance_create(o_text_hpchange, 
                obj.x, obj.s_get_middle_y(), 
                obj.depth - 100, {
-                   draw: $"{recruit_get_progress(_enemy[index[i]])}/{recruit_getneed(_enemy[index[i]])}", 
+                   draw: $"{recruit_get_progress(_enemy)}/{recruit_getneed(_enemy)}", 
                    mode: TEXT_HPCHANGE_MODE.RECRUIT
                }
            )
@@ -390,7 +398,8 @@ function cutscene_spare_enemy(index) {
     cutscene_sleep(4)
     
     for (var i = 0; i < array_length(index); i ++) {
-        var obj = _enemy[index[i]].actor_id
+        var _enemy = o_enc.encounter_data.enemies[index[i]]
+        var obj = _enemy.actor_id
         
         cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
             sprite_index: obj.sprite_index, 

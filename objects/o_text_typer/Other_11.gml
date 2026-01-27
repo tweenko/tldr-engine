@@ -147,3 +147,6 @@ if caller.object_index == o_ui_actordialogue { // update enemy dialogue bubble s
         inited = true
     }
 }
+
+if voice_replicate_start_bug
+    __play_voice("a", true)

@@ -18,4 +18,4 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
 	obj.trail = false
 }
 
-alarm[3] = 20
+alarm[3] = 14

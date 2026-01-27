@@ -1,16 +1,20 @@
 buff = 0 // 0 for default difficulty
 debuff = 0 // 0 for default difficulty
 
-am_support = false // destroy if no other turn instances detected
-
 enemy_index = 0
 enemy_struct = {}
-enemy_base_spr = 0
+
+pattern = 1
+pattern_pool = [1]
 
 timer = 0
 timer_end = 60 // set to undefined for it to not end automatically
 turn_started = false
+
+// config
+allow_same_turns = false
 shorten_by_tension = true
+am_support = false // destroy if no other turn instances detected
 
 alarm[0] = 1
 

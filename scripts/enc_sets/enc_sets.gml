@@ -33,6 +33,8 @@ function enc_set() constructor { // base
     enc_var_struct = {}
 	
     // in-fight-events
+    ev_init =           -1 // called 1 frame after o_enc is created
+    ev_party_turn =     -1
     ev_pre_dialogue =   -1
 	ev_dialogue =	    -1
 	ev_turn =	  	    -1

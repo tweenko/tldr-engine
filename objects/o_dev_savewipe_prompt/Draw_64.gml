@@ -1,7 +1,7 @@
 draw_sprite_ext(spr_pixel, 0, 0, 0, 640, 480, 0, c_black, .9)
 
 var __coeff = clamp(timer/20, 0, 1)
-var __c = lerp_type(30, 0, __coeff, "cubic_out")
+var __c = anime_curve_lerp(30, 0, __coeff, anime_curve.cubic_out)
 
 draw_set_font(loc_font("main"))
 draw_set_alpha(__coeff * alpha)

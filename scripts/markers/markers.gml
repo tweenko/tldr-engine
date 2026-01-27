@@ -49,21 +49,3 @@ function marker_find_closest_inst(xx, yy, mtype){
 	}
 	return _ret
 }
-
-
-/// @ignore
-/// @desc	DEPRECATED. PLEASE DO NOT USE ANYMORE. A SIMILLAR FUNCTION CALLED marker_get IS THE NEW ALTERNATIVE.
-/// @arg	{real|string}	type type of the marker
-/// @arg	{real|string}	id id of the marker you are looking for
-/// @return	{struct|undefined}
-function marker_getpos(mtype, mid){
-	with(o_dev_marker) {
-		if m_type == mtype && m_id == mid 
-			return {
-                x: x,
-                y: y
-            }
-	}
-    
-	return undefined
-}

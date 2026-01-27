@@ -12,9 +12,8 @@ if is_enemy && freeze > 0 {
 if spawn_buffer > 0
     spawn_buffer --
 
-if !init {
+if !init
 	exit
-}
 
 // player movement
 if is_player && check_canmove {
@@ -286,8 +285,10 @@ if !is_in_battle && !is_enemy && s_dynamic && !s_override {
 	
 	if flashing 
 		fsiner ++
-    if trail 
-        afterimage()
+    if trail {
+        var inst = afterimage(.05)
+        inst.depth += 10
+    }
 }
 		
 // overworld battle

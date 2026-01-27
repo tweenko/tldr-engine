@@ -3,6 +3,7 @@ if mode == TEXT_HPCHANGE_MODE.ENEMY || mode == TEXT_HPCHANGE_MODE.PARTY || mode 
         y += 22
 }
 
+visible = true
 visual_x = x
 visual_y = y
 
