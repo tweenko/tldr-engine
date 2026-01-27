@@ -16,6 +16,7 @@ interaction_code = function() {
     cutscene_party_follow(false)
     
     cutscene_set_variable(o_camera, "target", noone)
+    cutscene_set_variable(self, "depth_override", -200)
     
     if array_length(sitting) == 1 && sitting[0] = "kris" { }
     else {
@@ -27,8 +28,6 @@ interaction_code = function() {
                 var _anim_x = animate(_inst.x, xx, 15, "linear", _inst, "x")
                 var _anim_y = animate(_inst.y, yy - 30, 10, "cubic_out", _inst, "y")
                     ._add(yy - 5, 5, anime_curve.sine_in)
-                
-                _inst.custom_depth = _depth - 10 + party_get_index(name)
                 
                 _inst.sprite_index = _inst.s_ball
                 _inst.image_speed = 1
@@ -43,7 +42,7 @@ interaction_code = function() {
                 actor_move(o_actor_noelle, new actor_movement(xx, yy + 40, 20,,, DIR.UP))
             
         }, [x, y, depth])
-        cutscene_sleep(20)
+        cutscene_sleep(15)
         
         cutscene_audio_play(snd_noise)
         cutscene_func(function() {
@@ -65,11 +64,11 @@ interaction_code = function() {
         cutscene_sleep(20)
         
         if !__mode {
-            var __onlytwo = array_length(global.party_names) > 2
+            var __onlytwo = array_length(global.party_names) <= 2
             cutscene_sleep(30)
             
             if party_ismember("ralsei")
-                cutscene_dialogue("{char(ralsei, 20)}* Kris, are you joining " + (__onlytwo ? "the couch" : "us")+ ", or..?")
+                cutscene_dialogue("{char(ralsei, 20)}* Kris, are you joining " + (__onlytwo ? "me on the couch" : "us")+ ", or..?")
             if party_ismember("susie")
                 cutscene_dialogue([
                     "{char(susie, 1)}* Hey, when we get couch time we ALL get couch time.",
@@ -81,10 +80,6 @@ interaction_code = function() {
         }
     }
     
-    cutscene_func(function(ddepth) {
-        var _inst = party_get_inst("kris")
-        _inst.custom_depth = ddepth - 10
-    }, [depth])
     cutscene_actor_move(o_actor_kris, new actor_movement(x, y - 5, 20,, DIR.UP))
     
     cutscene_audio_play(snd_noise)
@@ -154,10 +149,7 @@ interaction_code = function() {
     }
     cutscene_sleep(30)
     
-    cutscene_func(function(sitting) {
-        for (var i = 0; i < array_length(sitting); i ++) {
-            party_get_inst(sitting[i]).custom_depth = undefined
-        }
+    cutscene_func(function() {
         camera_unpan(get_leader(), 20)
     }, [sitting])
     cutscene_sleep(20)

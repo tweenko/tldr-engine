@@ -20,73 +20,10 @@ while looping || normalupd {
 		if ((timer % typespd == 0) || skipping) && pause == 0 {
 			draw_set_font(font)
 			
-			var __v = voice
-			// choose the voice blip randomly if it's an array
-			if is_array(voice)
-				__v = array_shuffle(__v)[0]
-            else if is_callable(voice)
-                __v = voice(disp_chars)
-            
-			if audio_exists(__v) && !skipping && timer % voice_skip == 0 {
-				var pitch = 1
-				
-				// stop the previous sounds if ordered to
-				if struct_get(char_presets, char).voice_interrupt {
-					audio_stop_sound(__v)
-					
-					// stop all the voice instances if it's an array
-					if is_array(voice) {
-						for (var i = 0; i < array_length(voice); ++i) {
-							audio_stop_sound(voice[i])
-						}
-					}
-				}
-				
-				// work on the pitch
-                var __pitch_calc = struct_get(char_presets, char).voice_pitch_calc
-                
-                if !is_undefined(voice_pitchrange)
-                    pitch = random_range(
-						voice_pitchrange[0],
-						voice_pitchrange[1]
-					)
-                else if is_real(__pitch_calc)
-                    pitch = __pitch_calc
-				else if is_callable(__pitch_calc)
-					pitch = __pitch_calc()
-                
-				// play unless it's a punctuation sign
-				if struct_get(char_presets, char).voice != -1 
-					&& curchar != "." && curchar != " " && curchar != "　"
-					&& curchar != "," && curchar != "!" 
-					&& curchar != "?" && curchar != "-" 
-				{
-					audio_play(__v,,,pitch,1)
-				}
-			}
+			__play_voice(curchar)
 			
 			// create the character
-			var inst = instance_create(o_text_single, x+xoff, y+yoff, depth)
-			inst.symbol = curchar
-			inst.font = font
-			inst.gui = gui
-			inst.scalex = xscale
-			inst.scaley = yscale
-			inst.xcolor = xcolor
-			inst.font = font
-			inst.shadow = shadow
-			inst.effect = effect
-			inst.timer = chartimeroff * chars
-			inst.god = god
-            inst.solid_color = solid_color
-			
-			array_push(mychars, inst) 
-			disp_chars ++
-			
-			xoff += string_width(curchar) * xscale
-			xoff += xspace * xscale
-			text = string_delete(text, 1, 1)
-			chars ++
+			__create_symbol(curchar)
 			
 			if auto_pauses { // automatic pause times based on the punctuation
 				{ // en
@@ -192,11 +129,7 @@ if pause == -1 || pause == -2 {
     if !superskipping
 	   skipping = false
 	
-	if instance_exists(npc_link) {
-		if variable_instance_exists(npc_link, "s_talking")
-			npc_link.s_talking = false
-	}
-	
+	__update_talking(false)
 	if instance_exists(caller) && pause != -2 {
 		caller.can_proceed = true
 	}
@@ -208,11 +141,8 @@ else {
 	if instance_exists(caller) {
 		caller.can_proceed = false
 		
-		if instance_exists(npc_link) && !dont_update {
-			if variable_instance_exists(npc_link, "s_talking") {
-				npc_link.s_talking = true
-			}
-		}
+		if !dont_update
+			__update_talking(true)
 	}
 }
 	

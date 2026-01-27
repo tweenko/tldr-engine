@@ -35,3 +35,17 @@ function enc_sparepercent_enemy(target, percent, sfx = snd_mercyadd) {
 function enc_sparepercent_enemy_from_inst(target, instance, variable, sfx = snd_mercyadd) {
     return enc_enemy_add_spare_from_var(target, instance, variable, sfx)
 }
+
+/// @ignore
+/// @deprecated
+function marker_getpos(mtype, mid){
+	with(o_dev_marker) {
+		if m_type == mtype && m_id == mid 
+			return {
+                x: x,
+                y: y
+            }
+	}
+    
+	return undefined
+}

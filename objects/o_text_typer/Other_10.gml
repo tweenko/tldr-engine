@@ -161,13 +161,17 @@ if command == "npc_link" { // npc_link(real)  you can link an npc to this and th
 	var o_link = real(arg[0])
 	
 	var o = noone
-	with(o_ow_npc) {
-		if o_link == npc_id {
+	with (o_ow_npc) {
+		if o_link == npc_id
 			o = id
-		}
+	}
+	with (o_actor) {
+		if o_link == npc_id
+			o = id
 	}
 	
-	npc_link = o
+	if !array_contains(talk_link, o)
+        array_push(talk_link, o)
 }
 if command == "choice" { // choice(`choice1`, `choice2`, ...)  create a choice box for the player
     _facechange("none")

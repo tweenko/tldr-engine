@@ -12,9 +12,8 @@ if is_enemy && freeze > 0 {
 if spawn_buffer > 0
     spawn_buffer --
 
-if !init {
+if !init
 	exit
-}
 
 // player movement
 if is_player && check_canmove {

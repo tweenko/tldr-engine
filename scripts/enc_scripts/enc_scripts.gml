@@ -223,3 +223,28 @@ function enc_count_fighting_enemies() {
     }
     return count
 }
+
+/// @arg {struct.enc_set|function} set_or_ref the encounter set struct or its reference
+/// @arg {function} enemy_ref the enemy we're looking for
+function enc_set_contains_enemy(set_or_ref, enemy_ref) {
+    if !is_struct(set_or_ref)
+        set_or_ref = new set_or_ref()
+    
+    for (var i = 0; i < array_length(set_or_ref.enemies); i ++) {
+        if enc_enemy_isfighting(i) && is_instanceof(set_or_ref.enemies[i], enemy_ref)
+            return true
+    }
+}
+/// @arg {struct.enc_set|function} set_or_ref the encounter set struct or its reference
+/// @arg {function} enemy_ref the enemy we're counting
+function enc_set_count_enemy(set_or_ref, enemy_ref) {
+    if !is_struct(set_or_ref)
+        set_or_ref = new set_or_ref()
+    
+    var counter = 0
+    for (var i = 0; i < array_length(set_or_ref.enemies); i ++) {
+        if enc_enemy_isfighting(i) && is_instanceof(set_or_ref.enemies[i], enemy_ref)
+            counter ++
+    }
+    return counter
+}
