@@ -167,4 +167,6 @@ typer_chars_init()
 new ex_typer_gerson().__initialize()
 // << initialize your typer chars here
 
+party_set_state("susie", "serious_eyes")
+
 room_goto_next()

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_dieback",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_dieback",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/@Libraries/Dieback/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

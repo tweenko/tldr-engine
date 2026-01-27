@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"sh_dieback_axis_distortion",
+  "name":"sh_dieback_axis_distortion",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/@Libraries/Dieback/Shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

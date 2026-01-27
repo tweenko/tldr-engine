@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"sh_dieback_planar_distortion",
+  "name":"sh_dieback_planar_distortion",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/@Libraries/Dieback/Shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

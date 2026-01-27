@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"ch5_enc_sets",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ch5_enc_sets",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
