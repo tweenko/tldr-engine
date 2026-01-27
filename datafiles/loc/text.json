@@ -1,0 +1,76 @@
+{
+    "txt_debug_loctest": {
+        "en": [
+            "* (This is a test for the localization system.)",
+            "* Susie? Can you enrich my enclosure?",
+            "{char(susie)}* Uhh, I can punch a hole in drywall and hide toys inside.",
+            "{char(none)}* Thank you. Someday, I will do the same for you..."
+        ],
+        "ja": [
+            "＊ （これはローカライズシステムのテストです。）",
+            "＊ スージィ？ ボクさまの飼育環境を改善してくれる？",
+            "{char(susie)}＊ あー… カベにコブシで穴あけて 中にオモチャ隠したりとかかな？",
+            "{char(none)}＊ ありがとう。いつかボクさまも スージィに 同じことしてあげる…",
+            "{break_system(`en`)}* Yeah this is now a different break system, and as such it should use stuff."
+        ]
+    },
+    "txt_debug_save_erase": {
+        "en": "THEN IT WAS{br}SUBSUMED{sleep(10)} BY{br}ETERNAL SHADOW.",
+        "ja": "そして それは{br}呑まれた{sleep(10)}{br}永劫の闇に。"
+    },
+
+    "txt_shortcut_door": {
+        "en": "* (It's a door.){br}{resetx}* (Where will you go?)",
+        "ja": "＊ (とびらだ){br}{resetx}＊ (どこへ行く？)"
+    },
+    "txt_shortcut_door_open": {
+        "en": "* (The door opened...)",
+        "ja": "＊ (とびらが　開いた…)"
+    },
+    "txt_shortcut_door_already": {
+        "en": "* (Amazingly, you are already there.)",
+        "ja": "＊ (どういうわけか　もう　そこにいる)"
+    },
+
+    "txt_room_test_zone_entrance": {
+        "en": "Test Zone - Entrance",
+        "ja": "テストエリア - エントランス"
+    },
+    "txt_room_example_forest": {
+        "en": "Example Room - Forest",
+        "ja": "サンプルルーム - 森"
+    },
+    "txt_room_example_light": {
+        "en": "Example Room - Light World",
+        "ja": "サンプルルーム - 光の世界"
+    },
+
+    "txt_room_example_church_cutscene": {
+        "en": [
+            "{char(susie, 27)}* ...There's that prophecy again. The one with... us.",
+            "{f_ex(31)}* ...",
+            "{f_ex(27)}* ...It's... pretty hard to believe.",
+            "{f_ex(29)}* Not just... that things have been predicted, sure.",
+            "{f_ex(27)}* But that... I'm... part of it too, I guess."
+        ],
+        "ja": [
+            "{char(susie, 27)}＊ また　予言だな。 オレたちが　出てくるやつ…",
+            "{f_ex(31)}＊ …",
+            "{f_ex(27)}＊ …やっぱ…信じらんねえよ。",
+            "{f_ex(29)}＊ なにが起きるか　わかってるってだけなら　まだ　わかるけど…",
+            "{f_ex(27)}＊ そんなかに　オレも　出てくるとかさ。"
+        ]
+    },
+    "txt_room_example_church_prop1": {
+        "en": "BUT LO, ON HOPES AND DREAMS THEY SEND.\nTHREE HEROES AT THE WORLD'S END.",
+        "ja": "やよ 夢と希望のもと\nこの世の果てに 送り込まれし３人の勇者"
+    },
+    "txt_room_example_church_prop2": {
+        "en": "THE LIGHT AND DARK, BOTH BURNING DIRE.\nA COUNTDOWN TO THE EARTH'S EXPIRE.",
+        "ja": "光も闇も やがて燃え尽きる\n大地の終焉への秒読み"
+    },
+    "txt_room_example_church_prop3": {
+        "en": "IF FOUNTAINS FREED, THE ROARING CRIES.\nAND TITANS SHAPE FROM DARKENED EYES.",
+        "ja": "泉の解き放たれしとき 咆哮は響き\n暗き瞳より 巨人は現れる"
+    }
+}

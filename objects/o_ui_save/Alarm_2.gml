@@ -1,0 +1,1 @@
+room_goto(room_save_select)

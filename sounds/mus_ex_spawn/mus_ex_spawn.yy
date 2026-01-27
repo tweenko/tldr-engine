@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"mus_ex_spawn",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":1,
+  "compression":3,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":0.0,
+  "exportDir":"",
+  "name":"mus_ex_spawn",
+  "parent":{
+    "name":"Music",
+    "path":"folders/zzz Examples/Music.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"mus_ex_spawn.ogg",
+  "volume":1.0,
+}

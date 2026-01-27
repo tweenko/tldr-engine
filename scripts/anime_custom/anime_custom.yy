@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"anime_custom",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"anime_custom",
+  "parent":{
+    "name":"anime",
+    "path":"folders/@Engine/scripts/systems/general/internal/anime.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

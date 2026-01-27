@@ -1,0 +1,4 @@
+siner ++
+
+if instance_exists(o_eff_lighting_controller)
+	image_alpha = o_eff_lighting_controller.lighting_alpha

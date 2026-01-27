@@ -1,0 +1,225 @@
+{
+    "item_a_amber_card" : {
+        "en": {
+            "name": "Amber Card",
+            "desc": ["A thin square charm that sticks to you, increasing defense.", "--"],
+            "reactions": {
+                "susie": "... better than nothing.",
+                "ralsei": "It's sticky, huh, Kris...",
+                "noelle": "It's like a name-tag!"
+            }
+        },
+        "ja": {
+            "name": "アンバーカード",
+            "desc": ["うすっぺらい正方形の護符。\n体に張りつけ ぼうぎょ力を上げる。", "--"],
+            "reactions": {
+                "susie": "…ま ないよりマシだな。",
+                "ralsei": "クリス…なんかベタベタするよ…",
+                "noelle": "名札みたい！"
+            }
+        }
+    },
+    "item_a_silver_card" : {
+        "en": {
+            "name": "Silver Card",
+            "desc": ["A square charm that increases\ndropped money by 5%", "--"],
+            "reactions": {
+                "susie": "Money, that's what I need.",
+                "ralsei": "Do they take credit?",
+                "noelle": "It goes with my watch!"
+            }
+        },
+        "ja": {
+            "name": "シルバーカード",
+            "desc": ["バトル後に手に入るおカネが５％増える。", "--"],
+            "reactions": {
+                "susie": "カネ オレの ほしいもの",
+                "ralsei": "カードで お買い物できる？",
+                "noelle": "わたしの うで時計と同じ色！"
+            }
+        }
+    },
+
+    "item_a_pink_ribbon" : {
+        "en": {
+            "name": "Pink Ribbon",
+            "desc": ["A cute hair ribbon. Increases the range at which bullets raise tension.", "--"],
+            "effect": {
+                "text": "GrazeArea"
+            },
+            "reactions": {
+                "susie": "Nope. Not in 1st grade anymore.",
+                "ralsei": "Um... D-do I look cute...?",
+                "noelle": "... feels familiar."
+            }
+        },
+        "ja": {
+            "name": "ピンクリボン",
+            "desc": ["頭につける かわいいリボン。弾をギリギリ\nよけたときにTPがたまる範囲が広くなる。", "--"],
+            "effect": {
+                "text": "かすりエリア"
+            },
+            "reactions": {
+                "susie": "はぁ？小学生じゃねーっつの",
+                "ralsei": "ど…どう？ かわいいかな…？",
+                "noelle": "…見覚えがあるような"
+            }
+        }
+    },
+    "item_a_white_ribbon" : {
+        "en": {
+            "name": "White Ribbon",
+            "desc": ["A crinkly hair ribbon that slightly\nincreases your defense.", "--"],
+            "effect": {
+                "text": "Cuteness"
+            },
+            "reactions": {
+                "susie": "Nope. Not in 1st grade anymore.",
+                "ralsei": "Um... D-do I look cute...?",
+                "noelle": "... feels familiar."
+            }
+        },
+        "ja": {
+            "name": "ホワイトリボン",
+            "desc": ["髪にかざる シワシワのリボン。\nぼうぎょ力が 少し上がる。", "--"],
+            "effect": {
+                "text": "かわいさ"
+            },
+            "reactions": {
+                "susie": "はぁ？小学生じゃねーっつの",
+                "ralsei": "ど…どう？ かわいいかな…？",
+                "noelle": "…見覚えがあるような"
+            }
+        }
+    },
+    "item_a_twin_ribbon" : {
+        "en": {
+            "name": "Twin Ribbon",
+            "desc": ["Two ribbons. You'll have to put\nyour hair into pigtails.", "--"],
+            "effect": {
+                "text": "GrazeArea"
+            },
+            "reactions": {
+                "susie": "... it gets worse and worse.",
+                "ralsei": "Try around my horns!",
+                "noelle": "... nostalgic, huh."
+            }
+        },
+        "ja": {
+            "name": "ツインリボン",
+            "desc": ["２本のリボン。髪型をツインテールにしないと\n装備できない。", "--"],
+            "effect": {
+                "text": "かすりエリア"
+            },
+            "reactions": {
+                "susie": "…マジでカンベンしてくれ",
+                "ralsei": "ツノに巻くね！",
+                "noelle": "…なつかしいな"
+            }
+        }
+    },
+
+    "item_a_royal_pin" : {
+        "en": {
+            "name": "Royal Pin",
+            "desc": ["A brooch engraved with Queen's face. Careful of the sharp point.", "--"],
+            "reactions": {
+                "susie": "ROACH? Oh, brooch. Heh.",
+                "ralsei": "I'm a cute little corkboard!",
+                "noelle": "Queen... gave this to me."
+            }
+        },
+        "ja": {
+            "name": "王族のブローチ",
+            "desc": ["クイーンの顔が刻まれたブローチ。\nするどい針に気をつけて。", "--"],
+            "reactions": {
+                "susie": "ブローチってなんだ？ うまいのか？",
+                "ralsei": "カワイイ掲示板になった気分！",
+                "noelle": "クイーンからもらったの…"
+            }
+        }
+    },
+    "item_a_silver_watch" : {
+        "en": {
+            "name": "Silver Watch",
+            "desc": ["Grazing bullets affects the turn length by 10% more", "--"],
+            "effect": {
+                "text": "GrazeTime"
+            },
+            "reactions": {
+                "susie": "It's clobbering time.",
+                "ralsei": "I'm late, I'm late!",
+                "noelle": "(Th-this was mine...)"
+            }
+        },
+        "ja": {
+            "name": "銀のうで時計",
+            "desc": ["バトルで弾をギリギリよけると\n敵ターンの長さが短くなる(効果10％+)。", "--"],
+            "effect": {
+                "text": "かすりタイム"
+            },
+            "reactions": {
+                "susie": "「おしおきの“時間”だぜ」",
+                "ralsei": "「遅刻だ 遅刻～！」",
+                "noelle": "(こ…これ… わたしの…)"
+            }
+        }
+    },
+    "item_a_wristwatch" : {
+        "en": {
+            "name": "Wristwatch",
+            "desc": ["* \"Wristwatch\" - Armor 1 DF{br}{resetx}{sleep(10)}* Maybe an expensive antique.{br}{resetx}{sleep(10)}* Stuck before half past noon.", "--"]
+        },
+        "ja": {
+            "name": "うでどけい",
+            "desc": ["＊ 「うでどけい」 - ぼうぐ DEF1{br}{resetx}{sleep(10)}＊ アンティークかも？ 12じ30ぷんの まえで とまっている", "--"]  
+        }
+    },
+
+    "item_a_dealmaker" : {
+        "en": {
+            "name": "Dealmaker",
+            "desc": ["Fashionable pink and yellow glasses.\nGreatly increases $ gained, and...?", "--"],
+            "reactions": {
+                "susie": "Money, that's what I need.",
+                "ralsei": "Two pairs of glasses?",
+                "noelle": "(Seems... familiar?)"
+            }
+        },
+        "ja": {
+            "name": "ディールメイカー",
+            "desc": ["ピンクとイエローのオシャレなサングラス。\n獲得$を大幅にアップ。ほかにも効果が…？", "--"],
+            "reactions": {
+                "susie": "カネ オレの ほしいもの",
+                "ralsei": "サングラスが２つ…？",
+                "noelle": "(なんか… 見覚えが…？)"
+            }
+        }
+    },
+    "item_a_shadowmantle" : {
+        "en": {
+            "name": "ShadowMantle",
+            "desc": ["Shadows slip off like water.\nGreatly protects against Dark and Star attacks.", "--"],
+            "effect": {
+                "text": "Dark/Star"
+            },
+            "reactions": {
+                "susie": "Hell yeah, what's this?",
+                "ralsei": "Sh-should I wear this...?",
+                "noelle": "No... it's for someone... taller."
+            }
+        },
+        "ja": {
+            "name": "シャドウマント",
+            "desc": ["影を 水のように弾く。\n闇／星こうげきのダメージを大幅に削減。", "--"],
+            "effect": {
+                "text": "闇／星"
+            },
+            "reactions": {
+                "susie": "かっけぇ！ なんだコレ？",
+                "ralsei": "着ても…いいかな…？",
+                "noelle": "これは…背の高いひと用…"
+            }
+        }
+    }
+}

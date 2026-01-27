@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"dodge",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"dodge",
+  "parent":{
+    "name":"engine",
+    "path":"folders/@Engine/scripts/systems/engine.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

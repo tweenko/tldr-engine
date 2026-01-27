@@ -1,0 +1,86 @@
+{
+    "party_stat_guts": {
+        "en": "Guts:",
+        "ja": "ガッツ:"
+    },
+    
+    "party_kris_name": {
+        "en": "Kris",
+        "ja": "クリス"
+    },
+    "party_kris_desc": {
+        "en": "Bed Inspector Inspects all beds inexplicably.",
+        "ja": "ベッドボス\nなぜか ベッドを\n調べまくる。"
+    },
+    "party_kris_action_letter": {
+        "en": "K",
+        "ja": "Ｋ"
+    },
+
+    "party_susie_name": {
+        "en": "Susie",
+        "ja": "スージィ"
+    },
+    "party_susie_desc": {
+        "en": "Dark Knight\nDoes damage using\ndark energy.",
+        "ja": "ダークナイト\nダークエネルギーで\n敵をこうげき。"
+    },
+    "party_susie_stat_rudeness": {
+        "en": "Rudeness",
+        "ja": "バッドさ"
+    },
+    "party_susie_stat_purple": {
+        "en": "Purple",
+        "ja": "紫"
+    },
+    "party_susie_stat_purple_yes": {
+        "en": "Yes",
+        "ja": "はい"
+    },
+    "party_susie_action_letter": {
+        "en": "S",
+        "ja": "Ｓ"
+    },
+
+    "party_ralsei_name": {
+        "en": "Ralsei",
+        "ja": "ラルセイ"
+    },
+    "party_ralsei_desc": {
+        "en": "Dark Prince\nDark-World being.\nHas friends now.",
+        "ja": "ダーク王子\n闇の世界の民。\n仲間ができた。"
+    },
+    "party_ralsei_stat_sweetness": {
+        "en": "Sweetness",
+        "ja": "甘さ"
+    },
+    "party_ralsei_stat_fluffiness": {
+        "en": "Fluffiness",
+        "ja": "ふわふわ感"
+    },
+    "party_ralsei_action_letter": {
+        "en": "R",
+        "ja": "Ｒ"
+    },
+
+    "party_noelle_name": {
+        "en": "Noelle",
+        "ja": "ノエル"
+    },
+    "party_noelle_desc": {
+        "en": "Snowcaster\nMight be able to\nuse some cool moves.",
+        "ja": "スノー使い\n氷属性のまほう\nを使えるかも？"
+    },
+    "party_noelle_stat_coldness": {
+        "en": "Coldness",
+        "ja": "冷たさ"
+    },
+    "party_noelle_stat_boldness": {
+        "en": "Boldness",
+        "ja": "大胆さ"
+    },
+    "party_noelle_action_letter": {
+        "en": "N",
+        "ja": "Ｎ"
+    }
+}

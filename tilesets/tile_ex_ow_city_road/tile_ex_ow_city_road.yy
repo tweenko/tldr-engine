@@ -1,0 +1,38 @@
+{
+  "$GMTileSet":"v1",
+  "%Name":"tile_ex_ow_city_road",
+  "autoTileSets":[],
+  "macroPageTiles":{
+    "SerialiseHeight":0,
+    "SerialiseWidth":0,
+    "TileSerialiseData":[],
+  },
+  "name":"tile_ex_ow_city_road",
+  "out_columns":15,
+  "out_tilehborder":2,
+  "out_tilevborder":2,
+  "parent":{
+    "name":"city",
+    "path":"folders/zzz Examples/Tile Sets/city.yy",
+  },
+  "resourceType":"GMTileSet",
+  "resourceVersion":"2.0",
+  "spriteId":{
+    "name":"spr_ex_ow_city_tile_road",
+    "path":"sprites/spr_ex_ow_city_tile_road/spr_ex_ow_city_tile_road.yy",
+  },
+  "spriteNoExport":false,
+  "textureGroupId":{
+    "name":"Default",
+    "path":"texturegroups/Default",
+  },
+  "tileAnimationFrames":[],
+  "tileAnimationSpeed":15.0,
+  "tileHeight":20,
+  "tilehsep":0,
+  "tilevsep":0,
+  "tileWidth":20,
+  "tilexoff":0,
+  "tileyoff":0,
+  "tile_count":240,
+}

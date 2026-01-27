@@ -1,0 +1,9 @@
+image_angle = random(360)
+image_xscale = 1
+image_yscale = 1
+image_alpha = 2
+image_speed = 1
+hspeed = (2 - random(2))/2
+vspeed = (-3 - random(2))/2
+friction = 0.15
+image_blend=c_lime

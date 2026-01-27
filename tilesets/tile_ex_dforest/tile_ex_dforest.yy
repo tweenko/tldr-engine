@@ -1,0 +1,42 @@
+{
+  "$GMTileSet":"v1",
+  "%Name":"tile_ex_dforest",
+  "autoTileSets":[],
+  "macroPageTiles":{
+    "SerialiseHeight":171,
+    "SerialiseWidth":58,
+    "TileCompressedData":[
+      -9680,0,6,43,44,0,42,0,45,-52,0,6,49,50,0,48,0,51,-52,0,6,55,56,0,54,0,57,-52,0,6,61,62,0,60,0,63,-52,
+      0,2,67,68,-4,0,
+    ],
+    "TileDataFormat":1,
+  },
+  "name":"tile_ex_dforest",
+  "out_columns":9,
+  "out_tilehborder":2,
+  "out_tilevborder":2,
+  "parent":{
+    "name":"dforest",
+    "path":"folders/zzz Examples/Tile Sets/dforest.yy",
+  },
+  "resourceType":"GMTileSet",
+  "resourceVersion":"2.0",
+  "spriteId":{
+    "name":"spr_ex_ow_dforest_tile",
+    "path":"sprites/spr_ex_ow_dforest_tile/spr_ex_ow_dforest_tile.yy",
+  },
+  "spriteNoExport":false,
+  "textureGroupId":{
+    "name":"Default",
+    "path":"texturegroups/Default",
+  },
+  "tileAnimationFrames":[],
+  "tileAnimationSpeed":15.0,
+  "tileHeight":20,
+  "tilehsep":0,
+  "tilevsep":0,
+  "tileWidth":20,
+  "tilexoff":0,
+  "tileyoff":0,
+  "tile_count":78,
+}

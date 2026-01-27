@@ -1,0 +1,47 @@
+{
+    "save_menu_save": {
+        "en": "Save", "ja": "セーブ"
+    },
+    "save_menu_return": {
+        "en": "Return", "ja": "もどる"
+    },
+    "save_menu_storage": {
+        "en": "Storage", "ja": "そうこ"
+    },
+    "save_menu_recruits": {
+        "en": "Recruits", "ja": "なかま"
+    },
+    "save_menu_to_title": {
+        "en": "Return To Title", "ja": "タイトル画面へ"
+    },
+
+    "save_menu_file_saved": {
+        "en": "File Saved", "ja": "セーブしました"
+    },
+    "save_menu_new_file": {
+        "en": "New File", "ja": "データなし"
+    },
+    "save_menu_overwrite_query": {
+        "en": "Overwrite Slot {0}?", "ja": "スロット{0}に上書きしますか？"
+    },
+
+    "save_menu_s_pocket": {
+        "en": "POCKET", "ja": "ポケット"
+    },
+    "save_menu_s_storage": {
+        "en": "STORAGE", "ja": "そうこ"
+    },
+    "save_menu_s_page": {
+        "en": "Page\n{0}/{1}", "ja": "PAGE\n{0}/{1}"
+    },
+
+    "save_menu_return_confirm": {
+        "en": "Really return to title?", "ja": "タイトル画面にもどる？"
+    },
+    "save_menu_return_yes": {
+        "en": "Yes", "ja": "はい"
+    },
+    "save_menu_return_no": {
+        "en": "No", "ja": "いいえ"
+    }
+}

@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shd_bm_divide",
+  "name":"shd_bm_divide",
+  "parent":{
+    "name":"shaders",
+    "path":"folders/@Engine/shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

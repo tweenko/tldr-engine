@@ -1,0 +1,176 @@
+{
+    "save_select_messages_normal": {
+        "en": {
+            "main": "Please select a file.",
+
+            "copy": "Choose a file to copy.",
+            "copyto": "Choose a file to copy to.", 
+            "copyempty": "It can't be copied.", 
+            "copycant": "You can't copy there.", 
+            "copysuccess": "Copy Complete.", 
+            "copy_overwritewarn": "The file will be overwritten.", 
+
+            "erase": "Choose a file to erase.", 
+            "erase_warn1": "Choose a file to erase.", 
+            "erase_warn2": "Choose a file to erase.", 
+            "erasesuccess": "Erase complete.", 
+            "eraseempty": "There's nothing to erase.",
+
+            "chfile": "Start Chapter {0} from Chapter {1}'s FILE.", 
+            "chfileconfirm": "This will start Chapter {0} in FILE Slot {3}."
+        },
+        "ja": {
+            "main": "ファイルを選んでください。",
+
+            "copy": "コピーするファイルを選んでください。",
+            "copyto": "コピー先のファイルを選んでください。", 
+            "copyempty": "コピーできません。", 
+            "copycant": "そこにはコピーできません。", 
+            "copysuccess": "コピーしました。", 
+            "copy_overwritewarn": "ファイルを上書きします。", 
+
+            "erase": "消去するファイルを選んでください。", 
+            "erase_warn1": "消去するファイルを選んでください。", 
+            "erase_warn2": "消去するファイルを選んでください。", 
+            "erasesuccess": "消去しました。", 
+            "eraseempty": "消去するものがありません。",
+
+            "chfile": "Chapter {1}のファイルで Chapter {0}を始める。", 
+            "chfileconfirm": "スロット{2}で Chapter {0}を始めます。"
+        }
+    },
+    "save_select_messages_ominous": {
+        "en": {
+            "main": "",
+
+            "copy": "CHOOSE THE ONE TO COPY.",
+            "copy_returned": "IT RETAINED ITS ORIGINAL SHAPE.",
+            
+            "copyto": "CHOOSE THE TARGET FOR THE REFLECTION.", 
+
+            "copyempty": "IT IS BARREN AND CANNOT BE COPIED.", 
+            "copyempty_all": "BUT THERE WAS NOTHING LEFT TO COPY.", 
+
+            "copycant": "IT IS IMMUNE TO ITS OWN IMAGE.", 
+
+            "copysuccess": "THE DIVISION IS COMPLETE.", 
+            "copysuccess_weird": "WHAT AN INTERESTING BEHAVIOR.",
+            "copysuccess_prepared": "PREPARATIONS ARE COMPLETE.",
+            "copysuccess_conformed": "IT CONFORMED TO THE REFLECTION.",
+
+            "copy_overwritewarn": "IT WILL BE SUBSUMED.", 
+
+            "erase": "SELECT THE ONE TO ERASE.", 
+            "erase_interesting": "VERY INTERESTING.", 
+            "erase_cancel": "THEN IT WAS SPARED.", 
+
+            "erase_warn1": "TRULY ERASE IT?", 
+            "erase_warn2": "THEN IT WILL BE DESTROYED.", 
+            "erasesuccess": "IT WAS AS IF IT WAS NEVER THERE AT ALL.", 
+
+            "eraseempty": "BUT IT WAS ALREADY GONE.",
+            "eraseempty_all": "BUT THERE WAS NOTHING LEFT TO ERASE.",
+
+            "chfile": "Start Chapter {0} from Chapter {1}'s FILE.", 
+            "chfileconfirm": "This will start Chapter {0} in FILE Slot {3}."
+        },
+        "ja": {
+            "main": "",
+
+            "copy": "複写元ヲ　選ンデクダサイ。",
+            "copy_returned": "モトノ　姿ガ　保タレマシタ。",
+            
+            "copyto": "複写先ヲ　選ンデクダサイ。", 
+
+            "copyempty": "複写スベキ　モノガ　アリマセン。", 
+            "copyempty_all": "複写スベキ　モノガ　残ッテイマセン。", 
+
+            "copycant": "同一物ヘノ　複写ハ　不可。", 
+
+            "copysuccess": "分割　完了。", 
+            "copysuccess_weird": "ジツニ　興味深イ　行動デス。",
+            "copysuccess_prepared": "準備ハ　完了シマシタ。",
+            "copysuccess_conformed": "忠実ニ　再現サレマシタ。",
+
+            "copy_overwritewarn": "デハ　取リ込ミマス。", 
+
+            "erase": "消去スルモノヲ　選ンデクダサイ。", 
+            "erase_interesting": "ジツニ　興味深イ。", 
+            "erase_cancel": "消去ハ　免レマシタ。", 
+
+            "erase_warn1": "本当ニ　消去ヲ？", 
+            "erase_warn2": "デハ　破壊シマス。", 
+            "erasesuccess": "跡形モナク　消エ去リマシタ。", 
+
+            "eraseempty": "ソレハ　スデニ　存在シマセン。",
+            "eraseempty_all": "消去スベキ　モノガ　残ッテイマセン。",
+
+            "chfile": "Chapter {1}のファイルで Chapter {0}を始める。", 
+            "chfileconfirm": "スロット{3}で Chapter {0}を始めます。"
+        }
+    },
+
+    "save_select_empty": {
+        "en": "[EMPTY]", "ja": "[データなし]"
+    },
+    "save_select_start": {
+        "en": "Start", "ja": "はじめる"
+    },
+    "save_select_back": {
+        "en": "Back", "ja": "もどる"
+    },
+    "save_select_cancel": {
+        "en": "Cancel", "ja": "キャンセル"
+    },
+
+    "save_select_copy": {
+        "en": "Copy", "ja": "写す"
+    },
+    "save_select_erase": {
+        "en": "Erase", "ja": "消す"
+    },
+    "save_select_chapter_select": {
+        "en": "Chapter Select", "ja": "チャプター選択"
+    },
+    "save_select_endprogram": {
+        "en": "End Program", "ja": "終了"
+    },
+    "save_select_continue": {
+        "en": "Continue", "ja": "つづき "
+    },
+    
+    "save_select_ch_files": {
+        "en": "Ch {0} Files", "ja": "Ch{0}ファイル"
+    },
+    "save_select_dont_use_file": {
+        "en": "Don't Use Chapter {0} FILE", "ja": "Chapter {0}のファイルを使わない"
+    },
+
+    "save_select_yes": {
+        "en": "Yes", "ja": "はい"
+    },
+    "save_select_no": {
+        "en": "No", "ja": "いいえ"
+    },
+    "save_select_yes!": {
+        "en": "Yes!", "ja": "消す！"
+    },
+    "save_select_no!": {
+        "en": "No!", "ja": "やめる！"
+    },
+
+    "save_select_completion_file": {
+        "en": ["Completion FILE not found.", "[Made on seeing credits.]"], 
+        "ja": ["クリア済みファイルなし", "[条件:クレジットを見る]"]
+    },
+
+    "save_select_copy_query": {
+        "en": "Copy over this file?", "ja": "このファイルに上書き？"
+    },
+    "save_select_erase_query": {
+        "en": "Erase this file?", "ja": "このファイルを消去？"
+    },
+    "save_select_erase_query_confirm": {
+        "en": "Really erase it?", "ja": "本当に消去？"
+    }
+}

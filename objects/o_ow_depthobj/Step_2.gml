@@ -1,0 +1,1 @@
+depth = (is_real(depth_override) ? depth_override : -2000 - y)

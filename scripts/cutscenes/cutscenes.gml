@@ -1,0 +1,431 @@
+///@desc returns the current cutscene instance stored in global.current_cutscene
+function cutscene_get() {
+	return global.current_cutscene
+}
+
+///@desc creates a cutscene instance. if needed, also sets global.current_cutscene to the newly created one.
+function cutscene_create(autoset = true) {
+    var inst = instance_create(o_cutscene_inst)
+    
+	if autoset
+		cutscene_set(inst)
+	return inst
+}
+
+///@desc sets the current cutscene to the instance provided
+/// @arg {Id.Instance} _cutscene
+function cutscene_set(_cutscene) {
+	global.current_cutscene = _cutscene
+}
+
+///@desc check whether the cutscene instance is valid
+function cutscene_isvalid(_cutscene = global.current_cutscene) {
+	if instance_exists(_cutscene) && _cutscene.object_index = o_cutscene_inst
+		return true
+	return false
+}
+
+///@desc	a custom cutscene event
+///         --------
+///			these variables are allowed to be included in the **_custom struct**:
+///			**action** *(array - function, arg0, arg1...)* - the action to perform upon the event's start
+///			**continue_func** *(function)* - the function that is run to check whether the cutscene may resume or not. must return boolean
+///			**continue_args** *(array)* - the arguments that are passed onto continue_func
+///         **pause** *(bool)* - whether to pause the cutscene (if there is a continue_func, if you will)
+
+///@arg		{struct}	_custom 
+function cutscene_custom(_custom = {
+		action: [],
+		
+		continue_func: function(){
+			return true
+		},
+		continue_args: [],
+    
+        pause: false,
+	}
+){
+	if !cutscene_isvalid(global.current_cutscene)
+		exit
+	if struct_exists(_custom, "action") 
+		ds_queue_enqueue(global.current_cutscene.actions, _custom.action)
+	if struct_exists(_custom, "continue_args") 
+		ds_queue_enqueue(global.current_cutscene.actions, [variable_instance_set, global.current_cutscene, "continue_args", _custom.continue_args]);
+	if struct_exists(_custom, "continue_func") 
+		ds_queue_enqueue(global.current_cutscene.actions, [variable_instance_set, global.current_cutscene, "continue_func", _custom.continue_func]);
+	if struct_exists(_custom, "pause") 
+            && _custom.pause
+        || struct_exists(_custom, "continue_func") 
+    		&& struct_exists(_custom, "continue_args") 
+            && !script_execute_ext(_custom.continue_func, _custom.continue_args)
+	{
+		ds_queue_enqueue(global.current_cutscene.actions, [variable_instance_set, global.current_cutscene, "sleep", -1])
+	}
+}
+
+///@desc starts the cutscene (playing the queue in order)
+function cutscene_play() {
+	if instance_exists(global.current_cutscene) {
+        with global.current_cutscene {
+            play = true
+            event_user(0)
+            if ds_queue_empty(actions)
+                instance_destroy()
+        }
+    }
+}
+
+// cutscene presets
+
+///@desc pauses the queue of the cutscene to the set amount of frames
+///@arg {real} sleep the amount of frames to pause the cutscene for
+function cutscene_sleep(sleep) {
+	cutscene_custom({
+		sleep,
+		action: [variable_instance_set, global.current_cutscene, "sleep", sleep]
+	})
+}
+
+///@desc runs dialogue in a cutscene and waits until the dialogue box is destroyed if asked to
+///@arg {string|array<string>} dialogue could be either an array or just a string. if it's an array, between the array entries the box will pause and clear itself afterwards.
+/// @arg {string} postfix the string added to the end of the text typer. "{p}{e}" by default
+/// @arg {bool} wait whether the cutscene should wait until the dialogue is destroyed
+/// @arg {undefined|bool} box_pos_down whether the box should be forced down (true), up (false) or automatic (undefined, the default)
+/// @arg {bool} destroy_other_instances whether the dialogue should destroy the other already existing dialogue instances before spawning itself
+function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_down = undefined, _destroy_other_instances = true) {
+	dialogue = dialogue_array_to_string(dialogue)
+    
+	cutscene_custom({
+		dialogue,
+		wait,
+		postfix,
+        box_pos_down,
+        _destroy_other_instances,
+
+		action: [function(dialogue, postfix, box_pos_down, _destroy_other_instances) {
+            if _destroy_other_instances
+                instance_destroy(o_ui_dialogue)
+            
+            var inst = instance_create(o_ui_dialogue, 0, 0, 0, {text: dialogue, postfix})
+            if !is_undefined(box_pos_down)
+                inst._reposition_self_to(box_pos_down)
+        }, dialogue, postfix, box_pos_down, _destroy_other_instances],
+
+		continue_func: function(wait) {
+			return (wait ? !instance_exists(o_ui_dialogue) : true)
+		},
+		continue_args: [wait],
+		pause: wait,
+	})
+}
+function cutscene_actor_dialogue(dialogue, actor_inst, prefix = "", postfix = "{p}{e}", wait = true) {
+	cutscene_custom({
+		dialogue, actor_inst, 
+        prefix, postfix, 
+		wait,
+
+		action: [
+            actor_dialogue_create,
+            dialogue, actor_inst, 
+            prefix, postfix,
+        ],
+
+		continue_func: function(wait) {
+			return (wait ? !instance_exists(o_ui_actordialogue) : true)
+		},
+		continue_args: [wait],
+		pause: wait,
+	})
+}
+
+///@desc pauses the cutscene until a certain amount of dialogue boxes has been seen
+///@arg {real} boxes_to_wait_for
+function cutscene_wait_dialogue_boxes(boxes_to_wait_for) {
+	cutscene_custom({
+		pause: true,
+		
+		boxes_to_wait_for: boxes_to_wait_for,
+		
+		action: [function() {
+			global.cutscene_wait_dialogue_boxes_initial = undefined
+		}],
+		continue_func: function(__amt) {
+			if !instance_exists(o_text_typer) return false
+
+			if is_undefined(global.cutscene_wait_dialogue_boxes_initial)
+				global.cutscene_wait_dialogue_boxes_initial = o_text_typer.current_box
+				
+			var _boxes = o_text_typer.current_box - global.cutscene_wait_dialogue_boxes_initial
+			return _boxes >= __amt
+		},
+		continue_args: [boxes_to_wait_for],
+	})
+}
+
+///@desc pauses the cutscene until the dialogue box is destroyed
+function cutscene_wait_dialogue_finish() {
+	cutscene_custom({
+		pause: true,
+		continue_func: function() {
+			return !instance_exists(o_ui_dialogue)
+		},
+	})
+}
+
+///@desc set whether the player is allowed to move
+function cutscene_player_canmove(move) {
+	cutscene_custom({
+		move,
+		action: [function(move) {
+            global.player_moveable_global = move
+        }, move],
+	})
+}
+
+///@desc set whether the party members are following the leader
+function cutscene_party_follow(follow){
+	cutscene_custom({
+		follow : follow,
+		action: [function(follow){
+			party_setfollow(follow)
+		}, follow],
+	})
+}
+
+/// @desc  move an actor during a cutscene
+/// @param {Id.Instance,Asset.GMObject} target the actor to move
+/// @param {array<struct.actor_movement>} movement the movement struct based on actor_movement
+/// @param {real} [pos] the array index of global.charmove_insts. needed only if there are multiple of these running at once
+/// @param {bool} [wait] whether to wait until this is all done or not
+function cutscene_actor_move(target, movement, pos = 0, wait = true) {
+	cutscene_custom({
+		target,
+		movement,
+        pos: pos,
+        wait: wait,
+		
+		action: [function(target, movement, wait, pos) {
+            actor_move(target, movement, pos)
+        }, target, movement, wait, pos],
+		continue_func: function(wait, pos) {
+            if !wait
+                return true
+			return is_undefined(global.charmove_insts[pos])
+		},
+
+		continue_args: [wait, pos],
+		pause: wait,
+	})
+}
+
+/// @desc plays a sound during a cutscene
+function cutscene_audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false) {
+	cutscene_custom({
+		sound, loop, gain, pitch, nonstack,
+		action: [audio_play, sound, loop, gain, pitch, nonstack],
+	})
+}
+
+/// @desc interpolates the party member's positions to be a part of the caterpillar
+function cutscene_party_interpolate(){
+	cutscene_custom({
+		action: [function(){
+			for (var i = 0; i < array_length(global.party_names); ++i) {
+			    party_member_interpolate(global.party_names[i])
+			}
+		}],
+	})
+}
+
+/// @desc pauses the cutscene until the continue function returns true
+function cutscene_wait_until(continue_func = function(){return true}, continue_args = []) {
+	cutscene_custom({
+		pause: true,
+		continue_func,
+		continue_args,
+	})
+}
+
+/// @desc sets a variable of an object during a cutscene
+function cutscene_set_variable(obj, variable, value) {
+	cutscene_custom({
+		obj, variable, value,
+		action: [variable_instance_set, obj, variable, value]
+	})
+}
+
+/// @desc sets a party member's sprite accordingly to the battle sprites struct from party_data
+/// @arg {string} party_name party member name
+/// @arg {Asset.GMSprite|string} sprite_ref the sprite to use. can be either a string that will be put into `enc_getparty_sprite` or a sprite index
+/// @arg {real} index the image index of the sprite, by default doesn't change it
+/// @arg {real} speed the speed of the sprite, by default doesn't change it
+function cutscene_set_partysprite(party_name, sprite_ref, image_index = undefined, image_speed = undefined){
+	cutscene_custom({
+		party_name, sprite_ref, image_index, image_speed,
+		action: [
+            function(party_name, sprite_ref, _image_index, _image_speed) {
+                enc_party_set_battle_sprite(party_name, sprite_ref, _image_index, _image_speed)
+            }, 
+            party_name, sprite_ref, image_index, image_speed
+        ]
+	})
+}
+
+/// @desc	Animates a value between two positions along a single curve during a cutscene
+///			For built-in easing set ease_type to a string, or for custom easing use a function,
+///			animation curve struct or ID, or animation curve channel.
+///@param {Real} val1				The first value of the animation
+///@param {Real} val2				The last value of the animation
+///@param {Real} frames				The duration in frames
+///@param {String|Function|Struct|Asset.GMAnimCurve} ease_type
+///									The easing curve
+///@param {Function} call_method	The method to call for each frame of animation
+///@param {Array} args	Arguments you want to pass to call_method
+///@return {Struct.__anime_class}
+function cutscene_anim(val1, val2, frames, ease_type, call_method, array = []){
+	cutscene_custom({
+		val1, val2, frames, ease_type, call_method, array,
+		action: [anime_tween, val1, val2, frames, ease_type, call_method, array]
+	})
+}
+
+/// @desc	cutscene_anim but has automatic instance existance checking as well as direct instance adressing. 
+///         The cutscene will not wait for the animation to end.
+///			For built-in easing set ease_type to a string, or for custom easing use a function,
+///			animation curve struct or ID, or animation curve channel.
+///@param {Real} val1				The first value of the animation
+///@param {Real} val2				The last value of the animation
+///@param {Real} frames				The duration in frames
+///@param {String|Function|Struct|Asset.GMAnimCurve} ease_type
+///									The easing curve
+///@param {Id.Instance} inst	The instance to animate
+///@param {string} var_name	The name of the variable to animate
+///@return {Struct.__anime_class}
+function cutscene_animate(val1, val2, frames, ease_type, inst, var_name){
+	cutscene_custom({
+		val1, val2, frames, ease_type, inst, var_name,
+		action: [animate, val1, val2, frames, ease_type, inst, var_name]
+	})
+}
+
+/// @desc creates an instance during a cutscene
+function cutscene_instance_create(obj, xx = 0, yy = 0, ddepth = 0, post_var_struct = {}){
+	cutscene_custom({
+		obj, xx, yy, ddepth, post_var_struct,
+		action: [instance_create, obj, xx, yy, ddepth, post_var_struct]
+	})
+}
+
+/// @desc runs a function during a cutscene
+/// @arg {function} func the function to be run
+function cutscene_func(func, args = []){ 
+	cutscene_custom({
+		func, args,
+		action: [function(func,args) {
+			if !is_array(args) 
+				args = [args]
+			script_execute_ext(func, args)
+		}, func, args]
+	})
+}
+
+/// @desc pan the camera using two animation instances during a cutscene
+/// @param {real} x_dest  set to undefined if you don't want to move on this axis
+/// @param {real} y_dest  set to undefined if you don't want to move on this axis
+/// @param {real} time the amount of time the camera will take to fully animate
+/// @param {bool} wait whether the cutscene should be paused until the camera reaches its destination
+/// @param {string} [ease_type] the ease type the animation will use, look in lerp_type script to find the full list
+/// @param {bool} [confined_x] whether the camera is confined within the bounds of the room on the x axis (true by default)
+/// @param {bool} [confined_y] whether the camera is confined within the bounds of the room on the y axis (true by default)
+function cutscene_camera_pan(x_dest, y_dest, time, wait = true, ease_type = "linear", confined_x = true, confined_y = true) {
+    var data = {
+        x_dest: x_dest,
+        y_dest: y_dest,
+        time: time,
+        wait: wait,
+        ease_type: ease_type,
+        confined_x, confined_y,
+        
+        timer: 0,
+        action: [camera_pan, x_dest, y_dest, time, ease_type, confined_x, confined_y]
+    };
+
+    // First arg is the struct itself
+    data.continue_func = function(_data, _wait, _time) {
+        _data.timer ++
+        if !_wait
+            return true
+        
+        return _data.timer > _time
+    }
+    data.continue_args = [data, wait, time]
+
+    cutscene_custom(data);
+}
+
+/// @arg {real,array} index could be an index or array if there are multiple enemies to spare
+function cutscene_spare_enemy(index) {
+    if !is_array(index)
+        index = [index]
+    
+    for (var i = 0; i < array_length(index); i ++) {
+        var _enemy = o_enc.encounter_data.enemies[index[i]]
+        var obj = _enemy.actor_id
+        
+        if !enc_enemy_isfighting(index[i])
+            continue
+        
+        recruit_advance(_enemy)
+        
+        cutscene_set_variable(obj, "sprite_index", _enemy.s_spare)
+        if !recruit_islost(_enemy) && enc_enemy_is_recruitable(_enemy)
+           cutscene_instance_create(o_text_hpchange, 
+               obj.x, obj.s_get_middle_y(), 
+               obj.depth - 100, {
+                   draw: $"{recruit_get_progress(_enemy)}/{recruit_getneed(_enemy)}", 
+                   mode: TEXT_HPCHANGE_MODE.RECRUIT
+               }
+           )
+        
+        // flash the enemy
+        cutscene_anim(.5, 1, 4, "linear", function(v, o) {
+            if instance_exists(o) 
+                o.flash = v
+        }, obj)
+    }
+    
+    cutscene_audio_play(snd_spare)
+    cutscene_sleep(4)
+    
+    for (var i = 0; i < array_length(index); i ++) {
+        var _enemy = o_enc.encounter_data.enemies[index[i]]
+        var obj = _enemy.actor_id
+        
+        cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
+            sprite_index: obj.sprite_index, 
+            image_index: obj.image_index, 
+            white: true, 
+            image_alpha: 1, 
+            speed: 2
+        })
+        cutscene_instance_create(o_afterimage, obj.x, obj.y, obj.depth + 6, {
+            sprite_index: obj.sprite_index,
+            image_index: obj.image_index, 
+            white: true, 
+            image_alpha: 1, 
+            speed: 4
+        })
+        cutscene_instance_create(o_eff_spareeffect, 
+            obj.x - obj.sprite_xoffset, obj.y - obj.sprite_yoffset,
+            obj.depth - 6, {
+                w: obj.sprite_width,
+                h: obj.sprite_height
+            }
+        )
+        
+        cutscene_func(instance_destroy, [obj])
+        cutscene_func(function(e) {
+            o_enc.encounter_data.enemies[e] = "spared"
+        }, [index[i]])
+    }
+}

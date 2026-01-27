@@ -1,0 +1,45 @@
+{
+    "item_use" : {
+        "en": "* {0} used {1}!",
+        "ja": "＊ {0}は{1}を発動した！"
+    },
+
+    "item_added" : {
+        "en": "* ({col(y)}{0}{col(w)} was added to your {col(y)}{1}{col(w)}.)",
+        "ja": "＊ ({col(y)}{0}{col(w)}が{br}{col(y)}{1}{col(w)}に　加わった)"
+    },
+    "item_added_no_space" : {
+        "en": "* (You didn't have enough space.)",
+        "ja": "＊ (もちものが　いっぱいだった)"
+    },
+
+    "item_type_items": {
+        "en": "ITEMs", "ja": "アイテム"
+    },
+    "item_type_key_items": {
+        "en": "KEY ITEMs", "ja": "だいじなもの"
+    },
+    "item_type_weapons": {
+        "en": "WEAPONS", "ja": "ぶき"
+    },
+    "item_type_armors": {
+        "en": "ARMORS", "ja": "ぼうぐ"
+    },
+    "item_type_storage": {
+        "en": "STORAGE", "ja": "そうこ"
+    },
+
+    "item_chest_get": {
+        "en": "* (You opened the treasure chest.){s(10)}{br}{resetx}* (Inside was {col(y)}{0}{col(w)}.)",
+        "ja": "＊ (宝箱を開けた){s(10)}{br}{resetx}＊ ({col(y)}{0}{col(w)}が{br}　 入っていた)"
+    },
+    "item_chest_empty": {
+        "en": "* (The chest is empty.)",
+        "ja": "＊ (宝箱は　からっぽだ)"
+    },
+
+    "item_susie_comment": {
+        "en": "Hey, hands off!",
+        "ja": "さわんなよ！"
+    }
+}

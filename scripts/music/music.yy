@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"music",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"music",
+  "parent":{
+    "name":"external",
+    "path":"folders/@Engine/scripts/systems/general/external.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

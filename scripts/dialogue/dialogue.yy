@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"dialogue",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"dialogue",
+  "parent":{
+    "name":"engine",
+    "path":"folders/@Engine/scripts/systems/engine.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

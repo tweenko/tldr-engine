@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"actors_scr",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"actors_scr",
+  "parent":{
+    "name":"engine",
+    "path":"folders/@Engine/scripts/systems/engine.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

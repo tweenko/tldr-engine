@@ -1,0 +1,22 @@
+{
+    "font_main": {
+        "en": "font_main",
+        "ja": "font_main_ja"
+    },
+    "font_text": {
+        "en": "font_main_mono",
+        "ja": "font_main_ja"
+    },
+    "font_enc": {
+        "en": "font_dotumche",
+        "ja": "font_dotumche_ja"
+    },
+    "font_name": {
+        "en": ["spr_ui_partyname_font", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890/"],
+        "ja": ["spr_ui_partyname_font_ja", "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンァィゥェォャュョッヮーヴガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポABCDEFGHIJKLMNOPQRSTUVWXYZ"]
+    },
+    "font_prophecy": {
+        "en": "font_prophecy",
+        "ja": "font_prophecy_ja"
+    }
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"deprecated",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"deprecated",
+  "parent":{
+    "name":"scripts",
+    "path":"folders/@Engine/scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"items_armors",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"items_armors",
+  "parent":{
+    "name":"inventory",
+    "path":"folders/@Engine/scripts/inventory.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

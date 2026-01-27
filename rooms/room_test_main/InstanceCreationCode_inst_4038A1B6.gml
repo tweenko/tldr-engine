@@ -1,0 +1,1 @@
+text = loc("txt_debug_loctest")

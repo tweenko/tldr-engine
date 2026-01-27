@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shd_greyscale",
+  "name":"shd_greyscale",
+  "parent":{
+    "name":"shaders",
+    "path":"folders/@Engine/shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}
