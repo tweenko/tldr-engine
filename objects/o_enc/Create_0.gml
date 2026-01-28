@@ -282,9 +282,6 @@ __order_action_queue = function(_action_queue = action_queue) {
         var party_order = party_get_index(current.acting_member)
         var next_party_order = party_get_index(next.acting_member)
         
-        show_debug_message($"action_sort 1: {instanceof(current)}, order value: {cur_order}")
-        show_debug_message($"action_sort 1: {instanceof(next)}, order value: {next_order}, score: {next_order - cur_order}")
-        
         return next_order - cur_order + party_order - next_party_order
     })
     
