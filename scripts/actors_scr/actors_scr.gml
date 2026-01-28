@@ -1,18 +1,18 @@
-///@desc creates an actor object
+///@desc creates an actor object. use ONLY for actors: it initializes them
 ///@arg {asset.GMObject | struct} obj
 function actor_create(obj, xx = 0, yy = 0, ddepth = 0){
-	if is_struct(obj) {
-		var inst = instance_create(obj.obj, xx, yy, ddepth, obj.var_struct)
-        with inst
-            event_user(2)
-        return inst
+    var inst = noone
+	if is_struct(obj)
+		inst = instance_create(obj.obj, xx, yy, ddepth, obj.var_struct)
+	else
+		inst = instance_create(obj, xx, yy, ddepth)
+    
+    with inst {
+        event_user(2)
+        __initialize()
     }
-	else {
-		var inst = instance_create(obj, xx, yy, ddepth)
-        with inst
-            event_user(2)
-        return inst
-    }
+    
+    return inst
 }
 
 /// @desc finds an actor in the room

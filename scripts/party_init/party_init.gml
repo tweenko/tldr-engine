@@ -29,48 +29,6 @@ function party_m_calculate_hp(base_hp, level) {
     else
         return base_hp + 30 + 40*level
 }
-
-/// @desc  returns the party sprite with a certain naming scheme.
-/// the examples below are based on the following example sprite:
-/// `spr_ex_berdly_down_sad`
-/// @param {string} name         the name of the party member
-/// @param {string} identifier   the sprite identifier (e.g. `down`)
-/// @param {string} [prefix]     the sprite prefix (e.g. `ex`)
-/// @param {string} [state]      the actor state. always at the very end of the sprite name and not a part of the naming scheme (e.g. `sad`)
-/// @param {string} [scheme]             the sprite name scheme. by default it's `"spr_{0}_{1}_{2}"`, where {0} is the prefix, {1} is the name and {2} is the identifier
-/// @param {array} [scheme_addelements]  an array containing optional elements. in the default scheme there are only three slots for change, but here you can add more, if your scheme requires more
-/// @param {asset.gmsprite} [fallback]   the default sprite to use in case of failure
-/// @returns {asset.GMSprite}
-function party_get_sprite_from_scheme(name, identifier, prefix = "", state = "", scheme = "spr_{0}_{1}_{2}", optional_arguments = [], fallback = spr_default) {
-    var __target_sprite = string_ext(scheme, array_concat([prefix, name, identifier], optional_arguments))
-    while string_contains("__", __target_sprite) {
-        __target_sprite = string_replace_all(__target_sprite, "__", "_")
-    }
-    
-    var __a = asset_get_index_state(__target_sprite, state)
-    if sprite_exists(__a) 
-        return __a
-    else 
-        return fallback
-}
-
-/// @desc  returns the party sprite with a certain naming scheme.
-/// the examples below are based on the following example sprite:
-/// `spr_ex_berdly_down_sad`
-/// @param {string} name         the name of the party member
-/// @param {string} [prefix]     the sprite prefix (e.g. `ex`)
-/// @param {string} [state]      the actor state. always at the very end of the sprite name and not a part of the naming scheme (e.g. `sad`)
-/// @param {string} [scheme]             the sprite name scheme. by default it's `"spr_{0}_{1}_{2}"`, where {0} is the prefix, {1} is the name and {2} is the identifier
-/// @param {array} [scheme_addelements]  an array containing optional elements. in the default scheme there are only three slots for change, but here you can add more, if your scheme requires more
-/// @param {asset.gmsprite} [fallback]   the default sprite to use in case of failure
-/// @returns {array<Asset.GMSprite>}
-function party_get_cardinal(name, prefix = "", state = "", scheme = "spr_{0}_{1}_{2}", optional_arguments = [], fallback = spr_default) {
-    var cardinal = []
-    for (var i = 0; i < 360; i += 90) {
-        cardinal[i] = party_get_sprite_from_scheme(name, dir_to_string(i), prefix, state, scheme, optional_arguments, fallback)
-    }
-    return cardinal
-}
     
 function party_m(_initialized_name) constructor {
 	name = "???"
@@ -113,19 +71,21 @@ function party_m(_initialized_name) constructor {
 		new item_s_testdmg(),
 	]
 	
-	// sprites
+	// sprites config
     s_name = ""
-	s_state =		""
-	s_substate =	""
+    s_prefix = ""
+    s_scheme = "spr_{0}_{1}_{2}"
+    s_scheme_addelements = []
+    s_fallback = spr_default
+    
 	s_icon =		spr_ui_default_icon
 	s_icon_ow =		spr_ui_default_head
 	s_icon_weapon = spr_ui_menu_weapon_axe
 	s_battle_intro =	1 // 1 for attack, 0 for full intro	
     
-    s_prefix = ""
-    s_scheme = "spr_{0}_{1}_{2}"
-    s_scheme_addelements = []
-    s_fallback = spr_default
+    // states
+	s_state =		""
+	s_substate =	""
 	
 	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
 		act: [spr_bsusie_act, true],
@@ -154,15 +114,8 @@ function party_m(_initialized_name) constructor {
 	actor_id = noone
     
     // methods
-    /// @arg {enum.WORLD} world the world type to get the sprite of
-    __get_cardinal = function(world = global.world) {
-        return party_get_cardinal(s_name, s_prefix, s_state + (world ==  WORLD_TYPE.LIGHT ? "_light" : ""), s_scheme, s_scheme_addelements, s_fallback)
-    }
-    /// @arg {string} identifier the unique identifier of the sprite you're looking for
-    /// @arg {enum.WORLD} world the world type to get the sprite of
-    __get_sprite = function(identifier, world = global.world) {
-        return party_get_sprite_from_scheme(s_name, identifier, s_prefix, s_state + (world == WORLD_TYPE.LIGHT ? "_light" : ""), s_scheme, s_scheme_addelements, s_fallback)
-    }
+    __get_cardinal = party_m_get_cardinal
+    __get_sprite = party_m_get_sprite
 }
 
 function party_m_kris(_initialized_name) : party_m(_initialized_name) constructor {

@@ -210,7 +210,7 @@
     function save_entry(_name, _default_value, _import_method = undefined, _export_method = undefined) {
         var __entry_struct = {
             name: _name,
-            default_value: _default_value,
+            default_value: variable_clone(_default_value),
             __import: _import_method,
             __export: _export_method
         }
