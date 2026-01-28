@@ -2,11 +2,11 @@
 if s_auto && name != "" {
     var party_struct = party_get_struct(name)
     
-	s_move = method_call(party_struct.__get_cardinal)
+	s_move = method_call(party_struct.__get_cardinal, [name])
     
-    s_ball = method_call(party_struct.__get_sprite, ["ball"])
-    s_landed = method_call(party_struct.__get_sprite, ["landed"])
-    s_slide = method_call(party_struct.__get_sprite, ["slide"])
+    s_ball = method_call(party_struct.__get_sprite, [name, "ball"])
+    s_landed = method_call(party_struct.__get_sprite, [name, "landed"])
+    s_slide = method_call(party_struct.__get_sprite, [name, "slide"])
     
     if is_follower || is_player
         lb_dl_highlight_color = merge_colour(party_getdata(name, "iconcolor"), c_white, .4)

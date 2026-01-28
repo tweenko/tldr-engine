@@ -261,6 +261,7 @@
   "LibraryEmitters":[],
   "MetaData":{
     "IDEVersion":"2024.14.2.213",
+    "IDEVersion":"2024.14.3.217",
   },
   "name":"tldr-engine",
   "resources":[
@@ -801,6 +802,8 @@
     {"id":{"name":"shd_bm_color_burn","path":"shaders/shd_bm_color_burn/shd_bm_color_burn.yy",},},
     {"id":{"name":"shd_bm_divide","path":"shaders/shd_bm_divide/shd_bm_divide.yy",},},
     {"id":{"name":"shd_bm_overlay","path":"shaders/shd_bm_overlay/shd_bm_overlay.yy",},},
+    {"id":{"name":"shd_bm_color_burn","path":"shaders/shd_bm_color_burn/shd_bm_color_burn.yy",},},
+    {"id":{"name":"shd_bm_divide","path":"shaders/shd_bm_divide/shd_bm_divide.yy",},},
     {"id":{"name":"shd_greyscale","path":"shaders/shd_greyscale/shd_greyscale.yy",},},
     {"id":{"name":"shd_invert","path":"shaders/shd_invert/shd_invert.yy",},},
     {"id":{"name":"shd_pal_html_sprite","path":"shaders/shd_pal_html_sprite/shd_pal_html_sprite.yy",},},

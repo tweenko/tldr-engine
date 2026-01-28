@@ -1,7 +1,7 @@
 if !is_in_battle && freeze == 0 && enable_chasing { // enemy aura, toby code
 	var spr = sprite_index
 	if hurt > 0  
-		spr = s_hurt
+		spr = enemy_struct.s_hurt
 	
 	var xx = x + xoff + sine(1, shake)
 	var yy = y + yoff

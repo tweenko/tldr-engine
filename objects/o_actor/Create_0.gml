@@ -170,7 +170,19 @@ is_player = false
 	}
 }
 
-alarm[0] = 1
+__initialize = function() {
+    init = true
+    
+    if is_enemy 
+    	if autoheight 
+    		myheight = sprite_get_height(sprite_index)
+    
+    if is_player || is_follower {
+    	s_hurt = party_getdata(name, "battle_sprites").hurt
+    	if autoheight 
+    		myheight = party_getbattleheight(name)
+    }
+}
 
 if !instance_exists(o_dodge_controller) 
 	instance_create(o_dodge_controller)
