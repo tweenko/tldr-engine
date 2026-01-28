@@ -255,7 +255,7 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
     			if is_callable(text)
     				text = text(i)
     			
-    			if is_string(text) || is_array(text) {
+    			if (is_string(text) && text != "") || (is_array(text) && array_length(text) > 0) {
                     var inst = actor_dialogue_create(text, encounter_data.enemies[i].actor_id,,, {
                         spr: encounter_data.enemies[i].dia_bubble_sprites
                     }, encounter_data.enemies[i].dia_bubble_off_x, encounter_data.enemies[i].dia_bubble_off_y, encounter_data.enemies[i].dia_bubble_off_type) 
