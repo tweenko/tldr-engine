@@ -6,10 +6,13 @@ function get_leader(){
 /// @desc adds a party member to the end of the party ensemble
 /// @arg {string} name the name of the party member to add
 function party_member_add(name) {
+    array_push(global.party_names, name)
+    
+    if !instance_exists(get_leader())
+        exit
+    
     var lx = get_leader().x
     var ly = get_leader().y
-    
-    array_push(global.party_names, name)
     party_member_create(name)
     party_reposition(lx, ly)
 }
@@ -17,11 +20,13 @@ function party_member_add(name) {
 /// @desc kicks out a party member (and deletes their object, if applicable)
 /// @arg {string} name the name of the party member to kick
 function party_member_kick(name) {
+    array_delete(global.party_names, party_get_index(name), 1)
+    if !instance_exists(get_leader())
+        exit
+    
     var lx = get_leader().x
     var ly = get_leader().y
-    
     instance_destroy(party_get_inst(name))
-    array_delete(global.party_names, party_get_index(name), 1)
     party_reposition(lx, ly)
     
     with get_leader() {
