@@ -1,4 +1,4 @@
-#macro ENGINE_VERSION "v1.9.2"
+#macro ENGINE_VERSION "v1.9.2+1"
 #macro ENGINE_NAME "tlDR Engine"
 #macro ENGINE_LAST_COMPATIBLE_VERSION "v1.2.0" // last compatible save version
 
@@ -14,9 +14,12 @@ function __engine_version_to_real(version) {
     else
     	__hotfix = 0
     
+    show_debug_message(__version_array)
+    show_debug_message(__hotfix)
+    
     var __ret = 0
     for (var i = 0; i < array_length(__version_array); i ++) {
-        __ret += real(__version_array[i]) * (10 ^^ ((array_length(__version_array) - 1) - i))
+        __ret += real(__version_array[i]) * power(10, (array_length(__version_array)-1 - i)*3)
     }
     
     return __ret * 100 + __hotfix

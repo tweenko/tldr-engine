@@ -17,6 +17,7 @@ incompatible_alpha = 1
 inst_dialogue = noone
 
 progress = true
+save_settings = true
 
 sound_on_frame = -1
 

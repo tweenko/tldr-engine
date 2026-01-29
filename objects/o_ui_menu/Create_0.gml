@@ -42,6 +42,8 @@ c_config = [
         call: method(self, function(delta) {
             o_world.volume_master += delta
             o_world.volume_master = clamp(o_world.volume_master, 0, 1)
+            
+            audio_master_gain(o_world.volume_master)
         }),
         display: function() {
             return $"{clamp(round(o_world.volume_master * 100), 0, 100)}%"
