@@ -455,7 +455,7 @@ else if battle_state == BATTLE_STATE.WIN {
         for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
             if is_struct(encounter_data.enemies[i]) {
                 var o = encounter_data.enemies[i].actor_id
-                var a = marker_getpos("enemy_defeated", encounter_data.enemies[i].defeat_marker)
+                var a = marker_get("enemy_defeated", encounter_data.enemies[i].defeat_marker)
                 
                 if !is_undefined(a) && instance_exists(o) {
                     cutscene_animate(o.x, a.x, 12, "linear", o, "x")

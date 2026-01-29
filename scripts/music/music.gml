@@ -100,5 +100,5 @@ function music_fade(slot, target_gain, time = 30){
         return false
     
     if audio_is_playing(o_dev_musiccontrol.music_actual[slot])
-        audio_sound_gain(o_dev_musiccontrol.music_actual[slot], target_gain * volume_get(AUDIO.MUSIC), 1000 * time/30)
+        audio_sound_gain(o_dev_musiccontrol.music_actual[slot], target_gain, 1000 * time/30)
 }

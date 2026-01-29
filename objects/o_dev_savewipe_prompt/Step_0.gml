@@ -25,6 +25,7 @@ if InputPressed(INPUT_VERB.SELECT) && selection != -1 {
         instance_destroy()
     }
     else {
+        o_world.save_settings = false
         save_wipe()
         
         cutscene_create()

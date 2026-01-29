@@ -2,7 +2,8 @@ audio_emitter_free(emitter_sfx)
 audio_emitter_free(emitter_music)
 
 if progress {
-    save_settings_update()
+    if save_settings
+        save_settings_update()
     
     if font_exists(global.font_name[0])
     	font_delete(global.font_name[0])

@@ -11,9 +11,6 @@ if keyboard_check_pressed(vk_f4) {
         window_center()
 }
 
-// always set the music emitter volume
-audio_emitter_gain(o_world.emitter_music, volume_get(AUDIO.MUSIC))
-
 if frames % 30 == 0
 	global.time ++
 
@@ -38,6 +35,7 @@ if incompatible_save_warning && incompatible_save_sleep == 0 {
             game_end()
         }
         else {
+            o_world.save_settings = false
             save_wipe()
             
             cutscene_create()
@@ -46,7 +44,7 @@ if incompatible_save_warning && incompatible_save_sleep == 0 {
             cutscene_sleep(10)
             
             cutscene_func(function() {
-                o_dev_savewipe_prompt.inst_dialogue = text_typer_create(loc("txt_debug_save_erase"), 130, 160, DEPTH_UI.CONSOLE - 100, "{auto_breaks(false)}{preset(`god_text`)}{can_skip(false)}", "{p}{e}", {
+                o_world.inst_dialogue = text_typer_create(loc("txt_debug_save_erase"), 130, 160, DEPTH_UI.CONSOLE - 100, "{auto_breaks(false)}{preset(`god_text`)}{can_skip(false)}", "{p}{e}", {
                     gui: true,
                     center_x: true,
                     can_superskip: false,
@@ -54,7 +52,7 @@ if incompatible_save_warning && incompatible_save_sleep == 0 {
                 })
             })
             cutscene_wait_until(function() {
-                return !instance_exists(o_dev_savewipe_prompt.inst_dialogue)
+                return !instance_exists(o_world.inst_dialogue)
             })
             
             cutscene_func(function() {
