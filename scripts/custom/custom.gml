@@ -91,16 +91,6 @@ enum AUDIO {
     MUSIC
 }
 
-///@arg {Enum.AUDIO} type the type of sound you want to get the volume of. Either AUDIO.SOUND or AUDIO.MUSIC
-function volume_get(type){
-	if type == AUDIO.SOUND
-		return o_world.volume_sfx * o_world.volume_master
-    if type == AUDIO.MUSIC
-		return o_world.volume_bgm * o_world.volume_master
-    
-	return 0
-}
-
 /**
  * sort of just **audio_play_sound** with some extra functionality, like:
  * - auto gain adjustment depending on set volume
@@ -132,7 +122,7 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
     
     ret = audio_play_sound_on(target_emitter, 
         sound, loop, 
-        0, volume_get(type) * gain,
+        0, gain,
         0, pitch
     )
     o_world.sound_on_frame = sound

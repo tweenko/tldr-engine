@@ -335,6 +335,9 @@
             o_world.volume_master = global.settings.VOL_MASTER
             o_world.volume_sfx = global.settings.VOL_SFX
             o_world.volume_bgm = global.settings.VOL_BGM
+            audio_master_gain(o_world.volume_master)
+            audio_emitter_gain(o_world.emitter_sfx, o_world.volume_sfx)
+            audio_emitter_gain(o_world.emitter_music, o_world.volume_bgm)
             
             if struct_exists(global.settings, "CONTROLS_KEY")
                 InputBindingsImport(false, global.settings.CONTROLS_KEY)

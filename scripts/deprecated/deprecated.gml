@@ -49,3 +49,13 @@ function marker_getpos(mtype, mid){
     
 	return undefined
 }
+
+///@deprecated
+function volume_get(type){
+	if type == AUDIO.SOUND
+		return o_world.volume_sfx * o_world.volume_master
+    if type == AUDIO.MUSIC
+		return o_world.volume_bgm * o_world.volume_master
+    
+	return 0
+}
