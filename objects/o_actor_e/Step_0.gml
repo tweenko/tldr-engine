@@ -2,7 +2,10 @@ event_inherited()
 
 if is_enemy && freeze > 0 {
     image_speed = 0
-    sprite_index = enemy_struct.s_hurt
+    if sprite_exists(s_frozen) && !is_undefined(s_frozen)
+        sprite_index = s_frozen
+    else 
+        sprite_index = s_intro
     
     exit
 }
@@ -69,7 +72,10 @@ if place_meeting(x, y, get_leader())
 {
     chasing = false
     encounter_started = true
-    hurt = 20
+    
+    sprite_index = s_intro
+    image_speed = s_intro_spd
+    image_index = 0
     
     path_end()
     encounter._start()

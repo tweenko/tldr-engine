@@ -1,9 +1,9 @@
 if !is_in_battle && freeze == 0 && enable_chasing { // enemy aura, toby code
 	var spr = sprite_index
-	if hurt > 0  
-		spr = enemy_struct.s_hurt
+	if hurt > 0 && struct_exists(enemy_struct, "s_hurt")
+        spr = enemy_struct.s_hurt
 	
-	var xx = x + xoff + sine(1, shake)
+	var xx = x + xoff + sine(.5, shake)
 	var yy = y + yoff
 	
 	if onscreen(id, 30) && hurt == 0 {
@@ -31,9 +31,8 @@ if !is_in_battle && freeze == 0 && enable_chasing { // enemy aura, toby code
 	   image_angle, image_blend, image_alpha
     )
 }
-else {
+else
 	event_inherited()
-}
 
 if notice
     draw_sprite(spr_ui_exclamation, 0, x, y - sprite_height - 2)

@@ -1,4 +1,4 @@
-#macro ENGINE_VERSION "v1.9.1"
+#macro ENGINE_VERSION "v1.9.2"
 #macro ENGINE_NAME "tlDR Engine"
 #macro ENGINE_LAST_COMPATIBLE_VERSION "v1.2.0" // last compatible save version
 
@@ -6,8 +6,8 @@
 function __engine_version_to_real(version) {
     version = string_delete(version, 1, 1)
     
-    var __version_array = string_split(string_split(version, "-")[0], ".") // version number array
-    var __hotfix = string_split(version, "-")
+    var __version_array = string_split(string_split(version, "+")[0], ".") // version number array
+    var __hotfix = string_split(version, "+")
     
     if array_length(__hotfix) > 1
         __hotfix = real(string_digits(__hotfix[1]))

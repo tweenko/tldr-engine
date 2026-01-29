@@ -12,7 +12,6 @@ function ex_enemy_shadowguy() : enemy() constructor{
     // sprites
     s_idle = spr_ex_e_sguy_idle
     s_hurt = spr_ex_e_sguy_hurt
-    s_intro = s_hurt
     s_spare = spr_ex_e_sguy_spare
     
     boogie_sprites = {
@@ -142,7 +141,6 @@ function ex_enemy_spawnling() : enemy() constructor{
     // sprites
     s_idle = spr_ex_e_spawnling
     s_hurt = spr_ex_e_spawnling_hurt
-    s_intro = s_hurt
     s_spare = s_idle
 	
 	//acts
@@ -178,7 +176,6 @@ function ex_enemy_dentos() : enemy() constructor{
     // sprites
     s_idle = spr_ex_e_dentos
     s_hurt = spr_ex_e_dentos_hurt
-    s_intro = s_hurt
     s_spare = s_idle
     
 	// acts

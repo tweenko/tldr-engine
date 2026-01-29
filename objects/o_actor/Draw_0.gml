@@ -9,7 +9,7 @@ if hurt > 0 && is_in_battle || run_away && is_in_battle && is_enemy
 if (is_player || is_follower) && party_getdata(name, "is_down") 
 	spr = party_getdata(name, "battle_sprites").defeat
 
-var xx = x + xoff + sine(1, shake)
+var xx = x + xoff + sine(.5, shake)
 var yy = y + yoff
 
 var isave = image_blend

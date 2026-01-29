@@ -170,6 +170,7 @@ is_player = false
 	}
 }
 
+alarm[0] = 1 // initialize if not already initialized on the first frame
 __initialize = function() {
     init = true
     

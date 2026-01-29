@@ -1,0 +1,2 @@
+if !init
+    __initialize()

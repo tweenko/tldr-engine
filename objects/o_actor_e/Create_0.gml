@@ -1,7 +1,8 @@
 event_inherited()
 
-s_hurt = spr_e_virovirokun_hurt	
-s_spare = spr_e_virovirokun_spare
+s_intro = spr_e_virovirokun_hurt
+s_intro_spd = 0
+s_frozen = undefined
 
 is_enemy = true
 chase_encounter = false
@@ -32,3 +33,4 @@ __start_chasing = function() {
 }
 
 xprev_real = 0
+alarm[0] = 1

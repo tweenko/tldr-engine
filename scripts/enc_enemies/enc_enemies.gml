@@ -55,7 +55,6 @@ function enemy() constructor {
     s_idle = spr_e_virovirokun_idle
     s_spare = spr_e_virovirokun_spare
     s_hurt = spr_e_virovirokun_hurt
-    s_intro = spr_e_virovirokun_hurt
     
 	// misc (in-fight events)
     ev_pre_dialogue =   -1
@@ -141,6 +140,11 @@ function enemy_virovirokun() : enemy() constructor{
     
     mercy = 0
 	
+    // sprites
+    s_idle = spr_e_virovirokun_idle
+    s_spare = spr_e_virovirokun_spare
+    s_hurt = spr_e_virovirokun_hurt
+    
 	// acts
 	acts = [
 		{
@@ -276,6 +280,11 @@ function enemy_killercar() : enemy() constructor{
     can_spare = false
     mercy_add_pity_percent = 0
 	
+    // sprites
+    s_idle = spr_e_killercar
+    s_spare = spr_e_killercar
+    s_hurt = spr_e_killercar_hurt
+    
 	acts = [
 		{
 			name: "Check",

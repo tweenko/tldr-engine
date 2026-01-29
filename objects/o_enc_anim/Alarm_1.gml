@@ -58,8 +58,9 @@ for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 	animate(obj.x, xx, 10, "linear", obj, "x")
 	animate(obj.y, yy, 10, "linear", obj, "y")
 	
+    obj.sprite_index = encounter_data.enemies[i].s_idle
 	obj.image_index = 0
-	obj.hurt = 0
+    obj.image_speed = 1
 	obj.is_in_battle = true
     obj.enemy_slot = i
     obj.enemy_struct = enemy_struct

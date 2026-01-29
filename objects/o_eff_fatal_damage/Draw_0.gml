@@ -1,7 +1,7 @@
 if timer == 0
     draw_self()
 
-var _xx = sine(1, shake)
+var _xx = sine(.5, shake)
 
 if timer >= 1 {
     for (var i = 0; i <= xs; i += 1) {
