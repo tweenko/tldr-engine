@@ -10,6 +10,7 @@ is_follower = false
 is_in_battle = false
 is_selected_for_battle = false
 is_player = false
+is_party = false
 
 { // player specific
 	spd = 2
@@ -178,7 +179,9 @@ __initialize = function() {
     	if autoheight 
     		myheight = sprite_get_height(sprite_index)
     
-    if is_player || is_follower {
+    if is_party {
+        event_user(2)
+        
     	s_hurt = party_getdata(name, "battle_sprites").hurt
     	if autoheight 
     		myheight = party_getbattleheight(name)

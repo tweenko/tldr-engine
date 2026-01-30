@@ -42,6 +42,7 @@ function party_leader_create(name, xx, yy, ddepth) {
 	o_camera.target = pl.id
 	
 	pl.is_player = true
+    pl.is_party = true
 	with pl {
 		event_user(2)
         __initialize()
@@ -55,6 +56,7 @@ function party_leader_create(name, xx, yy, ddepth) {
 function party_member_create(name, recordnow = true, xx = get_leader().x, yy = get_leader().y) {
 	var inst = actor_create(party_get_obj(name), xx, yy, get_leader().depth)
 	inst.is_follower = true
+    inst.is_party = true
 	inst.pos = get_leader().spacing * party_get_index(name)
 	
 	with inst {
