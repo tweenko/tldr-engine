@@ -129,6 +129,7 @@ function enc_button_act() : enc_button() constructor {
         
         with other {
             array_push(action_queue, new enc_action_act(__party_members, party_enemy_selection[party_selection], item_struct))
+            tp -= item_struct.tp_cost
             
             for (var i = 0; i < array_length(__party_members); i ++) {
                 var index = party_get_index(__party_members[i])

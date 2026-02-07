@@ -25,5 +25,3 @@ for (var i = 0; i < array_length(display_list); i++) {
         enc_names[i][j] = script_get_name(display_list[i].items[j])
     }
 }
-
-show_debug_message(enc_names)

@@ -71,6 +71,7 @@ function enc_action_fight(_party_names, _enemy_target) : enc_action(_party_names
 function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_names) constructor {
     target = _enemy_target
     target_act = _act
+    tp_taken = _act.tp_cost
     
     perform = function(_action_queue) {
         if enc_enemy_isfighting(target) {
@@ -102,6 +103,10 @@ function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_n
             }, [party_names])
             cutscene_play()
         }
+    }
+    cancel_effects = function() {
+        with other
+            tp += other.tp_taken
     }
 }
 
