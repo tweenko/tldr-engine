@@ -27,10 +27,11 @@ Please also link the engine somewhere on your game page or recordings and please
 Framing the engine as your own is not too cool, either.
 
 ## Jumpstart
-If you are planning to pull new versions once they are released, please open the repository with GitHub Desktop and clone it on your local device. Once you're all set, you'll be able to fetch and pull the new versions from origin.
-<img width="1845" height="899" alt="image" src="https://github.com/user-attachments/assets/4be9eb9e-87c2-4266-91cf-d38bd49cfaab" />
+<img width="1912" height="584" alt="image" src="https://github.com/user-attachments/assets/930500fa-cccc-4570-bb0d-f558d70c571e" />
+Create a new repository using the template. Press on the big green button as shown on the screeshot. It's highly recommended to use GitHub Desktop for everything.
+If you're not familliar with GitHub, please watch some tutorials. It will help substantially.
 
-If not, however, you can download the engine like a zip file or copy it as a template to a new repository. 
+[Read this Document if you'd like to update your Engine version without losing progress.](https://docs.google.com/document/d/14SpnU32P-_HLdNS17gwaIe8Z2mO8AG1KUUGMe_hNdzM/edit?tab=t.jbfyjpbv88jk)
 
 ---
 
