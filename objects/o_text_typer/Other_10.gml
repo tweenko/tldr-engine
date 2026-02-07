@@ -262,6 +262,9 @@ if command == "can_skip" { // can_skip(bool)
         skipping = false
         superskipping = false
     }
+    else {
+        allow_skip_internal = true
+    }
 }
 if command == "can_superskip" { // can_superskip(bool)
 	can_superskip = bool(arg[0])
@@ -269,6 +272,9 @@ if command == "can_superskip" { // can_superskip(bool)
         allow_skip_internal = false
         skipping = false
         superskipping = false
+    }
+    else {
+        allow_skip_internal = true
     }
 }
 
