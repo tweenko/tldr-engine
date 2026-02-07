@@ -64,7 +64,7 @@ if state == 3 { // stats
 		hp_max: save_get("lw_maxhp"),
 		
 		attack: 1,
-		attack_base : 9,
+		attack_base: 9,
 		defense: 0,
 		defense_base: 10,
 		
@@ -73,7 +73,7 @@ if state == 3 { // stats
 		
 		wp_name: item_get_name(global.lw_weapon),
 		am_name: item_get_name(global.lw_armor),
-		money: 0,
+		money: save_get("lw_money"),
 	}
     if is_undefined(stats.wp_name)
         stats.wp_name = "Pencil"

@@ -77,7 +77,7 @@ global.save = {}
     save_entry("LW_HP", 20)
     save_entry("LW_MAXHP", 20)
     save_entry("LW_MONEY", 0)
-    save_entry("LW_SINCE_CHAPTER", 0)
+    save_entry("LW_SINCE_CHAPTER", undefined)
     
     save_entry("LW_WEAPON", 
         undefined, 

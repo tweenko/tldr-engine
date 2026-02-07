@@ -24,7 +24,7 @@ item_blocked = [room_init]
 item_categories = [
     {
         name: "test zone",
-        keybind: "t",
+        keybind: ord("T"),
         color: c_purple,
         items: [
             room_test_main,
@@ -36,7 +36,7 @@ item_categories = [
     },
     {
         name: "examples",
-        keybind: "e",
+        keybind: ord("E"),
         color: c_aqua,
         items: [
             room_ex_dforest,

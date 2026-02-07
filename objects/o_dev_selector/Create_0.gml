@@ -18,7 +18,7 @@ item_name = function(_item, _category, _item_index) {
 } // should return a stirng
 
 sort_items = function() {
-    display_list = [ {name: "uncategorized", keybind: "u", items: [], color: c_white} ]
+    display_list = [ {name: "uncategorized", keybind: ord("U"), items: [], color: c_white} ]
     
     var __items_added = []
     for (var i = 0; i < array_length(item_categories); i ++) {
