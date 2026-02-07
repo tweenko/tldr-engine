@@ -8,6 +8,9 @@ instance_create(o_dev_musiccontrol)
 instance_create(o_fader)
 instance_create(o_flash)
 
+if global.console_enabled
+    instance_create(o_console)
+
 if !allow_incompatible_saves {
     var __v = (struct_exists(global.settings, "VERSION_SAVED") ? global.settings.VERSION_SAVED : "v0.0.0")
     if !__engine_versions_compare(__v, ENGINE_LAST_COMPATIBLE_VERSION) {
@@ -55,10 +58,10 @@ global.save = {}
     // base player data
     save_entry("NAME", "PLAYER")
     save_entry("ROOM", room_test_main, undefined, function() { return room })
-    save_entry("ROOM_NAME", "", function(_raw_data){ global.room_name = _raw_data }, function(){ return global.room_name })
+    save_entry("ROOM_NAME", "", function(_conv_data){ global.room_name = _conv_data }, function(){ return global.room_name })
     
-    save_entry("TIME", global.time, function(_raw_data){ global.time = _raw_data }, function(){ return global.time })
-    save_entry("CHAPTER", global.chapter, function(_raw_data){ global.chapter = _raw_data }, function(){ return global.chapter })
+    save_entry("TIME", global.time, function(_conv_data){ global.time = _conv_data }, function(){ return global.time })
+    save_entry("CHAPTER", global.chapter, function(_conv_data){ global.chapter = _conv_data }, function(){ return global.chapter })
     save_entry("PLOT", 0)
     save_entry("MONEY", 0)
     save_entry("EXP", 0)
@@ -78,51 +81,60 @@ global.save = {}
     
     save_entry("LW_WEAPON", 
         undefined, 
-        function(_raw_data){ global.lw_weapon = save_inv_single_import(_raw_data) }, 
-        function(){ return save_inv_single_export(global.lw_weapon) }
+        function(_conv_data){ global.lw_weapon = _conv_data }, 
+        function(){ return save_inv_single_export(global.lw_weapon) },
+        function(_raw_data) { return save_inv_single_import(_raw_data) }
     )
     save_entry("LW_ARMOR", 
         undefined, 
-        function(_raw_data){ global.lw_armor = save_inv_single_import(_raw_data) }, 
-        function(){ return save_inv_single_export(global.lw_armor) }
+        function(_conv_data){ global.lw_armor = _conv_data }, 
+        function(){ return save_inv_single_export(global.lw_armor) },
+        function(_raw_data) { return save_inv_single_import(_raw_data) }
     )
     save_entry("LW_ITEMS", 
         global.lw_items, 
-        function(_raw_data){ global.lw_items = save_inv_import(_raw_data) }, 
-        function(){ return save_inv_export(global.lw_items) }
+        function(_conv_data){ global.lw_items = _conv_data }, 
+        function(){ return save_inv_export(global.lw_items) },
+        function(_raw_data) { return save_inv_import(_raw_data) }
     )
     
     // inventory
     save_entry("ITEMS", global.items, 
-        function(_raw_data){ global.items = save_inv_import(_raw_data) }, 
-        function(){ return save_inv_export(global.items) }
+        function(_conv_data){ global.items = _conv_data }, 
+        function(){ return save_inv_export(global.items) },
+        function(_raw_data) { return save_inv_import(_raw_data) }
     )
     save_entry("KEY_ITEMS", global.key_items, 
-        function(_raw_data){ global.key_items = save_inv_import(_raw_data) }, 
-        function(){ return save_inv_export(global.key_items) }
+        function(_conv_data){ global.key_items = _conv_data }, 
+        function(){ return save_inv_export(global.key_items) },
+        function(_raw_data) { return save_inv_import(_raw_data) }
     )
     save_entry("WEAPONS", global.weapons, 
-        function(_raw_data){ global.weapons = save_inv_import(_raw_data) }, 
-        function(){ return save_inv_export(global.weapons) }
+        function(_conv_data){ global.weapons = _conv_data }, 
+        function(){ return save_inv_export(global.weapons) },
+        function(_raw_data) { return save_inv_import(_raw_data) }
     )
     save_entry("ARMORS", global.armors, 
-        function(_raw_data){ global.armors = save_inv_import(_raw_data) }, 
-        function(){ return save_inv_export(global.armors) }
+        function(_conv_data){ global.armors = _conv_data }, 
+        function(){ return save_inv_export(global.armors) },
+        function(_raw_data) { return save_inv_import(_raw_data) }
     )
     save_entry("STORAGE", global.storage, 
-        function(_raw_data){ global.storage = save_inv_import(_raw_data) }, 
-        function(){ return save_inv_export(global.storage) }
+        function(_conv_data){ global.storage = _conv_data }, 
+        function(){ return save_inv_export(global.storage) },
+        function(_raw_data) { return save_inv_import(_raw_data) }
     )
     
     // misc
-    save_entry("STATES", global.states, function(_raw_data){ global.states = _raw_data }, function(){ return global.states })
-    save_entry("WORLD", global.world, function(_raw_data){ global.world = _raw_data }, function(){ return global.world })
+    save_entry("STATES", global.states, function(_conv_data){ global.states = _conv_data }, function(){ return global.states })
+    save_entry("WORLD", global.world, function(_conv_data){ global.world = _conv_data }, function(){ return global.world })
     
     save_entry("RECRUITS", global.recruits, 
-        function(_raw_data){ global.recruits = save_inv_import(_raw_data) }, 
-        function(){ return save_inv_export(global.recruits) }
+        function(_conv_data){ global.recruits = _conv_data }, 
+        function(){ return save_inv_export(global.recruits) },
+        function(_raw_data) { return save_inv_import(_raw_data) }
     )
-    save_entry("RECRUITS_LOST", global.recruits_lost, function(_raw_data){ global.recruits_lost = _raw_data }, function(){ return global.recruits_lost })
+    save_entry("RECRUITS_LOST", global.recruits_lost, function(_conv_data){ global.recruits_lost = _conv_data }, function(){ return global.recruits_lost })
 #endregion
 
 // if you wish to add new save entries, please add them here ⌄⌄⌄⌄⌄⌄⌄⌄
@@ -147,18 +159,20 @@ array_push(global.items, new item_revivemint())
 
 // create entries for the party stuff later since we must first apply their equipment
 save_entry("PARTY_DATA", global.party, 
-    function(_raw_data) { global.party = save_party_import(_raw_data) },
-    function() { return save_party_export(global.party) }
+    function(_conv_data) { global.party = _conv_data },
+    function() { return save_party_export(global.party) },
+    function(_raw_data) { return save_party_import(_raw_data) }
 )
 save_entry("PARTY_NAMES", global.party_names, 
-    function(_raw_data) { global.party_names = _raw_data },
-    function() { return global.party_names }
+    function(_conv_data) { global.party_names = _conv_data },
+    function() { return global.party_names },
 )
 
 
 global.saves = save_read_all() // saves saved on device
 if global.saves[global.save_slot] != -1 
     global.save = global.saves[global.save_slot]
+music_stop_all()
 save_load(global.save_slot)
 
 // init the typer chars

@@ -25,6 +25,7 @@ global.current_cutscene = noone
 global.charmove_insts = []
 global.console = false
 global.current_light = c_white
+global.console_enabled = true
 
 global.temp_choice = 0
 global.typer_chars = {}

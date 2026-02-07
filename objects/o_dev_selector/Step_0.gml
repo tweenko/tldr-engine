@@ -2,20 +2,31 @@ global.console = true
 
 // menu movement
 if InputRepeat(INPUT_VERB.UP) {
-	if selection > 0
-		selection --
+	selection --
+    
+	if selection < 0 {
+        category --
+       if category < 0
+           category = array_length(display_list) - 1
+        selection = array_length(display_list[category].items) - 1
+    }
 }
 if InputRepeat(INPUT_VERB.DOWN) {
-	if selection < array_length(item_list)-1
-		selection ++
+    selection ++
+    
+	if selection >= array_length(display_list[category].items) {
+        selection = 0
+        category ++
+    }
+    if category >= array_length(display_list)
+        category = 0
 }
 
-var current_y = 10 * (1 + (selection * 2)) + 5 - scroll
-scroll = lerp(scroll, max(0, 10 * (1 + (selection * 2)) + 5 - 480/2), .3)
+scroll = lerp(scroll, max(0, soul_y - 480/2 - 40), .3)
 
 if InputPressed(INPUT_VERB.SELECT) {
-	if !array_contains(item_blocked, selection)
-        select(item_list[selection], selection)
+	if !array_contains(item_blocked, display_list[category].items[selection]) 
+        select(display_list[category].items[selection])
 	else 
 		audio_play(snd_ui_cant_select)
 }

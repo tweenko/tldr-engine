@@ -3,22 +3,48 @@ event_inherited()
 var rm = room_first
 var index = 0
 while room_exists(rm) {
-    if rm == room_init
-        array_push(item_blocked, index)
-    
     array_push(item_list, rm)
     
     rm = room_next(rm)
     index ++
 }
 
-select = function(_item, _item_index) {
+select = function(_item) {
     instance_destroy()
     music_stop_all()
     audio_play(snd_ui_select)
     
     room_goto(_item)
 }
-item_name = function(_item, _item_index) {
+item_name = function(_item, _category, _item_index) {
     return room_get_name(_item)
 }
+
+item_blocked = [room_init]
+item_categories = [
+    {
+        name: "test zone",
+        keybind: "t",
+        color: c_purple,
+        items: [
+            room_test_main,
+            room_test_movement,
+            room_test_inventory,
+            room_test_cutscene,
+            room_test_loopback
+        ]
+    },
+    {
+        name: "examples",
+        keybind: "e",
+        color: c_aqua,
+        items: [
+            room_ex_dforest,
+            room_ex_city,
+            room_ex_church,
+            room_ex_light_world,
+            room_ex_multi_path
+        ]
+    }
+]
+sort_items()

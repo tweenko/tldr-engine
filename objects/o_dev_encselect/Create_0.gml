@@ -8,15 +8,22 @@ item_list = [
 ]
 // feel free to add your encounters to the item list
 
-enc_names = []
-for (var i = 0; i < array_length(item_list); i++){
-	enc_names[i] = script_get_name(item_list[i])
-}
-
-select = function(_item, _item_index) {
+select = function(_item) {
     instance_destroy()
     new _item()._start()
 }
-item_name = function(_item, _item_index) {
-    return enc_names[_item_index]
+item_name = function(_item, _category, _item_index) {
+    return enc_names[_category][_item_index]
 }
+
+item_categories = []
+sort_items()
+
+enc_names = [[]]
+for (var i = 0; i < array_length(display_list); i++) {
+    for (var j = 0; j < array_length(display_list[i].items); j ++) {
+        enc_names[i][j] = script_get_name(display_list[i].items[j])
+    }
+}
+
+show_debug_message(enc_names)

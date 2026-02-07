@@ -187,6 +187,7 @@ if command == "choice" { // choice(`choice1`, `choice2`, ...)  create a choice b
 	choice_inst = instance_create(o_text_choice, x, y, depth, {
 		choices: arg,
 		caller: id,
+        box_height: (caller.object_index == o_ui_dialogue ? caller.height : 151)
 	})
     
 	pause = -2

@@ -12,6 +12,8 @@ for (var i = 0; i < array_length(mini_faces); ++i) {
 	instance_destroy(mini_faces[i])
 }
 
+instance_destroy(face_inst)
+
 mychars = []
 mini_faces = []
 superskipping_buffer = 1

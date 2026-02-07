@@ -128,6 +128,7 @@ if state == 1 {
 	}
 	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 { // load file
         if files[selection] != -1 {
+            music_stop_all()
             save_load(selection, global.chapter)
             
     		room_goto(save_get("room"))
@@ -497,6 +498,7 @@ if state == 41 {
 	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 {
 		audio_play(snd_ui_select)
         
+        music_stop_all()
         save_load(subselection, global.chapter - 1) // load the previous chapter
         room_goto(save_get("room"))
         fader_fade(1, 0, 15)

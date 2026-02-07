@@ -4,7 +4,7 @@ debuff = 0 // 0 for default difficulty
 enemy_index = 0
 enemy_struct = {}
 
-pattern = 1
+pattern = undefined
 pattern_pool = [1]
 
 timer = 0
