@@ -153,10 +153,10 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
             if struct_exists(target_act, acting_member){
                 target_act = struct_get(target_act, acting_member)
                 if struct_exists(target_act, "exec") {
-                    method_call(target_act.exec, 
+                    method_call(target_act.exec, [
                         other.party_enemy_selection[party_get_index(acting_member)], 
-                        acting_member
-                    )
+                        acting_member 
+                    ])
                     __default_action = false
                 }
             }
