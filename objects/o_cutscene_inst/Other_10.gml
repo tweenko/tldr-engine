@@ -4,5 +4,5 @@ while sleep == 0 {
         exit
     
     var args = ds_queue_dequeue(actions)
-    script_execute_ext(args[0], args, 1)
+    method_call(args[0], args, 1)
 }

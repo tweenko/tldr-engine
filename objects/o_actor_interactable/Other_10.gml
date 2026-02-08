@@ -1,2 +1,2 @@
 /// @desc interact
-script_execute_ext(interaction_code, interaction_args)
+method_call(interaction_code, interaction_args)

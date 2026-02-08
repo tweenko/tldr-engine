@@ -131,6 +131,9 @@ function tp_clamp(tp) {
 /// @desc returns whether an enemy is still fighting
 /// @arg enemy_slot
 function enc_enemy_isfighting(target) {
+    if target >= array_length(o_enc.encounter_data.enemies) || target < 0
+        return false
+    
 	var ret = is_struct(o_enc.encounter_data.enemies[target])
 	if ret && o_enc.encounter_data.enemies[target].hp <= 0 
 		ret = false

@@ -14,7 +14,7 @@ for (var i = 0; i < array_length(mini_faces); ++i) {
 
 mychars = []
 mini_faces = []
-superskipping_buffer = 1
+superskipping_buffer = 2
 
 init = true
 box_init = false

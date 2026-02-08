@@ -6,7 +6,7 @@ if play {
 	if sleep > 0
 		sleep --
 	if sleep == -1 {
-		if script_execute_ext(continue_func, continue_args)
+		if method_call(continue_func, continue_args)
 			sleep = 0
 	}
 }

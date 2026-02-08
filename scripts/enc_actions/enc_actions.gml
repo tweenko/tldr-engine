@@ -87,7 +87,7 @@ function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_n
             if struct_exists(target_act, "exec_args")
                 exec_args = target_act.exec_args
             
-            script_execute_ext(target_act.exec, array_concat([target, acting_member], exec_args))
+            method_call(target_act.exec, array_concat([target, acting_member], exec_args))
             
             cutscene_create()
             cutscene_wait_until(function() {
@@ -130,9 +130,9 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
                         break
                     }
                 }
+            if !enc_enemy_isfighting(target)
+                exit
         }
-        if !enc_enemy_isfighting(target)
-            exit
         
         cutscene_create()
         cutscene_set_variable(o_enc, "waiting_internal", true)
@@ -153,7 +153,7 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
             if struct_exists(target_act, acting_member){
                 target_act = struct_get(target_act, acting_member)
                 if struct_exists(target_act, "exec") {
-                    script_execute(target_act.exec, 
+                    method_call(target_act.exec, 
                         other.party_enemy_selection[party_get_index(acting_member)], 
                         acting_member
                     )
@@ -221,9 +221,9 @@ function enc_action_item(_party_names, _target, _item, _item_index) : enc_action
                         break
                     }
                 }
+            if !enc_enemy_isfighting(target)
+                exit
         }
-        if !enc_enemy_isfighting(target)
-            exit
         
         cutscene_create()
         cutscene_set_variable(o_enc, "waiting_internal", true)

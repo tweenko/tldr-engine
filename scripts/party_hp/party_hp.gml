@@ -1,9 +1,15 @@
 ///@desc changes the hp of a party member, adjusts for whether or not you're in battle and also checks for dying
-function party_hpchange(name, heal, caller = noone, sfx = -1) {
+/// @arg {string} name the name of the party member who's hp you'd like to change
+/// @arg {real} heal the amount you want to heal your party member by
+/// @arg {Id.Instance|Asset.GMObject} caller the caller of the function
+/// @arg {Asset.GMSound} sfx the sound effect that will play when the hp is changed
+/// @arg {bool} spawn_text whether text should be spawned
+function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true) {
 	if heal > 0 { // heal
 		if sfx == -1
 			sfx = snd_heal
-		audio_play(sfx,,,,1)
+        if audio_exists(sfx)
+            audio_play(sfx,,,,1)
 		
 		struct_set(party_nametostruct(name), "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
 		
@@ -13,10 +19,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			
 			inst.text = string("+{0}", heal)
 		}
-		else if caller == o_enc // if in battle or in a cutscene
-			|| caller.object_index == o_cutscene_inst
-			|| caller.object_index == o_enc
-		{ 
+		else { 
 			var o = party_get_inst(name)
 			var txt = heal
 			
@@ -31,12 +34,13 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			if party_getdata(name, "hp") >= party_getdata(name, "max_hp")
 				txt = "max"
 			
-			instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {
-				draw: txt, 
-				mode: TEXT_HPCHANGE_MODE.PARTY
-			})
-			instance_create(o_eff_healeffect,,,, {target: o})
+            if spawn_text
+                instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {
+                    draw: txt, 
+                    mode: TEXT_HPCHANGE_MODE.PARTY
+                })
             
+			instance_create(o_eff_healeffect,,,, {target: o})
             var a = animate(.5, 1, 4, anime_curve.linear, o, "flash")
                 a._add(0, 6, anime_curve.linear)
                 a._start()
@@ -47,7 +51,8 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 			||caller.object_index == o_enc 
 		{
 			var o = party_get_inst(name)
-			instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: "miss", mode: TEXT_HPCHANGE_MODE.PARTY})
+            if spawn_text
+                instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: "miss", mode: TEXT_HPCHANGE_MODE.PARTY})
 		}
 	}
 	else if heal < 0 { // hurt
@@ -108,11 +113,13 @@ function party_hpchange(name, heal, caller = noone, sfx = -1) {
 				}
 			}
 			
-			instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {
-				draw: txt, 
-				mode: TEXT_HPCHANGE_MODE.PARTY
-			})
-			audio_play(sfx,,,,1)
+            if spawn_text
+                instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {
+                    draw: txt, 
+                    mode: TEXT_HPCHANGE_MODE.PARTY
+                })
+            if audio_exists(sfx)
+                audio_play(sfx,,,,1)
 		}
 		
 		party_check_gameover()

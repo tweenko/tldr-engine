@@ -57,7 +57,7 @@ function cutscene_custom(_custom = {
             && _custom.pause
         || struct_exists(_custom, "continue_func") 
     		&& struct_exists(_custom, "continue_args") 
-            && !script_execute_ext(_custom.continue_func, _custom.continue_args)
+            && !method_call(_custom.continue_func, _custom.continue_args)
 	{
 		ds_queue_enqueue(global.current_cutscene.actions, [variable_instance_set, global.current_cutscene, "sleep", -1])
 	}
@@ -324,7 +324,7 @@ function cutscene_func(func, args = []){
 		action: [function(func,args) {
 			if !is_array(args) 
 				args = [args]
-			script_execute_ext(func, args)
+			method_call(func, args)
 		}, func, args]
 	})
 }

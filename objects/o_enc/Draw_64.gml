@@ -113,6 +113,9 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
             var __x_off = 111 - floor(array_length(buttons)*35/2) + j*35
             var __selection = party_button_selection[i]
             
+            if array_length(buttons) != 5 // actually center them
+                __x_off = 109 - floor(array_length(buttons)*35/2) + j*35
+            
             draw_sprite_ext(spr_pixel, 0, __x_off, 1, 31, 25, 0, c_black, 1)
             if sprite_exists(__spr)
                 draw_sprite_ext(__spr, (__selection == j && i == party_selection ? 1 : 0), __x_off, 1, 1, 1, 0, c_white, 1)
