@@ -243,7 +243,7 @@
         save_set_slot(slot)
         for (var i = 0; i < array_length(global.save_recording); i ++) {
             var __recording = global.save_recording[i]
-            var __value = variable_clone(__recording.default_value)
+            var __value = (to_default_values ? variable_clone(__recording.default_value) : save_get(__recording.name))
             
             if !to_default_values && is_callable(__recording.__convert)
                 __value = __recording.__convert(save_get(__recording.name))
