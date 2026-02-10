@@ -13,7 +13,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 		
 		struct_set(party_nametostruct(name), "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
 		
-		if caller.object_index == o_ui_menu { // if in menu
+		if instance_exists(caller) && caller.object_index == o_ui_menu { // if in menu
 			var xoff = 319.5 + array_length(global.party_names) * -213/2
 			var inst = instance_create(o_ui_menu_healeffect, xoff + 70 + 213*array_get_index(global.party_names, name))
 			
@@ -47,11 +47,10 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 		}
 	}
 	else if heal == 0 { // miss
-		if caller.object_index == o_cutscene_inst // if in battle
-			||caller.object_index == o_enc 
-		{
+        if instance_exists(caller) && caller.object_index == o_ui_menu {} // if in menu, do nothing
+		else if spawn_text {
 			var o = party_get_inst(name)
-            if spawn_text
+            if spawn_text && instance_exists(o)
                 instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: "miss", mode: TEXT_HPCHANGE_MODE.PARTY})
 		}
 	}
@@ -61,16 +60,13 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 		
 		struct_set(party_nametostruct(name), "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
 		
-		if caller == o_enc // if in battle
-			|| caller.object_index == o_cutscene_inst
-			|| caller.object_index == o_enc
-		{
+        if instance_exists(caller) && caller.object_index == o_ui_menu {} // if in menu, do nothing
+		else {
 			var txt = heal
 			var o = party_get_inst(name)
 			
-            if instance_exists(o_enc) {
+            if instance_exists(o_enc)
                 o_enc.pm_hurt[party_get_index(name)] = 15
-            }
             
 			if o.is_in_battle {
 				o.hurt = 20
@@ -84,7 +80,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 					txt = "down"
 				}
 			}
-			else {
+			else{
 				o.hurt = 5
 				screen_shake(5)
 				
@@ -130,7 +126,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 /// @arg {string} name the name of the party member to heal
 /// @arg {real} heal the amount to heal a party member for
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
-function party_heal(name, heal, caller = -1, sfx = -1) {
+function party_heal(name, heal, caller = noone, sfx = -1) {
 	party_hpchange(name, heal, caller, sfx)
 }
 /// @desc kind of a fake function that just calls party_hpchange but makes the heal argument negative to hurt the party member instead
@@ -138,7 +134,7 @@ function party_heal(name, heal, caller = -1, sfx = -1) {
 /// @arg {real} hurt the damage to be dealed
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
 /// @arg {real} sfx sound effect that will be played upon dealing damage
-function party_hurt(name, hurt, caller = -1, sfx = -1) {
+function party_hurt(name, hurt, caller = noone, sfx = -1) {
 	party_hpchange(name, -hurt, caller, sfx)
 }
 ///@desc hurt a party member while calculating the damage of with the defense and attack of characters
@@ -147,7 +143,7 @@ function party_hurt(name, hurt, caller = -1, sfx = -1) {
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
 /// @arg {string} element the element of the attack that will be used for calculation
 /// @arg {real} sfx sound effect that will be played upon dealing damage
-function party_attack(name, enemy_attack, caller = -1, element = "", sfx = -1) {
+function party_attack(name, enemy_attack, caller = noone, element = "", sfx = -1) {
     var dmg = damage(enemy_attack, name, element)
     party_hurt(name, dmg, caller, sfx)
 }
@@ -156,7 +152,7 @@ function party_attack(name, enemy_attack, caller = -1, element = "", sfx = -1) {
 /// @arg {string} name the name of the party member to heal
 /// @arg {real} heal the amount to heal a party member for
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
-function party_heal_all(heal, caller = -1) {
+function party_heal_all(heal, caller = noone) {
 	for (var i = 0; i < array_length(global.party_names); ++i) {
 		party_heal(global.party_names[i], heal, caller)
 	}
@@ -165,7 +161,7 @@ function party_heal_all(heal, caller = -1) {
 /// @arg {real} hurt the damage to deal
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
 /// @arg {string} element the element of the attack that will be used for calculation
-function party_hurt_all(hurt, caller = -1) {
+function party_hurt_all(hurt, caller = noone) {
 	for (var i = 0; i < array_length(global.party_names); ++i) {
 		party_hurt(global.party_names[i], hurt, caller)
 	}
@@ -174,7 +170,7 @@ function party_hurt_all(hurt, caller = -1) {
 /// @arg {real} enemy_attack the enemy's attack that will be used for calculation
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response\
 /// @arg {string} element the element of the attack that will be used for calculation
-function party_attack_all(att, caller = -1, element = "") {
+function party_attack_all(att, caller = noone, element = "") {
 	for (var i = 0; i < array_length(global.party_names); ++i) {
 		var dmg = damage(att, global.party_names[i], element)
 		party_hurt(global.party_names[i], dmg, caller)
@@ -183,7 +179,7 @@ function party_attack_all(att, caller = -1, element = "") {
 ///@desc hurt targeted party members a specified amount
 /// @arg {real} hurt the damage to deal
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
-function party_hurt_targets(hurt, caller = -1) {
+function party_hurt_targets(hurt, caller = noone) {
 	for (var i = 0; i < array_length(o_enc.turn_targets); ++i) {
 		if !party_getdata(o_enc.turn_targets[i], "is_down") {
 			party_hurt(o_enc.turn_targets[i], hurt, caller)
