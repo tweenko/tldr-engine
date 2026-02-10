@@ -71,7 +71,7 @@ function enc_action_fight(_party_names, _enemy_target) : enc_action(_party_names
 function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_names) constructor {
     target = _enemy_target
     target_act = _act
-    tp_taken = (struct_exists(_act, "tp_cost") ? 0 : _act.tp_cost)
+    tp_taken = (struct_exists(_act, "tp_cost") ? _act.tp_cost : 0)
     
     perform = function(_action_queue) {
         if enc_enemy_isfighting(target) {
