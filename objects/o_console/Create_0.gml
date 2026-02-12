@@ -71,7 +71,6 @@ registred_commands = {
                 }
                 else {
                     o_enc.battle_state = BATTLE_STATE.WIN
-                    o_enc.party_selection = -1
                     
                     // destroy the enemy actors
                     for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {

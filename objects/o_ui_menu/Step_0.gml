@@ -318,6 +318,13 @@ if !only_hp {
 					customreaction = true
 					item_menu_party_react("susie", loc("item_susie_comment"))
 				}
+                if allow // don't allow to touch weapons at all
+                    && e_pselection == 0
+					&& is_undefined(arr_mod[e_selection]) 
+                    && !is_undefined(party_getdata(global.party_names[e_pmselection], "weapon"))
+				{
+					allow = false
+				}
 				
 				if allow {
 					state = 2
@@ -328,15 +335,15 @@ if !only_hp {
 						item_menu_reaction(arr_mod[e_selection], e_pmselection)
 						item_use(arr_mod[e_selection], e_selection - 1, global.party_names[e_pmselection])
 						if is_undefined(equipment[e_pselection]) 
-							item_delete(e_selection-1, (e_pselection>0 ? 3 : 2))
+							item_delete(e_selection-1, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
 						else 
-							item_set(equipment[e_pselection], e_selection-1, (e_pselection>0 ? 3 : 2))
+							item_set(equipment[e_pselection], e_selection-1, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
                         
 						party_setdata(global.party_names[e_pmselection], order[e_pselection], arr_mod[e_selection])
 					}
 					else {
 						if !is_undefined(equipment[e_pselection]) {
-							item_add(equipment[e_pselection], (e_pselection>0 ? 3 : 2))
+							item_add(equipment[e_pselection], (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
 							party_setdata(global.party_names[e_pmselection], order[e_pselection], undefined)
 						}
 					}
@@ -348,7 +355,7 @@ if !only_hp {
 				}
 				else {
 					audio_play(snd_ui_cant_select)
-					if !customreaction 
+					if !customreaction && !is_undefined(arr_mod[e_selection])
 						item_menu_reaction(arr_mod[e_selection], e_pmselection)
 				}
 			}

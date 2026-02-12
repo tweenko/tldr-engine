@@ -29,7 +29,7 @@ function enc_set() constructor { // base
     
     // miscellaneous config
     can_change_turnlen = true // by defending
-	display_target = true // whether to display the targets of the enemy's attack
+	display_target = false // whether to display the targets of the enemy's attack, like in chapter 1
     enc_var_struct = {}
 	
     // in-fight-events
@@ -89,8 +89,8 @@ function enc_set_ex() : enc_set() constructor {
             return -1
         return [array_shuffle(__targets)[0]]
     }
-    _target_recalculate_condition = function(__current_target) {
-        return (!party_isup(__current_target) ? true : false)
+    _target_recalculate_condition = function(__current_targets) {
+        return (!party_isup(__current_targets[0]) ? true : false)
     }
 }
 function enc_set_virovirokun() : enc_set() constructor {

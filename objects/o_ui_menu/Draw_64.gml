@@ -18,7 +18,7 @@ if !only_hp { // top
 		if selection == i && state == 0
 			draw_sprite_ext(spr_ui_soul_small, 0, 128 + 100*i, 38 - 80 + roll, 2, 2, 0, c_red, 1)
 	}
-	draw_text_transformed(520, 20 - 80 + roll, string("D$ {0}", darkdollars), 2, 2, 0)
+	draw_text_transformed(520, 20 - 80 + roll, string("D$ {0}", save_get("money")), 2, 2, 0)
 }
 { // bottom
 	draw_sprite_ext(spr_pixel, 0, 0, 417 + 80 - roll, 640, 63, 0, c_black, 1)
