@@ -76,7 +76,9 @@ function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_n
     perform = function(_action_queue) {
         if enc_enemy_isfighting(target) {
             // set the party sprites accordingly
-            if struct_exists(target_act, "perform_act_anim") && target_act.perform_act_anim {
+            if !struct_exists(target_act, "perform_act_anim") 
+                || (struct_exists(target_act, "perform_act_anim") && target_act.perform_act_anim)
+            {
                 for (var i = 0; i < array_length(party_names); i ++) {
                     enc_party_set_battle_sprite(party_names[i], "act")
                 }
@@ -84,6 +86,7 @@ function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_n
         
             // perform the act
             var exec_args = []
+            var back_to_idle = (struct_exists(target_act, "return_to_idle_sprites") ? target_act.return_to_idle_sprites : true)
             if struct_exists(target_act, "exec_args")
                 exec_args = target_act.exec_args
             
@@ -93,14 +96,20 @@ function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_n
             cutscene_wait_until(function() {
                 return !o_enc.__check_waiting()
             })
-            cutscene_func(function(party_names) {
+            cutscene_func(function(party_names, back_to_idle) {
                 for (var i = 0; i < array_length(party_names); i ++) {
                     var p_inst = party_get_inst(party_names[i])
-                    if instance_exists(p_inst) && party_get_inst(party_names[i]).sprite_index == enc_getparty_sprite(party_names[i], "act")
-                        enc_party_set_battle_sprite(party_names[i], "actend")
+                    
+                    if instance_exists(p_inst) {
+                        if p_inst.sprname == "act"
+                            enc_party_set_battle_sprite(party_names[i], "actend")
+                        else if back_to_idle
+                            enc_party_set_battle_sprite(party_names[i], "idle")
+                    } 
+                    
                     o_enc.party_state[party_get_index(party_names[i])] = PARTY_STATE.IDLE
                 }
-            }, [party_names])
+            }, [party_names, back_to_idle])
             cutscene_play()
         }
     }

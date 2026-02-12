@@ -45,7 +45,6 @@ function enc_set() constructor { // base
 	// methods
     _target_calculation = function() { // should return an array of indexes of party members who are targeted
         var __targets = []
-        
         for (var i = 0; i < array_length(global.party_names); ++i) {
 		    if party_getdata(global.party_names[i], "hp") > 0
 				array_push(__targets, global.party_names[i])
@@ -53,6 +52,10 @@ function enc_set() constructor { // base
         
         return __targets
     }
+    _target_recalculate_condition = function(__current_targets) {
+        return false
+    }
+    
 	_start = function() {
 		enc_start(self)
 	}
@@ -77,13 +80,17 @@ function enc_set_ex() : enc_set() constructor {
     
     _target_calculation = function() {
         var __targets = []
-        
         for (var i = 0; i < array_length(global.party_names); ++i) {
 		    if party_getdata(global.party_names[i], "hp") > 0
 				array_push(__targets, global.party_names[i])
 		}
         
+        if array_length(__targets) == 0
+            return -1
         return [array_shuffle(__targets)[0]]
+    }
+    _target_recalculate_condition = function(__current_target) {
+        return (!party_isup(__current_target) ? true : false)
     }
 }
 function enc_set_virovirokun() : enc_set() constructor {
