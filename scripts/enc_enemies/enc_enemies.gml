@@ -22,10 +22,12 @@ function enemy() constructor {
 		{
 			name: loc("enc_act_check"),
 			desc: "Useless analysis",
-            
 			party: [],
-            perform_act_anim: false,
-            tp_cost: 0,
+            tp_cost: 0, // optional, 0 by default
+            
+            enabled: true, // optional, true by default
+            perform_act_anim: true, // optional, true by default
+            return_to_idle_sprites: true, // optional, true by default
             
 			exec: function(enemy_slot, user_index){
 				encounter_scene_dialogue("* Empty CHECK text.")
@@ -181,7 +183,6 @@ function enemy_virovirokun() : enemy() constructor{
 				
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecare_msg"))
                 
-                cutscene_set_partysprite(user, "idle")
 				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 			}
@@ -222,13 +223,6 @@ function enemy_virovirokun() : enemy() constructor{
 					}
 				}, user)
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecarex_msg"))
-				
-                // go back to idle sprites
-                cutscene_func(function(user) {
-					for (var i = 0; i < array_length(global.party_names); ++i) {
-					    enc_party_set_battle_sprite(global.party_names[i], "idle")
-					}
-				}, user)
 				cutscene_set_variable(o_enc, "waiting", false)
 				cutscene_play()
 			}

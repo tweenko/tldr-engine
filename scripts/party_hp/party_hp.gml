@@ -23,14 +23,10 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 			var o = party_get_inst(name)
 			var txt = heal
 			
-			if party_getdata(name, "hp") > 0 && party_getdata(name, "is_down") && o_enc.battle_state == "post_turn" {
+			if !party_isup(name) && o_enc.battle_state == "post_turn" {
 				txt = "up"
 				party_setdata(name, "hp", round(party_getdata(name, "max_hp") * .17))
-				party_setdata(name, "is_down", false)
 			}
-			else if party_getdata(name, "hp") > 0 && party_getdata(name, "is_down") 
-				party_setdata(name, "is_down", false)
-			
 			if party_getdata(name, "hp") >= party_getdata(name, "max_hp")
 				txt = "max"
 			
@@ -73,10 +69,8 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
                 screen_shake(5)
 				animate(6, 0, 10, anime_curve.linear, o, "shake")
 				
-				if !party_getdata(name, "is_down") && !party_isup(name) {
+				if party_got_downed(name) {
 					party_setdata(name, "hp", round(party_getdata(name, "max_hp") / -2))
-					party_setdata(name, "is_down", true)
-					
 					txt = "down"
 				}
 			}
@@ -170,7 +164,7 @@ function party_hurt_all(hurt, caller = noone) {
 /// @arg {real} enemy_attack the enemy's attack that will be used for calculation
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response\
 /// @arg {string} element the element of the attack that will be used for calculation
-function party_attack_all(att, caller = noone, element = "") {
+function party_attack_all(att, caller = noone, element = "", enemy_index = noone) {
 	for (var i = 0; i < array_length(global.party_names); ++i) {
 		var dmg = damage(att, global.party_names[i], element)
 		party_hurt(global.party_names[i], dmg, caller)
@@ -181,9 +175,8 @@ function party_attack_all(att, caller = noone, element = "") {
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
 function party_hurt_targets(hurt, caller = noone) {
 	for (var i = 0; i < array_length(o_enc.turn_targets); ++i) {
-		if !party_getdata(o_enc.turn_targets[i], "is_down") {
+		if party_isup(o_enc.turn_targets[i])
 			party_hurt(o_enc.turn_targets[i], hurt, caller)
-		}
 	}
 }
 ///@desc hurt targeted party members while calculating the damage of with the defense and attack of characters
@@ -192,7 +185,10 @@ function party_hurt_targets(hurt, caller = noone) {
 /// @arg {string} element the element of the attack that will be used for calculation
 function party_attack_targets(att, caller = noone, element = "") {
 	for (var i = 0; i < array_length(o_enc.turn_targets); ++i) {
-		if !party_getdata(o_enc.turn_targets[i], "is_down") {
+        if o_enc.encounter_data._target_recalculate_condition(o_enc.turn_targets)
+            o_enc.turn_targets = o_enc.encounter_data._target_calculation()
+        
+		if party_isup(o_enc.turn_targets[i]) {
 			var dmg = damage(att, o_enc.turn_targets[i], element)
 			party_hurt(o_enc.turn_targets[i], dmg, caller)
 		}

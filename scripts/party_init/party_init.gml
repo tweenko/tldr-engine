@@ -106,8 +106,6 @@ function party_m(_initialized_name) constructor {
 		victory: [spr_bsusie_victory, true],
 		spare: [spr_bsusie_act, "idle", 1],
 		attack_eff: spr_bsusie_attackeff,
-		
-		rudebuster: [spr_bsusie_rudebuster, 14],
 	}
 		
 	// system

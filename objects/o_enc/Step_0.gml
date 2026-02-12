@@ -240,6 +240,7 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
     if !__check_waiting() && buffer == 0 {
         if !dialogue_init {
             animate(0, .75, 15, "linear", o_eff_bg, "fade")
+            
             turn_objects = array_create(array_length(encounter_data.enemies), noone)
     		for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
     			if !enc_enemy_isfighting(i)
@@ -407,10 +408,8 @@ else if battle_state == BATTLE_STATE.WIN {
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 		    party_state[i] = PARTY_STATE.IDLE
 			
-			if party_getdata(global.party_names[i], "is_down") {
+			if !party_isup(global.party_names[i])
 				party_setdata(global.party_names[i], "hp", round(party_getdata(global.party_names[i], "max_hp") * .12))
-                party_setdata(global.party_names[i], "is_down", false)
-            }
             
 			enc_party_set_battle_sprite(global.party_names[i], "victory", 0, 1)
             

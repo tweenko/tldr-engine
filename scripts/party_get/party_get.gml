@@ -72,6 +72,28 @@ function party_get_obj(name) {
 function party_isup(name) {
 	return party_getdata(name, "hp") > 0
 }
+///@desc returns whether a party member was just downed
+function party_got_downed(name) {
+    static down_prev = false
+    
+    if party_getdata(name, "hp") <= 0 && !down_prev {
+        down_prev = true
+        return true
+    }
+    if party_getdata(name, "hp") > 0
+        down_prev = false
+}
+///@desc returns whether a party member was just revived
+function party_got_up(name) {
+    static up_prev = true
+    
+    if party_getdata(name, "hp") > 0 && !up_prev {
+        up_prev = true
+        return true
+    }
+    if party_getdata(name, "hp") <= 0
+        up_prev = false
+}
 
 /// @desc returns the struct of the party member
 function party_get_struct(name) {

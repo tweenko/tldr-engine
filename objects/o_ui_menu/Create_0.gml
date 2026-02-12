@@ -160,8 +160,6 @@ only_hp = false
 
 i_mode = 0 // 1 for everybody
 
-darkdollars = save_get("money")
-
 bcolor = merge_color(c_purple, c_black, 0.7)
 bcolor = merge_color(bcolor, c_dkgray, 0.5)
 

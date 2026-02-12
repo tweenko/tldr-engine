@@ -239,16 +239,18 @@
 	function save_load(slot, chapter = global.chapter, to_default_values = false) {
 		if global.saves[slot] != -1 
             global.save = global.saves[slot]
+        else 
+            to_default_values = true
         
         save_set_slot(slot)
         for (var i = 0; i < array_length(global.save_recording); i ++) {
             var __recording = global.save_recording[i]
-            var __value = (to_default_values ? variable_clone(__recording.default_value) : save_get(__recording.name))
+            var __value = (to_default_values ? variable_clone(__recording.default_value) : variable_clone(save_get(__recording.name)))
             
             if !to_default_values && is_callable(__recording.__convert)
-                __value = __recording.__convert(save_get(__recording.name))
-            struct_set(global.save, string_upper(__recording.name), __value)
+                __value = __recording.__convert(variable_clone(save_get(__recording.name)))
             
+            struct_set(global.save, string_upper(__recording.name), __value)
             if is_callable(__recording.__import)
                 __recording.__import(save_get(__recording.name))
         }

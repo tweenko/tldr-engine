@@ -9,7 +9,7 @@ spd = 0
 timer = random(5)
 
 element = "dark_star"
-att = 30
+att = 20
 
 image_alpha = 0
 
