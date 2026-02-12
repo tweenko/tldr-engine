@@ -226,7 +226,7 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
     selected_item_index = clamp(selected_item_index, 0, array_length(list)-1)
     
     for (var i = page_index*6; i < min(page_index*6 + 6, array_length(list)); i ++) {
-        var can_do = true
+        var can_do = enc_item_get_enabled(list[i])
         var txt = item_get_name(list[i])
         var item_xoffset = 0
         
@@ -282,9 +282,6 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
         }
         
         // dim the item color if needed
-        if struct_exists(list[i], "tp_cost") && list[i].tp_cost > 0
-            if tp < list[i].tp_cost 
-                draw_set_color(c_gray)
         if !can_do 
             draw_set_color(c_gray)
         

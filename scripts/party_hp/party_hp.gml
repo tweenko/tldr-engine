@@ -69,7 +69,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
                 screen_shake(5)
 				animate(6, 0, 10, anime_curve.linear, o, "shake")
 				
-				if !party_got_downed(name) {
+				if party_got_downed(name) {
 					party_setdata(name, "hp", round(party_getdata(name, "max_hp") / -2))
 					txt = "down"
 				}

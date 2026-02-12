@@ -9,3 +9,6 @@ if hits >= maxhits && collide {
 if !collide {
 	image_angle -= 2
 }
+
+if instance_exists(caller)
+    depth = caller.depth - 5

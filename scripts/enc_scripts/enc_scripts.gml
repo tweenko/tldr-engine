@@ -253,3 +253,39 @@ function enc_set_count_enemy(set_or_ref, enemy_ref) {
     }
     return counter
 }
+
+/// @desc returns whether an item in the item selector page of the encounter ui can be used
+/// @arg {struct} item_struct the struct of the item you'd like to check
+function enc_item_get_enabled(item_struct) {
+    var can_perform = true
+    
+    // disable the act if some member is not up
+    if struct_exists(item_struct, "party") {
+        if item_struct.party == -1 {
+            for (var j = 0; j < array_length(global.party_names); j ++) {
+                if !party_isup(global.party_names[j]) {
+                    can_perform = false
+                    break
+                }
+            }
+        }
+        else {
+            for (var j = 0; j < array_length(item_struct.party); j ++) {
+                var name = item_struct.party[j]
+                if !party_isup(name) {
+                    can_perform = false
+                    break
+                }
+            }
+        }
+    }
+    
+    if struct_exists(item_struct, "tp_cost") {
+        if item_struct.tp_cost > o_enc.tp
+            can_perform = false
+    }
+    if struct_exists(item_struct, "enabled") && item_struct.enabled
+        can_perform = false
+    
+    return can_perform
+}

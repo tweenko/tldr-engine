@@ -23,10 +23,11 @@ function enemy() constructor {
 			name: loc("enc_act_check"),
 			desc: "Useless analysis",
 			party: [],
-            tp_cost: 0,
+            tp_cost: 0, // optional, 0 by default
             
-            perform_act_anim: false,
-            return_to_idle_sprites: true,
+            enabled: true, // optional, true by default
+            perform_act_anim: true, // optional, true by default
+            return_to_idle_sprites: true, // optional, true by default
             
 			exec: function(enemy_slot, user_index){
 				encounter_scene_dialogue("* Empty CHECK text.")
