@@ -284,8 +284,12 @@ function enc_item_get_enabled(item_struct) {
         if item_struct.tp_cost > o_enc.tp
             can_perform = false
     }
-    if struct_exists(item_struct, "enabled") && item_struct.enabled
-        can_perform = false
+    if struct_exists(item_struct, "enabled") {
+        if is_callable(item_struct.enabled)
+            can_perform = item_struct.enabled()
+        else 
+            can_perform = item_struct.enabled
+    }
     
     return can_perform
 }

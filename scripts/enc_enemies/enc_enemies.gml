@@ -25,7 +25,7 @@ function enemy() constructor {
 			party: [],
             tp_cost: 0, // optional, 0 by default
             
-            enabled: true, // optional, true by default
+            enabled: true, // optional, true by default. can also be callable
             perform_act_anim: true, // optional, true by default
             return_to_idle_sprites: true, // optional, true by default
             
