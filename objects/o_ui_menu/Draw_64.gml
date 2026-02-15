@@ -156,7 +156,7 @@ if selection == 1 { // equip
             _r_offset = 16
         }
 		
-		ui_dialoguebox_create(58 + _l_offset, 88, 583 - 58 + _r_offset - _l_offset, 413 - 88)
+		ui_dialoguebox_create(58 + _l_offset, 88, 584 - 58 + _r_offset - _l_offset, 414 - 88)
 		draw_text_transformed(135 + _l_offset, 107, party_getname(global.party_names[e_pmselection],false), 2, 2, 0)
 		
 		for (var i = 0; i < array_length(global.party_names); ++i) {
@@ -395,7 +395,7 @@ if selection == 2 { // power
             _r_offset = 16
         }
         
-        ui_dialoguebox_create(58 + _l_offset, 88, 583 - 58 + _r_offset - _l_offset, 413 - 88)
+        ui_dialoguebox_create(58 + _l_offset, 88, 584 - 58 + _r_offset - _l_offset, 414 - 88)
 		
 		draw_text_transformed(130 + _l_offset, 112-7, party_getname(global.party_names[p_pmselection], false), 2, 2, 0)
 		for (var i = 0; i < array_length(global.party_names); ++i) {
@@ -488,7 +488,7 @@ if selection == 2 { // power
 }
 if selection == 3 && state > 0 { // config
     draw_set_font(loc_font("main"))
-    ui_dialoguebox_create(58, 88, 583 - 58, 413 - 88)
+    ui_dialoguebox_create(58, 88, 584 - 58, 414 - 88)
     
     if state == 1 || state == 2 || state == 4 {
         draw_text_transformed(270, 100, loc("menu_config_header"), 2, 2, 0)
