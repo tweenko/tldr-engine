@@ -157,11 +157,16 @@ if command == "eff" || command == "effect" { // eff(real) out of 0 (shake)
 if command == "god" { // god(bool)  whether it's god (gaster) text
 	god = bool(arg[0])
 }
-if command == "npc_link" { // npc_link(real, unlink_previous=bool)  you can link an npc to this and they will be animated when the text is playing (argument is npc id, second argument is true by default)
+
+if command == "link" || command == "npc_link" { // link(real, unlink_previous=bool, object=o_ow_npc)  you can link an npc to this and they will be animated when the text is playing (argument is npc id, second argument is true by default)
 	var o_link = real(arg[0])
 	var o = noone
-	with (o_ow_npc) {
-		if o_link == npc_id
+    var target = (array_length(arg) > 2 ? asset_get_index(arg[2]) : o_ow_npc)
+    
+	with (target) {
+        if !variable_instance_exists(self, "link_id")
+            continue
+		if o_link == link_id
 			o = id
 	}
     
@@ -170,17 +175,22 @@ if command == "npc_link" { // npc_link(real, unlink_previous=bool)  you can link
 	if !array_contains(talk_link, o)
         array_push(talk_link, o)
 }
-if command == "npc_unlink" { // npc_unlink(real)  you can link an npc to this and they will be animated when the text is playing (argument is npc id)
+if command == "unlink" || command == "npc_unlink" { // unlink(real)  you can link an npc to this and they will be animated when the text is playing (argument is npc id)
     var o_link = real(arg[0])
 	var o = noone
-	with (o_ow_npc) {
-		if o_link == npc_id
+	var target = (array_length(arg) > 2 ? asset_get_index(arg[2]) : o_ow_npc)
+    
+	with (target) {
+        if !variable_instance_exists(self, "link_id")
+            continue
+		if o_link == link_id
 			o = id
 	}
 	
 	if array_contains(talk_link, o)
         array_delete(talk_link, array_get_index(talk_link, o), 1)
 }
+
 if command == "choice" { // choice(`choice1`, `choice2`, ...)  create a choice box for the player
     _facechange("none")
     

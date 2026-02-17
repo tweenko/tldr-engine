@@ -13,18 +13,34 @@
         "ja": "＊ (もちものが　いっぱいだった)"
     },
 
-    "item_type_items": {
+    "item_type_item": {
+        "en": "Item", "ja": "アイテム"
+    },
+    "item_type_item_plural": {
         "en": "ITEMs", "ja": "アイテム"
     },
-    "item_type_key_items": {
+
+    "item_type_key_item": {
+        "en": "Key Item", "ja": "だいじなもの"
+    },
+    "item_type_key_item_plural": {
         "en": "KEY ITEMs", "ja": "だいじなもの"
     },
-    "item_type_weapons": {
+
+    "item_type_weapon": {
+        "en": "Weapon", "ja": "ぶき"
+    },
+    "item_type_weapon_plural": {
         "en": "WEAPONS", "ja": "ぶき"
     },
-    "item_type_armors": {
+
+    "item_type_armor": {
+        "en": "Armor", "ja": "ぼうぐ"
+    },
+    "item_type_armor_plural": {
         "en": "ARMORS", "ja": "ぼうぐ"
     },
+
     "item_type_storage": {
         "en": "STORAGE", "ja": "そうこ"
     },

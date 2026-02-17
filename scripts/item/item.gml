@@ -45,8 +45,7 @@ function item() constructor {
 	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
 	
-	shop = {
-	}
+	shop_cost = 0
 }
 
 enum ITEM_TYPE {
@@ -66,7 +65,8 @@ enum ITEM_USE {
 enum ITEM_DESC_TYPE {
     FULL = 0,
     SHORTENED = 1,
-    PARTY_ACTION = 2
+    PARTY_ACTION = 2,
+    SHOP = 3
 }
 
 ///@desc returns the maximum amount of items you can hold depending on the item type
@@ -168,16 +168,16 @@ function item_get_count(type = ITEM_TYPE.CONSUMABLE){
 ///@desc returns the name of an item
 function item_get_name(item_struct) {
     if is_undefined(item_struct)
-        return undefined
+        return ""
     if !struct_exists(item_struct, "name")
-        return
+        return ""
     
 	var ret = item_struct.name
 	if is_array(ret)
 		return ret[0]
 	if is_string(ret)
 		return ret
-    return undefined
+    return ""
 }
 
 ///@desc returns the description of an item
@@ -185,15 +185,26 @@ function item_get_name(item_struct) {
 ///@arg {enum.ITEM_DESC_TYPE} desc_type the type of the description that will be returned
 function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL){
     if is_undefined(item_struct)
-        return
+        return ""
     if !struct_exists(item_struct, "desc")
-        return
+        return ""
     
 	var ret = item_struct.desc
 	if is_array(ret)
-		return ret[desc_type]
+		return ret[(desc_type < array_length(ret) ? desc_type : 0)]
 	if is_string(ret)
 		return ret
+}
+
+///@desc returns the description of an item
+///@arg {struct.item} item_struct the struct of the item
+function item_get_shop_cost(item_struct){
+    if is_undefined(item_struct)
+        return 0
+    if !struct_exists(item_struct, "shop_cost")
+        return 0
+    
+	return item_struct.shop_cost
 }
 
 ///@desc returns the type of an item
@@ -211,6 +222,18 @@ function item_get_fatal(item_struct) {
 		return true
     
     return false
+}
+
+/// @desc returns a statistic of an item. 0 if none defined
+/// @arg {struct.item} item_struct the struct of the target item
+/// @arg {string} stat the name of the statistic to retrieve
+function item_get_stat(item_struct, stat) {
+    if is_undefined(item_struct) || !struct_exists(item_struct, "stats")
+        return 0
+    
+    if struct_exists(item_struct.stats, stat)
+        return struct_get(item_struct.stats, stat)
+    return 0
 }
 
 ///@desc returns the item array depending on the type
@@ -236,17 +259,37 @@ function item_get_array(type){
 function item_get_store_name(type){
 	switch(type) {
 		case ITEM_TYPE.CONSUMABLE:
-			return loc("item_type_items")
+			return loc("item_type_item_plural")
 		case ITEM_TYPE.KEY:
-			return loc("item_type_key_items")
+			return loc("item_type_key_item_plural")
 		case ITEM_TYPE.WEAPON:
-			return loc("item_type_weapons")
+			return loc("item_type_weapon_plural")
 		case ITEM_TYPE.ARMOR:
-			return loc("item_type_armors")
+			return loc("item_type_armor_plural")
 		case ITEM_TYPE.STORAGE:
 			return loc("item_type_storage")
 		case ITEM_TYPE.LIGHT:
-			return loc("item_type_items")
+			return loc("item_type_item_plural")
+	}
+}
+
+///@desc returns the type name
+/// @arg {enum.ITEM_TYPE} type the type of the item
+/// @arg {bool} key_display whether a key item should be labeled as key.
+function item_get_type_name(type, key_display = false) {
+	switch(type) {
+		case ITEM_TYPE.CONSUMABLE:
+			return loc("item_type_item")
+		case ITEM_TYPE.KEY:
+			return (key_display ? loc("item_type_key_item") : loc("item_type_item"))
+		case ITEM_TYPE.WEAPON:
+			return loc("item_type_weapon")
+		case ITEM_TYPE.ARMOR:
+			return loc("item_type_armor")
+		case ITEM_TYPE.STORAGE:
+			return loc("item_type_storage")
+		case ITEM_TYPE.LIGHT:
+			return loc("item_type_item")
 	}
 }
 

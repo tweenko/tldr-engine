@@ -78,9 +78,6 @@ function dir_to_string(dir, capitalize = false) {
 
 ///@desc draws the deltarune dialogue box
 function ui_dialoguebox_create(xx, yy, width, height, world = global.world){
-    width -= 1
-    height -= 1
-    
 	var frame = (o_world.frames/10) % 8
 	if world == WORLD_TYPE.DARK {
 		draw_sprite_ext(spr_pixel, 0, xx + 12, yy + 12, width - 24, height - 24, 0, c_black, 1);

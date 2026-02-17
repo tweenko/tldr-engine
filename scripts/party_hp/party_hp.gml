@@ -5,7 +5,9 @@
 /// @arg {Asset.GMSound} sfx the sound effect that will play when the hp is changed
 /// @arg {bool} spawn_text whether text should be spawned
 function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true) {
-	if heal > 0 { // heal
+	heal = round(heal) // to avoid artifacts
+    
+    if heal > 0 { // heal
 		if sfx == -1
 			sfx = snd_heal
         if audio_exists(sfx)

@@ -36,7 +36,7 @@ is_party = false
 { // actor variables
 	follow = true
 	hurt = 0 // the timer of the sprite switch
-    npc_id = undefined
+    link_id = undefined
 	
 	autoheight = true // whether the height is automatically determined
 	myheight = 0

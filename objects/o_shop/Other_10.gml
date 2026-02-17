@@ -1,2 +1,2 @@
 /// @description initialize
-instance_create(shop_data.shopkeeper, 160, 120, 0)
+inst_shopkeeper = instance_create(shop_data.shopkeeper, 160, 120, 0)
