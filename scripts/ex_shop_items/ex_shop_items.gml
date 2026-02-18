@@ -85,3 +85,30 @@ function ex_item_a_royalpin() : item_armor() constructor {
     
     shop_cost = 1000
 }
+
+function ex_item_tesniongem() : item() constructor {
+    name = ["TensionGem"]
+    desc = [
+        "Raises TP by 50% in battle.",
+        "Raises\nTP\n50%"
+    ]
+    use_type = ITEM_USE.EVERYONE
+    
+    use_instant = function() {
+        o_enc.tp += 50
+    }
+    use_instant_cancel = function() {
+        o_enc.tp -= 50
+    }
+    use = function(item_index, target_index) {
+        if !instance_exists(o_enc) {
+            instance_destroy(o_ui_menu)
+            dialogue_start([
+                "* (You felt tense.)", 
+                "* (... try using it in battle.)" 
+            ])
+        }
+        
+        item_delete(item_index)
+    }
+}

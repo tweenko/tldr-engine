@@ -1,6 +1,6 @@
 function item() constructor {
-	name = ["Item"] // short, then long (first is default)
-	desc = ["Overworld Description", "Battle Text", "Shop Description"] // ow, battle, shop
+	name = ["Item"] // short, then long (first is default). each one can be callable
+	desc = ["Overworld Description", "Battle Text", "Action Description", "Shop Description"] // ow, battle, action, shop
 	type = ITEM_TYPE.CONSUMABLE
 	
 	lw_counterpart = undefined // reference a script, nothing appears in the light world if it's undefined
@@ -42,6 +42,10 @@ function item() constructor {
 	
 	reactions = {
 	}
+    
+    use_instant = function(item_index, target_index) {}
+    use_instant_cancel = function(item_index, target_index) {}
+    
 	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
 	
@@ -175,8 +179,10 @@ function item_get_name(item_struct) {
 	var ret = item_struct.name
 	if is_array(ret)
 		return ret[0]
-	if is_string(ret)
+	else if is_string(ret)
 		return ret
+    else if is_callable(ret)
+        return ret()
     return ""
 }
 
@@ -192,8 +198,11 @@ function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL){
 	var ret = item_struct.desc
 	if is_array(ret)
 		return ret[(desc_type < array_length(ret) ? desc_type : 0)]
-	if is_string(ret)
+	else if is_string(ret)
 		return ret
+    else if is_callable(ret)
+        return ret()
+    return ""
 }
 
 ///@desc returns the description of an item
@@ -204,6 +213,10 @@ function item_get_shop_cost(item_struct){
     if !struct_exists(item_struct, "shop_cost")
         return 0
     
+    if is_real(item_struct.shop_cost)
+        return item_struct.shop_cost
+    else if is_callable(item_struct.shop_cost)
+        return item_struct.shop_cost()
 	return item_struct.shop_cost
 }
 
@@ -218,9 +231,13 @@ function item_get_type(item_struct) {
 function item_get_fatal(item_struct) {
 	if is_undefined(item_struct) 
         return false
-	if struct_exists(item_struct, "weapon_fatal") && item_struct.weapon_fatal
-		return true
+	if !struct_exists(item_struct, "weapon_fatal")
+		return false
     
+    if is_real(item_struct.weapon_fatal)
+        return item_struct.weapon_fatal
+    else if is_callable(item_struct.weapon_fatal)
+        return item_struct.weapon_fatal()
     return false
 }
 

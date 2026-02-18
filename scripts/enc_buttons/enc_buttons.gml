@@ -310,6 +310,10 @@ function enc_button_item() : enc_button() constructor {
             __enemy_highlight_reset()
             __ally_highlight_reset()
         }
+        
+        
+        if struct_exists(item_struct, "use_instant") && is_callable(item_struct.use_instant)
+            item_struct.use_instant(other.party_item_selection[other.party_selection], target)
     }
     
     __determine_sprite()

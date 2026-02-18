@@ -73,6 +73,15 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                 selection ++
             else if InputPressed(INPUT_VERB.UP)
                 selection --
+            
+            if InputPressed(INPUT_VERB.SELECT) {
+                if save_get("money") < other.items[selection]
+                    exit
+                else {
+                    
+                }
+            }
+            
             selection = cap_wraparound(selection, array_length(other.items) + 1)
         }
     })

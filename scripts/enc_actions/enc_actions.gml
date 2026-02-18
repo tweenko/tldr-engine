@@ -268,6 +268,9 @@ function enc_action_item(_party_names, _target, _item, _item_index) : enc_action
         cutscene_play()
     }
     cancel_effects = function() {
+        if struct_exists(target_item, "use_instant_cancel") && is_callable(target_item.use_instant_cancel)
+            target_item.use_instant_cancel(item_index, target)
+        
         with other {
             tp += other.tp_taken
             array_pop(items_using)
