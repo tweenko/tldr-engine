@@ -59,7 +59,27 @@ function ex_shop_color_cafe() : shop() constructor {
                 }
             }
         ),
-        new shop_option_sell(),
+        new shop_option_sell(, function(context) {
+            switch context {
+                case SHOP_TALK_CONTEXT.IDLE:
+                    return "Queen... Makes us buy trash for her."
+                case SHOP_TALK_CONTEXT.CANCELED:
+                    return "Changed your mind? We'll wait."
+                case SHOP_TALK_CONTEXT.REFUSE:
+                    return "There are some things we cannot buy."
+                    
+                case SHOP_TALK_CONTEXT.NO_ITEMS:
+                    return "It seems you don't have anything."
+                case SHOP_TALK_CONTEXT.SELL_CONSUMABLE:
+                    return "An ITEM to delight our Queen?"
+                case SHOP_TALK_CONTEXT.SELL_WEAPON:
+                    return "A WEAPON to protect our Queen?"
+                case SHOP_TALK_CONTEXT.SELL_ARMOR:
+                    return "ARMOR to adorn our Queen?"
+                case SHOP_TALK_CONTEXT.SOLD:
+                    return "{auto_breaks(false)}I'm sure{br}she's going{br}to enjoy{br}this."
+            }
+        }),
         new shop_option_talk(),
         new shop_option_exit(),
     ]

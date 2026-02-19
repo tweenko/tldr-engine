@@ -1,2 +1,2 @@
-event_user(2)
+event_user(3)
 instance_destroy(face_inst)

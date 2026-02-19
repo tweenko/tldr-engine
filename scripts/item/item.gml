@@ -210,7 +210,7 @@ function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL){
     return ""
 }
 
-///@desc returns the description of an item
+///@desc returns the shop cost of an item
 ///@arg {struct.item} item_struct the struct of the item
 function item_get_shop_cost(item_struct){
     if is_undefined(item_struct)
@@ -223,6 +223,21 @@ function item_get_shop_cost(item_struct){
     else if is_callable(item_struct.shop_cost)
         return item_struct.shop_cost()
 	return item_struct.shop_cost
+}
+
+///@desc returns the sell price of an item
+///@arg {struct.item} item_struct the struct of the item
+function item_get_shop_sell_price(item_struct){
+    if is_undefined(item_struct)
+        return 0
+    if !struct_exists(item_struct, "shop_sell_price")
+        return round(item_get_shop_cost(item_struct)/2)
+    
+    if is_real(item_struct.shop_sell_price)
+        return item_struct.shop_sell_price
+    else if is_callable(item_struct.shop_sell_price)
+        return item_struct.shop_sell_price()
+	return item_struct.shop_sell_price
 }
 
 ///@desc returns the type of an item

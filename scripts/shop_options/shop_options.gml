@@ -8,6 +8,13 @@ enum SHOP_TALK_CONTEXT {
     
     NOT_ENOUGH,
     NO_SPACE,
+    
+    NO_ITEMS,
+    SOLD,
+    SELL_CONSUMABLE,
+    SELL_WEAPON,
+    SELL_ARMOR,
+    REFUSE
 }
 
 function shop_option() constructor {
@@ -21,6 +28,9 @@ function shop_option() constructor {
     drawer = function() {}
 }
 
+/// @desc a constructor for the shop option "buy"
+/// @arg {array<struct.item>} _items the items the vendor sells
+/// @arg {function} _talk_gen a function that returns a sidebar response. given context as argument 0 (see `SHOP_TALK_CONTEXT`)
 function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
     name = "Buy"
     items = _items
@@ -151,15 +161,13 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
     
     surf_item_info = -1
     drawer = method(self, function() {
-        var _selection = selection
-        
         var item_type = ITEM_TYPE.CONSUMABLE
         var space = 0
         var array = []
         
         // if the item is valid, assign type, space and array
-        if _selection < array_length(items) {
-            item_type = item_get_type(items[_selection])
+        if selection < array_length(items) {
+            item_type = item_get_type(items[selection])
             space = item_get_maxcount(item_type) 
             array = item_get_array(item_type)
             
@@ -177,17 +185,17 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
             draw_text_transformed(60, 260 + 40*i, item_get_name(items[i]), 2, 2, 0)
             draw_text_xfit(300, 260 + 40*i, $"${item_get_shop_cost(items[i])}", 170, 2, 2)
             
-            if _selection == i && !buy_prompt
+            if selection == i && !buy_prompt
                 draw_sprite_ext(spr_uisoul, 0, 30, 270 + 40*i, 1, 1, 0, c_red, 1)
         }
         
         // exit
-        if _selection == array_length(items) && !buy_prompt
+        if selection == array_length(items) && !buy_prompt
             draw_sprite_ext(spr_uisoul, 0, 30, 430, 1, 1, 0, c_red, 1)
         draw_text_transformed(60, 420, "Exit", 2, 2, 0)
         
         draw_set_font(loc_font("enc"))
-        if !is_undefined(space) && !is_undefined(array) && _selection < array_length(items)
+        if !is_undefined(space) && !is_undefined(array) && selection < array_length(items)
             draw_text(520, 430, $"Space: {space - array_length(array)}")
         
         var __display_h = round_p(box_h, 2)
@@ -200,9 +208,9 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         draw_clear_alpha(0, 0)
         draw_set_font(loc_font("main"))
         
-        if _selection < array_length(items) && !is_undefined(items[_selection]) {
+        if selection < array_length(items) && !is_undefined(items[selection]) {
             draw_text_ext_transformed(440, 240 - __display_h + 28, 
-                $"{string_upper(item_get_type_name(item_type))}\n{item_get_desc(items[_selection], ITEM_DESC_TYPE.SHOP)}", 
+                $"{string_upper(item_get_type_name(item_type))}\n{item_get_desc(items[selection], ITEM_DESC_TYPE.SHOP)}", 
                 16, 88, 2, 2, 0
             )
             
@@ -226,9 +234,9 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                     
                     if item_type == ITEM_TYPE.WEAPON {
                         var og_attack = item_get_stat(party_getdata(global.party_names[i], "weapon"), "attack")
-                        var attack_diff = item_get_stat(items[_selection], "attack") - og_attack
+                        var attack_diff = item_get_stat(items[selection], "attack") - og_attack
                         var og_magic = item_get_stat(party_getdata(global.party_names[i], "weapon"), "magic")
-                        var magic_diff = item_get_stat(items[_selection], "magic") - og_magic
+                        var magic_diff = item_get_stat(items[selection], "magic") - og_magic
                         
                         draw_sprite_ext(spr_ui_shop_weapon, 0, 470 + x_off, 155 + y_off, 1, 1, 0, c_white, 1)
                         draw_sprite_ext(spr_ui_shop_magic, 0, 470 + x_off, 175 + y_off, 1, 1, 0, c_white, 1)
@@ -249,9 +257,9 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                     }
                     else if item_type == ITEM_TYPE.ARMOR {
                         var a1_og_defense = item_get_stat(party_getdata(global.party_names[i], "armor1"), "defense")
-                        var a1_diff = item_get_stat(items[_selection], "defense") - a1_og_defense
+                        var a1_diff = item_get_stat(items[selection], "defense") - a1_og_defense
                         var a2_og_defense = item_get_stat(party_getdata(global.party_names[i], "armor2"), "defense")
-                        var a2_diff = item_get_stat(items[_selection], "defense") - a2_og_defense
+                        var a2_diff = item_get_stat(items[selection], "defense") - a2_og_defense
                         
                         draw_sprite_ext(spr_ui_menu_armor1, 0, 470 + x_off, 155 + y_off, 1, 1, 0, c_white, 1)
                         draw_sprite_ext(spr_ui_menu_armor2, 0, 470 + x_off, 175 + y_off, 1, 1, 0, c_white, 1)
@@ -284,7 +292,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         if buy_prompt {
             draw_set_font(loc_font("main"))
             
-            draw_text_ext_transformed(460, 260, $"Buy it for {item_get_shop_cost(items[_selection])}?", 16, 70, 2, 2, 0)
+            draw_text_ext_transformed(460, 260, $"Buy it for ${item_get_shop_cost(items[selection])}?", 16, 70, 2, 2, 0)
             
             draw_sprite_ext(spr_uisoul, 0, 450, 350 + buy_prompt_selection*30, 1, 1, 0, c_red, 1)
             
@@ -293,8 +301,226 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         }
     })
 }
-function shop_option_sell() : shop_option() constructor {
+
+/// @desc constructor for the shop option "sell"
+/// @arg {array<struct>} _sell_options an array of sell options. each struct inside should have a type, name and small_talk hashes
+/// @arg {function} _talk_gen a function that returns a sidebar response. given context as argument 0 (see `SHOP_TALK_CONTEXT`)
+/// @arg {array<function>} _refuse_items items that the vendor will refuse to buy. empty by default
+function shop_option_sell(_sell_options = [
+        {type: ITEM_TYPE.CONSUMABLE, name: "Sell Items", small_talk: SHOP_TALK_CONTEXT.SELL_CONSUMABLE},
+        {type: ITEM_TYPE.WEAPON, name: "Sell Weapons", small_talk: SHOP_TALK_CONTEXT.SELL_WEAPON},
+        {type: ITEM_TYPE.ARMOR, name: "Sell Armor", small_talk: SHOP_TALK_CONTEXT.SELL_ARMOR},
+        {type: ITEM_TYPE.STORAGE, name: "Sell Pocket Items", small_talk: SHOP_TALK_CONTEXT.SELL_CONSUMABLE},
+    ], _talk_gen = function(){}, _refuse_items = []
+) : shop_option() constructor  {
     name = "Sell"
+    
+    sell_options = _sell_options
+    refuse_items = _refuse_items
+    talk_gen = _talk_gen
+    talk_context = SHOP_TALK_CONTEXT.IDLE
+    
+    selection = 0
+    item_selection = 0
+    item_selection_off = 0
+    sell_prompt_selection = 0
+    
+    choosing_item = false
+    sell_prompt = false
+    
+    cancel = method(self, function() {
+        other.menu_in_options = true
+        talk_context = SHOP_TALK_CONTEXT.IDLE
+    })
+    
+    step = method(self, function() {
+        if !instance_exists(other.inst_small_talk) && !sell_prompt
+            other.inst_small_talk = text_typer_create(talk_gen(talk_context), 
+                450, 260, DEPTH_UI.MENU_UI, 
+                other.shop_data.flavor_prefix, "", {
+                    gui: true,
+                    can_superskip: false,
+                    max_width: 176,
+                    break_tabulation: false
+                }
+            )
+        
+        if !choosing_item {
+            if InputPressed(INPUT_VERB.DOWN)
+                selection ++
+            else if InputPressed(INPUT_VERB.UP)
+                selection --
+            
+            if InputPressed(INPUT_VERB.SELECT) {
+                instance_destroy(other.inst_small_talk)
+                
+                if selection == array_length(sell_options)
+                    cancel()
+                else {
+                    var item_type = sell_options[selection].type
+                    if item_get_count(item_type) == 0 {
+                        talk_context = SHOP_TALK_CONTEXT.NO_ITEMS
+                        audio_play(snd_ui_cant_select)
+                    }
+                    else {
+                        choosing_item = true
+                        talk_context = sell_options[selection].small_talk
+                    }
+                }
+            }
+            
+            if InputPressed(INPUT_VERB.CANCEL)
+                cancel()
+            
+            selection = cap_wraparound(selection, array_length(sell_options) + 1)
+        }
+        else if sell_prompt {
+            if InputPressed(INPUT_VERB.DOWN)
+                sell_prompt_selection ++
+            if InputPressed(INPUT_VERB.UP)
+                sell_prompt_selection --
+            sell_prompt_selection = cap_wraparound(sell_prompt_selection, 2)
+            
+            if InputPressed(INPUT_VERB.SELECT) && sell_prompt_selection == 1
+                ||  InputPressed(INPUT_VERB.CANCEL)
+            {
+                sell_prompt_selection = 0
+                sell_prompt = false
+                talk_context = SHOP_TALK_CONTEXT.CANCELED
+            }
+            else if InputPressed(INPUT_VERB.SELECT) {
+                var items_display = 5
+                var item_type = sell_options[selection].type
+                var item_array = item_get_array(item_type)
+                
+                audio_play(snd_locker)
+                global.save.MONEY += item_get_shop_sell_price(item_array[item_selection])
+                item_delete(item_selection, item_type)
+                
+                instance_destroy(other.inst_small_talk)
+                talk_context = SHOP_TALK_CONTEXT.SOLD
+                
+                if item_selection > 0
+                    item_selection --
+                else if item_get_count(item_type) == 0
+                    choosing_item = false
+                
+                while item_selection < item_selection_off
+                    item_selection_off --
+                while item_selection >= item_selection_off + items_display
+                    item_selection_off ++
+                
+                item_selection_off = clamp(item_selection_off, 0, max(0, array_length(item_get_array(item_type)) - items_display))
+                sell_prompt = false
+            }
+        }
+        else {
+            var items_display = 5
+            var item_type = sell_options[selection].type
+            var item_array = item_get_array(item_type)
+            
+            if InputRepeat(INPUT_VERB.DOWN)
+                item_selection ++
+            else if InputRepeat(INPUT_VERB.UP) 
+                item_selection --
+            
+            item_selection = cap_wraparound(item_selection, item_get_count(sell_options[selection].type))
+            
+            while item_selection < item_selection_off
+                item_selection_off --
+            while item_selection >= item_selection_off + items_display
+                item_selection_off ++
+            
+            item_selection_off = clamp(item_selection_off, 0, max(0, array_length(item_get_array(item_type)) - items_display))
+            
+            if InputPressed(INPUT_VERB.SELECT) {
+                if !is_undefined(item_array[item_selection]) {
+                    var __refuse = false
+                    for (var i = 0; i < array_length(refuse_items); i ++) {
+                        if is_instanceof(item_array[item_selection], refuse_items[i]) {
+                            __refuse = true
+                            break
+                        }
+                    }
+                    if !__refuse
+                        sell_prompt = true
+                    else {
+                        audio_play(snd_ui_cant_select)
+                        talk_context = SHOP_TALK_CONTEXT.REFUSE
+                    }
+                    
+                    instance_destroy(other.inst_small_talk)
+                }
+            }
+            else if InputPressed(INPUT_VERB.CANCEL) {
+                choosing_item = false
+                talk_context = SHOP_TALK_CONTEXT.IDLE
+                instance_destroy(other.inst_small_talk)
+            }
+        }
+    })
+    drawer = method(self, function() {
+        if !choosing_item {
+            for (var i = 0; i < array_length(sell_options); i ++) {
+                if selection == i
+                    draw_sprite_ext(spr_uisoul, 0, 50, 270 + 40*i, 1, 1, 0, c_red, 1)
+                draw_text_transformed(80, 260 + 40*i, sell_options[i].name, 2, 2, 0)
+            }
+            
+            // return
+            if selection == array_length(sell_options)
+                draw_sprite_ext(spr_uisoul, 0, 50, 430, 1, 1, 0, c_red, 1)
+            draw_text_transformed(80, 420, "Return", 2, 2, 0)
+        }
+        else {
+            var items_display = 5
+            var item_type = sell_options[selection].type
+            var item_array = item_get_array(item_type)
+            
+            if array_length(item_array) > items_display {
+                draw_set_color(c_dkgray)
+                draw_rectangle(378, 299, 378+5, 418, 0)
+                draw_set_color(c_white)
+                
+                var add = lerp(0, 120-5, item_selection_off / (array_length(item_array) - items_display))
+                draw_rectangle(378, 299 + add, 378+5, 299 + 5 + add, 0)
+                
+                if item_selection_off < array_length(item_array) - items_display
+                    draw_sprite_ext(spr_ui_arrow_down, 0, 375, 432 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
+                if item_selection_off > 0
+                    draw_sprite_ext(spr_ui_arrow_up, 0, 375, 268 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
+            }
+            
+            for (var i = item_selection_off; i < min(array_length(item_array), item_selection_off + items_display); i ++) {
+                var __item = item_array[i]
+                
+                if is_undefined(__item) {
+                    draw_set_colour(c_dkgray)
+                    draw_text_transformed(60, 260 + 40 * (i - item_selection_off), "-------", 2, 2, 0)
+                    draw_set_colour(c_white)
+                }
+                else {
+                    draw_text_transformed(60, 260 + 40 * (i - item_selection_off), item_get_name(__item), 2, 2, 0)
+                    draw_text_xfit(300, 260 + 40 * (i - item_selection_off), $"${item_get_shop_sell_price(__item)}", 170, 2, 2)
+                }
+                
+                if item_selection == i
+                    draw_sprite_ext(spr_uisoul, 0, 30, 270 + 40 * (i - item_selection_off), 1, 1, 0, c_red, 1)
+            }  
+            
+            if sell_prompt {
+                var __item = item_array[item_selection]
+                
+                draw_set_font(loc_font("main"))
+                draw_text_ext_transformed(460, 260, $"Sell it for ${item_get_shop_sell_price(__item)}?", 16, 70, 2, 2, 0)
+                
+                draw_sprite_ext(spr_uisoul, 0, 450, 350 + sell_prompt_selection*30, 1, 1, 0, c_red, 1)
+                
+                draw_text_transformed(480, 340, "Yes", 2, 2, 0)
+                draw_text_transformed(480, 370, "No", 2, 2, 0)
+            }
+        }
+    })
 }
 function shop_option_talk() : shop_option() constructor {
     name = "Talk"
