@@ -69,7 +69,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                 other.shop_data.flavor_prefix, "", {
                     gui: true,
                     can_superskip: false,
-                    max_width: 170,
+                    max_width: 176,
                     break_tabulation: false
                 }
             )
@@ -97,21 +97,27 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                     
                     var __sc = asset_get_index(instanceof(items[selection]))
                     if item_type == ITEM_TYPE.CONSUMABLE {
-                		if item_get_count(item_type) >= item_get_maxcount(item_type) {
-                			if item_get_count(ITEM_TYPE.STORAGE) < item_get_maxcount(ITEM_TYPE.STORAGE) {
+                		if item_get_count(item_type) + 1 > item_get_maxcount(item_type)  {
+                			if item_get_count(ITEM_TYPE.STORAGE) + 1 <= item_get_maxcount(ITEM_TYPE.STORAGE) {
                                 item_add(new __sc(), ITEM_TYPE.CONSUMABLE)
+                            audio_play(snd_locker)
                 				talk_context = SHOP_TALK_CONTEXT.BOUGHT_STORAGE
                             }
                             else 
                 				talk_context = SHOP_TALK_CONTEXT.NO_SPACE
                 		}
-                        else 
+                        else {
                             item_add(new __sc(), ITEM_TYPE.CONSUMABLE)
+                            audio_play(snd_locker)
+                        }
                 	}
-                    else 
+                    else {
+                        if item_get_count(item_type) + 1 > item_get_maxcount(item_type) 
+                            talk_context = SHOP_TALK_CONTEXT.NO_SPACE
+                        else 
+                            audio_play(snd_locker)
                         item_add(new __sc())
-                    
-                    
+                    }
                 }
             }
             if InputPressed(INPUT_VERB.SELECT) && buy_prompt_selection == 1
@@ -181,7 +187,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         draw_text_transformed(60, 420, "Exit", 2, 2, 0)
         
         draw_set_font(loc_font("enc"))
-        if !is_undefined(space) && !is_undefined(array)
+        if !is_undefined(space) && !is_undefined(array) && _selection < array_length(items)
             draw_text(520, 430, $"Space: {space - array_length(array)}")
         
         var __display_h = round_p(box_h, 2)

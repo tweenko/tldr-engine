@@ -95,7 +95,6 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
         draw_rectangle(2, 30, 2+210, 33, 0)
         draw_set_color(c_white)
         
-        // image indexes
         gpu_set_colorwriteenable(1, 1, 1, 0)
         for (var j = 0; j < 3; ++j) {
             var xxoff = ui_party_sticks[j] * 2
@@ -115,6 +114,8 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
             
             if array_length(buttons) != 5 // actually center them
                 __x_off = 109 - floor(array_length(buttons)*35/2) + j*35
+            
+            __x_off = round(__x_off)
             
             draw_sprite_ext(spr_pixel, 0, __x_off, 1, 31, 25, 0, c_black, 1)
             if sprite_exists(__spr)

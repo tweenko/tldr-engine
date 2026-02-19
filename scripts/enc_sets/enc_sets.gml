@@ -20,7 +20,7 @@ function enc_set() constructor { // base
         ]
     }
 	
-    // actions
+    // actions  
     party_actions = {}
     // add the default party actions. if you want to remove them from an encounter, just set party_actions back to an empty struct
 	for (var i = 0; i < array_length(global.party_names); ++i) {
@@ -40,7 +40,9 @@ function enc_set() constructor { // base
 	ev_turn =	  	    -1
     ev_turn_start =     -1
 	ev_post_turn =	    -1
-    ev_win =            -1
+    ev_win =            function() {
+        show_debug_message("a")
+    }
     
 	// methods
     _target_calculation = function() { // should return an array of indexes of party members who are targeted

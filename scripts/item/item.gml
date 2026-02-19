@@ -99,16 +99,18 @@ function item_add(item_struct, type = undefined) {
 	if struct_exists(item_struct, "type") && is_undefined(type)
 		type = item_get_type(item_struct)
 	if type == ITEM_TYPE.CONSUMABLE {
-		if item_get_count(type) > item_get_maxcount(type) {
-			if item_get_count(ITEM_TYPE.STORAGE) < item_get_maxcount(ITEM_TYPE.STORAGE)
-				type = ITEM_TYPE.STORAGE
-			else 
+		if item_get_count(type) + 1 > item_get_maxcount(type) {
+            type = ITEM_TYPE.STORAGE
+			if item_get_count(ITEM_TYPE.STORAGE) + 1 > item_get_maxcount(ITEM_TYPE.STORAGE)
 				can = false
 		}
 	}
 	else
-		if item_get_count(type) > item_get_maxcount(type) 
-			can = false
+		if item_get_count(type) + 1 > item_get_maxcount(type) 
+			can = false  
+    
+    show_debug_message(item_get_count(type))
+    show_debug_message(item_get_maxcount(type))
     
 	var txt = string(loc("item_added"), item_get_name(item_struct), item_get_store_name(type))
 	if can {
@@ -124,7 +126,7 @@ function item_add(item_struct, type = undefined) {
 			item_set(item_struct, index, ITEM_TYPE.STORAGE)
         }
         else
-			array_push(item_get_array(type), item_struct)
+			item_set(item_struct, item_get_count(type), type)
 	}
 	else
 		txt = loc("item_added_no_space")

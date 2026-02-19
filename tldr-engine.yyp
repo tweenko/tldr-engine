@@ -786,6 +786,7 @@
     {"id":{"name":"scr_retro_pal_swapper_utilities","path":"scripts/scr_retro_pal_swapper_utilities/scr_retro_pal_swapper_utilities.yy",},},
     {"id":{"name":"scr_retro_pal_swapper","path":"scripts/scr_retro_pal_swapper/scr_retro_pal_swapper.yy",},},
     {"id":{"name":"shop_options","path":"scripts/shop_options/shop_options.yy",},},
+    {"id":{"name":"shops","path":"scripts/shops/shops.yy",},},
     {"id":{"name":"states","path":"scripts/states/states.yy",},},
     {"id":{"name":"typer_chars","path":"scripts/typer_chars/typer_chars.yy",},},
     {"id":{"name":"shd_bm_color_burn","path":"shaders/shd_bm_color_burn/shd_bm_color_burn.yy",},},

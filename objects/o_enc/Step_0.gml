@@ -395,8 +395,8 @@ else if battle_state == BATTLE_STATE.POST_TURN {
     }
 }
 else if battle_state == BATTLE_STATE.WIN {
-    if !win_screen_init {
-        __call_enc_event("win")
+    if !win_screen_init && !win_init {
+        __call_enc_event("ev_win")
         win_screen_init = true
         buffer = 2
     }
@@ -432,7 +432,7 @@ else if battle_state == BATTLE_STATE.WIN {
         
 		cutscene_create()
         if win_dialogue_show
-		  cutscene_dialogue(string(loc("enc_win"), __exp, __dd) + win_message)
+            cutscene_dialogue(string(loc("enc_win"), __exp, __dd) + win_message)
         cutscene_set_variable(self, "win_hide_ui", true)
 		cutscene_sleep(5)
         
@@ -507,12 +507,25 @@ if !win_hide_ui
 else
     ui_main_lerp = lerp(ui_main_lerp, 0, .5)
 
-// do party ui lerping
+// do party ui lerping. based on toby's code
 for (var i = 0; i < array_length(global.party_names); i ++) {
-    if i == party_selection 
-        party_ui_lerp[i] = lerp(party_ui_lerp[i], 1, .5)
-    else
-        party_ui_lerp[i] = lerp(party_ui_lerp[i], 0, .5)
+    if i == party_selection {
+        if party_ui_lerp[i] < 1
+            party_ui_lerp[i] += 1/16
+        if party_ui_lerp[i] < 12/16
+            party_ui_lerp[i] += 2/16
+        if party_ui_lerp[i] < 8/16
+            party_ui_lerp[i] += 3/16
+        if party_ui_lerp[i] < 4/16
+            party_ui_lerp[i] += 4/16
+    
+        if party_ui_lerp[i] > 1
+            party_ui_lerp[i] = 1
+    }
+    else if party_ui_lerp[i] > 11/32
+        party_ui_lerp[i] -= 12/32
+    else 
+        party_ui_lerp[i] = 0
 }
 
 if buffer > 0

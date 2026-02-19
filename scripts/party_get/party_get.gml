@@ -6,7 +6,7 @@ function party_nametostruct(name) {
 }
 
 ///@arg {String} name
-///@arg {String} value
+///@arg {String} hash
 ///@return {Any}
 ///@desc returns a value from the party struct
 function party_getdata(name, value) {

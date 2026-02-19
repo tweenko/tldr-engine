@@ -9,15 +9,13 @@ function guipos_y() {
 ///@desc Used to check if an instance is on the screen.
 ///@arg {Id.Instance|Asset.GMObject} [instance]
 ///@arg {Real} [tolerance]
+/// @arg {bool} [percise_collisions] whether the collision calculation should use a percise bounding box. false by default
 /// @return {Bool}
-function onscreen(instance = id, tolerance = 0) {	
+function onscreen(instance = id, tolerance = 0, percise_collisions = false) {	
     if !instance_exists(instance)
         exit
     
-    if instance.x + instance.sprite_width + tolerance < guipos_x() 
-        || instance.x - tolerance > guipos_x() + 640
-        || instance.y + instance.sprite_height + tolerance < guipos_y() 
-        || instance.y - tolerance > guipos_y() + 480
+    if collision_rectangle(guipos_x(), guipos_y(), guipos_x() + o_camera.width, guipos_y() + o_camera.height, instance, percise_collisions, false)
         return false
     else
         return true

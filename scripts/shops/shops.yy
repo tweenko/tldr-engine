@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"shops",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"shops",
+  "parent":{
+    "name":"tldr-engine",
+    "path":"tldr-engine.yyp",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
