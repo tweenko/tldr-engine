@@ -29,10 +29,6 @@ if menu_in_options {
 else {
     if !is_undefined(menu_step)
         menu_step()
-    
-    if InputPressed(INPUT_VERB.CANCEL) {
-        shop_data.options[option_selection].cancel()
-    }
 }
 
 if !menu_in_options {

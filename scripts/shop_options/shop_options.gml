@@ -29,17 +29,22 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
     talk_gen = _talk_gen
     
     use = method(self, function() {
-        box_h = 100
+        box_h = 40
     })
     cancel = method(self, function() {
         other.menu_in_options = true
+        talk_context = SHOP_TALK_CONTEXT.IDLE
     })
     
-    box_h = 180
+    box_h = 40
+    buy_prompt = false
+    buy_prompt_selection = 0
+    selection = 0
+    
     step = method(self, function() {
         #region replicate deltarune's box height calculation
         var box_y = 240 - box_h
-        if other.selection < array_length(items) {
+        if selection < array_length(items) {
             if box_y <= 20
                 box_y = 20
             if box_y > 20
@@ -57,48 +62,108 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         box_y = clamp(box_y, 20, 200)
         box_h = (240 - box_y)
         #endregion
-        with other {
-            if !instance_exists(inst_small_talk)
-                inst_small_talk = text_typer_create(other.talk_gen(other.talk_context), 
-                    450, 260, DEPTH_UI.MENU_UI, 
-                    shop_data.flavor_prefix, "", {
-                        gui: true,
-                        can_superskip: false,
-                        max_width: 170,
-                        break_tabulation: false
-                    }
-                )
+        
+        if !instance_exists(other.inst_small_talk) && !buy_prompt
+            other.inst_small_talk = text_typer_create(talk_gen(talk_context), 
+                450, 260, DEPTH_UI.MENU_UI, 
+                other.shop_data.flavor_prefix, "", {
+                    gui: true,
+                    can_superskip: false,
+                    max_width: 170,
+                    break_tabulation: false
+                }
+            )
+        
+        if buy_prompt {
+            if InputPressed(INPUT_VERB.DOWN)
+                buy_prompt_selection ++
+            else if InputPressed(INPUT_VERB.UP)
+                buy_prompt_selection --
+            buy_prompt_selection = cap_wraparound(buy_prompt_selection, 2)
             
+            if InputPressed(INPUT_VERB.SELECT) && buy_prompt_selection == 0 {
+                var item_type = item_get_type(items[selection])
+                if save_get("money") > item_get_shop_cost(items[selection]) {
+                    buy_prompt = false
+                    talk_context = SHOP_TALK_CONTEXT.NOT_ENOUGH
+                }
+                else if array_length(item_get_array(item_type)) > item_get_maxcount(item_type) && item_type != ITEM_TYPE.CONSUMABLE  {
+                    buy_prompt = false
+                    talk_context = SHOP_TALK_CONTEXT.NO_SPACE
+                }
+                else {
+                    buy_prompt = false
+                    talk_context = SHOP_TALK_CONTEXT.BOUGHT
+                    
+                    var __sc = asset_get_index(instanceof(items[selection]))
+                    if item_type == ITEM_TYPE.CONSUMABLE {
+                		if item_get_count(item_type) >= item_get_maxcount(item_type) {
+                			if item_get_count(ITEM_TYPE.STORAGE) < item_get_maxcount(ITEM_TYPE.STORAGE) {
+                                item_add(new __sc(), ITEM_TYPE.CONSUMABLE)
+                				talk_context = SHOP_TALK_CONTEXT.BOUGHT_STORAGE
+                            }
+                            else 
+                				talk_context = SHOP_TALK_CONTEXT.NO_SPACE
+                		}
+                        else 
+                            item_add(new __sc(), ITEM_TYPE.CONSUMABLE)
+                	}
+                    else 
+                        item_add(new __sc())
+                    
+                    
+                }
+            }
+            if InputPressed(INPUT_VERB.SELECT) && buy_prompt_selection == 1
+                ||  InputPressed(INPUT_VERB.CANCEL)
+            {
+                buy_prompt_selection = 0
+                buy_prompt = false
+                talk_context = SHOP_TALK_CONTEXT.CANCELED
+            }
+        }
+        else {
             if InputPressed(INPUT_VERB.DOWN)
                 selection ++
             else if InputPressed(INPUT_VERB.UP)
                 selection --
             
             if InputPressed(INPUT_VERB.SELECT) {
-                if save_get("money") < other.items[selection]
-                    exit
-                else {
-                    
-                }
+                if selection == array_length(items)
+                    cancel()
+                else 
+                    buy_prompt = true
+                instance_destroy(other.inst_small_talk)
             }
             
-            selection = cap_wraparound(selection, array_length(other.items) + 1)
+            if InputPressed(INPUT_VERB.CANCEL)
+                cancel()
+            
+            selection = cap_wraparound(selection, array_length(items) + 1)
         }
     })
     
     surf_item_info = -1
     drawer = method(self, function() {
-        var selection = other.selection
+        var _selection = selection
         
         var item_type = ITEM_TYPE.CONSUMABLE
         var space = 0
         var array = []
         
         // if the item is valid, assign type, space and array
-        if selection < array_length(items) {
-            item_type = item_get_type(items[selection])
+        if _selection < array_length(items) {
+            item_type = item_get_type(items[_selection])
             space = item_get_maxcount(item_type) 
             array = item_get_array(item_type)
+            
+            if item_type == ITEM_TYPE.CONSUMABLE
+                if item_get_count(ITEM_TYPE.CONSUMABLE) >= item_get_maxcount(ITEM_TYPE.CONSUMABLE) {
+                    space = item_get_maxcount(ITEM_TYPE.STORAGE)
+                    array = array_filter(item_get_array(ITEM_TYPE.STORAGE), function(i) {
+                        return !is_undefined(i)
+                    })
+                }
         }
         
         draw_set_font(loc_font("main"))
@@ -106,12 +171,12 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
             draw_text_transformed(60, 260 + 40*i, item_get_name(items[i]), 2, 2, 0)
             draw_text_xfit(300, 260 + 40*i, $"${item_get_shop_cost(items[i])}", 170, 2, 2)
             
-            if selection == i
+            if _selection == i && !buy_prompt
                 draw_sprite_ext(spr_uisoul, 0, 30, 270 + 40*i, 1, 1, 0, c_red, 1)
         }
         
         // exit
-        if selection == array_length(items)
+        if _selection == array_length(items) && !buy_prompt
             draw_sprite_ext(spr_uisoul, 0, 30, 430, 1, 1, 0, c_red, 1)
         draw_text_transformed(60, 420, "Exit", 2, 2, 0)
         
@@ -129,9 +194,9 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         draw_clear_alpha(0, 0)
         draw_set_font(loc_font("main"))
         
-        if selection < array_length(items) && !is_undefined(items[selection]) {
+        if _selection < array_length(items) && !is_undefined(items[_selection]) {
             draw_text_ext_transformed(440, 240 - __display_h + 28, 
-                $"{string_upper(item_get_type_name(item_type))}\n{item_get_desc(items[selection], ITEM_DESC_TYPE.SHOP)}", 
+                $"{string_upper(item_get_type_name(item_type))}\n{item_get_desc(items[_selection], ITEM_DESC_TYPE.SHOP)}", 
                 16, 88, 2, 2, 0
             )
             
@@ -155,9 +220,9 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                     
                     if item_type == ITEM_TYPE.WEAPON {
                         var og_attack = item_get_stat(party_getdata(global.party_names[i], "weapon"), "attack")
-                        var attack_diff = item_get_stat(items[selection], "attack") - og_attack
+                        var attack_diff = item_get_stat(items[_selection], "attack") - og_attack
                         var og_magic = item_get_stat(party_getdata(global.party_names[i], "weapon"), "magic")
-                        var magic_diff = item_get_stat(items[selection], "magic") - og_magic
+                        var magic_diff = item_get_stat(items[_selection], "magic") - og_magic
                         
                         draw_sprite_ext(spr_ui_shop_weapon, 0, 470 + x_off, 155 + y_off, 1, 1, 0, c_white, 1)
                         draw_sprite_ext(spr_ui_shop_magic, 0, 470 + x_off, 175 + y_off, 1, 1, 0, c_white, 1)
@@ -178,9 +243,9 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                     }
                     else if item_type == ITEM_TYPE.ARMOR {
                         var a1_og_defense = item_get_stat(party_getdata(global.party_names[i], "armor1"), "defense")
-                        var a1_diff = item_get_stat(items[selection], "defense") - a1_og_defense
+                        var a1_diff = item_get_stat(items[_selection], "defense") - a1_og_defense
                         var a2_og_defense = item_get_stat(party_getdata(global.party_names[i], "armor2"), "defense")
-                        var a2_diff = item_get_stat(items[selection], "defense") - a2_og_defense
+                        var a2_diff = item_get_stat(items[_selection], "defense") - a2_og_defense
                         
                         draw_sprite_ext(spr_ui_menu_armor1, 0, 470 + x_off, 155 + y_off, 1, 1, 0, c_white, 1)
                         draw_sprite_ext(spr_ui_menu_armor2, 0, 470 + x_off, 175 + y_off, 1, 1, 0, c_white, 1)
@@ -209,6 +274,17 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         
         surface_reset_target()
         draw_surface(surf_item_info, 0, 0)
+        
+        if buy_prompt {
+            draw_set_font(loc_font("main"))
+            
+            draw_text_ext_transformed(460, 260, $"Buy it for {item_get_shop_cost(items[_selection])}?", 16, 70, 2, 2, 0)
+            
+            draw_sprite_ext(spr_uisoul, 0, 450, 350 + buy_prompt_selection*30, 1, 1, 0, c_red, 1)
+            
+            draw_text_transformed(480, 340, "Yes", 2, 2, 0)
+            draw_text_transformed(480, 370, "No", 2, 2, 0)
+        }
     })
 }
 function shop_option_sell() : shop_option() constructor {

@@ -93,13 +93,13 @@ function item_delete(item_slot, type = ITEM_TYPE.CONSUMABLE) {
 
 ///@desc adds an item to your inventory, returns the text you get upon obtaining the item
 ///@return {string}
-function item_add(item_struct, type = ITEM_TYPE.CONSUMABLE) {
+function item_add(item_struct, type = undefined) {
 	var can = true
 	
-	if struct_exists(item_struct, "type") && type == ITEM_TYPE.CONSUMABLE
-		type = item_struct.type
+	if struct_exists(item_struct, "type") && is_undefined(type)
+		type = item_get_type(item_struct)
 	if type == ITEM_TYPE.CONSUMABLE {
-		if item_get_count(type) >= item_get_maxcount(type) {
+		if item_get_count(type) > item_get_maxcount(type) {
 			if item_get_count(ITEM_TYPE.STORAGE) < item_get_maxcount(ITEM_TYPE.STORAGE)
 				type = ITEM_TYPE.STORAGE
 			else 
@@ -107,20 +107,23 @@ function item_add(item_struct, type = ITEM_TYPE.CONSUMABLE) {
 		}
 	}
 	else
-		if item_get_count(type) >= item_get_maxcount(type) 
+		if item_get_count(type) > item_get_maxcount(type) 
 			can = false
-	
+    
 	var txt = string(loc("item_added"), item_get_name(item_struct), item_get_store_name(type))
 	if can {
 		if type == ITEM_TYPE.STORAGE {
-			var i = 0
-			for (i = 0; i < array_length(item_get_array(ITEM_TYPE.STORAGE)); ++i) {
-				if item_get_array(ITEM_TYPE.STORAGE)[i] != undefined 
-					break
-			}
-			item_set(item_struct, i, type)
-		}
-		else
+            var index = 0
+            for (var i = 0; i < item_get_maxcount(ITEM_TYPE.STORAGE); i ++) {
+                if is_undefined(item_get_array(ITEM_TYPE.STORAGE)[i]) {
+                    index = i
+                    break
+                }
+            }
+            
+			item_set(item_struct, index, ITEM_TYPE.STORAGE)
+        }
+        else
 			array_push(item_get_array(type), item_struct)
 	}
 	else
@@ -163,7 +166,7 @@ function item_get_count(type = ITEM_TYPE.CONSUMABLE){
 	var ret = 0
 	var a = item_get_array(type)
 	for (var i = 0; i < array_length(a); ++i) {
-		if a[i] != undefined 
+		if !is_undefined(a[i]) && is_struct(a[i])
 			ret ++
 	}
 	return ret
