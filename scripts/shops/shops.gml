@@ -4,6 +4,10 @@ function shop() constructor {
     flavor = "* Shop flavor text." // can be callable
     flavor_prefix = "" // used for links and voices
     
+    bgm = mus_hip_shop
+    bgm_pitch = 1
+    bgm_gain = .97
+    
     options = [
         new shop_option_buy(
             [], 
@@ -12,7 +16,11 @@ function shop() constructor {
             }
         ),
         new shop_option_sell(),
-        new shop_option_talk(),
+        new shop_option_talk([
+            new __shop_talk_option("Talk Option", "Talk Answer")
+        ], function(context) {
+            return "Chatting would be our pleasure."
+        }),
         new shop_option_exit(),
     ]
 }
@@ -80,7 +88,11 @@ function ex_shop_color_cafe() : shop() constructor {
                     return "{auto_breaks(false)}I'm sure{br}she's going{br}to enjoy{br}this."
             }
         }),
-        new shop_option_talk(),
+        new shop_option_talk([
+            new __shop_talk_option("Talk Option", "Talk Answer")
+        ], function(context) {
+            return "Chatting would be our pleasure."
+        }),
         new shop_option_exit(),
     ]
 }

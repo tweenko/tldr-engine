@@ -9,7 +9,7 @@ if encounter_mode {
     height = 130
 }
 else if shop_mode {
-    textinst = text_typer_create(text, 30, 376, depth-10, prefix, postfix, {max_width: 540})
+    textinst = text_typer_create(text, 30, 270, depth-10, prefix, postfix, {max_width: 540})
     height = 170
 }
 else 

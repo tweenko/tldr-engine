@@ -40,9 +40,7 @@ function enc_set() constructor { // base
 	ev_turn =	  	    -1
     ev_turn_start =     -1
 	ev_post_turn =	    -1
-    ev_win =            function() {
-        show_debug_message("a")
-    }
+    ev_win =            -1
     
 	// methods
     _target_calculation = function() { // should return an array of indexes of party members who are targeted

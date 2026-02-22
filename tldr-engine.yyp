@@ -807,6 +807,7 @@
     {"id":{"name":"mus_ex_forest","path":"sounds/mus_ex_forest/mus_ex_forest.yy",},},
     {"id":{"name":"mus_ex_spawn","path":"sounds/mus_ex_spawn/mus_ex_spawn.yy",},},
     {"id":{"name":"mus_ex_test_zone","path":"sounds/mus_ex_test_zone/mus_ex_test_zone.yy",},},
+    {"id":{"name":"mus_hip_shop","path":"sounds/mus_hip_shop/mus_hip_shop.yy",},},
     {"id":{"name":"mus_menu","path":"sounds/mus_menu/mus_menu.yy",},},
     {"id":{"name":"mus_story","path":"sounds/mus_story/mus_story.yy",},},
     {"id":{"name":"snd_attack","path":"sounds/snd_attack/snd_attack.yy",},},

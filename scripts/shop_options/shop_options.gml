@@ -28,7 +28,7 @@ function shop_option() constructor {
     drawer = function() {}
 }
 
-/// @desc a constructor for the shop option "buy"
+/// @desc constructor for the shop option "buy"
 /// @arg {array<struct.item>} _items the items the vendor sells
 /// @arg {function} _talk_gen a function that returns a sidebar response. given context as argument 0 (see `SHOP_TALK_CONTEXT`)
 function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
@@ -424,7 +424,7 @@ function shop_option_sell(_sell_options = [
             else if InputRepeat(INPUT_VERB.UP) 
                 item_selection --
             
-            item_selection = cap_wraparound(item_selection, item_get_count(sell_options[selection].type))
+            item_selection = clamp(item_selection, 0, item_get_count(sell_options[selection].type)-1)
             
             while item_selection < item_selection_off
                 item_selection_off --
@@ -504,7 +504,7 @@ function shop_option_sell(_sell_options = [
                     draw_text_xfit(300, 260 + 40 * (i - item_selection_off), $"${item_get_shop_sell_price(__item)}", 170, 2, 2)
                 }
                 
-                if item_selection == i
+                if item_selection == i && !sell_prompt
                     draw_sprite_ext(spr_uisoul, 0, 30, 270 + 40 * (i - item_selection_off), 1, 1, 0, c_red, 1)
             }  
             
@@ -522,9 +522,112 @@ function shop_option_sell(_sell_options = [
         }
     })
 }
-function shop_option_talk() : shop_option() constructor {
+
+/// @arg {string|function} _name the name of the option
+/// @arg {string|function} _answer the way the shopkeeper will answer. if a function, should create a cutscene and set `o_shop`'s `waiting` variable to true
+function __shop_talk_option(_name, _answer) constructor {
+    name = _name
+    answer = _answer
+    
+    __answer_call = method(self, function() {
+        if is_string(answer) || is_array(answer) {
+            o_shop.menu_expanded = true
+            
+            cutscene_create()
+            cutscene_set_variable(o_shop, "waiting", true)
+            cutscene_dialogue(answer)
+            cutscene_set_variable(o_shop, "waiting", false)
+            cutscene_set_variable(o_shop, "menu_expanded", false)
+            cutscene_play()
+        }
+        else if is_callable(answer) {
+            o_shop.menu_expanded = true
+            answer()
+        }
+    })
+}
+
+/// @desc constructor for the shop option "talk"
+/// @arg {array<struct>} _talk_options an array of talk options. each talk 
+/// @arg {function} _talk_gen a function that returns a sidebar response. given context as argument 0 (see `SHOP_TALK_CONTEXT`)
+function shop_option_talk(_talk_options, _talk_gen) : shop_option() constructor {
     name = "Talk"
+    
+    talk_options = _talk_options
+    talk_context = SHOP_TALK_CONTEXT.IDLE
+    talk_gen = _talk_gen
+    
+    cancel = method(self, function() {
+        other.menu_in_options = true
+        talk_context = SHOP_TALK_CONTEXT.IDLE
+    })
+    
+    selection = 0
+    
+    step = method(self, function() {
+        if !instance_exists(other.inst_small_talk) && !other.__get_waiting()
+            other.inst_small_talk = text_typer_create(talk_gen(talk_context), 
+                450, 260, DEPTH_UI.MENU_UI, 
+                other.shop_data.flavor_prefix, "", {
+                    gui: true,
+                    can_superskip: false,
+                    max_width: 176,
+                    break_tabulation: false
+                }
+            )
+        
+        if !other.__get_waiting() {
+            if InputPressed(INPUT_VERB.DOWN)
+                selection ++
+            else if InputPressed(INPUT_VERB.UP)
+                selection --
+            
+            if InputPressed(INPUT_VERB.SELECT) {
+                instance_destroy(other.inst_small_talk)
+                
+                if selection == array_length(talk_options)
+                    cancel()
+                else {
+                    talk_options[selection].__answer_call()
+                }
+            }
+            
+            if InputPressed(INPUT_VERB.CANCEL)
+                cancel()
+            
+            selection = cap_wraparound(selection, array_length(talk_options) + 1)
+        }
+    })
+    drawer = method(self, function() {
+        if !other.__get_waiting() {
+            for (var i = 0; i < array_length(talk_options); i ++) {
+                if selection == i
+                    draw_sprite_ext(spr_uisoul, 0, 50, 270 + 40*i, 1, 1, 0, c_red, 1)
+                draw_text_transformed(80, 260 + 40*i, talk_options[i].name, 2, 2, 0)
+            }
+            
+            // return
+            if selection == array_length(talk_options)
+                draw_sprite_ext(spr_uisoul, 0, 50, 430, 1, 1, 0, c_red, 1)
+            draw_text_transformed(80, 420, "Exit", 2, 2, 0)
+        }
+    })
+    
 }
 function shop_option_exit() : shop_option() constructor {
     name = "Exit"
+    use = function() {
+        o_shop.menu_expanded = true
+            
+        cutscene_create()
+        cutscene_set_variable(o_shop, "waiting", true)
+        cutscene_dialogue("* Please come again.{br}{resetx}* We'll be waiting for you{br}with rose-tinted glasses...")
+        cutscene_func(fader_fade, [0, 1, 15])
+        cutscene_func(music_fade, [0, 0, 30])
+        cutscene_sleep(30)
+        
+        cutscene_func(room_goto, [room_test_main])
+        cutscene_func(fader_fade, [1, 0, 10])
+        cutscene_play()
+    }
 }
