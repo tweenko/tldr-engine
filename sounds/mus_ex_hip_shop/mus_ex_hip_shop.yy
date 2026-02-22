@@ -1,6 +1,6 @@
 {
   "$GMSound":"v2",
-  "%Name":"mus_hip_shop",
+  "%Name":"mus_ex_hip_shop",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -12,15 +12,15 @@
   "conversionMode":0,
   "duration":39.587643,
   "exportDir":"",
-  "name":"mus_hip_shop",
+  "name":"mus_ex_hip_shop",
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"Music",
+    "path":"folders/zzz Examples/Music.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"mus_hip_shop.ogg",
+  "soundFile":"mus_ex_hip_shop.ogg",
   "volume":1.0,
 }

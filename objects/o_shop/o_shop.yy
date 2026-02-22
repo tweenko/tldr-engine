@@ -11,8 +11,8 @@
   "name":"o_shop",
   "overriddenProperties":[],
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"misc",
+    "path":"folders/@Engine/objects/misc.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -59,7 +59,9 @@ function enemy() constructor {
     s_hurt = spr_e_virovirokun_hurt
     
 	// misc (in-fight events)
+    ev_init =           -1 // called 1 frame after o_enc is created
     ev_pre_dialogue =   -1
+    ev_party_exec =     -1
 	ev_dialogue =	    -1
 	ev_turn =	  	    -1
     ev_turn_start =     -1

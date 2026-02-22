@@ -213,10 +213,13 @@ if battle_state == BATTLE_STATE.MENU {
 }
 else if battle_state == BATTLE_STATE.EXEC {
     if !exec_init {
+        __call_enc_event("ev_party_exec")
+        
         action_queue = __order_action_queue()
         exec_init = true
+        buffer = 2
     }
-    else if !__check_waiting() {
+    else if !__check_waiting() && buffer == 0 {
         if buffer == 0 {
             if array_length(action_queue) > 0 {
                 var action = action_queue[0]

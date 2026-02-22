@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"shop",
-    "path":"folders/shop.yy",
+    "path":"folders/@Engine/sprites/ui/menus/shop.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

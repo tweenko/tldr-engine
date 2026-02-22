@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"shop_options",
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"shops",
+    "path":"folders/@Engine/scripts/shops.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

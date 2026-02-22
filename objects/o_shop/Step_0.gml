@@ -1,3 +1,6 @@
+if global.console 
+    exit
+
 if menu_in_options {
     if !instance_exists(inst_flavor) {
         inst_flavor = text_typer_create(__get_flavor(), 30, 270, DEPTH_UI.MENU_UI, shop_data.flavor_prefix, "", {

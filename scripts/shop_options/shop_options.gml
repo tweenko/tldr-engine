@@ -32,7 +32,7 @@ function shop_option() constructor {
 /// @arg {array<struct.item>} _items the items the vendor sells
 /// @arg {function} _talk_gen a function that returns a sidebar response. given context as argument 0 (see `SHOP_TALK_CONTEXT`)
 function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
-    name = "Buy"
+    name = loc("shop_option_buy")
     items = _items
     
     talk_context = SHOP_TALK_CONTEXT.IDLE
@@ -79,7 +79,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                 other.shop_data.flavor_prefix, "", {
                     gui: true,
                     can_superskip: false,
-                    max_width: 176,
+                    max_width: 160,
                     break_tabulation: false
                 }
             )
@@ -192,11 +192,15 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         // exit
         if selection == array_length(items) && !buy_prompt
             draw_sprite_ext(spr_uisoul, 0, 30, 430, 1, 1, 0, c_red, 1)
-        draw_text_transformed(60, 420, "Exit", 2, 2, 0)
+        draw_text_transformed(60, 420, loc("shop_option_exit"), 2, 2, 0)
         
+        var __space = space - array_length(array)
         draw_set_font(loc_font("enc"))
         if !is_undefined(space) && !is_undefined(array) && selection < array_length(items)
-            draw_text(520, 430, $"Space: {space - array_length(array)}")
+            draw_text(520, 430, (__space > 0 
+                ? string(loc("shop_buy_space"), __space) 
+                : loc("shop_buy_no_space")
+            ))
         
         var __display_h = round_p(box_h, 2)
         ui_dialoguebox_create(408, 248 - __display_h, 225, __display_h)
@@ -292,12 +296,12 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         if buy_prompt {
             draw_set_font(loc_font("main"))
             
-            draw_text_ext_transformed(460, 260, $"Buy it for ${item_get_shop_cost(items[selection])}?", 16, 70, 2, 2, 0)
+            draw_text_ext_transformed(460, 260, string(loc("shop_buy_prompt"), item_get_shop_cost(items[selection])), 16, 70, 2, 2, 0)
             
             draw_sprite_ext(spr_uisoul, 0, 450, 350 + buy_prompt_selection*30, 1, 1, 0, c_red, 1)
             
-            draw_text_transformed(480, 340, "Yes", 2, 2, 0)
-            draw_text_transformed(480, 370, "No", 2, 2, 0)
+            draw_text_transformed(480, 340, loc("shop_query_yes"), 2, 2, 0)
+            draw_text_transformed(480, 370, loc("shop_query_no"), 2, 2, 0)
         }
     })
 }
@@ -307,13 +311,13 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
 /// @arg {function} _talk_gen a function that returns a sidebar response. given context as argument 0 (see `SHOP_TALK_CONTEXT`)
 /// @arg {array<function>} _refuse_items items that the vendor will refuse to buy. empty by default
 function shop_option_sell(_sell_options = [
-        {type: ITEM_TYPE.CONSUMABLE, name: "Sell Items", small_talk: SHOP_TALK_CONTEXT.SELL_CONSUMABLE},
-        {type: ITEM_TYPE.WEAPON, name: "Sell Weapons", small_talk: SHOP_TALK_CONTEXT.SELL_WEAPON},
-        {type: ITEM_TYPE.ARMOR, name: "Sell Armor", small_talk: SHOP_TALK_CONTEXT.SELL_ARMOR},
-        {type: ITEM_TYPE.STORAGE, name: "Sell Pocket Items", small_talk: SHOP_TALK_CONTEXT.SELL_CONSUMABLE},
+        {type: ITEM_TYPE.CONSUMABLE, name: loc("shop_sell_items"), small_talk: SHOP_TALK_CONTEXT.SELL_CONSUMABLE},
+        {type: ITEM_TYPE.WEAPON, name: loc("shop_sell_weapons"), small_talk: SHOP_TALK_CONTEXT.SELL_WEAPON},
+        {type: ITEM_TYPE.ARMOR, name: loc("shop_sell_armor"), small_talk: SHOP_TALK_CONTEXT.SELL_ARMOR},
+        {type: ITEM_TYPE.STORAGE, name: loc("shop_sell_pocket_items"), small_talk: SHOP_TALK_CONTEXT.SELL_CONSUMABLE},
     ], _talk_gen = function(){}, _refuse_items = []
 ) : shop_option() constructor  {
-    name = "Sell"
+    name = loc("shop_option_sell")
     
     sell_options = _sell_options
     refuse_items = _refuse_items
@@ -340,7 +344,7 @@ function shop_option_sell(_sell_options = [
                 other.shop_data.flavor_prefix, "", {
                     gui: true,
                     can_superskip: false,
-                    max_width: 176,
+                    max_width: (loc_getlang() == "ja" ? 164 : 176),
                     break_tabulation: false
                 }
             )
@@ -470,7 +474,7 @@ function shop_option_sell(_sell_options = [
             // return
             if selection == array_length(sell_options)
                 draw_sprite_ext(spr_uisoul, 0, 50, 430, 1, 1, 0, c_red, 1)
-            draw_text_transformed(80, 420, "Return", 2, 2, 0)
+            draw_text_transformed(80, 420, loc("shop_option_return"), 2, 2, 0)
         }
         else {
             var items_display = 5
@@ -512,12 +516,12 @@ function shop_option_sell(_sell_options = [
                 var __item = item_array[item_selection]
                 
                 draw_set_font(loc_font("main"))
-                draw_text_ext_transformed(460, 260, $"Sell it for ${item_get_shop_sell_price(__item)}?", 16, 70, 2, 2, 0)
+                draw_text_ext_transformed(460, 260, string(loc("shop_sell_prompt"), item_get_shop_sell_price(__item)), 16, 70, 2, 2, 0)
                 
                 draw_sprite_ext(spr_uisoul, 0, 450, 350 + sell_prompt_selection*30, 1, 1, 0, c_red, 1)
                 
-                draw_text_transformed(480, 340, "Yes", 2, 2, 0)
-                draw_text_transformed(480, 370, "No", 2, 2, 0)
+                draw_text_transformed(480, 340, loc("shop_query_yes"), 2, 2, 0)
+                draw_text_transformed(480, 370, loc("shop_query_no"), 2, 2, 0)
             }
         }
     })
@@ -546,12 +550,11 @@ function __shop_talk_option(_name, _answer) constructor {
         }
     })
 }
-
 /// @desc constructor for the shop option "talk"
 /// @arg {array<struct>} _talk_options an array of talk options. each talk 
 /// @arg {function} _talk_gen a function that returns a sidebar response. given context as argument 0 (see `SHOP_TALK_CONTEXT`)
 function shop_option_talk(_talk_options, _talk_gen) : shop_option() constructor {
-    name = "Talk"
+    name = loc("shop_option_talk")
     
     talk_options = _talk_options
     talk_context = SHOP_TALK_CONTEXT.IDLE
@@ -571,7 +574,7 @@ function shop_option_talk(_talk_options, _talk_gen) : shop_option() constructor 
                 other.shop_data.flavor_prefix, "", {
                     gui: true,
                     can_superskip: false,
-                    max_width: 176,
+                    max_width: 160,
                     break_tabulation: false
                 }
             )
@@ -609,25 +612,70 @@ function shop_option_talk(_talk_options, _talk_gen) : shop_option() constructor 
             // return
             if selection == array_length(talk_options)
                 draw_sprite_ext(spr_uisoul, 0, 50, 430, 1, 1, 0, c_red, 1)
-            draw_text_transformed(80, 420, "Exit", 2, 2, 0)
+            draw_text_transformed(80, 420, loc("shop_option_exit"), 2, 2, 0)
         }
     })
     
 }
-function shop_option_exit() : shop_option() constructor {
-    name = "Exit"
-    use = function() {
+
+/// @desc 
+/// @arg {function|string|array<string>} _exit_call if a function, will be simply called. if a string or an array, will be displayed as dialogue
+function shop_option_exit(_exit_call) : shop_option() constructor {
+    name = loc("shop_option_exit")
+    exit_call = _exit_call
+    
+    return_marker_id = 0
+    return_direction = undefined
+    
+    use = method(self, function() {
         o_shop.menu_expanded = true
             
         cutscene_create()
         cutscene_set_variable(o_shop, "waiting", true)
-        cutscene_dialogue("* Please come again.{br}{resetx}* We'll be waiting for you{br}with rose-tinted glasses...")
+        
+        if is_string(exit_call) || is_array(exit_call)
+            cutscene_dialogue(exit_call)
+        else 
+            exit_call()
+        
         cutscene_func(fader_fade, [0, 1, 15])
         cutscene_func(music_fade, [0, 0, 30])
         cutscene_sleep(30)
         
-        cutscene_func(room_goto, [room_test_main])
-        cutscene_func(fader_fade, [1, 0, 10])
+        cutscene_func(music_slot_reset, [0])
+        cutscene_func(method(self, function() {
+            return_marker_id = o_shop.shop_data.return_marker_id
+            return_direction = o_shop.shop_data.return_direction
+            
+            room_goto(o_shop.shop_data.return_room)
+            
+            call_later(1, time_source_units_frames, method(self, function() {
+                if instance_exists(get_leader()) {
+                	var marker = marker_get("land", return_marker_id)
+                    
+                	if instance_exists(marker) {
+                		get_leader().x = marker.x
+                		get_leader().y = marker.y
+                        
+                		get_leader().dir = return_direction ?? DIR.DOWN
+                	}
+                	for (var i = 0; i < array_length(global.party_names); ++i) {
+                	    with party_get_inst(global.party_names[i]) {
+                			x = get_leader().x
+                			y = get_leader().y
+                			dir = get_leader().dir
+                			
+                			event_user(1)
+                		}
+                	}
+                }
+                
+                call_later(1, time_source_units_frames, function() {
+                    fader_fade(1, 0, 10)
+                })
+            }))
+        }))
+        
         cutscene_play()
-    }
+    })
 }

@@ -1,5 +1,5 @@
 function ex_item_butjuice() : item() constructor {
-    name = ["ButJuice"]
+    name = "ButJuice"
 	desc = [
         "It's short for ButlerJuice.\nIt changes color with temperature.", 
         "Heals\n 100HP",
@@ -18,10 +18,12 @@ function ex_item_butjuice() : item() constructor {
 	}
     
     shop_cost = 200
+    
+    item_localize("ex_item_butjuice")
 }
 
 function ex_item_spagetticode() : item() constructor {
-    name = ["SpagettiCode"]
+    name = "SpagettiCode"
 	desc = [
         "Spaghetti woven by master coders, made\nof macarons and ribbons. +30HP to all.", 
         "Heals\nteamn\n30HP",
@@ -40,10 +42,12 @@ function ex_item_spagetticode() : item() constructor {
 	}
     
     shop_cost = 180
+    
+    item_localize("ex_item_spagetticode")
 }
 
 function ex_item_a_bshotbowtie() : item_armor() constructor {
-    name = ["B.ShotBowtie"]
+    name = "B.ShotBowtie"
 	desc = [
         "A handsome bowtie. Looks like the brand\nname has been cut off.", 
         "",
@@ -62,10 +66,12 @@ function ex_item_a_bshotbowtie() : item_armor() constructor {
 	}
     
     shop_cost = 300
+    
+    item_localize("ex_item_a_bshotbowtie")
 }
 
 function ex_item_a_royalpin() : item_armor() constructor {
-    name = ["RoyalPin"]
+    name = "RoyalPin"
 	desc = [
         "A brooch engraved with Queen's face.\nCareful of the sharp part.", 
         "",
@@ -84,10 +90,12 @@ function ex_item_a_royalpin() : item_armor() constructor {
 	}
     
     shop_cost = 1000
+    
+    item_localize("ex_item_a_royalpin")
 }
 
 function ex_item_tesniongem() : item() constructor {
-    name = ["TensionGem"]
+    name = "TensionGem"
     desc = [
         "Raises TP by 50% in battle.",
         "Raises\nTP\n50%"
@@ -103,12 +111,11 @@ function ex_item_tesniongem() : item() constructor {
     use = function(item_index, target_index) {
         if !instance_exists(o_enc) {
             instance_destroy(o_ui_menu)
-            dialogue_start([
-                "* (You felt tense.)", 
-                "* (... try using it in battle.)" 
-            ])
+            dialogue_start(loc("ex_item_tensiongem_use"))
         }
         
         item_delete(item_index)
     }
+    
+    item_localize("ex_item_tensiongem")
 }

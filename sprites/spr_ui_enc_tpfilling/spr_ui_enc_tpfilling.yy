@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"enc",
-    "path":"folders/@Engine/sprites/ui/enc.yy",
+    "name":"encounter",
+    "path":"folders/@Engine/sprites/ui/encounter.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

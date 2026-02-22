@@ -26,8 +26,8 @@
   "nineSlice":null,
   "origin":7,
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"shop",
+    "path":"folders/zzz Examples/Sprites/shop.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

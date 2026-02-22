@@ -1,5 +1,4 @@
-shop_data = new ex_shop_color_cafe()
-event_user(0)
+shop_data = new shop()
 
 inst_flavor = noone
 inst_small_talk = noone

@@ -1,0 +1,150 @@
+{
+    "ex_item_butjuice": {
+        "en": {
+            "name": "ButJuice",
+            "desc": [
+                "It's short for ButlerJuice.\nIt changes color with temperature.", 
+                "Heals\n100HP",
+                "",
+                "Short for ButlerJuice\n+100HP"
+            ],
+            "reactions": {
+                "susie": "Hell'd you call this!?",
+                "ralsei": "I made this.",
+                "noelle": "B-Brainfreeze! ... kidding!"
+            }
+        }, 
+        "ja": {
+            "name": "シツジュース",
+            "desc": [
+                "正式名称: 執事ジュース。\n温度によって色が変わる。", 
+                "100HP\n回復",
+                "",
+                "正しくは\n執事ジュース\n100HP回復"
+            ],
+            "reactions": {
+                "susie": "ヘンな名前だな",
+                "ralsei": "ボクが作ったんだ",
+                "noelle": "頭がキーンとする…！　…なーんてね"
+            }
+        }
+    },
+    "ex_item_spagetticode": {
+        "en": {
+            "name": "SpagettiCode",
+            "desc": [
+                "Spaghetti woven by master coders, made\nof macarons and ribbons. +30HP to all.", 
+                "Heals\nteamn\n30HP",
+                "",
+                "Spaghetti woven by master coders\nParty +30HP"
+            ],
+            "reactions": {
+                "susie": "I'm NOT wearing it.",
+                "ralsei": "How sweet!",
+                "noelle": "Reminds me of one of my sweaters."
+            }
+        }, 
+        "ja": {
+            "name": "スパゲティコード",
+            "desc": [
+                "熟練コード職人が編み出したスパゲティ。\nマカロンとリボン入り。仲間全員30HP回復。", 
+                "味方全員を\n30HP\n回復",
+                "",
+                "達人級\nプログラマー\nが編み出した\nスパゲティ\n全員30HP回復"
+            ],
+            "reactions": {
+                "susie": "ヘンな名前だな",
+                "ralsei": "ボクが作ったんだ",
+                "noelle": "頭がキーンとする…！　…なーんてね"
+            }
+        }
+    },
+
+    "ex_item_tensiongem": {
+        "en": {
+            "name": "TensionGem",
+            "desc": [
+                "Raises TP by 50% in battle.",
+                "Raises\nTP\n50%"
+            ]
+        }, 
+        "ja": {
+            "name": "テンションジェム",
+            "desc": [
+                "バトル中　TPを50%アップ。", 
+                "TP\n50％UP"
+            ]
+        }
+    },
+    "ex_item_tensiongem_use": {
+        "en": [
+            "* (You felt tense.)", 
+            "* (... try using it in battle.)" 
+        ],
+        "ja": [
+            "＊ (テンションが　上がった)",
+            "＊ (…バトル中に使ったほうが{br}よさそうだ)"
+        ]
+    },
+
+    "ex_item_a_bshotbowtie": {
+        "en": {
+            "name": "B.ShotBowtie",
+            "desc": [
+                "A handsome bowtie. Looks like the brand\nname has been cut off.", 
+                "",
+                "",
+                "A handsome bowtie."
+            ],
+            "reactions": {
+                "susie": "Ugh, I look like a nerd.",
+                "ralsei": "Can I have suspenders?",
+                "noelle": "... do I put it in my hair?"
+            }
+        }, 
+        "ja": {
+            "name": "Ｂ＊＊蝶タイ",
+            "desc": [
+                "上品な蝶ネクタイ。タグのブランド名が\n切り落とされている。", 
+                "",
+                "",
+                "上品な\n蝶ネクタイ"
+            ],
+            "reactions": {
+                "susie": "オタクファッションかよ…",
+                "ralsei": "サスペンダーも　ほしいな",
+                "noelle": "…これは　髪につけるのかな？"
+            }
+        }
+    },
+    "ex_item_a_royalpin": {
+        "en": {
+            "name": "RoyalPin",
+            "desc": [
+                "A brooch engraved with Queen's face.\nCareful of the sharp part.", 
+                "",
+                "",
+                "Luxurious brooch."
+            ],
+            "reactions": {
+                "susie": "ROACH? Oh, brooch. Heh.",
+                "ralsei": "I'm a cute little corkboard!",
+                "noelle": "Queen... gave this to me."
+            }
+        }, 
+        "ja": {
+            "name": "王族のブローチ",
+            "desc": [
+                "クイーンの顔が刻まれたブローチ。\nするどい針に気をつけて。", 
+                "",
+                "",
+                "高級そうな\nブローチ"
+            ],
+            "reactions": {
+                "susie": "ブローチってなんだ？　うまいのか？",
+                "ralsei": "カワイイ掲示板になった気分！",
+                "noelle": "クイーンからもらったの…"
+            }
+        }
+    }
+}

@@ -10,8 +10,8 @@
   "name":"o_ex_shop_shopkeep_swatch",
   "overriddenProperties":[],
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"test",
+    "path":"folders/zzz Examples/Objects/ow/test.yy",
   },
   "parentObjectId":{
     "name":"o_shop_shopkeep",

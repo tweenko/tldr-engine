@@ -93,7 +93,7 @@ confirming = false
 confirmselection = 0
 vtext_alpha = 0
 pause = 0
-acquired_crysyal = false
+acquired_crystal = false
 
 copyright_text = ""
 gamename = ENGINE_NAME

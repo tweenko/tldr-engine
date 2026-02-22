@@ -138,12 +138,12 @@ else {
 		draw_set_halign(fa_right)
 		draw_set_color(c_white)
 		
-        if acquired_crysyal {
+        if acquired_crystal {
             var __xoff = 569 - possible_chapters * 10
             var __yoff = 410 + 26
             for (var i = 0; i < possible_chapters; ++i) {
     			for (var j = 0; j < SAVE_SLOTS; ++j) {
-        			if save_chs[i] != -1 && save_chs[i][j] != -1 && save_chs[i][j][1]
+        			if save_chs[i] != -1 && save_chs[i][j] != -1 && save_chs[i][j][0]
                         draw_sprite_ext(spr_ui_chs_crystal, 0, __xoff + i*20, __yoff + 10*j + yadd, 1, 1, 0, c_white, alpha)
                     else
                         draw_sprite_ext(spr_pixel, 0, __xoff + i*20 - 2, __yoff - 1 + j*10 + yadd, 4, 4, 0, c_dkgray, alpha)
