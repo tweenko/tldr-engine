@@ -17,6 +17,9 @@ function item_a_ambercard() : item_armor() constructor {
 		noelle: "It's like a name-tag!",
 	}
     
+    shop_cost = 100
+    shop_sell_price = 50
+    
     item_localize("item_a_amber_card")
 }
 function item_a_silvercard() : item_armor() constructor {
@@ -41,6 +44,9 @@ function item_a_silvercard() : item_armor() constructor {
 		noelle: "It goes with my watch!",
 	}
     
+    shop_cost = 200
+    shop_sell_price = 100
+    
     item_localize("item_a_silver_card")
 }
 
@@ -64,6 +70,8 @@ function item_a_pink_ribbon() : item_armor() constructor {
 		noelle: "... feels familiar.",
 	}
     
+    shop_sell_price = 50
+    
     item_localize("item_a_pink_ribbon")
 }
 function item_a_white_ribbon() : item_armor() constructor {
@@ -85,6 +93,8 @@ function item_a_white_ribbon() : item_armor() constructor {
 		ralsei: "Um... D-do I look cute...?",
 		noelle: "... feels familiar.",
 	}
+    
+    shop_sell_price = 45
     
     item_localize("item_a_white_ribbon")
 }
@@ -108,12 +118,19 @@ function item_a_twin_ribbon() : item_armor() constructor {
 		noelle: "... nostalgic, huh.",
 	}
     
+    shop_sell_price = 200
+    
     item_localize("item_a_twin_ribbon")
 }
 
 function item_a_royal_pin() : item_armor() constructor {
     name = ["Royal Pin"]
-    desc = ["A brooch engraved with Queen's face. Careful of the sharp point.", "--", "Luxurious brooch."]
+    desc = [
+        "A brooch engraved with Queen's face.\nCareful of the sharp part.", 
+        "",
+        "",
+        "Luxurious brooch."
+    ]
     
 	stats = {
 		defense: 3,
@@ -125,6 +142,8 @@ function item_a_royal_pin() : item_armor() constructor {
 		ralsei: "I'm a cute little corkboard!",
 		noelle: "Queen... gave this to me.",
 	}
+    
+    shop_cost = 1000
     
     item_localize("item_a_royal_pin")
 }
@@ -146,6 +165,8 @@ function item_a_silver_watch() : item_armor() constructor {
 		ralsei: "I'm late, I'm late!",
 		noelle: "(Th-this was mine...)",
 	}
+    
+    shop_sell_price = 500
     
     item_localize("item_a_silver_watch")
 }

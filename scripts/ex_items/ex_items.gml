@@ -70,30 +70,6 @@ function ex_item_a_bshotbowtie() : item_armor() constructor {
     item_localize("ex_item_a_bshotbowtie")
 }
 
-function ex_item_a_royalpin() : item_armor() constructor {
-    name = "RoyalPin"
-	desc = [
-        "A brooch engraved with Queen's face.\nCareful of the sharp part.", 
-        "",
-        "",
-        "Luxurious brooch."
-    ]
-	
-	stats = {
-        magic: 1,
-        defense: 3,
-    }
-	reactions = {
-		susie: "ROACH? Oh, brooch. Heh.",
-		ralsei: "I'm a cute little corkboard!",
-		noelle: "Queen... gave this to me.",
-	}
-    
-    shop_cost = 1000
-    
-    item_localize("ex_item_a_royalpin")
-}
-
 function ex_item_tesniongem() : item() constructor {
     name = "TensionGem"
     desc = [

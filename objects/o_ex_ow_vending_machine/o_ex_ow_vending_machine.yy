@@ -1,11 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"o_ex_ow_sale_sign",
+  "%Name":"o_ex_ow_vending_machine",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_ex_ow_sale_sign",
+  "name":"o_ex_ow_vending_machine",
   "overriddenProperties":[],
   "parent":{
     "name":"test",
@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_ex_ow_sale_sign",
-    "path":"sprites/spr_ex_ow_sale_sign/spr_ex_ow_sale_sign.yy",
+    "name":"spr_ex_ow_vending_machine",
+    "path":"sprites/spr_ex_ow_vending_machine/spr_ex_ow_vending_machine.yy",
   },
   "spriteMaskId":null,
   "visible":true,

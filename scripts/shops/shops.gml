@@ -1,5 +1,7 @@
 function shop() constructor {
-    shopkeeper = o_shop_shopkeep
+    shopkeeper = undefined // can be undefined
+    shopkeeper_x = 160
+    shopkeeper_y = 120
     
     flavor = "* Shop flavor text." // can be callable
     flavor_prefix = "" // used for links and voices
@@ -29,19 +31,11 @@ function shop() constructor {
         new shop_option_exit("* Leave Text"),
     ]
     
-    start = method(self, function(_return_room, _return_marker_id, _return_direction = undefined) {
-        room_goto(room_shop)
-        fader_fade(1, 0, 15)
-        
-        return_room = _return_room
-        return_marker_id = _return_marker_id
-        return_direction = _return_direction
-        
-        call_later(1, time_source_units_frames, method(self, function() {
-            with o_shop {
-                shop_data = other
-                event_user(0)
-            }
-        }))
+    start = method(self, function() {
+        var inst = instance_create(o_shop)
+        with inst {
+            shop_data = other
+            event_user(0)
+        }
     })
 }

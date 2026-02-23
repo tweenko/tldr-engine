@@ -50,6 +50,7 @@ function item() constructor {
 	use_args = []
 	
 	shop_cost = 0
+    // shop_sell_price = 0
 }
 
 enum ITEM_TYPE {

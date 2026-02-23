@@ -116,35 +116,5 @@
                 "noelle": "…これは　髪につけるのかな？"
             }
         }
-    },
-    "ex_item_a_royalpin": {
-        "en": {
-            "name": "RoyalPin",
-            "desc": [
-                "A brooch engraved with Queen's face.\nCareful of the sharp part.", 
-                "",
-                "",
-                "Luxurious brooch."
-            ],
-            "reactions": {
-                "susie": "ROACH? Oh, brooch. Heh.",
-                "ralsei": "I'm a cute little corkboard!",
-                "noelle": "Queen... gave this to me."
-            }
-        }, 
-        "ja": {
-            "name": "王族のブローチ",
-            "desc": [
-                "クイーンの顔が刻まれたブローチ。\nするどい針に気をつけて。", 
-                "",
-                "",
-                "高級そうな\nブローチ"
-            ],
-            "reactions": {
-                "susie": "ブローチってなんだ？　うまいのか？",
-                "ralsei": "カワイイ掲示板になった気分！",
-                "noelle": "クイーンからもらったの…"
-            }
-        }
     }
 }

@@ -25,6 +25,9 @@ function item_w_spookysword() : item_weapon() constructor {
         noelle: "(It's kinda cool...)"
 	}
     
+    shop_cost = 200
+    shop_sell_price = 100
+    
     item_localize("item_w_spookysword")
 }
 function item_w_lw_halloween_pencil() : item_weapon() constructor {
@@ -52,6 +55,8 @@ function item_w_wood_blade() : item_weapon() constructor {
 		ralsei: "That's yours, Kris...",
         noelle: "(It has bite marks...)"
 	}
+    
+    shop_sell_price = 30
     
     item_localize("item_w_wood_blade")
 }
@@ -82,6 +87,8 @@ function item_w_saber10() : item_weapon() constructor {
 		ralsei: "You want to... pierce my ears...?",
 		noelle: "(I'm not against using it, but...)",
 	}
+    
+    shop_sell_price = 355
     
     item_localize("item_w_saber10")
 }
@@ -118,6 +125,8 @@ function item_w_jingleblade() : item_weapon() constructor {
 		noelle: "What is this, a barber pole?",
 	}
     
+    shop_sell_price = 617
+    
     item_localize("item_w_jingleblade")
 }
 function item_w_lw_holiday_pencil() : item_weapon() constructor {
@@ -145,6 +154,8 @@ function item_w_mane_ax() : item_weapon() constructor {
 		ralsei: "Ummm... it's a bit big.",
 		noelle: "It... smells nice...",
 	}
+    
+    shop_sell_price = 40
     
     item_localize("item_w_mane_ax")
 }
@@ -191,6 +202,8 @@ function item_w_absorbax() : item_weapon() constructor {
 		noelle: "That red... is that blood?",
 	}
     
+    shop_sell_price = 617
+    
     item_localize("item_w_absorbax")
 }  
 
@@ -208,6 +221,8 @@ function item_w_red_scarf() : item_weapon() constructor {
 		ralsei: "Comfy! Touch it, Kris!",
 		noelle: "Huh? No, I'm not cold.",
 	}
+    
+    shop_sell_price = 50
     
     item_localize("item_w_red_scarf")
 }
@@ -227,6 +242,8 @@ function item_w_flexscarf() : item_weapon() constructor {
 		ralsei: "So pliable, like me!",
 		noelle: "Twist it and... it's a wreath!",
 	}
+    
+    shop_sell_price = 360
     
     item_localize("item_w_flexscarf")
 }
@@ -265,6 +282,8 @@ function item_w_snowring() : item_weapon() constructor {
 		noelle: "(Thank goodness...)",
 	}
     
+    shop_sell_price = 50
+    
     item_localize("item_w_snowring")
 }
 function item_w_freezering() : item_weapon() constructor {
@@ -283,6 +302,8 @@ function item_w_freezering() : item_weapon() constructor {
 		ralsei: "It's beautiful...",
 		noelle: "...",
 	}
+    
+    shop_sell_price = 500
     
     item_localize("item_w_freezering")
 }  

@@ -147,7 +147,7 @@ else {
 }
 	
 if _face == noone && instance_exists(face_inst) {
-	instance_clean(face_inst)
+	instance_destroy(face_inst)
 	x -= face_xoff
     face_xoff = 0
 }

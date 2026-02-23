@@ -16,7 +16,7 @@
         "ja": "{auto_breaks(false)}どうぞ{br}ごゆっくり{br}お選び{br}ください"
     },
     "ex_shop_color_cafe_buy_not_enough": {
-        "en": "You can't afford it. ... maybe next time?",
+        "en": "{auto_breaks(false)}You can't{br}afford it.{br}... maybe{br}next time?",
         "ja": "{auto_breaks(false)}おカネが{br}足りません…{br}ぜひ　またの{br}おこしを…"
     },
     "ex_shop_color_cafe_buy_no_space": {

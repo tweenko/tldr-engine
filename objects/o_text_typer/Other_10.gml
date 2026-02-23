@@ -9,7 +9,7 @@ for (var i = 1; i <= string_length(argstrings); i ++) {
     if __char == "`"
         __string_mode = !__string_mode
     else if __char == "," && !__string_mode {
-        __temp_arg = string_trim_start(__temp_arg)
+        __temp_arg = string_trim(__temp_arg)
         array_push(arg, __temp_arg)
         
         __temp_arg = ""
@@ -20,7 +20,7 @@ for (var i = 1; i <= string_length(argstrings); i ++) {
 
 // add the last recorded argument as well
 if __temp_arg != "" {
-    __temp_arg = string_trim_start(__temp_arg)
+    __temp_arg = string_trim(__temp_arg)
     array_push(arg, __temp_arg)
 }
 
@@ -378,6 +378,26 @@ if command == "link_sprite_set" { // link_sprite_set(sprite_name)
         if instance_exists(talk_link[i]) && asset != -1
             variable_instance_set(talk_link[i], "sprite_index", asset)
     }
+}
+
+if command == "money_display" { // money_display(sell_type)      sell_type can be one of the following: "consumable", "weapon", "armor"
+    var sell_type = ITEM_TYPE.CONSUMABLE
+    switch arg[0] {
+        case "consumable":
+            sell_type = ITEM_TYPE.CONSUMABLE
+            break
+        case "weapon":
+            sell_type = ITEM_TYPE.WEAPON
+            break
+        case "armor":
+            sell_type = ITEM_TYPE.ARMOR
+            break
+    }
+    
+    instance_create(o_ui_money_display,,,, {sell_type: sell_type})
+}
+if command == "money_display_hide" { // money_display_hide
+    instance_destroy(o_ui_money_display)
 }
 
 argstrings = ""

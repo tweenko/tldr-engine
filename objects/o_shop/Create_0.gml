@@ -1,4 +1,4 @@
-shop_data = new shop()
+shop_data = {}
 
 inst_flavor = noone
 inst_small_talk = noone
@@ -20,3 +20,6 @@ __get_flavor = function() {
 __get_waiting = function() {
     return waiting || waiting_internal
 }
+
+if instance_exists(get_leader())
+    get_leader().moveable_shop = false

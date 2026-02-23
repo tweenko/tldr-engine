@@ -93,7 +93,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
             
             if InputPressed(INPUT_VERB.SELECT) && buy_prompt_selection == 0 {
                 var item_type = item_get_type(items[selection])
-                if save_get("money") > item_get_shop_cost(items[selection]) {
+                if save_get("money") < item_get_shop_cost(items[selection]) {
                     buy_prompt = false
                     talk_context = SHOP_TALK_CONTEXT.NOT_ENOUGH
                 }
@@ -618,7 +618,7 @@ function shop_option_talk(_talk_options, _talk_gen) : shop_option() constructor 
     
 }
 
-/// @desc 
+/// @desc constructor for the shop option "exit"
 /// @arg {function|string|array<string>} _exit_call if a function, will be simply called. if a string or an array, will be displayed as dialogue
 function shop_option_exit(_exit_call) : shop_option() constructor {
     name = loc("shop_option_exit")
@@ -638,43 +638,50 @@ function shop_option_exit(_exit_call) : shop_option() constructor {
         else 
             exit_call()
         
-        cutscene_func(fader_fade, [0, 1, 15])
-        cutscene_func(music_fade, [0, 0, 30])
-        cutscene_sleep(30)
-        
-        cutscene_func(music_slot_reset, [0])
-        cutscene_func(method(self, function() {
-            return_marker_id = o_shop.shop_data.return_marker_id
-            return_direction = o_shop.shop_data.return_direction
+        if room == room_shop { // is a full-screen shop
+            cutscene_func(fader_fade, [0, 1, 15])
+            if asset_get_index(o_shop.shop_data.bgm) != -1
+                cutscene_func(music_fade, [0, 0, 30])
+            cutscene_sleep(30)
             
-            room_goto(o_shop.shop_data.return_room)
-            
-            call_later(1, time_source_units_frames, method(self, function() {
-                if instance_exists(get_leader()) {
-                	var marker = marker_get("land", return_marker_id)
-                    
-                	if instance_exists(marker) {
-                		get_leader().x = marker.x
-                		get_leader().y = marker.y
-                        
-                		get_leader().dir = return_direction ?? DIR.DOWN
-                	}
-                	for (var i = 0; i < array_length(global.party_names); ++i) {
-                	    with party_get_inst(global.party_names[i]) {
-                			x = get_leader().x
-                			y = get_leader().y
-                			dir = get_leader().dir
-                			
-                			event_user(1)
-                		}
-                	}
-                }
+            if asset_get_index(o_shop.shop_data.bgm) != -1
+                cutscene_func(music_slot_reset, [0])
+            cutscene_func(method(self, function() {
+                return_marker_id = o_shop.shop_data.return_marker_id
+                return_direction = o_shop.shop_data.return_direction
                 
-                call_later(1, time_source_units_frames, function() {
-                    fader_fade(1, 0, 10)
-                })
+                room_goto(o_shop.shop_data.return_room)
+                
+                call_later(1, time_source_units_frames, method(self, function() {
+                    if instance_exists(get_leader()) {
+                        var marker = marker_get("land", return_marker_id)
+                        
+                        if instance_exists(marker) {
+                            get_leader().x = marker.x
+                            get_leader().y = marker.y
+                            
+                            get_leader().dir = return_direction ?? DIR.DOWN
+                        }
+                        for (var i = 0; i < array_length(global.party_names); ++i) {
+                            with party_get_inst(global.party_names[i]) {
+                                x = get_leader().x
+                                y = get_leader().y
+                                dir = get_leader().dir
+                                
+                                event_user(1)
+                            }
+                        }
+                    }
+                    
+                    call_later(1, time_source_units_frames, function() {
+                        fader_fade(1, 0, 10)
+                    })
+                }))
             }))
-        }))
+        }
+        else {
+            cutscene_func(instance_destroy, [o_shop])
+        }
         
         cutscene_play()
     })

@@ -16,6 +16,7 @@ function enemy() constructor {
     can_spare = true
     
 	tired =	false
+    low_hp_tired = false // whether the enemy should turn tired when hp is low
 	
 	// acts
 	acts = [

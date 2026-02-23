@@ -19,7 +19,7 @@ function ex_shop_color_cafe() : shop() constructor {
         new ex_item_butjuice(),
         new ex_item_spagetticode(),
         new ex_item_a_bshotbowtie(),
-        new ex_item_a_royalpin()
+        new item_a_royal_pin()
     ]
     options = [
         new shop_option_buy(

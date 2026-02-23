@@ -24,6 +24,9 @@ function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed
 	var enemy_struct = o_enc.encounter_data.enemies[target]
     sfx ??= enemy_struct.hurt_sound
     
+    if struct_exists(enemy_struct, "ev_hurt")
+        enemy_struct.ev_hurt()
+    
     if !is_struct(enemy_struct)
         exit
     if enemy_struct.hp <= 0 || !enc_enemy_isfighting(target)

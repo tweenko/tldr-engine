@@ -210,11 +210,7 @@ function instance_create(obj, xx = 0, yy = 0, dpth = 0, post_var_struct = {}) {
 	}
 	return instance
 }
-function instance_clean(inst) {
-	if instance_exists(inst){
-		instance_destroy(inst)
-	}
-}
+
 /// @desc	same as instance_place_list but returns the ds list
 function instance_place_list_ext(xx, yy, obj, ordered){
 	var m = ds_list_create()
