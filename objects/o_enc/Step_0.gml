@@ -270,18 +270,22 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
             
             // choose turn targets
             turn_targets = enc_calculate_target(encounter_data)
-    		for (var i = 0; i < array_length(global.party_names); ++i) {
-    		    if array_contains(turn_targets, global.party_names[i]) {
-                    if encounter_data.display_target {
-    				    var o = party_get_inst(global.party_names[i])
-                        instance_create(o_enc_target, o.x, o.s_get_middle_y(), o.depth-10)
+            
+            // don't display the targets if ANY is chosen
+            if encounter_data.target_calculation != ENC_TARGET.ANY {
+                for (var i = 0; i < array_length(global.party_names); ++i) {
+                    if array_contains(turn_targets, global.party_names[i]) {
+                        if encounter_data.display_target {
+                            var o = party_get_inst(global.party_names[i])
+                            instance_create(o_enc_target, o.x, o.s_get_middle_y(), o.depth-10)
+                        }
                     }
-    			}
-    			else {
-    				var o = party_get_inst(global.party_names[i])
-    				animate(o.darken, .5, 15, "linear", o, "darken")
-    			}
-    		}
+                    else {
+                        var o = party_get_inst(global.party_names[i])
+                        animate(o.darken, .5, 15, "linear", o, "darken")
+                    }
+                }
+            }
     		
     		dialogue_init = true
         }
@@ -380,7 +384,7 @@ else if battle_state == BATTLE_STATE.POST_TURN {
             
             party_state[i] = PARTY_STATE.IDLE
             
-            if !array_contains(turn_targets, global.party_names[i]) // if i wasn't target, stop being dimmed
+            if encounter_data.target_calculation != ENC_TARGET.ANY && !array_contains(turn_targets, global.party_names[i]) // if i wasn't target, stop being dimmed
                 animate(party_get_inst(global.party_names[i]).darken, 0, 15, anime_curve.linear, party_get_inst(global.party_names[i]), "darken")
        	    if !party_isup(global.party_names[i])
                 party_heal(global.party_names[i], round(party_getdata(global.party_names[i], "max_hp") * .13))

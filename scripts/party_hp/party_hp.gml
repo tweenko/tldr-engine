@@ -13,9 +13,10 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
         if audio_exists(sfx)
             audio_play(sfx,,,,1)
 		
-		struct_set(party_nametostruct(name), "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
+        var will_be_up = party_get_will_up(name, heal)
+		party_setdata(name, "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
 		
-		if instance_exists(caller) && caller.object_index == o_ui_menu { // if in menu
+		if (caller == o_ui_menu || instance_exists(caller) && caller.object_index == o_ui_menu) { // if in menu
 			var xoff = 319.5 + array_length(global.party_names) * -213/2
 			var inst = instance_create(o_ui_menu_healeffect, xoff + 70 + 213*array_get_index(global.party_names, name))
 			
@@ -25,9 +26,9 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 			var o = party_get_inst(name)
 			var txt = heal
 			
-			if !party_isup(name) && o_enc.battle_state == "post_turn" {
+			if will_be_up {
 				txt = "up"
-				party_setdata(name, "hp", round(party_getdata(name, "max_hp") * .17))
+				party_setdata(name, "hp", max(round(party_getdata(name, "max_hp") * .17), party_getdata(name, "hp")))
 			}
 			if party_getdata(name, "hp") >= party_getdata(name, "max_hp")
 				txt = "max"
@@ -45,7 +46,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 		}
 	}
 	else if heal == 0 { // miss
-        if instance_exists(caller) && caller.object_index == o_ui_menu {} // if in menu, do nothing
+        if (caller == o_ui_menu || instance_exists(caller) && caller.object_index == o_ui_menu) {} // if in menu, do nothing
 		else if spawn_text {
 			var o = party_get_inst(name)
             if spawn_text && instance_exists(o)
@@ -56,9 +57,10 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 		if sfx == -1
 			sfx = snd_hurt
 		
-		struct_set(party_nametostruct(name), "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
+        var will_be_down = party_get_will_down(name, heal)
+		party_setdata(name, "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
 		
-        if instance_exists(caller) && caller.object_index == o_ui_menu {} // if in menu, do nothing
+        if (caller == o_ui_menu || instance_exists(caller) && caller.object_index == o_ui_menu) {} // if in menu, do nothing
 		else {
 			var txt = heal
 			var o = party_get_inst(name)
@@ -71,7 +73,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
                 screen_shake(5)
 				animate(6, 0, 10, anime_curve.linear, o, "shake")
 				
-				if party_got_downed(name) {
+				if will_be_down {
 					party_setdata(name, "hp", round(party_getdata(name, "max_hp") / -2))
 					txt = "down"
 				}

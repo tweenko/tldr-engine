@@ -52,6 +52,7 @@ function enemy() constructor {
     freezable = false
     defeat_marker = 0 // marker id
     run_away = true // if set to false, if dealt fatal damage the enemy will die
+    hurt_sound = snd_hurt
     
     // sprites
     s_idle = spr_e_virovirokun_idle
@@ -67,6 +68,7 @@ function enemy() constructor {
     ev_turn_start =     -1
 	ev_post_turn =	    -1
     ev_win =            -1
+    ev_hurt =           -1 // called when the enemy is hurt
 	
 	//recruit
 	recruit = new enemy_recruit()

@@ -72,27 +72,20 @@ function party_get_obj(name) {
 function party_isup(name) {
 	return party_getdata(name, "hp") > 0
 }
-///@desc returns whether a party member was just downed
-function party_got_downed(name) {
-    static down_prev = false
-    
-    if party_getdata(name, "hp") <= 0 && !down_prev {
-        down_prev = true
+
+///@desc returns whether a party member will be down when getting a certain amount of healing/damage
+///@arg {string} name the name of the party member we're checking
+///@arg {real} hp_change the amount the hp will be changed by
+function party_get_will_down(name, hp_change) {
+    if party_getdata(name, "hp") > 0 && party_getdata(name, "hp") + hp_change <= 0
         return true
-    }
-    if party_getdata(name, "hp") > 0
-        down_prev = false
 }
-///@desc returns whether a party member was just revived
-function party_got_up(name) {
-    static up_prev = true
-    
-    if party_getdata(name, "hp") > 0 && !up_prev {
-        up_prev = true
+///@desc returns whether a party member will be up when getting a certain amount of healing/damage
+///@arg {string} name the name of the party member we're checking
+///@arg {real} hp_change the amount the hp will be changed by
+function party_get_will_up(name, hp_change) {
+    if party_getdata(name, "hp") < 0 && party_getdata(name, "hp") + hp_change >= 0
         return true
-    }
-    if party_getdata(name, "hp") <= 0
-        up_prev = false
 }
 
 /// @desc returns the struct of the party member

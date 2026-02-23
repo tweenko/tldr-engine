@@ -44,10 +44,8 @@ function enc_set() constructor { // base
     ev_win =            -1
     
 	// methods
-    _target_calculation = ENC_TARGET.RANDOM // if callable, should return an array of indexes of party members who are targeted
-    _target_recalculate_condition = function(__current_targets) {
-        return false
-    }
+    target_calculation = ENC_TARGET.RANDOM // if callable, should return an array of indexes of party members who are targeted
+    target_recalculate_condition = undefined
     
 	_start = function() {
 		enc_start(self)
@@ -71,10 +69,7 @@ function enc_set_ex() : enc_set() constructor {
 		[-20, 0, true]
 	]
     
-    _target_calculation = ENC_TARGET.RANDOM
-    _target_recalculate_condition = function(__current_targets) {
-        return true
-    }
+    target_calculation = ENC_TARGET.ANY
 }
 function enc_set_virovirokun() : enc_set() constructor {
 	debug_name	=	"virovirokun"
@@ -87,4 +82,6 @@ function enc_set_virovirokun() : enc_set() constructor {
 		[-20, 0, true]
 	]
 	flavor = "* Virovirokun floated in!"
+    
+    target_calculation = ENC_TARGET.ALL
 }
