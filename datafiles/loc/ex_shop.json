@@ -62,6 +62,14 @@
         "ja": "{auto_breaks(false)}おしゃべり{br}でしたら{br}よろこんで"
     },
     
+    "ex_shop_color_cafe_enter": {
+        "en": "* Welcome to Color Cafe.{br}{resetx}* Let us warm your day.",
+        "ja": "{auto_breaks(false)}＊ カラーカフェへ{br}ようこそ。{br}{resetx}＊ あたたかな{br}ひとときを{br}お過ごしくださいませ。"
+    },
+    "ex_shop_color_cafe_enter_alt": {
+        "en": "* Don't be blue.{br}{resetx}* We're here for you.",
+        "ja": "{auto_breaks(false)}＊ ブルーな気分に{br}さよならを。{br}{resetx}＊ 当店が{br}お手伝いいたします。"
+    },
     "ex_shop_color_cafe_leave": {
         "en": "* Please come again.{br}{resetx}* We'll be waiting for you{br}with rose-tinted glasses...",
         "ja": "{auto_breaks(false)}＊ またのお越しを。{br}{resetx}＊ いつでも{br}つつしんで　お出迎えいたします。{br}ローズカラーのサングラスで。"

@@ -16,9 +16,9 @@ function onscreen(instance = id, tolerance = 0, percise_collisions = false) {
         exit
     
     if collision_rectangle(guipos_x(), guipos_y(), guipos_x() + o_camera.width, guipos_y() + o_camera.height, instance, percise_collisions, false)
-        return false
-    else
         return true
+    else
+        return false
 }
 
 ///@desc shakes the screen (with the gui layer) and returns the animation used
@@ -299,7 +299,6 @@ function array_sort_ext(array, sort_type_or_function) {
 /// @param {string}  substring  The string to find.
 /// @param {string}  fullstring  The string to find from.
 /// @description              Check if a string contains a string inside it.
-
 function string_contains(substring, fullString) {
     return string_pos(substring, fullString) > 0;
 }

@@ -21,9 +21,7 @@ function shop() constructor {
         ),
         new shop_option_sell(),
         new shop_option_talk(
-            [
-                new __shop_talk_option("Talk Option", "* Talk Answer")
-            ], 
+            [], 
             function(context) {
                 return "Talk Text"
             }

@@ -237,12 +237,19 @@ function enc_action_item(_party_names, _target, _item, _item_index) : enc_action
         cutscene_create()
         cutscene_set_variable(o_enc, "waiting_internal", true)
         
-        cutscene_sleep(4)
-        cutscene_dialogue(string(loc("item_use"), 
-            party_getname(acting_member), 
-            string_upper(item_get_name(target_item))), 
-            "{s(20)}{p}{e}", false
+        var use_text = (!is_undefined(target_item.use_encounter_text) 
+            ? string(loc(target_item.use_encounter_text), 
+                party_getname(acting_member), 
+                string_upper(item_get_name(target_item))
+            )
+            : ""
         )
+        
+        cutscene_sleep(4)
+        if string_length(use_text) > 0
+           cutscene_dialogue(use_text, 
+               "{s(20)}{p}{e}", false
+           )
         
         cutscene_func(function(target_item, item_index, target) {
             with o_enc

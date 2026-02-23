@@ -217,9 +217,8 @@ else if battle_state == BATTLE_STATE.EXEC {
         
         action_queue = __order_action_queue()
         exec_init = true
-        buffer = 2
     }
-    else if !__check_waiting() && buffer == 0 {
+    else if !__check_waiting() {
         if buffer == 0 {
             if array_length(action_queue) > 0 {
                 var action = action_queue[0]
@@ -270,7 +269,7 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
             __call_enc_event("ev_dialogue")
             
             // choose turn targets
-            turn_targets = encounter_data._target_calculation()
+            turn_targets = enc_calculate_target(encounter_data)
     		for (var i = 0; i < array_length(global.party_names); ++i) {
     		    if array_contains(turn_targets, global.party_names[i]) {
                     if encounter_data.display_target {

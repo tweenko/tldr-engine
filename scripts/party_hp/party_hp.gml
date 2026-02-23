@@ -187,8 +187,8 @@ function party_hurt_targets(hurt, caller = noone) {
 /// @arg {string} element the element of the attack that will be used for calculation
 function party_attack_targets(att, caller = noone, element = "") {
 	for (var i = 0; i < array_length(o_enc.turn_targets); ++i) {
-        if o_enc.encounter_data._target_recalculate_condition(o_enc.turn_targets)
-            o_enc.turn_targets = o_enc.encounter_data._target_calculation()
+        if enc_recalculate_condition(o_enc.encounter_data, o_enc.turn_targets)
+            o_enc.turn_targets = enc_calculate_target(o_enc.encounter_data)
         
 		if party_isup(o_enc.turn_targets[i]) {
 			var dmg = damage(att, o_enc.turn_targets[i], element)

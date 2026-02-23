@@ -360,4 +360,24 @@ if command == "mini" { // mini(`text`, char = undefined, face_expression = undef
     )
 }
 
+if command == "link_var_set" { // link_var_set(variable_name, value, is_real = false)
+    for (var i = 0; i < array_length(talk_link); i ++) {
+        if instance_exists(talk_link[i]) {
+            var val = arg[1]
+            if array_length(arg) > 2 && arg[2]
+                val = real(val)
+            
+            variable_instance_set(talk_link[i], arg[0], val)
+        }
+            
+    }
+}
+if command == "link_sprite_set" { // link_sprite_set(sprite_name)
+    for (var i = 0; i < array_length(talk_link); i ++) {
+        var asset = asset_get_index(arg[0])
+        if instance_exists(talk_link[i]) && asset != -1
+            variable_instance_set(talk_link[i], "sprite_index", asset)
+    }
+}
+
 argstrings = ""

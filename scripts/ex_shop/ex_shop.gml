@@ -4,10 +4,10 @@ function ex_shop_color_cafe() : shop() constructor {
     flavor_counter = 0
     flavor = function(context) {
         if flavor_counter > 0
-            return "* Don't be blue.{br}{resetx}* We're here for you."
+            return loc("ex_shop_color_cafe_enter_alt")
             
         flavor_counter ++
-        return "* Welcome to Color Cafe.{br}{resetx}* Let us warm your day."
+        return loc("ex_shop_color_cafe_enter")
     }
     flavor_prefix = "{link(0, true, `o_shop_shopkeep`)}"
     
@@ -66,7 +66,7 @@ function ex_shop_color_cafe() : shop() constructor {
             }
         }),
         new shop_option_talk([
-            new __shop_talk_option("Talk Option", "Talk Answer")
+            new __shop_talk_option("Talk Option", "* Talk Answer")
         ], function(context) {
             return loc("ex_shop_color_cafe_talk_idle")
         }),

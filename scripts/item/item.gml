@@ -40,12 +40,12 @@ function item() constructor {
     // party act specific
     perform_act_anim = true
 	
-	reactions = {
-	}
+	reactions = {}
     
     use_instant = function(item_index, target_index) {}
     use_instant_cancel = function(item_index, target_index) {}
     
+    use_encounter_text = "item_use" // will be localized. {0} is the party member name and {1} is the item name.
 	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
 	

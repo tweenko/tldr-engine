@@ -293,3 +293,41 @@ function enc_item_get_enabled(item_struct) {
     
     return can_perform
 }
+
+enum ENC_TARGET {
+    RANDOM,
+    ALL,
+}
+function enc_calculate_target(encounter) {
+    if encounter._target_calculation == ENC_TARGET.ALL {
+        var __targets = []
+        for (var i = 0; i < array_length(global.party_names); ++i) {
+		    if party_getdata(global.party_names[i], "hp") > 0
+				array_push(__targets, global.party_names[i])
+		}
+        
+        return __targets
+    } 
+    else if encounter._target_calculation == ENC_TARGET.RANDOM {
+        var __targets = []
+        for (var i = 0; i < array_length(global.party_names); ++i) {
+		    if party_getdata(global.party_names[i], "hp") > 0
+				array_push(__targets, global.party_names[i])
+		}
+        
+        if array_length(__targets) == 0
+            return -1
+        return [array_shuffle(__targets)[0]]
+    }
+    else {
+        return encounter._target_calculation()
+    }
+}
+function enc_recalculate_condition(encounter, current_targets) {
+    if encounter._target_calculation == ENC_TARGET.ALL
+        return false
+    else if encounter._target_calculation == ENC_TARGET.RANDOM
+        return (!party_isup(current_targets[0]) ? true : false)
+    else 
+        return encounter._target_recalculate_condition(current_targets)
+}
