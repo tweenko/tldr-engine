@@ -462,7 +462,7 @@ else if battle_state == BATTLE_STATE.WIN {
                 var o = encounter_data.enemies[i].actor_id
                 var a = marker_get("enemy_defeated", encounter_data.enemies[i].defeat_marker)
                 
-                if !is_undefined(a) && instance_exists(o) {
+                if instance_exists(a) && instance_exists(o) {
                     cutscene_animate(o.x, a.x, 12, "linear", o, "x")
                     cutscene_animate(o.y, a.y, 12, "linear", o, "y")
                 }

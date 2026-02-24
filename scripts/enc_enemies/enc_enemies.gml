@@ -128,7 +128,7 @@ function enemy() constructor {
         
         if !recruit_islost(self)
             recruit_lose(self)
-        __defeat("frozen")
+        __defeat()
     })
 }
 

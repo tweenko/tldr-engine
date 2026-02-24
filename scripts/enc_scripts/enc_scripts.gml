@@ -22,9 +22,10 @@ function enc_getparty_sprite(party_name, sprname) {
 /// @param {string} [seed]
 function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed = "") {
 	var enemy_struct = o_enc.encounter_data.enemies[target]
+    hurt = round(hurt)
     sfx ??= enemy_struct.hurt_sound
     
-    if struct_exists(enemy_struct, "ev_hurt")
+    if struct_exists(enemy_struct, "ev_hurt") && is_callable(enemy_struct.ev_hurt)
         enemy_struct.ev_hurt()
     
     if !is_struct(enemy_struct)
