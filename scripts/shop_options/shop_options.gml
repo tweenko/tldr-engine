@@ -54,7 +54,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
     step = method(self, function() {
         #region replicate deltarune's box height calculation
         var box_y = 240 - box_h
-        if selection < array_length(items) {
+        if selection < array_length(items) && shop_get_in_stock(o_shop.shop_data, items[selection]) > 0 {
             if box_y <= 20
                 box_y = 20
             if box_y > 20
@@ -93,7 +93,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
             
             if InputPressed(INPUT_VERB.SELECT) && buy_prompt_selection == 0 {
                 var item_type = item_get_type(items[selection])
-                if save_get("money") < item_get_shop_cost(items[selection]) {
+                if save_get("money") < item_get_buy_price(items[selection]) {
                     buy_prompt = false
                     talk_context = SHOP_TALK_CONTEXT.NOT_ENOUGH
                 }
@@ -110,7 +110,10 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                 		if item_get_count(item_type) + 1 > item_get_maxcount(item_type)  {
                 			if item_get_count(ITEM_TYPE.STORAGE) + 1 <= item_get_maxcount(ITEM_TYPE.STORAGE) {
                                 item_add(new __sc(), ITEM_TYPE.CONSUMABLE)
-                            audio_play(snd_locker)
+                                shop_data_item_eval(o_shop.shop_data, items[selection])
+                                global.save.MONEY -= item_get_buy_price(items[selection])
+                                
+                                audio_play(snd_locker)
                 				talk_context = SHOP_TALK_CONTEXT.BOUGHT_STORAGE
                             }
                             else 
@@ -118,6 +121,9 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                 		}
                         else {
                             item_add(new __sc(), ITEM_TYPE.CONSUMABLE)
+                            shop_data_item_eval(o_shop.shop_data, items[selection])
+                            global.save.MONEY -= item_get_buy_price(items[selection])
+                            
                             audio_play(snd_locker)
                         }
                 	}
@@ -126,7 +132,10 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                             talk_context = SHOP_TALK_CONTEXT.NO_SPACE
                         else 
                             audio_play(snd_locker)
+                        
                         item_add(new __sc())
+                        shop_data_item_eval(o_shop.shop_data, items[selection])
+                        global.save.MONEY -= item_get_buy_price(items[selection])
                     }
                 }
             }
@@ -145,11 +154,18 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                 selection --
             
             if InputPressed(INPUT_VERB.SELECT) {
-                if selection == array_length(items)
+                if selection == array_length(items) {
                     cancel()
-                else 
-                    buy_prompt = true
-                instance_destroy(other.inst_small_talk)
+                    instance_destroy(other.inst_small_talk)
+                }
+                else {
+                    if shop_get_in_stock(o_shop.shop_data, items[selection]) > 0 {
+                        buy_prompt = true
+                        instance_destroy(other.inst_small_talk)
+                    }
+                    else 
+                        audio_play(snd_ui_cant_select)
+                }
             }
             
             if InputPressed(INPUT_VERB.CANCEL)
@@ -182,8 +198,17 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         
         draw_set_font(loc_font("main"))
         for (var i = 0; i < array_length(items); i ++) {
-            draw_text_transformed(60, 260 + 40*i, item_get_name(items[i]), 2, 2, 0)
-            draw_text_xfit(300, 260 + 40*i, $"${item_get_shop_cost(items[i])}", 170, 2, 2)
+            var sold_out = shop_get_in_stock(o_shop.shop_data, items[i]) <= 0
+            
+            if !sold_out {
+                draw_text_transformed(60, 260 + 40*i, item_get_name(items[i]), 2, 2, 0)
+                draw_text_xfit(300, 260 + 40*i, $"${item_get_buy_price(items[i])}", 170, 2, 2)
+            }
+            else {
+                draw_set_colour(c_gray)
+                draw_text_transformed(60, 260 + 40*i, loc("shop_sold_out"), 2, 2, 0)
+                draw_set_colour(c_white)
+            }
             
             if selection == i && !buy_prompt
                 draw_sprite_ext(spr_uisoul, 0, 30, 270 + 40*i, 1, 1, 0, c_red, 1)
@@ -212,7 +237,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         draw_clear_alpha(0, 0)
         draw_set_font(loc_font("main"))
         
-        if selection < array_length(items) && !is_undefined(items[selection]) {
+        if selection < array_length(items) && !is_undefined(items[selection]) && shop_get_in_stock(o_shop.shop_data, items[selection]) > 0 {
             draw_text_ext_transformed(440, 240 - __display_h + 28, 
                 $"{string_upper(item_get_type_name(item_type))}\n{item_get_desc(items[selection], ITEM_DESC_TYPE.SHOP)}", 
                 16, 88, 2, 2, 0
@@ -296,7 +321,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         if buy_prompt {
             draw_set_font(loc_font("main"))
             
-            draw_text_ext_transformed(460, 260, string(loc("shop_buy_prompt"), item_get_shop_cost(items[selection])), 16, 70, 2, 2, 0)
+            draw_text_ext_transformed(460, 260, string(loc("shop_buy_prompt"), item_get_buy_price(items[selection])), 16, 70, 2, 2, 0)
             
             draw_sprite_ext(spr_uisoul, 0, 450, 350 + buy_prompt_selection*30, 1, 1, 0, c_red, 1)
             
@@ -398,7 +423,7 @@ function shop_option_sell(_sell_options = [
                 var item_array = item_get_array(item_type)
                 
                 audio_play(snd_locker)
-                global.save.MONEY += item_get_shop_sell_price(item_array[item_selection])
+                global.save.MONEY += item_get_sell_price(item_array[item_selection])
                 item_delete(item_selection, item_type)
                 
                 instance_destroy(other.inst_small_talk)
@@ -439,13 +464,15 @@ function shop_option_sell(_sell_options = [
             
             if InputPressed(INPUT_VERB.SELECT) {
                 if !is_undefined(item_array[item_selection]) {
-                    var __refuse = false
-                    for (var i = 0; i < array_length(refuse_items); i ++) {
-                        if is_instanceof(item_array[item_selection], refuse_items[i]) {
-                            __refuse = true
-                            break
+                    var __refuse = !item_get_can_sell(item_array[item_selection])
+                    if !__refuse
+                        for (var i = 0; i < array_length(refuse_items); i ++) {
+                            if is_instanceof(item_array[item_selection], refuse_items[i]) {
+                                __refuse = true
+                                break
+                            }
                         }
-                    }
+                    
                     if !__refuse
                         sell_prompt = true
                     else {
@@ -504,8 +531,11 @@ function shop_option_sell(_sell_options = [
                     draw_set_colour(c_white)
                 }
                 else {
+                    var sell_price = item_get_sell_price(__item)
+                    
                     draw_text_transformed(60, 260 + 40 * (i - item_selection_off), item_get_name(__item), 2, 2, 0)
-                    draw_text_xfit(300, 260 + 40 * (i - item_selection_off), $"${item_get_shop_sell_price(__item)}", 170, 2, 2)
+                    if sell_price > 0
+                        draw_text_xfit(300, 260 + 40 * (i - item_selection_off), $"${sell_price}", 170, 2, 2)
                 }
                 
                 if item_selection == i && !sell_prompt
@@ -516,7 +546,7 @@ function shop_option_sell(_sell_options = [
                 var __item = item_array[item_selection]
                 
                 draw_set_font(loc_font("main"))
-                draw_text_ext_transformed(460, 260, string(loc("shop_sell_prompt"), item_get_shop_sell_price(__item)), 16, 70, 2, 2, 0)
+                draw_text_ext_transformed(460, 260, string(loc("shop_sell_prompt"), item_get_sell_price(__item)), 16, 70, 2, 2, 0)
                 
                 draw_sprite_ext(spr_uisoul, 0, 450, 350 + sell_prompt_selection*30, 1, 1, 0, c_red, 1)
                 

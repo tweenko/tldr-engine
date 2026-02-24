@@ -17,7 +17,7 @@ function ex_item_butjuice() : item() constructor {
 		noelle: "B-Brainfreeze! ... kidding!",
 	}
     
-    shop_cost = 200
+    buy_price = 200
     
     item_localize("ex_item_butjuice")
 }
@@ -41,7 +41,7 @@ function ex_item_spagetticode() : item() constructor {
 		noelle: "Reminds me of one of my sweaters.",
 	}
     
-    shop_cost = 180
+    buy_price = 180
     
     item_localize("ex_item_spagetticode")
 }
@@ -65,7 +65,7 @@ function ex_item_a_bshotbowtie() : item_armor() constructor {
 		noelle: "... do I put it in my hair?",
 	}
     
-    shop_cost = 300
+    buy_price = 300
     
     item_localize("ex_item_a_bshotbowtie")
 }
@@ -92,6 +92,8 @@ function ex_item_tesniongem() : item() constructor {
         
         item_delete(item_index)
     }
+    
+    sell_price = 150
     
     item_localize("ex_item_tensiongem")
 }

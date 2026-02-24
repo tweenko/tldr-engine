@@ -25,8 +25,8 @@ function item_w_spookysword() : item_weapon() constructor {
         noelle: "(It's kinda cool...)"
 	}
     
-    shop_cost = 200
-    shop_sell_price = 100
+    buy_price = 200
+    sell_price = 100
     
     item_localize("item_w_spookysword")
 }
@@ -56,7 +56,7 @@ function item_w_wood_blade() : item_weapon() constructor {
         noelle: "(It has bite marks...)"
 	}
     
-    shop_sell_price = 30
+    sell_price = 30
     
     item_localize("item_w_wood_blade")
 }
@@ -88,7 +88,7 @@ function item_w_saber10() : item_weapon() constructor {
 		noelle: "(I'm not against using it, but...)",
 	}
     
-    shop_sell_price = 355
+    sell_price = 355
     
     item_localize("item_w_saber10")
 }
@@ -125,7 +125,7 @@ function item_w_jingleblade() : item_weapon() constructor {
 		noelle: "What is this, a barber pole?",
 	}
     
-    shop_sell_price = 617
+    sell_price = 617
     
     item_localize("item_w_jingleblade")
 }
@@ -155,7 +155,7 @@ function item_w_mane_ax() : item_weapon() constructor {
 		noelle: "It... smells nice...",
 	}
     
-    shop_sell_price = 40
+    sell_price = 40
     
     item_localize("item_w_mane_ax")
 }
@@ -180,6 +180,8 @@ function item_w_devilsknife() : item_weapon() constructor {
 		noelle: "...? It smiled at me?",
 	}
     
+    can_sell = false
+    
     item_localize("item_w_devilsknife")
 }    
 function item_w_absorbax() : item_weapon() constructor {
@@ -202,7 +204,7 @@ function item_w_absorbax() : item_weapon() constructor {
 		noelle: "That red... is that blood?",
 	}
     
-    shop_sell_price = 617
+    sell_price = 617
     
     item_localize("item_w_absorbax")
 }  
@@ -222,7 +224,7 @@ function item_w_red_scarf() : item_weapon() constructor {
 		noelle: "Huh? No, I'm not cold.",
 	}
     
-    shop_sell_price = 50
+    sell_price = 50
     
     item_localize("item_w_red_scarf")
 }
@@ -243,7 +245,7 @@ function item_w_flexscarf() : item_weapon() constructor {
 		noelle: "Twist it and... it's a wreath!",
 	}
     
-    shop_sell_price = 360
+    sell_price = 360
     
     item_localize("item_w_flexscarf")
 }
@@ -264,6 +266,8 @@ function item_w_puppetscarf() : item_weapon() constructor {
 		noelle: "(Feels like guitar strings...)",
 	}
     
+    can_sell = false
+    
     item_localize("item_w_puppetscarf")
 } 
 
@@ -282,7 +286,7 @@ function item_w_snowring() : item_weapon() constructor {
 		noelle: "(Thank goodness...)",
 	}
     
-    shop_sell_price = 50
+    sell_price = 50
     
     item_localize("item_w_snowring")
 }
@@ -303,7 +307,7 @@ function item_w_freezering() : item_weapon() constructor {
 		noelle: "...",
 	}
     
-    shop_sell_price = 500
+    sell_price = 500
     
     item_localize("item_w_freezering")
 }  

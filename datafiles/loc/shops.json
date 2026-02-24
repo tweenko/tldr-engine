@@ -49,5 +49,8 @@
     },
     "shop_query_no": {
         "en": "No", "ja": "いいえ"
+    },
+    "shop_sold_out": {
+        "en": "SOLD OUT", "ja": "SOLD OUT"
     }
 }

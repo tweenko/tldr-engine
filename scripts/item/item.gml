@@ -49,8 +49,11 @@ function item() constructor {
 	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
 	
-	shop_cost = 0
-    // shop_sell_price = 0
+	buy_price = 0 // can be callable
+    // sell_price = 0 // can be callable
+    
+    shop_in_stock = infinity // determines whether a shop item is in stock. if set to real, shows how much of it can be sold
+    can_sell = true // determines whether it can be sold to vendors
 }
 
 enum ITEM_TYPE {
@@ -192,7 +195,7 @@ function item_get_name(item_struct) {
 ///@desc returns the description of an item
 ///@arg {struct.item} item_struct the struct of the item
 ///@arg {enum.ITEM_DESC_TYPE} desc_type the type of the description that will be returned
-function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL){
+function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL) {
     if is_undefined(item_struct)
         return ""
     if !struct_exists(item_struct, "desc")
@@ -210,32 +213,64 @@ function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL){
 
 ///@desc returns the shop cost of an item
 ///@arg {struct.item} item_struct the struct of the item
-function item_get_shop_cost(item_struct){
+function item_get_buy_price(item_struct) {
     if is_undefined(item_struct)
         return 0
-    if !struct_exists(item_struct, "shop_cost")
+    if !struct_exists(item_struct, "buy_price")
         return 0
     
-    if is_real(item_struct.shop_cost)
-        return item_struct.shop_cost
-    else if is_callable(item_struct.shop_cost)
-        return item_struct.shop_cost()
-	return item_struct.shop_cost
+    if is_real(item_struct.buy_price)
+        return item_struct.buy_price
+    else if is_callable(item_struct.buy_price)
+        return item_struct.buy_price()
+	return item_struct.buy_price
 }
 
 ///@desc returns the sell price of an item
 ///@arg {struct.item} item_struct the struct of the item
-function item_get_shop_sell_price(item_struct){
+function item_get_sell_price(item_struct) {
     if is_undefined(item_struct)
         return 0
-    if !struct_exists(item_struct, "shop_sell_price")
-        return round(item_get_shop_cost(item_struct)/2)
+    if !struct_exists(item_struct, "sell_price")
+        return round(item_get_buy_price(item_struct)/2)
     
-    if is_real(item_struct.shop_sell_price)
-        return item_struct.shop_sell_price
-    else if is_callable(item_struct.shop_sell_price)
-        return item_struct.shop_sell_price()
-	return item_struct.shop_sell_price
+    if is_real(item_struct.sell_price)
+        return item_struct.sell_price
+    else if is_callable(item_struct.sell_price)
+        return item_struct.sell_price()
+	return item_struct.sell_price
+}
+
+///@desc returns whether an item can be sold
+///@arg {struct.item} item_struct the struct of the item
+function item_get_can_sell(item_struct) {
+    if is_undefined(item_struct)
+        return false
+    if !struct_exists(item_struct, "can_sell")
+        return true
+    
+    if is_bool(item_struct.can_sell)
+        return item_struct.can_sell
+    else if is_callable(item_struct.can_sell)
+        return item_struct.can_sell()
+	return item_struct.can_sell
+}
+
+///@desc returns the amount of items in stock
+///@arg {struct.item} item_struct the struct of the item
+function item_get_in_stock(item_struct) {
+    if is_undefined(item_struct)
+        return 0
+    if !struct_exists(item_struct, "shop_in_stock")
+        return infinity
+    
+    if is_undefined(item_struct.shop_in_stock)
+        return infinity
+    else if is_real(item_struct.shop_in_stock)
+        return item_struct.shop_in_stock
+    else if is_callable(item_struct.shop_in_stock)
+        return item_struct.shop_in_stock()
+	return item_struct.shop_in_stock
 }
 
 ///@desc returns the type of an item

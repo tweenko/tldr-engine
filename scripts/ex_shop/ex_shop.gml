@@ -21,6 +21,9 @@ function ex_shop_color_cafe() : shop() constructor {
         new ex_item_a_bshotbowtie(),
         new item_a_royal_pin()
     ]
+    items[2].shop_in_stock = 3
+    items[3].shop_in_stock = 1
+    
     options = [
         new shop_option_buy(
             items, 

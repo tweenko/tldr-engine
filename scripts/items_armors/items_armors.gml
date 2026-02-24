@@ -17,8 +17,8 @@ function item_a_ambercard() : item_armor() constructor {
 		noelle: "It's like a name-tag!",
 	}
     
-    shop_cost = 100
-    shop_sell_price = 50
+    buy_price = 100
+    sell_price = 50
     
     item_localize("item_a_amber_card")
 }
@@ -44,8 +44,8 @@ function item_a_silvercard() : item_armor() constructor {
 		noelle: "It goes with my watch!",
 	}
     
-    shop_cost = 200
-    shop_sell_price = 100
+    buy_price = 200
+    sell_price = 100
     
     item_localize("item_a_silver_card")
 }
@@ -70,7 +70,7 @@ function item_a_pink_ribbon() : item_armor() constructor {
 		noelle: "... feels familiar.",
 	}
     
-    shop_sell_price = 50
+    sell_price = 50
     
     item_localize("item_a_pink_ribbon")
 }
@@ -94,7 +94,7 @@ function item_a_white_ribbon() : item_armor() constructor {
 		noelle: "... feels familiar.",
 	}
     
-    shop_sell_price = 45
+    sell_price = 45
     
     item_localize("item_a_white_ribbon")
 }
@@ -118,7 +118,7 @@ function item_a_twin_ribbon() : item_armor() constructor {
 		noelle: "... nostalgic, huh.",
 	}
     
-    shop_sell_price = 200
+    sell_price = 200
     
     item_localize("item_a_twin_ribbon")
 }
@@ -143,7 +143,7 @@ function item_a_royal_pin() : item_armor() constructor {
 		noelle: "Queen... gave this to me.",
 	}
     
-    shop_cost = 1000
+    buy_price = 1000
     
     item_localize("item_a_royal_pin")
 }
@@ -166,7 +166,7 @@ function item_a_silver_watch() : item_armor() constructor {
 		noelle: "(Th-this was mine...)",
 	}
     
-    shop_sell_price = 500
+    sell_price = 500
     
     item_localize("item_a_silver_watch")
 }
@@ -206,6 +206,8 @@ function item_a_dealmaker() : item_armor() constructor {
 		noelle: "(Seems... familiar?)",
 	}
     
+    can_sell = false
+    
     item_localize("item_a_dealmaker")
 }
 function item_a_shadowmantle() : item_armor() constructor {
@@ -230,6 +232,8 @@ function item_a_shadowmantle() : item_armor() constructor {
 		ralsei: "Sh-should I wear this...?",
 		noelle: "No... it's for someone... taller.",
 	}
+    
+    can_sell = false
     
     item_localize("item_a_shadowmantle")
 }

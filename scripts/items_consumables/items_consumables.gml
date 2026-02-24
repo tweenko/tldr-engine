@@ -12,7 +12,7 @@ function item_lightcandy() : item() constructor {
 		noelle: "(I-isn't this the chalk I gave her?)",
 	}
     
-    shop_sell_price = 100
+    sell_price = 100
     
     item_localize("item_c_lightcandy")
 }
@@ -33,8 +33,8 @@ function item_darker_candy() : item() constructor {
 		noelle: "Oh, it's... sticky?"
 	}
     
-    shop_cost = 240
-    shop_sell_price = 60
+    buy_price = 240
+    sell_price = 60
     
     item_localize("item_c_darker_candy")
 }
@@ -54,7 +54,7 @@ function item_top_cake() : item() constructor {
 		noelle: "Happy birthday! Haha!"
 	}
     
-    shop_sell_price = 75
+    sell_price = 75
     
     item_localize("item_c_top_cake")
 }
@@ -88,7 +88,7 @@ function item_revivemint() : item() constructor {
 		item_delete(item_index)
 	}
     
-    shop_sell_price = 200
+    sell_price = 200
     
     item_localize("item_c_revivemint")
 }
@@ -108,5 +108,5 @@ function item_lw_shit() : item() constructor {
 		}
 	}
     
-    shop_sell_price = 2
+    sell_price = 2
 }

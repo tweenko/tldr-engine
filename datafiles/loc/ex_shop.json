@@ -4,7 +4,7 @@
         "ja": "{auto_breaks(false)}スペシャル{br}メニューを{br}ご用意して{br}おります"
     },
     "ex_shop_color_cafe_buy_bought": {
-        "en": "Queen thanks you for your patronage.",
+        "en": "{auto_breaks(false)}Queen{br}thanks you{br}for your{br}patronage.",
         "ja": "{auto_breaks(false)}クイーンさま{br}も{br}およろこびで{br}ございます"
     },
     "ex_shop_color_cafe_buy_bought_storage": {
@@ -33,7 +33,7 @@
         "ja": "{auto_breaks(false)}おやめに{br}なりますか？{br}じっくり{br}ご検討を"
     },
     "ex_shop_color_cafe_sell_refuse": {
-        "en": "There are some things we cannot buy.",
+        "en": "{auto_breaks(false)}There are{br}some things{br}we cannot{br}buy.",
         "ja": "{auto_breaks(false)}お買い取り{br}できない{br}モノも{br}ございます"
     },
     "ex_shop_color_cafe_sell_no_items": {

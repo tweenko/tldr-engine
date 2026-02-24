@@ -70,7 +70,7 @@ array_push(global.items, new ex_item_tesniongem())
     save_entry("TIME", global.time, function(_conv_data){ global.time = _conv_data }, function(){ return global.time })
     save_entry("CHAPTER", global.chapter, function(_conv_data){ global.chapter = _conv_data }, function(){ return global.chapter })
     save_entry("PLOT", 0)
-    save_entry("MONEY", 0)
+    save_entry("MONEY", 4000)
     save_entry("EXP", 0)
     
     save_entry("CRYSTAL", false)
@@ -133,6 +133,7 @@ array_push(global.items, new ex_item_tesniongem())
     )
     
     // misc
+    save_entry("SHOP_DATA", {})
     save_entry("STATES", global.states, function(_conv_data){ global.states = _conv_data }, function(){ return global.states })
     save_entry("WORLD", global.world, function(_conv_data){ global.world = _conv_data }, function(){ return global.world })
     
