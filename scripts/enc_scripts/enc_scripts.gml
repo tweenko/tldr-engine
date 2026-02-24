@@ -62,7 +62,10 @@ function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed
             else if seed == "freeze"
                 enemy_struct.__freeze_defeat()
 		}
-		if instance_exists(o) 
+		else if enemy_struct.hp < enemy_struct.max_hp/2 && enemy_struct.low_hp_tired
+            enemy_struct.tired = true
+        
+        if instance_exists(o) 
 			o.hurt = 20
 		audio_play(sfx)
 		

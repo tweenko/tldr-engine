@@ -20,6 +20,8 @@ function item_darker_candy() : item() constructor {
 	name = ["Darker Candy"]
 	desc = ["A candy that has grown sweeter with time.\nSaid to taste like toasted marshmallow. +120HP", "Heals 120HP"]
 	
+    lw_counterpart = item_lw_shit
+    
 	use = function(item_index, target_index, caller = -1) {
 		party_heal(global.party_names[target_index], 40, caller)
 		item_delete(item_index)
@@ -97,6 +99,8 @@ function item_lw_shit() : item() constructor {
 	name = ["Actual Shit"]
 	desc = ["* Nobody knows what it actually does...", "HOW"]
 	
+    dw_counterpart = item_darker_candy
+    
 	use = function(item_index, target_index, caller) {
 		dialogue_start("* You smell the shit...{br}{resetx}{s(10)}* Ew. Why did you do that.")
 	}

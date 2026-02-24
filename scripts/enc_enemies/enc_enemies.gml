@@ -16,7 +16,7 @@ function enemy() constructor {
     can_spare = true
     
 	tired =	false
-    low_hp_tired = false // whether the enemy should turn tired when hp is low
+    low_hp_tired = true // whether the enemy should turn tired when hp is low
 	
 	// acts
 	acts = [
@@ -268,7 +268,6 @@ function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
 	obj = o_actor_e_killercar
-	tired = true
 	defense = 0
     turn_object = o_ex_turn_complex_box
     carrying_money = 1

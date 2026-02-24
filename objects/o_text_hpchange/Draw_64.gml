@@ -10,7 +10,8 @@ if mode == 3 {
 	draw_set_alpha(image_alpha)
 	draw_set_halign(fa_center)
 	
-	draw_text_transformed(visual_x + xoff, visual_y + 35, draw, 1, image_yscale, 0)
+    if string_split(draw, "/")[0] != string_split(draw, "/")[1]
+	   draw_text_transformed(visual_x + xoff, visual_y + 35, draw, 1, image_yscale, 0)
 	
 	draw_set_halign(fa_left)
 	draw_set_alpha(1)

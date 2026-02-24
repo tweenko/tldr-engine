@@ -18,5 +18,9 @@
     "font_prophecy": {
         "en": "font_prophecy",
         "ja": "font_prophecy_ja"
+    },
+    "font_8bit": {
+        "en": "font_8bit",
+        "ja": "font_8bit_ja"
     }
 }

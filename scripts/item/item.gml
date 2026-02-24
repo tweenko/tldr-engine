@@ -4,7 +4,8 @@ function item() constructor {
 	type = ITEM_TYPE.CONSUMABLE
 	
 	lw_counterpart = undefined // reference a script, nothing appears in the light world if it's undefined
-	
+	dw_counterpart = undefined // reference a script, nothing appears in the dark world if it's undefined
+    
 	// item specific
 	use_type = ITEM_USE.INDIVIDUAL
 	can_use = true // can also be a function that returns boolean

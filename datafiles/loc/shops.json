@@ -52,5 +52,21 @@
     },
     "shop_sold_out": {
         "en": "SOLD OUT", "ja": "SOLD OUT"
+    },
+
+    "shop_spr_label_hold": {
+        "en": "spr_shop_label_hold", "ja": "spr_shop_label_hold_ja"
+    },
+    "shop_spr_label_pocket": {
+        "en": "spr_shop_label_pocket", "ja": "spr_shop_label_pocket_ja"
+    },
+    "shop_spr_label_storage": {
+        "en": "spr_shop_label_storage", "ja": "spr_shop_label_storage_ja"
+    },
+    "shop_spr_label_weapon": {
+        "en": "spr_shop_label_weapon", "ja": "spr_shop_label_weapon_ja"
+    },
+    "shop_spr_label_armor": {
+        "en": "spr_shop_label_armor", "ja": "spr_shop_label_armor_ja"
     }
 }

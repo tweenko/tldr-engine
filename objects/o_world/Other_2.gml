@@ -58,9 +58,6 @@ global.save = {}
 // load the default items
 array_push(global.key_items, new item_key_cell_phone())
 
-array_push(global.items, new item_revivemint())
-array_push(global.items, new ex_item_tesniongem())
-
 #region create the save entries
     // base player data
     save_entry("NAME", "PLAYER")
@@ -70,7 +67,7 @@ array_push(global.items, new ex_item_tesniongem())
     save_entry("TIME", global.time, function(_conv_data){ global.time = _conv_data }, function(){ return global.time })
     save_entry("CHAPTER", global.chapter, function(_conv_data){ global.chapter = _conv_data }, function(){ return global.chapter })
     save_entry("PLOT", 0)
-    save_entry("MONEY", 4000)
+    save_entry("MONEY", 0)
     save_entry("EXP", 0)
     
     save_entry("CRYSTAL", false)
@@ -79,7 +76,7 @@ array_push(global.items, new ex_item_tesniongem())
     save_entry("COMPLETE_TIME", 0)
     
     // light world data
-    save_entry("LW_NAME", "Kris")
+    save_entry("LW_NAME", loc("party_kris_name"))
     save_entry("LW_LV", 1)
     save_entry("LW_HP", 20)
     save_entry("LW_MAXHP", 20)

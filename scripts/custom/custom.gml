@@ -299,6 +299,31 @@ function string_contains(substring, fullString) {
     return string_pos(substring, fullString) > 0;
 }
 
+/// @desc adds padding to the start of a string to reach desired length (e.g. 01 instead of 1)
+/// @arg {string} _string the string to pad
+/// @arg {string} _substring the string to add to reach the required length
+/// @arg {real} _required_length the target length you're trying to achieve
+function string_pad_start(_string, _substring, _required_length) {
+    if !is_string(_string)
+        _string = string(_string)
+    while string_length(_string) < _required_length {
+        _string = _substring + _string
+    }
+    return _string
+}
+/// @desc adds padding to the end of a string to reach desired length (e.g. B0 instead of B)
+/// @arg {string} _string the string to pad
+/// @arg {string} _substring the string to add to reach the required length
+/// @arg {real} _required_length the target length you're trying to achieve
+function string_pad_end(_string, _substring, _required_length) {
+    if !is_string(_string)
+        _string = string(_string)
+    while string_length(_string) < _required_length {
+        _string = string_insert(_string, _substring, string_length(_string)+1)
+    }
+    return _string
+}
+
 /// @desc	rounds value with cerain percision
 /// @arg	{real} value
 /// @arg	{real} precision    works like round(value/precision) * precision

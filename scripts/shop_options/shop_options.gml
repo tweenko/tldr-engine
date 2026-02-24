@@ -180,6 +180,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         var item_type = ITEM_TYPE.CONSUMABLE
         var space = 0
         var array = []
+        var legacy_space_display = false
         
         // if the item is valid, assign type, space and array
         if selection < array_length(items) {
@@ -220,12 +221,47 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         draw_text_transformed(60, 420, loc("shop_option_exit"), 2, 2, 0)
         
         var __space = space - array_length(array)
-        draw_set_font(loc_font("enc"))
-        if !is_undefined(space) && !is_undefined(array) && selection < array_length(items)
-            draw_text(520, 430, (__space > 0 
-                ? string(loc("shop_buy_space"), __space) 
-                : loc("shop_buy_no_space")
-            ))
+        if legacy_space_display {
+            draw_set_font(loc_font("enc"))
+            if !is_undefined(space) && !is_undefined(array) && selection < array_length(items)
+                draw_text(520, 430, (__space > 0 
+                    ? string(loc("shop_buy_space"), __space) 
+                    : loc("shop_buy_no_space")
+                ))
+        }
+        else {
+            var label_y = 398 + (loc_getlang() == "ja" ? 4 : 0)
+            switch item_type {
+                case ITEM_TYPE.CONSUMABLE:
+                    draw_sprite_ext(asset_get_index(loc("shop_spr_label_hold")), 0, 545, label_y, 1, 1, 0, c_white, 1)
+                    draw_sprite_ext(asset_get_index(loc("shop_spr_label_storage")), 0, 545, 16*2 + label_y, 1, 1, 0, c_white, 1)
+                    
+                    draw_set_font(loc_font("8bit"))
+                    draw_text_transformed(546, label_y + 16, $"{string_pad_start(item_get_count(ITEM_TYPE.CONSUMABLE), "0", 2)}/{item_get_maxcount(ITEM_TYPE.CONSUMABLE)}", .5, .5, 0);
+                    draw_text_transformed(546, label_y + 16*3, $"{string_pad_start(item_get_count(ITEM_TYPE.STORAGE), "0", 2)}/{item_get_maxcount(ITEM_TYPE.STORAGE)}", .5, .5, 0);
+                    draw_set_font(loc_font("main"))
+                    
+                    break
+                case ITEM_TYPE.WEAPON:
+                    draw_sprite_ext(asset_get_index(loc("shop_spr_label_weapon")), 0, 545, label_y + 8, 1, 1, 0, c_white, 1)
+                    draw_sprite_ext(asset_get_index(loc("shop_spr_label_hold")), 0, 545, 12 + label_y + 8, 1, 1, 0, c_white, 1)
+                    
+                    draw_set_font(loc_font("8bit"))
+                    draw_text_transformed(546, label_y + 12*2 + 4 + 8, $"{string_pad_start(item_get_count(ITEM_TYPE.WEAPON), "0", 2)}/{item_get_maxcount(ITEM_TYPE.WEAPON)}", .5, .5, 0);
+                    draw_set_font(loc_font("main"))
+                    
+                    break
+                case ITEM_TYPE.ARMOR:
+                    draw_sprite_ext(asset_get_index(loc("shop_spr_label_armor")), 0, 545, label_y + 8, 1, 1, 0, c_white, 1)
+                    draw_sprite_ext(asset_get_index(loc("shop_spr_label_hold")), 0, 545, 12 + label_y + 8, 1, 1, 0, c_white, 1)
+                    
+                    draw_set_font(loc_font("8bit"))
+                    draw_text_transformed(546, label_y + 12*2 + 4 + 8, $"{string_pad_start(item_get_count(ITEM_TYPE.ARMOR), "0", 2)}/{item_get_maxcount(ITEM_TYPE.ARMOR)}", .5, .5, 0);
+                    draw_set_font(loc_font("main"))
+                    
+                    break
+            }
+        }
         
         var __display_h = round_p(box_h, 2)
         ui_dialoguebox_create(408, 248 - __display_h, 225, __display_h)
@@ -259,8 +295,16 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                 for (var i = 0; i < array_length(global.party_names); i ++) {
                     var x_off = (i % 2) * 100
                     var y_off = (i div 2) * 45 + 220 - box_h
-                    draw_sprite_ext(party_geticon(global.party_names[i]), 0, 425 + x_off, 160 + y_off, 1, 1, 0, c_white, 1)
+                    var greyed_out = false
+                    if item_type == ITEM_TYPE.WEAPON && !array_contains(items[selection].weapon_whitelist, global.party_names[i])
+                        greyed_out = true
+                    else if item_type == ITEM_TYPE.ARMOR && array_contains(items[selection].armor_blacklist, global.party_names[i])
+                        greyed_out = true
                     
+                    draw_sprite_ext(party_geticon(global.party_names[i]), 0, 425 + x_off, 160 + y_off, 1, 1, 0, (greyed_out ? c_gray : c_white), 1)
+                    
+                    if greyed_out 
+                        continue
                     if item_type == ITEM_TYPE.WEAPON {
                         var og_attack = item_get_stat(party_getdata(global.party_names[i], "weapon"), "attack")
                         var attack_diff = item_get_stat(items[selection], "attack") - og_attack
@@ -562,6 +606,7 @@ function shop_option_sell(_sell_options = [
 function __shop_talk_option(_name, _answer) constructor {
     name = _name
     answer = _answer
+    color = c_white // can be callable
     
     __answer_call = method(self, function() {
         if is_string(answer) || is_array(answer) {
@@ -581,7 +626,7 @@ function __shop_talk_option(_name, _answer) constructor {
     })
 }
 /// @desc constructor for the shop option "talk"
-/// @arg {array<struct>} _talk_options an array of talk options. each talk 
+/// @arg {array<struct.__shop_talk_option>} _talk_options an array of talk options. each talk 
 /// @arg {function} _talk_gen a function that returns a sidebar response. given context as argument 0 (see `SHOP_TALK_CONTEXT`)
 function shop_option_talk(_talk_options, _talk_gen) : shop_option() constructor {
     name = loc("shop_option_talk")
@@ -636,7 +681,14 @@ function shop_option_talk(_talk_options, _talk_gen) : shop_option() constructor 
             for (var i = 0; i < array_length(talk_options); i ++) {
                 if selection == i
                     draw_sprite_ext(spr_uisoul, 0, 50, 270 + 40*i, 1, 1, 0, c_red, 1)
+                
+                var col = talk_options[i].color
+                if is_callable(col)
+                    col = col()
+                
+                draw_set_colour(col)
                 draw_text_transformed(80, 260 + 40*i, talk_options[i].name, 2, 2, 0)
+                draw_set_colour(c_white)
             }
             
             // return
