@@ -1,0 +1,8 @@
+{
+    "money_display_held_space": {
+        "en": "HELD SPACE: {0}", "ja": "ポケット空き:{0}"
+    },
+    "money_display_storage_space": {
+        "en": "STORAGE SPACE: {0}", "ja": "そうこ空き:{0}"
+    }
+}

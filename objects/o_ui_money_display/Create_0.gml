@@ -1,0 +1,1 @@
+sell_type = ITEM_TYPE.CONSUMABLE

@@ -20,8 +20,13 @@ function enc_getparty_sprite(party_name, sprname) {
 /// @param {asset.GMSound} [sfx]
 /// @param {bool} [fatal]
 /// @param {string} [seed]
-function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, fatal = false, seed = "") {
+function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed = "") {
 	var enemy_struct = o_enc.encounter_data.enemies[target]
+    hurt = round(hurt)
+    sfx ??= enemy_struct.hurt_sound
+    
+    if struct_exists(enemy_struct, "ev_hurt") && is_callable(enemy_struct.ev_hurt)
+        enemy_struct.ev_hurt()
     
     if !is_struct(enemy_struct)
         exit
@@ -40,7 +45,6 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, fatal = false, see
 	instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: txt, mode: TEXT_HPCHANGE_MODE.ENEMY, user: user,})
 	
 	if hurt > 0 {
-        
 		if enemy_struct.hp <= 0 {
 			if fatal
                 enemy_struct.__fatal_defeat()
@@ -58,7 +62,10 @@ function enc_hurt_enemy(target, hurt, user, sfx = snd_damage, fatal = false, see
             else if seed == "freeze"
                 enemy_struct.__freeze_defeat()
 		}
-		if instance_exists(o) 
+		else if enemy_struct.hp < enemy_struct.max_hp/2 && enemy_struct.low_hp_tired
+            enemy_struct.tired = true
+        
+        if instance_exists(o) 
 			o.hurt = 20
 		audio_play(sfx)
 		
@@ -285,11 +292,62 @@ function enc_item_get_enabled(item_struct) {
             can_perform = false
     }
     if struct_exists(item_struct, "enabled") {
-        if is_callable(item_struct.enabled)
-            can_perform = item_struct.enabled()
-        else 
+        if is_bool(item_struct.enabled)
+            can_perform = item_struct.enabled
+        else if is_callable(item_struct.enabled)
             can_perform = item_struct.enabled
     }
     
     return can_perform
+}
+
+enum ENC_TARGET {
+    RANDOM,
+    ANY,
+    ALL,
+}
+
+/// @desc caclulates a target during an encounter based on the struct
+/// @arg {struct.enc_set} encounter the encounter struct
+function enc_calculate_target(encounter) {
+    if encounter.target_calculation == ENC_TARGET.ALL {
+        var __targets = []
+        for (var i = 0; i < array_length(global.party_names); ++i) {
+		    if party_getdata(global.party_names[i], "hp") > 0
+				array_push(__targets, global.party_names[i])
+		}
+        
+        return __targets
+    } 
+    else if encounter.target_calculation == ENC_TARGET.RANDOM || encounter.target_calculation == ENC_TARGET.ANY {
+        var __targets = []
+        for (var i = 0; i < array_length(global.party_names); ++i) {
+		    if party_getdata(global.party_names[i], "hp") > 0
+				array_push(__targets, global.party_names[i])
+		}
+        
+        if array_length(__targets) == 0
+            return -1
+        return [array_shuffle(__targets)[0]]
+    }
+    else {
+        return encounter.target_calculation()
+    }
+}
+/// @desc returns whether a target should be recalculated
+/// @arg {struct.enc_set} encounter the encounter struct
+/// @arg {array} current_targets the current turn targets
+function enc_recalculate_condition(encounter, current_targets) {
+    if !struct_exists(encounter, "target_recalculate_condition")
+        return false
+    
+    if !is_real(encounter.target_recalculate_condition) && is_callable(encounter.target_recalculate_condition) 
+        return encounter.target_recalculate_condition(current_targets)
+    
+    else if encounter.target_calculation == ENC_TARGET.ALL
+        return false
+    else if encounter.target_calculation == ENC_TARGET.RANDOM
+        return (!party_isup(current_targets[0]) ? true : false)
+    else if encounter.target_calculation == ENC_TARGET.ANY
+        return true
 }

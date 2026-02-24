@@ -16,6 +16,7 @@ function enemy() constructor {
     can_spare = true
     
 	tired =	false
+    low_hp_tired = true // whether the enemy should turn tired when hp is low
 	
 	// acts
 	acts = [
@@ -52,6 +53,7 @@ function enemy() constructor {
     freezable = false
     defeat_marker = 0 // marker id
     run_away = true // if set to false, if dealt fatal damage the enemy will die
+    hurt_sound = snd_hurt
     
     // sprites
     s_idle = spr_e_virovirokun_idle
@@ -59,12 +61,15 @@ function enemy() constructor {
     s_hurt = spr_e_virovirokun_hurt
     
 	// misc (in-fight events)
+    ev_init =           -1 // called 1 frame after o_enc is created
     ev_pre_dialogue =   -1
+    ev_party_exec =     -1
 	ev_dialogue =	    -1
 	ev_turn =	  	    -1
     ev_turn_start =     -1
 	ev_post_turn =	    -1
     ev_win =            -1
+    ev_hurt =           -1 // called when the enemy is hurt
 	
 	//recruit
 	recruit = new enemy_recruit()
@@ -263,7 +268,6 @@ function enemy_killercar() : enemy() constructor{
 	name = "Killer Car"
 	
 	obj = o_actor_e_killercar
-	tired = true
 	defense = 0
     turn_object = o_ex_turn_complex_box
     carrying_money = 1

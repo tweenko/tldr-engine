@@ -20,7 +20,7 @@ function enc_set() constructor { // base
         ]
     }
 	
-    // actions
+    // actions  
     party_actions = {}
     // add the default party actions. if you want to remove them from an encounter, just set party_actions back to an empty struct
 	for (var i = 0; i < array_length(global.party_names); ++i) {
@@ -35,6 +35,7 @@ function enc_set() constructor { // base
     // in-fight-events
     ev_init =           -1 // called 1 frame after o_enc is created
     ev_party_turn =     -1
+    ev_party_exec =     -1
     ev_pre_dialogue =   -1
 	ev_dialogue =	    -1
 	ev_turn =	  	    -1
@@ -43,18 +44,8 @@ function enc_set() constructor { // base
     ev_win =            -1
     
 	// methods
-    _target_calculation = function() { // should return an array of indexes of party members who are targeted
-        var __targets = []
-        for (var i = 0; i < array_length(global.party_names); ++i) {
-		    if party_getdata(global.party_names[i], "hp") > 0
-				array_push(__targets, global.party_names[i])
-		}
-        
-        return __targets
-    }
-    _target_recalculate_condition = function(__current_targets) {
-        return false
-    }
+    target_calculation = ENC_TARGET.RANDOM // if callable, should return an array of indexes of party members who are targeted
+    target_recalculate_condition = undefined
     
 	_start = function() {
 		enc_start(self)
@@ -78,20 +69,7 @@ function enc_set_ex() : enc_set() constructor {
 		[-20, 0, true]
 	]
     
-    _target_calculation = function() {
-        var __targets = []
-        for (var i = 0; i < array_length(global.party_names); ++i) {
-		    if party_getdata(global.party_names[i], "hp") > 0
-				array_push(__targets, global.party_names[i])
-		}
-        
-        if array_length(__targets) == 0
-            return -1
-        return [array_shuffle(__targets)[0]]
-    }
-    _target_recalculate_condition = function(__current_targets) {
-        return (!party_isup(__current_targets[0]) ? true : false)
-    }
+    target_calculation = ENC_TARGET.ANY
 }
 function enc_set_virovirokun() : enc_set() constructor {
 	debug_name	=	"virovirokun"
@@ -104,4 +82,6 @@ function enc_set_virovirokun() : enc_set() constructor {
 		[-20, 0, true]
 	]
 	flavor = "* Virovirokun floated in!"
+    
+    target_calculation = ENC_TARGET.ALL
 }

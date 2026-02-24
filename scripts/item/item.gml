@@ -1,10 +1,11 @@
 function item() constructor {
-	name = ["Item"] // short, then long (first is default)
-	desc = ["Overworld Description", "Battle Text", "Shop Description"] // ow, battle, shop
+	name = ["Item"] // short, then long (first is default). each one can be callable
+	desc = ["Overworld Description", "Battle Text", "Action Description", "Shop Description"] // ow, battle, action, shop
 	type = ITEM_TYPE.CONSUMABLE
 	
 	lw_counterpart = undefined // reference a script, nothing appears in the light world if it's undefined
-	
+	dw_counterpart = undefined // reference a script, nothing appears in the dark world if it's undefined
+    
 	// item specific
 	use_type = ITEM_USE.INDIVIDUAL
 	can_use = true // can also be a function that returns boolean
@@ -40,13 +41,20 @@ function item() constructor {
     // party act specific
     perform_act_anim = true
 	
-	reactions = {
-	}
+	reactions = {}
+    
+    use_instant = function(item_index, target_index) {}
+    use_instant_cancel = function(item_index, target_index) {}
+    
+    use_encounter_text = "item_use" // will be localized. {0} is the party member name and {1} is the item name.
 	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
 	
-	shop = {
-	}
+	buy_price = 0 // can be callable
+    // sell_price = 0 // can be callable
+    
+    shop_in_stock = infinity // determines whether a shop item is in stock. if set to real, shows how much of it can be sold
+    can_sell = true // determines whether it can be sold to vendors
 }
 
 enum ITEM_TYPE {
@@ -66,7 +74,8 @@ enum ITEM_USE {
 enum ITEM_DESC_TYPE {
     FULL = 0,
     SHORTENED = 1,
-    PARTY_ACTION = 2
+    PARTY_ACTION = 2,
+    SHOP = 3
 }
 
 ///@desc returns the maximum amount of items you can hold depending on the item type
@@ -89,35 +98,37 @@ function item_delete(item_slot, type = ITEM_TYPE.CONSUMABLE) {
 
 ///@desc adds an item to your inventory, returns the text you get upon obtaining the item
 ///@return {string}
-function item_add(item_struct, type = ITEM_TYPE.CONSUMABLE) {
+function item_add(item_struct, type = undefined) {
 	var can = true
 	
-	if struct_exists(item_struct, "type") && type == ITEM_TYPE.CONSUMABLE
-		type = item_struct.type
+	if struct_exists(item_struct, "type") && is_undefined(type)
+		type = item_get_type(item_struct)
 	if type == ITEM_TYPE.CONSUMABLE {
-		if item_get_count(type) >= item_get_maxcount(type) {
-			if item_get_count(ITEM_TYPE.STORAGE) < item_get_maxcount(ITEM_TYPE.STORAGE)
-				type = ITEM_TYPE.STORAGE
-			else 
+		if item_get_count(type) + 1 > item_get_maxcount(type) {
+            type = ITEM_TYPE.STORAGE
+			if item_get_count(ITEM_TYPE.STORAGE) + 1 > item_get_maxcount(ITEM_TYPE.STORAGE)
 				can = false
 		}
 	}
 	else
-		if item_get_count(type) >= item_get_maxcount(type) 
-			can = false
-	
+		if item_get_count(type) + 1 > item_get_maxcount(type) 
+			can = false  
+    
 	var txt = string(loc("item_added"), item_get_name(item_struct), item_get_store_name(type))
 	if can {
 		if type == ITEM_TYPE.STORAGE {
-			var i = 0
-			for (i = 0; i < array_length(item_get_array(ITEM_TYPE.STORAGE)); ++i) {
-				if item_get_array(ITEM_TYPE.STORAGE)[i] != undefined 
-					break
-			}
-			item_set(item_struct, i, type)
-		}
-		else
-			array_push(item_get_array(type), item_struct)
+            var index = 0
+            for (var i = 0; i < item_get_maxcount(ITEM_TYPE.STORAGE); i ++) {
+                if is_undefined(item_get_array(ITEM_TYPE.STORAGE)[i]) {
+                    index = i
+                    break
+                }
+            }
+            
+			item_set(item_struct, index, ITEM_TYPE.STORAGE)
+        }
+        else
+			item_set(item_struct, item_get_count(type), type)
 	}
 	else
 		txt = loc("item_added_no_space")
@@ -159,7 +170,7 @@ function item_get_count(type = ITEM_TYPE.CONSUMABLE){
 	var ret = 0
 	var a = item_get_array(type)
 	for (var i = 0; i < array_length(a); ++i) {
-		if a[i] != undefined 
+		if !is_undefined(a[i]) && is_struct(a[i])
 			ret ++
 	}
 	return ret
@@ -168,32 +179,99 @@ function item_get_count(type = ITEM_TYPE.CONSUMABLE){
 ///@desc returns the name of an item
 function item_get_name(item_struct) {
     if is_undefined(item_struct)
-        return undefined
+        return ""
     if !struct_exists(item_struct, "name")
-        return
+        return ""
     
 	var ret = item_struct.name
 	if is_array(ret)
 		return ret[0]
-	if is_string(ret)
+	else if is_string(ret)
 		return ret
-    return undefined
+    else if is_callable(ret)
+        return ret()
+    return ""
 }
 
 ///@desc returns the description of an item
 ///@arg {struct.item} item_struct the struct of the item
 ///@arg {enum.ITEM_DESC_TYPE} desc_type the type of the description that will be returned
-function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL){
+function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL) {
     if is_undefined(item_struct)
-        return
+        return ""
     if !struct_exists(item_struct, "desc")
-        return
+        return ""
     
 	var ret = item_struct.desc
 	if is_array(ret)
-		return ret[desc_type]
-	if is_string(ret)
+		return ret[(desc_type < array_length(ret) ? desc_type : 0)]
+	else if is_string(ret)
 		return ret
+    else if is_callable(ret)
+        return ret()
+    return ""
+}
+
+///@desc returns the shop cost of an item
+///@arg {struct.item} item_struct the struct of the item
+function item_get_buy_price(item_struct) {
+    if is_undefined(item_struct)
+        return 0
+    if !struct_exists(item_struct, "buy_price")
+        return 0
+    
+    if is_real(item_struct.buy_price)
+        return item_struct.buy_price
+    else if is_callable(item_struct.buy_price)
+        return item_struct.buy_price()
+	return item_struct.buy_price
+}
+
+///@desc returns the sell price of an item
+///@arg {struct.item} item_struct the struct of the item
+function item_get_sell_price(item_struct) {
+    if is_undefined(item_struct)
+        return 0
+    if !struct_exists(item_struct, "sell_price")
+        return round(item_get_buy_price(item_struct)/2)
+    
+    if is_real(item_struct.sell_price)
+        return item_struct.sell_price
+    else if is_callable(item_struct.sell_price)
+        return item_struct.sell_price()
+	return item_struct.sell_price
+}
+
+///@desc returns whether an item can be sold
+///@arg {struct.item} item_struct the struct of the item
+function item_get_can_sell(item_struct) {
+    if is_undefined(item_struct)
+        return false
+    if !struct_exists(item_struct, "can_sell")
+        return true
+    
+    if is_bool(item_struct.can_sell)
+        return item_struct.can_sell
+    else if is_callable(item_struct.can_sell)
+        return item_struct.can_sell()
+	return item_struct.can_sell
+}
+
+///@desc returns the amount of items in stock
+///@arg {struct.item} item_struct the struct of the item
+function item_get_in_stock(item_struct) {
+    if is_undefined(item_struct)
+        return 0
+    if !struct_exists(item_struct, "shop_in_stock")
+        return infinity
+    
+    if is_undefined(item_struct.shop_in_stock)
+        return infinity
+    else if is_real(item_struct.shop_in_stock)
+        return item_struct.shop_in_stock
+    else if is_callable(item_struct.shop_in_stock)
+        return item_struct.shop_in_stock()
+	return item_struct.shop_in_stock
 }
 
 ///@desc returns the type of an item
@@ -207,10 +285,26 @@ function item_get_type(item_struct) {
 function item_get_fatal(item_struct) {
 	if is_undefined(item_struct) 
         return false
-	if struct_exists(item_struct, "weapon_fatal") && item_struct.weapon_fatal
-		return true
+	if !struct_exists(item_struct, "weapon_fatal")
+		return false
     
+    if is_real(item_struct.weapon_fatal)
+        return item_struct.weapon_fatal
+    else if is_callable(item_struct.weapon_fatal)
+        return item_struct.weapon_fatal()
     return false
+}
+
+/// @desc returns a statistic of an item. 0 if none defined
+/// @arg {struct.item} item_struct the struct of the target item
+/// @arg {string} stat the name of the statistic to retrieve
+function item_get_stat(item_struct, stat) {
+    if is_undefined(item_struct) || !struct_exists(item_struct, "stats")
+        return 0
+    
+    if struct_exists(item_struct.stats, stat)
+        return struct_get(item_struct.stats, stat)
+    return 0
 }
 
 ///@desc returns the item array depending on the type
@@ -236,17 +330,37 @@ function item_get_array(type){
 function item_get_store_name(type){
 	switch(type) {
 		case ITEM_TYPE.CONSUMABLE:
-			return loc("item_type_items")
+			return loc("item_type_item_plural")
 		case ITEM_TYPE.KEY:
-			return loc("item_type_key_items")
+			return loc("item_type_key_item_plural")
 		case ITEM_TYPE.WEAPON:
-			return loc("item_type_weapons")
+			return loc("item_type_weapon_plural")
 		case ITEM_TYPE.ARMOR:
-			return loc("item_type_armors")
+			return loc("item_type_armor_plural")
 		case ITEM_TYPE.STORAGE:
 			return loc("item_type_storage")
 		case ITEM_TYPE.LIGHT:
-			return loc("item_type_items")
+			return loc("item_type_item_plural")
+	}
+}
+
+///@desc returns the type name
+/// @arg {enum.ITEM_TYPE} type the type of the item
+/// @arg {bool} key_display whether a key item should be labeled as key.
+function item_get_type_name(type, key_display = false) {
+	switch(type) {
+		case ITEM_TYPE.CONSUMABLE:
+			return loc("item_type_item")
+		case ITEM_TYPE.KEY:
+			return (key_display ? loc("item_type_key_item") : loc("item_type_item"))
+		case ITEM_TYPE.WEAPON:
+			return loc("item_type_weapon")
+		case ITEM_TYPE.ARMOR:
+			return loc("item_type_armor")
+		case ITEM_TYPE.STORAGE:
+			return loc("item_type_storage")
+		case ITEM_TYPE.LIGHT:
+			return loc("item_type_item")
 	}
 }
 

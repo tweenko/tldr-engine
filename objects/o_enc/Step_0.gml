@@ -213,6 +213,8 @@ if battle_state == BATTLE_STATE.MENU {
 }
 else if battle_state == BATTLE_STATE.EXEC {
     if !exec_init {
+        __call_enc_event("ev_party_exec")
+        
         action_queue = __order_action_queue()
         exec_init = true
     }
@@ -267,19 +269,23 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
             __call_enc_event("ev_dialogue")
             
             // choose turn targets
-            turn_targets = encounter_data._target_calculation()
-    		for (var i = 0; i < array_length(global.party_names); ++i) {
-    		    if array_contains(turn_targets, global.party_names[i]) {
-                    if encounter_data.display_target {
-    				    var o = party_get_inst(global.party_names[i])
-                        instance_create(o_enc_target, o.x, o.s_get_middle_y(), o.depth-10)
+            turn_targets = enc_calculate_target(encounter_data)
+            
+            // don't display the targets if ANY is chosen
+            if encounter_data.target_calculation != ENC_TARGET.ANY {
+                for (var i = 0; i < array_length(global.party_names); ++i) {
+                    if array_contains(turn_targets, global.party_names[i]) {
+                        if encounter_data.display_target {
+                            var o = party_get_inst(global.party_names[i])
+                            instance_create(o_enc_target, o.x, o.s_get_middle_y(), o.depth-10)
+                        }
                     }
-    			}
-    			else {
-    				var o = party_get_inst(global.party_names[i])
-    				animate(o.darken, .5, 15, "linear", o, "darken")
-    			}
-    		}
+                    else {
+                        var o = party_get_inst(global.party_names[i])
+                        animate(o.darken, .5, 15, "linear", o, "darken")
+                    }
+                }
+            }
     		
     		dialogue_init = true
         }
@@ -378,7 +384,7 @@ else if battle_state == BATTLE_STATE.POST_TURN {
             
             party_state[i] = PARTY_STATE.IDLE
             
-            if !array_contains(turn_targets, global.party_names[i]) // if i wasn't target, stop being dimmed
+            if encounter_data.target_calculation != ENC_TARGET.ANY && !array_contains(turn_targets, global.party_names[i]) // if i wasn't target, stop being dimmed
                 animate(party_get_inst(global.party_names[i]).darken, 0, 15, anime_curve.linear, party_get_inst(global.party_names[i]), "darken")
        	    if !party_isup(global.party_names[i])
                 party_heal(global.party_names[i], round(party_getdata(global.party_names[i], "max_hp") * .13))
@@ -395,8 +401,8 @@ else if battle_state == BATTLE_STATE.POST_TURN {
     }
 }
 else if battle_state == BATTLE_STATE.WIN {
-    if !win_screen_init {
-        __call_enc_event("win")
+    if !win_screen_init && !win_init {
+        __call_enc_event("ev_win")
         win_screen_init = true
         buffer = 2
     }
@@ -432,7 +438,7 @@ else if battle_state == BATTLE_STATE.WIN {
         
 		cutscene_create()
         if win_dialogue_show
-		  cutscene_dialogue(string(loc("enc_win"), __exp, __dd) + win_message)
+            cutscene_dialogue(string(loc("enc_win"), __exp, __dd) + win_message)
         cutscene_set_variable(self, "win_hide_ui", true)
 		cutscene_sleep(5)
         
@@ -456,7 +462,7 @@ else if battle_state == BATTLE_STATE.WIN {
                 var o = encounter_data.enemies[i].actor_id
                 var a = marker_get("enemy_defeated", encounter_data.enemies[i].defeat_marker)
                 
-                if !is_undefined(a) && instance_exists(o) {
+                if instance_exists(a) && instance_exists(o) {
                     cutscene_animate(o.x, a.x, 12, "linear", o, "x")
                     cutscene_animate(o.y, a.y, 12, "linear", o, "y")
                 }
@@ -507,12 +513,25 @@ if !win_hide_ui
 else
     ui_main_lerp = lerp(ui_main_lerp, 0, .5)
 
-// do party ui lerping
+// do party ui lerping. based on toby's code
 for (var i = 0; i < array_length(global.party_names); i ++) {
-    if i == party_selection 
-        party_ui_lerp[i] = lerp(party_ui_lerp[i], 1, .5)
-    else
-        party_ui_lerp[i] = lerp(party_ui_lerp[i], 0, .5)
+    if i == party_selection {
+        if party_ui_lerp[i] < 1
+            party_ui_lerp[i] += 1/16
+        if party_ui_lerp[i] < 12/16
+            party_ui_lerp[i] += 2/16
+        if party_ui_lerp[i] < 8/16
+            party_ui_lerp[i] += 3/16
+        if party_ui_lerp[i] < 4/16
+            party_ui_lerp[i] += 4/16
+    
+        if party_ui_lerp[i] > 1
+            party_ui_lerp[i] = 1
+    }
+    else if party_ui_lerp[i] > 11/32
+        party_ui_lerp[i] -= 12/32
+    else 
+        party_ui_lerp[i] = 0
 }
 
 if buffer > 0

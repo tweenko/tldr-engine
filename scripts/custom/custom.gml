@@ -9,18 +9,16 @@ function guipos_y() {
 ///@desc Used to check if an instance is on the screen.
 ///@arg {Id.Instance|Asset.GMObject} [instance]
 ///@arg {Real} [tolerance]
+/// @arg {bool} [percise_collisions] whether the collision calculation should use a percise bounding box. false by default
 /// @return {Bool}
-function onscreen(instance = id, tolerance = 0) {	
+function onscreen(instance = id, tolerance = 0, percise_collisions = false) {	
     if !instance_exists(instance)
         exit
     
-    if instance.x + instance.sprite_width + tolerance < guipos_x() 
-        || instance.x - tolerance > guipos_x() + 640
-        || instance.y + instance.sprite_height + tolerance < guipos_y() 
-        || instance.y - tolerance > guipos_y() + 480
-        return false
-    else
+    if collision_rectangle(guipos_x(), guipos_y(), guipos_x() + o_camera.width, guipos_y() + o_camera.height, instance, percise_collisions, false)
         return true
+    else
+        return false
 }
 
 ///@desc shakes the screen (with the gui layer) and returns the animation used
@@ -212,11 +210,7 @@ function instance_create(obj, xx = 0, yy = 0, dpth = 0, post_var_struct = {}) {
 	}
 	return instance
 }
-function instance_clean(inst) {
-	if instance_exists(inst){
-		instance_destroy(inst)
-	}
-}
+
 /// @desc	same as instance_place_list but returns the ds list
 function instance_place_list_ext(xx, yy, obj, ordered){
 	var m = ds_list_create()
@@ -301,9 +295,33 @@ function array_sort_ext(array, sort_type_or_function) {
 /// @param {string}  substring  The string to find.
 /// @param {string}  fullstring  The string to find from.
 /// @description              Check if a string contains a string inside it.
-
 function string_contains(substring, fullString) {
     return string_pos(substring, fullString) > 0;
+}
+
+/// @desc adds padding to the start of a string to reach desired length (e.g. 01 instead of 1)
+/// @arg {string} _string the string to pad
+/// @arg {string} _substring the string to add to reach the required length
+/// @arg {real} _required_length the target length you're trying to achieve
+function string_pad_start(_string, _substring, _required_length) {
+    if !is_string(_string)
+        _string = string(_string)
+    while string_length(_string) < _required_length {
+        _string = _substring + _string
+    }
+    return _string
+}
+/// @desc adds padding to the end of a string to reach desired length (e.g. B0 instead of B)
+/// @arg {string} _string the string to pad
+/// @arg {string} _substring the string to add to reach the required length
+/// @arg {real} _required_length the target length you're trying to achieve
+function string_pad_end(_string, _substring, _required_length) {
+    if !is_string(_string)
+        _string = string(_string)
+    while string_length(_string) < _required_length {
+        _string = string_insert(_string, _substring, string_length(_string)+1)
+    }
+    return _string
 }
 
 /// @desc	rounds value with cerain percision

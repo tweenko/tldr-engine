@@ -4,14 +4,16 @@ can_proceed = false
 die = false
 text = ""
 
-width = 577
-height = 151
+width = 578
+height = 152
 xx = 32
 yy = 320
 
 depth = DEPTH_UI.DIALOGUE_UI
 
 encounter_mode = false
+shop_mode = false
+
 init = true
 postfix = "{p}{e}"
 prefix = ""

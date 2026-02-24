@@ -43,7 +43,8 @@ item_categories = [
             room_ex_city,
             room_ex_church,
             room_ex_light_world,
-            room_ex_multi_path
+            room_ex_multi_path,
+            room_ex_shopzone
         ]
     }
 ]

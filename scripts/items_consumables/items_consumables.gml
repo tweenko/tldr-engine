@@ -12,12 +12,16 @@ function item_lightcandy() : item() constructor {
 		noelle: "(I-isn't this the chalk I gave her?)",
 	}
     
+    sell_price = 100
+    
     item_localize("item_c_lightcandy")
 }
 function item_darker_candy() : item() constructor {
 	name = ["Darker Candy"]
 	desc = ["A candy that has grown sweeter with time.\nSaid to taste like toasted marshmallow. +120HP", "Heals 120HP"]
 	
+    lw_counterpart = item_lw_shit
+    
 	use = function(item_index, target_index, caller = -1) {
 		party_heal(global.party_names[target_index], 40, caller)
 		item_delete(item_index)
@@ -30,6 +34,9 @@ function item_darker_candy() : item() constructor {
 		},
 		noelle: "Oh, it's... sticky?"
 	}
+    
+    buy_price = 240
+    sell_price = 60
     
     item_localize("item_c_darker_candy")
 }
@@ -48,6 +55,8 @@ function item_top_cake() : item() constructor {
 		ralsei: "Whoops.",
 		noelle: "Happy birthday! Haha!"
 	}
+    
+    sell_price = 75
     
     item_localize("item_c_top_cake")
 }
@@ -81,6 +90,8 @@ function item_revivemint() : item() constructor {
 		item_delete(item_index)
 	}
     
+    sell_price = 200
+    
     item_localize("item_c_revivemint")
 }
 
@@ -88,6 +99,8 @@ function item_lw_shit() : item() constructor {
 	name = ["Actual Shit"]
 	desc = ["* Nobody knows what it actually does...", "HOW"]
 	
+    dw_counterpart = item_darker_candy
+    
 	use = function(item_index, target_index, caller) {
 		dialogue_start("* You smell the shit...{br}{resetx}{s(10)}* Ew. Why did you do that.")
 	}
@@ -98,4 +111,6 @@ function item_lw_shit() : item() constructor {
 			item_delete(item_index, 6)
 		}
 	}
+    
+    sell_price = 2
 }

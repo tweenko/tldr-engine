@@ -1,6 +1,7 @@
 draw_sprite_ext(spr_ui_soul_blur, 0, soulx_display, souly_display, 2, 2, 0, c_white, .5*keyboard_alpha)
 
 draw_set_alpha(keyboard_alpha)
+draw_set_color(c_white)
 draw_set_font(loc_font("main"))
 for (var i = 0; i < array_length(keyboard); i ++) {
     var __cur_xoff = 0

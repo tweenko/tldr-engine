@@ -1,0 +1,25 @@
+shop_data = {}
+
+inst_flavor = noone
+inst_small_talk = noone
+inst_shopkeeper = noone
+
+option_selection = 0
+selection = 0
+waiting = false
+waiting_internal = false
+
+menu_drawer = undefined
+menu_step = undefined
+menu_in_options = true
+menu_expanded = false
+
+__get_flavor = function() {
+    return (is_callable(shop_data.flavor) ? shop_data.flavor() : shop_data.flavor)
+}
+__get_waiting = function() {
+    return waiting || waiting_internal
+}
+
+if instance_exists(get_leader())
+    get_leader().moveable_shop = false

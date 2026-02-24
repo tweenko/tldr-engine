@@ -1,5 +1,5 @@
 event_inherited()
 talking = false
-npc_id = 0
+link_id = undefined
 
 image_speed = 0
