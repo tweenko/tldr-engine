@@ -78,6 +78,7 @@ registred_commands = {
                             instance_destroy(o_enc.encounter_data.enemies[i].actor_id)
                     }
                 }
+                instance_destroy(o_enc_target)
             }
             else 
                 show_debug_message("CONSOLE: o_enc not found, no encounter ended")
