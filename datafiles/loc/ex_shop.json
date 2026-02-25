@@ -1,0 +1,77 @@
+{
+    "ex_shop_color_cafe_buy_idle": {
+        "en": "Our menu is specially prepared.",
+        "ja": "{auto_breaks(false)}スペシャル{br}メニューを{br}ご用意して{br}おります"
+    },
+    "ex_shop_color_cafe_buy_bought": {
+        "en": "{auto_breaks(false)}Queen{br}thanks you{br}for your{br}patronage.",
+        "ja": "{auto_breaks(false)}クイーンさま{br}も{br}およろこびで{br}ございます"
+    },
+    "ex_shop_color_cafe_buy_bought_storage": {
+        "en": "Thanks, it'll be in your STORAGE.",
+        "ja": "{auto_breaks(false)}ありがとう{br}ございます{br}では{br}そうこに…"
+    },
+    "ex_shop_color_cafe_buy_canceled": {
+        "en": "Take your time. We'll be waiting.",
+        "ja": "{auto_breaks(false)}どうぞ{br}ごゆっくり{br}お選び{br}ください"
+    },
+    "ex_shop_color_cafe_buy_not_enough": {
+        "en": "{auto_breaks(false)}You can't{br}afford it.{br}... maybe{br}next time?",
+        "ja": "{auto_breaks(false)}おカネが{br}足りません…{br}ぜひ　またの{br}おこしを…"
+    },
+    "ex_shop_color_cafe_buy_no_space": {
+        "en": "{auto_breaks(false)}Seems your{br}bags are{br}full. Shall{br}we assist?",
+        "ja": "{auto_breaks(false)}おもちものが{br}いっぱいです{br}お手伝い{br}しますか？"
+    },
+
+    "ex_shop_color_cafe_sell_idle": {
+        "en": "Queen... Makes us buy trash for her.",
+        "ja": "{auto_breaks(false)}クイーンさま{br}のご命令に{br}より　ゴミを{br}買い取ります"
+    },
+    "ex_shop_color_cafe_sell_canceled": {
+        "en": "Changed your mind? We'll wait.",
+        "ja": "{auto_breaks(false)}おやめに{br}なりますか？{br}じっくり{br}ご検討を"
+    },
+    "ex_shop_color_cafe_sell_refuse": {
+        "en": "{auto_breaks(false)}There are{br}some things{br}we cannot{br}buy.",
+        "ja": "{auto_breaks(false)}お買い取り{br}できない{br}モノも{br}ございます"
+    },
+    "ex_shop_color_cafe_sell_no_items": {
+        "en": "It seems you don't have anything.",
+        "ja": "{auto_breaks(false)}なにも{br}お持ちで{br}ないよう{br}ですが"
+    },
+    "ex_shop_color_cafe_sell_consumable": {
+        "en": "An ITEM to delight our Queen?",
+        "ja": "{auto_breaks(false)}クイーンさま{br}のお気に召す{br}品を{br}お持ちで？"
+    },
+    "ex_shop_color_cafe_sell_weapon": {
+        "en": "A WEAPON to protect our Queen?",
+        "ja": "{auto_breaks(false)}クイーンさま{br}をお守りする{br}ぶきを{br}お持ちで？"
+    },
+    "ex_shop_color_cafe_sell_armor": {
+        "en": "ARMOR to adorn our Queen?",
+        "ja": "{auto_breaks(false)}クイーンさま{br}にお似合いの{br}ぼうぐを{br}お持ちで？"
+    },
+    "ex_shop_color_cafe_sell_sold": {
+        "en": "{auto_breaks(false)}I'm sure{br}she's going{br}to enjoy{br}this.",
+        "ja": "{auto_breaks(false)}クイーンさま{br}も　きっと{br}よろこばれる{br}かと"
+    },
+
+    "ex_shop_color_cafe_talk_idle": {
+        "en": "Chatting would be our pleasure.",
+        "ja": "{auto_breaks(false)}おしゃべり{br}でしたら{br}よろこんで"
+    },
+    
+    "ex_shop_color_cafe_enter": {
+        "en": "* Welcome to Color Cafe.{br}{resetx}* Let us warm your day.",
+        "ja": "{auto_breaks(false)}＊ カラーカフェへ{br}ようこそ。{br}{resetx}＊ あたたかな{br}ひとときを{br}お過ごしくださいませ。"
+    },
+    "ex_shop_color_cafe_enter_alt": {
+        "en": "* Don't be blue.{br}{resetx}* We're here for you.",
+        "ja": "{auto_breaks(false)}＊ ブルーな気分に{br}さよならを。{br}{resetx}＊ 当店が{br}お手伝いいたします。"
+    },
+    "ex_shop_color_cafe_leave": {
+        "en": "* Please come again.{br}{resetx}* We'll be waiting for you{br}with rose-tinted glasses...",
+        "ja": "{auto_breaks(false)}＊ またのお越しを。{br}{resetx}＊ いつでも{br}つつしんで　お出迎えいたします。{br}ローズカラーのサングラスで。"
+    }
+}

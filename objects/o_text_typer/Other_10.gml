@@ -9,7 +9,7 @@ for (var i = 1; i <= string_length(argstrings); i ++) {
     if __char == "`"
         __string_mode = !__string_mode
     else if __char == "," && !__string_mode {
-        __temp_arg = string_trim_start(__temp_arg)
+        __temp_arg = string_trim(__temp_arg)
         array_push(arg, __temp_arg)
         
         __temp_arg = ""
@@ -20,7 +20,7 @@ for (var i = 1; i <= string_length(argstrings); i ++) {
 
 // add the last recorded argument as well
 if __temp_arg != "" {
-    __temp_arg = string_trim_start(__temp_arg)
+    __temp_arg = string_trim(__temp_arg)
     array_push(arg, __temp_arg)
 }
 
@@ -157,11 +157,16 @@ if command == "eff" || command == "effect" { // eff(real) out of 0 (shake)
 if command == "god" { // god(bool)  whether it's god (gaster) text
 	god = bool(arg[0])
 }
-if command == "npc_link" { // npc_link(real, unlink_previous=bool)  you can link an npc to this and they will be animated when the text is playing (argument is npc id, second argument is true by default)
+
+if command == "link" || command == "npc_link" { // link(real, unlink_previous=bool, object=o_ow_npc)  you can link an npc to this and they will be animated when the text is playing (argument is npc id, second argument is true by default)
 	var o_link = real(arg[0])
 	var o = noone
-	with (o_ow_npc) {
-		if o_link == npc_id
+    var target = (array_length(arg) > 2 ? asset_get_index(arg[2]) : o_ow_npc)
+    
+	with (target) {
+        if !variable_instance_exists(self, "link_id")
+            continue
+		if o_link == link_id
 			o = id
 	}
     
@@ -170,17 +175,22 @@ if command == "npc_link" { // npc_link(real, unlink_previous=bool)  you can link
 	if !array_contains(talk_link, o)
         array_push(talk_link, o)
 }
-if command == "npc_unlink" { // npc_unlink(real)  you can link an npc to this and they will be animated when the text is playing (argument is npc id)
+if command == "unlink" || command == "npc_unlink" { // unlink(real)  you can link an npc to this and they will be animated when the text is playing (argument is npc id)
     var o_link = real(arg[0])
 	var o = noone
-	with (o_ow_npc) {
-		if o_link == npc_id
+	var target = (array_length(arg) > 2 ? asset_get_index(arg[2]) : o_ow_npc)
+    
+	with (target) {
+        if !variable_instance_exists(self, "link_id")
+            continue
+		if o_link == link_id
 			o = id
 	}
 	
 	if array_contains(talk_link, o)
         array_delete(talk_link, array_get_index(talk_link, o), 1)
 }
+
 if command == "choice" { // choice(`choice1`, `choice2`, ...)  create a choice box for the player
     _facechange("none")
     
@@ -348,6 +358,46 @@ if command == "mini" { // mini(`text`, char = undefined, face_expression = undef
             text: arg[0]
         })
     )
+}
+
+if command == "link_var_set" { // link_var_set(variable_name, value, is_real = false)
+    for (var i = 0; i < array_length(talk_link); i ++) {
+        if instance_exists(talk_link[i]) {
+            var val = arg[1]
+            if array_length(arg) > 2 && arg[2]
+                val = real(val)
+            
+            variable_instance_set(talk_link[i], arg[0], val)
+        }
+            
+    }
+}
+if command == "link_sprite_set" { // link_sprite_set(sprite_name)
+    for (var i = 0; i < array_length(talk_link); i ++) {
+        var asset = asset_get_index(arg[0])
+        if instance_exists(talk_link[i]) && asset != -1
+            variable_instance_set(talk_link[i], "sprite_index", asset)
+    }
+}
+
+if command == "money_display" { // money_display(sell_type)      sell_type can be one of the following: "consumable", "weapon", "armor"
+    var sell_type = ITEM_TYPE.CONSUMABLE
+    switch arg[0] {
+        case "consumable":
+            sell_type = ITEM_TYPE.CONSUMABLE
+            break
+        case "weapon":
+            sell_type = ITEM_TYPE.WEAPON
+            break
+        case "armor":
+            sell_type = ITEM_TYPE.ARMOR
+            break
+    }
+    
+    instance_create(o_ui_money_display,,,, {sell_type: sell_type})
+}
+if command == "money_display_hide" { // money_display_hide
+    instance_destroy(o_ui_money_display)
 }
 
 argstrings = ""

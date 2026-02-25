@@ -59,3 +59,10 @@ function volume_get(type){
     
 	return 0
 }
+
+///@deprecated
+function instance_clean(inst) {
+	if instance_exists(inst){
+		instance_destroy(inst)
+	}
+}

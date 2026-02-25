@@ -36,7 +36,7 @@ is_party = false
 { // actor variables
 	follow = true
 	hurt = 0 // the timer of the sprite switch
-    npc_id = undefined
+    link_id = undefined
 	
 	autoheight = true // whether the height is automatically determined
 	myheight = 0
@@ -151,6 +151,7 @@ is_party = false
 	moveable_save = true
 	moveable_anim = true
     moveable_recruits = true
+    moveable_shop = true
 	
 	_checkmove = function() { // the main function that determines whether the player can move as of right now
 		return moveable 
@@ -162,6 +163,7 @@ is_party = false
 		&& moveable_save 
 		&& moveable_anim 
         && moveable_recruits
+        && moveable_shop
 		
 		&& hurt == 0
         && spawn_buffer <= 0

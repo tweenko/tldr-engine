@@ -104,9 +104,15 @@ function enc_button_act() : enc_button() constructor {
         }
         
         with other {
-            array_push(action_queue, new enc_action_act(__party_members, party_enemy_selection[party_selection], item_struct))
-            if struct_exists(item_struct, "tp_cost")
-                tp -= item_struct.tp_cost
+            var __tp_mod = 0
+            var __action = new enc_action_act(__party_members, party_enemy_selection[party_selection], item_struct)
+            if struct_exists(item_struct, "tp_cost") {
+                __tp_mod = -(tp - min(tp, 100) + item_struct.tp_cost)
+                __action.tp_taken = __tp_mod
+                tp += __tp_mod
+            }
+            
+            array_push(action_queue, __action)
             
             for (var i = 0; i < array_length(__party_members); i ++) {
                 var index = party_get_index(__party_members[i])
@@ -191,8 +197,15 @@ function enc_button_power() : enc_button() constructor {
     submit_action = function(spell_struct, target) {
         var __party_members = [global.party_names[other.party_selection]]
         with other {
-            array_push(action_queue, new enc_action_power(__party_members, target, spell_struct, party_spell_selection[party_selection]))
-            tp -= spell_struct.tp_cost
+            var __tp_mod = 0
+            var __action = new enc_action_power(__party_members, target, spell_struct, party_spell_selection[party_selection])
+            if struct_exists(spell_struct, "tp_cost") {
+                __tp_mod = -(tp - min(tp, 100) + spell_struct.tp_cost)
+                __action.tp_taken = __tp_mod
+                tp += __tp_mod
+            }
+            
+            array_push(action_queue, __action)
             
             for (var i = 0; i < array_length(__party_members); i ++) {
                 var index = party_get_index(__party_members[i])
@@ -291,9 +304,16 @@ function enc_button_item() : enc_button() constructor {
     submit_action = function(item_struct, target) {
         var __party_members = [global.party_names[other.party_selection]]
         with other {
-            array_push(action_queue, new enc_action_item(__party_members, target, item_struct, party_item_selection[party_selection]))
+            var __tp_mod = 0
+            var __action = new enc_action_item(__party_members, target, item_struct, party_item_selection[party_selection])
+            if struct_exists(item_struct, "tp_cost") {
+                __tp_mod = -(tp - min(tp, 100) + item_struct.tp_cost)
+                __action.tp_taken = __tp_mod
+                tp += __tp_mod
+            }
+            
             array_push(items_using, party_item_selection[party_selection])
-            tp -= item_struct.tp_cost
+            array_push(action_queue, __action)
             
             for (var i = 0; i < array_length(__party_members); i ++) {
                 var index = party_get_index(__party_members[i])
@@ -310,6 +330,10 @@ function enc_button_item() : enc_button() constructor {
             __enemy_highlight_reset()
             __ally_highlight_reset()
         }
+        
+        
+        if struct_exists(item_struct, "use_instant") && is_callable(item_struct.use_instant)
+            item_struct.use_instant(other.party_item_selection[other.party_selection], target)
     }
     
     __determine_sprite()

@@ -200,6 +200,30 @@ function convert_leader_equipment() {
         global.lw_weapon = new global.lw_weapon()
     if !is_undefined(global.lw_armor) && is_callable(global.lw_armor)
         global.lw_armor = new global.lw_armor()
+    
+    if global.world == WORLD_TYPE.LIGHT {
+        for (var i = array_length(global.items)-1; i >= 0; i --) {
+            if !is_undefined(global.items[i].lw_counterpart) {
+                array_insert(global.lw_items, 0, new global.items[i].lw_counterpart())
+                item_delete(i, ITEM_TYPE.CONSUMABLE)
+            }
+        }
+        for (var i = array_length(global.key_items)-1; i >= 0; i --) {
+            if !is_undefined(global.key_items[i].lw_counterpart) {
+                array_insert(global.lw_items, 0, new global.key_items[i].lw_counterpart())
+                item_delete(i, ITEM_TYPE.KEY)
+            }
+        }
+    }
+    else {
+        for (var i = array_length(global.lw_items)-1; i >= 0; i --) {
+            if !is_undefined(global.lw_items[i].dw_counterpart) {
+                var newitem = new global.lw_items[i].dw_counterpart()
+                array_insert(item_get_array(item_get_type(newitem)), 0, newitem)
+                item_delete(i, ITEM_TYPE.LIGHT)
+            }
+        }
+    }
 }
 
 function world_switch(world) {

@@ -14,7 +14,7 @@ surface_set_target(surf)
         
         draw_sprite_ext(spr_ui_enc_tpbar_caption, 0, x - 40 + x_offset, y - 61, 2, 2, 0, c_white, 1)
         
-        if ceil(tp_visual) >= 100 {
+        if round(tp_visual_fast) >= 100 {
             full = true
             
             draw_set_color(c_yellow)

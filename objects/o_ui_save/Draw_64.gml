@@ -3,7 +3,7 @@ draw_set_font(loc_font("main"))
 if page == 0 { // main menu
 	var time = time_format(global.time)
 	
-    ui_dialoguebox_create(100 - size_increment, 106 - size_increment, 539-100 + size_increment*2, 308-106 + size_increment*2)
+    ui_dialoguebox_create(100 - size_increment, 106 - size_increment, 540-100 + size_increment*2, 308-106 + size_increment*2)
 	draw_text_transformed(120, 120, save_get("name"), 2, 2, 0)
 	
 	draw_set_halign(fa_right)
@@ -29,8 +29,8 @@ if page == 1 { // save menu
 	if prog != 2 
 		draw_sprite_ext(spr_pixel,0, 0, 0, 640, 480, 0, c_black, .8)
 	
-	ui_dialoguebox_create(68, 20, 573 - 68, 110 - 20)
-	ui_dialoguebox_create(68, 132, 573 - 68, 438 - 132 - (prog == 1 ? 48 : 0))
+	ui_dialoguebox_create(68, 20, 574 - 68, 110 - 20)
+	ui_dialoguebox_create(68, 132, 574 - 68, 438 - 132 - (prog == 1 ? 48 : 0))
 	
 	if prog == 1 
 		draw_set_color(c_yellow)
@@ -248,7 +248,7 @@ if page == 2 { // storage
 	}
 }
 if page == 4 {  // return to title
-    ui_dialoguebox_create(100 - size_increment, 106 - size_increment, 539-100 + size_increment*2, 308-106 + size_increment*2)
+    ui_dialoguebox_create(100 - size_increment, 106 - size_increment, 540-100 + size_increment*2, 308-106 + size_increment*2)
     draw_text_transformed(170, 130, loc("save_menu_return_confirm"), 2, 2, 0)
     
     if return_selection == 0 && !fading_out

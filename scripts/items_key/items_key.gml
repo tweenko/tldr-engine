@@ -1,5 +1,7 @@
 function item_key() : item() constructor {
 	type = ITEM_TYPE.KEY
+    
+    shop_max_sell = 1
 }
 
 function item_key_cell_phone() : item_key() constructor {

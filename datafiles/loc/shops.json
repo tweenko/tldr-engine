@@ -1,0 +1,72 @@
+{
+    "shop_option_buy": {
+        "en": "Buy", "ja": "買う"
+    },
+    "shop_option_sell": {
+        "en": "Sell", "ja": "売る"
+    },
+    "shop_option_talk": {
+        "en": "Talk", "ja": "話す"
+    },
+    "shop_option_exit": {
+        "en": "Exit", "ja": "もどる"
+    },
+    "shop_option_return": {
+        "en": "Return", "ja": "もどる"
+    },
+
+    "shop_buy_prompt": {
+        "en": "Buy it for\n${0}?",
+        "ja": "で買う？\n${0}"
+    },
+    "shop_buy_space": {
+        "en": "Space: {0}", "ja": "空き:{0}"
+    },
+    "shop_buy_no_space": {
+        "en": "NO SPACE", "ja": "空きナシ"
+    },
+
+    "shop_sell_prompt": {
+        "en": "Sell it for\n${0}?",
+        "ja": "で売る？\n${0}"
+    },
+    
+    "shop_sell_items": {
+        "en": "Sell Items", "ja": "アイテムを売る"
+    },
+    "shop_sell_weapons": {
+        "en": "Sell Weapons", "ja": "ぶきを売る"
+    },
+    "shop_sell_armor": {
+        "en": "Sell Armor", "ja": "ぼうぐを売る"
+    },
+    "shop_sell_pocket_items": {
+        "en": "Sell Pocket Items", "ja": "そうこのアイテムを売る"
+    },
+
+    "shop_query_yes": {
+        "en": "Yes", "ja": "はい"
+    },
+    "shop_query_no": {
+        "en": "No", "ja": "いいえ"
+    },
+    "shop_sold_out": {
+        "en": "SOLD OUT", "ja": "SOLD OUT"
+    },
+
+    "shop_spr_label_hold": {
+        "en": "spr_shop_label_hold", "ja": "spr_shop_label_hold_ja"
+    },
+    "shop_spr_label_pocket": {
+        "en": "spr_shop_label_pocket", "ja": "spr_shop_label_pocket_ja"
+    },
+    "shop_spr_label_storage": {
+        "en": "spr_shop_label_storage", "ja": "spr_shop_label_storage_ja"
+    },
+    "shop_spr_label_weapon": {
+        "en": "spr_shop_label_weapon", "ja": "spr_shop_label_weapon_ja"
+    },
+    "shop_spr_label_armor": {
+        "en": "spr_shop_label_armor", "ja": "spr_shop_label_armor_ja"
+    }
+}

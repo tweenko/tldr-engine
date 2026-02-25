@@ -7,7 +7,7 @@ var __total_pages = ceil(array_length(recruit_array) / page_max)
 draw_set_font(loc_font("main"))
 
 if view == 0 {
-    ui_dialoguebox_create(30, 10, 620 - 30 - 1, 440 - 10 - 1, WORLD_TYPE.LIGHT)
+    ui_dialoguebox_create(30, 10, 620 - 30, 440 - 10, WORLD_TYPE.LIGHT)
     draw_text_transformed(80, 30, loc("recruits_title"), 2, 2, 0)
     
     draw_set_color(c_lime)
@@ -46,7 +46,7 @@ if view == 0 {
     
 }
 else if view == 1 {
-    ui_dialoguebox_create(30, 10, 610 - 30 - 1, 450 - 10 - 1, WORLD_TYPE.LIGHT)
+    ui_dialoguebox_create(30, 10, 610 - 30, 450 - 10, WORLD_TYPE.LIGHT)
     
     var current_recruit = recruit_array[selection]
     __draw_charbox(80, 70, current_recruit.bgcolor, current_recruit.sprite)
