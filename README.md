@@ -1,17 +1,16 @@
 # Welcome to tlDR[^1] Engine!
 
 One of the first independent 1:1 DELTARUNE Engines built in Gamemaker Studio 2, the software that was used to create DELTARUNE. This Engine is very customizable as well, and is being actively supported by its developers.
-The Engine is very straightforward and advanced at the same time. Encounters, cutscenes and menus are all there! (The Engine also includes all UI elements of base deltarune, like the chapter select screen and the save select menu.)
+The Engine is very straightforward and advanced at the same time. Encounters, cutscenes and menus are all there! (The Engine also includes all UI elements of base deltarune, like the chapter select screen, the save select menu and the shop.)
 
 If you're serious about using the engine, I highly recommend you to join the [Discord Server](https://discord.gg/x3t8JTyC2p) for dev support from me and other knowledegable server members.
 
-
-<img width="2562" height="1964" alt="tldr-promo-pacify" src="https://github.com/user-attachments/assets/91b0fc9b-3af7-49c4-92c9-1c4fda95e53d" />
-<img width="2562" height="1964" alt="tldr-promo-equip" src="https://github.com/user-attachments/assets/4a5c7084-eac6-421c-bdb6-0e2d80585d16" />
-<img width="2564" height="1967" alt="tldr-promo-chest" src="https://github.com/user-attachments/assets/94d0cee3-90a1-4480-8944-15b65f62a20b" />
-<img width="2564" height="1967" alt="tldr-promo-menu" src="https://github.com/user-attachments/assets/df8559ae-5d26-49c0-a8aa-6041bb5bb92d" />
-<img width="2564" height="1967" alt="tldr-promo-japanese" src="https://github.com/user-attachments/assets/a5c7311d-b81c-4345-b9e2-cd68416c45a8" />
-<img width="2884" height="1667" alt="image" src="https://github.com/user-attachments/assets/9494972f-75bb-49b6-a71c-e28ac83094a3" />
+<img width="1920" height="1440" alt="tldr-promo-pacify" src="https://github.com/user-attachments/assets/7d5bf3e6-0076-48f9-983b-d2fb6aad630b" />
+<img width="1920" height="1440" alt="tldr-promo-equip" src="https://github.com/user-attachments/assets/2f479227-82f3-4683-bda0-23a29fc4cc99" />
+<img width="1920" height="1440" alt="tldr-promo-menu" src="https://github.com/user-attachments/assets/987ec403-630c-4dcc-962a-0edca0c0430a" />
+<img width="1920" height="1440" alt="tldr-promo-japanese" src="https://github.com/user-attachments/assets/fcfb4cc1-37db-41d7-a2df-c054699a9468" />
+<img width="2880" height="1620" alt="tldr-promo-borders" src="https://github.com/user-attachments/assets/5c13dc7a-07ad-4cde-a396-7a660d7d0541" />
+<img width="1920" height="1440" alt="tldr-promo-shops" src="https://github.com/user-attachments/assets/0c7dd0e3-2a35-49a0-8528-a41d101369ca" />
 
 ---
 
