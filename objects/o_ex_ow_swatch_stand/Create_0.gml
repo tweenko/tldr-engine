@@ -1,6 +1,6 @@
 event_inherited()
 
-return_marker = 0
+return_marker = 1
 interaction_code = function() {
     shop_start(new ex_shop_color_cafe(), room, return_marker)
 }
