@@ -236,7 +236,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                     draw_sprite_ext(asset_get_index(loc("shop_spr_label_hold")), 0, 545, label_y, 1, 1, 0, c_white, 1)
                     draw_sprite_ext(asset_get_index(loc("shop_spr_label_storage")), 0, 545, 16*2 + label_y, 1, 1, 0, c_white, 1)
                     
-                    draw_set_font(loc_font("8bit"))
+                    draw_set_font(font_8bit)
                     draw_text_transformed(546, label_y + 16, $"{string_pad_start(item_get_count(ITEM_TYPE.CONSUMABLE), "0", 2)}/{item_get_maxcount(ITEM_TYPE.CONSUMABLE)}", .5, .5, 0);
                     draw_text_transformed(546, label_y + 16*3, $"{string_pad_start(item_get_count(ITEM_TYPE.STORAGE), "0", 2)}/{item_get_maxcount(ITEM_TYPE.STORAGE)}", .5, .5, 0);
                     draw_set_font(loc_font("main"))
@@ -246,7 +246,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                     draw_sprite_ext(asset_get_index(loc("shop_spr_label_weapon")), 0, 545, label_y + 8, 1, 1, 0, c_white, 1)
                     draw_sprite_ext(asset_get_index(loc("shop_spr_label_hold")), 0, 545, 12 + label_y + 8, 1, 1, 0, c_white, 1)
                     
-                    draw_set_font(loc_font("8bit"))
+                    draw_set_font(font_8bit)
                     draw_text_transformed(546, label_y + 12*2 + 4 + 8, $"{string_pad_start(item_get_count(ITEM_TYPE.WEAPON), "0", 2)}/{item_get_maxcount(ITEM_TYPE.WEAPON)}", .5, .5, 0);
                     draw_set_font(loc_font("main"))
                     
@@ -255,7 +255,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                     draw_sprite_ext(asset_get_index(loc("shop_spr_label_armor")), 0, 545, label_y + 8, 1, 1, 0, c_white, 1)
                     draw_sprite_ext(asset_get_index(loc("shop_spr_label_hold")), 0, 545, 12 + label_y + 8, 1, 1, 0, c_white, 1)
                     
-                    draw_set_font(loc_font("8bit"))
+                    draw_set_font(font_8bit)
                     draw_text_transformed(546, label_y + 12*2 + 4 + 8, $"{string_pad_start(item_get_count(ITEM_TYPE.ARMOR), "0", 2)}/{item_get_maxcount(ITEM_TYPE.ARMOR)}", .5, .5, 0);
                     draw_set_font(loc_font("main"))
                     
