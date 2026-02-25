@@ -10,3 +10,4 @@ fader_fade(0, 1, 7)
 
 alarm[0] = 8
 get_leader().moveable = false
+

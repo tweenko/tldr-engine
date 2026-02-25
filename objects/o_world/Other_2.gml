@@ -1,6 +1,10 @@
 randomize() // make every instance of the game randomized
-pal_swap_init_system(shd_pal_swapper) // load the palette swapper shader
-
+/*pal_swap_init_system(
+    shd_pal_swapper,
+    shd_pal_swapper,
+    shd_pal_swapper
+);
+*/
 // the instances you will be using no matter what
 instance_create(o_camera)
 instance_create(o_window)
@@ -169,8 +173,8 @@ save_entry("PARTY_NAMES", global.party_names,
 )
 
 
-global.saves = save_read_all() // saves saved on device
-if global.saves[global.save_slot] != -1 
+ global.saves = save_read_all() // saves saved on device
+ if global.saves[global.save_slot] != -1 
     global.save = global.saves[global.save_slot]
 music_stop_all()
 save_load(global.save_slot)

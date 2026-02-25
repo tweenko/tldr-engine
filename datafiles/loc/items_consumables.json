@@ -67,18 +67,18 @@
     },
     "item_c_revivemint" : {
         "en": {
-            "name": "ReviveMint",
-            "desc": ["Heals a fallen ally to MAX HP.\nA minty green crystal.", "Heals Downed Ally"],
+            "name": "Strange Candy",
+            "desc": ["Heals a fallen ally to MAX HP.\nA minty crystal.", "Restores Downed Ally"],
             "reactions": {
                 "susie": {
-                    "susie": "I'm ALIVE!!!",
-                    "ralsei": "(You weren't dead)"
+                    "susie": "Is this a mint?",
+                    "ralsei": "Wait give me a piece"
                 },
                 "ralsei": {
-                    "susie": "(Don't look it)",
-                    "ralsei": "Ah, I'm refreshed!"
+                    "susie": "(Calm down I didnt die)",
+                    "ralsei": "SHE LIVES!!!"
                 },
-                "noelle": "Mints? I love mints!"
+                "noelle": "Thank Godness"
             }
         },
         "ja": {

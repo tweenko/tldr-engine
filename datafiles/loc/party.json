@@ -5,28 +5,28 @@
     },
     
     "party_kris_name": {
-        "en": "Kris",
+        "en": "Reggie",
         "ja": "クリス"
     },
     "party_kris_desc": {
-        "en": "Bed Inspector Inspects all beds inexplicably.",
+        "en": "Sherif \nDefends the party with ranged attacks",
         "ja": "ベッドボス\nなぜか ベッドを\n調べまくる。"
     },
     "party_kris_action_letter": {
-        "en": "K",
+        "en": "R",
         "ja": "Ｋ"
     },
 
     "party_susie_name": {
-        "en": "Susie",
+        "en": "Amari",
         "ja": "スージィ"
     },
     "party_susie_desc": {
-        "en": "Dark Knight\nDoes damage using\ndark energy.",
+        "en": "Dark Magician\nPerforms tricks with\ndark energy.",
         "ja": "ダークナイト\nダークエネルギーで\n敵をこうげき。"
     },
     "party_susie_stat_rudeness": {
-        "en": "Rudeness",
+        "en": "Placeholder",
         "ja": "バッドさ"
     },
     "party_susie_stat_purple": {
@@ -38,20 +38,20 @@
         "ja": "はい"
     },
     "party_susie_action_letter": {
-        "en": "S",
+        "en": "A",
         "ja": "Ｓ"
     },
 
     "party_ralsei_name": {
-        "en": "Ralsei",
+        "en": "Kris",
         "ja": "ラルセイ"
     },
     "party_ralsei_desc": {
-        "en": "Dark Prince\nDark-World being.\nHas friends now.",
+        "en": "Dawn Knight\n Supports her friends",
         "ja": "ダーク王子\n闇の世界の民。\n仲間ができた。"
     },
     "party_ralsei_stat_sweetness": {
-        "en": "Sweetness",
+        "en": "Tallness",
         "ja": "甘さ"
     },
     "party_ralsei_stat_fluffiness": {
@@ -59,7 +59,7 @@
         "ja": "ふわふわ感"
     },
     "party_ralsei_action_letter": {
-        "en": "R",
+        "en": "K",
         "ja": "Ｒ"
     },
 

@@ -1,3 +1,36 @@
+
+
+enum ELEMENT {
+    PHYSICAL,
+    HOLY,
+    ELEC,
+    FIRE,
+    ICE,
+    RUDE,
+    RED,
+	BLOODY,
+	MAGIC,
+	DARK,
+	STAR,
+	CAT
+	
+}
+enum KELEMENT {
+	NONE,
+	ANGELIC,
+	IONIC,
+	INFERNAL,
+	FROST,
+	RUDER,
+	ROSE,
+	ARCANA,
+	FIENDISH,
+	GALATIC,
+	FERAL
+	
+	
+
+}
 ///@desc changes the hp of a party member, adjusts for whether or not you're in battle and also checks for dying
 /// @arg {string} name the name of the party member who's hp you'd like to change
 /// @arg {real} heal the amount you want to heal your party member by

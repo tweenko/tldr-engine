@@ -7,9 +7,9 @@
                 "text": "Spookiness UP"
             },
             "reactions": {
-                "susie": "Ugh, it's too small!",
-                "ralsei": "Oh, it's too scary!",
-                "noelle": "(It's kinda cool...)"
+                "susie": "Kris could use this better.",
+                "ralsei": "Spreading Krismas cheer",
+                "noelle": "If only"
             }
         },
         "ja": {
@@ -38,12 +38,12 @@
 
     "item_w_wood_blade": {
         "en": {
-            "name": "Wood Blade",
-            "desc": ["A wooden practice blade with a carbon-\nreinforced core.", "--"],
+            "name": "Iron Blade",
+            "desc": ["An iron practice blade with a carbon-\nreinforced core.", "--"],
             "reactions": {
-                "susie": "What's this!? A CHOPSTICK?",
-                "ralsei": "That's yours, Kris...",
-                "noelle": "(It has bite marks...)"
+                "susie": "Swords arent my thing",
+                "ralsei": "That's my sword",
+                "noelle": "If only..."
             }
         },
         "ja": {
@@ -69,12 +69,12 @@
 
     "item_w_saber10": {
         "en": {
-            "name": "Saber10",
-            "desc": ["A saber made of 10 cactus needles. Fortunately, can deal more than 10 damage.", "--"],
+            "name": "Saber",
+            "desc": ["A saber made of reinforced steel.", "--"],
             "reactions": {
-                "susie": "Nah, I'd snap it.",
-                "ralsei": "You want to... pierce my ears...?",
-                "noelle": "(I'm not against using it, but...)"
+                "susie": "I have no use for this.",
+                "ralsei": "A better blade",
+                "noelle": "If only..."
             }
         },
         "ja": {
@@ -106,8 +106,8 @@
                 "text": "Festive"
             },
             "reactions": {
-                "susie": "Sleigh the bad guys.",
-                "ralsei": "Mmm! Minty and festive!",
+                "susie": "Sleigh the monsters!.",
+                "ralsei": "Holiday warfare!",
                 "noelle": "What is this, a barber pole?"
             }
         },
@@ -137,12 +137,12 @@
 
     "item_w_mane_ax": {
         "en": {
-            "name": "Mane Ax",
-            "desc": ["Beginner's ax forged from the mane of a dragon whelp.", "--"],
+            "name": "Magister's glove",
+            "desc": ["Beginner gloves given to all aspiring magicans.", "--"],
             "reactions": {
                 "susie": "I'm too GOOD for that.",
-                "ralsei": "Ummm... it's a bit big.",
-                "noelle": "It... smells nice..."
+                "ralsei": "How am I supposed to fight with this",
+                "noelle": "I can already cast magic from my sword."
             }
         },
         "ja": {
@@ -157,15 +157,15 @@
     },
     "item_w_devilsknife": {
         "en": {
-            "name": "Devilsknife",
-            "desc": ["Skull-emblazoned scythe-ax.\nReduces Rudebuster's cost by 10", "--"],
+            "name": "Wooden Stave",
+            "desc": ["Wooden stave with a pattern of an angel etched on\nReduces Hocus Pocus cost by 10", "--"],
             "effect": {
-                "text": "Buster TP DOWN"
+                "text": "Poucs TP DOWN"
             },
             "reactions": {
                 "susie": "Let the games begin!",
-                "ralsei": "It's too, um, evil.",
-                "noelle": "...? It smiled at me?"
+                "ralsei": "Who's she drawn on the side?",
+                "noelle": "Fuel for the fire."
             }
         },
         "ja": {
@@ -183,15 +183,15 @@
     },
     "item_w_absorbax": {
         "en": {
-            "name": "AbsorbAx",
-            "desc": ["A long, curved axe with an indent.\nScoop up HP when you attack.", "--"],
+            "name": "Vampire Rod",
+            "desc": ["A long, curved staff with an indent.\npulls in HP when you attack.", "--"],
             "effect": {
                 "text": "Vampire"
             },
             "reactions": {
-                "susie": "Scoopin' time.",
-                "ralsei": "Don't scoop me!",
-                "noelle": "That red... is that blood?"
+                "susie": "I guess I can use this?.",
+                "ralsei": "Evil ass wand.",
+                "noelle": "Who the hell made this?"
             }
         },
         "ja": {
@@ -210,12 +210,12 @@
 
     "item_w_red_scarf": {
         "en": {
-            "name": "Red Scarf",
-            "desc": ["A basic scarf made of lightly\nmagical fiber.", "--"],
+            "name": "Red blaster",
+            "desc": ["A basic blaster made of lightly\nmagical plastic.", "--"],
             "reactions": {
-                "susie": "No. Just... no.",
-                "ralsei": "Comfy! Touch it, Kris!",
-                "noelle": "Huh? No, I'm not cold."
+                "susie": "No",
+                "ralsei": "Guns are lame",
+                "noelle": "I have a sword and magic."
             }
         },
         "ja": {
@@ -230,12 +230,12 @@
     },
     "item_w_flexscarf": {
         "en": {
-            "name": "FlexScarf",
-            "desc": ["A scarf that is warm and fuzzy, but with\na metal core that lets it keep its shape.", "--"],
+            "name": "Big Iron",
+            "desc": ["A hefty blaster perfect for taking on larger foes", "--"],
             "reactions": {
-                "susie": "Looks like a giant caterpillar.",
-                "ralsei": "So pliable, like me!",
-                "noelle": "Twist it and... it's a wreath!"
+                "susie": "The recoil on this",
+                "ralsei": "Yeah no...",
+                "noelle": "Reggie would love this"
             }
         },
         "ja": {
@@ -250,12 +250,12 @@
     },
     "item_w_puppetscarf": {
         "en": {
-            "name": "PuppetScarf",
-            "desc": ["A scarf made of strange strings.\nFor those that abandon healing.", "--"],
+            "name": "Puppet gun",
+            "desc": ["A gun made of strange strings.\nFor those with a friend in them.", "--"],
             "reactions": {
-                "susie": "No way, that's creepy.",
-                "ralsei": "If I have to fight...",
-                "noelle": "(Feels like guitar strings...)"
+                "susie": "That's creepy.",
+                "ralsei": "Is there a voice in there?",
+                "noelle": "Angel threads"
             }
         },
         "ja": {

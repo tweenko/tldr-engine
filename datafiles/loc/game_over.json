@@ -3,13 +3,12 @@
     "en": "CONTINUE", "ja": "CONTINUE"
   },
   "game_over_give_up": {
-    "en": "GIVE UP", "ja": "GIVE UP"
+    "en": "RELENT", "ja": "GIVE UP"
   },
 
   "game_over_dialogue_susie": {
     "en": [
-      "{voice(snd_text_susie)}Come on,{br}that all you got!?",
-      "Kris,{br}get up...!"
+      "A horrible fate has befallen you{br} continue?"
     ],
     "ja": [
       "{voice(snd_text_susie)}クリス{br}しっかりしろよ！",
@@ -18,7 +17,7 @@
   },
   "game_over_dialogue_ralsei": {
     "en": [
-      "{voice(snd_text_ralsei)}This is not{br}your fate...!",
+      "",
       "Please,{br}don't give up!"
     ],
     "ja": [
@@ -28,7 +27,7 @@
   },
 
   "game_over_dialogue_give_up": {
-    "en": "THEN THE WORLD{br}{s(20)}WAS COVERED{br}{s(20)}IN DARKNESS.",
+    "en": "THEN THE WORLD{br}{s(20)}WAS SUBSUMED{br}{s(20)}IN DARKNESS.",
     "ja": "世界ハ{br}{s(20)}闇ニ　包マレマシタ。"
   }
 }

@@ -1,5 +1,6 @@
 // note: while adding ` for strings in the commands is unnecessary, it is considered best practice, because if you use commas in a string argument the argument will be split.
-
+global.typer_chars = {};
+typer_chars_init();
 { // configuration
 	text = ""
 	font = loc_font("text")

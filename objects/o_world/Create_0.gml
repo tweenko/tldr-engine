@@ -36,8 +36,20 @@ global.room_name = ""
 global.menu_page = 0
 
 global.player_moveable_global = true
-global.border_mode = BORDER_MODE.OFF
+global.border_mode = BORDER_MODE.DYNAMIC
 
+// 1. Set the internal resolution (Deltarune standard)
+var _base_w = 640;
+var _base_h = 480;
+
+// 2. Resize the surface where the game is actually drawn
+surface_resize(application_surface, _base_w, _base_h);
+
+// 3. Set the GUI to match so the text isn't blurry
+display_set_gui_size(room_width, room_height);
+
+// 4. Center the window for the browser
+window_set_size(_base_w, _base_h);
 { // emmiters
 	emitter_sfx = audio_emitter_create();
 	bus_sfx = audio_bus_create();
