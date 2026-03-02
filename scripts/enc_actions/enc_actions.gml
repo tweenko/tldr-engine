@@ -237,8 +237,12 @@ function enc_action_item(_party_names, _target, _item, _item_index) : enc_action
         cutscene_create()
         cutscene_set_variable(o_enc, "waiting_internal", true)
         
-        var use_text = (!is_undefined(target_item.use_encounter_text) 
-            ? string(loc(target_item.use_encounter_text), 
+        var ut = target_item.use_encounter_text
+        if is_callable(ut)
+            ut = ut()
+        
+        var use_text = (!is_undefined(ut) 
+            ? string(loc(ut), 
                 party_getname(acting_member), 
                 string_upper(item_get_name(target_item))
             )

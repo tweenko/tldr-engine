@@ -41,12 +41,12 @@ function item() constructor {
     // party act specific
     perform_act_anim = true
 	
-	reactions = {}
+	reactions = {} // entries inside can be callable
     
     use_instant = function(item_index, target_index) {}
     use_instant_cancel = function(item_index, target_index) {}
     
-    use_encounter_text = "item_use" // will be localized. {0} is the party member name and {1} is the item name.
+    use_encounter_text = "item_use" // will be localized. {0} is the party member name and {1} is the item name. can also be callable
 	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
 	
@@ -290,6 +290,8 @@ function item_get_fatal(item_struct) {
     
     if is_real(item_struct.weapon_fatal)
         return item_struct.weapon_fatal
+    if is_bool(item_struct.weapon_fatal)
+        return item_struct.weapon_fatal
     else if is_callable(item_struct.weapon_fatal)
         return item_struct.weapon_fatal()
     return false
@@ -390,11 +392,17 @@ function item_menu_party_react(name, reaction) {
 function item_menu_reaction(item_struct, user = 0) {
 	if item_struct.use_type == 0 {
 		var reaction = struct_get(item_struct.reactions, global.party_names[user])
+        if is_callable(reaction)
+            reaction = reaction()
+        
 		item_menu_party_react(global.party_names[user], reaction)
 	}
 	else {
 		for (var i = 0; i < array_length(global.party_names); ++i) {
 			var reaction = struct_get(item_struct.reactions, global.party_names[i])
+            if is_callable(reaction)
+                
+                reaction = reaction()
 			item_menu_party_react(global.party_names[i], reaction)
 		}
 	}

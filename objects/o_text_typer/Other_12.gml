@@ -19,4 +19,6 @@ superskipping_buffer = 2
 init = true
 box_init = false
 
+__update_talking(false)
+
 current_box ++

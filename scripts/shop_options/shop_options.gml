@@ -603,10 +603,11 @@ function shop_option_sell(_sell_options = [
 
 /// @arg {string|function} _name the name of the option
 /// @arg {string|function} _answer the way the shopkeeper will answer. if a function, should create a cutscene and set `o_shop`'s `waiting` variable to true
-function __shop_talk_option(_name, _answer) constructor {
+/// @arg {constant.Color|function} _color the color of the option (white by default)
+function __shop_talk_option(_name, _answer, _color = c_white) constructor {
     name = _name
     answer = _answer
-    color = c_white // can be callable
+    color = _color
     
     __answer_call = method(self, function() {
         if is_string(answer) || is_array(answer) {
@@ -686,8 +687,12 @@ function shop_option_talk(_talk_options, _talk_gen) : shop_option() constructor 
                 if is_callable(col)
                     col = col()
                 
+                var name = talk_options[i].name
+                if is_callable(name)
+                    name = name()
+                
                 draw_set_colour(col)
-                draw_text_transformed(80, 260 + 40*i, talk_options[i].name, 2, 2, 0)
+                draw_text_transformed(80, 260 + 40*i, name, 2, 2, 0)
                 draw_set_colour(c_white)
             }
             
