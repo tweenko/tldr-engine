@@ -26,16 +26,16 @@ trigger_code = function() {
         party_set_state("susie", "serious")
     })
     cutscene_dialogue("{char(susie, 6)}* Woah... Is that...",, false)
-    for (var i = 0; i < array_length(global.party_names); i ++) {
+    for (var i = 0; i < party_length(true); i ++) {
         cutscene_actor_move(party_get_inst(global.party_names[i]), new actor_movement(
-            110 - (array_length(global.party_names) - 1) * 20 + i * 40,
+            110 - (party_length(true) - 1) * 20 + i * 40,
             150,
             30,,, DIR.DOWN
-        ), i, (i == array_length(global.party_names) - 1 ? true : false))
+        ), i, (i == party_length(true) - 1 ? true : false))
     }
     cutscene_wait_dialogue_finish()
     
-    for (var i = 0; i < array_length(global.party_names); i ++) {
+    for (var i = 0; i < party_length(true); i ++) {
         cutscene_actor_move(party_get_inst(global.party_names[i]), new actor_movement(
             0,
             90,
@@ -130,11 +130,11 @@ trigger_code = function() {
     cutscene_camera_pan(undefined, 320, 30, false)
     
     cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_down)
-    for (var i = 0; i < array_length(global.party_names); i ++) {
+    for (var i = 0; i < party_length(true); i ++) {
         cutscene_actor_move(party_get_inst(global.party_names[i]), [
             new actor_movement(80, 150 + 90, 20),
             new actor_movement(110, 340 - i * 25, 40)
-        ], i, (i == array_length(global.party_names) - 1 ? true : false))
+        ], i, (i == party_length(true) - 1 ? true : false))
         cutscene_sleep(10)
     }
     

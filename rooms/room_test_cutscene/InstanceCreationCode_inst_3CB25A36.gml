@@ -12,7 +12,7 @@ trigger_code = function() {
         "* Is your HP not full??",
         "{char(noelle, 1)}* Oh, is it??? Umm... Do you have... any items?"
     ])
-    for (var i = 0; i < array_length(global.party_names); i ++) {
+    for (var i = 0; i < party_length(true); i ++) {
         if global.party_names[i] != "susie" && global.party_names[i] != "noelle" {
             cutscene_actor_move(party_get_inst(global.party_names[i]), new actor_movement(
                 get_leader().x + 40 - get_leader().spacing*3 * i, get_leader().y - 15,

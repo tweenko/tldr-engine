@@ -5,9 +5,9 @@ execute_code = function() {
 	cutscene_player_canmove(false)
 	cutscene_party_follow(false)
 	
-	for (var i = 0; i < array_length(global.party_names); ++i) {
+	for (var i = 0; i < party_length(true); ++i) {
 	    cutscene_actor_move(party_get_inst(global.party_names[i]), [
-            new actor_movement_jump(110 - (array_length(global.party_names)-  1) * 15 + i*30, 130),
+            new actor_movement_jump(110 - (party_length(true) -  1) * 15 + i*30, 130),
 		], i, false)
 	}
 	cutscene_wait_until(function() {

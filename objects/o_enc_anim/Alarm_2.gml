@@ -6,7 +6,7 @@ else
 	audio_play(snd_weaponpull_fast,,.8)
 
 // pull the weapons
-for (var i = 0; i < array_length(global.party_names); ++i) {
+for (var i = 0; i < party_length(); ++i) {
 	var obj = party_get_inst(global.party_names[i])
 	var m = party_getdata(global.party_names[i], "s_battle_intro")
 	

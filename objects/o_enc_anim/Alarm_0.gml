@@ -11,7 +11,7 @@ audio_play(snd_tensionhorn,,, 1.1)
 
 alarm[1] = 12
 
-for (var i = 0; i < array_length(global.party_names); ++i) {
+for (var i = 0; i < party_length(); ++i) {
 	var obj = party_get_inst(global.party_names[i])
 	obj.is_in_battle = true
 	

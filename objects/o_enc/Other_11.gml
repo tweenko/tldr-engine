@@ -14,13 +14,13 @@ win_screen_init = false
 win_init = false
 party_menu_init = false
 
-party_state = array_create(array_length(global.party_names), PARTY_STATE.IDLE)
-party_button_selection = array_create(array_length(global.party_names), 0)
-party_enemy_selection = array_create(array_length(global.party_names), 0)
-party_act_selection = array_create(array_length(global.party_names), 0)
-party_item_selection = array_create(array_length(global.party_names), 0)
-party_spell_selection = array_create(array_length(global.party_names), 0)
-party_ally_selection = array_create(array_length(global.party_names), 0)
+party_state = array_create(party_length(), PARTY_STATE.IDLE)
+party_button_selection = array_create(party_length(), 0)
+party_enemy_selection = array_create(party_length(), 0)
+party_act_selection = array_create(party_length(), 0)
+party_item_selection = array_create(party_length(), 0)
+party_spell_selection = array_create(party_length(), 0)
+party_ally_selection = array_create(party_length(), 0)
 
 party_busy_internal = []
 party_selection = 0

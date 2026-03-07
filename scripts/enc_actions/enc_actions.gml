@@ -337,7 +337,7 @@ function enc_action_spare(_party_names, _enemy_target) : enc_action(_party_names
                 if __enemy.tired {
                     var tgt_spell = -1
                     var spellowner = ""
-                    for (var i = 0; i < array_length(global.party_names); ++i) { // if party has a person who can use a mercy spell
+                    for (var i = 0; i < party_length(); ++i) { // if party has a person who can use a mercy spell
                         for (var j = 0; j < array_length(party_getdata(global.party_names[i], "spells")); ++j) {
                             if party_getdata(global.party_names[i], "spells")[j].is_mercyspell {
                                 tgt_spell = party_getdata(global.party_names[i], "spells")[j]

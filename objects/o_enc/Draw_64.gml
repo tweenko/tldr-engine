@@ -9,8 +9,8 @@ draw_clear_alpha(0,0)
 draw_sprite_ext(spr_pixel, 0, 0, 417 - 92 + __roll, 640, 156, 0, c_black, 1)
 draw_sprite_ext(spr_pixel, 0, 0, 417 - 92 + __roll, 640, 2, 0, bcolor, 1)
 
-for (var i = 0; i < array_length(global.party_names); ++i) {
-    var xoff = i*213 + 319.5 + array_length(global.party_names) * -213/2
+for (var i = 0; i < party_length(); ++i) {
+    var xoff = i*213 + 319.5 + party_length() * -213/2
     var box_base_y = 325 + __roll - 32 * party_ui_lerp[i]
     var member_name = global.party_names[i]
     
@@ -136,8 +136,8 @@ for (var i = 0; i < array_length(global.party_names); ++i) {
 draw_sprite_ext(spr_pixel, 0, 0, 363 + __roll, 640, 156, 0, c_black, 1)
 draw_sprite_ext(spr_pixel, 0, 0, 362 + __roll, 640, 3, 0, bcolor, 1)
 
-for (var i = 0; i < array_length(global.party_names); i ++) { // draw buttons
-    var xoff = i*213 + 319.5 + array_length(global.party_names) * -213/2
+for (var i = 0; i < party_length(); i ++) { // draw buttons
+    var xoff = i*213 + 319.5 + party_length() * -213/2
     if party_ui_lerp[i] > .1 && battle_state == BATTLE_STATE.MENU
         draw_surface(party_ui_button_surf[i], xoff, 332 + __roll)
 }
@@ -238,7 +238,7 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
                 
                 if list[i].party == -1 {
                     var n_drawn = 0
-                    for (var j = 0; j < array_length(global.party_names); ++j) {
+                    for (var j = 0; j < party_length(); ++j) {
                         if !party_isup(global.party_names[j]) 
                             can_do = false
                         if j == party_selection // don't draw the one calling the act
@@ -307,7 +307,7 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
         draw_sprite_ext(spr_ui_arrow_up, 0, 470, 382 + round(sine(12,3)), 1, 1, 0, c_white, 1)
 }
 else if battle_menu == BATTLE_MENU.PARTY_SELECTION {
-    for (var i = 0; i < array_length(global.party_names); ++i) {
+    for (var i = 0; i < party_length(); ++i) {
         draw_text_transformed(80, 375 + 30 * i, party_getname(global.party_names[i]), 2, 2, 0)
         
         if party_ally_selection[party_selection] == i 

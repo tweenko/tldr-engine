@@ -269,7 +269,7 @@ function enc_item_get_enabled(item_struct) {
     // disable the act if some member is not up
     if struct_exists(item_struct, "party") {
         if item_struct.party == -1 {
-            for (var j = 0; j < array_length(global.party_names); j ++) {
+            for (var j = 0; j < party_length(); j ++) {
                 if !party_isup(global.party_names[j]) {
                     can_perform = false
                     break
@@ -312,7 +312,7 @@ enum ENC_TARGET {
 function enc_calculate_target(encounter) {
     if encounter.target_calculation == ENC_TARGET.ALL {
         var __targets = []
-        for (var i = 0; i < array_length(global.party_names); ++i) {
+        for (var i = 0; i < party_length(); ++i) {
 		    if party_getdata(global.party_names[i], "hp") > 0
 				array_push(__targets, global.party_names[i])
 		}
@@ -321,7 +321,7 @@ function enc_calculate_target(encounter) {
     } 
     else if encounter.target_calculation == ENC_TARGET.RANDOM || encounter.target_calculation == ENC_TARGET.ANY {
         var __targets = []
-        for (var i = 0; i < array_length(global.party_names); ++i) {
+        for (var i = 0; i < party_length(); ++i) {
 		    if party_getdata(global.party_names[i], "hp") > 0
 				array_push(__targets, global.party_names[i])
 		}

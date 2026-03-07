@@ -230,7 +230,7 @@ function cutscene_audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = fa
 function cutscene_party_interpolate(){
 	cutscene_custom({
 		action: [function(){
-			for (var i = 0; i < array_length(global.party_names); ++i) {
+			for (var i = 0; i < party_length(true); ++i) {
 			    party_member_interpolate(global.party_names[i])
 			}
 		}],

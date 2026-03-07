@@ -371,7 +371,7 @@ function item_get_type_name(type, key_display = false) {
 ///@arg {string|struct} reaction
 function item_menu_party_react(name, reaction) {
 	if is_struct(reaction) {
-		for (var i = 0; i < array_length(global.party_names); ++i) {
+		for (var i = 0; i < party_length(); ++i) {
 			if struct_exists(reaction, global.party_names[i]) {
 				var u = party_get_index(global.party_names[i])
 				
@@ -398,7 +398,7 @@ function item_menu_reaction(item_struct, user = 0) {
 		item_menu_party_react(global.party_names[user], reaction)
 	}
 	else {
-		for (var i = 0; i < array_length(global.party_names); ++i) {
+		for (var i = 0; i < party_length(); ++i) {
 			var reaction = struct_get(item_struct.reactions, global.party_names[i])
             if is_callable(reaction)
                 
@@ -454,7 +454,7 @@ function item_get_equipped(_item_ref, _party_name = undefined) {
 	
 	var __equipped = 0
 	if is_undefined(_party_name) {
-		for (var i = 0; i < array_length(global.party_names); ++i) {
+		for (var i = 0; i < party_length(true); ++i) {
 			if __item.type == 2 {
 				var __a = party_getdata(global.party_names[i], "weapon")
 				if !is_undefined(__a) && instanceof(__a) == __iteminst
@@ -505,7 +505,7 @@ function item_spell_get_exists(_item_ref, _party_name = undefined) {
     
     var __spells_found = 0
     if is_undefined(_party_name) {
-        for (var i = 0; i < array_length(global.party_names); ++i) {
+        for (var i = 0; i < party_length(true); ++i) {
 			__spells_found = item_spell_get_index(_item_ref, global.party_names[i])
             if !is_undefined(__spells_found)
                 break

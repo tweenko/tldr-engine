@@ -13,10 +13,10 @@
     tp_glow_alpha = 0
     tp_defend = 16
     
-    save_follow = array_create_ext(array_length(global.party_names), function(index) {
+    save_follow = array_create_ext(party_length(true), function(index) {
         return party_get_inst(global.party_names[index]).follow
     })
-    save_pos = array_create_ext(array_length(global.party_names), function(index) {
+    save_pos = array_create_ext(party_length(true), function(index) {
         return [
             party_get_inst(global.party_names[index]).x,
             party_get_inst(global.party_names[index]).y
@@ -74,11 +74,11 @@
     battle_menu_party_cancel = function() {}
 }
 { // party
-    party_ui_lerp = array_create(array_length(global.party_names), 0)
-    party_ui_button_surf = array_create(array_length(global.party_names), -1)
-    party_state = array_create(array_length(global.party_names), PARTY_STATE.IDLE)
-    party_hurt_timer = array_create(array_length(global.party_names), 0)
-    party_buttons = array_create_ext(array_length(global.party_names), function(index) {
+    party_ui_lerp = array_create(party_length(), 0)
+    party_ui_button_surf = array_create(party_length(), -1)
+    party_state = array_create(party_length(), PARTY_STATE.IDLE)
+    party_hurt_timer = array_create(party_length(), 0)
+    party_buttons = array_create_ext(party_length(), function(index) {
         var buttons = [
             new enc_button_fight(),
             undefined, // determined to be spell or act later
@@ -96,15 +96,15 @@
         
         return buttons
     })
-    party_button_selection = array_create(array_length(global.party_names), 0)
-    party_enemy_selection = array_create(array_length(global.party_names), 0)
-    party_ally_selection = array_create(array_length(global.party_names), 0)
-    party_act_selection = array_create(array_length(global.party_names), 0)
-    party_act_page = array_create(array_length(global.party_names), 0)
-    party_item_selection = array_create(array_length(global.party_names), 0)
-    party_item_page = array_create(array_length(global.party_names), 0)
-    party_spell_selection = array_create(array_length(global.party_names), 0)
-    party_spell_page = array_create(array_length(global.party_names), 0)
+    party_button_selection = array_create(party_length(), 0)
+    party_enemy_selection = array_create(party_length(), 0)
+    party_ally_selection = array_create(party_length(), 0)
+    party_act_selection = array_create(party_length(), 0)
+    party_act_page = array_create(party_length(), 0)
+    party_item_selection = array_create(party_length(), 0)
+    party_item_page = array_create(party_length(), 0)
+    party_spell_selection = array_create(party_length(), 0)
+    party_spell_page = array_create(party_length(), 0)
     
     party_selection = 0
     party_busy_internal = []
@@ -244,7 +244,7 @@ __enemy_highlight_reset = function() {
     }
 }
 __ally_highlight = function(ally_index) {
-    for (var i = 0; i < array_length(global.party_names); ++i) {
+    for (var i = 0; i < party_length(); ++i) {
         var inst = party_get_inst(global.party_names[i])
         if !party_isup(global.party_names[i])
             continue
@@ -258,7 +258,7 @@ __ally_highlight = function(ally_index) {
     }
 }
 __ally_highlight_reset = function() {
-    for (var i = 0; i < array_length(global.party_names); ++i) {
+    for (var i = 0; i < party_length(); ++i) {
         var inst = party_get_inst(global.party_names[i])
         if !party_isup(global.party_names[i])
             continue

@@ -292,7 +292,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                 }
                 
                 draw_set_font(loc_font("enc"))
-                for (var i = 0; i < array_length(global.party_names); i ++) {
+                for (var i = 0; i < party_length(); i ++) {
                     var x_off = (i % 2) * 100
                     var y_off = (i div 2) * 45 + 220 - box_h
                     var greyed_out = false
@@ -749,7 +749,7 @@ function shop_option_exit(_exit_call) : shop_option() constructor {
                             
                             get_leader().dir = return_direction ?? DIR.DOWN
                         }
-                        for (var i = 0; i < array_length(global.party_names); ++i) {
+                        for (var i = 0; i < party_length(); ++i) {
                             with party_get_inst(global.party_names[i]) {
                                 x = get_leader().x
                                 y = get_leader().y

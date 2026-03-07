@@ -1,3 +1,12 @@
+/// @desc returns the current number of party members
+/// @arg full when false, limits the number to 3
+function party_length(full = false) {
+    if full
+        return array_length(global.party_names)
+    
+    return min(array_length(global.party_names), 3)
+}
+
 ///@desc returns the party leader at the moment
 function get_leader(){
 	return party_get_inst(global.party_names[0])
@@ -107,7 +116,7 @@ function party_reposition(lx = get_leader().x, ly = get_leader().y){
 		with pl 
 			event_user(2)
 	}
-	for (var i = 1; i < array_length(global.party_names); ++i) {
+	for (var i = 1; i < party_length(true); ++i) {
 		if instance_exists(party_get_inst(global.party_names[i])) {
 			var inst = party_get_inst(global.party_names[i])
 			inst.is_follower = true

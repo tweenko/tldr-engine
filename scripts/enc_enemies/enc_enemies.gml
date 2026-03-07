@@ -203,7 +203,7 @@ function enemy_virovirokun() : enemy() constructor{
 				cutscene_set_variable(o_enc, "waiting", true)
 				
 				cutscene_func(function(user) {
-					for (var i = 0; i < array_length(global.party_names); ++i) {
+					for (var i = 0; i < party_length(); ++i) {
 					    var name = global.party_names[i]
 						var o = party_get_inst(name)
 						o.sprite_index = asset_get_index($"spr_b{name}_nurse")

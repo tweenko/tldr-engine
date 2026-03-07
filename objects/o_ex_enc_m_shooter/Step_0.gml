@@ -50,7 +50,7 @@ else {
 		
 	if InputCheck(INPUT_VERB.SPECIAL) && buffer == 0 && ammo > 0{
 		buffer = 5
-		for (var i = 0; i < array_length(global.party_names); ++i) {
+		for (var i = 0; i < party_length(); ++i) {
 			var o = party_get_inst(global.party_names[i])
 			
 			ammo -= 1

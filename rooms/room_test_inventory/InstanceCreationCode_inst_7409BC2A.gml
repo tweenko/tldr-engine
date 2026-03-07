@@ -1,6 +1,6 @@
 trigger_exit_code = function() {
     var __healed = false
-    for (var i = 0; i < array_length(global.party_names); i ++) {
+    for (var i = 0; i < party_length(true); i ++) {
         if party_getdata(global.party_names[i], "hp") != party_getdata(global.party_names[i], "max_hp") {
             party_setdata(global.party_names[i], "hp", party_getdata(global.party_names[i], "max_hp"))
             __healed = true

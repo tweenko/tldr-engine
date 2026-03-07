@@ -1,5 +1,5 @@
 trigger_code = function() {
-    for (var i = 1; i < array_length(global.party_names); i ++) {
+    for (var i = 1; i < party_length(true); i ++) {
         var marker = marker_getpos("test_pm_wait", i)
         
         if !is_undefined(marker) {
@@ -16,7 +16,7 @@ trigger_code = function() {
 trigger_exit_code = function() {
     party_setfollow(true)
     
-    for (var i = 1; i < array_length(global.party_names); ++i) {
+    for (var i = 1; i < party_length(true); ++i) {
         party_member_interpolate(global.party_names[i])
     }
     

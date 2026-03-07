@@ -22,8 +22,8 @@ if !only_hp { // top
 }
 { // bottom
 	draw_sprite_ext(spr_pixel, 0, 0, 417 + 80 - roll, 640, 63, 0, c_black, 1)
-	for (var i = 0; i < array_length(global.party_names); ++i) {
-		var xoff = 319.5 + array_length(global.party_names) * -213/2
+	for (var i = 0; i < party_length(); ++i) {
+		var xoff = 319.5 + party_length() * -213/2
 		var col = bcolor
 		
 		if i_pmselection == i && state == 3 && selection == 0 
@@ -159,7 +159,7 @@ if selection == 1 { // equip
 		ui_dialoguebox_create(58 + _l_offset, 88, 584 - 58 + _r_offset - _l_offset, 414 - 88)
 		draw_text_transformed(135 + _l_offset, 107, party_getname(global.party_names[e_pmselection],false), 2, 2, 0)
 		
-		for (var i = 0; i < array_length(global.party_names); ++i) {
+		for (var i = 0; i < party_length(); ++i) {
 			var c = (i == e_pmselection ? c_white : #666666)
 			if i == e_pmselection && state == 1 {
 				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i + _l_offset, 142, 1, 1, 0, c_red, 1)
@@ -398,7 +398,7 @@ if selection == 2 { // power
         ui_dialoguebox_create(58 + _l_offset, 88, 584 - 58 + _r_offset - _l_offset, 414 - 88)
 		
 		draw_text_transformed(130 + _l_offset, 112-7, party_getname(global.party_names[p_pmselection], false), 2, 2, 0)
-		for (var i = 0; i < array_length(global.party_names); ++i) {
+		for (var i = 0; i < party_length(); ++i) {
 			var c = (i == p_pmselection ? c_white : #666666)
 			if i == p_pmselection && state == 1 {
 				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i + _l_offset, 141, 1, 1, 0, c_red, 1)

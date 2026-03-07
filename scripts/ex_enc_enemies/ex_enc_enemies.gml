@@ -101,7 +101,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				cutscene_func(function(){instance_destroy(o_ui_dialogue)})
 				cutscene_sleep(30)
                 cutscene_func(function(slot) {
-                    for (var i = 0; i < array_length(global.party_names); ++i) {
+                    for (var i = 0; i < party_length(); ++i) {
                         enc_party_set_battle_sprite(global.party_names[i], "idle")
                     }
                 }, slot)
