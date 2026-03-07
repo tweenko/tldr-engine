@@ -16,7 +16,7 @@
     save_follow = array_create_ext(party_length(true), function(index) {
         return party_get_inst(global.party_names[index]).follow
     })
-    save_pos = array_create_ext(party_length(true), function(index) {
+    save_pos = array_create_ext(party_length(), function(index) {
         return [
             party_get_inst(global.party_names[index]).x,
             party_get_inst(global.party_names[index]).y
