@@ -3,7 +3,7 @@
 An Independent 1:1 DELTARUNE Engine built in Gamemaker Studio, the software used to create DELTARUNE.
 It contains nearly all aspects of the original game, including, but not limited to, the overworld movement, encounters, shops and various UI elements. 
 
-# Helpful links:
+## Helpful links:
 - [Documentation](https://docs.google.com/document/d/14SpnU32P-_HLdNS17gwaIe8Z2mO8AG1KUUGMe_hNdzM/edit?tab=t.0) - the document that contains answers to most questions you may have regarding the engine.
 - [Discord Server](https://discord.gg/x3t8JTyC2p) - a space where you can get notified on new updates, discuss things with other community members, report bugs and request new features! (recommended to join)
 
@@ -16,7 +16,7 @@ It contains nearly all aspects of the original game, including, but not limited 
 
 ---
 
-# Credits and Thanks
+## Credits and Thanks
 - Amazing Libraries made by [Juju Adams](https://www.jujuadams.com/)
 - The Anime Library was made by [futuregamer25](https://futuregamer25.github.io/) (It's really good. Thanks a lot!)
 - The Soul and Box system loosely based on the one created by **Callum** (jevilhumor)
