@@ -21,15 +21,14 @@ save_settings = true
 
 sound_on_frame = -1
 
-global.current_cutscene = noone
-global.charmove_insts = []
-global.console = false
-global.current_light = c_white
-global.console_enabled = true
-
 global.temp_choice = 0
 global.typer_chars = {}
 global.simplify_vfx = false
+global.current_light = c_white
+global.console = false
+global.current_cutscene = noone
+global.charmove_insts = []
+
 global.time = 0
 global.states = {}
 global.room_name = ""
@@ -37,6 +36,9 @@ global.menu_page = 0
 
 global.player_moveable_global = true
 global.border_mode = BORDER_MODE.OFF
+global.console_enabled = true
+
+global.party_limit = 3 // set to undefined for unlimited party members
 
 { // emmiters
 	emitter_sfx = audio_emitter_create();

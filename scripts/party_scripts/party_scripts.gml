@@ -1,10 +1,9 @@
 /// @desc returns the current number of party members
-/// @arg full when false, limits the number to 3
+/// @arg {bool} full when false, limits the number to 3. by default linked to `global.party_limit`
 function party_length(full = false) {
     if full
         return array_length(global.party_names)
-    
-    return min(array_length(global.party_names), 3)
+    return min(array_length(global.party_names), (global.party_limit ?? infinity))
 }
 
 ///@desc returns the party leader at the moment
