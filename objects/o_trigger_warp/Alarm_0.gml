@@ -12,7 +12,7 @@ call_later(2, time_source_units_frames, function() {
             
     		get_leader().dir = exit_direction ?? savedir
     	}
-    	for (var i = 0; i < array_length(global.party_names); ++i) {
+    	for (var i = 0; i < party_length(true); ++i) {
     	    with party_get_inst(global.party_names[i]) {
     			x = get_leader().x
     			y = get_leader().y

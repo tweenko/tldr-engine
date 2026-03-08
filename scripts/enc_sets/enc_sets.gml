@@ -16,14 +16,14 @@ function enc_set() constructor { // base
     party_pos = function(i) { // returns [x, y]
         return [
             guipos_x() + 52,
-            guipos_y() + 130 - 22 * array_length(global.party_names) + i*44,
+            guipos_y() + 130 - 22 * party_length() + i*44,
         ]
     }
 	
     // actions  
     party_actions = {}
     // add the default party actions. if you want to remove them from an encounter, just set party_actions back to an empty struct
-	for (var i = 0; i < array_length(global.party_names); ++i) {
+	for (var i = 0; i < party_length(); ++i) {
 	    struct_set(party_actions, global.party_names[i], [new item_s_defaultaction(global.party_names[i])])
 	}
     

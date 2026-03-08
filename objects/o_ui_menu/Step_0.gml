@@ -162,8 +162,8 @@ if !only_hp {
 			}
 			
 			if i_pmselection < 0 
-				i_pmselection = array_length(global.party_names) - 1
-			if i_pmselection > array_length(global.party_names) - 1
+				i_pmselection = party_length() - 1
+			if i_pmselection > party_length() - 1
 				i_pmselection = 0
 			
 			if InputPressed(INPUT_VERB.CANCEL) {
@@ -211,8 +211,8 @@ if !only_hp {
 			}
 			
 			if e_pmselection < 0
-				e_pmselection = array_length(global.party_names) - 1
-			if e_pmselection > array_length(global.party_names) - 1
+				e_pmselection = party_length() - 1
+			if e_pmselection > party_length() - 1
 				e_pmselection = 0
 			
 			if InputPressed(INPUT_VERB.CANCEL) {
@@ -373,8 +373,8 @@ if !only_hp {
 			}
 			
 			if p_pmselection < 0 
-				p_pmselection = array_length(global.party_names) - 1
-			if p_pmselection > array_length(global.party_names) - 1
+				p_pmselection = party_length() - 1
+			if p_pmselection > party_length() - 1
 				p_pmselection = 0
 			
 			if InputPressed(INPUT_VERB.CANCEL) {
@@ -578,7 +578,7 @@ if buffer > 0
 if c_controls_resetfade > 0
     c_controls_resetfade -= .1
 
-for (var i = 0; i < array_length(global.party_names); ++i) {
+for (var i = 0; i < party_length(); ++i) {
     if partyreactiontimer[i] > 0
 		partyreactiontimer[i] -= .1
 }

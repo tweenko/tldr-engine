@@ -64,7 +64,7 @@ interaction_code = function() {
         cutscene_sleep(20)
         
         if !__mode {
-            var __onlytwo = array_length(global.party_names) <= 2
+            var __onlytwo = party_length(true) <= 2
             cutscene_sleep(30)
             
             if party_ismember("ralsei")

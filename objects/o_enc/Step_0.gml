@@ -31,7 +31,7 @@ if battle_state == BATTLE_STATE.MENU {
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
             party_buttons[party_selection][party_button_selection[party_selection]].press()
             
-            if party_selection >= array_length(global.party_names) || party_selection < 0 {
+            if party_selection >= party_length() || party_selection < 0 {
                 __battle_state_advance()
                 exit
             }
@@ -172,7 +172,7 @@ if battle_state == BATTLE_STATE.MENU {
             __moved = false
 		
 		// cap navigation
-        party_ally_selection[party_selection] = cap_wraparound(party_ally_selection[party_selection], array_length(global.party_names))
+        party_ally_selection[party_selection] = cap_wraparound(party_ally_selection[party_selection], party_length())
 		
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 { 
             battle_menu_party_proceed()
@@ -189,7 +189,7 @@ if battle_state == BATTLE_STATE.MENU {
     }
     
     // skip if the party member is busy at the moment
-    while (party_selection < array_length(global.party_names) && party_selection >= 0)
+    while (party_selection < party_length() && party_selection >= 0)
         && !(party_isup(global.party_names[party_selection]) 
             && !array_contains(party_busy, global.party_names[party_selection]) 
             && !array_contains(party_busy_internal, global.party_names[party_selection])
@@ -197,7 +197,7 @@ if battle_state == BATTLE_STATE.MENU {
     {
         party_selection ++
     }
-    if party_selection >= array_length(global.party_names) || party_selection < 0 {
+    if party_selection >= party_length() || party_selection < 0 {
         __battle_state_advance()
         exit
     }
@@ -273,7 +273,7 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
             
             // don't display the targets if ANY is chosen
             if encounter_data.target_calculation != ENC_TARGET.ANY {
-                for (var i = 0; i < array_length(global.party_names); ++i) {
+                for (var i = 0; i < party_length(); ++i) {
                     if array_contains(turn_targets, global.party_names[i]) {
                         if encounter_data.display_target {
                             var o = party_get_inst(global.party_names[i])
@@ -378,7 +378,7 @@ else if battle_state == BATTLE_STATE.POST_TURN {
         buffer = 2
     }
     if !__check_waiting() && buffer == 0 {
-        for (var i = 0; i < array_length(global.party_names); ++i) { // heal party members and un-dim them
+        for (var i = 0; i < party_length(); ++i) { // heal party members and un-dim them
             // if defending, or anything else for that matter, just go back to being idle
             enc_party_set_battle_sprite(global.party_names[i], "idle")
             
@@ -411,7 +411,7 @@ else if battle_state == BATTLE_STATE.WIN {
         var __dd = earned_money + global.chapter * tp / 4
         var __dd_mod = 1
         
-		for (var i = 0; i < array_length(global.party_names); ++i) {
+		for (var i = 0; i < party_length(); ++i) {
 		    party_state[i] = PARTY_STATE.IDLE
 			
 			if !party_isup(global.party_names[i])
@@ -451,7 +451,7 @@ else if battle_state == BATTLE_STATE.WIN {
 		cutscene_func(music_fade, [1, 0, 15])
         
         // move the party members and the enemies to where they need to be
-		for (var i = 0; i < array_length(global.party_names); ++i) {
+		for (var i = 0; i < party_length(); ++i) {
 			var o = party_get_inst(global.party_names[i])
 			
             cutscene_animate(o.x, save_pos[i][0], 12, "linear", o, "x")
@@ -471,7 +471,7 @@ else if battle_state == BATTLE_STATE.WIN {
 		
         cutscene_sleep(12)
         // inform the actors they are no longer in a battle
-		for (var i = 0; i < array_length(global.party_names); ++i) {
+		for (var i = 0; i < party_length(); ++i) {
 			var o = party_get_inst(global.party_names[i])
 		    cutscene_set_variable(o, "is_in_battle", false)
 		}
@@ -514,7 +514,7 @@ else
     ui_main_lerp = lerp(ui_main_lerp, 0, .5)
 
 // do party ui lerping. based on toby's code
-for (var i = 0; i < array_length(global.party_names); i ++) {
+for (var i = 0; i < party_length(); i ++) {
     if i == party_selection {
         if party_ui_lerp[i] < 1
             party_ui_lerp[i] += 1/16

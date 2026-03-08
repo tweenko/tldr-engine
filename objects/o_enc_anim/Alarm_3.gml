@@ -1,5 +1,5 @@
 // set the party to do the idle sprites
-for (var i = 0; i < array_length(global.party_names); ++i) {
+for (var i = 0; i < party_length(); ++i) {
 	var obj = party_get_inst(global.party_names[i])
 	
     obj.sprite_index = enc_getparty_sprite(global.party_names[i], "idle")

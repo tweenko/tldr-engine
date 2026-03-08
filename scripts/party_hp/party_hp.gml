@@ -17,7 +17,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 		party_setdata(name, "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
 		
 		if (caller == o_ui_menu || instance_exists(caller) && caller.object_index == o_ui_menu) { // if in menu
-			var xoff = 319.5 + array_length(global.party_names) * -213/2
+			var xoff = 319.5 + party_length() * -213/2
 			var inst = instance_create(o_ui_menu_healeffect, xoff + 70 + 213*array_get_index(global.party_names, name))
 			
 			inst.text = string("+{0}", heal)
@@ -95,7 +95,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 				
 				if party_getdata(name, "hp") <= 1 {
 					var alive = false
-					for (var i = 0; i < array_length(global.party_names); ++i) {
+					for (var i = 0; i < party_length(); ++i) {
 					    if party_getdata(global.party_names[i], "hp") > 1 {
 							alive = true
 							break
@@ -151,7 +151,7 @@ function party_attack(name, enemy_attack, caller = noone, element = "", sfx = -1
 /// @arg {real} heal the amount to heal a party member for
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
 function party_heal_all(heal, caller = noone) {
-	for (var i = 0; i < array_length(global.party_names); ++i) {
+	for (var i = 0; i < party_length(); ++i) {
 		party_heal(global.party_names[i], heal, caller)
 	}
 }
@@ -160,7 +160,7 @@ function party_heal_all(heal, caller = noone) {
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response
 /// @arg {string} element the element of the attack that will be used for calculation
 function party_hurt_all(hurt, caller = noone) {
-	for (var i = 0; i < array_length(global.party_names); ++i) {
+	for (var i = 0; i < party_length(); ++i) {
 		party_hurt(global.party_names[i], hurt, caller)
 	}
 }
@@ -169,7 +169,7 @@ function party_hurt_all(hurt, caller = noone) {
 /// @arg {Id.Instance|Asset.GMObject} caller the object that will be used as the reference point for the visual response\
 /// @arg {string} element the element of the attack that will be used for calculation
 function party_attack_all(att, caller = noone, element = "", enemy_index = noone) {
-	for (var i = 0; i < array_length(global.party_names); ++i) {
+	for (var i = 0; i < party_length(); ++i) {
 		var dmg = damage(att, global.party_names[i], element)
 		party_hurt(global.party_names[i], dmg, caller)
 	}
@@ -203,7 +203,7 @@ function party_attack_targets(att, caller = noone, element = "") {
 function party_check_gameover() {
 	var res_ow = true
     var res_enc = true
-	for (var i = 0; i < array_length(global.party_names); ++i) {
+	for (var i = 0; i < party_length(); ++i) {
 		if party_getdata(global.party_names[i], "hp") > 1 && res_ow
 			res_ow = false
 		if party_getdata(global.party_names[i], "hp") > 0 && res_enc

@@ -1,13 +1,13 @@
-save_follow = array_create(array_length(global.party_names))
+save_follow = array_create(party_length(true))
 
-for (var i = 0; i < array_length(global.party_names); i ++) {
+for (var i = 0; i < party_length(true); i ++) {
     var inst = party_get_inst(global.party_names[i])
     save_follow[i] = inst.follow
 }
 party_setfollow(false)
 
 // animate the party in
-for (var i = 0; i < array_length(global.party_names); ++i) {
+for (var i = 0; i < party_length(); ++i) {
 	var obj = party_get_inst(global.party_names[i])
 	
     animate(obj.x, encounter_data.party_pos(i)[0], 10, anime_curve.linear, obj, "x")

@@ -9,7 +9,7 @@ if triggered {
 }
 
 if instance_exists(target){
-	for (var i = 1; i < array_length(global.party_names); ++i) {
+	for (var i = 1; i < party_length(true); ++i) {
 		var o = party_get_inst(global.party_names[i])
 		
 		if o.sliding && !o.prevsliding {

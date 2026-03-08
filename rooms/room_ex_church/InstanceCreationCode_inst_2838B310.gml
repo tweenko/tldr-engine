@@ -8,7 +8,7 @@ trigger_code = function() {
     cutscene_set_variable(o_camera, "target", noone)
     cutscene_camera_pan(210, 186, 20, false)
     
-    for (var i = 0; i < array_length(global.party_names); i ++) {
+    for (var i = 0; i < party_length(); i ++) {
         var marker = marker_get("prophecy_pos", global.party_names[i])
         if !instance_exists(marker)
             continue
@@ -17,7 +17,7 @@ trigger_code = function() {
     }
     cutscene_sleep(20)
     
-    for (var i = 0; i < array_length(global.party_names); i ++) {
+    for (var i = 0; i < party_length(); i ++) {
         cutscene_set_variable(party_get_inst(global.party_names[i]), "dir", DIR.UP)
     }
     cutscene_sleep(30)

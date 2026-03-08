@@ -15,7 +15,7 @@ function party_m_initialize(_name, _constructor) {
 
 /// @desc applies the equipment to party members (only for raw saves)
 function party_apply_equipment() {
-    for (var i = 0; i < array_length(global.party_names); i ++) {
+    for (var i = 0; i < party_length(true); i ++) {
         item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
         item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
         item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
