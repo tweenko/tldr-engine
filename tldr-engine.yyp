@@ -555,6 +555,7 @@
     {"id":{"name":"actors_scr","path":"scripts/actors_scr/actors_scr.yy",},},
     {"id":{"name":"anime_custom","path":"scripts/anime_custom/anime_custom.yy",},},
     {"id":{"name":"anime_functions","path":"scripts/anime_functions/anime_functions.yy",},},
+    {"id":{"name":"beat_pulser","path":"scripts/beat_pulser/beat_pulser.yy",},},
     {"id":{"name":"borders","path":"scripts/borders/borders.yy",},},
     {"id":{"name":"custom","path":"scripts/custom/custom.yy",},},
     {"id":{"name":"cutscenes","path":"scripts/cutscenes/cutscenes.yy",},},

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"beat_pulser",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"beat_pulser",
+  "parent":{
+    "name":"@Libraries",
+    "path":"folders/@Libraries.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
