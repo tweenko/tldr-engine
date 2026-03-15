@@ -17,6 +17,8 @@ function item_s_rudebuster() : item_spell() constructor {
 	use_type = ITEM_USE.ENEMY
 	
     use = function(spell_user, target, caller = -1) {
+        if !enc_enemy_isfighting(i)
+            exit
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
         
         cutscene_set_variable(o_enc, "waiting", true)
@@ -170,8 +172,10 @@ function item_s_pacify() : item_spell() constructor {
     }
 	
     use = function(spell_user, target, caller, _name) {
-        var __e_obj = o_enc.encounter_data.enemies[target].actor_id
+        if !enc_enemy_isfighting(i)
+            exit
         
+        var __e_obj = o_enc.encounter_data.enemies[target].actor_id
         cutscene_set_variable(o_enc, "waiting", true)
         
         if o_enc.encounter_data.enemies[target].tired {
@@ -261,11 +265,11 @@ function item_s_sleepmist() : item_spell() constructor {
         
         var __targets = []
         for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
-            var __e_obj = o_enc.encounter_data.enemies[i].actor_id
-            var __success = o_enc.encounter_data.enemies[i].tired
-            
             if !enc_enemy_isfighting(i)
                 continue
+            
+            var __e_obj = o_enc.encounter_data.enemies[i].actor_id
+            var __success = o_enc.encounter_data.enemies[i].tired
             
             cutscene_instance_create(o_eff_sleepmist, 
                 __e_obj.x, __e_obj.s_get_middle_y(), 
@@ -295,8 +299,10 @@ function item_s_iceshock() : item_spell() constructor {
 	use_type = ITEM_USE.ENEMY
 	
     use = function(spell_user, target, caller, _name) {
-        var __e_obj = o_enc.encounter_data.enemies[target].actor_id
+        if !enc_enemy_isfighting(i)
+            exit
         
+        var __e_obj = o_enc.encounter_data.enemies[target].actor_id
         cutscene_set_variable(o_enc, "waiting", true)
     
         cutscene_dialogue(string(loc("spell_cast"), party_getname(spell_user), _name),, false)
