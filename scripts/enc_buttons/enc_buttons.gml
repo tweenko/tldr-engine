@@ -269,8 +269,8 @@ function enc_button_item() : enc_button() constructor {
                                 audio_play(snd_ui_select)
                                 
                                 var __button = party_buttons[party_selection][party_button_selection[party_selection]]
-                                var __target_spell = battle_menu_inv_list[party_spell_selection[party_selection]]
-                                __button.submit_action(__target_spell, party_ally_selection[party_selection])
+                                var __target_item = battle_menu_inv_list[party_item_selection[party_selection]]
+                                __button.submit_action(__target_item, party_ally_selection[party_selection])
                             }
                             battle_menu_party_cancel = function() {
                                 battle_menu = BATTLE_MENU.INV_SELECTION
@@ -285,8 +285,8 @@ function enc_button_item() : enc_button() constructor {
                                 audio_play(snd_ui_select)
                                 
                                 var __button = party_buttons[party_selection][party_button_selection[party_selection]]
-                                var __target_spell = battle_menu_inv_list[party_spell_selection[party_selection]]
-                                __button.submit_action(__target_spell, party_enemy_selection[party_selection])
+                                var __target_item = battle_menu_inv_list[party_item_selection[party_selection]]
+                                __button.submit_action(__target_item, party_enemy_selection[party_selection])
                             }
                             battle_menu_enemy_cancel = function() {
                                 battle_menu = BATTLE_MENU.INV_SELECTION
