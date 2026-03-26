@@ -2,7 +2,6 @@ function enc_set() constructor { // base
 	debug_name	=	"undefined"
     
 	enemies	= []
-    bgm = mus_battle
 	bg_type = ENC_BG.GRID
     
     flavor = function() { // can also be a string
@@ -10,6 +9,10 @@ function enc_set() constructor { // base
 		return text
 	}
     win_condition = function() {}
+    
+    bgm = mus_battle
+    bgm_pitch = 1
+    bgm_gain = 1
     
     // positions
 	enemies_pos = undefined // [x, y, relative] OR just a function that returns [x, y]

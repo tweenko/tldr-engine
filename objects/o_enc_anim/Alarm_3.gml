@@ -26,8 +26,8 @@ for (var i = 0; i < array_length(__names); i ++) {
     variable_instance_set(inst, __names[i], struct_get(__vs, __names[i]))
 }
 
-if struct_exists(encounter_data, "bgm") && encounter_data.bgm != -1 {
-	music_play(encounter_data.bgm, 1)
+if struct_exists(encounter_data, "bgm") && audio_exists(encounter_data.bgm) {
+	music_play(encounter_data.bgm, 1, true, encounter_data.bgm_gain, encounter_data.bgm_pitch)
 }
 
 instance_destroy()
