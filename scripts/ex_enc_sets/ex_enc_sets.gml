@@ -31,7 +31,10 @@ function ex_enc_set_spawn() : enc_set() constructor {
 		new ex_enemy_dentos(),
 	]
 	flavor = "* Darkness constricts you...{br}{resetx}* {col(y)}TP{col(w)} Gain reduced outside of {col(g)}COURAGE{col(w)}!"
+    
     bgm = mus_ex_spawn
+    bgm_pitch = 1
+    bgm_gain = 1
     
     // positions
     enemies_pos = function(i, xx, yy) {
