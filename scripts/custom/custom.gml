@@ -375,27 +375,38 @@ function cosine(INP_DEVIDE, OUT_MULTIPLY, input = undefined) {
 	return sine_output
 }
 
-///@desc makes a black fade
-///@arg {real}	start
-///@arg {real}	end
-///@arg {real}	time
-function fader_fade(a, b, time){
+/// @desc makes a black fade
+/// @arg {real}	start the starting point for the opacity of the fader. if set to undefined, will start from the fader's current opacity
+/// @arg {real}	end the target opacity for the fader
+/// @arg {real}	time the time it takes to go from A to B in terms of the fader's opacity
+/// @arg {real} depth the depth of the fader. by default is set to `DEPTH_UI.FADER`
+function fader_fade(a, b, time, _depth = DEPTH_UI.FADER){
 	if !instance_exists(o_fader)
         return false
     
+    if is_undefined(a)
+        a = o_fader.image_alpha
+    
+    o_fader.depth = _depth
     if time == 0
         o_fader.image_alpha = b
     else 
         animate(a, b, time, "linear", o_fader, "image_alpha")
 }
-///@desc starts a flash animation, color of which you can change
-///@arg {real}	start
-///@arg {real}	end
-///@arg {real}	time
-function flash_fade(a, b, time, color = c_white){
+/// @desc starts a flash animation, the color of which you can change
+/// @arg {real}	start the starting point for the opacity of the flash. if set to undefined, will start from the flash's current opacity
+/// @arg {real}	end the target opacity for the flash
+/// @arg {real}	time the time it takes to go from A to B in terms of the flash's opacity
+/// @arg {color} color the color of the flash. white by default
+/// @arg {real} depth the depth of the flash. by default is set to `DEPTH_UI.FADER`
+function flash_fade(a, b, time, color = c_white, _depth = DEPTH_UI.FADER){
 	if !instance_exists(o_flash)
         return false
     
+    if is_undefined(a)
+        a = o_flash.image_alpha
+    
+    o_fader.depth = _depth
     o_flash.color = color
     if time == 0
         o_flash.image_alpha = b

@@ -250,7 +250,9 @@ else
 if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override {
 	if !startedmoving {
 		startedmoving = true
-		image_index = 1
+        
+        last_walk_frame = cap_wraparound(last_walk_frame + 2, image_number)
+		image_index = last_walk_frame
 	}
 	if !running
 		image_speed = s_walk_ispd

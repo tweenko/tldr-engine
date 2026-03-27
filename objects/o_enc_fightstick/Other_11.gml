@@ -26,6 +26,7 @@ else if dist >= 14
 dmg = (party_getdata(global.party_names[index], "attack") * accuracy) / 20
 dmg -= 3 * ecaller.encounter_data.enemies[target].defense
 dmg = round(dmg)
+dmg = max(1, dmg)
 
 if ecaller.tp_constrict
     ecaller.tp += round(lerp(0, 2, accuracy/150))
