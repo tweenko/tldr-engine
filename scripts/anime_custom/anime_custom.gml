@@ -14,13 +14,13 @@
 ///@param {Bool}                        [start]         Whether to start the animation with the function (true by default)
 ///@return {Struct.__anime_class}
 function animate(_val1, _val2, _time, _easing_curve, _instance, _var_name, _start = true) {
-    var _call_method = function(value, _instance, _var_name) {
+    var _call_method = method({_instance, _var_name}, function(value) {
         variable_instance_set(_instance, _var_name, value)
-    }
+    })
     
-    var anime_inst = anime_tween(_val1, _val2, _time, _easing_curve, _call_method, [_instance, _var_name])
-    if _start
-        anime_inst._start()
+    var anime_inst = anime_begin_ext(_val1, _start, false, 1, _call_method)
+	anime_add(_val2, _time, _easing_curve)
+	anime_end()
     
 	return anime_inst
 }

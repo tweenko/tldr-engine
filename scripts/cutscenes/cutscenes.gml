@@ -282,10 +282,10 @@ function cutscene_set_partysprite(party_name, sprite_ref, image_index = undefine
 ///@param {Function} call_method	The method to call for each frame of animation
 ///@param {Array} args	Arguments you want to pass to call_method
 ///@return {Struct.__anime_class}
-function cutscene_anim(val1, val2, frames, ease_type, call_method, array = []){
+function cutscene_anim(val1, val2, frames, ease_type, call_method){
 	cutscene_custom({
-		val1, val2, frames, ease_type, call_method, array,
-		action: [anime_tween, val1, val2, frames, ease_type, call_method, array]
+		val1, val2, frames, ease_type, call_method,
+		action: [anime_tween, val1, val2, frames, ease_type, call_method]
 	})
 }
 
@@ -388,10 +388,10 @@ function cutscene_spare_enemy(index) {
            )
         
         // flash the enemy
-        cutscene_anim(.5, 1, 4, "linear", function(v, o) {
-            if instance_exists(o) 
-                o.flash = v
-        }, obj)
+        cutscene_anim(.5, 1, 4, "linear", method({obj}, function(val) {
+            if instance_exists(obj) 
+                obj.flash = val
+        }))
     }
     
     cutscene_audio_play(snd_spare)

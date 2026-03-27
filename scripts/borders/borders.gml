@@ -82,7 +82,7 @@ function border_set(_border, _force = false) {
     anime_stop(global.border_trans_anim)
     global.border_trans_anim = anime_tween(0, 1, 30, anime_curve.linear, function(v) {
         global.border_trans = v
-    })._start()
+    })
 }
 
 /// @desc resizes the window upon toggling borders. usage is fully internal
