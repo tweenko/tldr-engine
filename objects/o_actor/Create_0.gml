@@ -140,6 +140,7 @@ is_party = false
     dodge_outline_surf = -1
     dodge_mysoul = noone
     spawn_buffer = 4
+    last_walk_frame = 1
 }
 { // moveables
 	moveable = true // the user-defined one, used in cutscenes and such. not touched by any of the systems in the engine by default

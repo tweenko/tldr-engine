@@ -2,6 +2,7 @@ function music_update() {
     with o_dev_musiccontrol
         event_user(0)
 }
+
 function music_slot_reset(_slot) {
     with o_dev_musiccontrol {
         music_target[_slot] = -1
@@ -10,6 +11,14 @@ function music_slot_reset(_slot) {
         loop[_slot] = false
         gain[_slot] = 1
         pitch[_slot] = 1
+    }
+}
+function music_slot_reset_all() {
+    if !instance_exists(o_dev_musiccontrol)
+        return false
+    
+    for (var i = 0; i < o_dev_musiccontrol.channels; ++i) {
+        music_slot_reset(i)
     }
 }
 
@@ -101,4 +110,19 @@ function music_fade(slot, target_gain, time = 30){
     
     if audio_is_playing(o_dev_musiccontrol.music_actual[slot])
         audio_sound_gain(o_dev_musiccontrol.music_actual[slot], target_gain, 1000 * time/30)
+}
+/// @desc fade all music
+/// @arg {real|function} target_gain the gain you'd like to reach. can be callable with the first argument being the slot
+/// @arg {real} time the time in frames you want to fade out the music
+function music_fade_all(target_gain, time = 30){
+	if !instance_exists(o_dev_musiccontrol)
+        return false
+    
+    for (var i = 0; i < o_dev_musiccontrol.channels; ++i) {
+        var __gain = target_gain
+        if !is_real(__gain) && is_callable(__gain)
+            __gain = __gain(i)
+        
+        music_fade(i, target_gain, time)
+    }
 }

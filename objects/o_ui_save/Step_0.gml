@@ -187,8 +187,8 @@ if page == 4 && !fading_out { // return to title
     if InputPressed(INPUT_VERB.SELECT) && buffer == 0 && return_selection == 0 {
         audio_play(snd_ui_select)
         
-        fader_fade(0, 1, 20)
-        music_fade(0, 0, 0)
+        fader_fade(0, 1, 20, DEPTH_UI.HIGHEST)
+        music_fade_all(0, 20)
         
         alarm[2] = 40
         fading_out = true

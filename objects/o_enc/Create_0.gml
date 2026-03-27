@@ -46,6 +46,7 @@
     win_dialogue_show = true
     win_message = ""
     win_hide_ui = false
+    win_got_stronger = undefined
     
     items_using = []
 }

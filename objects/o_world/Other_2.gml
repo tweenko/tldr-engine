@@ -29,7 +29,10 @@ if !allow_incompatible_saves {
     
     borders_toggle(global.border_mode != BORDER_MODE.OFF)
     borders_window_resize()
-    window_center()
+    
+    call_later(1, time_source_units_frames, function() {
+        window_center()
+    })
     
 	application_surface_draw_enable(false)
 }

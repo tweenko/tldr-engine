@@ -5,6 +5,7 @@ menuroll = 0
 close = false
 timer = 80
 surf = -1
+fading_out = false
 
 selection = global.menu_page
 
@@ -83,8 +84,13 @@ c_config = [
         name: loc("menu_config_return_title"),
         type: C_CONFIG_TYPE.BUTTON,
         call: method(self, function() {
-            music_stop_all()
-            room_goto(room_save_select)
+            audio_play(snd_ui_select)
+            
+            fader_fade(0, 1, 20, DEPTH_UI.HIGHEST)
+            music_fade_all(0, 20)
+            
+            alarm[2] = 40
+            fading_out = true
         })
     },
     {

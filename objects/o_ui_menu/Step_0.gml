@@ -1,5 +1,7 @@
 if global.console 
 	exit
+if fading_out
+    exit
 
 menuroll = lerp(menuroll, (close ? 0 : 1), .4)
 if menuroll < .1 && close 
