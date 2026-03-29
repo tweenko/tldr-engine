@@ -558,6 +558,8 @@
     {"id":{"name":"beat_pulser","path":"scripts/beat_pulser/beat_pulser.yy",},},
     {"id":{"name":"borders","path":"scripts/borders/borders.yy",},},
     {"id":{"name":"custom","path":"scripts/custom/custom.yy",},},
+    {"id":{"name":"cutscene_events","path":"scripts/cutscene_events/cutscene_events.yy",},},
+    {"id":{"name":"cutscenes_old","path":"scripts/cutscenes_old/cutscenes_old.yy",},},
     {"id":{"name":"cutscenes","path":"scripts/cutscenes/cutscenes.yy",},},
     {"id":{"name":"deprecated","path":"scripts/deprecated/deprecated.yy",},},
     {"id":{"name":"dialogue","path":"scripts/dialogue/dialogue.yy",},},

@@ -69,3 +69,12 @@ function instance_clean(inst) {
 		instance_destroy(inst)
 	}
 }
+
+///@deprecated
+function cutscene_set(_cutscene) {
+	cutscene_set_current(_cutscene)
+}
+///@deprecated
+function cutscene_get() {
+    return cutscene_get_current()
+}

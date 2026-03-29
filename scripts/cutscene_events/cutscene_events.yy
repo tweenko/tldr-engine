@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"cutscene_events",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"cutscene_events",
+  "parent":{
+    "name":"tldr-engine",
+    "path":"tldr-engine.yyp",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
