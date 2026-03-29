@@ -1,4 +1,4 @@
-/// @description box is created
+/// @desc pattern picked
 o_enc.mybox.sprite_index = spr_ex_box_complex
 o_enc.mybox.mask_index = spr_ex_box_complex_mask
 o_enc.mybox.sprite_back = spr_ex_box_complex_back_2x

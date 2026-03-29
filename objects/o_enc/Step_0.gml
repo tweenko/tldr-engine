@@ -321,12 +321,18 @@ else if battle_state == BATTLE_STATE.TURN {
     		)
             
             for (var i = 0; i < array_length(turn_objects); ++i) {
-                if instance_exists(turn_objects[i]) {
-                    // call the box created event for turn objects
+                if instance_exists(turn_objects[i])
+                    // call the pattern select event for turn objects
                     with turn_objects[i] {
                         event_user(2)
                     }
-                }
+            }
+            // all the patterns are picked, call the setup event
+            for (var i = 0; i < array_length(turn_objects); ++i) {
+                if instance_exists(turn_objects[i])
+                    with turn_objects[i] {
+                        event_user(3)
+                    }
             }
             
             if tp_constrict

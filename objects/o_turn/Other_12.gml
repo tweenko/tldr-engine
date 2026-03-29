@@ -1,4 +1,4 @@
-/// @description box is created
+/// @description pick pattern
 var shuffled = array_shuffle(pattern_pool)
 for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
     with o_enc.turn_objects[i] {
