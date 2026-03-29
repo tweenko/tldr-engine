@@ -19,12 +19,12 @@ function cutscene(_unique_id = "untitled_cutscene") constructor {
     
     callback = function() {
         if !is_undefined(current_event) {
-            if !is_undefined(current_event.resume_condition) && method_call(current_event.resume_condition) {
+            if !is_undefined(current_event.resume_condition) && is_callable(current_event.resume_condition) && method_call(current_event.resume_condition) {
                 current_event.destroy();
                 delete current_event;
                 current_event = undefined;
             }
-            else if !is_undefined(current_event.step)
+            else if !is_undefined(current_event.step) && is_callable(current_event.step)
                 method_call(current_event.step);
         }
         
@@ -38,11 +38,12 @@ function cutscene(_unique_id = "untitled_cutscene") constructor {
             current_event = queue[0];
             array_delete(queue, 0, 1);
             
-            method_call(current_event.call);
+            if !is_undefined(current_event.call) && is_callable(current_event.call)
+                method_call(current_event.call);
             
             // instantly check if the resume condition is met or undefined
-            if is_undefined(current_event.resume_condition) 
-                || (!is_undefined(current_event.resume_condition) && method_call(current_event.resume_condition))
+            if is_undefined(current_event.resume_condition)
+                || (!is_undefined(current_event.resume_condition) && is_callable(current_event.resume_condition) && method_call(current_event.resume_condition))
             {
                 current_event.destroy();
                 delete current_event;

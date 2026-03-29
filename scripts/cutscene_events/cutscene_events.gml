@@ -29,7 +29,26 @@ function cutscene_debug_message(_message) {
                 show_debug_message(string(_message));
             }
         ))
-    )
+    );
+}
+
+/// @desc pauses the cutscene for a certain amount of frames
+/// @arg {real} frames the length of the pause
+function cutscene_sleep(_frames) {
+    var event = new cutscene_event(undefined);
+    event.frames = _frames;
+    
+    event.resume_condition = method(event, function() {
+        return frames <= 0;
+    })
+    event.step = method(event, function() {
+        frames --;
+    })
+    
+    cutscene_queue_event(
+        cutscene_get_current(), 
+        event
+    );
 }
 
 /// @desc checks whether a cutscene event is valid

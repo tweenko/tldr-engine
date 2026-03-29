@@ -1,9 +1,6 @@
 if !instance_exists(o_dodge_controller)
     exit
 
-x = get_leader().x
-y = get_leader().y - get_leader().sprite_height/2 + 4
-
 image_alpha = o_dodge_controller.dodge_alpha
 if image_alpha == 0 
 	instance_destroy()
