@@ -14,8 +14,11 @@ function do_animate(_val1, _val2, _time, _ease_type, _instance, _var_name) {
 
 /// @ignore
 /// @deprecated
-function do_anime(_val1,_val2, _time, _ease_type, _call_method, _call_args) {
-    return anime_tween(_val1, _val2, _time, _ease_type, _call_method, _call_args)._start()
+function do_anime(_val1,_val2, _time, _ease_type, _call_method, _call_args = undefined) {
+	var _container_method = method({_call_method, _call_args}, function(_val) {
+		method_call(_call_method, array_concat([_val], _call_args))
+	})
+    return anime_tween(_val1, _val2, _time, _ease_type, _container_method)
 }
 
 /// @ignore

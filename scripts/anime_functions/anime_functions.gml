@@ -12,11 +12,11 @@
 ///@param {String|Real|Function|Asset.GMAnimCurve|Struct} easing_curve
 ///									The easing curve
 ///@param {Function} [call_method]	The method to call each frame (defaults to undefined)
-///@param {Function} [call_args]	The arguments to pass to the call method (defaults to an empty array)
 ///@return {Struct.__anime_class}
-function anime_tween(_val1, _val2, _time, _easing_curve, _call_method = undefined, _call_args = []) {
-	var _anime = new __anime_class(_val1, false, 1, _call_method, undefined, undefined, _call_args);
+function anime_tween(_val1, _val2, _time, _easing_curve, _call_method = undefined) {
+	var _anime = new __anime_class(_val1, false, 1, _call_method);
 	_anime._add(_val2, _time, _easing_curve);
+	_anime._start();
 	return _anime;
 }
 
@@ -124,8 +124,8 @@ function anime_set_method(_anime, _call_method) {
 ///@param {Struct.__anime_class} anime	The anime instance
 ///@param {Function} stop_method		The method to call when the animation stops
 function anime_set_stop_method(_anime, _stop_method) {
-    if (!is_struct(_anime)) return;
-    _anime._set_stop_method(_stop_method);
+	if (!is_struct(_anime)) return;
+	_anime._set_stop_method(_stop_method);
 }
 
 ///@desc	Sets the current position of the animation in frames.
@@ -163,10 +163,10 @@ function anime_get_length(_anime) {
 ///@desc	Manually increments the animation and calls the callback method.
 ///			This function works even if the animation is paused or stopped.
 ///@param {Struct.__anime_class} anime	The anime instance
-///@param {Real} delta_time				The number of frames to increment the animation (defaults to 1)
+///@param {Real} frames					The number of frames to increment the animation (defaults to 1)
 ///@return {Real}
-function anime_step(_anime, _delta_time = 1) {
-	_anime._step(_delta_time);
+function anime_step(_anime, _frames = 1) {
+	_anime._step(_frames);
 }
 
 ///@desc	Returns a duplicate of the animation. Useful for running multiple of the same animation.
@@ -205,8 +205,8 @@ function anime_curve_lerp(_val1, _val2, _amount, _easing_curve, _curve_dir = ani
 	static _curve_array = __anime_global()._curve_array;
 	static _curve_struct = __anime_global()._curve_struct;
 	
-	static _animcurve_method = function(_amount, _channel) {
-		return animcurve_channel_evaluate(_channel, _amount);
+	static _animcurve_method = function(_amount, _parameter) {
+		return animcurve_channel_evaluate(_parameter, _amount);
 	}
 	
 	//built-in curves
@@ -226,30 +226,30 @@ function anime_curve_lerp(_val1, _val2, _amount, _easing_curve, _curve_dir = ani
 	}
 	
 	_amount = clamp(_amount, 0, 1);
-	var _channel = undefined;
+	var _parameter = undefined;
 	
 	//animcurve channel
 	if (!is_callable(_easing_curve)) {
 		if animcurve_exists(_easing_curve) {
 			_easing_curve = animcurve_get_channel(_easing_curve, 0);
 		}
-		_channel = _easing_curve;
+		_parameter = _easing_curve;
 		_easing_curve = _animcurve_method;
 	}
 	
 	switch (_curve_dir) {
 	default: //normal
-		return (_val2 - _val1) * _easing_curve(_amount, _channel) + _val1;
+		return (_val2 - _val1) * _easing_curve(_amount, _parameter) + _val1;
 	case anime_curve_dir.reverse: //reverse
-		return (_val1 - _val2) * _easing_curve(1 - _amount, _channel) + _val2;
+		return (_val1 - _val2) * _easing_curve(1 - _amount, _parameter) + _val2;
 	case anime_curve_dir.alternate: //normal-reverse
 		_amount = 2 * _amount - 1;
 		var _s1 = sign(_amount);
-		return (_val2 - _val1) * (0.5 * (1 - _easing_curve(1 - _s1 * _amount, _channel)) * _s1 + 0.5) + _val1;
+		return (_val2 - _val1) * (0.5 * (1 - _easing_curve(1 - _s1 * _amount, _parameter)) * _s1 + 0.5) + _val1;
 	case anime_curve_dir.alt_reverse: //reverse-normal
 		_amount = 2 * _amount - 1;
 		var _s2 = sign(_amount);
-		return (_val2 - _val1) * (0.5 * _easing_curve(_s2 * _amount, _channel) * _s2 + 0.5) + _val1;
+		return (_val2 - _val1) * (0.5 * _easing_curve(_s2 * _amount, _parameter) * _s2 + 0.5) + _val1;
 	}
 }
 
@@ -387,7 +387,7 @@ function __anime_global() {
 }
 
 ///@ignore
-function __anime_class(_val, _loop = false, _speed = 1, _call_method = undefined, _stop_method = undefined, _positions = undefined, _call_args = []) constructor {
+function __anime_class(_val, _loop = false, _speed = 1, _call_method = undefined, _stop_method = undefined, _positions = undefined) constructor {
 	///@ignore
 	static _add = function(_val, _time, _easing_curve) {
 		_length += _time;
@@ -413,6 +413,9 @@ function __anime_class(_val, _loop = false, _speed = 1, _call_method = undefined
 		_position2 = _position1;
 		_current_val = _position1._val;
 		_time_source ??= call_later(1, time_source_units_frames, method(self, _step), true);
+        
+        // set the value to be equal to first position
+        _call_method(_current_val)
 	}
 	
 	///@ignore
@@ -530,14 +533,12 @@ function __anime_class(_val, _loop = false, _speed = 1, _call_method = undefined
 	///@ignore
 	static _step = function(_frames = 1) {
 		_set_time(_time + _frames * _speed);
-		if (is_callable(_call_method)) 
-            method_call(_call_method, array_concat([_current_val], _call_args))
+		if (is_callable(_call_method)) _call_method(_current_val);
 	}
 	
 	/**@ignore*/ self._loop = _loop;
 	/**@ignore*/ self._speed = _speed;
 	/**@ignore*/ self._call_method = _call_method;
-	/**@ignore*/ self._call_args = _call_args;
 	/**@ignore*/ self._stop_method = _stop_method;
 	/**@ignore*/ self._positions = _positions ?? [{_val: _val, _time: 0, _easing_curve: 0}];
 	/**@ignore*/ _length = array_last(self._positions)._time;
