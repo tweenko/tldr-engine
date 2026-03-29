@@ -413,6 +413,9 @@ function __anime_class(_val, _loop = false, _speed = 1, _call_method = undefined
 		_position2 = _position1;
 		_current_val = _position1._val;
 		_time_source ??= call_later(1, time_source_units_frames, method(self, _step), true);
+        
+        // set the value to be equal to first position
+        _call_method(_current_val)
 	}
 	
 	///@ignore
