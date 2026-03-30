@@ -558,7 +558,7 @@
     {"id":{"name":"borders","path":"scripts/borders/borders.yy",},},
     {"id":{"name":"custom","path":"scripts/custom/custom.yy",},},
     {"id":{"name":"cutscene_events","path":"scripts/cutscene_events/cutscene_events.yy",},},
-    {"id":{"name":"cutscene_scenes","path":"scripts/cutscene_scenes/cutscene_scenes.yy",},},
+    {"id":{"name":"cutscene_shortcuts","path":"scripts/cutscene_shortcuts/cutscene_shortcuts.yy",},},
     {"id":{"name":"cutscenes","path":"scripts/cutscenes/cutscenes.yy",},},
     {"id":{"name":"deprecated","path":"scripts/deprecated/deprecated.yy",},},
     {"id":{"name":"dialogue","path":"scripts/dialogue/dialogue.yy",},},

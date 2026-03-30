@@ -64,3 +64,10 @@ function cutscene_spare_enemy(index) {
         }, [index[i]])
     }
 }
+
+/// @desc turns an actor's `s_override` variable on or off
+/// @arg {Asset.GMObject,Id.Instance} actor_inst
+/// @arg {bool} override true to override, false to make it normal
+function cutscene_actor_override(actor_inst, override) {
+    cutscene_set_variable(actor_inst, "s_override", override)
+}
