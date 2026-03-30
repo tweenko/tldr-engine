@@ -46,7 +46,7 @@ else { // walk over
 	if stage == 0 {
 		anims = []
 		character.moveable_move = false
-		
+        
 		var a = point_direction(0, 0, xdiff, ydiff)
 		character.dir = actor_angletodir(a)
 		if char_dir[step] != undefined
@@ -57,15 +57,13 @@ else { // walk over
 		character.sprite_index = character.s_move[character.dir]
 		character.s_override = true
 		
-		if xdiff != 0 {
+		if xdiff != 0 
 			array_push(anims, animate(character.x, character.x + xdiff, time[step], "linear", character, "x"))
-		}
-		if ydiff != 0 {
+		if ydiff != 0 
 			array_push(anims, animate(character.y, character.y + ydiff, time[step], "linear", character, "y"))
-		}
 		
 		stage = 1
-	}
+	}  
 	if stage == 1 {
 		if timer >= time[step] {
 			timer = 0
@@ -78,9 +76,8 @@ else { // walk over
 		timer = 0
 		step ++
 		
-		if step >= array_length(xreq) || step >= array_length(yreq) {
+		if step >= array_length(xreq) || step >= array_length(yreq)
 			instance_destroy()
-		}
 		else {
 			event_user(0)
 			stage = 0

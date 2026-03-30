@@ -34,10 +34,10 @@ execute_code = function() {
         
         var __len = clamp(party_length(true), 0, 4)
         for (var i = 1; i < __len; i ++) {
-            var marker = marker_getpos("test_pm_wait", i)
+            var marker = marker_get("test_pm_wait", i)
             var o = party_get_inst(global.party_names[i])
             if instance_exists(o) && !is_undefined(marker) {
-                cutscene_actor_move(o, new actor_movement(marker.x, marker.y, 20), i, (i == __len-1 ? true : false))
+                cutscene_actor_move(o, new actor_movement(marker.x, marker.y, 20), (i == __len-1 ? true : false))
                 cutscene_set_variable(o, "collide", true)
             }
         }

@@ -43,7 +43,6 @@ enum WORLD_TYPE {
     LIGHT
 }
 global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
-global.charmove_insts = array_create(party_getpossiblecount() + 10, undefined)
 
 if !progress 
     exit

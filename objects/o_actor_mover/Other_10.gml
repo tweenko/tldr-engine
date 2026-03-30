@@ -6,8 +6,6 @@ if !instance_exists(character) {
 	exit
 }
 
-array_set(global.charmove_insts, pos, id)
-
 if seed[step] == "" {
 	xdiff = xreq[step] - character.x
 	ydiff = yreq[step] - character.y

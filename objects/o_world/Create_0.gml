@@ -27,7 +27,6 @@ global.simplify_vfx = false
 global.current_light = c_white
 global.console = false
 global.current_cutscene = noone
-global.charmove_insts = []
 
 global.time = 0
 global.states = {}

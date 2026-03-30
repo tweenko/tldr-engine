@@ -1,8 +1,5 @@
 /// @desc a constructor for a new cutscene instance
-/// @arg {string} unique_id the id the cutscene will be referred to as during debugging. optional to set
-function cutscene(_unique_id = "untitled_cutscene") constructor {
-    unique_id = _unique_id
-    
+function cutscene() constructor {
     queue = [];
     playing = false;
     time_source = undefined;

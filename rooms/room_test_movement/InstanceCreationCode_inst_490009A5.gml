@@ -8,7 +8,7 @@ execute_code = function() {
 	for (var i = 0; i < party_length(true); ++i) {
 	    cutscene_actor_move(party_get_inst(global.party_names[i]), [
             new actor_movement_jump(110 - (party_length(true) -  1) * 15 + i*30, 130),
-		], i, false)
+		], false)
 	}
 	cutscene_wait_until(function() {
         return !instance_exists(o_actor_mover)

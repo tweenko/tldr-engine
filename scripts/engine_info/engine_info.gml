@@ -1,4 +1,4 @@
-#macro ENGINE_VERSION "v1.10.3"
+#macro ENGINE_VERSION "v1.11.0"
 #macro ENGINE_NAME "tlDR Engine"
 #macro ENGINE_LAST_COMPATIBLE_VERSION "v1.10.0" // last compatible save version
 

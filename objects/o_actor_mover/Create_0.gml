@@ -10,7 +10,6 @@ ydiff = 0
 
 stage = 0
 ispd = 0
-pos = 0
 
 step = 0
 timer = 0

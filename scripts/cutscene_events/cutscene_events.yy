@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"cutscene_events",
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"external",
+    "path":"folders/@Engine/scripts/systems/general/external.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

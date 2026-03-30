@@ -17,13 +17,13 @@ trigger_code = function() {
             cutscene_actor_move(party_get_inst(global.party_names[i]), new actor_movement(
                 get_leader().x + 40 - get_leader().spacing*3 * i, get_leader().y - 15,
                 30,,, DIR.DOWN
-            ), i, false)
+            ), false)
         }
         else
             cutscene_actor_move(party_get_inst(global.party_names[i]), new actor_movement(
                 get_leader().x + 40 - get_leader().spacing*3 * i, get_leader().y,
                 30,,, DIR.RIGHT
-            ), i, false)
+            ), false)
     }
     
     cutscene_sleep(40)

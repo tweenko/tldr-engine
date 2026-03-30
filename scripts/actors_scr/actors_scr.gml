@@ -128,7 +128,6 @@ function actor_move(_actor, movement, pos = 0){
 	inst.spd = []
 	inst.time = []
 	inst.char_dir = []
-    inst.pos = pos
 	
 	if !is_array(movement) 
         movement = [movement]
