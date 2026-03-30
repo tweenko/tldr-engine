@@ -740,26 +740,7 @@ function shop_option_exit(_exit_call) : shop_option() constructor {
                 room_goto(o_shop.shop_data.return_room)
                 
                 call_later(1, time_source_units_frames, method(self, function() {
-                    if instance_exists(get_leader()) {
-                        var marker = marker_get("land", return_marker_id)
-                        
-                        if instance_exists(marker) {
-                            get_leader().x = marker.x
-                            get_leader().y = marker.y
-                            
-                            get_leader().dir = return_direction ?? DIR.DOWN
-                        }
-                        for (var i = 0; i < party_length(); ++i) {
-                            with party_get_inst(global.party_names[i]) {
-                                x = get_leader().x
-                                y = get_leader().y
-                                dir = get_leader().dir
-                                
-                                event_user(1)
-                            }
-                        }
-                    }
-                    
+                    party_leader_warp("land", return_marker_id, return_direction ?? DIR.DOWN)
                     call_later(1, time_source_units_frames, function() {
                         fader_fade(1, 0, 10)
                     })

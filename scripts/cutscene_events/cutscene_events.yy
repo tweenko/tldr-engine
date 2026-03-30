@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"cutscene_events",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"cutscene_events",
+  "parent":{
+    "name":"external",
+    "path":"folders/@Engine/scripts/systems/general/external.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

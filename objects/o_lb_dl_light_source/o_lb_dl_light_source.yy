@@ -28,6 +28,8 @@
   "physicsStartAwake":true,
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"sprite_index","filters":[],"listItems":[],"multiselect":false,"name":"sprite_index","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"sprite_index","varType":4,},
+    {"$GMObjectProperty":"v2","%Name":"parallax_x","filters":[],"listItems":[],"multiselect":false,"name":"parallax_x","rangeEnabled":true,"rangeMax":3.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1.0","varType":0,},
+    {"$GMObjectProperty":"v2","%Name":"parallax_y","filters":[],"listItems":[],"multiselect":false,"name":"parallax_y","rangeEnabled":true,"rangeMax":3.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1.0","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
@@ -37,5 +39,5 @@
     "path":"sprites/spr_default_alt_2/spr_default_alt_2.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

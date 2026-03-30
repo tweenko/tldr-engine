@@ -17,7 +17,7 @@ function item_s_rudebuster() : item_spell() constructor {
 	use_type = ITEM_USE.ENEMY
 	
     use = function(spell_user, target, caller = -1) {
-        if !enc_enemy_isfighting(i)
+        if !enc_enemy_isfighting(target)
             exit
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
         
@@ -172,7 +172,7 @@ function item_s_pacify() : item_spell() constructor {
     }
 	
     use = function(spell_user, target, caller, _name) {
-        if !enc_enemy_isfighting(i)
+        if !enc_enemy_isfighting(target)
             exit
         
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id

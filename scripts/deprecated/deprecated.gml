@@ -65,7 +65,19 @@ function volume_get(type){
 
 ///@deprecated
 function instance_clean(inst) {
-	if instance_exists(inst){
+	if instance_exists(inst)
 		instance_destroy(inst)
-	}
+}
+
+///@deprecated
+function cutscene_set(_cutscene) {
+	cutscene_set_current(_cutscene)
+}
+///@deprecated
+function cutscene_get() {
+    return cutscene_get_current()
+}
+///@deprecated
+function cutscene_actor_move_old(target, movement, pos, wait = true) {
+    return cutscene_actor_move(target, movement, wait)
 }

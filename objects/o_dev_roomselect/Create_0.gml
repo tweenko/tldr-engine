@@ -31,6 +31,7 @@ item_categories = [
             room_test_movement,
             room_test_inventory,
             room_test_cutscene,
+            room_test_shops,
             room_test_loopback
         ]
     },
@@ -44,7 +45,6 @@ item_categories = [
             room_ex_church,
             room_ex_light_world,
             room_ex_multi_path,
-            room_ex_shopzone
         ]
     }
 ]

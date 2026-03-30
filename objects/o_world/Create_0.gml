@@ -27,7 +27,6 @@ global.simplify_vfx = false
 global.current_light = c_white
 global.console = false
 global.current_cutscene = noone
-global.charmove_insts = []
 
 global.time = 0
 global.states = {}
@@ -39,6 +38,7 @@ global.border_mode = BORDER_MODE.OFF
 global.console_enabled = true
 
 global.party_limit = 3 // set to undefined for unlimited party members
+global.slide_speed = 6
 
 { // emmiters
 	emitter_sfx = audio_emitter_create();

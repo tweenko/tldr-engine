@@ -13,7 +13,7 @@ trigger_code = function() {
         if !instance_exists(marker)
             continue
         
-        cutscene_actor_move(party_get_inst(global.party_names[i]), new actor_movement(marker.x, marker.y, 20), i, false)
+        cutscene_actor_move(party_get_inst(global.party_names[i]), new actor_movement(marker.x, marker.y, 20), false)
     }
     cutscene_sleep(20)
     

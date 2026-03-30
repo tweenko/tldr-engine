@@ -31,7 +31,7 @@ trigger_code = function() {
             110 - (party_length(true) - 1) * 20 + i * 40,
             150,
             30,,, DIR.DOWN
-        ), i, (i == party_length(true) - 1 ? true : false))
+        ), (i == party_length(true) - 1 ? true : false))
     }
     cutscene_wait_dialogue_finish()
     
@@ -40,7 +40,7 @@ trigger_code = function() {
             0,
             90,
             20,,, DIR.DOWN, false
-        ), i, false)
+        ), false)
     }
     cutscene_camera_pan(undefined, 220, 30)
     cutscene_func(music_pause, 0)
@@ -49,7 +49,7 @@ trigger_code = function() {
         0,
         5,
         10,,, DIR.DOWN, false
-    ), i, false)
+    ), false)
     cutscene_dialogue([
         "{char(susie, 11)}* Noelle??",
         "{char(noelle, 20)}* NOELLE??"
@@ -134,7 +134,7 @@ trigger_code = function() {
         cutscene_actor_move(party_get_inst(global.party_names[i]), [
             new actor_movement(80, 150 + 90, 20),
             new actor_movement(110, 340 - i * 25, 40)
-        ], i, (i == party_length(true) - 1 ? true : false))
+        ], (i == party_length(true) - 1 ? true : false))
         cutscene_sleep(10)
     }
     

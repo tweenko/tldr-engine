@@ -1,8 +1,8 @@
 event_inherited()
 if triggered {
 	with target 
-		y += 4
-	if timer % 6 == 0 && target.y < y + sprite_height - 30 
+		y += global.slide_speed
+	if timer % 4 == 0 && target.y < y + sprite_height && target.y > y + 20
 		instance_create(o_eff_slidedust, target.x, target.y - 30, target.depth)
 	
 	timer ++

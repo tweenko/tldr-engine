@@ -251,9 +251,9 @@ if command == "spr" || command == "sprite" { // spr(sprite_index, image_speed=0,
 	inst.sprite = spr
     
     if array_length(arg) > 1
-        inst.img_index = arg[1]
+        inst.img_spd = arg[1]
     if array_length(arg) > 2
-        inst.img_spd = arg[2]
+        inst.img_index = arg[2]
      
 	xoff += sprite_get_width(spr)*xscale
 	xoff += xspace * xscale

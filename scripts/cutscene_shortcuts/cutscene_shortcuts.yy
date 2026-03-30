@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"cutscene_shortcuts",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"cutscene_shortcuts",
+  "parent":{
+    "name":"external",
+    "path":"folders/@Engine/scripts/systems/general/external.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,5 +1,5 @@
 /// @desc returns the current number of party members
-/// @arg {bool} full when false, limits the number to 3. by default linked to `global.party_limit`
+/// @arg {bool} full when false, limits the number to `global.party_limit`
 function party_length(full = false) {
     if full
         return array_length(global.party_names)
@@ -44,7 +44,7 @@ function party_member_kick(name) {
     }
 }
 
-///@desc creates an actor standing in for the party leader
+/// @desc creates an actor standing in for the party leader
 function party_leader_create(name, xx, yy, ddepth) {
 	var pl = actor_create(party_get_obj(name), xx, yy, ddepth)
 	o_camera.target = pl.id
@@ -58,6 +58,32 @@ function party_leader_create(name, xx, yy, ddepth) {
 	party_setdata(name, "actor_id", pl)
 	
 	return pl
+}
+/// @desc warps the party leader to a marker
+/// @arg {string,any} target_marker_type
+/// @arg {string,any} target_marker_id
+/// @arg {enum.DIR} warp_dir the direction the leader and party will be facing after being warped
+function party_leader_warp(target_marker_type, target_marker_id, warp_dir = DIR.DOWN) {
+    if !instance_exists(get_leader()) 
+        return false
+    
+    var marker = marker_get(target_marker_type, target_marker_id)
+    
+    if instance_exists(marker) {
+        get_leader().x = marker.x
+        get_leader().y = marker.y
+        
+        get_leader().dir = warp_dir
+    }
+    for (var i = 0; i < party_length(true); ++i) {
+        with party_get_inst(global.party_names[i]) {
+            x = get_leader().x
+            y = get_leader().y
+            dir = get_leader().dir
+            
+            event_user(1)
+        }
+    }
 }
 
 ///@desc creates an actor standing in for the party member
