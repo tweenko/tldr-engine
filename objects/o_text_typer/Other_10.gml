@@ -294,16 +294,24 @@ if command == "speed" { // speed(real)
 
 if command == "char" { // char(`char_preset_string`, face_expression = undefined)  optional argument 1 for changing the expression - could be either the name of the expression or the index of it in the sprite
 	var __exp = (array_length(arg) > 1 ? real(arg[1]) : 0)
-	_facechange(arg[0], __exp)
-	
-	voice = struct_get(struct_get(char_presets, arg[0]), "voice")
-	voice_pitch_calc = struct_get(struct_get(char_presets, arg[0]), "voice_pitch_calc")
-	voice_interrupt = struct_get(struct_get(char_presets, arg[0]), "voice_interrupt")
-	voice_skip = struct_get(struct_get(char_presets, arg[0]), "voice_skip")
-    voice_pitchrange = undefined
-	
-	char = arg[0]
-	looping = false
+    
+    if arg[0] == char && array_length(arg) > 1 { // the user is misusing the char command. refer to face_ex (im crying)
+        face_expression = __exp
+        if string_length(face_expression) == string_length(string_digits(face_expression))
+            face_expression = real(face_expression)
+    }
+    else {
+    	_facechange(arg[0], __exp)
+    	
+    	voice = struct_get(struct_get(char_presets, arg[0]), "voice")
+    	voice_pitch_calc = struct_get(struct_get(char_presets, arg[0]), "voice_pitch_calc")
+    	voice_interrupt = struct_get(struct_get(char_presets, arg[0]), "voice_interrupt")
+    	voice_skip = struct_get(struct_get(char_presets, arg[0]), "voice_skip")
+        voice_pitchrange = undefined
+    	
+    	char = arg[0]
+    	looping = false
+    }
 }
 if command == "face" { // face(`face_preset_string`, face_expression)  optional argument 1 for changing the expression - could be either the name of the expression or the index of it in the sprite
 	var __exp = (array_length(arg) > 1 ? real(arg[1]) : 0)

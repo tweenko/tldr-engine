@@ -10,6 +10,7 @@ function enemy() constructor {
 	defense =	0
 	status_effect = ""
     carrying_money = 0
+    element = undefined
 	
 	mercy =	0
     mercy_add_pity_percent = 20
@@ -72,10 +73,10 @@ function enemy() constructor {
     ev_win =            -1
     ev_hurt =           -1 // called when the enemy is hurt
 	
-	//recruit
+	// recruit
 	recruit = new enemy_recruit()
 	
-	//system
+	// system
 	actor_id =	-1
 	slot =		-1
     

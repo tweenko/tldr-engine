@@ -23,10 +23,20 @@ else if dist < 14
 else if dist >= 14
 	accuracy = round(max(0, 100 - (dist / 7 * 2)))
 
+var member_weapon = party_getdata(global.party_names[index], "weapon")
+var weapon_element = undefined
+if is_struct(member_weapon) && is_struct(member_weapon.weapon_element)
+    weapon_element = member_weapon.weapon_element
+
 dmg = (party_getdata(global.party_names[index], "attack") * accuracy) / 20
 dmg -= 3 * ecaller.encounter_data.enemies[target].defense
-dmg = round(dmg)
 dmg = max(1, dmg)
+
+// add the element multiplier
+if weapon_element.element == ecaller.encounter_data.enemies[target].element
+    dmg *= weapon_element.multiplier
+
+dmg = round(dmg)
 
 if ecaller.tp_constrict
     ecaller.tp += round(lerp(0, 2, accuracy/150))

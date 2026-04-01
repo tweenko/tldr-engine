@@ -1,5 +1,6 @@
 function item_spell() : item() constructor {
 	type = ITEM_TYPE.SPELL
+	is_mercyspell = false // does it allow to spare enemies?
     
     use = function(spell_user, target, caller = -1) {}
 }
@@ -339,8 +340,8 @@ function item_s_defaultaction(nname) : item_spell() constructor {
 	desc = ["", "", loc("spell_party_action_desc")]
 	
 	use_type = ITEM_USE.ENEMY
+	is_party_act = true
 	
 	color = merge_color(party_getdata(nname, "color"), c_white, 0.5)
 	tp_cost = 0
-	is_party_act = true
 }

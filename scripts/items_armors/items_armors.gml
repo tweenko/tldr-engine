@@ -1,6 +1,8 @@
 function item_armor() : item() constructor {
 	type = ITEM_TYPE.ARMOR
 	icon = spr_ui_menu_icon_armor
+    
+    armor_blacklist = []
 }
 
 function item_a_ambercard() : item_armor() constructor {

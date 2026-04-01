@@ -146,7 +146,7 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
         cutscene_create()
         cutscene_set_variable(o_enc, "waiting_internal", true)
         
-        if target_spell.is_party_act {
+        if struct_exists(target_spell, "is_party_act") && target_spell.is_party_act {
             var target_act = -1
             with o_enc
                 target_act = encounter_data.enemies[party_enemy_selection[party_get_index(other.acting_member)]].acts_special

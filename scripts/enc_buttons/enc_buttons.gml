@@ -210,7 +210,7 @@ function enc_button_power() : enc_button() constructor {
             for (var i = 0; i < array_length(__party_members); i ++) {
                 var index = party_get_index(__party_members[i])
                 
-                if spell_struct.is_party_act {
+                if struct_exists(spell_struct, "is_party_act") && spell_struct.is_party_act {
                     party_state[index] = PARTY_STATE.ACT
                     enc_party_set_battle_sprite(__party_members[i], "actready")
                 }

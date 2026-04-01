@@ -194,6 +194,7 @@
     {"$GMFolder":"","%Name":"bullets","folderPath":"folders/zzz Examples/Objects/enc/bullets.yy","name":"bullets","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"misc","folderPath":"folders/zzz Examples/Objects/enc/misc.yy","name":"misc","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"turns","folderPath":"folders/zzz Examples/Objects/enc/turns.yy","name":"turns","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"misc","folderPath":"folders/zzz Examples/Objects/misc.yy","name":"misc","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"ow","folderPath":"folders/zzz Examples/Objects/ow.yy","name":"ow","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"church","folderPath":"folders/zzz Examples/Objects/ow/church.yy","name":"church","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"city","folderPath":"folders/zzz Examples/Objects/ow/city.yy","name":"city","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -260,7 +261,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.14.4.221",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"tldr-engine",
   "resources":[

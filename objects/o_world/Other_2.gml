@@ -60,6 +60,8 @@ global.save = {}
 // load the default items
 array_push(global.key_items, new item_key_cell_phone())
 
+array_push(global.items, new item_revivemint())
+
 #region create the save entries
     // base player data
     save_entry("NAME", "PLAYER")

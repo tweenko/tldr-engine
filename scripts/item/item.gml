@@ -28,15 +28,8 @@ function item() constructor {
 	effect = undefined // (struct with the sprite key and text key)
 	icon = spr_ui_menu_icon_exclamation
 	
-	weapon_fatal = false
-	weapon_whitelist = []
-	armor_blacklist = []
-	
-	// spell specific
 	tp_cost = 0
 	color = c_white
-	is_party_act = false
-	is_mercyspell = false // does it allow to spare enemies?
     
     // party act specific
     perform_act_anim = true
@@ -52,8 +45,7 @@ function item() constructor {
 	
 	buy_price = 0 // can be callable
     // sell_price = 0 // can be callable
-    
-    shop_in_stock = infinity // determines whether a shop item is in stock. if set to real, shows how much of it can be sold
+     shop_in_stock = infinity // determines whether a shop item is in stock. if set to real, shows how much of it can be sold
     can_sell = true // determines whether it can be sold to vendors
 }
 
@@ -608,6 +600,11 @@ function item_check_useable(item_struct) {
  */
 function item_localize(_loc) {
     var __data = loc(_loc)
+    if !is_struct(__data) {
+        show_debug_message($"attempted to localize an item with the loc id of {_loc}, but the localized string didn't return a struct. aborted localization")
+        return false
+    }
+    
     var __names = struct_get_names(__data)
     
     for (var i = 0; i < array_length(__names); i ++) {

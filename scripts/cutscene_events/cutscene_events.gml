@@ -54,8 +54,11 @@ function cutscene_sleep(_frames) {
 }
 /// @desc pauses the cutscene until the resume condition is met
 /// @arg {function} resume_condition the method that should return true for the cutscene to continue
-function cutscene_wait_until(resume_condition = function() {return true;}) {
-	var event = new cutscene_event(undefined, resume_condition);
+/// @arg {array} arguments the arguments you'd like to feed into the function
+function cutscene_wait_until(resume_condition, arguments = []) {
+	var event = new cutscene_event(undefined, method({resume_condition, arguments}, function() {
+        return method_call(resume_condition, arguments);
+    }));
     cutscene_queue_event(
         cutscene_get_current(), 
         event

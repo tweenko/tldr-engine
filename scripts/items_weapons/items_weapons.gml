@@ -1,5 +1,12 @@
 function item_weapon() : item() constructor {
 	type = ITEM_TYPE.WEAPON
+    
+    weapon_fatal = false
+	weapon_whitelist = []
+    weapon_element = {
+        element: undefined,
+        multiplier: 1.0
+    }
 }
 
 // swords

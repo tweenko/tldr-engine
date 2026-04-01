@@ -10,8 +10,8 @@
   "name":"o_ex_shop_shopkeep_swatch",
   "overriddenProperties":[],
   "parent":{
-    "name":"test",
-    "path":"folders/zzz Examples/Objects/ow/test.yy",
+    "name":"misc",
+    "path":"folders/zzz Examples/Objects/misc.yy",
   },
   "parentObjectId":{
     "name":"o_shop_shopkeep",
