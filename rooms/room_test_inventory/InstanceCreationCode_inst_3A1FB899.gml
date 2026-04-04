@@ -3,7 +3,7 @@ name = "susieheal_use"
 execute_code = function() {
     cutscene_create()
     
-    if array_contains(global.party_names, "susie") {
+    if party_contains("susie", true) {
         if item_spell_get_exists(item_s_susieheal, "susie") {
             cutscene_func(function() {
                 var healcalc = item_spell_get_struct(item_s_susieheal, "susie").__heal_calc

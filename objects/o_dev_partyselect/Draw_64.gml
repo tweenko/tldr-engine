@@ -13,7 +13,7 @@ for (var i = 0; i < maxparty; ++i) {
 	var yy = 240-20
 	
 	if i == selection {
-		gpu_set_fog(true, (array_contains(global.party_names, name) ? party_getdata(name, "color") : c_white), 0, 0)
+		gpu_set_fog(true, (party_contains(name) ? party_getdata(name, "color") : c_white), 0, 0)
 		for (var j = 0; j < 360; j += 90) {
 			var xdelta = lengthdir_x(2, j)
 			var ydelta = lengthdir_y(2, j)
@@ -26,14 +26,14 @@ for (var i = 0; i < maxparty; ++i) {
 		gpu_set_fog(false, c_white, 0, 0)
 	}
 	
-    if !array_contains(global.party_names, name) 
+    if !party_contains(name)
 		shader_set(shd_greyscale)
 	draw_sprite_ext(party_geticon_ow(name), 0,
 		xx, yy,
 		2, 2,
-		0, (array_contains(global.party_names, name) ? c_white : c_gray), (i==selection ? 1 : .3)
+		0, (party_contains(name) ? c_white : c_gray), (i==selection ? 1 : .3)
 	)
-	if !array_contains(global.party_names, name) 
+	if !party_contains(name)
 		shader_reset()
 }
 

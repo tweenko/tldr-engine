@@ -17,9 +17,9 @@ choice = [loc("game_over_continue"), loc("game_over_give_up")]
 
 dialogue = "{e}"
 var dialogue_variants = []
-if party_ismember("susie")
+if party_contains("susie")
     array_push(dialogue_variants, loc("game_over_dialogue_susie"))
-if party_ismember("ralsei")
+if party_contains("ralsei")
     array_push(dialogue_variants, loc("game_over_dialogue_ralsei"))
 
 if array_length(dialogue_variants) > 0

@@ -160,13 +160,18 @@ function party_reposition(lx = get_leader().x, ly = get_leader().y){
 			}
 		}
 	}
-	//party_interpolate()
 }
 
 /// @desc returns whether the party member is a part of the current party
-///@arg {string} _name
-function party_ismember(_name) {
-	return array_contains(global.party_names, _name)
+/// @arg {string} _name the name of the party member you'd like to check for
+/// @arg {bool} _full_party whether to check for the full party (above the party limit)
+function party_contains(_name, _full_party = false) {
+    for (var i = 0; i < party_length(_full_party); i ++) {
+        if global.party_names[i] == _name 
+            return true
+    }
+    
+	return false
 }
 
 /// @desc sets the state of a party member (sprite state)
