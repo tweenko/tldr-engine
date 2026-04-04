@@ -4,11 +4,11 @@ interaction_code = function() {
     var __mode = state_get("test_couchsat", id)
     var sitting = []
     
-    if party_ismember("kris")
+    if party_contains("kris")
         array_push(sitting, "kris")
-    if party_ismember("susie")
+    if party_contains("susie")
         array_push(sitting, "susie")
-    if party_ismember("ralsei")
+    if party_contains("ralsei")
         array_push(sitting, "ralsei")
     
     cutscene_create()
@@ -34,11 +34,11 @@ interaction_code = function() {
                 _inst.s_override = true
             }
             
-            if party_ismember("susie") 
+            if party_contains("susie") 
                 __put("susie", xx - 16, yy, _depth)
-            if party_ismember("ralsei")
+            if party_contains("ralsei")
                 __put("ralsei", xx + 16, yy, _depth)
-            if party_ismember("noelle")
+            if party_contains("noelle")
                 actor_move(o_actor_noelle, new actor_movement(xx, yy + 40, 20,,, DIR.UP))
             
         }, [x, y, depth])
@@ -56,9 +56,9 @@ interaction_code = function() {
                 animate(5, 0, 10, "linear", _inst, "shake")
             }
             
-            if party_ismember("susie")
+            if party_contains("susie")
                 __put("susie")
-            if party_ismember("ralsei")
+            if party_contains("ralsei")
                 __put("ralsei")
         })
         cutscene_sleep(20)
@@ -67,9 +67,9 @@ interaction_code = function() {
             var __onlytwo = party_length(true) <= 2
             cutscene_sleep(30)
             
-            if party_ismember("ralsei")
+            if party_contains("ralsei")
                 cutscene_dialogue("{char(ralsei, 20)}* Kris, are you joining " + (__onlytwo ? "me on the couch" : "us")+ ", or..?")
-            if party_ismember("susie")
+            if party_contains("susie")
                 cutscene_dialogue([
                     "{char(susie, 1)}* Hey, when we get couch time we ALL get couch time.",
                     "{face_ex(21)}* ...",
@@ -97,8 +97,8 @@ interaction_code = function() {
     })
     cutscene_sleep(5)
     
-    if !__mode && party_ismember("noelle") {
-        if party_ismember("susie") {
+    if !__mode && party_contains("noelle") {
+        if party_contains("susie") {
             cutscene_dialogue([
                 "{char(noelle, 17)}* (Um...)",
                 "{char(susie, 10)}* Noelle, did you say something? I didn't hear much if you did.",
@@ -106,7 +106,7 @@ interaction_code = function() {
                 "{char(susie, 2)}* Cool.{mini(`(I'll just... sit here.)`, noelle, 6)}",
             ])
         }
-        else if party_ismember("ralsei") {
+        else if party_contains("ralsei") {
             cutscene_dialogue([
                 "{char(noelle, 17)}* (Um...)",
                 "{char(ralsei, 3)}* Kris, are you cozy?{mini(`(I'll just... sit here.)`, noelle, 6)}",
@@ -119,7 +119,7 @@ interaction_code = function() {
         }
     }
     
-    if party_ismember("noelle") {
+    if party_contains("noelle") {
         var o = party_get_inst("noelle")
         cutscene_actor_move(o, new actor_movement(0, 10, 15,,, DIR.UP, false))
         cutscene_sleep(10)
@@ -141,7 +141,7 @@ interaction_code = function() {
         }, [i, sitting])
         cutscene_sleep(5)
     }
-    if party_ismember("noelle") {
+    if party_contains("noelle") {
         var o = party_get_inst("noelle")
         cutscene_set_variable(o, "s_override", false)
         cutscene_audio_play(snd_noise)

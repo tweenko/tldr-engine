@@ -464,7 +464,7 @@ function item_get_equipped(_item_ref, _party_name = undefined) {
 		}
 	}
 	else {
-		if !party_ismember(_party_name) {
+		if !party_contains(_party_name) {
 			show_debug_message($"item_get_equipped: \"{_party_name}\" not found in global.party_names")
 			return 0
 		}
@@ -533,7 +533,7 @@ function item_spell_get_index(_item_ref, _party_name) {
     var __iteminst = (is_struct(_item_ref) ? instanceof(_item_ref) : script_get_name(_item_ref))
     
     var __index = undefined
-    if !party_ismember(_party_name) {
+    if !party_contains(_party_name) {
         show_debug_message($"item_spell_get_index: \"{_party_name}\" not found in global.party_names")
         return undefined
     }

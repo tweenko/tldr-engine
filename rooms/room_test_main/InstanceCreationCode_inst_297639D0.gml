@@ -17,15 +17,15 @@ execute_code = function() {
     
     else if array_length(members) == 0 {
         var _txt = []
-        if array_contains(global.party_names, "susie") {
+        if party_contains("susie", true) {
             array_push(_txt, string("{char(susie, 21)}* Want {0} to wait around here? Sure I guess.", (party_length(true) > 2 ? "us" : "me")))
         }
-        if array_contains(global.party_names, "ralsei") {
+        if party_contains("ralsei", true) {
             array_push(_txt, ["{char(ralsei, 20)}* Huh? Wait here?", 
                 "{face_ex(19)}* Sure! Tell me if you need anything!"
             ])
         }
-        if array_contains(global.party_names, "noelle") {
+        if party_contains("noelle", true) {
             array_push(_txt, "{char(noelle, 27)}* Umm... Well, if you say please, I'll think about it!!")
         }
         

@@ -17,7 +17,7 @@ if InputPressed(INPUT_VERB.SELECT) {
 	audio_play(snd_metalhit)
 	var name = struct_get_names(global.party)[selection]
 	
-	if !party_ismember(name)
+	if !party_contains(name)
 		party_member_add(name)
 	else
 		party_member_kick(name)

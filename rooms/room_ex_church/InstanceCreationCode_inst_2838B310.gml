@@ -1,5 +1,5 @@
 trigger_code = function() {
-    if !party_ismember("susie")
+    if !party_contains("susie")
         exit
     
     cutscene_create()

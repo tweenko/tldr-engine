@@ -298,7 +298,7 @@ __act_sort = function(enemy_index) {
 		if is_array(acts[i].party) && array_length(acts[i].party) > 0 {
 			var contains = true
 			for (var j = 0; j < array_length(acts[i].party); ++j) {
-			    contains = array_contains(global.party_names, acts[i].party[j])
+			    contains = party_contains(acts[i].party[j])
 				if !contains 
 					break
 			}
