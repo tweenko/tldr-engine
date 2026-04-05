@@ -1,6 +1,6 @@
 music_stop_all()
-save_load(target_save_index, global.chapter, true)
 
+save_load(target_save_index, global.chapter, true)
 global.save.NAME = name
 global.time = 0
 

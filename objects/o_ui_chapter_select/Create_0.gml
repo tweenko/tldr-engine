@@ -1,6 +1,6 @@
 chapters = [
 	{
-		name: loc("chapter_1"),
+		name: "chapter_1", // will be localized when drawn
 		exec: function(caller) {
 			music_stop(0)
 			audio_play(snd_ui_scary)
@@ -20,7 +20,7 @@ chapters = [
 		icon: spr_ui_chs_ch1,
 	},
 	{
-		name: loc("chapter_2"),
+		name: "chapter_2",
 		exec: function(caller){
 			music_stop(0)
 			audio_play(snd_chs_ch2)
@@ -40,7 +40,7 @@ chapters = [
 		icon: spr_ui_chs_ch2,
 	},
 	{
-		name: loc("chapter_3"),
+		name: "chapter_3",
 		exec: function(caller){
 			music_stop(0)
 			audio_play(snd_chs_ch3)
@@ -60,7 +60,7 @@ chapters = [
 		icon: spr_ui_chs_ch3,
 	},
 	{
-		name: loc("chapter_4"),
+		name: "chapter_4",
 		exec: function(caller){
 			music_stop(0)
 			audio_play(snd_chs_ch4)
@@ -96,8 +96,9 @@ pause = 0
 acquired_crystal = false
 
 copyright_text = ""
-gamename = ENGINE_NAME
-version_text = ENGINE_VERSION
+gamename = GAME_NAME
+version_text = GAME_VERSION
+restart_upon_language_switch = false // QOL. it restarts the room in deltarune but the engine supports no restarting
 
 languages = true
 

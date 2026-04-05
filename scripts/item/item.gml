@@ -606,7 +606,6 @@ function item_localize(_loc) {
     }
     
     var __names = struct_get_names(__data)
-    
     for (var i = 0; i < array_length(__names); i ++) {
         var __value = struct_get(__data, __names[i])
         if is_struct(__value) && is_struct(struct_get(__data, __names[i])) { // loop through the struct and avoid deleting already existing hashes

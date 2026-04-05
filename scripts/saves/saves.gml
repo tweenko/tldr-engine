@@ -333,7 +333,7 @@
         
         global.settings.LANG = global.loc_lang
         global.settings.BORDER_MODE = global.border_mode
-        global.settings.VERSION_SAVED = ENGINE_VERSION
+        global.settings.VERSION_SAVED = GAME_VERSION
 	}
     
     ///@desc loads the settings from the device into global.settings

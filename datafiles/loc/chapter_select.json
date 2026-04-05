@@ -15,7 +15,10 @@
         "en": "Quit",
         "ja": "終了"
     },
-
+    "chapter_select_chapter": {
+        "en": "Chapter {0}",
+        "ja": "Chapter {0}"
+    },
 
     "chapter_select_start_0": {
         "en": "Would you like to start from Chapter {0}?",

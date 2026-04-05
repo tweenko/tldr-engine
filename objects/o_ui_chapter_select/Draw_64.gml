@@ -31,12 +31,12 @@ if state == -1 {
 else {
 	surface_set_target(surf) {
 		draw_clear_alpha(0, 0)
-	
+        
 		var total = array_length(chapters)
-
+        
 		draw_set_font(loc_font("main"))
 		draw_set_alpha(alpha)
-
+        
 		for (var i = 0; i < array_length(chapters); ++i) {
 			if selection == i+1 
 				draw_set_color(c_yellow)
@@ -44,63 +44,64 @@ else {
 				draw_set_color(c_gray)
 			else 
 				draw_set_color(c_white)
-	
+            
 			draw_sprite_ext(spr_pixel, 0, 0, 62 + 60*i - yadd, 640, 2, 0, #2B2B2B, alpha)
-	
+            
 			if i+1 == selection && !confirming {
 				draw_sprite_ext(spr_ui_soul, 0, 20, 24 + 60*i + yadd, 2, 2, 0, c_red, alpha)
 			}
 			
+            var _label = string(loc("chapter_select_chapter"), i + 1)
 			draw_set_font(font_main)
-		    draw_text_transformed(50, 24 - 8 + i*60 + yadd, "Chapter " + string(i + 1), 2, 2, 0)
+		    draw_text_transformed(50, 24 - 8 + i*60 + yadd, _label, 2, 2, 0)
 			draw_set_font(loc_font("main"))
 			
 			for (var j = 0; j < SAVE_SLOTS; ++j) {
-				if save_chs[i]!=-1 && save_chs[i][j]!=-1 && save_chs[i][j][1] {
+				if save_chs[i] != -1 && save_chs[i][j] != -1 && save_chs[i][j][1] {
 					draw_sprite_ext(spr_ui_chs_star, 0,
-						185, 20 + 12*j + i*60 + yadd,
+						50 + string_width(_label)*2 + 17, 20 + 12*j + i*60 + yadd,
 						1, 1, 0, c_white, alpha
 					)
 				}
 			}
 			
-			if confirming && i+1==selection {
+			if confirming && i+1 == selection {
 				draw_set_color(c_white)
 				
 				if confirmselection == 0 {
 					draw_sprite_ext(spr_ui_soul, 0, 
-						264-16-12 - (loc_getlang()=="ja" ? 16 : 0), 24 + i*60 + yadd,
+						264 - 16 - 12 - (loc_getlang() == "ja" ? 16 : 0), 24 + i*60 + yadd,
 						2, 2, 0, c_red, alpha
 					);
 					draw_set_color(c_yellow)
 				}
 				
-				draw_text_transformed(264 - (loc_getlang()=="ja" ? 16 : 0), 24-8+i*60+yadd, loc("chapter_select_play"), 2, 2, 0)
+				draw_text_transformed(264 - (loc_getlang() == "ja" ? 16 : 0), 24 - 8 + i*60 + yadd, loc("chapter_select_play"), 2, 2, 0)
 				draw_set_color(c_white)
 				
 				if confirmselection == 1 { 
 					draw_sprite_ext(spr_ui_soul, 0, 
-						414 - 16 - 12 + (loc_getlang()=="ja" ? 12 : 0), 24 + i*60 + yadd, 
+						414 - 16 - 12 + (loc_getlang() == "ja" ? 12 : 0), 24 + i*60 + yadd, 
 						2, 2, 0, c_red, alpha
 					)
 					draw_set_color(c_yellow)
 				}
 				
-				draw_text_transformed(414 + (loc_getlang()=="ja" ? 12 : 0), 24-8+i*60+yadd, loc("chapter_select_donot"), 2, 2, 0)
+				draw_text_transformed(414 + (loc_getlang() == "ja" ? 12 : 0), 24 - 8 + i*60 + yadd, loc("chapter_select_donot"), 2, 2, 0)
 				draw_set_color(c_yellow)
 			}
 			else {
 				draw_set_halign(fa_center)
 				
-				var title = !is_struct(chapters[i]) ? "- -" : chapters[i].name
+				var title = (!is_struct(chapters[i]) ? "- -" : loc(chapters[i].name))
 				draw_text_transformed(360, 24-8 + i*60 + yadd, title, 2, 2, 0)
 				draw_set_halign(fa_left)
 			}
 	
 			if !is_struct(chapters[i])
-				draw_sprite_ext(spr_ui_chs_defafult, 0, 553, 10+i*60+yadd, 2, 2, 0, draw_get_color(), alpha)
+				draw_sprite_ext(spr_ui_chs_defafult, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
 			else
-				draw_sprite_ext(chapters[i].icon, 0, 553, 10+i*60+yadd, 2, 2, 0, draw_get_color(), alpha)
+				draw_sprite_ext(chapters[i].icon, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
 		}
 		
 		draw_set_color(c_white)
@@ -112,7 +113,7 @@ else {
 				draw_set_color(c_yellow)
 				draw_sprite_ext(spr_ui_soul, 0, 210 - 30 + horselection, 442, 2, 2, 0, c_red, alpha)
 			}
-			draw_text_transformed(210, 440-6+yadd, "Quit", 2, 2, 0)
+			draw_text_transformed(210, 440-6+yadd, loc("chapter_select_quit"), 2, 2, 0)
 			draw_set_color(c_white)
 			
 			if selection == total+1 && horselection == 1 {

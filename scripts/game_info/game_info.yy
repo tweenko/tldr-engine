@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"engine_info",
+  "%Name":"game_info",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"engine_info",
+  "name":"game_info",
   "parent":{
     "name":"scripts",
     "path":"folders/@Engine/scripts.yy",

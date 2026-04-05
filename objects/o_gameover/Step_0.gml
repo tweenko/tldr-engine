@@ -52,14 +52,15 @@ if state == 2 {
 }
 if state == 3 {
 	if !dia_created {
-		inst_dialogue = text_typer_create(dialogue, 100, 300, DEPTH_UI.DIALOGUE_UI, "{can_skip(false)}{shadow(0)}{speed(3)}{xspace(3)}{yspace(18)}{break_tabulation(false)}", "{p}{e}", {
-			gui: true,
-			caller: id,
-		})
+        if !is_undefined(_dialogue)
+    		inst_dialogue = text_typer_create(_dialogue, 100, 300, DEPTH_UI.DIALOGUE_UI, "{can_skip(false)}{shadow(0)}{speed(3)}{xspace(3)}{yspace(18)}{break_tabulation(false)}", "{p}{e}", {
+    			gui: true,
+    			caller: id,
+    		})
 		
 		dia_created = true
 	}
-	else if !instance_exists(inst_dialogue) {
+	if !instance_exists(inst_dialogue) {
 		state = 4
 	}
 }

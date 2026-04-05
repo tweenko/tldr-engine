@@ -86,7 +86,7 @@ registred_commands = {
     },
     l: {
         name: "language_switch",
-        desc: "switches the language of the session",
+        desc: "switches the language of the session. will set you back to your last save",
         execute: function() {
             loc_switch_lang()
         }

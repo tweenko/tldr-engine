@@ -29,7 +29,7 @@ if selection == 1
 draw_text_transformed(320 + 60, 300 + __c, "No", 1, 1, 0)
 
 draw_set_color(c_gray)
-draw_text_transformed(320, 400 + __c, $"Local Save Version: {(struct_exists(global.settings, "VERSION_SAVED") ? global.settings.VERSION_SAVED : "???")}\nEngine Version: {ENGINE_VERSION}\nLast Compatible Version: {ENGINE_LAST_COMPATIBLE_VERSION}", 1, 1, 0)
+draw_text_transformed(320, 400 + __c, $"Local Save Version: {(struct_exists(global.settings, "VERSION_SAVED") ? global.settings.VERSION_SAVED : "???")}\nEngine Version: {GAME_VERSION}\nLast Compatible Version: {GAME_LAST_COMPATIBLE_VERSION}", 1, 1, 0)
 
 draw_set_color(c_white)
 draw_set_halign(fa_left)

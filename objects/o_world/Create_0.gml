@@ -70,7 +70,7 @@ global.settings = {
     CONTROLS_GP: {},
     
     LANG: "en",
-    VERSION_SAVED: ENGINE_VERSION,
+    VERSION_SAVED: GAME_VERSION,
     BORDER_MODE: global.border_mode
 }
 

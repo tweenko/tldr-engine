@@ -13,7 +13,7 @@ if global.console_enabled
 
 if !allow_incompatible_saves {
     var __v = (struct_exists(global.settings, "VERSION_SAVED") ? global.settings.VERSION_SAVED : "v0.0.0")
-    if !__engine_versions_compare(__v, ENGINE_LAST_COMPATIBLE_VERSION) {
+    if !__game_versions_compare(__v, GAME_LAST_COMPATIBLE_VERSION) {
         progress = false
         incompatible_save_warning = true
         incompatible_save_sleep = 20
@@ -60,8 +60,6 @@ global.save = {}
 // load the default items
 array_push(global.key_items, new item_key_cell_phone())
 
-array_push(global.items, new item_revivemint())
-
 #region create the save entries
     // base player data
     save_entry("NAME", "PLAYER")
@@ -75,7 +73,7 @@ array_push(global.items, new item_revivemint())
     save_entry("EXP", 0)
     
     save_entry("CRYSTAL", false)
-    save_entry("COMPLETED", false)
+    save_entry("COMPLETED", true)
     save_entry("COMPLETE_ROOM", "undefined")
     save_entry("COMPLETE_TIME", 0)
     

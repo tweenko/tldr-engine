@@ -117,7 +117,11 @@ else {
             if horselection == 0
                 game_end()
             else {
-            	loc_switch_lang()
+                audio_play(snd_ui_select)
+            	loc_switch_lang(, false)
+                
+                if restart_upon_language_switch
+                    room_goto(room)
             }
         }
 	}

@@ -1,8 +1,11 @@
 #macro LOC_LANG_LIST [ "en", "ja" ]
 
 global.loc_source = {}
-global.loc_dir = "loc/"
+global.loc_source_fallback = {}
+
 global.loc_lang = "en"
+global.loc_fallback_lang = "en"
+global.loc_dir = "loc/"
 global.loc_files = []
 
 var fileName = file_find_first(global.loc_dir + "*.json", 0);
@@ -16,8 +19,8 @@ function loc_fname_format(fname) {
 	return global.loc_dir + fname
 }
 
-///@desc loads all the specified files
-///@arg {string} lang
+/// @desc loads all the specified files
+/// @arg {string} lang
 function loc_load(lang = global.loc_lang) {
     for (var i = 0; i < array_length(global.loc_files); ++i) {
         var fname = loc_fname_format(global.loc_files[i])
@@ -35,6 +38,7 @@ function loc_load(lang = global.loc_lang) {
 			
 			for (var j = 0; j < array_length(tnms); ++j) {
 				struct_set(global.loc_source, tnms[j], struct_get(struct_get(tstruct, tnms[j]), lang))
+				struct_set(global.loc_source_fallback, tnms[j], struct_get(struct_get(tstruct, tnms[j]), global.loc_fallback_lang))
 			}
 			
             file_text_close(f)
@@ -49,6 +53,8 @@ function loc_load(lang = global.loc_lang) {
 function loc(loc_id) {
 	if struct_exists(global.loc_source, loc_id)
 		return struct_get(global.loc_source, loc_id)
+    if struct_exists(global.loc_source_fallback, loc_id)
+        return struct_get(global.loc_source_fallback, loc_id)
 		
 	return loc_id
 }
@@ -57,13 +63,21 @@ function loc(loc_id) {
 function loc_sprite(loc_id) {
     if struct_exists(global.loc_source, loc_id)
 		return asset_get_index(struct_get(global.loc_source, loc_id))
+    if struct_exists(global.loc_source_fallback, loc_id)
+        return asset_get_index(struct_get(global.loc_source_fallback, loc_id))
 		
 	return spr_default
 }
 ///@desc used to localize fonts
 ///@arg {string} font_id the id of the localized font you want to get
 function loc_font(font_id){
-	return asset_get_index(loc("font_" + font_id))
+    var _loc_id = "font_" + font_id
+    if struct_exists(global.loc_source, _loc_id)
+        return asset_get_index(loc(_loc_id))
+    if struct_exists(global.loc_source_fallback, _loc_id)
+        return asset_get_index(loc(_loc_id))
+    
+	return font_main
 }
 
 function loc_error(err_text = "Undefined", critical = false) {
@@ -74,8 +88,10 @@ function loc_getlang() {
 	return global.loc_lang
 }
 
-/// @desc the language changes usually fully apply after the room is restarted, so it's highly recommended; however, if your room supports live language switching, feel free to set it to false.
-function loc_switch_lang(lang = undefined, restart_room = true) {
+/// @desc switches the current language
+/// @arg {string} lang if undefined, will just switch to the next available language option
+/// @arg {bool} load_save whether to load the last available save
+function loc_switch_lang(lang = undefined, load_save = true) {
 	if is_undefined(lang) {
 		var __cur = array_get_index(LOC_LANG_LIST, global.loc_lang)
 		global.loc_lang = LOC_LANG_LIST[(__cur + 1) % array_length(LOC_LANG_LIST)]
@@ -87,6 +103,14 @@ function loc_switch_lang(lang = undefined, restart_room = true) {
     with o_world
         event_user(0)
     
-    if restart_room
-        room_goto(room)
+    if load_save {
+        music_stop_all();
+        
+        global.saves = save_read_all() // saves saved on device
+        if global.saves[global.save_slot] != -1 
+            global.save = global.saves[global.save_slot]
+        save_load(global.save_slot);
+        
+        room_goto(save_get("room"));
+    }
 }
