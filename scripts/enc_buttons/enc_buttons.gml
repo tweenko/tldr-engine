@@ -9,7 +9,7 @@ function enc_button() constructor {
     submit_action = function() {} // called when finishing the target menu and submitting the action
     
     __determine_sprite = function() { // internal
-        sprite = asset_get_index(string(loc("enc_ui_spr_buttons"), name))
+        sprite = asset_get_index(loc_string("enc_ui_spr_buttons", name))
     }
 }
 

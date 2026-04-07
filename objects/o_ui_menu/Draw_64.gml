@@ -139,7 +139,7 @@ if selection == 0 { // items
 			
 			var txt = item_get_desc(arr[i_selection], ITEM_DESC_TYPE.FULL)
 			if i_pselection == 1 && state == 3
-				txt = string(loc("menu_item_toss_confirm"), item_get_name(arr[i_selection]))
+				txt = loc_string("menu_item_toss_confirm", item_get_name(arr[i_selection]))
 			
 			draw_text_ext_transformed(20, 10, txt, 16, __top_txt_len, 2, 2, 0)
 		}

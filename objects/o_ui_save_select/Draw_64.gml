@@ -245,7 +245,7 @@ if state < 2 { // main
 	option_draw(280, 380, loc("save_select_erase"), SAVE_SLOTS+1)
 	option_draw(408, 380, loc("save_select_chapter_select"), SAVE_SLOTS+2)
 	if ch_file 
-		option_draw(108, 420, string(loc("save_select_ch_files"), global.chapter-1), SAVE_SLOTS+3)
+		option_draw(108, 420, loc_string("save_select_ch_files", global.chapter-1), SAVE_SLOTS+3)
 	if language {
         draw_set_font(font_main_ja)
 		option_draw(280, 420, $"{loc("chapter_select_lanswitch")}", SAVE_SLOTS+4)
@@ -261,7 +261,7 @@ else if state == 3 || state == 31 || state == 32 { // erase
 	option_draw(108, 380, loc("save_select_cancel"), SAVE_SLOTS, subselection)
 }
 else if state == 4 || state == 41 {
-	option_draw(108, 380, string(loc("save_select_dont_use_file"), global.chapter - 1), SAVE_SLOTS, subselection)
+	option_draw(108, 380, loc_string("save_select_dont_use_file", global.chapter - 1), SAVE_SLOTS, subselection)
 }
 
 draw_set_color(c_white)

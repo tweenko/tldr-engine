@@ -58,6 +58,25 @@ function loc(loc_id) {
 		
 	return loc_id
 }
+/// @desc used to localize strings by finding the same one in the localization file while also functioning as the `string` function in terms of being able to replace bracketed parts of the localized string (supports infinite arguments)
+/// @arg {string} loc_id the id of the localized text you want to get
+/// @arg {string,real} replacements a value you'd like to replace the corresponding bracketed part of the localized string with
+/// @arg {string,real} ...
+/// @arg {string,real} ...
+/// @arg {string,real} ...
+/// @arg {string,real} ...
+function loc_string(loc_id, replacement0 = "", replacement1 = "", replacement2 = "", replacement3 = "", replacement4 = "") {
+	if struct_exists(global.loc_source, loc_id) {
+        loc_id = struct_get(global.loc_source, loc_id)
+        return string(loc_id, replacement0, replacement1, replacement2, replacement3, replacement4)
+    }
+    if struct_exists(global.loc_source_fallback, loc_id) {
+        loc_id = struct_get(global.loc_source_fallback, loc_id)
+        return string(loc_id, replacement0, replacement1, replacement2, replacement3, replacement4)
+    }
+		
+	return loc_id
+}
 ///@desc used to localize sprites. if unable to do so, spr_default will be returned
 ///@arg {string} loc_id the id of the localized sprite you want to get
 function loc_sprite(loc_id) {

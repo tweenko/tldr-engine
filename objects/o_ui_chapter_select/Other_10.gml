@@ -6,7 +6,7 @@ else
 	incomplete_ch = global.chapter
 	complete_ch = 0
 
-txt = string(loc("chapter_select_start_1"), incomplete_ch)
+txt = loc_string("chapter_select_start_1", incomplete_ch)
 tselec = incomplete_ch
 
 var startch = 0
@@ -18,12 +18,12 @@ for (var i = 0; i < array_length(chapters); ++i) {
 }
 
 if complete_ch == 0 && incomplete_ch == 0 {
-	txt = string(loc("chapter_select_start_0"), startch + 1)
+	txt = loc_string("chapter_select_start_0", startch + 1)
 	tselec = startch + q
 }
 if complete_ch == incomplete_ch {
-	txt = string(loc("chapter_select_start_2"), complete_ch)
-	yes = string(loc("chapter_select_start_2_yes"), complete_ch+1)
+	txt = loc_string("chapter_select_start_2", complete_ch)
+	yes = loc_string("chapter_select_start_2_yes", complete_ch+1)
 	no = loc("chapter_select_start_2_no")
 	tselec = complete_ch + 1
 }
