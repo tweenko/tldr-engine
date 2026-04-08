@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"states",
+  "%Name":"memories",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"states",
+  "name":"memories",
   "parent":{
     "name":"external",
     "path":"folders/@Engine/scripts/systems/general/external.yy",

@@ -29,7 +29,7 @@ global.console = false
 global.current_cutscene = noone
 
 global.time = 0
-global.states = {}
+global.memories = {}
 global.room_name = ""
 global.menu_page = 0
 

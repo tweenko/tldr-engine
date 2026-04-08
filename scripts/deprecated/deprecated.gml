@@ -98,3 +98,22 @@ function cutscene_actor_move_old(target, movement, pos, wait = true) {
 function party_ismember(name, full) {
     return party_contains(name, full)
 }
+
+/// @ignore
+/// @deprecated
+/// replaced with memories
+function state_add(type, identificator = id) {
+    memory_flick(type, identificator, true)
+}
+/// @ignore
+/// @deprecated
+/// replaced with memories
+function state_get(type, identificator = id) {
+    memory_get(type, identificator)
+}
+/// @ignore
+/// @deprecated
+/// replaced with memories
+function state_remove(type, identificator = id) {
+    memory_remove(type, identificator)
+}

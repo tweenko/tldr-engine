@@ -129,7 +129,7 @@ array_push(global.key_items, new item_key_cell_phone())
     
     // misc
     save_entry("SHOP_DATA", {})
-    save_entry("STATES", global.states, function(_conv_data){ global.states = _conv_data }, function(){ return global.states })
+    save_entry("MEMORIES", global.memories, function(_conv_data){ global.memories = _conv_data }, function(){ return global.memories })
     save_entry("WORLD", global.world, function(_conv_data){ global.world = _conv_data }, function(){ return global.world })
     
     save_entry("RECRUITS", global.recruits, 

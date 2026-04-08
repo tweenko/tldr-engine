@@ -25,4 +25,4 @@ else {
     dialogue_start(loc("item_chest_empty"))
 }
 
-state_flick(state_group, id, true)
+memory_flick(state_group, id, true)
