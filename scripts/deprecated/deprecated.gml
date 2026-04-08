@@ -102,18 +102,21 @@ function party_ismember(name, full) {
 /// @ignore
 /// @deprecated
 /// replaced with memories
-function state_add(type, identificator = id) {
+function state_add(type, identificator = undefined) {
+    identificator ??= (variable_instance_exists(self, "id") ? id : 0)
     memory_flick(type, identificator, true)
 }
 /// @ignore
 /// @deprecated
 /// replaced with memories
-function state_get(type, identificator = id) {
+function state_get(type, identificator = undefined) {
+    identificator ??= (variable_instance_exists(self, "id") ? id : 0)
     memory_get(type, identificator)
 }
 /// @ignore
 /// @deprecated
 /// replaced with memories
-function state_remove(type, identificator = id) {
+function state_remove(type, identificator = undefined) {
+    identificator ??= (variable_instance_exists(self, "id") ? id : 0)
     memory_remove(type, identificator)
 }
