@@ -365,7 +365,12 @@ function angle_add(x, y) {
 /// @arg {string} _string the string you'd like to convert to boolean
 /// @returns {bool}
 function string_to_bool(_string) {
-    return (string_lower(_string) == "true" || real(_string) > 0)
+    if string_lower(_string) == "true"
+        return true
+    else if string_lower(_string) == "false"
+        return false
+    else 
+        return real(string_digits(_string)) > .5
 }
 
 
