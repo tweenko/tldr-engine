@@ -25,4 +25,4 @@ else {
     dialogue_start(loc("item_chest_empty"))
 }
 
-state_add(state_group, id)
+state_flick(state_group, id, true)

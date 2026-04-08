@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"saves",
+  "%Name":"save",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"saves",
+  "name":"save",
   "parent":{
     "name":"internal",
     "path":"folders/@Engine/scripts/systems/general/internal.yy",

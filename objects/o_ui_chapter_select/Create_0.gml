@@ -10,10 +10,7 @@ chapters = [
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 1
                 
-                global.save.ROOM = room_ex_dforest
-                global.save.CHAPTER = 1
-				
-				save_reload()
+                save_reload()
 				room_goto(room_save_select)
 			})
 		},
@@ -30,9 +27,6 @@ chapters = [
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 2
                 
-				global.save.ROOM = room_ex_city
-                global.save.CHAPTER = 2
-				
 				save_reload()
 				room_goto(room_save_select)
 			})
@@ -50,9 +44,6 @@ chapters = [
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 3
                 
-				global.save.ROOM = room_test_main
-                global.save.CHAPTER = 3
-				
 				save_reload()
 				room_goto(room_save_select)
 			})
@@ -70,9 +61,6 @@ chapters = [
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 4
                 
-				global.save.ROOM = room_ex_church
-                global.save.CHAPTER = 4
-				
 				save_reload()
 				room_goto(room_save_select)
 			})

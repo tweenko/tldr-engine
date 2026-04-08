@@ -1,9 +1,9 @@
 audio_emitter_free(emitter_sfx)
-audio_emitter_free(emitter_music)
+audio_emitter_free(emitter_bgm)
 
 if progress {
     if save_settings
-        save_settings_update()
+        save_settings_export_to_file()
     
     if font_exists(global.font_name[0])
     	font_delete(global.font_name[0])

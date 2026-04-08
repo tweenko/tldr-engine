@@ -114,7 +114,7 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
             target_emitter = o_world.emitter_sfx;
             break
         case AUDIO.MUSIC:
-            target_emitter = o_world.emitter_music
+            target_emitter = o_world.emitter_bgm
             break
     }
     
@@ -322,6 +322,11 @@ function string_pad_end(_string, _substring, _required_length) {
         _string = string_insert(_string, _substring, string_length(_string)+1)
     }
     return _string
+}
+
+/// @desc checks whether a given struct is empty
+function struct_empty(_struct) {
+    return struct_names_count(_struct) > 0
 }
 
 /// @desc	rounds value with cerain percision

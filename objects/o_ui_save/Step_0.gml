@@ -54,11 +54,11 @@ if page == 1 { // save menu
 			s_selection = 0
 	
 		if InputPressed(INPUT_VERB.SELECT) && s_selection < 3 && buffer == 0 {
-			if s_selection != global.save_slot && global.saves[s_selection] != -1 
+			if s_selection != global.save_slot && global.save_files[s_selection] != -1 
 				prog = 2
 			else {
-				save_export(s_selection)
-				save_set_slot(s_selection)
+				global.save_slot = s_selection
+                save_export_to_file()
 				
 				audio_play(snd_save)
 				prog ++
@@ -83,9 +83,10 @@ if page == 1 { // save menu
 		
 		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if s_o_selection == 0 {
-				save_export(s_selection)
-				save_set_slot(s_selection)
 				audio_play(snd_save)
+                
+                global.save_slot = s_selection
+                save_export_to_file()
 				
 				prog = 1
 			}

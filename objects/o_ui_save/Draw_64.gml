@@ -53,7 +53,7 @@ if page == 1 { // save menu
 	var spacing = 112
 	for (var i = 0; i < maxslots; ++i) {
 		var space = 84
-		if array_length(global.saves) <= i || global.saves[i] == -1 {
+		if array_length(global.save_files) <= i || global.save_files[i] == -1 {
 			if prog == 1 
 				draw_set_color(c_dkgray)
 			if i == s_selection {
@@ -71,7 +71,7 @@ if page == 1 { // save menu
 		}
 		else {
 			if prog != 2 
-				time = time_format(save_s_get(i, "time"))
+				time = time_format(global.save_files[i].TIME)
 			
 			if i == s_selection{
 				if prog != 1 
@@ -90,13 +90,13 @@ if page == 1 { // save menu
 				
 				draw_set_halign(fa_center)
 				if prog != 2 
-					draw_text_transformed(320,32 + i*space + spacing, save_s_get(i, "name"), 2, 2, 0)
+					draw_text_transformed(320,32 + i*space + spacing, global.save_files[i].NAME, 2, 2, 0)
 				if prog != 2 
-					draw_text_transformed(320,64 + i*space + spacing, loc(save_s_get(i, "room_name")), 2, 2, 0)
+					draw_text_transformed(320,64 + i*space + spacing, loc(global.save_files[i].ROOM_NAME), 2, 2, 0)
 				
 				draw_set_halign(fa_left)
 				if prog != 2 
-					draw_text_transformed(124, 32 + i*space + spacing, $"LV {save_s_get(i, "chapter")}", 2, 2, 0)
+					draw_text_transformed(124, 32 + i*space + spacing, $"LV {global.save_files[i].CHAPTER}", 2, 2, 0)
 				
 				draw_set_halign(fa_right)
 				if prog != 2 
@@ -135,13 +135,13 @@ if page == 1 { // save menu
 		{
 			draw_set_halign(fa_center)
 			draw_text_transformed(320, 131 - 8, loc_string("save_menu_overwrite_query", s_selection + 1), 2, 2, 0)
-			draw_text_transformed(320, 173 - 8, save_s_get(s_selection, "name"), 2, 2, 0)
-			draw_text_transformed(320, 203 - 8, loc(save_s_get(s_selection, "room_name")), 2, 2, 0)
+			draw_text_transformed(320, 173 - 8, global.save_files[s_selection].NAME, 2, 2, 0)
+			draw_text_transformed(320, 203 - 8, global.save_files[s_selection].ROOM_NAME, 2, 2, 0)
 			draw_set_halign(fa_left)
 		
-			draw_text_transformed(80, 173 - 8, $"LV {save_s_get(s_selection, "chapter")}", 2, 2, 0)
+			draw_text_transformed(80, 173 - 8, $"LV {global.save_files[s_selection].CHAPTER}", 2, 2, 0)
 			draw_set_halign(fa_right)
-			draw_text_transformed(557, 173 - 8, time_format(save_s_get(s_selection, "time")), 2, 2, 0)
+			draw_text_transformed(557, 173 - 8, time_format(global.save_files[s_selection].TIME), 2, 2, 0)
 			draw_set_halign(fa_left)
 		}
 		

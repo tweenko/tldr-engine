@@ -125,10 +125,8 @@ function loc_switch_lang(lang = undefined, load_save = true) {
     if load_save {
         music_stop_all();
         
-        global.saves = save_read_all() // saves saved on device
-        if global.saves[global.save_slot] != -1 
-            global.save = global.saves[global.save_slot]
-        save_load(global.save_slot);
+        // load back to the most recent save
+        save_load();
         
         room_goto(save_get("room"));
     }
