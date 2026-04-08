@@ -136,7 +136,7 @@ if page == 1 { // save menu
 			draw_set_halign(fa_center)
 			draw_text_transformed(320, 131 - 8, loc_string("save_menu_overwrite_query", s_selection + 1), 2, 2, 0)
 			draw_text_transformed(320, 173 - 8, global.save_files[s_selection].NAME, 2, 2, 0)
-			draw_text_transformed(320, 203 - 8, global.save_files[s_selection].ROOM_NAME, 2, 2, 0)
+			draw_text_transformed(320, 203 - 8, loc(global.save_files[s_selection].ROOM_NAME), 2, 2, 0)
 			draw_set_halign(fa_left)
 		
 			draw_text_transformed(80, 173 - 8, $"LV {global.save_files[s_selection].CHAPTER}", 2, 2, 0)
