@@ -26,13 +26,6 @@ function do_anime(_val1,_val2, _time, _ease_type, _call_method, _call_args = und
 
 /// @ignore
 /// @deprecated
-/// renamed to `save_set_slot`
-function save_set(slot) {
-    save_set_slot(slot)
-}
-
-/// @ignore
-/// @deprecated
 /// renamed to `enc_enemy_add_spare`
 function enc_sparepercent_enemy(target, percent, sfx = snd_mercyadd) {
     return enc_enemy_add_spare(target, percent, sfx)

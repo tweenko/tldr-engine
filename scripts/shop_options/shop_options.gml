@@ -225,7 +225,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
             draw_set_font(loc_font("enc"))
             if !is_undefined(space) && !is_undefined(array) && selection < array_length(items)
                 draw_text(520, 430, (__space > 0 
-                    ? string(loc("shop_buy_space"), __space) 
+                    ? loc_string("shop_buy_space", __space) 
                     : loc("shop_buy_no_space")
                 ))
         }
@@ -365,7 +365,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
         if buy_prompt {
             draw_set_font(loc_font("main"))
             
-            draw_text_ext_transformed(460, 260, string(loc("shop_buy_prompt"), item_get_buy_price(items[selection])), 16, 70, 2, 2, 0)
+            draw_text_ext_transformed(460, 260, loc_string("shop_buy_prompt", item_get_buy_price(items[selection])), 16, 70, 2, 2, 0)
             
             draw_sprite_ext(spr_uisoul, 0, 450, 350 + buy_prompt_selection*30, 1, 1, 0, c_red, 1)
             
@@ -590,7 +590,7 @@ function shop_option_sell(_sell_options = [
                 var __item = item_array[item_selection]
                 
                 draw_set_font(loc_font("main"))
-                draw_text_ext_transformed(460, 260, string(loc("shop_sell_prompt"), item_get_sell_price(__item)), 16, 70, 2, 2, 0)
+                draw_text_ext_transformed(460, 260, loc_string("shop_sell_prompt", item_get_sell_price(__item)), 16, 70, 2, 2, 0)
                 
                 draw_sprite_ext(spr_uisoul, 0, 450, 350 + sell_prompt_selection*30, 1, 1, 0, c_red, 1)
                 

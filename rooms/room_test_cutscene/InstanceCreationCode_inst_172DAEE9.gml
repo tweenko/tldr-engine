@@ -1,4 +1,4 @@
-if state_get("cutscene_seen") {
+if state_get("cutscenes", id) {
     instance_destroy()
     instance_activate_object(inst_3CB25A36)
     exit
@@ -156,7 +156,7 @@ trigger_code = function() {
     cutscene_func(function(inst) {
         music_resume(0)
         music_fade(0, 1, 30)
-        state_add("cutscene_seen", inst)
+        state_set("cutscenes", inst)
     }, [id])
     
     cutscene_party_follow(true)

@@ -37,8 +37,12 @@ function loc_load(lang = global.loc_lang) {
 			var tnms = struct_get_names(tstruct)
 			
 			for (var j = 0; j < array_length(tnms); ++j) {
-				struct_set(global.loc_source, tnms[j], struct_get(struct_get(tstruct, tnms[j]), lang))
-				struct_set(global.loc_source_fallback, tnms[j], struct_get(struct_get(tstruct, tnms[j]), global.loc_fallback_lang))
+                var __target_struct = struct_get(tstruct, tnms[j])
+                
+                if struct_exists(__target_struct, lang)
+				    struct_set(global.loc_source, tnms[j], struct_get(__target_struct, lang))
+                if struct_exists(__target_struct, global.loc_fallback_lang)
+				    struct_set(global.loc_source_fallback, tnms[j], struct_get(__target_struct, global.loc_fallback_lang))
 			}
 			
             file_text_close(f)
@@ -48,6 +52,17 @@ function loc_load(lang = global.loc_lang) {
     }
 }
 
+///@desc returns whether a certain loc_id can be localized
+///@arg {string} loc_id
+function loc_exists(loc_id) {
+	if struct_exists(global.loc_source, loc_id)
+		return true;
+    if struct_exists(global.loc_source_fallback, loc_id)
+        return true;
+		
+	return false;
+}
+
 ///@desc used to localize strings by finding the same one in the localization file
 ///@arg {string} loc_id the id of the localized text you want to get
 function loc(loc_id) {
@@ -55,6 +70,25 @@ function loc(loc_id) {
 		return struct_get(global.loc_source, loc_id)
     if struct_exists(global.loc_source_fallback, loc_id)
         return struct_get(global.loc_source_fallback, loc_id)
+		
+	return loc_id
+}
+/// @desc used to localize strings by finding the same one in the localization file while also functioning as the `string` function in terms of being able to replace bracketed parts of the localized string (supports infinite arguments)
+/// @arg {string} loc_id the id of the localized text you want to get
+/// @arg {string,real} replacements a value you'd like to replace the corresponding bracketed part of the localized string with
+/// @arg {string,real} ...
+/// @arg {string,real} ...
+/// @arg {string,real} ...
+/// @arg {string,real} ...
+function loc_string(loc_id, replacement0 = "", replacement1 = "", replacement2 = "", replacement3 = "", replacement4 = "") {
+	if struct_exists(global.loc_source, loc_id) {
+        loc_id = struct_get(global.loc_source, loc_id)
+        return string(loc_id, replacement0, replacement1, replacement2, replacement3, replacement4)
+    }
+    if struct_exists(global.loc_source_fallback, loc_id) {
+        loc_id = struct_get(global.loc_source_fallback, loc_id)
+        return string(loc_id, replacement0, replacement1, replacement2, replacement3, replacement4)
+    }
 		
 	return loc_id
 }
@@ -106,10 +140,8 @@ function loc_switch_lang(lang = undefined, load_save = true) {
     if load_save {
         music_stop_all();
         
-        global.saves = save_read_all() // saves saved on device
-        if global.saves[global.save_slot] != -1 
-            global.save = global.saves[global.save_slot]
-        save_load(global.save_slot);
+        // load back to the most recent save
+        save_load();
         
         room_goto(save_get("room"));
     }

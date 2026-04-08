@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"save_settings",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"save_settings",
+  "parent":{
+    "name":"internal",
+    "path":"folders/@Engine/scripts/systems/general/internal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

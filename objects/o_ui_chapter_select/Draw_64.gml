@@ -51,7 +51,7 @@ else {
 				draw_sprite_ext(spr_ui_soul, 0, 20, 24 + 60*i + yadd, 2, 2, 0, c_red, alpha)
 			}
 			
-            var _label = string(loc("chapter_select_chapter"), i + 1)
+            var _label = loc_string("chapter_select_chapter", i + 1)
 			draw_set_font(font_main)
 		    draw_text_transformed(50, 24 - 8 + i*60 + yadd, _label, 2, 2, 0)
 			draw_set_font(loc_font("main"))

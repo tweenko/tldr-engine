@@ -1,26 +1,35 @@
 function string_to_color(color_string){
 	switch color_string {
 		case "c_red":
+        case "red":
 		case "r":
 			return c_red
 		case "c_blue":
+		case "blue":
 		case "b":
 			return c_blue
 		case "c_yellow":
+		case "yellow":
 		case "y":
 			return c_yellow
 		case "c_lime":
+		case "lime":
 		case "g":
 			return c_lime
 		case "c_black":
+		case "black":
 			return c_black
 		case "c_dkgray":
+		case "dkgray":
 			return c_dkgray
 		case "c_gray":
+		case "gray":
 			return c_gray
 		case "c_silver":
+		case "silver":
 			return c_silver
         case "c_orange":
+        case "orange":
             return c_orange
 		default:
 			return c_white
@@ -329,4 +338,10 @@ function draw_pixel(x, y, w, h, col = draw_get_color(), alp = draw_get_alpha(), 
 }
 function draw_pixel_center(x, y, w, h, col = draw_get_color(), alp = draw_get_alpha(), rot = 0){
 	draw_sprite_ext(spr_pixelfour, 0, x, y, w/4, h/4, rot, col, alp);
+}
+
+/// @desc returns the name of an input verb and localizes it
+/// @arg {enum.INPUT_VERB} _verb
+function input_verb_get_name(_verb) {
+    return loc("menu_controls_" + string_lower(InputVerbGetExportName(_verb)))
 }

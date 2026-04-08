@@ -106,7 +106,7 @@ function item_add(item_struct, type = undefined) {
 		if item_get_count(type) + 1 > item_get_maxcount(type) 
 			can = false  
     
-	var txt = string(loc("item_added"), item_get_name(item_struct), item_get_store_name(type))
+	var txt = loc_string("item_added", item_get_name(item_struct), item_get_store_name(type))
 	if can {
 		if type == ITEM_TYPE.STORAGE {
             var index = 0
