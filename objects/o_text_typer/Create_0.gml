@@ -25,7 +25,10 @@
 	talk_link = []
 	xcolor = c_white
     solid_color = false
-	effect = 0
+    
+	effect = undefined
+    effect_arguments = []
+    
 	god = 0
     predict_text = true
      
@@ -176,6 +179,7 @@ __create_symbol = function(symbol) {
     inst.font = font
     inst.shadow = shadow
     inst.effect = effect
+    inst.effect_arguments = effect_arguments
     inst.timer = chartimeroff * chars
     inst.god = god
     inst.solid_color = solid_color
@@ -187,6 +191,8 @@ __create_symbol = function(symbol) {
     xoff += xspace * xscale
     text = string_delete(text, 1, 1)
     chars ++
+    
+    inst._init()
     
     return inst
 }

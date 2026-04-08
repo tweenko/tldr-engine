@@ -536,14 +536,16 @@ if selection == 3 && state > 0 { // config
             draw_text_transformed(435, 100, loc("menu_controls_gamepad"), 2, 2, 0)
         
         draw_sprite_ext(spr_soul, 0, 88, 156 + 28 * c_controls_selection, 1, 1, 0, c_red, 1)
-        for (var i = 0; i < array_length(c_controls); i ++) {
+        
+        var i = 0;
+        for (i = 0; i < array_length(c_controls); i ++) {
             if c_controls_selection == i {
                 draw_set_color(c_aqua)
                 if c_controls_changing
                     draw_set_color(c_red)
             }
             
-            draw_text_transformed(105, 140 + 28*i, loc("menu_controls_" + string_lower(InputVerbGetExportName(c_controls[i]))), 2, 2, 0)
+            draw_text_transformed(105, 140 + 28*i, input_verb_get_name(c_controls[i]), 2, 2, 0)
             draw_text_transformed(325, 140 + 28*i, input_binding_to_string(InputBindingGet(false, c_controls[i]), false, false), 2, 2, 0)
             
             draw_set_color(c_white)

@@ -225,10 +225,43 @@ if x_move != 0 || y_move != 0 {
         y += yy
     
     // diagonal collisions
-    if place_meeting(x + xx, y, o_block_diag) 
-        y += sign(instance_place(x + xx, y, o_block_diag).image_yscale) * currentspd
-    if place_meeting(x, y + yy, o_block_diag)
-        x += sign(instance_place(x, y + yy, o_block_diag).image_xscale) * currentspd
+    var __diagonal_x = instance_place_list_ext(x + xx, y, o_block_diag, false)
+    for (var i = 0; i < array_length(__diagonal_x); i ++) {
+        if instance_exists(__diagonal_x[i]) && __diagonal_x[i].collide {
+            var compensate_y = sign(__diagonal_x[i].image_yscale) * currentspd
+            var interfering_collisions = instance_place_list_ext(x + xx, y + compensate_y, o_block, false)
+            
+            for (var j = 0; j < array_length(interfering_collisions); j ++) {
+                if instance_exists(interfering_collisions[j]) && interfering_collisions[j].object_index != o_block_diag && interfering_collisions[j].collide{
+                    compensate_y = 0
+                    break
+                }
+            }
+            
+            y += compensate_y
+            
+            break
+        }
+    }
+    
+    var __diagonal_y = instance_place_list_ext(x, y + yy, o_block_diag, false)
+    for (var i = 0; i < array_length(__diagonal_y); i ++) {
+        if instance_exists(__diagonal_y[i]) && __diagonal_y[i].collide {
+            var compensate_x = sign(__diagonal_y[i].image_xscale) * currentspd
+            var interfering_collisions = instance_place_list_ext(x + compensate_x, y + yy, o_block, false)
+            
+            for (var j = 0; j < array_length(interfering_collisions); j ++) {
+                if instance_exists(interfering_collisions[j]) && interfering_collisions[j].object_index != o_block_diag && interfering_collisions[j].collide {
+                    compensate_x = 0
+                    break
+                }
+            }
+            
+            x += compensate_x
+            
+            break
+        }
+    }
     
     moving = true
 }

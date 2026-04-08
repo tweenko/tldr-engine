@@ -37,8 +37,12 @@ function loc_load(lang = global.loc_lang) {
 			var tnms = struct_get_names(tstruct)
 			
 			for (var j = 0; j < array_length(tnms); ++j) {
-				struct_set(global.loc_source, tnms[j], struct_get(struct_get(tstruct, tnms[j]), lang))
-				struct_set(global.loc_source_fallback, tnms[j], struct_get(struct_get(tstruct, tnms[j]), global.loc_fallback_lang))
+                var __target_struct = struct_get(tstruct, tnms[j])
+                
+                if struct_exists(__target_struct, lang)
+				    struct_set(global.loc_source, tnms[j], struct_get(__target_struct, lang))
+                if struct_exists(__target_struct, global.loc_fallback_lang)
+				    struct_set(global.loc_source_fallback, tnms[j], struct_get(__target_struct, global.loc_fallback_lang))
 			}
 			
             file_text_close(f)
@@ -46,6 +50,17 @@ function loc_load(lang = global.loc_lang) {
 		else
             loc_error($"Localization file \"{fname}\" was not found.", true)
     }
+}
+
+///@desc returns whether a certain loc_id can be localized
+///@arg {string} loc_id
+function loc_exists(loc_id) {
+	if struct_exists(global.loc_source, loc_id)
+		return true;
+    if struct_exists(global.loc_source_fallback, loc_id)
+        return true;
+		
+	return false;
 }
 
 ///@desc used to localize strings by finding the same one in the localization file

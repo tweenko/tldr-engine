@@ -172,8 +172,6 @@ music_stop_all()
 save_reload()
 save_load(global.save_slot)
 
-show_debug_message(global.save_files)
-
 // init the typer chars
 typer_chars_init()
 

@@ -10,6 +10,7 @@ function save_entry(_name, _default_value, _import_method = undefined, _export_m
     var __entry_struct = {
         name: _name,
         default_value: variable_clone(_default_value),
+        original_default: variable_clone(_default_value), // this one is here for preserving the original default
         __import: _import_method,
         __export: _export_method,
         __convert: _convert_method,
@@ -23,11 +24,32 @@ function save_entry(_name, _default_value, _import_method = undefined, _export_m
 /// @return {any}
 function save_entry_get_default(_entry_name) {
     for (var i = 0; i < array_length(global.save_recording); i ++) {
-        if string_lower(global.save_recording[i].name) == string_lower(_entry_name) {
+        if string_upper(global.save_recording[i].name) == string_upper(_entry_name) {
             return global.save_recording[i].default_value;
         }
     }
     return undefined;
+}
+/// @desc changes the default value of a save entry
+/// @arg {string} _entry_name the name of the save entry
+/// @arg {any} _new_default the new default you'd like the entry to have
+function save_entry_set_default(_entry_name, _new_default) {
+    for (var i = 0; i < array_length(global.save_recording); i ++) {
+        if string_upper(global.save_recording[i].name) == string_upper(_entry_name) {
+            global.save_recording[i].default_value = _new_default;
+            break;
+        }
+    }
+}
+/// @desc resets the default value of a save entry to its original definition
+/// @arg {string} _entry_name the name of the save entry
+function save_entry_reset_default(_entry_name) {
+    for (var i = 0; i < array_length(global.save_recording); i ++) {
+        if string_upper(global.save_recording[i].name) == string_upper(_entry_name) {
+            global.save_recording[i].default_value = global.save_recording[i].original_default;
+            break;
+        }
+    }
 }
 
 /// @desc get a struct ready for import
