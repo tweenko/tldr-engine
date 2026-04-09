@@ -1,7 +1,7 @@
 draw_set_font(global.font_numbers_w)
 if mode == 3 {
-	draw_sprite_ext(spr_ui_damage_recruit, 0, 
-		visual_x - (align == 1 ? sprite_get_width(spr_ui_damage_recruit) : 0), visual_y, 
+	draw_sprite_ext(loc_sprite("enc_ui_spr_recruit"), 0, 
+		visual_x - (align == 1 ? sprite_get_width(loc_sprite("enc_ui_spr_recruit")) : 0), visual_y, 
 		2 - stretch, stretch * image_yscale, 
 		0, c_white, image_alpha
 	)
@@ -65,38 +65,9 @@ else {
 		}
 		else {
 			var spr = spr_ui_damage_miss
-			switch draw {
-				case "miss": 
-					spr = spr_ui_damage_miss 
-					break
-				case "+100%": 
-					spr = spr_ui_damage_100
-					break
-				case "down": 
-					spr = spr_ui_damage_down
-					break
-				case "up": 
-					spr = spr_ui_damage_up
-					break
-				case "lost": 
-					spr = spr_ui_damage_lost
-					break
-				case "max": 
-					spr = spr_ui_damage_max
-					break
-                case "purified":
-                    spr = spr_ui_damage_purified
-                    break
-                case "frozen":
-                    spr = spr_ui_damage_frozen
-                    break
-                case "tired":
-                    spr = spr_ui_damage_tired
-                    break
-                case "awake":
-                    spr = spr_ui_damage_awake
-                    break
-			}
+            
+            if sprite_exists(asset_get_index(string(loc("enc_ui_spr_damage"), draw)))
+                spr = asset_get_index(string(loc("enc_ui_spr_damage"), draw))
 			
 			draw_sprite_ext(spr, 0,
 				visual_x - (align == 1 ? sprite_get_width(spr) : 0) + xoff, visual_y, 

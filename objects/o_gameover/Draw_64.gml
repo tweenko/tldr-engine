@@ -8,7 +8,7 @@ if state == 1 {
 	draw_sprite_ext(sprite_index, 0, x*2, y*2, 1, 1, image_angle, image_blend, 1)
 }
 if state >= 2 {
-	draw_sprite_ext(spr_ui_gameover, 0, 0, 40, 2, 2, image_angle, c_white, image_alpha)
+	draw_sprite_ext(loc_sprite("game_over_spr"), 0, 0, 40, 2, 2, image_angle, c_white, image_alpha)
 }
 if state >= 4 {
 	draw_sprite_ext(spr_ui_soul_blur, 0, soulx, souly, 2, 2, 0, c_white, ui_alpha/2)

@@ -1,4 +1,8 @@
 {
+  "game_over_spr": {
+    "en": "spr_ui_gameover"
+  },
+
   "game_over_continue": {
     "en": "CONTINUE", "ja": "CONTINUE"
   },

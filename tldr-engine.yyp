@@ -1264,6 +1264,7 @@
     {"id":{"name":"spr_ui_damage_max","path":"sprites/spr_ui_damage_max/spr_ui_damage_max.yy",},},
     {"id":{"name":"spr_ui_damage_miss","path":"sprites/spr_ui_damage_miss/spr_ui_damage_miss.yy",},},
     {"id":{"name":"spr_ui_damage_purified","path":"sprites/spr_ui_damage_purified/spr_ui_damage_purified.yy",},},
+    {"id":{"name":"spr_ui_damage_recruit_ja","path":"sprites/spr_ui_damage_recruit_ja/spr_ui_damage_recruit_ja.yy",},},
     {"id":{"name":"spr_ui_damage_recruit","path":"sprites/spr_ui_damage_recruit/spr_ui_damage_recruit.yy",},},
     {"id":{"name":"spr_ui_damage_swoon","path":"sprites/spr_ui_damage_swoon/spr_ui_damage_swoon.yy",},},
     {"id":{"name":"spr_ui_damage_tired","path":"sprites/spr_ui_damage_tired/spr_ui_damage_tired.yy",},},
