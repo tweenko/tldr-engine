@@ -27,6 +27,12 @@
         "en": "spr_ui_menu_caption_weapons",
         "ja": "spr_ui_menu_caption_weapons_ja"
     },
+    "menu_caption_tp_spr": {
+        "en": "spr_ui_menu_caption_tp"
+    },
+    "menu_caption_hp": {
+        "en": "spr_ui_hp_text"
+    },
 
     "menu_stat_attack": {
         "en": "Attack:", "ja": "こうげき: "
@@ -156,5 +162,66 @@
     "menu_misc_quit": {
         "en": "spr_ui_misc_quit_en",
         "ja": "spr_ui_misc_quit_ja"
+    },
+
+    "menu_lw_option_item": {
+        "en": "ITEM"
+    },
+    "menu_lw_option_stat": {
+        "en": "STAT"
+    },
+    "menu_lw_option_cell": {
+        "en": "CELL"
+    },
+
+    "menu_lw_lv": {
+        "en": "LV"
+    },
+    "menu_lw_hp": {
+        "en": "HP"
+    },
+    "menu_lw_at": {
+        "en": "AT"
+    },
+    "menu_lw_df": {
+        "en": "DF"
+    },
+    "menu_lw_weapon_none": {
+        "en": "Pencil"
+    },
+    "menu_lw_armor_none": {
+        "en": "Bandage"
+    },
+    "menu_lw_equipped_nothing": {
+        "en": "(Nothing)"
+    },
+
+    "menu_lw_item_use": {
+        "en": "USE"
+    },
+    "menu_lw_item_info": {
+        "en": "INFO"
+    },
+    "menu_lw_item_drop": {
+        "en": "DROP"
+    },
+
+    "menu_lw_stats_since_chapter": {
+        "en": "Since\nChapter {0}"
+    },
+    "menu_lw_stats_exp": {
+        "en": "EXP: {0}"
+    },
+    "menu_lw_stats_next": {
+        "en": "NEXT: {0}"
+    },
+    "menu_lw_stats_weapon": {
+        "en": "WEAPON:"
+    },
+    "menu_lw_stats_armor": {
+        "en": "ARMOR:"
+    },
+    "menu_lw_stats_money": {
+        "en": "MONEY: {0}"
     }
 }

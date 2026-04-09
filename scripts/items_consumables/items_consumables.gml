@@ -108,9 +108,24 @@ function item_lw_shit() : item() constructor {
 		can: true,
 		execute_code: function(index, item_index){
 			dialogue_start("* You dropped the shit. Now the room stinks. Thanks.")
-			item_delete(item_index, 6)
+			item_delete(item_index, ITEM_TYPE.LIGHT)
 		}
 	}
     
     sell_price = 2
+}
+
+function item_lw_bandage() : item() constructor {
+    name = ["Bandage"]
+    desc = ["", "--"]
+    
+    use = function(item_index, target_index, caller) {
+        audio_play(snd_heal)
+        save_set("LW_HP", clamp(save_get("LW_HP") + 10, 0, save_get("LW_MAXHP")))
+		dialogue_start(loc("item_c_lw_bandage_apply"))
+        
+        item_delete(item_index, ITEM_TYPE.LIGHT)
+	}
+    
+    item_localize("item_c_lw_bandage")
 }

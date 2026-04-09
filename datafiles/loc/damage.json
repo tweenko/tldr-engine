@@ -1,0 +1,39 @@
+{
+    "damage_100": {
+        "en": "spr_ui_damage_100"
+    },
+    "damage_awake": {
+        "en": "spr_ui_damage_awake"
+    },
+    "damage_down": {
+        "en": "spr_ui_damage_down"
+    },
+    "damage_frozen": {
+        "en": "spr_ui_damage_frozen"
+    },
+    "damage_lost": {
+        "en": "spr_ui_damage_lost"
+    },
+    "damage_max": {
+        "en": "spr_ui_damage_max"
+    },
+    "damage_miss": {
+        "en": "spr_ui_damage_miss"
+    },
+    "damage_purified": {
+        "en": "spr_ui_damage_purified"
+    },
+    "damage_recruit": {
+        "en": "spr_ui_damage_recruit",
+        "ja": "spr_ui_damage_recruit_ja"
+    },
+    "damage_swoon": {
+        "en": "spr_ui_damage_swoon"
+    },
+    "damage_tired": {
+        "en": "spr_ui_damage_tired"
+    },
+    "damage_up": {
+        "en": "spr_ui_damage_up"
+    }
+}

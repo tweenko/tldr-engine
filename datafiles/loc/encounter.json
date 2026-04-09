@@ -4,6 +4,26 @@
         "ja": "spr_ui_enc_bt_{0}_ja"
     },
 
+    "enc_ui_spr_tp": {
+        "en": "spr_ui_enc_tpbar_caption"
+    },
+
+    "enc_ui_spr_damage": {
+        "en": "spr_ui_damage_{0}"
+    },
+    "enc_ui_spr_recruit": {
+        "en": "spr_ui_damage_recruit",
+        "ja": "spr_ui_damage_recruit_ja"
+    },
+
+    "enc_fight_press_spr": {
+        "en": "spr_ui_enc_press"
+    },
+
+    "enc_target_spr": {
+        "en": "spr_enc_target"
+    },
+
     "enc_ui_label_hp": {
         "en": "HP",
         "ja": "HP"

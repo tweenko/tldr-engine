@@ -12,7 +12,7 @@ surface_set_target(surf)
         draw_set_font(loc_font("main"))
         draw_set_color(c_white)
         
-        draw_sprite_ext(spr_ui_enc_tpbar_caption, 0, x - 40 + x_offset, y - 61, 2, 2, 0, c_white, 1)
+        draw_sprite_ext(loc_sprite("enc_ui_spr_tp"), 0, x - 40 + x_offset, y - 61, 2, 2, 0, c_white, 1)
         
         if round(tp_visual_fast) >= 100 {
             full = true

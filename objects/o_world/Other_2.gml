@@ -82,13 +82,13 @@ array_push(global.key_items, new item_key_cell_phone())
     save_entry("LW_SINCE_CHAPTER", undefined)
     
     save_entry("LW_WEAPON", 
-        undefined, 
+        new item_w_lw_pencil(), 
         function(_conv_data){ global.lw_weapon = _conv_data }, 
         function(){ return save_export_constructed(global.lw_weapon) },
         function(_raw_data) { return save_import_constructed(_raw_data) }
     )
     save_entry("LW_ARMOR", 
-        undefined, 
+        new item_a_lw_bandage(), 
         function(_conv_data){ global.lw_armor = _conv_data }, 
         function(){ return save_export_constructed(global.lw_armor) },
         function(_raw_data) { return save_import_constructed(_raw_data) }

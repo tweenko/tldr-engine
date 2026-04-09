@@ -62,7 +62,7 @@ for (var i = 0; i < party_length(); ++i) {
     var health_real = string(party_getdata(member_name, "hp"))
     var health_max = string(party_getdata(member_name, "max_hp"))
     
-    draw_sprite_ext(spr_ui_hp_text, 0, 110 + xoff, box_base_y + 22, 1, 1, 0, c_white, 1)
+    draw_sprite_ext(loc_sprite("menu_caption_hp"), 0, 110 + xoff, box_base_y + 22, 1, 1, 0, c_white, 1)
     draw_sprite_ext(spr_pixel, 0, 128 + xoff, box_base_y + 22, 76, 9, 0, c_maroon, 1)
     draw_sprite_ext(spr_pixel, 0, 128 + xoff, box_base_y + 22, 76 * max(0, health_coeff), 9, 0, party_getdata(member_name, "color"), 1)
     

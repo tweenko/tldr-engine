@@ -9,7 +9,7 @@ visual_y = y
 
 x += 9; y += 6
 
-if mode == 3 || mode == 4 {
+if mode == TEXT_HPCHANGE_MODE.RECRUIT || mode == TEXT_HPCHANGE_MODE.SCALE {
 	var a = animate(.1, 1.5, 6, anime_curve.quad_out, id, "stretch", false)
         a._add(1, 4, anime_curve.linear)
         a._start()
