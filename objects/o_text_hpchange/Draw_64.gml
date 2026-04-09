@@ -43,7 +43,7 @@ else {
 	else {
 		if mode == 2 {
 			if draw == "+100%" {
-				var spr = spr_ui_damage_100
+				var spr = asset_get_index(loc_string("enc_ui_spr_damage", "100"))
 				draw_sprite_ext(spr, 0, 
 					visual_x - (align == 1 ? sprite_get_width(spr) : 0) + xoff, visual_y, 
 					2 - stretch, stretch * image_yscale, 
@@ -64,10 +64,10 @@ else {
 			}
 		}
 		else {
-			var spr = spr_ui_damage_miss
+			var spr = asset_get_index(loc_string("enc_ui_spr_damage", "miss"))
             
-            if sprite_exists(asset_get_index(string(loc("enc_ui_spr_damage"), draw)))
-                spr = asset_get_index(string(loc("enc_ui_spr_damage"), draw))
+            if sprite_exists(asset_get_index(loc_string("enc_ui_spr_damage", draw)))
+                spr = asset_get_index(loc_string("enc_ui_spr_damage", draw))
 			
 			draw_sprite_ext(spr, 0,
 				visual_x - (align == 1 ? sprite_get_width(spr) : 0) + xoff, visual_y, 

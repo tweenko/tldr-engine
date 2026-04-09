@@ -20,6 +20,10 @@
         "en": "spr_ui_enc_press"
     },
 
+    "enc_target_spr": {
+        "en": "spr_enc_target"
+    },
+
     "enc_ui_label_hp": {
         "en": "HP",
         "ja": "HP"

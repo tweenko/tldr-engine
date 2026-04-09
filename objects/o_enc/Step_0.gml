@@ -277,7 +277,9 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
                     if array_contains(turn_targets, global.party_names[i]) {
                         if encounter_data.display_target {
                             var o = party_get_inst(global.party_names[i])
-                            instance_create(o_enc_target, o.x, o.s_get_middle_y(), o.depth-10)
+                            instance_create(o_enc_target, o.x, o.s_get_middle_y(), o.depth-10,{
+                                sprite_index: loc_sprite("enc_target_spr")
+                            })
                         }
                     }
                     else {
