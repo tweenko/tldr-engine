@@ -11,7 +11,7 @@ function item() constructor {
 	can_use = true // can also be a function that returns boolean
 	throw_scripts = {
 		can: true,
-		execute_code: function() { //executes this INSTEAD of the default item_delete
+		execute_code: function(_index) { //executes this INSTEAD of the default item_delete
 		},
 	}
 	
@@ -42,6 +42,8 @@ function item() constructor {
     use_encounter_text = "item_use" // will be localized. {0} is the party member name and {1} is the item name. can also be callable
 	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
+    
+    unequipped = function(new_item_index) {}
 	
 	buy_price = 0 // can be callable
     // sell_price = 0 // can be callable

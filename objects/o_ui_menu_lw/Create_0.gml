@@ -3,28 +3,26 @@ if instance_exists(get_leader())
 
 yy = 0
 state = 0
-
 selection = 0
 dialogue_overlay = false
 
 ip_selection = 0
 i_selection = 0
-
 c_selection = 0
 
 options = [
 	{
-		name: "ITEM",
+		name: loc("menu_lw_option_item"),
 		selectable: (item_get_count(ITEM_TYPE.LIGHT) == 0 ? false : true),
 		state: 1,
 	},
 	{
-		name: "STAT",
+		name: loc("menu_lw_option_stat"),
 		selectable: true,
 		state: 3,
 	},
 	{
-		name: "CELL",
+		name: loc("menu_lw_option_cell"),
 		selectable: true,
 		state: 4,
 	},

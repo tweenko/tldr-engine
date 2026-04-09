@@ -96,5 +96,20 @@
                 "noelle": "ミント…？　大好き！"
             }
         }
+    },
+
+    "item_c_lw_bandage" : {
+        "en": {
+            "name": ["Bandage"],
+            "desc": ["* \"Bandage\" - Heals 10 HP{br}{resetx}* It has cartoon characters on it.", "--"]
+        },
+        "ja": {
+            "name": ["ばんそうこう"],
+            "desc": ["＊ ばんそうこう - 10HPかいふく{br}{resetx}＊ キャラクターの えが かいてある。", "--"]
+        }
+    },
+    "item_c_lw_bandage_apply" : {
+        "en": "* You re-applied the bandage.",
+        "ja": "＊ ばんそうこうを　はりなおした。"
     }
 }

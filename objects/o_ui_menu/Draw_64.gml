@@ -49,7 +49,7 @@ if !only_hp { // top
 		draw_text_transformed(51 + 213*i + xoff, 430 + 80 - roll, string_upper(party_getname(global.party_names[i], false)), 1, 1, 0)
 		
 		draw_set_font(global.font_ui_hp)
-		draw_sprite_ext(loc_sprite("hp_spr"), 0, 110 + 213*i + xoff, 441 + 80 - roll, 1, 1, 0, c_white, 1)
+		draw_sprite_ext(loc_sprite("menu_caption_hp"), 0, 110 + 213*i + xoff, 441 + 80 - roll, 1, 1, 0, c_white, 1)
 		
 		draw_sprite_ext(spr_pixel, 0, 128 + 213*i + xoff, 441 + 80 - roll, 76, 9, 0, c_maroon, 1)
 		draw_sprite_ext(spr_pixel, 0, 128 + 213*i + xoff, 441 + 80 - roll, 76*(party_getdata(global.party_names[i], "hp")/party_getdata(global.party_names[i], "max_hp")), 9, 0,party_getdata(global.party_names[i], "color"), 1)

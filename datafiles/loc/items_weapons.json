@@ -56,16 +56,6 @@
             }
         }
     },
-    "item_w_lw_pencil": {
-        "en": {
-            "name": "Pencil",
-            "desc": ["* \"Pencil\" - Weapon 1 AT{br}{resetx}{sleep(10)}* Mightier than a sword?{br}{resetx}{sleep(10)} * Maybe equal at best.", "--"]
-        },
-        "ja": {
-            "name": "エンピツ",
-            "desc": ["＊ エンピツ - ぶきAT1{br}{resetx}{sleep(10)}＊ けんより　つよし？{br}{resetx}{sleep(10)}＊ …せいぜい　おなじぐらい　かな。", "--"]
-        }
-    },
 
     "item_w_saber10": {
         "en": {
@@ -307,6 +297,17 @@
                 "ralsei": "きれい…",
                 "noelle": "…"
             }
+        }
+    },
+
+    "item_w_lw_pencil": {
+        "en": {
+            "name": "Pencil",
+            "desc": ["* \"Pencil\" - Weapon 1 AT{br}{resetx}* Mightier than a sword?{br}{resetx}{s(10)}* Maybe equal at best.", "--"]
+        },
+        "ja": {
+            "name": "エンピツ",
+            "desc": ["＊ エンピツ - ぶきAT1{br}{resetx}{s(10)}＊ けんより　つよし？{br}{resetx}{s(10)}＊ …せいぜい　おなじぐらい　かな。", "--"]
         }
     }
 }

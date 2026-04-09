@@ -1,17 +1,17 @@
 { // top
-	ui_dialoguebox_create(32,52+yy, 142, 110)
+	ui_dialoguebox_create(32, 52 + yy, 142, 110)
 	
 	draw_set_font(loc_font("main"))
 	draw_set_color(c_white)
-	draw_text_transformed(46, 60+yy, loc(save_get("lw_name")), 2, 2, 0)
+	draw_text_transformed(46, 60 + yy, loc(save_get("lw_name")), 2, 2, 0)
 	draw_set_font(font_lwmenu)
 
-	draw_text_transformed(46, 100-6+yy, "lv", 2, 2, 0)
-	draw_text_transformed(82, 100-6+yy, save_get("lw_lv"), 2, 2, 0)
-	draw_text_transformed(46, 118-6+yy, "hp", 2, 2, 0)
-	draw_text_transformed(82, 118-6+yy, $"{save_get("lw_hp")}/{save_get("lw_maxhp")}", 2, 2, 0)
-	draw_text_transformed(46, 136-6+yy, "$", 2, 2, 0)
-	draw_text_transformed(80, 136-6+yy, save_get("lw_money"), 2, 2, 0)
+	draw_text_transformed(46, 100-6 + yy, loc("menu_lw_lv"), 2, 2, 0)
+	draw_text_transformed(82, 100-6 + yy, save_get("lw_lv"), 2, 2, 0)
+	draw_text_transformed(46, 118-6 + yy, loc("menu_lw_hp"), 2, 2, 0)
+	draw_text_transformed(82, 118-6 + yy, $"{save_get("lw_hp")}/{save_get("lw_maxhp")}", 2, 2, 0)
+	draw_text_transformed(46, 136-6 + yy, "$", 2, 2, 0)
+	draw_text_transformed(80, 136-6 + yy, save_get("lw_money"), 2, 2, 0)
 
 	draw_set_font(loc_font("main"))
 	draw_set_color(c_white)
@@ -44,15 +44,15 @@ if state == 1 || state == 2 { // items
 	
 	if ip_selection == 0 && state == 2
 		draw_sprite_ext(spr_ui_soul, 0, 208, 368, 2, 2, 0, c_red, 1)
-	draw_text_transformed(232, 360, "USE", 2, 2, 0)
+	draw_text_transformed(232, 360, loc("menu_lw_item_use"), 2, 2, 0)
     
 	if ip_selection == 1 && state == 2
 		draw_sprite_ext(spr_ui_soul, 0, 328-24, 368, 2, 2, 0, c_red, 1)
-	draw_text_transformed(328, 360, "INFO", 2, 2, 0)
+	draw_text_transformed(328, 360, loc("menu_lw_item_info"), 2, 2, 0)
     
 	if ip_selection == 2 && state == 2
 		draw_sprite_ext(spr_ui_soul, 0, 442-24, 368, 2, 2, 0, c_red, 1)
-	draw_text_transformed(442, 360, "DROP", 2, 2, 0)
+	draw_text_transformed(442, 360, loc("menu_lw_item_drop"), 2, 2, 0)
 }
 if state == 3 { // stats
 	var stats = {
@@ -75,15 +75,18 @@ if state == 3 { // stats
 		am_name: item_get_name(global.lw_armor),
 		money: save_get("lw_money"),
 	}
-    if is_undefined(stats.wp_name)
-        stats.wp_name = "Pencil"
+    
+    if is_undefined(global.lw_weapon)
+        stats.wp_name = loc("menu_lw_equipped_nothing");
     else {
-    	stats.attack = global.lw_weapon.stats.attack
+        if !is_undefined(global.lw_weapon)
+    	   stats.attack = global.lw_weapon.stats.attack;
     }
-    if is_undefined(stats.am_name)
-        stats.am_name = "Bandage"
+    if is_undefined(global.lw_armor)
+        stats.am_name = loc("menu_lw_equipped_nothing");
     else {
-    	stats.defense = global.lw_armor.stats.defense
+        if !is_undefined(global.lw_armor)
+    	   stats.defense = global.lw_armor.stats.defense;
     }
 	
 	var att = stats.attack_base + stats.attack
@@ -92,24 +95,32 @@ if state == 3 { // stats
 	ui_dialoguebox_create(188, 52, 346, 418)
 	draw_text_transformed(216, 84, $"\"{stats.name}\"", 2, 2, 0)
     if stats.since_chapter != undefined
-	    draw_text_transformed(384, 84, $"Since\nChapter {stats.since_chapter}", 2, 2, 0)
+	    draw_text_transformed(384, 84, loc_string("menu_lw_stats_since_chapter", stats.since_chapter), 2, 2, 0)
 	
-	draw_text_transformed(216, 144, "LV", 2, 2, 0)
+	draw_text_transformed(216, 144, loc("menu_lw_lv"), 2, 2, 0)
 	draw_text_transformed(256, 144, $"{stats.lv}", 2, 2, 0)
-	draw_text_transformed(216, 176, "HP", 2, 2, 0)
+	draw_text_transformed(216, 176, loc("menu_lw_hp"), 2, 2, 0)
 	draw_text_transformed(256, 176, $"{stats.hp} / {stats.hp_max}", 2, 2, 0)
 	
-	draw_text_transformed(216, 240, "AT", 2, 2, 0)
+	draw_text_transformed(216, 240, loc("menu_lw_at"), 2, 2, 0)
 	draw_text_transformed(256, 240, $"{att} ({stats.attack})", 2, 2, 0)
-	draw_text_transformed(216, 272, "DF", 2, 2, 0)
+	draw_text_transformed(216, 272, loc("menu_lw_df"), 2, 2, 0)
 	draw_text_transformed(256, 272, $"{def} ({stats.defense})", 2, 2, 0)
 	
-	draw_text_transformed(384, 240, $"EXP: {stats.experience}", 2, 2, 0)
-	draw_text_transformed(384, 272, $"NEXT: {stats.next_exp}", 2, 2, 0)
+	draw_text_transformed(384, 240, loc_string("menu_lw_stats_exp", stats.experience), 2, 2, 0)
+	draw_text_transformed(384, 272, loc_string("menu_lw_stats_next", stats.next_exp), 2, 2, 0)
 	
-	draw_text_transformed(216, 332, $"WEAPON: {stats.wp_name}", 2, 2, 0)
-	draw_text_transformed(216, 364, $"ARMOR: {stats.am_name}", 2, 2, 0)
-	draw_text_transformed(216, 404, $"MONEY: {stats.money}", 2, 2, 0)
+    var __txt = loc("menu_lw_stats_weapon")
+    var __xx = 216 + string_width(__txt)*2 + 8
+	draw_text_transformed(216, 332, loc("menu_lw_stats_weapon"), 2, 2, 0)
+    draw_text_xfit(__xx, 332, stats.wp_name, (524 - __xx)*2, 2, 2)
+    
+    __txt = loc("menu_lw_stats_armor")
+    __xx = 216 + string_width(__txt)*2 + 8
+	draw_text_transformed(216, 364, loc("menu_lw_stats_armor"), 2, 2, 0)
+	draw_text_xfit(__xx, 364, stats.am_name, (524 - __xx)*2, 2, 2)
+    
+	draw_text_transformed(216, 404, loc_string("menu_lw_stats_money", stats.money), 2, 2, 0)
 	
 }
 if state == 4 { // cell
@@ -123,5 +134,3 @@ if state == 4 { // cell
         draw_text_transformed(232, 80 + i*32, __number.name, 2, 2, 0)
     }
 }
-
-//draw_sprite_ext(spr_ref_lw_menu, 2,0,0,1,1,0,c_white,.25)

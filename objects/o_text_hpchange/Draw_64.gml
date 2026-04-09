@@ -1,7 +1,7 @@
 draw_set_font(global.font_numbers_w)
-if mode == 3 {
-	draw_sprite_ext(loc_sprite("enc_ui_spr_recruit"), 0, 
-		visual_x - (align == 1 ? sprite_get_width(loc_sprite("enc_ui_spr_recruit")) : 0), visual_y, 
+if mode == TEXT_HPCHANGE_MODE.RECRUIT {
+	draw_sprite_ext(loc_sprite("damage_recruit"), 0, 
+		visual_x - (align == 1 ? sprite_get_width(loc_sprite("damage_recruit")) : 0), visual_y, 
 		2 - stretch, stretch * image_yscale, 
 		0, c_white, image_alpha
 	)
@@ -18,13 +18,13 @@ if mode == 3 {
 }
 else {
 	if is_real(draw) {
-		if mode == 0 {
+		if mode == TEXT_HPCHANGE_MODE.PARTY {
 			if draw > 0
 				draw_set_color(c_lime)
 			else if draw < 0
 				draw_set_color(c_white)
 		}
-		else if mode == 1{
+		else if mode == TEXT_HPCHANGE_MODE.ENEMY {
 			if draw > 0
 				draw_set_color(c_lime)
 			if draw < 0
@@ -41,9 +41,9 @@ else {
 		draw_set_alpha(1)
 	}
 	else {
-		if mode == 2 {
+		if mode == TEXT_HPCHANGE_MODE.PERCENTAGE {
 			if draw == "+100%" {
-				var spr = asset_get_index(loc_string("enc_ui_spr_damage", "100"))
+				var spr = __draw_to_sprite(draw, loc_sprite("damage_100"));
 				draw_sprite_ext(spr, 0, 
 					visual_x - (align == 1 ? sprite_get_width(spr) : 0) + xoff, visual_y, 
 					2 - stretch, stretch * image_yscale, 
@@ -64,11 +64,7 @@ else {
 			}
 		}
 		else {
-			var spr = asset_get_index(loc_string("enc_ui_spr_damage", "miss"))
-            
-            if sprite_exists(asset_get_index(loc_string("enc_ui_spr_damage", draw)))
-                spr = asset_get_index(loc_string("enc_ui_spr_damage", draw))
-			
+			var spr = __draw_to_sprite(draw);
 			draw_sprite_ext(spr, 0,
 				visual_x - (align == 1 ? sprite_get_width(spr) : 0) + xoff, visual_y, 
 				2 - stretch, stretch * image_yscale, 

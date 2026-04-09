@@ -48,11 +48,11 @@ if state == 0 {
 }
 if state == 1 {
 	if InputPressed(INPUT_VERB.DOWN){
-		i_selection++
+		i_selection ++
 		audio_play(snd_ui_move)
 	}
 	else if InputPressed(INPUT_VERB.UP){
-		i_selection--
+		i_selection --
 		audio_play(snd_ui_move)
 	}
 	
@@ -75,11 +75,11 @@ if state == 1 {
 }
 if state == 2 {
 	if InputPressed(INPUT_VERB.RIGHT) {
-		ip_selection++
+		ip_selection ++
 		audio_play(snd_ui_move)
 	}
 	else if InputPressed(INPUT_VERB.LEFT) {
-		ip_selection--
+		ip_selection --
 		audio_play(snd_ui_move)
 	}
 	
@@ -96,10 +96,10 @@ if state == 2 {
 		if ip_selection == 0 {
 			item_use(_item, i_selection, 0)
 		}
-		else if ip_selection == 1{
+		else if ip_selection == 1 {
 			dialogue_start(item_get_desc(_item, ITEM_DESC_TYPE.FULL))
 		}
-		else if ip_selection == 2{
+		else if ip_selection == 2 {
 			_item.throw_scripts.execute_code(i_selection)
 		}
 		

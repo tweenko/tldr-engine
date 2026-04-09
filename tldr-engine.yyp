@@ -236,6 +236,7 @@
     {"$GMIncludedFile":"","%Name":"gamecontrollerdb.txt","CopyToMask":-1,"filePath":"datafiles","name":"gamecontrollerdb.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"input_license.txt","CopyToMask":-1,"filePath":"datafiles","name":"input_license.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"chapter_select.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"chapter_select.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"damage.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"damage.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"encounter.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"encounter.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"ex_items.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"ex_items.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"ex_shop.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"ex_shop.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
