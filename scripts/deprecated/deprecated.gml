@@ -26,13 +26,6 @@ function do_anime(_val1,_val2, _time, _ease_type, _call_method, _call_args = und
 
 /// @ignore
 /// @deprecated
-/// renamed to `save_set_slot`
-function save_set(slot) {
-    save_set_slot(slot)
-}
-
-/// @ignore
-/// @deprecated
 /// renamed to `enc_enemy_add_spare`
 function enc_sparepercent_enemy(target, percent, sfx = snd_mercyadd) {
     return enc_enemy_add_spare(target, percent, sfx)
@@ -104,4 +97,26 @@ function cutscene_actor_move_old(target, movement, pos, wait = true) {
 /// renamed to `party_contains`
 function party_ismember(name, full) {
     return party_contains(name, full)
+}
+
+/// @ignore
+/// @deprecated
+/// replaced with memories
+function state_add(type, identificator = undefined) {
+    identificator ??= (variable_instance_exists(self, "id") ? id : 0)
+    memory_flick(type, identificator, true)
+}
+/// @ignore
+/// @deprecated
+/// replaced with memories
+function state_get(type, identificator = undefined) {
+    identificator ??= (variable_instance_exists(self, "id") ? id : 0)
+    memory_get(type, identificator)
+}
+/// @ignore
+/// @deprecated
+/// replaced with memories
+function state_remove(type, identificator = undefined) {
+    identificator ??= (variable_instance_exists(self, "id") ? id : 0)
+    memory_remove(type, identificator)
 }

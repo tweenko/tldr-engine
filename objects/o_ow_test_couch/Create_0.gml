@@ -1,7 +1,7 @@
 event_inherited()
 
 interaction_code = function() {
-    var __mode = state_get("test_couchsat", id)
+    var __mode = memory_get("choices", "test_couchsat")
     var sitting = []
     
     if party_contains("kris")
@@ -76,7 +76,7 @@ interaction_code = function() {
                     "{face_ex(10)}* Kris, you too."
                 ])
             
-            state_add("test_couchsat", id)
+            memory_flick("choices", "test_couchsat", true)
         }
     }
     

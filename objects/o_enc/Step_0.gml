@@ -438,13 +438,13 @@ else if battle_state == BATTLE_STATE.WIN {
         
 		cutscene_create()
         if win_dialogue_show {
-            var win_text = string(loc("enc_win"), __exp, __dd) + win_message
+            var win_text = loc_string("enc_win", __exp, __dd) + win_message
             
             if is_string(win_got_stronger) {
                 if win_got_stronger == global.party_names[0] 
-                    win_text = string(loc("enc_win_no_exp"), __exp, __dd) + "{br}{resetx}" + string(loc("enc_win_stronger"))
+                    win_text = loc_string("enc_win_no_exp", __exp, __dd) + "{br}{resetx}" + loc("enc_win_stronger")
                 else 
-                    win_text = string(loc("enc_win_no_exp"), __exp, __dd) + "{br}{resetx}" + string(loc("enc_win_char_stronger"), party_getname(win_got_stronger))
+                    win_text = loc_string("enc_win_no_exp", __exp, __dd) + "{br}{resetx}" + loc_string("enc_win_char_stronger", party_getname(win_got_stronger))
             }
             
             cutscene_dialogue(win_text)

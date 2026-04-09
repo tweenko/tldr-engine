@@ -1,6 +1,6 @@
-#macro GAME_VERSION "v1.11.2"
+#macro GAME_VERSION "v1.12.0"
 #macro GAME_NAME "tlDR Engine"
-#macro GAME_LAST_COMPATIBLE_VERSION "v1.10.0" // last compatible save version
+#macro GAME_LAST_COMPATIBLE_VERSION "v1.12.0" // last compatible save version
 
 /// @arg {real} version
 function __game_version_to_real(version) {

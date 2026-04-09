@@ -242,7 +242,7 @@ function enc_action_item(_party_names, _target, _item, _item_index) : enc_action
             ut = ut()
         
         var use_text = (!is_undefined(ut) 
-            ? string(loc(ut), 
+            ? loc_string(ut, 
                 party_getname(acting_member), 
                 string_upper(item_get_name(target_item))
             )
@@ -314,7 +314,7 @@ function enc_action_spare(_party_names, _enemy_target) : enc_action(_party_names
             cutscene_create()
             
             if o_enc.encounter_data.enemies[other.target].mercy >= 100 { // can spare
-                cutscene_dialogue(string(loc("enc_exec_spare_msg"), party_getname(other.acting_member), __enemy.name), "{s(20)}{p}{e}", false)
+                cutscene_dialogue(loc_string("enc_exec_spare_msg", party_getname(other.acting_member), __enemy.name), "{s(20)}{p}{e}", false)
                 cutscene_wait_until(function(member_name) {
                     return party_get_inst(member_name).sprname == "idle"
                 }, [other.acting_member])
@@ -351,7 +351,7 @@ function enc_action_spare(_party_names, _enemy_target) : enc_action(_party_names
                     }
                     if is_struct(tgt_spell) { // if mercyspell exists
                         txt += "{p}{c}"
-                        txt += string(loc("enc_exec_spare_suggest_spell"), spellowner, string_upper(item_get_name(tgt_spell)))
+                        txt += loc_string("enc_exec_spare_suggest_spell", spellowner, string_upper(item_get_name(tgt_spell)))
                     }
                 }
                 if __enemy.can_spare && __enemy.mercy_add_pity_percent > 0 // add pity spare percentage

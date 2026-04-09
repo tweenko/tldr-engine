@@ -147,6 +147,19 @@
         "en": "Finish", "ja": "終了"
     },
 
+    "menu_bind_down": {
+        "en": "Down"
+    },
+    "menu_bind_left": {
+        "en": "Left"
+    },
+    "menu_bind_up": {
+        "en": "Up"
+    },
+    "menu_bind_right": {
+        "en": "Right"
+    },
+
     "menu_misc_quit": {
         "en": "spr_ui_misc_quit_en",
         "ja": "spr_ui_misc_quit_ja"

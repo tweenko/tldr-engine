@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"states",
+  "%Name":"save_entries",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"states",
+  "name":"save_entries",
   "parent":{
-    "name":"external",
-    "path":"folders/@Engine/scripts/systems/general/external.yy",
+    "name":"internal",
+    "path":"folders/@Engine/scripts/systems/general/internal.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

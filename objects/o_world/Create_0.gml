@@ -29,7 +29,7 @@ global.console = false
 global.current_cutscene = noone
 
 global.time = 0
-global.states = {}
+global.memories = {}
 global.room_name = ""
 global.menu_page = 0
 
@@ -45,38 +45,72 @@ global.slide_speed = 5
 	bus_sfx = audio_bus_create();
 	audio_emitter_bus(emitter_sfx, bus_sfx);
 
-	emitter_music = audio_emitter_create();
-	bus_music = audio_bus_create();
-	audio_emitter_bus(emitter_music, bus_music);
+	emitter_bgm = audio_emitter_create();
+	bus_bgm = audio_bus_create();
+	audio_emitter_bus(emitter_bgm, bus_bgm);
     
     // effects
     eff_reverb = audio_effect_create(AudioEffectType.Reverb1);
     eff_reverb.size = 0.7;
     eff_reverb.mix = 0.5
 }
-
-// load settings
-global.settings = {
-    SAVE_SLOT: 0,
-
-    VOLUME_SFX: volume_sfx,
-    VOLUME_BGM: volume_bgm,
-    VOLUME_MASTER: volume_master,
+{ // settings
+    save_settings_init()
     
-    SIMPLIFY_VFX: false,
-    AUTO_RUN: false,
+    save_entry("SAVE_SLOT", 0 ,, function() { return global.save_slot; },, global.save_settings_recording, global.settings)
     
-    CONTROLS_KEY: {},
-    CONTROLS_GP: {},
+    save_entry("VOLUME_SFX", volume_sfx, 
+        function(_raw) { audio_emitter_gain(o_world.emitter_sfx, _raw); },
+        function() { return o_world.volume_sfx; },, 
+        global.save_settings_recording, global.settings
+    )
+    save_entry("VOLUME_BGM", volume_bgm, 
+        function(_raw) { audio_emitter_gain(o_world.emitter_bgm, _raw); },
+        function() { return o_world.volume_bgm; },, 
+        global.save_settings_recording, global.settings
+    )
+    save_entry("VOLUME_MASTER", volume_master, 
+        function(_raw) { audio_master_gain(_raw); },
+        function() { return o_world.volume_master; },, 
+        global.save_settings_recording, global.settings
+    )
     
-    LANG: "en",
-    VERSION_SAVED: GAME_VERSION,
-    BORDER_MODE: global.border_mode
+    save_entry("SIMPLIFY_VFX", false ,,,, global.save_settings_recording, global.settings)
+    save_entry("AUTO_RUN", false ,,,, global.save_settings_recording, global.settings)
+    
+    save_entry("CONTROLS_KEY", undefined, 
+        function(_raw) { 
+            if is_struct(_raw)
+                InputBindingsImport(false, _raw); 
+        },
+        function() { return InputBindingsExport(false); },, 
+        global.save_settings_recording, global.settings
+    )
+    save_entry("CONTROLS_GP", undefined, 
+        function(_raw) { 
+            if is_struct(_raw)
+                InputBindingsImport(true, _raw); 
+        },
+        function() { return InputBindingsExport(true); },, 
+        global.save_settings_recording, global.settings
+    )
+    
+    save_entry("LANG", "en", 
+        function(_raw) { global.loc_lang = _raw; },
+        function() { return global.loc_lang; },, 
+        global.save_settings_recording, global.settings
+    )
+    save_entry("VERSION_SAVED", GAME_VERSION ,, function() { return GAME_VERSION; },, global.save_settings_recording, global.settings)
+    save_entry("BORDER_MODE", global.border_mode, 
+        function(_raw) { global.border_mode = _raw; },
+        function() { return global.border_mode; },, 
+        global.save_settings_recording, global.settings
+    )
+    
+    save_settings_load()
+    if struct_exists(global.settings, "LANG")
+        loc_load(global.settings.LANG)
 }
-
-save_settings_load()
-if struct_exists(global.settings, "LANG")
-    loc_load(global.settings.LANG)
 
 // set up the inventory
 global.items = []

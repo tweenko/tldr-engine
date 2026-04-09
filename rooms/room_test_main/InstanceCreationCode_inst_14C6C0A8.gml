@@ -1,7 +1,7 @@
 name = "choice test"
 
 execute_code = function() {
-    var evil = state_get("test_sad", 1)
+    var evil = memory_get("choices", "test_evil")
     
 	cutscene_create()
     cutscene_player_canmove(false)
@@ -30,7 +30,7 @@ execute_code = function() {
                                 cutscene_audio_play(snd_ominous)
                                 
                                 cutscene_func(function() {
-                                    state_add("test_sad", 1)
+                                    memory_flick("choices", "test_evil", true)
                                 })
                                 
                                 cutscene_player_canmove(true)

@@ -114,7 +114,7 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
             target_emitter = o_world.emitter_sfx;
             break
         case AUDIO.MUSIC:
-            target_emitter = o_world.emitter_music
+            target_emitter = o_world.emitter_bgm
             break
     }
     
@@ -324,6 +324,11 @@ function string_pad_end(_string, _substring, _required_length) {
     return _string
 }
 
+/// @desc checks whether a given struct is empty
+function struct_empty(_struct) {
+    return struct_names_count(_struct) > 0
+}
+
 /// @desc	rounds value with cerain percision
 /// @arg	{real} value
 /// @arg	{real} precision    works like round(value/precision) * precision
@@ -354,6 +359,18 @@ function struct_merge(primary, secondary, shared) {
 /// @desc returns the sum of two angles within the angle range
 function angle_add(x, y) {
     return (x + y + 360) % 360
+}
+
+/// @desc converts the string data type into bool, accounting for typing the boolean in as a word
+/// @arg {string} _string the string you'd like to convert to boolean
+/// @returns {bool}
+function string_to_bool(_string) {
+    if string_lower(_string) == "true"
+        return true
+    else if string_lower(_string) == "false"
+        return false
+    else 
+        return real(string_digits(_string)) > .5
 }
 
 
@@ -470,11 +487,15 @@ function input_binding_to_string(bind, upper = true, _is_gamepad = InputDeviceIs
     
     if string_contains("arrow", __bindname) {
         __ret = string_split(__bindname, " ")[1]
-        __ret = string_upper(string_copy(__ret, 1, 1)) + string_delete(__ret, 1, 1);
+        __ret = string_lower(string_copy(__ret, 1, 1)) + string_delete(__ret, 1, 1);
     }
     else {
-    	__ret = string_upper(__bindname)
+    	__ret = string_lower(__bindname);
     }
+    
+    var __loc_id = $"menu_bind_{string_lower(__ret)}";
+    if loc_exists(__loc_id)
+        __ret = loc(__loc_id)
     
 	return (upper ? string_upper(__ret) : __ret)
 }
@@ -494,9 +515,10 @@ function input_binding_intext(verb) {
 	if is_array(verb){
 		var res = ""
 		for (var i = 0; i < array_length(verb); ++i) {
-			res += input_binding_to_string(InputBindingGet(false, verb[i])) + "/"
+			res += input_binding_to_string(InputBindingGet(false, verb[i]))
+            if i < array_length(verb) - 1
+                res += "/"
 		}
-		res = string_delete(res, string_width(res)-1, 1)
 		
 		return $"[{res}]"
 	}
