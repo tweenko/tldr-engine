@@ -15,7 +15,7 @@ var xx = x + xoff + sine(.5, shake)
 var yy = y + yoff
 
 var isave = image_blend
-image_blend = merge_color(c_white, c_black, darken)
+image_blend = merge_color(image_blend, c_black, darken)
 
 if dodge_getalpha() > 0 && is_player { // outline and bg darkener
 	if !surface_exists(dodge_outline_surf) // create outline surface
@@ -32,7 +32,7 @@ if dodge_getalpha() > 0 && is_player { // outline and bg darkener
 		    s_drawer(spr, image_index, 
 				160 + xdelta, 120 + ydelta,
 				image_xscale, image_yscale,
-				image_angle,image_blend,image_alpha
+				image_angle, image_blend, image_alpha
 			)
 		}
 		
