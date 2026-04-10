@@ -339,13 +339,11 @@ if !only_hp {
 						item_use(arr_mod[e_selection], e_selection - 1, global.party_names[e_pmselection])
 						if is_undefined(equipment[e_pselection]) {
 							item_delete(e_selection-1, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
-                            if is_callable(equipment[e_pselection].unequipped)
-                                method_call(equipment[e_pselection].unequipped, e_selection-1)
                         }
 						else {
 							item_set(equipment[e_pselection], e_selection-1, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
                             if is_callable(equipment[e_pselection].unequipped)
-                                method_call(equipment[e_pselection].unequipped, e_selection-1)
+                                method_call(equipment[e_pselection].unequipped, [e_selection-1])
                         }
                         
 						party_setdata(global.party_names[e_pmselection], order[e_pselection], arr_mod[e_selection])
@@ -353,7 +351,7 @@ if !only_hp {
 					else {
 						if !is_undefined(equipment[e_pselection]) {
                             if is_callable(equipment[e_pselection].unequipped)
-                                method_call(equipment[e_pselection].unequipped, e_selection-1)
+                                method_call(equipment[e_pselection].unequipped, [e_selection-1])
 							item_add(equipment[e_pselection], (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
                             
 							party_setdata(global.party_names[e_pmselection], order[e_pselection], undefined)

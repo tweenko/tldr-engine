@@ -1,8 +1,12 @@
 /// @desc a constructor for a new cutscene instance
-function cutscene() constructor {
+/// @arg {bool} _local whether to destroy the cutscene when leaving the room
+function cutscene(_local = true) constructor {
     queue = [];
     playing = false;
     time_source = undefined;
+    local = _local;
+    
+    start_room = undefined;
     
     current_event = undefined;
     
@@ -10,11 +14,19 @@ function cutscene() constructor {
         // call for the first time
         method(self, callback)
         
+        start_room = room;
+        
         // and loop
         time_source = call_later(1, time_source_units_frames, method(self, callback), true);
     }
     
     callback = function() {
+        // don't perform callback if we left the start room and we're local
+        if local && start_room != room {
+            destroy();
+            return false;
+        }
+        
         if !is_undefined(current_event) {
             if !is_undefined(current_event.resume_condition) && is_callable(current_event.resume_condition) && method_call(current_event.resume_condition) {
                 current_event.destroy();
@@ -68,13 +80,13 @@ function cutscene_set_current(_cutscene) {
 }
 
 /// @desc creates a cutscene instance.
-/// @arg {string} unique_id the id the cutscene will be referred to as during debugging. optional to set
-/// @arg {bool} autoset whether `global.current_cutscene` should be set to this newly created cutscene struct
+/// @arg {bool} _local whether to destroy the cutscene when leaving the room
+/// @arg {bool} _autoset whether `global.current_cutscene` should be set to this newly created cutscene struct
 /// @return {struct.cutscene}
-function cutscene_create(unique_id = "untitled_cutscene", autoset = true) {
-    var inst = new cutscene(unique_id);
+function cutscene_create(_local = true, _autoset = true) {
+    var inst = new cutscene(_local);
     
-	if autoset
+	if _autoset
 		cutscene_set_current(inst);
 	return inst;
 }
@@ -86,6 +98,14 @@ function cutscene_play(_cutscene = global.current_cutscene) {
         return false
     
     method_call(_cutscene.play)
+}
+/// @desc stops a given cutscene (if not given one, plays `global.current_cutscene` as long as it's valid)
+ /// @arg {struct.cutscene} _cutscene the cutscene struct to stop
+function cutscene_stop(_cutscene = global.current_cutscene) {
+    if !cutscene_isvalid()
+        return false
+    
+    method_call(_cutscene.destroy);
 }
 
 /// @desc adds a cutscene event to the tail of the current cutscene queue

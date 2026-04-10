@@ -171,9 +171,14 @@ function cutscene_animate(val1, val2, frames, ease_type, inst, var_name) {
 
 
 /// @desc set whether the player is allowed to move
-function cutscene_player_canmove(can_move) {
-    var event = new cutscene_event(method({can_move}, function() {
-        global.player_moveable_global = can_move;
+/// @arg {bool} _can_move whether the player should be able to move or not
+/// @arg {bool} _global whether to make the movement rule global (persists through rooms) or local (only for this room) `false` by default
+function cutscene_player_canmove(_can_move, _global = false) {
+    var event = new cutscene_event(method({_can_move, _global}, function() {
+        if _global 
+            global.player_moveable_global = _can_move;
+        else if instance_exists(get_leader())
+            get_leader().moveable = false;
     }));
     
     cutscene_queue_event(
