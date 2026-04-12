@@ -1,9 +1,9 @@
 global.console = true
 
 if InputPressed(INPUT_VERB.RIGHT) 
-	selection++
+	selection ++
 else if InputPressed(INPUT_VERB.LEFT) 
-	selection--
+	selection --
 
 // cap selection
 if selection < 0

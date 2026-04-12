@@ -5,8 +5,6 @@ hold_timer = 0
 alpha = 0
 timer = 0
 
-soulx = 320
-soulx_target = 320
 selection = -1
-end_cutscene = false
-inst_dialogue = noone
+message = "You are about to clear your SAVE DATA.\nIf you'd like that, please proceed.\nThe game will be closed if you select \"Yes\".";
+fatal = false; // if true, the game will close itself when selecting any option and won't allow to continue playing

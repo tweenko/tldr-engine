@@ -2,8 +2,8 @@
 x = 0
 y = 0
 
-width = 320
-height = 240
+width = GAME_W
+height = GAME_H
 scale_x = 1
 scale_y = 1
 angle = 0

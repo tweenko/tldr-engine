@@ -22,6 +22,9 @@ function enc_getparty_sprite(party_name, sprname) {
 /// @param {string} [seed]
 function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed = "") {
 	var enemy_struct = o_enc.encounter_data.enemies[target]
+    if !enc_enemy_isfighting(enemy_struct)
+        return false
+    
     hurt = round(hurt)
     sfx ??= enemy_struct.hurt_sound
     
@@ -41,7 +44,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed
 		txt = "miss"
 	
 	if !instance_exists(o) 
-		exit
+		return false
 	instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: txt, mode: TEXT_HPCHANGE_MODE.ENEMY, user: user,})
 	
 	if hurt > 0 {

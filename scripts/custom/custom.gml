@@ -156,6 +156,34 @@ function audio_sound_reset_effect(slot = 0){
 function draw_text_xfit(xx, yy, str, xfit, xscale, yscale) {
 	draw_text_transformed(xx, yy, str, min(xscale, xfit / (string_width(str)*xscale)), yscale, 0)
 }
+/// @desc draws text with a slightly opaque white border around it if `_highlight` is true
+function draw_text_highlighted(_text, _x, _y, _highlight, _xscale = 1, _yscale = 1, _padding = 2, _highlight_color = c_white, _highlight_alpha = .25) {
+    if _highlight {
+        var pad = 2;
+        var i_w = string_width(_text) * _xscale;
+        var i_h = string_height(_text) * _yscale;
+        
+        var xx = _x;
+        var yy = _y;
+        
+        if draw_get_halign() == fa_center 
+            xx -= i_w/2;
+        else if draw_get_halign() == fa_right
+            xx -= i_w;
+        
+        if draw_get_valign() == fa_middle
+            yy -= i_h/2;
+        else if draw_get_valign() == fa_bottom
+            yy -= i_h;
+        
+        i_w += _padding*2;
+        i_h += _padding*2;
+        
+        draw_sprite_ext(spr_pixel, 0, xx - _padding, yy - _padding, i_w, i_h, 0, _highlight_color, _highlight_alpha);
+    }
+    
+    draw_text_transformed(_x, _y, _text, _xscale, _yscale, 0);
+}
 
 function draw_rectangle_ext(x1, y1, x2, y2, color, outline_width) {
 	for (var i = 0; i < outline_width; i += 1) {
@@ -181,6 +209,8 @@ function draw_sprite_looped(offset, amp, sprite, image, xx, yy, xscale = 1, ysca
 	    }
 	}
 }
+
+
 /// @desc returns an image index depending on the image count and accounting for the passage of time. useful for drawing multiple things with one instance
 /// @arg {asset.GMSprite} sprite the sprite to get the `img_spd` and `img_number` arguments automatically
 /// @arg {real} timer the timer that will be used for account for the passing of time (`o_world.frames` by default)

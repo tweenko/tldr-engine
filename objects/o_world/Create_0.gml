@@ -7,14 +7,13 @@ gamepad = false
 window_scale = 1
 
 allow_incompatible_saves = false
+
 incompatible_save_warning = false
 incompatible_save_sleep = 0
 incompatible_selection = -1
-incompatible_soulx = 320
-incompatible_soulx_target = 320
 incompatible_end_cutscene = false
 incompatible_alpha = 1
-inst_dialogue = noone
+incompatible_dialogue = noone
 
 progress = true
 save_settings = true
@@ -60,17 +59,26 @@ global.slide_speed = 5
     save_entry("SAVE_SLOT", 0 ,, function() { return global.save_slot; },, global.save_settings_recording, global.settings)
     
     save_entry("VOLUME_SFX", volume_sfx, 
-        function(_raw) { audio_emitter_gain(o_world.emitter_sfx, _raw); },
+        function(_raw) { 
+            o_world.volume_sfx = _raw;
+            audio_emitter_gain(o_world.emitter_sfx, _raw); 
+        },
         function() { return o_world.volume_sfx; },, 
         global.save_settings_recording, global.settings
     )
     save_entry("VOLUME_BGM", volume_bgm, 
-        function(_raw) { audio_emitter_gain(o_world.emitter_bgm, _raw); },
+        function(_raw) { 
+            o_world.volume_bgm = _raw;
+            audio_emitter_gain(o_world.emitter_bgm, _raw); 
+        },
         function() { return o_world.volume_bgm; },, 
         global.save_settings_recording, global.settings
     )
     save_entry("VOLUME_MASTER", volume_master, 
-        function(_raw) { audio_master_gain(_raw); },
+        function(_raw) { 
+            o_world.volume_master = _raw;
+            audio_master_gain(_raw); 
+        },
         function() { return o_world.volume_master; },, 
         global.save_settings_recording, global.settings
     )

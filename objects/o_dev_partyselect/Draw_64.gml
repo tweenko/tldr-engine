@@ -1,16 +1,16 @@
 var w = 260
 var h = 100
 
-draw_sprite_ext(spr_pixel, 0, 0, 0, 640, 480, 0, c_black, .5)
-ui_dialoguebox_create(320 - w/2, 240 - h/2, w, h)
+draw_sprite_ext(spr_pixel, 0, 0, 0, GAME_W_GUI, GAME_H_GUI, 0, c_black, .5)
+ui_dialoguebox_create(GAME_W_GUI/2 - w/2, GAME_H_GUI/2 - h/2, w, h)
 
 for (var i = 0; i < maxparty; ++i) {
 	if abs(i-selection) > 1
 		continue
 	
 	var name = struct_get_names(global.party)[i]
-	var xx = 320-25 + i*54 - xoff*54
-	var yy = 240-20
+	var xx = GAME_W_GUI/2 - 25 + i*54 - xoff*54
+	var yy = GAME_H_GUI/2 - 20
 	
 	if i == selection {
 		gpu_set_fog(true, (party_contains(name) ? party_getdata(name, "color") : c_white), 0, 0)
@@ -39,6 +39,6 @@ for (var i = 0; i < maxparty; ++i) {
 
 var name = struct_get_names(global.party)[selection]
 if selection > 0 
-	draw_sprite_ext(spr_ui_arrow_left, 0, 320 - 90 + round(sine(6, 2)), 240, 1, 1, 0, c_white, 1)
+	draw_sprite_ext(spr_ui_arrow_left, 0, GAME_W_GUI/2 - 90 + round(sine(6, 2)), GAME_H_GUI/2, 1, 1, 0, c_white, 1)
 if selection < maxparty - 1 
-	draw_sprite_ext(spr_ui_arrow_right, 0, 320 + 90 + round(sine(6, -2)), 240, 1, 1, 0, c_white, 1)
+	draw_sprite_ext(spr_ui_arrow_right, 0, GAME_W_GUI/2 + 90 + round(sine(6, -2)), GAME_H_GUI/2, 1, 1, 0, c_white, 1)

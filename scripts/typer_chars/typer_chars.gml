@@ -22,6 +22,8 @@ function typer_char() constructor {
         return inst
     }
     
+    font = undefined; // the font the character will use. can be a loc ID for a font or a reference to an asset (undefined will just not change the font)
+    
     voice = snd_text // the voice sound (can be a callable, is fed the argument of the displayed characters)
     voice_pitch_calc = 1 // the pitch of the voice (could be either a function or a real number)
     voice_interrupt = false // whether to stop the voice sound every time a new blip is played

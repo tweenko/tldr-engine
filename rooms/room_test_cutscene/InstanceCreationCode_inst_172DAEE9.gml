@@ -153,11 +153,11 @@ trigger_code = function() {
     cutscene_sleep(10)
     
     cutscene_func(music_resume, 0)
-    cutscene_func(function(inst) {
+    cutscene_func(method(self, function() {
         music_resume(0)
         music_fade(0, 1, 30)
-        memory_set("cutscenes", inst)
-    }, [id])
+        memory_flick("cutscenes", id)
+    }))
     
     cutscene_party_follow(true)
     cutscene_party_interpolate()

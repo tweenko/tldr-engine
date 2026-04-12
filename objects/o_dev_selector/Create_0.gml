@@ -1,7 +1,7 @@
 selection = 0
 category = 0
 scroll = 0
-soul_y = 0
+arrow_y = 0
 
 item_list = []
 item_blocked = []

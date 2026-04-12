@@ -22,7 +22,7 @@ if InputRepeat(INPUT_VERB.DOWN) {
         category = 0
 }
 
-scroll = lerp(scroll, max(0, soul_y - 480/2 - 40), .3)
+scroll = lerp(scroll, max(0, arrow_y - GAME_H_GUI/2 - 40), .3)
 
 if keyboard_check_pressed(vk_anykey) {
     for (var i = 0; i < array_length(display_list); i ++) {

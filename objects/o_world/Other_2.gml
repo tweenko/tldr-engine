@@ -9,17 +9,18 @@ instance_create(o_dev_musiccontrol)
 instance_create(o_fader)
 instance_create(o_flash)
 
-if global.console_enabled
-    instance_create(o_console)
-
 if !allow_incompatible_saves {
     var __v = (struct_exists(global.settings, "VERSION_SAVED") ? global.settings.VERSION_SAVED : "v0.0.0")
     if !__game_versions_compare(__v, GAME_LAST_COMPATIBLE_VERSION) {
-        progress = false
-        incompatible_save_warning = true
-        incompatible_save_sleep = 20
+        instance_create(o_dev_savewipe_prompt,,,, {
+            message: "Your Save File was recorded\non an older version of the engine.\nIt's highly recommended to clear your SAVE DATA.\nThe game will be closed once you select an option.",
+            fatal: true
+        })
     }
 }
+if global.console_enabled && !instance_exists(o_dev_savewipe_prompt)
+    instance_create(o_console)
+
 { // get window ready
 	var divide = 540
 	if display_get_width() < display_get_height()
@@ -43,9 +44,9 @@ enum WORLD_TYPE {
     DARK,
     LIGHT
 }
-global.world = WORLD_TYPE.DARK // 0 for dark, 1 for light
+global.world = WORLD_TYPE.DARK;
 
-if !progress 
+if instance_exists(o_dev_savewipe_prompt)
     exit
 instance_create(o_ui_quit)
 

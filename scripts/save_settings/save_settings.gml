@@ -1,4 +1,4 @@
-#macro SAVE_SETTINGS_FORMAT "settings.json"
+#macro SAVE_SETTINGS_FORMAT "settings"
 
 /// @desc set up the save settings system
 function save_settings_init() {
@@ -43,7 +43,7 @@ function save_settings_read() {
         json_data += file_text_readln(file);
     file_text_close(file);
     
-    return json_parse(json_data);
+    return save_from_string(json_data);
 }
 
 /// @desc converts settings save data from raw save data 
@@ -101,7 +101,7 @@ function save_settings_export() {
 /// @arg {struct} _settings_data the save data. by default equals to `save_settings_export()`
 function save_settings_export_to_file(_settings_data = save_settings_export()) {
     var file_name = SAVE_SETTINGS_FORMAT;
-    var json_data = json_stringify(_settings_data);
+    var json_data = save_to_string(_settings_data);
 
     var file = file_text_open_write(file_name);
     file_text_write_string(file, json_data);

@@ -178,7 +178,7 @@ function cutscene_player_canmove(_can_move, _global = false) {
         if _global 
             global.player_moveable_global = _can_move;
         else if instance_exists(get_leader())
-            get_leader().moveable = false;
+            get_leader().moveable = _can_move;
     }));
     
     cutscene_queue_event(

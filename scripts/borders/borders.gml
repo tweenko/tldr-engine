@@ -90,7 +90,7 @@ function border_set(_border, _force = false) {
 /// @desc resizes the window upon toggling borders. usage is fully internal
 function borders_window_resize(borders_on = global.border, window_size = o_world.window_scale) {
     var res_borders = [960 * window_size, 540 * window_size]
-    var res_window = [640 * window_size, 480 * window_size]
+    var res_window = [GAME_W_GUI * window_size, GAME_H_GUI * window_size]
     
     var winx = window_get_x()
     var winy = window_get_y()

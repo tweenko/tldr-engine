@@ -137,16 +137,11 @@ if command == "solid_col" || command = "solid_color" { // solid_col(bool)
 if command == "reset_col" { // reset_col() OR reset_col
 	xcolor = saved_color
 }
-if command == "font" { // font(`string`) out of `main`, `text`, `enc`
-	if arg[0] == "enc"
-		font = loc_font("enc")
-	else if arg[0] == "text"
-		font = loc_font("text")
-	else if arg[0] == "main"
-		font = loc_font("main")
-	else{
+if command == "font" { // font(`string`) out of the localized fonts or a reference to an asset by its name
+	if loc_exists($"font_{arg[0]}")
+		font = loc_font(arg[0])
+	else
 		font = asset_get_index(arg[0])
-	}
 }
 if command == "shadow" { // shadow(bool)
 	shadow = string_to_bool(arg[0])
@@ -334,6 +329,14 @@ if command == "char" { // char(`char_preset_string`, face_expression = undefined
     	voice_interrupt = struct_get(struct_get(char_presets, arg[0]), "voice_interrupt")
     	voice_skip = struct_get(struct_get(char_presets, arg[0]), "voice_skip")
         voice_pitchrange = undefined
+        
+        var __char_font = struct_get(struct_get(char_presets, arg[0]), "font");
+        if !is_undefined(__char_font) {
+            if is_string(__char_font) 
+                font = loc_font(__char_font);
+            else if font_exists(__char_font)
+                font = __char_font;
+        }
     	
     	char = arg[0]
     	looping = false

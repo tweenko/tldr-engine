@@ -1,5 +1,6 @@
-#macro SAVE_FORMAT "save_ch{1}_{0}.json"
+#macro SAVE_FORMAT "save_ch{1}_{0}"
 #macro SAVE_SLOTS 3
+#macro SAVE_ENCODE true // if enabled, will encode the saves to base64 before saving them on the player's machine
 
 /// @desc set up the save system
 function save_init() {
@@ -58,7 +59,7 @@ function save_read(_slot, _chapter = global.chapter) {
         json_data += file_text_readln(file);
     file_text_close(file);
     
-    return json_parse(json_data);
+    return save_from_string(json_data);
 }
 /// @desc reads all the saves off the machine
 function save_read_all(chapter = global.chapter){
@@ -134,7 +135,7 @@ function save_export(_data = global.save) {
 /// @arg {struct} _save_data the save data. by default equals to `save_export()`
 function save_export_to_file(_slot = global.save_slot, _chapter = global.chapter, _save_data = save_export()) {
     var file_name = save_get_file_name(_slot, _chapter);
-    var json_data = json_stringify(_save_data);
+    var json_data = save_to_string(_save_data);
 
     var file = file_text_open_write(file_name);
     file_text_write_string(file, json_data);
@@ -154,8 +155,26 @@ function save_delete(_slot, _chapter = global.chapter) {
         global.save = {};
 }
 
+/// @desc reads all the save files from the machine and sets their `global.save_files` counterparts' values to be identical
 function save_reload(_chapter = global.chapter) {
     global.save_files = save_read_all(_chapter);
+}
+
+/// @desc turns a ready-for-export save file into a string format that can be saved into a file
+function save_to_string(_save_data) {
+    var _data = json_stringify(_save_data);
+    if SAVE_ENCODE
+        _data = base64_encode(_data);
+    
+    return _data;
+}
+/// @desc turns a string input into a raw save file that should be read by `save_convert`
+function save_from_string(_string_data) {
+    var _data = _string_data
+    if SAVE_ENCODE
+        _data = base64_decode(_data);
+    
+    return json_parse(_data);
 }
 
 /// @desc wipe off saves and settings you previously had. irreversible. use sparingly

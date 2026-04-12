@@ -1,7 +1,7 @@
 audio_emitter_free(emitter_sfx)
 audio_emitter_free(emitter_bgm)
 
-if progress {
+if !instance_exists(o_dev_savewipe_prompt) {
     if save_settings
         save_settings_export_to_file()
     
