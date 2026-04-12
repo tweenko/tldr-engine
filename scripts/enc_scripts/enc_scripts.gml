@@ -22,7 +22,7 @@ function enc_getparty_sprite(party_name, sprname) {
 /// @param {string} [seed]
 function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed = "") {
 	var enemy_struct = o_enc.encounter_data.enemies[target]
-    if !enc_enemy_isfighting(enemy_struct)
+    if !enc_enemy_isfighting(target)
         return false
     
     hurt = round(hurt)
