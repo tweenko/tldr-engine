@@ -1,6 +1,6 @@
 event_inherited()
 
-timer_end = 360
-current_cutscene = noone
+timer_end = undefined;
+current_cutscene = noone;
 
-pattern_pool = ["explosions"]
+pattern_pool = ["explosions"];

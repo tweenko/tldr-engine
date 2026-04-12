@@ -3,7 +3,7 @@ var inst = enemy_struct.actor_id
 
 if pattern == "explosions" { // explosions
     if timer > 0 {
-        if timer % 60 == enemy_index*30 {
+        if timer % 60 == (enemy_index*20) % 60 {
             current_cutscene = cutscene_create()
             cutscene_set_variable(inst, "image_speed", 0)
             cutscene_set_variable(inst, "image_index", 3)
@@ -32,3 +32,5 @@ if pattern == "explosions" { // explosions
         }
     }
 }
+
+__support_destroy_check();

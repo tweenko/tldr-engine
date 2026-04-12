@@ -16,14 +16,12 @@ allow_same_turns = false
 shorten_by_tension = true
 am_support = false // destroy if no other turn instances detected
 
-alarm[0] = 1
-
 // destroy to end turn
 
 // for more info how to use support enemies check o_turn_default_dark
 __support_init_default = function() {
     for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
-        if instance_exists(o_enc.turn_objects[i]) && o_enc.turn_objects[i].id != id {
+        if instance_exists(o_enc.turn_objects[i]) && o_enc.turn_objects[i].id != id && !o_enc.turn_objects[i].am_support {
             am_support = true
             break
         }
@@ -36,7 +34,7 @@ __support_destroy_check = function() {
         end_turn = false
     else {
         for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
-            if instance_exists(o_enc.turn_objects[i]) && o_enc.turn_objects[i].id != id {
+            if instance_exists(o_enc.turn_objects[i]) && o_enc.turn_objects[i].id != id && !o_enc.turn_objects[i].am_support {
                 end_turn = false
                 break
             }

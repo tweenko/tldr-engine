@@ -265,6 +265,14 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
     			    array_push(inst_dialogues, inst)
     			}
     		}
+            for (var i = 0; i < array_length(turn_objects); ++i) {
+                if instance_exists(turn_objects[i]) {
+                    // call the initialize event for turn objects
+                    with turn_objects[i] {
+                        event_user(0)
+                    }
+                }
+            }
             
             __call_enc_event("ev_dialogue")
             

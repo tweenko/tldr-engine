@@ -3,6 +3,9 @@ image_xscale = .1
 image_yscale = image_xscale
 glow = 0
 
+image_speed = random_range(.9, 1.1)
+image_index = irandom(image_number)
+
 homing_target = noone
 scale = 1
 spd = 0

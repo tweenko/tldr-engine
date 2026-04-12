@@ -12,4 +12,4 @@ if timer % __buffed_period == 0 {
     })
 }
 
-__support_destroy_check()
+__support_destroy_check();
