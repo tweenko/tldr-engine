@@ -3,22 +3,11 @@ volume_sfx = 1
 volume_bgm = 1
 volume_master = .6
 
-gamepad = false
 window_scale = 1
-
-allow_incompatible_saves = false
-
-incompatible_save_warning = false
-incompatible_save_sleep = 0
-incompatible_selection = -1
-incompatible_end_cutscene = false
-incompatible_alpha = 1
-incompatible_dialogue = noone
-
-progress = true
+sound_on_frame = -1
 save_settings = true
 
-sound_on_frame = -1
+allow_incompatible_saves = false
 
 global.temp_choice = 0
 global.typer_chars = {}
