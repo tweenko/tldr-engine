@@ -12,7 +12,7 @@ if instance_exists(inst_aura) {
     }
 }
 
-if color == 0 {
+if color == SOUL_COLOR.RED {
 	if outline > 0 { 
 		draw_sprite_ext(sprite_index, image_index, 
 			x, y,

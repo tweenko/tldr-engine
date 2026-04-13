@@ -1,4 +1,4 @@
-if color == 0 {
+if color == SOUL_COLOR.RED {
 	if is_transitioning == false {
 		// Movement
 		if InputCheck(INPUT_VERB.CANCEL) 
