@@ -20,8 +20,12 @@ function lb_music_pitch(music_slot, start_pitch, target_pitch, target_time) {
 /// @arg {real} target_pitch the target pitch
 /// @arg {real} target_time the time you want to change the pitch by
 function cutscene_lb_music_pitch(music_slot, start_pitch, target_pitch, target_time) {
-	cutscene_custom({
-		music_slot, start_pitch, target_pitch, target_time,
-		action: [lb_music_pitch, music_slot, start_pitch, target_pitch, target_time],
-	})
+    var event = new cutscene_event(method({music_slot, start_pitch, target_pitch, target_time}, function() {
+        lb_music_pitch(music_slot, start_pitch, target_pitch, target_time);
+    }));
+    
+    cutscene_queue_event(
+        cutscene_get_current(), 
+        event
+    );
 }
