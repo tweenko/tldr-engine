@@ -132,7 +132,7 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
     perform = function(_action_queue) {
         // find other enemies if the target is not fighting
         if target_spell.use_type == ITEM_USE.ENEMY {
-            if !enc_enemy_isfighting(target)
+            if !enc_enemy_isfighting(target) && !(struct_exists(target_spell, "is_party_act") && target_spell.is_party_act)
                 for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
                     if enc_enemy_isfighting(i) {
                         target = i

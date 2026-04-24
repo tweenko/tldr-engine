@@ -221,6 +221,11 @@ else if battle_state == BATTLE_STATE.EXEC {
     else if !__check_waiting() {
         if buffer == 0 {
             if array_length(action_queue) > 0 {
+                if win_condition() {
+                    battle_state = BATTLE_STATE.WIN
+                    exit
+                }
+                
                 var action = action_queue[0]
                 array_delete(action_queue, 0, 1) // dequeue the action
                 
@@ -352,31 +357,31 @@ else if battle_state == BATTLE_STATE.TURN {
             __battle_state_advance()
     	}
     	else if !mybox.is_transitioning {
-		if turn_timer == 0 {
-			for (var i = 0; i < array_length(turn_objects); ++i) {
-				if instance_exists(turn_objects[i]) {
-					// call the turn start event for the turn objects
-					with turn_objects[i] {
-						event_user(1)
-					}
-				}
-			}
-            __call_enc_event("ev_turn_start")
-		}
-		turn_timer ++
-		
-		var move_on = true
-		for (var i = 0; i < array_length(turn_objects); ++i) {
-			if !enc_enemy_isfighting(i) continue
-			if instance_exists(turn_objects[i]) move_on = false
-		}
-		if move_on {
-			mybox.__close()
-			mysoul.alarm[0] = 1
+            if turn_timer == 0 {
+                for (var i = 0; i < array_length(turn_objects); ++i) {
+                    if instance_exists(turn_objects[i]) {
+                        // call the turn start event for the turn objects
+                        with turn_objects[i] {
+                            event_user(1)
+                        }
+                    }
+                }
+                __call_enc_event("ev_turn_start")
+            }
+            turn_timer ++
             
-            animate(o_eff_bg.fade, 0, 20, anime_curve.linear, o_eff_bg, "fade")
-		}
-	}
+            var move_on = true
+            for (var i = 0; i < array_length(turn_objects); ++i) {
+                if !enc_enemy_isfighting(i) continue
+                if instance_exists(turn_objects[i]) move_on = false
+            }
+            if move_on {
+                mybox.__close()
+                mysoul.alarm[0] = 1
+                
+                animate(o_eff_bg.fade, 0, 20, anime_curve.linear, o_eff_bg, "fade")
+            }
+        }
     }
 }
 else if battle_state == BATTLE_STATE.POST_TURN {
