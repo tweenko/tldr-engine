@@ -192,6 +192,8 @@ __initialize = function() {
 }
 
 if !instance_exists(o_dodge_controller) 
-	instance_create(o_dodge_controller)
+	instance_create(o_dodge_controller);
 if !instance_exists(o_eff_lighting_controller)
-    instance_create(o_eff_lighting_controller)
+    instance_create(o_eff_lighting_controller);
+if !instance_exists(o_dev_climb_controller)
+    instance_create(o_dev_climb_controller);
