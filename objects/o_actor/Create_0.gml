@@ -76,7 +76,6 @@ is_party = false
         s_climb_land_left = spr_kris_climb_land_left;
         s_climb_land_right = spr_kris_climb_land_right;
         s_climb_slip_fall = spr_kris_climb_slip_fall;
-        s_climb_mask = spr_kris_climb_mask;
 	
 		s_walk_ispd = 1
 		s_run_ispd = 2

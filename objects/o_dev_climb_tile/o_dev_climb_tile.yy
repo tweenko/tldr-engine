@@ -32,5 +32,5 @@
     "path":"sprites/spr_dev_climb_tile/spr_dev_climb_tile.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }
