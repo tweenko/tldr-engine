@@ -8,7 +8,13 @@ function enc_set() constructor { // base
 		var text = "* undefined"
 		return text
 	}
-    win_condition = function() {}
+    win_condition = function() { // if this is true, the battle will end
+        for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
+            if enc_enemy_isfighting(i)
+                return false;
+        }
+        return true;
+    }
     
     bgm = mus_battle
     bgm_pitch = 1

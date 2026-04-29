@@ -65,6 +65,18 @@ is_party = false
 		s_landed = spr_kris_landed
 		s_slide = spr_kris_slide
 		s_run_postfix = ""
+        
+        s_climb = spr_kris_climb;
+        s_climb_charge = spr_kris_climb_charge;
+        s_climb_charge_left = spr_kris_climb_charge_left;
+        s_climb_charge_right = spr_kris_climb_charge_right;
+        s_climb_jump_left = spr_kris_climb_jump_left;
+        s_climb_jump_right = spr_kris_climb_jump_right;
+        s_climb_jump_up = spr_kris_climb_jump_up;
+        s_climb_land_left = spr_kris_climb_land_left;
+        s_climb_land_right = spr_kris_climb_land_right;
+        s_climb_slip_fall = spr_kris_climb_slip_fall;
+        s_climb_mask = spr_kris_climb_mask;
 	
 		s_walk_ispd = 1
 		s_run_ispd = 2
@@ -153,6 +165,7 @@ is_party = false
 	moveable_anim = true
     moveable_recruits = true
     moveable_shop = true
+    moveable_climbing = true
 	
 	_checkmove = function() { // the main function that determines whether the player can move as of right now
 		return moveable 
@@ -165,6 +178,7 @@ is_party = false
 		&& moveable_anim 
         && moveable_recruits
         && moveable_shop
+        && moveable_climbing
 		
 		&& hurt == 0
         && spawn_buffer <= 0

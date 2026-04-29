@@ -221,7 +221,7 @@ else if battle_state == BATTLE_STATE.EXEC {
     else if !__check_waiting() {
         if buffer == 0 {
             if array_length(action_queue) > 0 {
-                if win_condition() {
+                if encounter_data.win_condition() {
                     battle_state = BATTLE_STATE.WIN
                     exit
                 }

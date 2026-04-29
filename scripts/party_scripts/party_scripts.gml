@@ -252,3 +252,20 @@ function party_m_get_sprite(party_name, identifier, world = global.world) {
     
     return __sprite
 }
+
+/// @desc fades out all party members except the leader
+/// @arg {real} time the length of the fade (in frames)
+function party_fade_out(time = 10) {
+    for (var i = 1; i < party_length(true); i ++) {
+        var inst = party_get_inst(global.party_names[i]);
+        animate(inst.image_alpha, 0, time, anime_curve.linear, inst, "image_alpha")
+    }
+}
+/// @desc fades in all party members except the leader
+/// @arg {real} time the length of the fade (in frames)
+function party_fade_in(time = 10) {
+    for (var i = 1; i < party_length(true); i ++) {
+        var inst = party_get_inst(global.party_names[i]);
+        animate(inst.image_alpha, 1, time, anime_curve.linear, inst, "image_alpha")
+    }
+}

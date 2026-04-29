@@ -120,3 +120,29 @@ function state_remove(type, identificator = undefined) {
     identificator ??= (variable_instance_exists(self, "id") ? id : 0)
     memory_remove(type, identificator)
 }
+
+/// @ignore
+/// @deprecated
+/// use `marker_find_closest` instead
+function marker_find_closest_id(xx, yy, mtype){
+	var _ret = {
+		dist: infinity, 
+		m_id: ""
+	}
+	
+	with(o_dev_marker) {
+		var __a = distance_to_point(xx, yy)
+		if m_type == mtype && __a < _ret.dist{
+			_ret.dist = __a
+			_ret.m_id = m_id
+		}
+	}
+	return _ret.m_id
+}
+
+/// @ignore
+/// @deprecated
+/// renamed to `marker_find_closest`
+function marker_find_closest_inst(xx, yy, mtype){
+	return marker_find_closest(xx, yy, mtype)
+}

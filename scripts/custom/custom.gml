@@ -73,13 +73,13 @@ function camera_confine_x(xx) {
     xx = xx - o_camera.width/2
     xx = clamp(xx, 0, room_width - o_camera.width)
     
-    return xx
+    return xx + o_camera.width/2
 }
 function camera_confine_y(yy) {
     yy = yy - o_camera.height/2
     yy = clamp(yy, 0, room_height - o_camera.height)
     
-    return yy
+    return yy + o_camera.height/2
 }
 
 
@@ -327,6 +327,14 @@ function array_sort_ext(array, sort_type_or_function) {
 /// @description              Check if a string contains a string inside it.
 function string_contains(substring, fullString) {
     return string_pos(substring, fullString) > 0;
+}
+
+/// @desc snaps a number x to a multiple of n
+/// @arg {real} x the number to snap
+/// @arg {real} n the number to multiple of which to snap to
+/// @returns {real}
+function snap(x, n) {
+    return n * round(x / n);
 }
 
 /// @desc adds padding to the start of a string to reach desired length (e.g. 01 instead of 1)

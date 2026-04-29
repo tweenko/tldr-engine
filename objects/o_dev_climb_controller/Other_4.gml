@@ -10,17 +10,23 @@ for (var i = 0; i < array_length(__layers); i ++) {
         
         var w = tilemap_get_width(map_id);
         var h = tilemap_get_height(map_id);
+        var tile_origin_x = tilemap_get_x(map_id);
+        var tile_origin_y = tilemap_get_y(map_id);
+        var tile_w = tilemap_get_tile_width(map_id);
+        var tile_h = tilemap_get_tile_height(map_id);
         
         for (var cx = 0; cx < w; cx ++) {
             for (var cy = 0; cy < h; cy ++) {
                 var tile = tilemap_get(map_id, cx, cy);
+                var xx = tile_origin_x + tile_w * cx;
+                var yy = tile_origin_y + tile_h * cy;
                 
                 if tile == 2 // single block
-                    instance_create(o_dev_climb_tile, tilemap_get_x(tile), tilemap_get_y(tile));
-                if tile == 4 // double vertical block
-                    instance_create(o_dev_climb_tile, tilemap_get_x(tile) + tilemap_get_tile_width(tile)/2, tilemap_get_y(tile));
-                if tile == 6 // double horizontal block
-                    instance_create(o_dev_climb_tile, tilemap_get_x(tile), tilemap_get_y(tile) + tilemap_get_tile_height(tile)/2);
+                    instance_create(o_dev_climb_tile, xx, yy);
+                if tile == 3 // double vertical block
+                    instance_create(o_dev_climb_tile, xx, yy + tile_h/2);
+                if tile == 5 // double horizontal block
+                    instance_create(o_dev_climb_tile, xx + tile_w/2, yy);
             };
         };
     };

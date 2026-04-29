@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"climb",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"climb",
+  "parent":{
+    "name":"engine",
+    "path":"folders/@Engine/scripts/systems/engine.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

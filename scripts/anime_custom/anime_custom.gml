@@ -7,8 +7,8 @@
 /// @param {Real} val1				The first value of the animation
 /// @param {Real} val2				The last value of the animation
 /// @param {Real} time				The duration in frames
-/// @param {String|Real|Function|Asset.GMAnimCurve|Struct} easing_curve
-///									The easing curve
+/// @param {Enum.anime_curve} easing_curve
+///									The easing curve. `anime_curve.[insert type]` or a string
 /// @param {Id.Instance|Asset.GMObject}  instance        The instance the variable of you're animating
 /// @param {String}                      var_name        The variable name you're animating
 /// @param {Bool}                        [start]         Whether to start the animation with the function (true by default)

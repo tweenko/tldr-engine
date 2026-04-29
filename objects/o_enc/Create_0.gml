@@ -145,14 +145,6 @@ battle_state_order = [
     BATTLE_STATE.POST_TURN,
 ]
 
-win_condition = function() { // if this is true, the battle will end
-    for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if enc_enemy_isfighting(i)
-            return false
-    }
-    return true
-}
-
 __button_highlight = function(button, party_name) {
 	if button.name == "power" { // pacify & sleepmist
 		var __tgt_spell = undefined
@@ -217,7 +209,7 @@ __battle_state_advance = function(state = battle_state) {
     var next_state = (cur_state + array_length(battle_state_order) + 1) % array_length(battle_state_order)
     
     battle_state = battle_state_order[next_state]
-    if win_condition()
+    if encounter_data.win_condition()
         battle_state = BATTLE_STATE.WIN
 }
 
