@@ -12,3 +12,5 @@ gui = false
 decay_speed = 0.05
 white = false
 blend = bm_normal
+
+scale_mod = 0;

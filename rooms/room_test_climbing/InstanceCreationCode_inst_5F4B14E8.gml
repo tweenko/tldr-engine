@@ -1,0 +1,1 @@
+text = "* You completed the easiest climb there is!{br}{resetx}* Congratulations!"

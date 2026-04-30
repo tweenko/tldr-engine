@@ -15,7 +15,9 @@ var xx = x + xoff + sine(.5, shake)
 var yy = y + yoff
 
 var isave = image_blend
-image_blend = merge_color(image_blend, c_black, darken)
+image_blend = merge_color(image_blend, c_black, darken);
+if !is_undefined(override_blend)
+    image_blend = override_blend;
 
 if dodge_getalpha() > 0 && is_player { // outline and bg darkener
 	if !surface_exists(dodge_outline_surf) // create outline surface

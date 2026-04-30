@@ -37,5 +37,5 @@
     "path":"sprites/spr_dev_climb_interact/spr_dev_climb_interact.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

@@ -107,6 +107,7 @@ is_party = false
     flash_color = c_white
 	fsiner = 0 // flash siner
 	flash = 0
+    override_blend = undefined;
     
     // lighting
     lighting_highlight_enabled = true

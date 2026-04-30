@@ -1,10 +1,21 @@
 /// @description calculate new data
+step ++;
+
 if !instance_exists(character) {
 	instance_destroy();
 	show_debug_message("actor_mover: actor not found")
 	
 	exit
 }
+
+// finished all steps?
+if step >= array_length(xreq) || step >= array_length(yreq) {
+    instance_destroy();
+    exit;
+}
+
+timer = 0;
+stage = 0;
 
 if seed[step] == "" {
 	xdiff = xreq[step] - character.x
@@ -19,13 +30,14 @@ if seed[step] == "" {
 		
 	time[step] = max(1, time[step])
 }
-else if seed[step] == "jump" {
+else if seed[step] == "jump" || seed[step] == "jump_into" {
 	var dist = point_distance(0, 0, xdiff, ydiff)
 	
 	time[step] = 15
 	time[step] = max(1, time[step])
 	
-	audio_play(snd_jump,,,, 1)
+    if play_sfx[step]
+	   audio_play(snd_jump,,,, 1)
     
     animate(character.x, xreq[step], time[step], anime_curve.linear, character, "x")
     animate(character.y, yreq[step], time[step], anime_curve.linear, character, "y")
@@ -41,7 +53,4 @@ else if seed[step] == "jump" {
 		character.image_speed = 1
 	}
 	character.s_override = true
-	
-	state = 0
-	timer = 0
 }

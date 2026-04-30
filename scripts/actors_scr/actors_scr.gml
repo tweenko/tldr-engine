@@ -84,8 +84,6 @@ function actor_find(obj, xx = x, yy = y, snap = 10, require = {}) {
         
         return record_instance
 	}
-    
-	return noone
 }
 
 /// @desc  a constructor for the actor movement struct
@@ -96,26 +94,38 @@ function actor_find(obj, xx = x, yy = y, snap = 10, require = {}) {
 /// @param {real|undefined} [_spd] the speed at which the actor should move. leave undefined if the actor will move under time constraint
 /// @param {enum.DIR|undefined} [_char_dir] the direction that the actor will be locked into
 /// @param {bool} [_absolute] whether the X and Y positions are absolute
-function actor_movement(_x, _y, _time, _seed = "", _spd = undefined, _char_dir = undefined, _absolute = true) constructor {
-    xx = _x
-    yy = _y
-    seed = _seed
-    time = _time
-    spd = _spd
-    char_dir = _char_dir
-    absolute = _absolute
+/// @param {bool} [_play_sfx] whether to play sfx (if applicable)
+function actor_movement(_x, _y, _time, _seed = "", _spd = undefined, _char_dir = undefined, _absolute = true, _play_sfx = true) constructor {
+    xx = _x;
+    yy = _y;
+    seed = _seed;
+    time = _time;
+    spd = _spd;
+    char_dir = _char_dir;
+    absolute = _absolute;
+    play_sfx = _play_sfx;
 }
 
 /// @desc  a constructor for actor jump movement. inherits from actor_movement.
 /// @param {real} _x target X position
 /// @param {real} _y target Y position
 /// @param {bool} [_absolute] whether the X and Y positions are absolute
-function actor_movement_jump(_x, _y, _absolute = true) : actor_movement(_x, _y, 20, "jump", undefined, undefined, _absolute) constructor {}
+/// @param {real} [_time] the time the animation will take (in frames)
+/// @param {bool} [_play_sfx] whether to play sfx
+function actor_movement_jump(_x, _y, _absolute = true, _time = 20, _play_sfx = true) : actor_movement(_x, _y, _time, "jump", undefined, undefined, _absolute, _play_sfx) constructor {}
 
-///@desc	moves an actor using a struct
-///@arg		{Id.Instance|Asset.GMObject}	actor		the actor to move
-///@arg		{array|struct.actor_movement}	movement	array of the movement pattern
-function actor_move(_actor, movement, pos = 0){
+/// @desc  a constructor for actor jump movement without the landing animation. inherits from actor_movement.
+/// @param {real} _x target X position
+/// @param {real} _y target Y position
+/// @param {bool} [_absolute] whether the X and Y positions are absolute
+/// @param {real} [_time] the time the animation will take (in frames)
+/// @param {bool} [_play_sfx] whether to play sfx
+function actor_movement_jump_into(_x, _y, _absolute = true, _time = 20, _play_sfx = true) : actor_movement(_x, _y, _time, "jump_into", undefined, undefined, _absolute, _play_sfx) constructor {}
+
+/// @desc	moves an actor using a struct
+/// @arg		{Id.Instance|Asset.GMObject}	actor		the actor to move
+/// @arg		{array|struct.actor_movement}	movement	array of the movement pattern
+function actor_move(_actor, movement){
 	if !instance_exists(_actor) 
         exit
 	
@@ -152,6 +162,11 @@ function actor_move(_actor, movement, pos = 0){
             array_push(inst.seed, movement[i].seed)
 		else 
             array_push(inst.seed, "")
+        
+		if struct_exists(movement[i], "play_sfx") 
+            array_push(inst.play_sfx, movement[i].play_sfx);
+		else 
+            array_push(inst.play_sfx, true);
 		
 		if struct_exists(movement[i], "spd") 
             array_push(inst.spd, movement[i].spd)

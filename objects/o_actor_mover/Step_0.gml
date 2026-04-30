@@ -1,18 +1,18 @@
 if seed[step] == "jump" { // jump animation
-	if state == 0 {
+	if stage == 0 {
 		if timer == 0 {
 			character.depth_override = -2000 - yreq[step]
 			character.s_override = true
 			character.moveable_move = false
 		}
-		if timer >= time[step] {
-			state = 1
-		}
+		if timer >= time[step]
+			stage = 1
 	}
-	else if state == 1 {
+	else if stage == 1 {
 		timer = 0
         
-		audio_play(snd_wing,,,, 1)
+        if play_sfx[step] 
+            audio_play(snd_wing,,,, 1)
 		var spr = character.s_landed
         
 		if sprite_exists(spr) {
@@ -22,22 +22,48 @@ if seed[step] == "jump" { // jump animation
 			character.sprite_index = spr
 		}
 		
-		state ++
+		stage ++
 	}
-	else if state == 2 && timer == 20 { 
+	else if stage == 2 && timer == 20 { 
 		timer = 0
 		character.yoff = 0
 		character.depth_override = undefined
 		step ++
-		if step >= array_length(xreq) || step >= array_length(yreq){
+        
+        // end prematurely and set direction to down
+		if step >= array_length(xreq) || step >= array_length(yreq) {
 			character.dir = DIR.DOWN
 			instance_destroy()
 		}
 		else {
-			stage = 0
+            step --;
 			event_user(0)
 			exit
 		}
+	}
+	
+	timer ++
+}
+else if seed[step] == "jump_into" { // jump animation (without landing)
+	if stage == 0 {
+		if timer == 0 {
+			character.depth_override = -2000 - yreq[step];
+			character.s_override = true;
+			character.moveable_move = false;
+		}
+		if timer >= time[step]
+			stage = 1;
+	}
+	else if stage == 1 {
+		timer = 0;
+		character.yoff = 0;
+		character.depth_override = undefined;
+        
+        if play_sfx[step] 
+            audio_play(snd_wing,,,, 1);
+        
+        event_user(0);
+        exit;
 	}
 	
 	timer ++
@@ -74,15 +100,8 @@ else { // walk over
 	}
 	if stage == 2 {
 		timer = 0
-		step ++
-		
-		if step >= array_length(xreq) || step >= array_length(yreq)
-			instance_destroy()
-		else {
-			event_user(0)
-			stage = 0
-		}
+		event_user(0)
 	}
 	
-	timer++
+	timer ++
 }

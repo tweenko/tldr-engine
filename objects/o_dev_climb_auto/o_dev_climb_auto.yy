@@ -37,5 +37,5 @@
     "path":"sprites/spr_dev_climb_auto/spr_dev_climb_auto.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

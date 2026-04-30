@@ -15,6 +15,10 @@ animation_y = undefined
 confined_on_x = true
 confined_on_y = true
 
+climb_mode = false;
+trans_from_climb_x = false;
+trans_from_climb_y = false;
+
 event_user(0)
 
 camera = camera_create_view(x, y,
