@@ -287,6 +287,7 @@
     {"id":{"name":"font_main","path":"fonts/font_main/font_main.yy",},},
     {"id":{"name":"font_prophecy_ja","path":"fonts/font_prophecy_ja/font_prophecy_ja.yy",},},
     {"id":{"name":"font_prophecy","path":"fonts/font_prophecy/font_prophecy.yy",},},
+    {"id":{"name":"Introduction To Throw","path":"notes/Introduction To Throw/Introduction To Throw.yy",},},
     {"id":{"name":"lb_dl_setup","path":"notes/lb_dl_setup/lb_dl_setup.yy",},},
     {"id":{"name":"setup","path":"notes/setup/setup.yy",},},
     {"id":{"name":"__InputUpdateController","path":"objects/__InputUpdateController/__InputUpdateController.yy",},},

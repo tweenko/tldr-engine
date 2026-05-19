@@ -119,4 +119,4 @@ override_fall = true;
 marker = -1;
 
 // trigger config
-can_repeat  =  1;
+//can_repeat  =  1;
