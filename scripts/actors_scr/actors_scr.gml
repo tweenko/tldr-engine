@@ -112,7 +112,7 @@ function actor_movement(_x, _y, _time, _seed = "", _spd = undefined, _char_dir =
 /// @param {bool} [_absolute] whether the X and Y positions are absolute
 /// @param {real} [_time] the time the animation will take (in frames)
 /// @param {bool} [_play_sfx] whether to play sfx
-function actor_movement_jump(_x, _y, _absolute = true, _time = 20, _play_sfx = true) : actor_movement(_x, _y, _time, "jump", undefined, undefined, _absolute, _play_sfx) constructor {}
+function actor_movement_jump(_x, _y, _absolute = true, _time = 15, _play_sfx = true) : actor_movement(_x, _y, _time, "jump", undefined, undefined, _absolute, _play_sfx) constructor {}
 
 /// @desc  a constructor for actor jump movement without the landing animation. inherits from actor_movement.
 /// @param {real} _x target X position
@@ -120,7 +120,7 @@ function actor_movement_jump(_x, _y, _absolute = true, _time = 20, _play_sfx = t
 /// @param {bool} [_absolute] whether the X and Y positions are absolute
 /// @param {real} [_time] the time the animation will take (in frames)
 /// @param {bool} [_play_sfx] whether to play sfx
-function actor_movement_jump_into(_x, _y, _absolute = true, _time = 20, _play_sfx = true) : actor_movement(_x, _y, _time, "jump_into", undefined, undefined, _absolute, _play_sfx) constructor {}
+function actor_movement_jump_into(_x, _y, _absolute = true, _time = 15, _play_sfx = true) : actor_movement(_x, _y, _time, "jump_into", undefined, undefined, _absolute, _play_sfx) constructor {}
 
 /// @desc	moves an actor using a struct
 /// @arg		{Id.Instance|Asset.GMObject}	actor		the actor to move

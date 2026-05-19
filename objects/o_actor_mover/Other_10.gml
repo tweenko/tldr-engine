@@ -33,7 +33,7 @@ if seed[step] == "" {
 else if seed[step] == "jump" || seed[step] == "jump_into" {
 	var dist = point_distance(0, 0, xdiff, ydiff)
 	
-	time[step] = 15
+	time[step] ??= 15
 	time[step] = max(1, time[step])
 	
     if play_sfx[step]

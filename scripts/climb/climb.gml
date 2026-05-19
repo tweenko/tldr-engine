@@ -11,7 +11,7 @@ function climb_start_nearest() {
     
     cutscene_set_variable(o_dev_climb_controller, "leader_in_trans", true);
     cutscene_audio_play(snd_wing);
-    cutscene_actor_move(get_leader(), new actor_movement_jump_into(target_x, target_y, true, 16, false));
+    cutscene_actor_move(get_leader(), new actor_movement_jump_into(target_x, target_y, true, 15, false));
     cutscene_set_variable(o_camera, "target", noone);
     cutscene_camera_pan(target_x, target_y, 15, false);
     
@@ -41,7 +41,7 @@ function climb_stop_nearest() {
     cutscene_audio_play(snd_wing);
     cutscene_set_variable(o_camera, "target", noone);
     cutscene_camera_pan(target_marker.x, target_marker.y, 15, false);
-    cutscene_actor_move(get_leader(), new actor_movement_jump_into(target_marker.x, target_marker.y, true, 20, false));
+    cutscene_actor_move(get_leader(), new actor_movement_jump_into(target_marker.x, target_marker.y, true, 15, false));
     
     cutscene_set_variable(o_camera, "target", get_leader());
     cutscene_set_variable(get_leader(), "dir", DIR.DOWN);
