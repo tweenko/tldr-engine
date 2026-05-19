@@ -1,14 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"o_dev_climb_controller",
+  "%Name":"o_dev_climb_throw",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":4,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_dev_climb_controller",
+  "name":"o_dev_climb_throw",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
@@ -32,7 +29,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_dev_climb_throw",
+    "path":"sprites/spr_dev_climb_throw/spr_dev_climb_throw.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

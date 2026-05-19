@@ -35,16 +35,10 @@ buffered_movement = undefined;
 
 sfx_charge = noone;
 
-//--------------------
-// Dash boost addition
-//--------------------
-speed_boost_timer = 0;
-speed_boost_max = 30;
-
-enum CLIMB_JUMP_MODE {
-    NEAREST,
-    FURTHEREST
-}
+//enum CLIMB_JUMP_MODE {
+//    NEAREST,
+//    FURTHEREST
+//}
 __find_tile = function(_reach, _direction, _mode = CLIMB_JUMP_MODE.NEAREST) {
     var target_tile = noone; 
     var current_tile = noone;
@@ -60,14 +54,6 @@ __find_tile = function(_reach, _direction, _mode = CLIMB_JUMP_MODE.NEAREST) {
         get_leader().y + lengthdir_y(_reach + 4, _direction) + lengthdir_y(8, _direction - 90), 
         o_dev_climb_tile, false, false, target_tiles, false
     );
-	
-	collision_rectangle_list(
-	    get_leader().x + lengthdir_x(8, _direction) + lengthdir_x(8, _direction + 90),
-	    get_leader().y + lengthdir_y(8, _direction) + lengthdir_y(8, _direction + 90),
-	    get_leader().x + lengthdir_x(_reach + 4, _direction) + lengthdir_x(8, _direction - 90), 
-	    get_leader().y + lengthdir_y(_reach + 4, _direction) + lengthdir_y(8, _direction - 90), 
-	    o_dev_climb_throw, false, false, target_tiles, false
-	);
     
     var record_dist = (_mode == CLIMB_JUMP_MODE.NEAREST ? infinity : 0);
     for (var i = 0; i < ds_list_size(target_tiles); i ++) {
@@ -124,11 +110,6 @@ __queue_call = function(time, callback) {
     queued_calls = array_filter(queued_calls, function(n) {
         return time_source_exists(n) && time_source_get_time_remaining(n) > 0;
     });
-	
-	// This prevents the integer issue with frame-based time sources :3
-	// I just had the URGE to fix this.
-	// FIXME: floor if needed
-	time |= 0;
     
     var __call = time_source_create(time_source_game, time, time_source_units_frames, callback);
     time_source_start(__call);
@@ -165,6 +146,4 @@ __reset_variables = function() {
     jump_timer = 0;
     jump_target_tile = noone;
     jump_trail_timer = 0;
-    speed_boost_timer = 0;
-    speed_boost_max = 30;
 }
