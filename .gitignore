@@ -1,8 +1,4 @@
 # Windows
-
-# Temporary (So it does not modify the fonts)
-fonts
-fonts/
  
 # Windows thumbnail cache files
 Thumbs.db
