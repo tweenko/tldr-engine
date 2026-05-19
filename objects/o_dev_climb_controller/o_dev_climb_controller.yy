@@ -11,8 +11,8 @@
   "name":"o_dev_climb_controller",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"climb",
+    "path":"folders/@Engine/objects/dev/climb.yy",
   },
   "parentObjectId":null,
   "persistent":false,

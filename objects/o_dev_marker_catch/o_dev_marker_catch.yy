@@ -8,8 +8,8 @@
   "name":"o_dev_marker_catch",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"markers",
+    "path":"folders/@Engine/objects/dev/markers.yy",
   },
   "parentObjectId":null,
   "persistent":false,

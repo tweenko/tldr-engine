@@ -310,7 +310,6 @@
     {"id":{"name":"o_dev_border","path":"objects/o_dev_border/o_dev_border.yy",},},
     {"id":{"name":"o_dev_climb_auto","path":"objects/o_dev_climb_auto/o_dev_climb_auto.yy",},},
     {"id":{"name":"o_dev_climb_catcher","path":"objects/o_dev_climb_catcher/o_dev_climb_catcher.yy",},},
-    {"id":{"name":"o_dev_climb_controller_old","path":"objects/o_dev_climb_controller_old/o_dev_climb_controller_old.yy",},},
     {"id":{"name":"o_dev_climb_controller","path":"objects/o_dev_climb_controller/o_dev_climb_controller.yy",},},
     {"id":{"name":"o_dev_climb_interact","path":"objects/o_dev_climb_interact/o_dev_climb_interact.yy",},},
     {"id":{"name":"o_dev_climb_throw","path":"objects/o_dev_climb_throw/o_dev_climb_throw.yy",},},
