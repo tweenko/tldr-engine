@@ -1,4 +1,10 @@
 { // top
+	if instance_exists(get_leader()) {
+        yy = 0
+		if get_leader().y - guipos_y() > 160
+			yy = 270
+	}
+	
 	ui_dialoguebox_create(32, 52 + yy, 142, 110)
 	
 	draw_set_font(loc_font("main"))
