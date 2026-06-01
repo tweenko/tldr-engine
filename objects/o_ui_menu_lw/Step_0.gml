@@ -21,7 +21,7 @@ if state == 0 {
 	}
 	
 	if InputPressed(INPUT_VERB.CANCEL) || InputPressed(INPUT_VERB.SPECIAL) {
-		global.lw_selection = selection
+		global.menu_page = selection
 		instance_destroy()
 	}
 	

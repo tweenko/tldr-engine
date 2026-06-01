@@ -3,7 +3,7 @@ if instance_exists(get_leader())
 
 yy = 0
 state = 0
-selection = global.lw_selection
+selection = global.menu_page
 dialogue_overlay = false
 
 ip_selection = 0
