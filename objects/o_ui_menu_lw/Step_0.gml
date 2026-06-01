@@ -8,17 +8,17 @@ if dialogue_overlay {
 
 if state == 0 {
 	if InputPressed(INPUT_VERB.DOWN) {
-		selection ++
-		audio_play(snd_ui_move)
+		if selection < array_length(options)-1 {
+			selection ++
+			audio_play(snd_ui_move)
+		}
 	}
 	else if InputPressed(INPUT_VERB.UP) {
-		selection --
-		audio_play(snd_ui_move)
+		if selection > 0 {
+			selection --
+			audio_play(snd_ui_move)
+		}
 	}
-	if selection > array_length(options)-1
-		selection = 0
-	if selection < 0 
-		selection = array_length(options)-1
 	
 	if InputPressed(INPUT_VERB.CANCEL) || InputPressed(INPUT_VERB.SPECIAL) {
 		instance_destroy()
@@ -27,7 +27,6 @@ if state == 0 {
 	if InputPressed(INPUT_VERB.SELECT) {
 		if selection == 0 {
 			if item_get_count(ITEM_TYPE.LIGHT) == 0 {
-				audio_play(snd_ui_cant_select)
                 exit
             }
             
@@ -49,17 +48,20 @@ if state == 0 {
 if state == 1 {
 	if InputPressed(INPUT_VERB.DOWN){
 		i_selection ++
-		audio_play(snd_ui_move)
+		
+		if i_selection > item_get_count(ITEM_TYPE.LIGHT)-1
+			i_selection = item_get_count(ITEM_TYPE.LIGHT)-1
+		else
+			audio_play(snd_ui_move)
 	}
 	else if InputPressed(INPUT_VERB.UP){
 		i_selection --
-		audio_play(snd_ui_move)
+		
+		if i_selection < 0
+			i_selection = 0
+		else
+			audio_play(snd_ui_move)
 	}
-	
-	if i_selection > item_get_count(ITEM_TYPE.LIGHT)-1
-		i_selection = item_get_count(ITEM_TYPE.LIGHT)-1
-	if i_selection < 0
-		i_selection = 0
 		
 	if InputPressed(INPUT_VERB.SELECT){
 		state = 2
@@ -69,6 +71,10 @@ if state == 1 {
 	}
 	
 	if InputPressed(INPUT_VERB.CANCEL){
+		if i_selection != selection {
+			audio_play(snd_ui_move)
+		}
+		i_selection = 0
 		state = 0
 		exit
 	}
@@ -76,17 +82,20 @@ if state == 1 {
 if state == 2 {
 	if InputPressed(INPUT_VERB.RIGHT) {
 		ip_selection ++
-		audio_play(snd_ui_move)
+		
+		if ip_selection > 2
+			ip_selection = 2
+		else
+			audio_play(snd_ui_move)
 	}
 	else if InputPressed(INPUT_VERB.LEFT) {
 		ip_selection --
-		audio_play(snd_ui_move)
+		
+		if ip_selection < 0
+			ip_selection = 0
+		else
+			audio_play(snd_ui_move)
 	}
-	
-	if ip_selection > 2
-		ip_selection = 2
-	if ip_selection < 0
-		ip_selection = 0
 	
 	if InputPressed(INPUT_VERB.SELECT) {
 		var _item = item_get_array(ITEM_TYPE.LIGHT)[i_selection]
@@ -108,12 +117,16 @@ if state == 2 {
 	}
 	
 	if InputPressed(INPUT_VERB.CANCEL) {
+		if ip_selection != i_selection {
+			audio_play(snd_ui_move)
+		}
 		state = 1
 		exit
 	}
 }
 if state == 3 {
     if InputPressed(INPUT_VERB.CANCEL){
+		audio_play(snd_ui_move)
 		state = 0
 		exit
 	}
@@ -121,11 +134,15 @@ if state == 3 {
 if state == 4 {
     if InputPressed(INPUT_VERB.DOWN){
 		c_selection ++
-		audio_play(snd_ui_move)
+		
+		if c_selection < array_length(phone_numbers) - 1
+			audio_play(snd_ui_move)
 	}
 	else if InputPressed(INPUT_VERB.UP){
 		c_selection --
-		audio_play(snd_ui_move)
+		
+		if c_selection > 0
+			audio_play(snd_ui_move)
 	}
     c_selection = clamp(c_selection, 0, array_length(phone_numbers) - 1)
     
@@ -136,6 +153,9 @@ if state == 4 {
         exit
     }
     if InputPressed(INPUT_VERB.CANCEL){
+		if c_selection != selection {
+			audio_play(snd_ui_move)
+		}
 		state = 0
 		exit
 	}
