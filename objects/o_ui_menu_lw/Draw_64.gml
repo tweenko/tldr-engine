@@ -132,11 +132,15 @@ if state == 3 { // stats
 if state == 4 { // cell
     ui_dialoguebox_create(188, 52, 346, 270)
     
-    for (var i = 0; i < array_length(phone_numbers); i ++) {
-        var __number = phone_numbers[i]
+	if array_equals(phone_numbers, [])
+		draw_sprite_ext(spr_ui_soul, 0, 232-24, 88, 2, 2, 0, c_red, 1)
+	else {
+	    for (var i = 0; i < array_length(phone_numbers); i ++) {
+	        var __number = phone_numbers[i]
         
-        if c_selection == i
-            draw_sprite_ext(spr_ui_soul, 0, 232-24, 88+i*32, 2, 2, 0, c_red, 1)
-        draw_text_transformed(232, 80 + i*32, __number.name, 2, 2, 0)
-    }
+	        if c_selection == i
+	            draw_sprite_ext(spr_ui_soul, 0, 232-24, 88+i*32, 2, 2, 0, c_red, 1)
+	        draw_text_transformed(232, 80 + i*32, __number.name, 2, 2, 0)
+	    }
+	}
 }

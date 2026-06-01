@@ -21,6 +21,7 @@ if state == 0 {
 	}
 	
 	if InputPressed(INPUT_VERB.CANCEL) || InputPressed(INPUT_VERB.SPECIAL) {
+		global.lw_selection = selection
 		instance_destroy()
 	}
 	
@@ -132,26 +133,29 @@ if state == 3 {
 	}
 }
 if state == 4 {
-    if InputPressed(INPUT_VERB.DOWN){
-		c_selection ++
+	if !array_equals(phone_numbers, []) {
+	    if InputPressed(INPUT_VERB.DOWN){
+			c_selection ++
 		
-		if c_selection < array_length(phone_numbers) - 1
-			audio_play(snd_ui_move)
-	}
-	else if InputPressed(INPUT_VERB.UP){
-		c_selection --
+			if c_selection < array_length(phone_numbers) - 1
+				audio_play(snd_ui_move)
+		}
+		else if InputPressed(INPUT_VERB.UP){
+			c_selection --
 		
-		if c_selection > 0
-			audio_play(snd_ui_move)
-	}
-    c_selection = clamp(c_selection, 0, array_length(phone_numbers) - 1)
+			if c_selection > 0
+				audio_play(snd_ui_move)
+		}
+	
+		c_selection = clamp(c_selection, 0, array_length(phone_numbers) - 1)
     
-    if InputPressed(INPUT_VERB.SELECT) {
-        phone_numbers[c_selection].cutscene()
-        dialogue_overlay = true
+	    if InputPressed(INPUT_VERB.SELECT) {
+	        phone_numbers[c_selection].cutscene()
+	        dialogue_overlay = true
         
-        exit
-    }
+	        exit
+	    }
+	}
     if InputPressed(INPUT_VERB.CANCEL){
 		if c_selection != selection {
 			audio_play(snd_ui_move)
