@@ -1,10 +1,10 @@
 if o_enc_soul.i_frames > 0 
 	exit
 
-if color == 1
+if color == BULLET_COLOR.BLUE
 	if !o_enc_soul.moving 
 		exit
-else if color == 2
+else if color == BULLET_COLOR.ORANGE
 	if o_enc_soul.moving 
 		exit
 
@@ -13,5 +13,5 @@ o_enc_soul.image_index = 1
 
 party_attack_targets(att, o_enc, element)
 
-if color == 0 && destroy
+if color == BULLET_COLOR.SOLID && destroy
 	instance_destroy()

@@ -1,5 +1,7 @@
 graze_buffer = 0;
+graze_new_buffer = 0;
 grazed_inst = noone;
+grazed_previous = noone;
 can_graze = false;
 
 image_alpha = 0;
