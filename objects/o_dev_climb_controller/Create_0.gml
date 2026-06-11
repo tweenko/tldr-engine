@@ -35,6 +35,10 @@ buffered_movement = undefined;
 
 sfx_charge = noone;
 
+// dash boost addition
+speed_boost_timer = 0;
+speed_boost_max = 30;
+
 enum CLIMB_JUMP_MODE {
     NEAREST,
     FURTHEREST
@@ -110,6 +114,11 @@ __queue_call = function(time, callback) {
     queued_calls = array_filter(queued_calls, function(n) {
         return time_source_exists(n) && time_source_get_time_remaining(n) > 0;
     });
+	
+	// This prevents the integer issue with frame-based time sources :3
+	// I just had the URGE to fix this.
+	// FIXME: floor if needed
+	time |= 0;
     
     var __call = time_source_create(time_source_game, time, time_source_units_frames, callback);
     time_source_start(__call);
@@ -146,4 +155,6 @@ __reset_variables = function() {
     jump_timer = 0;
     jump_target_tile = noone;
     jump_trail_timer = 0;
+    speed_boost_timer = 0;
+    speed_boost_max = 30;
 }

@@ -3,7 +3,7 @@ if audio_exists(exit_sound)
     audio_play(exit_sound);
 
 call_later(2, time_source_units_frames, function() {
-    party_leader_warp("land", target_marker, exit_direction ?? savedir);
+    party_leader_warp(MARKER_LAND, target_marker, exit_direction ?? savedir);
     
     if was_climbing {
         o_dev_climb_controller.__climb_start();

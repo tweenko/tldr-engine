@@ -28,7 +28,7 @@ function climb_start_nearest() {
 function climb_stop_nearest() {
     o_dev_climb_controller.__unqueue_calls();
     
-    var target_marker = marker_find_closest(get_leader().x, get_leader().y, "climb");
+    var target_marker = marker_find_closest(get_leader().x, get_leader().y, MARKER_CLIMB);
     if !instance_exists(target_marker)
         show_error("climb_stop_nearest error: couldn't find a climb end marker in the current room, aborting", true);
     

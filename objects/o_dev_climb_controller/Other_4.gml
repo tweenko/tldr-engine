@@ -3,7 +3,7 @@
 var __layers = layer_get_all();
 for (var i = 0; i < array_length(__layers); i ++) {
     var __layer_id = __layers[i];
-    if string_starts_with(layer_get_name(__layer_id), "climb") && layer_tilemap_exists(__layer_id, layer_tilemap_get_id(__layer_id)) {
+    if string_starts_with(layer_get_name(__layer_id), MARKER_CLIMB) && layer_tilemap_exists(__layer_id, layer_tilemap_get_id(__layer_id)) {
         var map_id = layer_tilemap_get_id(__layer_id);
         if map_id == -1 // abort in case something goes wrong
             continue;

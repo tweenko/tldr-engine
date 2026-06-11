@@ -740,7 +740,7 @@ function shop_option_exit(_exit_call) : shop_option() constructor {
                 room_goto(o_shop.shop_data.return_room)
                 
                 call_later(1, time_source_units_frames, method(self, function() {
-                    party_leader_warp("land", return_marker_id, return_direction ?? DIR.DOWN)
+                    party_leader_warp(MARKER_LAND, return_marker_id, return_direction ?? DIR.DOWN)
                     call_later(1, time_source_units_frames, function() {
                         fader_fade(1, 0, 10)
                     })
