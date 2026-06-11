@@ -3,7 +3,7 @@ if instance_exists(get_leader())
 
 yy = 0
 state = 0
-selection = 0
+selection = global.menu_page
 dialogue_overlay = false
 
 ip_selection = 0
@@ -55,3 +55,4 @@ phone_cant_cutscene = function() {
     cutscene_func(instance_destroy, o_ui_menu_lw)
     cutscene_play()
 }
+audio_play(snd_ui_move)
