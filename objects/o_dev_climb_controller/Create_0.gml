@@ -35,9 +35,7 @@ buffered_movement = undefined;
 
 sfx_charge = noone;
 
-//--------------------
-// Dash boost addition
-//--------------------
+// dash boost addition
 speed_boost_timer = 0;
 speed_boost_max = 30;
 
@@ -60,14 +58,6 @@ __find_tile = function(_reach, _direction, _mode = CLIMB_JUMP_MODE.NEAREST) {
         get_leader().y + lengthdir_y(_reach + 4, _direction) + lengthdir_y(8, _direction - 90), 
         o_dev_climb_tile, false, false, target_tiles, false
     );
-	
-	collision_rectangle_list(
-	    get_leader().x + lengthdir_x(8, _direction) + lengthdir_x(8, _direction + 90),
-	    get_leader().y + lengthdir_y(8, _direction) + lengthdir_y(8, _direction + 90),
-	    get_leader().x + lengthdir_x(_reach + 4, _direction) + lengthdir_x(8, _direction - 90), 
-	    get_leader().y + lengthdir_y(_reach + 4, _direction) + lengthdir_y(8, _direction - 90), 
-	    o_dev_climb_throw, false, false, target_tiles, false
-	);
     
     var record_dist = (_mode == CLIMB_JUMP_MODE.NEAREST ? infinity : 0);
     for (var i = 0; i < ds_list_size(target_tiles); i ++) {
