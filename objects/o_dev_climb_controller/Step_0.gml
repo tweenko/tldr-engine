@@ -16,6 +16,10 @@ if climbing {
                 var x_move = InputX(INPUT_CLUSTER.NAVIGATION);
                 var y_move = InputY(INPUT_CLUSTER.NAVIGATION);
                 
+                if x_move == 0 && y_move == 0 {
+                    speed_boost_timer = 0;
+                }
+                
                 if x_move != 0 || y_move != 0 {
                     var ___reach = InputCheck(INPUT_VERB.SELECT) ? jump_reach_max + 10 : move_reach;
 						  var ___jm = InputCheck(INPUT_VERB.SELECT) ? CLIMB_JUMP_MODE.FURTHEREST : CLIMB_JUMP_MODE.NEAREST;
@@ -101,8 +105,25 @@ if climbing {
                      // select is let go
                     if !InputCheck(INPUT_VERB.SELECT) {
                         if instance_exists(target_tile) {
-                            move_buffer = 10;
-                            jump_buffer = 15;
+                            var dist = point_distance(get_leader().x, get_leader().y, target_tile.x, target_tile.y + 2);
+							
+							//--------------------
+							// Dash boost addition
+							//--------------------
+                            if dist <= 24             // small boost  (one block dash)
+								speed_boost_max = 15;
+                            else if dist <= 40        // medium boost (two block dash)
+								speed_boost_max = 20;
+                            else                      // long boost   (three block dash)
+								speed_boost_max = 40;
+                            
+                            speed_boost_timer = speed_boost_max;
+                            var speed_mult    = 1;
+							// ^ This controls THE dash speed,
+							//   and not the post-dash move speed.
+                            
+                            move_buffer      = 10 / speed_mult;
+                            jump_buffer      = 10 / speed_mult;
                             jump_target_tile = noone;
                             jump_trail_timer = 10;
                             
@@ -133,11 +154,11 @@ if climbing {
                             audio_stop_sound(snd_wing);
                             audio_play(snd_wing, false, .7, .6 + random(.3));
                             
-                            animate(get_leader().x, target_tile.x, 10, anime_curve.sine_out, get_leader(), "x");
-                            animate(get_leader().y, target_tile.y + 2, 10, anime_curve.sine_out, get_leader(), "y");
+                            animate(get_leader().x, target_tile.x,     10 / speed_mult, anime_curve.sine_out, get_leader(), "x");
+                            animate(get_leader().y, target_tile.y + 2, 10 / speed_mult, anime_curve.sine_out, get_leader(), "y");
                             
                             // change to land sprite
-                            __queue_call(4, method(self, function() {
+                            __queue_call(4 / speed_mult, method(self, function() {
                                 switch current_direction {
                                     case 0:
                                         get_leader().sprite_index = get_leader().s_climb_land_right;
@@ -149,7 +170,7 @@ if climbing {
                             }));
                             
                             // change to climb sprite upon fully landing
-                            __queue_call(10, method(get_leader(), function() {
+                            __queue_call(10 / speed_mult, method(get_leader(), function() {
                                 get_leader().sprite_index = get_leader().s_climb;
                                 get_leader().image_index = 0;
                                 get_leader().image_speed = 0;
@@ -158,6 +179,7 @@ if climbing {
                         else {
                             bump_timer = bump_off_time;
                             bump_buffered_movement = undefined;
+                            speed_boost_timer = 0;
                             
 									 last_direction = current_direction;
                             if current_direction % 180 == 0
@@ -191,7 +213,9 @@ if climbing {
                     
                     var target_tile = __find_tile(move_reach, current_direction);
                     if instance_exists(target_tile) {
-                        move_buffer = 10;
+                        var speed_mult = speed_boost_max > 0 ? 1 + (speed_boost_timer / speed_boost_max) : 1;
+                        
+                        move_buffer = 8 / speed_mult;
                         jump_buffer = 0;
                         
 								last_direction = current_direction;
@@ -200,24 +224,25 @@ if climbing {
                         if current_direction % 180 == 90
                            last_vertical_direction = current_direction;
                         
-                        animate(get_leader().x, target_tile.x, 8, anime_curve.sine_out, get_leader(), "x");
-                        animate(get_leader().y, target_tile.y + 2, 8, anime_curve.sine_out, get_leader(), "y");
+                        animate(get_leader().x, target_tile.x, 8 / speed_mult, anime_curve.sine_out, get_leader(), "x");
+                        animate(get_leader().y, target_tile.y + 2, 8 / speed_mult, anime_curve.sine_out, get_leader(), "y");
                         
                         audio_play(snd_wing, false, 0.6, 1.1 + random(.1));
                         
                         get_leader().sprite_index = get_leader().s_climb;
                         get_leader().image_speed = 0;
                         get_leader().image_index = cap_wraparound(get_leader().image_index + 1, get_leader().image_number);
-                        __queue_call(8, method(get_leader(), function() {
+                        __queue_call(8 / speed_mult, method(get_leader(), function() {
                             image_index = cap_wraparound(image_index + 1, image_number);
                         }));
                     }
                     else {
                         bump_timer = bump_off_time;
                         bump_buffered_movement = undefined;
+                        speed_boost_timer = 0;              // reset (interrupted)
                         
-								
-								last_direction = current_direction;
+							
+						last_direction = current_direction;
                         if current_direction % 180 == 0
                            last_horizontal_direction = current_direction;
                         if current_direction % 180 == 90
@@ -345,6 +370,8 @@ if climbing {
                 }
             jump_trail_timer --;
         }
+        if speed_boost_timer > 0
+            speed_boost_timer --;
     }
 }
 else {
