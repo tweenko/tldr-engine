@@ -27,9 +27,6 @@ global.console_enabled = true
 global.climbing_enabled = function() {
     return item_contains(item_key_claimbclaws);
 }
-global.climbing_enabled = function() {
-    return true;
-}
 
 global.party_limit = 3 // set to undefined for unlimited party members
 global.slide_speed = 5
