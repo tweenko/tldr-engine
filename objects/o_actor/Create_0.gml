@@ -13,9 +13,8 @@ is_player = false
 is_party = false
 
 { // player specific
-	spd = 2
-	runspd = 4
-	basespd = spd
+	spd = (global.world == WORLD_TYPE.LIGHT ? 3 : 2);
+	basespd = spd;
     
     auto_run = global.settings.AUTO_RUN
     noclip = false
@@ -27,7 +26,7 @@ is_party = false
 	stepsoundprefix = "snd_step"
 	made_step = 0;
 	
-	spacing = (global.world == WORLD_TYPE.LIGHT ? 15 : 12) // make the party member spacing bigger in the light world
+	spacing = 12; // the spacing will automatically be bigger due to higher speed
 }
 { // enemy specific
 	chaser = false
@@ -77,8 +76,8 @@ is_party = false
         s_climb_land_right = spr_kris_climb_land_right;
         s_climb_slip_fall = spr_kris_climb_slip_fall;
 	
-		s_walk_ispd = 1
-		s_run_ispd = 2
+		s_walk_ispd = 1;
+		s_run_ispd = 2;
 	}
 	
 	s_drawer = function(_sprite, _index, _xx, _yy, _xscale, _yscale, _angle, _blend, _alpha) {
@@ -136,6 +135,7 @@ is_party = false
 	startedmoving = false
 	moving = false
 	sprname = ""
+    player_run_timer = 0;
 	
 	run_away = false
 	run_away_timer = 0

@@ -21,14 +21,20 @@ if is_player && check_canmove {
     
 	// movement speed control
 	if ((!auto_run && InputCheck(INPUT_VERB.CANCEL)) || (auto_run && !InputCheck(INPUT_VERB.CANCEL))) && moving {
-		running = true
-		
-		if spd < runspd // accelerate
-			spd += .2
+		running = true;
+		player_run_timer ++;
+        
+        if player_run_timer > 60
+            spd = basespd + (global.world == WORLD_TYPE.LIGHT ? 3 : 2.5);
+        else if player_run_timer > 10
+            spd = basespd + 2;
+        else 
+            spd = basespd + 1;
 	}
 	else {
-		running = false
-		spd = basespd // instantly return to base speed
+		running = false;
+		spd = basespd; // instantly return to base speed
+        player_run_timer = 0;
 	}
     
 	// move upon pressing keys
@@ -39,8 +45,10 @@ if is_player && check_canmove {
         
         if !array_contains(held_directions, target_dir)
             array_push(held_directions, target_dir)
-        if array_contains(held_directions, opposite_direction)
+        if array_contains(held_directions, opposite_direction) {
             array_delete(held_directions, array_get_index(held_directions, opposite_direction), 1)
+            player_run_timer = 0;
+        }
     }
     var __unset_dir = function(target_dir) {
         if !array_contains(held_directions, target_dir)
@@ -306,11 +314,13 @@ else if !is_in_battle && !is_enemy {
 // running sprites, walking sprites
 if !is_in_battle && !is_enemy && s_dynamic && !s_override {
 	if running && moving {
-		image_speed = lerp(s_walk_ispd, s_run_ispd, (get_leader().spd - basespd) / (runspd - basespd))
+		image_speed = s_run_ispd;
 		sprite_index = asset_get_index(sprite_get_name(s_move[dir]) + s_run_postfix)
 	}
-	else
+	else {
+		image_speed = s_walk_ispd;
 		sprite_index = s_move[dir]
+    }
 }
 
 { // timers and siners
