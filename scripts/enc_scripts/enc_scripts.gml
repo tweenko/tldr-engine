@@ -45,7 +45,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed
 	
 	if !instance_exists(o) 
 		return false
-	instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: txt, mode: TEXT_HPCHANGE_MODE.ENEMY, user: user,})
+	instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: txt, mode: TEXT_HPCHANGE_MODE.ENEMY, user: user})
 	
 	if hurt > 0 {
 		if enemy_struct.hp <= 0 {

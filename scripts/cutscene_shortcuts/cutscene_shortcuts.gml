@@ -14,12 +14,12 @@ function cutscene_spare_enemy(index) {
         
         cutscene_set_variable(obj, "sprite_index", _enemy.s_spare)
         if !recruit_islost(_enemy) && enc_enemy_is_recruitable(_enemy)
-           cutscene_instance_create(o_text_hpchange, 
-               obj.x, obj.s_get_middle_y(), 
-               obj.depth - 100, {
-                   draw: $"{recruit_get_progress(_enemy)}/{recruit_getneed(_enemy)}", 
-                   mode: TEXT_HPCHANGE_MODE.RECRUIT
-               }
+            cutscene_instance_create(o_text_hpchange, 
+                obj.x, obj.s_get_middle_y(), 
+                obj.depth - 100, {
+                    draw: $"{recruit_get_progress(_enemy)}/{recruit_getneed(_enemy)}", 
+                    mode: TEXT_HPCHANGE_MODE.RECRUIT,
+                }
            )
         
         // flash the enemy

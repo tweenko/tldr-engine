@@ -27,7 +27,6 @@ __draw_to_sprite = function(_draw, _fallback = loc_sprite("damage_miss")) {
 
 stretch = .2
 xoff = 0
-align = 0 // 1 for right
 
 visual_x = x
 visual_y = y

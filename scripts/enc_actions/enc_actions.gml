@@ -354,8 +354,19 @@ function enc_action_spare(_party_names, _enemy_target) : enc_action(_party_names
                         txt += loc_string("enc_exec_spare_suggest_spell", spellowner, string_upper(item_get_name(tgt_spell)))
                     }
                 }
-                if __enemy.can_spare && __enemy.mercy_add_pity_percent > 0 // add pity spare percentage
+                if __enemy.can_spare && __enemy.mercy_add_pity_percent > 0 { // add pity spare percentage
                     cutscene_func(enc_enemy_add_spare, [other.target, __enemy.mercy_add_pity_percent])
+                    cutscene_func(method({__e_obj: __enemy.actor_id}, function() {
+                        __e_obj.flash_color = c_yellow;
+                        
+                        var a = anime_begin(0, function(v) {__e_obj.flash = v;});
+                        anime_add(.5, 7, anime_curve.linear);
+                        anime_add(0, 7, anime_curve.linear);
+                        anime_start(a);
+                        
+                        call_later(10, time_source_units_frames, function() {__e_obj.flash_color = c_white;});
+                    }));
+                }
                 
                 cutscene_dialogue(string(txt, party_getname(other.acting_member), __enemy.name),, true)
                 cutscene_set_variable(o_enc, "waiting_internal", false)
