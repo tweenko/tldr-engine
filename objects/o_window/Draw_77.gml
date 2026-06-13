@@ -1,6 +1,6 @@
 var screen_w = window_get_fullscreen() ? display_get_width() : window_get_width()
 var screen_h = window_get_fullscreen() ? display_get_height() : window_get_height()
-var scale = window_get_fullscreen() ? o_world.fullscreen_scale : o_world.window_scale
+var scale = window_get_fullscreen() ? o_world.fullscreen_scale : (global.border ? o_world.window_border_scale : o_world.window_scale);
 
 if window_get_fullscreen() && !global.border {
     scale = min(display_get_width() / GAME_W_GUI, display_get_height() / GAME_H_GUI)

@@ -3,7 +3,10 @@ volume_sfx = 1
 volume_bgm = 1
 volume_master = .6
 
-window_scale = 1
+window_scale = 1;
+window_border_scale = 1;
+fullscreen_scale = 1;
+
 sound_on_frame = -1
 save_settings = true
 
