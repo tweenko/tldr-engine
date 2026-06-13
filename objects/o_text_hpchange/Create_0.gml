@@ -37,6 +37,7 @@ y -= guipos_y()
 x *= 2
 y *= 2
 depth = -2000 - instance_number(object_index)
+image_blend = c_white;
 
 alarm[0] = 1 // animate
 visible = false

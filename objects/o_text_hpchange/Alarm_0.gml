@@ -7,6 +7,8 @@ visible = true
 visual_x = x
 visual_y = y
 
+visual_x += 45;
+
 x += 9; y += 6
 
 if mode == TEXT_HPCHANGE_MODE.RECRUIT || mode == TEXT_HPCHANGE_MODE.SCALE {
@@ -19,7 +21,7 @@ if mode == TEXT_HPCHANGE_MODE.RECRUIT || mode == TEXT_HPCHANGE_MODE.SCALE {
         b._start()
 }
 else {
-    animate(visual_x - 10 + 50, visual_x + 30 + 50, 7, anime_curve.linear, id, "visual_x")
+    animate(visual_x - 10, visual_x + 30, 7, anime_curve.linear, id, "visual_x")
     
     var a = anime_begin(visual_y, method(self, function(v) {
         visual_y = v;

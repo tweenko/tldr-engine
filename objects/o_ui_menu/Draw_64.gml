@@ -61,7 +61,7 @@ if !only_hp { // top
 		draw_text_transformed(160 + 213*i + xoff, 428 + 80 - roll, string(party_getdata(global.party_names[i], "hp")), 1, 1, 0)
 		draw_sprite_ext(spr_ui_hp_seperator, 0, 161 + 213*i + xoff, 428 + 80 - roll, 1, 1, 0, c_white, 1)
 		draw_text_transformed(205 + 213*i + xoff, 428 + 80 - roll, party_getdata(global.party_names[i], "max_hp"), 1, 1, 0)
-		
+        
 		draw_set_color(c_white)
 		draw_set_halign(fa_left)
 		draw_set_font(loc_font("main"))
@@ -575,5 +575,6 @@ draw_set_alpha(1)
 draw_set_halign(fa_left)
 draw_set_valign(fa_top)
 
-surface_reset_target()
-draw_surface_ext(surf, 0, 0, 1, 1, 0, c_white, 1)
+surface_reset_target();
+
+draw_surface_ext(surf, 0, 0, 1, 1, 0, c_white, 1);

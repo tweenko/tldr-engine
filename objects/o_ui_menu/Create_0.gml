@@ -133,11 +133,11 @@ else {
                 borders_toggle(true)
             
             if global.border_mode == BORDER_MODE.DYNAMIC
-                border_set(global.current_dynamic_border)
+                border_set(global.current_dynamic_border,, 0);
             else if global.border_mode == BORDER_MODE.SIMPLE
-                border_set(border_simple)
+                border_set(border_simple,, 0);
             else if global.border_mode == BORDER_MODE.NONE
-                border_set(border_none)
+                border_set(border_none,, 0);
         }),
     })
 }

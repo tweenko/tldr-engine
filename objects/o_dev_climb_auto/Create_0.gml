@@ -13,10 +13,12 @@ trigger_code = function() {
             buffered = true;
     }
     else { // start climbing
-        if !o_dev_climb_controller.leader_in_trans
-            climb_start_nearest();
-        else 
-            buffered = true;
+        if get_leader()._checkmove() {
+            if !o_dev_climb_controller.leader_in_trans
+                climb_start_nearest();
+            else 
+                buffered = true;
+        }
     }
 }
 trigger_exit_code = function() {

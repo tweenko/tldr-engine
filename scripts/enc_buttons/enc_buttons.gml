@@ -78,7 +78,7 @@ function enc_button_act() : enc_button() constructor {
                     }
                 }
                 battle_menu_inv_cancel = function() {
-                    battle_menu = BATTLE_MENU.ENEMY_SELECTION
+                    battle_menu = BATTLE_MENU.BUTTON_SELECTION
                     __enemy_highlight(party_enemy_selection[party_selection])
                 }
             }
@@ -236,11 +236,11 @@ function enc_button_item() : enc_button() constructor {
     name = "item"
     press = function() {
         if array_length(other.__item_sort()) == 0 {
-            audio_play(snd_ui_cant_select)
-            return
+            audio_play(snd_ui_select);
+            return;
         }
         else
-            audio_play(snd_ui_select)
+            audio_play(snd_ui_select);
         
         with other {
             battle_menu = BATTLE_MENU.INV_SELECTION
