@@ -79,7 +79,7 @@ function enc_button_act() : enc_button() constructor {
                 }
                 battle_menu_inv_cancel = function() {
                     battle_menu = BATTLE_MENU.BUTTON_SELECTION
-                    __enemy_highlight(party_enemy_selection[party_selection])
+                __enemy_highlight_reset()
                 }
             }
             battle_menu_enemy_cancel = function() {
