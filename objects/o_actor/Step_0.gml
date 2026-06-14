@@ -96,17 +96,21 @@ if is_player && check_canmove {
 	
 	// interact
 	if InputPressed(INPUT_VERB.SELECT) {
-		var w = 2
-		var __xw = -lengthdir_x(w, dir + 90)
-		var __yw = lengthdir_y(w, dir + 90)
-        
-        var __interactable_instances = instance_place_list_ext(x + __xw, y + __yw, array_concat([o_ow_interactable, o_actor_interactable], interactable_instances), false)
-        for (var i = 0; i < array_length(__interactable_instances); i ++) {
-            with __interactable_instances[i] {
-                if other._checkmove()
-                    event_user(0)
+        for (var w = 2; w < 15; w ++) {
+    		var __xw = -lengthdir_x(w, dir + 90)
+    		var __yw = lengthdir_y(w, dir + 90)
+            
+            var __interactable_instances = instance_place_list_ext(x + __xw, y + __yw, array_concat([o_ow_interactable, o_actor_interactable], interactable_instances), false)
+            for (var i = 0; i < array_length(__interactable_instances); i ++) {
+                with __interactable_instances[i] {
+                    if other._checkmove()
+                        event_user(0)
+                }
             }
+            if array_length(__interactable_instances) > 0
+                break;
         }
+		
 	}
 	
 	// menu
