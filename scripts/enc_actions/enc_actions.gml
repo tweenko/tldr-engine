@@ -155,7 +155,9 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
                 target_act = target_spell;
             
             // set the party sprites accordingly
-            if struct_exists(target_act, "perform_act_anim") && target_act.perform_act_anim {
+            if struct_exists(target_act, "perform_act_anim") && !target_act.perform_act_anim {
+            }
+            else {
                 for (var i = 0; i < array_length(party_names); i ++) {
                     enc_party_set_battle_sprite(party_names[i], "act")
                 }
