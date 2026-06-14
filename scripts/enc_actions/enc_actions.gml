@@ -151,6 +151,9 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
             with o_enc
                 target_act = encounter_data.enemies[party_enemy_selection[party_get_index(other.acting_member)]].acts_special
             
+            if !is_instanceof(target_spell, item_s_defaultaction)
+                target_act = target_spell;
+            
             // set the party sprites accordingly
             if struct_exists(target_act, "perform_act_anim") && target_act.perform_act_anim {
                 for (var i = 0; i < array_length(party_names); i ++) {
