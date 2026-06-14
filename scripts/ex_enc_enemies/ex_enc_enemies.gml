@@ -43,7 +43,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				var me = o_enc.encounter_data.enemies[slot]
 				
 				cutscene_create()
-				cutscene_set_variable(o_enc, "waiting", true)
+				cutscene_enc_wait(true)
 				
 				cutscene_func(enc_enemy_add_spare, [slot, 5])
                 cutscene_func(function(user, boogie_sprites, slot) {
@@ -67,7 +67,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				cutscene_dialogue("* " + party_getname(user) + " boogies past bullets!{br}{resetx}* SHADOWGUY gains mercy until you get hit!")
                 cutscene_set_partysprite(user, "idle")
 				
-				cutscene_set_variable(o_enc, "waiting", false)
+				cutscene_enc_wait(false)
 				cutscene_play()
 			},
             exec_args: [boogie_sprites] 
@@ -81,7 +81,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				var me = o_enc.encounter_data.enemies[slot]
 				
 				cutscene_create()
-				cutscene_set_variable(o_enc, "waiting", true)
+				cutscene_enc_wait(true)
 				
 				cutscene_sleep(10)
 				
@@ -106,7 +106,7 @@ function ex_enemy_shadowguy() : enemy() constructor{
                     }
                 }, slot)
 				
-				cutscene_set_variable(o_enc, "waiting", false)
+				cutscene_enc_wait(false)
 				cutscene_play()
 			}
 		},

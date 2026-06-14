@@ -61,7 +61,7 @@ trigger_code = function() {
     
     cutscene_audio_play(snd_whip_hard)
     cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_sheeh)
-    cutscene_set_variable(party_get_inst("susie"), "s_override", true)
+    cutscene_actor_override(party_get_inst("susie"), true);
     cutscene_animate(5, 0, 10, "linear", party_get_inst("susie"), "shake")
     cutscene_wait_dialogue_finish()
     
@@ -70,7 +70,7 @@ trigger_code = function() {
     
     cutscene_set_variable(party_get_inst("susie"), "image_xscale", 1)
     cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_down_serious)
-    cutscene_set_variable(party_get_inst("susie"), "s_override", false)
+    cutscene_actor_override(party_get_inst("susie"), false);
     cutscene_audio_play(snd_noise)
     cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_shock)
     cutscene_animate(5, 0, 10, "linear", o_actor_noelle, "shake")

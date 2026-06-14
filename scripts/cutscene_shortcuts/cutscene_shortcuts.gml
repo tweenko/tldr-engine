@@ -71,3 +71,9 @@ function cutscene_spare_enemy(index) {
 function cutscene_actor_override(actor_inst, override) {
     cutscene_set_variable(actor_inst, "s_override", override)
 }
+
+/// @desc sets `o_enc`'s `waiting` variable to true or false
+/// @arg {bool} wait whether the encounter should wait or not
+function cutscene_enc_wait(wait) {
+    cutscene_set_variable(o_enc, "waiting", wait);
+}

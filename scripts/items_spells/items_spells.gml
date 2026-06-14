@@ -22,7 +22,7 @@ function item_s_rudebuster() : item_spell() constructor {
             exit
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
         
-        cutscene_set_variable(o_enc, "waiting", true)
+        cutscene_enc_wait(true)
 		cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), string_upper(loc("spell_rude_buster_name"))),, false)
         cutscene_sleep(20)
         cutscene_set_partysprite(spell_user, "rudebuster")
@@ -49,7 +49,7 @@ function item_s_rudebuster() : item_spell() constructor {
         }, [__e_obj, party_get_inst(spell_user), target, spell_user])
         cutscene_sleep(50)
         cutscene_set_partysprite(spell_user, "idle")
-		cutscene_set_variable(o_enc, "waiting", false)
+		cutscene_enc_wait(false)
     }
     
 	tp_cost = 50
@@ -116,7 +116,7 @@ function item_s_susieheal(data = {
     }
     
     use = function(spell_user, target, caller, _name, _calc, _use) {
-        cutscene_set_variable(o_enc, "waiting", true)
+        cutscene_enc_wait(true)
 		cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _name),, false)
         
         cutscene_sleep(10)
@@ -127,7 +127,7 @@ function item_s_susieheal(data = {
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
-		cutscene_set_variable(o_enc, "waiting", false)
+		cutscene_enc_wait(false)
     }
     
     __update_spell(_data)
@@ -139,10 +139,10 @@ function item_s_testdmg() : item_spell() constructor {
 	use_type = ITEM_USE.ENEMY
 	
 	use = function(spell_user, target, caller) {
-		cutscene_set_variable(o_enc, "waiting", true)
+		cutscene_enc_wait(true)
 		cutscene_func(enc_hurt_enemy, [target, 10, user])
 		cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), "TEST DAMAGE"),, true)
-		cutscene_set_variable(o_enc, "waiting", false)
+		cutscene_enc_wait(false)
 	}
 	
 	tp_cost = 16
@@ -177,7 +177,7 @@ function item_s_pacify() : item_spell() constructor {
             exit
         
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
-        cutscene_set_variable(o_enc, "waiting", true)
+        cutscene_enc_wait(true)
         
         if o_enc.encounter_data.enemies[target].tired {
 		    cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _name),, false)
@@ -202,7 +202,7 @@ function item_s_pacify() : item_spell() constructor {
         }
         
         cutscene_func(instance_destroy, [o_ui_dialogue])
-		cutscene_set_variable(o_enc, "waiting", false)
+		cutscene_enc_wait(false)
     }
     use_args = [name[0]]
     
@@ -214,7 +214,7 @@ function item_s_healprayer() : item_spell() constructor {
 	use_type = ITEM_USE.INDIVIDUAL
 	
     use = function(spell_user, target, caller, _name) {
-        cutscene_set_variable(o_enc, "waiting", true)
+        cutscene_enc_wait(true)
 		cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _name),, false)
         
         cutscene_sleep(10)
@@ -224,7 +224,7 @@ function item_s_healprayer() : item_spell() constructor {
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
-		cutscene_set_variable(o_enc, "waiting", false)
+		cutscene_enc_wait(false)
     }
     use_args = [name[0]]
     
@@ -257,7 +257,7 @@ function item_s_sleepmist() : item_spell() constructor {
     }
 	
     use = function(spell_user, target, caller, _name) {
-        cutscene_set_variable(o_enc, "waiting", true)
+        cutscene_enc_wait(true)
     
         cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _name),, false)
     
@@ -288,7 +288,7 @@ function item_s_sleepmist() : item_spell() constructor {
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
-		cutscene_set_variable(o_enc, "waiting", false)
+		cutscene_enc_wait(false)
     }
     use_args = [name[0]]
     
@@ -304,7 +304,7 @@ function item_s_iceshock() : item_spell() constructor {
             exit
         
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
-        cutscene_set_variable(o_enc, "waiting", true)
+        cutscene_enc_wait(true)
     
         cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _name),, false)
     
@@ -328,7 +328,7 @@ function item_s_iceshock() : item_spell() constructor {
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
-		cutscene_set_variable(o_enc, "waiting", false)
+		cutscene_enc_wait(false)
     }
     use_args = [name[0]]
     

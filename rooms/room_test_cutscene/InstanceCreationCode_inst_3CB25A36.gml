@@ -28,7 +28,7 @@ trigger_code = function() {
     
     cutscene_sleep(40)
     
-    cutscene_set_variable(party_get_inst("susie"), "s_override", true)
+    cutscene_actor_override(party_get_inst("susie"), true);
     cutscene_set_variable(o_actor_susie, "sprite_index", spr_susie_arm_cross)
     cutscene_dialogue([
         "{char(susie, 26)}* Heh. You might want to sit down for this. {mini(`(I'd need a chair...)`, noelle, 7)}"
@@ -42,7 +42,7 @@ trigger_code = function() {
     cutscene_set_variable(party_get_inst("susie"), "image_index", 0)
     cutscene_set_variable(party_get_inst("susie"), "image_xscale", __healdir)
     
-    cutscene_set_variable(party_get_inst("noelle"), "s_override", true)
+    cutscene_actor_override(party_get_inst("noelle"), true);
     cutscene_set_variable(party_get_inst("noelle"), "sprite_index", spr_noelle_right_blush)
     
     cutscene_dialogue([
@@ -80,9 +80,8 @@ trigger_code = function() {
     cutscene_wait_dialogue_finish()
     
     cutscene_set_variable(party_get_inst("susie"), "image_xscale", 1)
-    cutscene_set_variable(party_get_inst("susie"), "s_override", false)
-    
-    cutscene_set_variable(party_get_inst("noelle"), "s_override", false)
+    cutscene_actor_override(party_get_inst("susie"), false);
+    cutscene_actor_override(party_get_inst("noelle"), false);
     
     cutscene_party_follow(true)
     cutscene_party_interpolate()

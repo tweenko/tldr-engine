@@ -171,7 +171,7 @@ function enemy_virovirokun() : enemy() constructor{
             perform_act_anim: false,
 			exec: function(slot, user) {
 				cutscene_create()
-				cutscene_set_variable(o_enc, "waiting", true)
+				cutscene_enc_wait(true)
 				
 				cutscene_func(enc_enemy_add_spare, [slot, 100])
 				cutscene_func(function(user) {
@@ -190,7 +190,7 @@ function enemy_virovirokun() : enemy() constructor{
 				
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecare_msg"))
                 
-				cutscene_set_variable(o_enc, "waiting", false)
+				cutscene_enc_wait(false)
 				cutscene_play()
 			}
 		},
@@ -201,7 +201,7 @@ function enemy_virovirokun() : enemy() constructor{
             perform_act_anim: false,
 			exec: function(slot, user) {
 				cutscene_create()
-				cutscene_set_variable(o_enc, "waiting", true)
+				cutscene_enc_wait(true)
 				
 				cutscene_func(function(user) {
 					for (var i = 0; i < party_length(); ++i) {
@@ -230,7 +230,7 @@ function enemy_virovirokun() : enemy() constructor{
 					}
 				}, user)
 				cutscene_dialogue(loc("enemy_virovirokun_act_takecarex_msg"))
-				cutscene_set_variable(o_enc, "waiting", false)
+				cutscene_enc_wait(false)
 				cutscene_play()
 			}
 		},
@@ -302,7 +302,7 @@ function enemy_killercar() : enemy() constructor{
             tp_cost: 32,
 			exec: function(slot, user) {
 				cutscene_create()
-				cutscene_set_variable(o_enc, "waiting", true)
+				cutscene_enc_wait(true)
 				
 				cutscene_dialogue([
 					"{char(susie, 21)}* I have an idea.",
@@ -313,7 +313,7 @@ function enemy_killercar() : enemy() constructor{
 				cutscene_sleep(30)
 				
                 cutscene_set_partysprite("susie", "idle")
-				cutscene_set_variable(o_enc, "waiting", false)
+				cutscene_enc_wait(false)
 				cutscene_play()
 			}
 		},
@@ -323,7 +323,7 @@ function enemy_killercar() : enemy() constructor{
             desc: "Induce TIRED",
             exec: function(slot, user) {
                 cutscene_create()
-                cutscene_set_variable(o_enc, "waiting", true)
+                cutscene_enc_wait(true)
                 
                 cutscene_dialogue("{auto_breaks(false)}* You and Ralsei told the dummy{br}bedtime story.{br}{resetx}* The enemies became {col(`tired_aqua`)}TIRED{col(w)}...",, false)
                 cutscene_sleep(16)
@@ -345,7 +345,7 @@ function enemy_killercar() : enemy() constructor{
                     return !instance_exists(o_ui_dialogue)
                 })
                 
-                cutscene_set_variable(o_enc, "waiting", false)
+                cutscene_enc_wait(false)
                 cutscene_play()
             }
         }
@@ -414,7 +414,7 @@ function enemy_killercar() : enemy() constructor{
         cutscene_animate(1, 0, 10, "linear", actor_id, "flash")
         
         cutscene_wait_dialogue_finish()
-        cutscene_set_variable(o_enc, "waiting", false)
+        cutscene_enc_wait(false)
         cutscene_play()
     })
     

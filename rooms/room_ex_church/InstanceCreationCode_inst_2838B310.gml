@@ -25,7 +25,7 @@ trigger_code = function() {
     cutscene_dialogue(loc("txt_room_example_church_cutscene"),, false, true)
     cutscene_wait_dialogue_boxes(1)
     
-    cutscene_set_variable(party_get_inst("susie"), "s_override", true)
+    cutscene_actor_override(party_get_inst("susie"), true);
     cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_up_head_down)
     cutscene_wait_dialogue_boxes(2)
     
@@ -35,7 +35,7 @@ trigger_code = function() {
     cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_up_head_down)
     cutscene_wait_dialogue_finish()
     
-    cutscene_set_variable(party_get_inst("susie"), "s_override", false)
+    cutscene_actor_override(party_get_inst("susie"), false);
     cutscene_set_variable(party_get_inst("susie"), "dir", DIR.RIGHT)
     
     cutscene_func(camera_unpan, [get_leader(), 20])

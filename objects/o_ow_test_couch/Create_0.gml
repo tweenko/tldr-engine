@@ -123,7 +123,7 @@ interaction_code = function() {
         var o = party_get_inst("noelle")
         cutscene_actor_move(o, new actor_movement(0, 10, 15,,, DIR.UP, false))
         cutscene_sleep(10)
-        cutscene_set_variable(o, "s_override", true)
+        cutscene_actor_override(o, true);
         cutscene_set_variable(o, "sprite_index", spr_noelle_sit_up)
         cutscene_audio_play(snd_noise)
     }
@@ -143,7 +143,7 @@ interaction_code = function() {
     }
     if party_contains("noelle") {
         var o = party_get_inst("noelle")
-        cutscene_set_variable(o, "s_override", false)
+        cutscene_actor_override(o, false);
         cutscene_audio_play(snd_noise)
         cutscene_sleep(5)
     }
