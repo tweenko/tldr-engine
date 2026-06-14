@@ -159,19 +159,29 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
             }
            
             var __default_action = true
-            if struct_exists(target_act, acting_member){
-                target_act = struct_get(target_act, acting_member)
-                if struct_exists(target_act, "exec") {
-                    method_call(target_act.exec, [
+            if is_instanceof(target_spell, item_s_defaultaction) {
+                if struct_exists(target_act, acting_member) {
+                    target_act = struct_get(target_act, acting_member)
+                    if struct_exists(target_act, "exec") {
+                        method_call(target_act.exec, [
+                            other.party_enemy_selection[party_get_index(acting_member)], 
+                            acting_member 
+                        ])
+                        __default_action = false
+                    }
+                }
+                if __default_action
+                    cutscene_dialogue($"* Default {party_getname(global.party_names[party_get_index(acting_member)])} Action")
+            }
+            else {
+                if struct_exists(target_spell, "exec") {
+                    method_call(target_spell.exec, [
                         other.party_enemy_selection[party_get_index(acting_member)], 
-                        acting_member 
-                    ])
-                    __default_action = false
+                        acting_member
+                    ]);
                 }
             }
             
-            if __default_action
-                cutscene_dialogue($"* Default {party_getname(global.party_names[party_get_index(acting_member)])} Action")
         }
         else {
             // set the party sprites accordingly

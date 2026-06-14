@@ -61,6 +61,19 @@ function enc_set() constructor { // base
 	}
 }
 
+function ex_item_s_weep(nname) : item_spell() constructor {
+	name = "Weep";
+	desc = ["", "", "Weep"];
+	
+	use_type = ITEM_USE.ENEMY;
+	is_party_act = true;
+    exec = method(self, function(enemy_index, acting_member) {
+        encounter_scene_dialogue($"* {party_getname(acting_member)} wept inconsolably.")
+    });
+	
+	color = merge_color(party_getdata(nname, "color"), c_white, 0.5);
+	tp_cost = 16;
+}
 function enc_set_ex() : enc_set() constructor {
 	debug_name	=	"example"
     
@@ -72,6 +85,14 @@ function enc_set_ex() : enc_set() constructor {
     enemies[0].defeat_marker = 0
     enemies[2].defeat_marker = 1
     flavor = "* The test crew is approaching!!"
+    
+    party_actions = {};
+    for (var i = 0; i < party_length(); ++i) {
+	    struct_set(party_actions, global.party_names[i], [
+            new item_s_defaultaction(global.party_names[i]), 
+            new ex_item_s_weep(global.party_names[i])
+        ]);
+	}
     
 	enemies_pos = [
 		[0, 0, true],

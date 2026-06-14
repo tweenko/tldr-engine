@@ -354,6 +354,8 @@ function enemy_killercar() : enemy() constructor{
 	act_desc = array_create(array_length(acts), -1)
 	act_desc[1] = "Kill Em with Ralsei"
     
+    acts_special_desc = "Test";
+    
     my_inst_almond = noone
     ev_post_turn = method(self, function() {
         if hp > max_hp/1.5

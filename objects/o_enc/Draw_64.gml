@@ -143,8 +143,18 @@ for (var i = 0; i < party_length(); i ++) { // draw buttons
 }
 
 if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
-    draw_text_transformed(424, 364, loc("enc_ui_label_hp"), (global.loc_lang == "en" ? 2 : 1), 1, 0)
+    if !battle_menu_special_action_mode 
+        draw_text_transformed(424, 364, loc("enc_ui_label_hp"), (global.loc_lang == "en" ? 2 : 1), 1, 0)
     draw_text_transformed(524, 364, loc("enc_ui_label_mercy"), (global.loc_lang == "en" ? 2 : 1), 1, 0)
+    
+    var longest_name = 0;
+    for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
+        if !enc_enemy_isfighting(i)
+            continue;
+        
+        var enemy_struct = encounter_data.enemies[i];
+        longest_name = max(longest_name, string_width(enemy_struct.name)*2);
+    }
     
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
         if !enc_enemy_isfighting(i)
@@ -156,6 +166,7 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
         var tired = enemy_struct.tired
         var spare = enemy_struct.mercy >= 100
         var status_eff = enemy_struct.status_effect
+        var offset = (battle_menu_special_action_mode ? longest_name : string_width(enemy_struct.name)*2);
         
         // set the enemy name colors
         if tired && spare {
@@ -179,16 +190,22 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
         
         // draw status effects
         if tired {
-            draw_sprite_ext(spr_ui_enc_tiredmark, 0, 80 + string_width(enemy_struct.name)*2 + 42, 385 + 30*i, 1, 1, 0, c_white, 1)
+            draw_sprite_ext(spr_ui_enc_tiredmark, 0, 80 + offset + 42, 385 + 30*i, 1, 1, 0, c_white, 1)
             if status_eff == "" 
                 status_eff = "(Tired)"
         }
         if spare {
-            draw_sprite_ext(spr_ui_enc_sparestar, 0, 60+string_width(enemy_struct.name)*2 + 42, 385 + 30*i, 1, 1,0 , c_white, 1)
+            draw_sprite_ext(spr_ui_enc_sparestar, 0, 80 + offset + 22, 385 + 30*i, 1, 1,0 , c_white, 1)
         }
-        if status_eff != "" {
+        
+        if battle_menu_special_action_mode {
+            draw_set_color(merge_color(party_getdata(global.party_names[party_selection], "color"), c_white, .5));
+            draw_text_transformed(80 + offset + 62, 375 + 30*i, enemy_struct.acts_special_desc, 2, 2, 0)
+            draw_set_color(c_white)
+        }
+        else if status_eff != "" {
             draw_set_color(c_gray)
-            draw_text_transformed(100 + string_width(enemy_struct.name)*2 + 42, 375 + 30*i, status_eff, 2, 2, 0)
+            draw_text_transformed(80 + offset + 62, 375 + 30*i, status_eff, 2, 2, 0)
             draw_set_color(c_white)
         }
         
@@ -196,11 +213,13 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
         var mercypercent = enemy_struct.mercy
         
         // draw the hp bar
-        draw_sprite_ext(spr_pixel, 0, 420, 380 + 30*i, 81, 16, 0, c_maroon, 1)
-        draw_sprite_ext(spr_pixel, 0, 420, 380 + 30*i, 81*hppercent, 16, 0, c_lime, 1)
-        
-        draw_set_color(c_white)
-        draw_text_transformed(424, 380 + 30*i, string("{0}%", round(hppercent * 100)), 2, 1, 0)
+        if !battle_menu_special_action_mode {
+            draw_sprite_ext(spr_pixel, 0, 420, 380 + 30*i, 81, 16, 0, c_maroon, 1)
+            draw_sprite_ext(spr_pixel, 0, 420, 380 + 30*i, 81*hppercent, 16, 0, c_lime, 1)
+            
+            draw_set_color(c_white)
+            draw_text_transformed(424, 380 + 30*i, string("{0}%", round(hppercent * 100)), 2, 1, 0)
+        }
         
         // draw the spare bar base
         draw_sprite_ext(spr_pixel, 0, 520, 380 + 30*i, 81, 16, 0, merge_color(c_orange, c_red, 0.5), 1)

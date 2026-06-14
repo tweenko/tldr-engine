@@ -19,6 +19,7 @@ function enc_button_fight() : enc_button() constructor {
         audio_play(snd_ui_select)
         with other {
             battle_menu = BATTLE_MENU.ENEMY_SELECTION
+            battle_menu_special_action_mode = false;
             __enemy_highlight(party_enemy_selection[party_selection])
             
             battle_menu_enemy_proceed = function() {
@@ -55,6 +56,7 @@ function enc_button_act() : enc_button() constructor {
         audio_play(snd_ui_select)
         with other {
             battle_menu = BATTLE_MENU.ENEMY_SELECTION
+            battle_menu_special_action_mode = false;
             __enemy_highlight(party_enemy_selection[party_selection])
             
             battle_menu_enemy_proceed = function() {
@@ -172,6 +174,7 @@ function enc_button_power() : enc_button() constructor {
                             break
                         case ITEM_USE.ENEMY: // let the player choose a target enemy
                             battle_menu = BATTLE_MENU.ENEMY_SELECTION
+                            battle_menu_special_action_mode = (struct_exists(spell_struct, "is_party_act") && spell_struct.is_party_act);
                             __enemy_highlight(party_enemy_selection[party_selection])
                             
                             battle_menu_enemy_proceed = function() {
@@ -279,6 +282,7 @@ function enc_button_item() : enc_button() constructor {
                             break
                         case ITEM_USE.ENEMY: // let the player choose a target enemy
                             battle_menu = BATTLE_MENU.ENEMY_SELECTION
+                            battle_menu_special_action_mode = false;
                             __enemy_highlight(party_enemy_selection[party_selection])
                             
                             battle_menu_enemy_proceed = function() {
@@ -344,6 +348,7 @@ function enc_button_spare() : enc_button() constructor {
         audio_play(snd_ui_select)
         with other {
             battle_menu = BATTLE_MENU.ENEMY_SELECTION
+            battle_menu_special_action_mode = false;
             __enemy_highlight(party_enemy_selection[party_selection])
             
             battle_menu_enemy_proceed = function() {

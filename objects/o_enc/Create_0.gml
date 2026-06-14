@@ -66,6 +66,7 @@
     battle_menu_inv_list = []
     battle_menu_inv_var_name = ""
     battle_menu_inv_page_var_name = ""
+    battle_menu_special_action_mode = false;
     battle_menu_inv_var_operate = function(_delta, _abs = false) {
         if _abs     party_act_selection_selection[party_selection] = _delta
         else        party_act_selection[party_selection] += _delta
