@@ -190,7 +190,7 @@ if selection == 1 { // equip
 		
 		var arr_mod = []
 		array_copy(arr_mod, 0, arr, 0, array_length(arr))
-		array_insert(arr_mod, 0, undefined)
+		//array_insert(arr_mod, 0, undefined)
 		
 		var stats = [
 			[loc("menu_stat_attack"), party_getdata(global.party_names[e_pmselection], "attack"), spr_ui_menu_icon_sword],

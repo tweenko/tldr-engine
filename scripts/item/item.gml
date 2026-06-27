@@ -75,16 +75,16 @@ enum ITEM_DESC_TYPE {
 ///@desc returns the maximum amount of items you can hold depending on the item type
 function item_get_maxcount(type = ITEM_TYPE.CONSUMABLE) {
 	if type == ITEM_TYPE.CONSUMABLE
-		return 12
+		return 12;
 	if type == ITEM_TYPE.STORAGE
-		return 24
+		return global.storage_pages * 12;
 	
-	return 48
+	return 48;
 }
 
 ///@desc deletes an item according to its type
 function item_delete(item_slot, type = ITEM_TYPE.CONSUMABLE) {
-	if type == ITEM_TYPE.STORAGE
+	if type == ITEM_TYPE.STORAGE || type == ITEM_TYPE.WEAPON || type == ITEM_TYPE.ARMOR
 		item_get_array(type)[item_slot] = undefined
 	else 
 		array_delete(item_get_array(type), item_slot, 1)
@@ -110,16 +110,16 @@ function item_add(item_struct, type = undefined) {
     
 	var txt = loc_string("item_added", item_get_name(item_struct), item_get_store_name(type))
 	if can {
-		if type == ITEM_TYPE.STORAGE {
+		if type == ITEM_TYPE.STORAGE || type == ITEM_TYPE.WEAPON || type == ITEM_TYPE.ARMOR {
             var index = 0
-            for (var i = 0; i < item_get_maxcount(ITEM_TYPE.STORAGE); i ++) {
-                if is_undefined(item_get_array(ITEM_TYPE.STORAGE)[i]) {
+            for (var i = 0; i < item_get_maxcount(type); i ++) {
+                if is_undefined(item_get_array(type)[i]) {
                     index = i
                     break
                 }
             }
             
-			item_set(item_struct, index, ITEM_TYPE.STORAGE)
+			item_set(item_struct, index, type)
         }
         else
 			item_set(item_struct, item_get_count(type), type)
@@ -132,7 +132,7 @@ function item_add(item_struct, type = undefined) {
 
 ///@desc replaces an item in the array
 function item_set(item_struct, index, type = ITEM_TYPE.CONSUMABLE) {
-	if index >= item_get_count(type) && type != ITEM_TYPE.STORAGE
+	if index >= item_get_count(type) && !(type == ITEM_TYPE.STORAGE || type == ITEM_TYPE.WEAPON || type == ITEM_TYPE.ARMOR)
 		index = item_get_count(type)
 	array_set(item_get_array(type), index, item_struct)
 }
@@ -203,7 +203,7 @@ function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL) {
 		return ret
     else if is_method(ret)
         return variable_callable_to_value(ret);
-    return "description"
+    return ""
 }
 
 ///@desc returns the shop cost of an item

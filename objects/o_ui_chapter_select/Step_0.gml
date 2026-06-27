@@ -26,6 +26,7 @@ if state == -1 {
             animate(0, 1, 20, anime_curve.linear, id, "alpha")
 			
 			state = 0
+            selection = global.chapter;
 		}
 	}
 }

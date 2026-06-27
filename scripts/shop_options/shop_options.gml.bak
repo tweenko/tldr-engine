@@ -497,7 +497,7 @@ function shop_option_sell(_sell_options = [
             else if InputRepeat(INPUT_VERB.UP) 
                 item_selection --
             
-            item_selection = clamp(item_selection, 0, array_length(item_array)-1)
+            item_selection = clamp(item_selection, 0, item_get_count(sell_options[selection].type)-1)
             
             while item_selection < item_selection_off
                 item_selection_off --
@@ -553,12 +553,17 @@ function shop_option_sell(_sell_options = [
             var item_array = item_get_array(item_type)
             
             if array_length(item_array) > items_display {
-                draw_scrollbar(array_length(item_array), item_selection, 376, 295);
+                draw_set_color(c_dkgray)
+                draw_rectangle(378, 299, 378+5, 418, 0)
+                draw_set_color(c_white)
+                
+                var add = lerp(0, 120-5, item_selection_off / (array_length(item_array) - items_display))
+                draw_rectangle(378, 299 + add, 378+5, 299 + 5 + add, 0)
                 
                 if item_selection_off < array_length(item_array) - items_display
-                    draw_sprite_ext(spr_ui_arrow_down, 0, 370, 432 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
+                    draw_sprite_ext(spr_ui_arrow_down, 0, 375, 432 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
                 if item_selection_off > 0
-                    draw_sprite_ext(spr_ui_arrow_up, 0, 370, 268 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
+                    draw_sprite_ext(spr_ui_arrow_up, 0, 375, 268 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
             }
             
             for (var i = item_selection_off; i < min(array_length(item_array), item_selection_off + items_display); i ++) {
@@ -566,7 +571,7 @@ function shop_option_sell(_sell_options = [
                 
                 if is_undefined(__item) {
                     draw_set_colour(c_dkgray)
-                    draw_text_transformed(60, 260 + 40 * (i - item_selection_off), "--------", 2, 2, 0)
+                    draw_text_transformed(60, 260 + 40 * (i - item_selection_off), "-------", 2, 2, 0)
                     draw_set_colour(c_white)
                 }
                 else {

@@ -27,6 +27,7 @@ function enemy() constructor {
 			desc: "Useless analysis",
 			party: [],
             tp_cost: 0, // optional, 0 by default
+            color: c_white, // color of the act. can be callable
             
             enabled: true, // optional, true by default. can also be callable
             perform_act_anim: true, // optional, true by default
@@ -36,7 +37,6 @@ function enemy() constructor {
 				encounter_scene_dialogue("* Empty CHECK text.")
 			},
             exec_args: []
-            
 		},
 	]
 	acts_special = {}

@@ -42,8 +42,13 @@ function text_typer_choice(_text, _off_x = 0, _off_y = 0, _color = c_white, _sel
     off_y = _off_y;
     
     _draw = function(_x, _y, _pos, _choicer, _halign = fa_left) {
+        var __t = variable_callable_to_value(text);
+        
         if _halign == fa_right 
-            _x -= string_width(text)*2;
+            _x -= string_width(__t)*2;
+        else if _halign == fa_center
+            _x -= string_width(__t);
+        
         _x += variable_callable_to_value(off_x);
         _y += variable_callable_to_value(off_y);
         
@@ -51,9 +56,10 @@ function text_typer_choice(_text, _off_x = 0, _off_y = 0, _color = c_white, _sel
         
         if _choicer.selection == _pos {
             draw_set_color(variable_callable_to_value(select_color));
-            draw_sprite_ext(spr_ui_soul, 0, _x - 32, _y + 10, 2, 2, 0, c_red, 1);
+            _choicer.target_x = _x - 32;
+            _choicer.target_y = _y + 10;
         }
-        draw_text_transformed(_x, _y, variable_callable_to_value(text), 2, 2, 0);
+        draw_text_transformed(_x, _y, __t, 2, 2, 0);
         
         draw_set_colour(c_white);
     }

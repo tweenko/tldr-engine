@@ -9,9 +9,4 @@ with object_index {
 		instance_destroy()
 }
 
-with o_turn {
-    if id != other.id 
-        other.debuff ++;
-}
-
 buff = count - 1 // remove yourself

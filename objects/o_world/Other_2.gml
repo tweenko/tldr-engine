@@ -78,7 +78,7 @@ array_push(global.key_items, new item_key_cell_phone())
     save_entry("TIME", global.time, function(_conv_data){ global.time = _conv_data }, function(){ return global.time })
     save_entry("CHAPTER", global.chapter, function(_conv_data){ global.chapter = _conv_data }, function(){ return global.chapter })
     save_entry("PLOT", 0)
-    save_entry("MONEY", 0)
+    save_entry("MONEY", 12800)
     save_entry("EXP", 0)
     
     save_entry("CRYSTAL", false)

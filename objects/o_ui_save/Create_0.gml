@@ -39,7 +39,7 @@ s_o_selection = 0
 st_selection = [0, 0]
 st_page = 0
 st_stpage = 0
-st_maxstpage = 2
+st_maxstpage = array_length(global.storage) div 12;
 
 st_soulx = 155 - 15
 st_souly = 145 + floor(st_selection[st_page]/2)*20 + 3

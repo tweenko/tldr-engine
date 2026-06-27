@@ -9,7 +9,7 @@ execute_code = function() {
     if !evil {
     	cutscene_dialogue("* Hello! This is a test of the Choice thing.{p}{c}* Is it cool?");
         cutscene_choicer([
-            new text_typer_choice("Hell Yeah Chief"),
+            new text_typer_choice("Hell Yeah\nChief"),
             new text_typer_choice("I like it"),
             new text_typer_choice(function() {
                 var s = "Peak";

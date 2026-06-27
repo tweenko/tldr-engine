@@ -116,14 +116,15 @@ global.slide_speed = 5
 }
 
 // set up the inventory
-global.items = []
-global.key_items = []
-global.weapons = []
-global.armors = []
+global.items = [];
+global.key_items = [];
+global.weapons = array_create(item_get_maxcount(ITEM_TYPE.WEAPON), undefined);
+global.armors = array_create(item_get_maxcount(ITEM_TYPE.WEAPON), undefined);
 
 global.recruits = []
 global.recruits_lost = []
 
+global.storage_pages = 2;
 global.storage = array_create(item_get_maxcount(ITEM_TYPE.STORAGE), undefined)
 
 global.lw_items = []

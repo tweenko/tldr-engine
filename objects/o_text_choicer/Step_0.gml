@@ -10,4 +10,7 @@ if visible {
 
 	if InputPressed(INPUT_VERB.SELECT) && selection != -1
 		instance_destroy();
+    
+    soul_x = lerp(soul_x, target_x, .8);
+    soul_y = lerp(soul_y, target_y, .8);
 }
