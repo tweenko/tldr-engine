@@ -236,7 +236,7 @@ if page == 2 { // storage
 		else 
 			draw_set_color(c_gray)
 		
-		draw_text_transformed(xx, 295 + floor((i - 12*st_stpage)/2) * 20, txt, 1, 1, 0)
+		draw_text_transformed(xx, 294 + floor((i - 12*st_stpage)/2) * 20, txt, 1, 1, 0)
 	}
 	
 	draw_set_color(c_white)

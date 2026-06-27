@@ -28,7 +28,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed
     hurt = round(hurt)
     sfx ??= enemy_struct.hurt_sound
     
-    if struct_exists(enemy_struct, "ev_hurt") && is_callable(enemy_struct.ev_hurt)
+    if struct_exists(enemy_struct, "ev_hurt") && is_method(enemy_struct.ev_hurt)
         enemy_struct.ev_hurt()
     
     if !is_struct(enemy_struct)
@@ -183,6 +183,7 @@ function enc_gameover(){
 			image_blend: o_enc_soul.image_blend,
 			freezeframe: sprite_create_from_surface(application_surface, 0, 0, 640, 480, 0, 0, 0, 0),
 			freezeframe_gui: sprite_create_from_surface((instance_exists(o_enc) ? o_enc.surf : -1), 0, 0, 640, 480, 0, 0, 0, 0),
+			freezeframe_tp: sprite_create_from_surface((instance_exists(o_enc_tp_bar) ? o_enc_tp_bar.surf : -1), 0, 0, 640, 480, 0, 0, 0, 0),
 		}
 	)
 	
@@ -223,10 +224,8 @@ function enc_enemy_is_recruitable(ref_or_struct) {
     return is_struct(ref_or_struct.recruit)
 }
 
-function enc_get_flavor(data) {
-    if is_callable(data.flavor)
-        return data.flavor()
-    return data.flavor
+function enc_get_flavor(data = o_enc.encounter_data) {
+    return variable_callable_to_value(data.flavor);
 }
 
 /// @desc returns the amount of enemies that are currently fighting
@@ -344,7 +343,7 @@ function enc_recalculate_condition(encounter, current_targets) {
     if !struct_exists(encounter, "target_recalculate_condition")
         return false
     
-    if !is_real(encounter.target_recalculate_condition) && is_callable(encounter.target_recalculate_condition) 
+    if !is_real(encounter.target_recalculate_condition) && is_method(encounter.target_recalculate_condition) 
         return encounter.target_recalculate_condition(current_targets)
     
     else if encounter.target_calculation == ENC_TARGET.ALL

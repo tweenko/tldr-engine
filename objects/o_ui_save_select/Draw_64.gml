@@ -270,7 +270,7 @@ draw_sprite_ext(spr_ui_soul, 0, soulx, souly, 2, 2, 0, c_red, 1)
 
 draw_set_alpha(.25)
 draw_set_halign(fa_right); draw_set_valign(fa_bottom)
-draw_text_transformed(640 - 10, 480 - 6, credit, 1, 1, 0)
+draw_text_transformed(640 - 44, 480 - 6, credit, 1, 1, 0)
 
 draw_set_halign(fa_left); draw_set_valign(fa_top)
 draw_set_alpha(1)

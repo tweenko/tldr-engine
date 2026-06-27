@@ -119,10 +119,7 @@ function music_fade_all(target_gain, time = 30){
         return false
     
     for (var i = 0; i < o_dev_musiccontrol.channels; ++i) {
-        var __gain = target_gain
-        if !is_real(__gain) && is_callable(__gain)
-            __gain = __gain(i)
-        
-        music_fade(i, target_gain, time)
+        var __gain = variable_callable_to_value(target_gain, [i]);
+        music_fade(i, __gain, time)
     }
 }

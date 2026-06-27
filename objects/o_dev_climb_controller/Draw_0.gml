@@ -17,5 +17,5 @@ if jump_reach > 4
 
 var hint_color = merge_color(c_yellow, c_white, 0.4 + sine(3, .4, jump_reach/2));
 var hint_alpha = clamp(sine(14, 1, jump_reach/2), 0.1, 0.8) * fade_alpha;
-if instance_exists(jump_target_tile)
+if instance_exists(jump_target_tile) && !(variable_instance_exists(jump_target_tile, "display_outline") && !jump_target_tile.display_outline)
     draw_sprite_ext(spr_climb_rect_hint, 0, jump_target_tile.x, jump_target_tile.y, 1, 1, 0, hint_color, hint_alpha);

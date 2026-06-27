@@ -259,10 +259,7 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
     				enemy_struct: encounter_data.enemies[i]
     			}))
     			
-    			var text = encounter_data.enemies[i].dialogue
-    			if is_callable(text)
-    				text = text(i)
-    			
+    			var text = variable_callable_to_value(encounter_data.enemies[i].dialogue);
     			if (is_string(text) && text != "") || (is_array(text) && array_length(text) > 0) {
                     var inst = actor_dialogue_create(text, encounter_data.enemies[i].actor_id,,, {
                         spr: encounter_data.enemies[i].dia_bubble_sprites
@@ -405,12 +402,8 @@ else if battle_state == BATTLE_STATE.POST_TURN {
                 party_heal(global.party_names[i], round(party_getdata(global.party_names[i], "max_hp") * .13))
         }
         
-        var flav = encounter_data.flavor
-        if is_callable(flav)
-            flavor = flav()
-        else 
-            flavor = flav
-       	
+        flavor = variable_callable_to_value(encounter_data.flavor);
+        
         event_user(1)
         __battle_state_advance()
     }

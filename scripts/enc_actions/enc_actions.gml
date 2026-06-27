@@ -252,10 +252,7 @@ function enc_action_item(_party_names, _target, _item, _item_index) : enc_action
         cutscene_create()
         cutscene_set_variable(o_enc, "waiting_internal", true)
         
-        var ut = target_item.use_encounter_text
-        if is_callable(ut)
-            ut = ut()
-        
+        var ut = variable_callable_to_value(target_item.use_encounter_text);
         var use_text = (!is_undefined(ut) 
             ? loc_string(ut, 
                 party_getname(acting_member), 
@@ -294,8 +291,8 @@ function enc_action_item(_party_names, _target, _item, _item_index) : enc_action
         cutscene_play()
     }
     cancel_effects = function() {
-        if struct_exists(target_item, "use_instant_cancel") && is_callable(target_item.use_instant_cancel)
-            target_item.use_instant_cancel(item_index, target)
+        if struct_exists(target_item, "use_instant_cancel") && is_method(target_item.use_instant_cancel)
+            target_item.use_instant_cancel(item_index, target);
         
         with other {
             tp -= other.tp_taken

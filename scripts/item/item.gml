@@ -75,16 +75,16 @@ enum ITEM_DESC_TYPE {
 ///@desc returns the maximum amount of items you can hold depending on the item type
 function item_get_maxcount(type = ITEM_TYPE.CONSUMABLE) {
 	if type == ITEM_TYPE.CONSUMABLE
-		return 12
+		return 12;
 	if type == ITEM_TYPE.STORAGE
-		return 24
+		return global.storage_pages * 12;
 	
-	return 48
+	return 48;
 }
 
 ///@desc deletes an item according to its type
 function item_delete(item_slot, type = ITEM_TYPE.CONSUMABLE) {
-	if type == ITEM_TYPE.STORAGE
+	if type == ITEM_TYPE.STORAGE || type == ITEM_TYPE.WEAPON || type == ITEM_TYPE.ARMOR
 		item_get_array(type)[item_slot] = undefined
 	else 
 		array_delete(item_get_array(type), item_slot, 1)
@@ -110,16 +110,16 @@ function item_add(item_struct, type = undefined) {
     
 	var txt = loc_string("item_added", item_get_name(item_struct), item_get_store_name(type))
 	if can {
-		if type == ITEM_TYPE.STORAGE {
+		if type == ITEM_TYPE.STORAGE || type == ITEM_TYPE.WEAPON || type == ITEM_TYPE.ARMOR {
             var index = 0
-            for (var i = 0; i < item_get_maxcount(ITEM_TYPE.STORAGE); i ++) {
-                if is_undefined(item_get_array(ITEM_TYPE.STORAGE)[i]) {
+            for (var i = 0; i < item_get_maxcount(type); i ++) {
+                if is_undefined(item_get_array(type)[i]) {
                     index = i
                     break
                 }
             }
             
-			item_set(item_struct, index, ITEM_TYPE.STORAGE)
+			item_set(item_struct, index, type)
         }
         else
 			item_set(item_struct, item_get_count(type), type)
@@ -132,7 +132,7 @@ function item_add(item_struct, type = undefined) {
 
 ///@desc replaces an item in the array
 function item_set(item_struct, index, type = ITEM_TYPE.CONSUMABLE) {
-	if index >= item_get_count(type) && type != ITEM_TYPE.STORAGE
+	if index >= item_get_count(type) && !(type == ITEM_TYPE.STORAGE || type == ITEM_TYPE.WEAPON || type == ITEM_TYPE.ARMOR)
 		index = item_get_count(type)
 	array_set(item_get_array(type), index, item_struct)
 }
@@ -182,9 +182,9 @@ function item_get_name(item_struct) {
 		return ret[0]
 	else if is_string(ret)
 		return ret
-    else if is_callable(ret)
-        return ret()
-    return ""
+    else if is_method(ret)
+        return variable_callable_to_value(ret);
+    return "item";
 }
 
 ///@desc returns the description of an item
@@ -201,8 +201,8 @@ function item_get_desc(item_struct, desc_type = ITEM_DESC_TYPE.FULL) {
 		return ret[(desc_type < array_length(ret) ? desc_type : 0)]
 	else if is_string(ret)
 		return ret
-    else if is_callable(ret)
-        return ret()
+    else if is_method(ret)
+        return variable_callable_to_value(ret);
     return ""
 }
 
@@ -213,12 +213,7 @@ function item_get_buy_price(item_struct) {
         return 0
     if !struct_exists(item_struct, "buy_price")
         return 0
-    
-    if is_real(item_struct.buy_price)
-        return item_struct.buy_price
-    else if is_callable(item_struct.buy_price)
-        return item_struct.buy_price()
-	return item_struct.buy_price
+	return variable_callable_to_value(item_struct.buy_price);
 }
 
 ///@desc returns the sell price of an item
@@ -228,12 +223,7 @@ function item_get_sell_price(item_struct) {
         return 0
     if !struct_exists(item_struct, "sell_price")
         return round(item_get_buy_price(item_struct)/2)
-    
-    if is_real(item_struct.sell_price)
-        return item_struct.sell_price
-    else if is_callable(item_struct.sell_price)
-        return item_struct.sell_price()
-	return item_struct.sell_price
+	return variable_callable_to_value(item_struct.sell_price);
 }
 
 ///@desc returns whether an item can be sold
@@ -243,12 +233,7 @@ function item_get_can_sell(item_struct) {
         return false
     if !struct_exists(item_struct, "can_sell")
         return true
-    
-    if is_bool(item_struct.can_sell)
-        return item_struct.can_sell
-    else if is_callable(item_struct.can_sell)
-        return item_struct.can_sell()
-	return item_struct.can_sell
+	return variable_callable_to_value(item_struct.can_sell);
 }
 
 ///@desc returns the amount of items in stock
@@ -261,11 +246,7 @@ function item_get_in_stock(item_struct) {
     
     if is_undefined(item_struct.shop_in_stock)
         return infinity
-    else if is_real(item_struct.shop_in_stock)
-        return item_struct.shop_in_stock
-    else if is_callable(item_struct.shop_in_stock)
-        return item_struct.shop_in_stock()
-	return item_struct.shop_in_stock
+	return variable_callable_to_value(item_struct.shop_in_stock);
 }
 
 ///@desc returns the type of an item
@@ -281,14 +262,7 @@ function item_get_fatal(item_struct) {
         return false
 	if !struct_exists(item_struct, "weapon_fatal")
 		return false
-    
-    if is_real(item_struct.weapon_fatal)
-        return item_struct.weapon_fatal
-    if is_bool(item_struct.weapon_fatal)
-        return item_struct.weapon_fatal
-    else if is_callable(item_struct.weapon_fatal)
-        return item_struct.weapon_fatal()
-    return false
+	return variable_callable_to_value(item_struct.weapon_fatal);
 }
 
 /// @desc returns a statistic of an item. 0 if none defined
@@ -385,19 +359,13 @@ function item_menu_party_react(name, reaction) {
 ///@desc calls item_menu_party_react while extracting the reaction from the item struct. only used in the dark world overworld menu
 function item_menu_reaction(item_struct, user = 0) {
 	if item_struct.use_type == 0 {
-		var reaction = struct_get(item_struct.reactions, global.party_names[user])
-        if is_callable(reaction)
-            reaction = reaction()
-        
-		item_menu_party_react(global.party_names[user], reaction)
+		var reaction = variable_callable_to_value(struct_get(item_struct.reactions, global.party_names[user]));
+		item_menu_party_react(global.party_names[user], reaction);
 	}
 	else {
 		for (var i = 0; i < party_length(); ++i) {
-			var reaction = struct_get(item_struct.reactions, global.party_names[i])
-            if is_callable(reaction)
-                
-                reaction = reaction()
-			item_menu_party_react(global.party_names[i], reaction)
+			var reaction = variable_callable_to_value(struct_get(item_struct.reactions, global.party_names[i]));
+			item_menu_party_react(global.party_names[i], reaction);
 		}
 	}
 }

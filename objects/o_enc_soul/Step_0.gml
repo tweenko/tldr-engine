@@ -1,4 +1,7 @@
 if color == SOUL_COLOR.RED {
+    sprite_index = spr_soul;
+    image_blend = c_red;
+    
 	if is_transitioning == false {
 		// Movement
 		if InputCheck(INPUT_VERB.CANCEL) 
@@ -62,6 +65,6 @@ if color == SOUL_COLOR.RED {
 }
 
 if instance_exists(inst_aura) {
-    inst_aura.x = self.x
-    inst_aura.y = self.y
+    inst_aura.x = self.x;
+    inst_aura.y = self.y;
 }

@@ -6,6 +6,7 @@ enemy_struct = {}
 
 pattern = undefined
 pattern_pool = [1]
+assign_unique_patterns = true; // all patterns will be assigned uniquely if possible
 
 timer = 0
 timer_end = 60 // set to undefined for it to not end automatically

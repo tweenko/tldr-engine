@@ -154,8 +154,6 @@ __button_highlight = function(button, party_name) {
 		for (var k = 0; k < array_length(party_getdata(party_name, "spells")); ++k) {
 			if party_getdata(party_name, "spells")[k].is_mercyspell {
 				__tgt_spell = party_getdata(party_name, "spells")[k]
-				__spellowner = party_getname(party_name)
-				
 				break
 			}
 		}
@@ -325,12 +323,12 @@ __call_enc_event = function(event_name) {
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
         if enc_enemy_isfighting(i) {
             // call the pre-dialogue event for the enemies
-            if is_callable(variable_struct_get(encounter_data.enemies[i], event_name))
-                variable_struct_get(encounter_data.enemies[i], event_name)()
+            if is_method(variable_struct_get(encounter_data.enemies[i], event_name))
+                variable_struct_get(encounter_data.enemies[i], event_name)();
         }
     }
-    if is_callable(variable_struct_get(encounter_data, event_name))
-        variable_struct_get(encounter_data, event_name)()
+    if is_method(variable_struct_get(encounter_data, event_name))
+        variable_struct_get(encounter_data, event_name)();
 }
 
 enum BATTLE_MENU {

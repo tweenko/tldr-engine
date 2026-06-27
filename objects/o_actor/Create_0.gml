@@ -211,7 +211,7 @@ __initialize = function() {
     }
 }
 __step = function(index) {
-    if stepsounds
+    if stepsounds && index % 2 == 1
         audio_play(asset_get_index(stepsoundprefix + string(index div 2 + 1)));
     if instance_exists(o_lb_ripple_vision) && index div 2 == 0 {
         var xx = x + random_range(-4, 4);

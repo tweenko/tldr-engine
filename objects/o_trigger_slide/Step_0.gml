@@ -8,20 +8,21 @@ if triggered {
 	timer ++
 }
 
-if instance_exists(target){
+if instance_exists(target) {
 	for (var i = 1; i < party_length(true); ++i) {
 		var o = party_get_inst(global.party_names[i])
 		
-		if o.sliding && !o.prevsliding {
+		if o.sliding && !o.prevsliding && place_meeting(x, y, o) {
 			o.sprite_index = o.s_slide
 			o.s_override = true
 			o.slideinst = id
 			o.follow = false
 		}
-		else if !o.sliding && o.prevsliding {
+		else if !o.sliding && o.prevsliding && o.slideinst == id {
 			o.s_override = false
 			o.dir = DIR.DOWN
 			o.follow = follow_save
+			o.slideinst = noone
 			
 			with o 
 				event_user(1)

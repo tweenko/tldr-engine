@@ -1,8 +1,13 @@
 draw_set_font(loc_font("main"))
 
 if state == 0 { // still show the freezeframe
-	draw_sprite_ext(freezeframe, 0, 0, 0, 1, 1, 0, c_white, 1)
-	draw_sprite_ext(freezeframe_gui, 0, 0, 0, 1, 1, 0, c_white, 1)
+	draw_sprite_ext(freezeframe, 0, 0, 0, 1, 1, 0, c_white, 1);
+    
+    if sprite_exists(freezeframe_gui)
+        draw_sprite_ext(freezeframe_gui, 0, 0, 0, 1, 1, 0, c_white, 1);
+    
+    if sprite_exists(freezeframe_tp)
+        draw_sprite_ext(freezeframe_tp, 0, 0, 0, 1, 1, 0, c_white, 1);
 }
 if state == 1 {
 	draw_sprite_ext(sprite_index, 0, x*2, y*2, 1, 1, image_angle, image_blend, 1)

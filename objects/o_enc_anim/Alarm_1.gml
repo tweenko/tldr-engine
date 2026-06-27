@@ -44,7 +44,7 @@ for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
                 yy = encounter_data.enemies_pos[i][1] + guipos_y()
             }
         }
-        else if is_callable(encounter_data.enemies_pos) {
+        else if is_method(encounter_data.enemies_pos) {
             xx = encounter_data.enemies_pos(i, xx, yy)[0]
             yy = encounter_data.enemies_pos(i, xx, yy)[1]
         }

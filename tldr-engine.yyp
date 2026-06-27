@@ -429,7 +429,7 @@
     {"id":{"name":"o_reflection_manager","path":"objects/o_reflection_manager/o_reflection_manager.yy",},},
     {"id":{"name":"o_shop_shopkeep","path":"objects/o_shop_shopkeep/o_shop_shopkeep.yy",},},
     {"id":{"name":"o_shop","path":"objects/o_shop/o_shop.yy",},},
-    {"id":{"name":"o_text_choice","path":"objects/o_text_choice/o_text_choice.yy",},},
+    {"id":{"name":"o_text_choicer","path":"objects/o_text_choicer/o_text_choicer.yy",},},
     {"id":{"name":"o_text_face","path":"objects/o_text_face/o_text_face.yy",},},
     {"id":{"name":"o_text_hpchange","path":"objects/o_text_hpchange/o_text_hpchange.yy",},},
     {"id":{"name":"o_text_mini","path":"objects/o_text_mini/o_text_mini.yy",},},

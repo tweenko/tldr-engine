@@ -261,7 +261,7 @@ if !only_hp {
 			var arr = item_get_array(e_pselection > 0 ? 3 : 2)
 			var arr_mod = []
 			array_copy(arr_mod, 0, arr, 0, array_length(arr)) 
-			array_insert(arr_mod, 0, undefined)
+			//array_insert(arr_mod, 0, undefined)
 			
 			if InputRepeat(INPUT_VERB.DOWN) && e_selection < array_length(arr_mod) - 1 {
 				e_selection ++ 
@@ -341,23 +341,23 @@ if !only_hp {
 					if !is_undefined(arr_mod[e_selection]) {
 						item_menu_reaction(arr_mod[e_selection], e_pmselection)
                         
-						item_use(arr_mod[e_selection], e_selection - 1, global.party_names[e_pmselection])
+						item_use(arr_mod[e_selection], e_selection, global.party_names[e_pmselection])
 						if is_undefined(equipment[e_pselection]) {
-							item_delete(e_selection-1, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
+							item_delete(e_selection, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
                         }
 						else {
-							item_set(equipment[e_pselection], e_selection-1, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
-                            if is_callable(equipment[e_pselection].unequipped)
-                                method_call(equipment[e_pselection].unequipped, [e_selection-1])
+							item_set(equipment[e_pselection], e_selection, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
+                            if is_method(equipment[e_pselection].unequipped)
+                                method_call(equipment[e_pselection].unequipped, [e_selection])
                         }
                         
 						party_setdata(global.party_names[e_pmselection], order[e_pselection], arr_mod[e_selection])
 					}
 					else {
 						if !is_undefined(equipment[e_pselection]) {
-                            if is_callable(equipment[e_pselection].unequipped)
-                                method_call(equipment[e_pselection].unequipped, [e_selection-1])
-							item_add(equipment[e_pselection], (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
+                            if is_method(equipment[e_pselection].unequipped)
+                                method_call(equipment[e_pselection].unequipped, [e_selection])
+							item_set(equipment[e_pselection], e_selection, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
                             
 							party_setdata(global.party_names[e_pmselection], order[e_pselection], undefined)
 						}
@@ -450,7 +450,7 @@ if !only_hp {
                         break
                     case C_CONFIG_TYPE.SWITCH:
                         var __tmp = false
-                        if is_callable(c_config[c_selection].state)
+                        if is_method(c_config[c_selection].state)
                             __tmp = !c_config[c_selection].state()
                         else {
                             __tmp = !c_config[c_selection].state

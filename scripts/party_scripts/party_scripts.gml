@@ -13,16 +13,17 @@ function get_leader(){
 
 /// @desc adds a party member to the end of the party ensemble
 /// @arg {string} name the name of the party member to add
-function party_member_add(name) {
+function party_member_add(name, _x = undefined, _y = undefined, _recalculate_positions = true) {
     array_push(global.party_names, name)
     
-    if !instance_exists(get_leader())
-        exit
+    if instance_exists(get_leader()) {
+        _x ??= get_leader().x;
+        _y ??= get_leader().y;
+    }
     
-    var lx = get_leader().x
-    var ly = get_leader().y
-    party_member_create(name)
-    party_reposition(lx, ly)
+    party_member_create(name, true, _x, _y);
+    if _recalculate_positions
+        party_reposition(_x, _y);
 }
 
 /// @desc kicks out a party member (and deletes their object, if applicable)

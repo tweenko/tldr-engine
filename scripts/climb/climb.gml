@@ -63,10 +63,5 @@ function climb_check() {
 
 /// @desc returns whether climbing is enabled
 function climb_get_enabled() {
-    if is_bool(global.climbing_enabled) 
-        return global.climbing_enabled;
-    else if is_callable(global.climbing_enabled)
-        return global.climbing_enabled();
-    
-    return global.climbing_enabled;
+    return variable_callable_to_value(global.climbing_enabled);
 }

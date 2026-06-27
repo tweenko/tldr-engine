@@ -7,7 +7,19 @@ execute_code = function() {
     cutscene_player_canmove(false)
     
     if !evil {
-    	cutscene_dialogue("* Hello! This is a test of the Choice thing.{p}{c}* Is it cool?{p}{c}{choice(`Hell Yeah,d`, `I like it`, `Peak`, `Uhh`)}{e}", "")
+    	cutscene_dialogue("* Hello! This is a test of the Choice thing.{p}{c}* Is it cool?");
+        cutscene_choicer([
+            new text_typer_choice("Hell Yeah\nChief"),
+            new text_typer_choice("I like it"),
+            new text_typer_choice(function() {
+                var s = "Peak";
+                for (var i = 0; i < sine(10, 5) + 5; i ++) {
+                    s += "!";
+                }
+                return s;
+            }),
+            new text_typer_choice("Uhh",,, merge_colour(c_red, c_white, .75), c_red),
+        ]);
     	
     	cutscene_func(function() {
     		if global.temp_choice == 3 {

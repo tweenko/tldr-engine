@@ -1,8 +1,9 @@
 state = 0
 timer = 0
 
-freezeframe = -1
-freezeframe_gui = -1
+freezeframe = -1;
+freezeframe_gui = -1;
+freezeframe_tp = -1;
 
 ui_alpha = 0
 fader_alpha = 0

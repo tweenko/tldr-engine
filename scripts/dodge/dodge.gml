@@ -19,7 +19,7 @@ function dodge_darken_self(drawer = undefined) {
     if !instance_exists(o_dodge_controller)
         return false
     
-    if !is_undefined(drawer) && is_callable(drawer)
+    if !is_undefined(drawer) && is_method(drawer)
         drawer(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * o_dodge_controller.dodge_darken)
     else
 	   draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * o_dodge_controller.dodge_darken)

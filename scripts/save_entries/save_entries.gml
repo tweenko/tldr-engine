@@ -90,7 +90,7 @@ function save_export_struct(_struct, _need_export = []) {
     var _struct_names = struct_get_names(_struct);
     for (var i = 0; i < array_length(_struct_names); ++i) {
         var __d = struct_get(_struct, _struct_names[i]);
-        var __dp = struct_get(_struct_original, struct_get_names(_struct_original)[i]);
+        var __dp = struct_get(_struct_original, _struct_names[i]);
         
         for (var j = 0; j < array_length(_need_export); ++j) {
             var __cur_cycle = struct_get(__d, _need_export[j]);

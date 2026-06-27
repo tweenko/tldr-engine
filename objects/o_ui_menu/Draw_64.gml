@@ -190,7 +190,7 @@ if selection == 1 { // equip
 		
 		var arr_mod = []
 		array_copy(arr_mod, 0, arr, 0, array_length(arr))
-		array_insert(arr_mod, 0, undefined)
+		//array_insert(arr_mod, 0, undefined)
 		
 		var stats = [
 			[loc("menu_stat_attack"), party_getdata(global.party_names[e_pmselection], "attack"), spr_ui_menu_icon_sword],
@@ -509,7 +509,7 @@ if selection == 3 && state > 0 { // config
                     break
                 case C_CONFIG_TYPE.SWITCH:
                     var __txt = "ON"
-                    if is_callable(c_config[i].state) {
+                    if is_method(c_config[i].state) {
                         var __tmp = c_config[i].state()
                         __txt = (__tmp ? "ON" : "OFF")
                     }

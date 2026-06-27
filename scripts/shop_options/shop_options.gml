@@ -497,7 +497,7 @@ function shop_option_sell(_sell_options = [
             else if InputRepeat(INPUT_VERB.UP) 
                 item_selection --
             
-            item_selection = clamp(item_selection, 0, item_get_count(sell_options[selection].type)-1)
+            item_selection = clamp(item_selection, 0, array_length(item_array)-1)
             
             while item_selection < item_selection_off
                 item_selection_off --
@@ -553,17 +553,12 @@ function shop_option_sell(_sell_options = [
             var item_array = item_get_array(item_type)
             
             if array_length(item_array) > items_display {
-                draw_set_color(c_dkgray)
-                draw_rectangle(378, 299, 378+5, 418, 0)
-                draw_set_color(c_white)
-                
-                var add = lerp(0, 120-5, item_selection_off / (array_length(item_array) - items_display))
-                draw_rectangle(378, 299 + add, 378+5, 299 + 5 + add, 0)
+                draw_scrollbar(array_length(item_array), item_selection, 376, 295);
                 
                 if item_selection_off < array_length(item_array) - items_display
-                    draw_sprite_ext(spr_ui_arrow_down, 0, 375, 432 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
+                    draw_sprite_ext(spr_ui_arrow_down, 0, 370, 432 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
                 if item_selection_off > 0
-                    draw_sprite_ext(spr_ui_arrow_up, 0, 375, 268 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
+                    draw_sprite_ext(spr_ui_arrow_up, 0, 370, 268 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
             }
             
             for (var i = item_selection_off; i < min(array_length(item_array), item_selection_off + items_display); i ++) {
@@ -571,7 +566,7 @@ function shop_option_sell(_sell_options = [
                 
                 if is_undefined(__item) {
                     draw_set_colour(c_dkgray)
-                    draw_text_transformed(60, 260 + 40 * (i - item_selection_off), "-------", 2, 2, 0)
+                    draw_text_transformed(60, 260 + 40 * (i - item_selection_off), "--------", 2, 2, 0)
                     draw_set_colour(c_white)
                 }
                 else {
@@ -620,7 +615,7 @@ function __shop_talk_option(_name, _answer, _color = c_white) constructor {
             cutscene_set_variable(o_shop, "menu_expanded", false)
             cutscene_play()
         }
-        else if is_callable(answer) {
+        else if is_method(answer) {
             o_shop.menu_expanded = true
             answer()
         }
@@ -683,13 +678,8 @@ function shop_option_talk(_talk_options, _talk_gen) : shop_option() constructor 
                 if selection == i
                     draw_sprite_ext(spr_uisoul, 0, 50, 270 + 40*i, 1, 1, 0, c_red, 1)
                 
-                var col = talk_options[i].color
-                if is_callable(col)
-                    col = col()
-                
-                var name = talk_options[i].name
-                if is_callable(name)
-                    name = name()
+                var col = variable_callable_to_value(talk_options[i].color);
+                var name = variable_callable_to_value(talk_options[i].name);
                 
                 draw_set_colour(col)
                 draw_text_transformed(80, 260 + 40*i, name, 2, 2, 0)

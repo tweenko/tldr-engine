@@ -115,15 +115,15 @@ function item_s_susieheal(data = {
         }]
     }
     
-    use = function(spell_user, target, caller, _name, _calc, _use) {
+    use = function(spell_user, target, caller, _spell_name, _calc, _use) {
         cutscene_enc_wait(true)
-		cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _name),, false)
+		cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _spell_name),, false)
         
         cutscene_sleep(10)
-        cutscene_func(function(spell_user, target, _name, _calc, _use) {
+        cutscene_func(function(spell_user, target, _spell_name, _calc, _use) {
             party_heal(global.party_names[target], _calc(spell_user))
             _use()
-        }, [spell_user, target, _name, _calc, _use])
+        }, [spell_user, target, _spell_name, _calc, _use])
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
@@ -172,7 +172,7 @@ function item_s_pacify() : item_spell() constructor {
         return c_white
     }
 	
-    use = function(spell_user, target, caller, _name) {
+    use = function(spell_user, target, caller, _spell_name) {
         if !enc_enemy_isfighting(target)
             exit
         
@@ -180,7 +180,7 @@ function item_s_pacify() : item_spell() constructor {
         cutscene_enc_wait(true)
         
         if o_enc.encounter_data.enemies[target].tired {
-		    cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _name),, false)
+		    cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _spell_name),, false)
            
             cutscene_sleep(10)
             cutscene_instance_create(o_eff_pacify, __e_obj.x, __e_obj.s_get_middle_y(), __e_obj.depth - 10)
@@ -190,7 +190,7 @@ function item_s_pacify() : item_spell() constructor {
             cutscene_sleep(30)
         }
         else {
-            cutscene_dialogue(string(loc("spell_pacify_desc")[2], party_getname(spell_user), _name),, false)
+            cutscene_dialogue(string(loc("spell_pacify_desc")[2], party_getname(spell_user), _spell_name),, false)
             
             cutscene_set_variable(__e_obj, "flash_color", c_blue)
             cutscene_sleep(20)
@@ -213,14 +213,27 @@ function item_s_healprayer() : item_spell() constructor {
 	desc = loc("spell_heal_prayer_desc")
 	use_type = ITEM_USE.INDIVIDUAL
 	
-    use = function(spell_user, target, caller, _name) {
+    use = function(spell_user, target, caller, _spell_name) {
+        var heal_other_members = false;
+        if item_get_equipped(ch5_item_w_vinescarf, spell_user) > 0
+            heal_other_members = true;
+        
         cutscene_enc_wait(true)
-		cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _name),, false)
+		cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _spell_name),, false)
         
         cutscene_sleep(10)
-        cutscene_func(function(spell_user, target, _name) {
-            party_heal(global.party_names[target], party_getdata(spell_user, "magic") * 5)
-        }, [spell_user, target, _name])
+        cutscene_func(method({spell_user, target, _spell_name, heal_other_members}, function() {
+            party_heal(global.party_names[target], party_getdata(spell_user, "magic") * 5);
+            
+            if heal_other_members {
+                for (var i = 0; i < array_length(global.party_names); i ++) {
+                    if global.party_names[target] == global.party_names[i]
+                        continue;
+                    
+                    party_heal(global.party_names[i], party_getdata(spell_user, "magic"));
+                }
+            }
+        }));
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
@@ -256,10 +269,10 @@ function item_s_sleepmist() : item_spell() constructor {
         return c_white
     }
 	
-    use = function(spell_user, target, caller, _name) {
+    use = function(spell_user, target, caller, _spell_name) {
         cutscene_enc_wait(true)
     
-        cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _name),, false)
+        cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _spell_name),, false)
     
         cutscene_sleep(10)
         cutscene_audio_play(snd_ghostappear)
@@ -299,14 +312,14 @@ function item_s_iceshock() : item_spell() constructor {
 	desc = loc("spell_iceshock_desc")
 	use_type = ITEM_USE.ENEMY
 	
-    use = function(spell_user, target, caller, _name) {
+    use = function(spell_user, target, caller, _spell_name) {
         if !enc_enemy_isfighting(target)
             exit
         
         var __e_obj = o_enc.encounter_data.enemies[target].actor_id
         cutscene_enc_wait(true)
     
-        cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _name),, false)
+        cutscene_dialogue(loc_string("spell_cast", party_getname(spell_user), _spell_name),, false)
     
         cutscene_sleep(10)
         cutscene_audio_play(snd_icespell)

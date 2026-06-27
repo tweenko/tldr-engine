@@ -110,9 +110,9 @@ msg_set = function(str, time = 120){
 		msg_temp = ""
 	}
 	
-	if is_callable(msg) 
+	if is_method(msg) 
 		msg = msg(stateprev)
-	if is_callable(msg_temp) 
+	if is_method(msg_temp) 
 		msg_temp = msg_temp(stateprev)
 }
 	

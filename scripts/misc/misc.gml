@@ -193,6 +193,17 @@ function draw_sprite_part_parallax_scale(sprite, image, xoff, yoff, alpha, scale
     }
 }
 
+/// @desc draws a scrollbar like in DELTARUNE using dots
+function draw_scrollbar(_entry_number, _selection, _x, _y, _height = 135) {
+    for (var i = 0; i < _entry_number; i ++) {
+        if _height/_entry_number > 10
+            draw_sprite_ext(spr_pixel, 0, _x - 1, _y + _height/_entry_number * i, 3, 3, 0, c_white, 1);
+        
+        if _selection == i
+            draw_sprite_ext(spr_pixel, 0, _x - 4, _y - 4 + _height/_entry_number * i, 9, 9, 0, c_white, 1);
+    }
+}
+
 function convert_leader_equipment() {
     var __weapon = party_getdata(global.party_names[0], "weapon")
     if !is_undefined(__weapon)
