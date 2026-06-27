@@ -5,7 +5,7 @@ image_alpha = o_dodge_controller.dodge_alpha
 if image_alpha == 0 
 	instance_destroy()
 
-if place_meeting(x, y, o_dodge_bullet) && i_frames == 0 {
+if place_meeting(x, y, o_dodge_bullet) && i_frames == 0 && (get_leader()._checkmove() || climb_check()) {
 	with instance_place(x, y, o_dodge_bullet)
 		event_user(1)
 }

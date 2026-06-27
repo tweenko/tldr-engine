@@ -509,7 +509,7 @@ if selection == 3 && state > 0 { // config
                     break
                 case C_CONFIG_TYPE.SWITCH:
                     var __txt = "ON"
-                    if is_callable(c_config[i].state) {
+                    if is_method(c_config[i].state) {
                         var __tmp = c_config[i].state()
                         __txt = (__tmp ? "ON" : "OFF")
                     }

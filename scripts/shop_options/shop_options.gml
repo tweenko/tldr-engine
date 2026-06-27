@@ -620,7 +620,7 @@ function __shop_talk_option(_name, _answer, _color = c_white) constructor {
             cutscene_set_variable(o_shop, "menu_expanded", false)
             cutscene_play()
         }
-        else if is_callable(answer) {
+        else if is_method(answer) {
             o_shop.menu_expanded = true
             answer()
         }
@@ -683,13 +683,8 @@ function shop_option_talk(_talk_options, _talk_gen) : shop_option() constructor 
                 if selection == i
                     draw_sprite_ext(spr_uisoul, 0, 50, 270 + 40*i, 1, 1, 0, c_red, 1)
                 
-                var col = talk_options[i].color
-                if is_callable(col)
-                    col = col()
-                
-                var name = talk_options[i].name
-                if is_callable(name)
-                    name = name()
+                var col = variable_callable_to_value(talk_options[i].color);
+                var name = variable_callable_to_value(talk_options[i].name);
                 
                 draw_set_colour(col)
                 draw_text_transformed(80, 260 + 40*i, name, 2, 2, 0)

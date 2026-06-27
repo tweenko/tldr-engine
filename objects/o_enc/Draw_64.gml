@@ -294,12 +294,8 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
         
         // set item color
         draw_set_color(c_white)
-        if struct_exists(list[i], "color") {
-            if is_callable(list[i].color) 
-                draw_set_color(list[i].color())
-            else
-                draw_set_color(list[i].color)
-        }
+        if struct_exists(list[i], "color")
+            draw_set_color(variable_callable_to_value(list[i].color));
         
         // dim the item color if needed
         if !can_do 

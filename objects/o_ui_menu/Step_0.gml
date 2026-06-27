@@ -347,7 +347,7 @@ if !only_hp {
                         }
 						else {
 							item_set(equipment[e_pselection], e_selection-1, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
-                            if is_callable(equipment[e_pselection].unequipped)
+                            if is_method(equipment[e_pselection].unequipped)
                                 method_call(equipment[e_pselection].unequipped, [e_selection-1])
                         }
                         
@@ -355,7 +355,7 @@ if !only_hp {
 					}
 					else {
 						if !is_undefined(equipment[e_pselection]) {
-                            if is_callable(equipment[e_pselection].unequipped)
+                            if is_method(equipment[e_pselection].unequipped)
                                 method_call(equipment[e_pselection].unequipped, [e_selection-1])
 							item_add(equipment[e_pselection], (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
                             
@@ -450,7 +450,7 @@ if !only_hp {
                         break
                     case C_CONFIG_TYPE.SWITCH:
                         var __tmp = false
-                        if is_callable(c_config[c_selection].state)
+                        if is_method(c_config[c_selection].state)
                             __tmp = !c_config[c_selection].state()
                         else {
                             __tmp = !c_config[c_selection].state

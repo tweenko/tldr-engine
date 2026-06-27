@@ -15,7 +15,12 @@ function onscreen(instance = id, tolerance = 0, percise_collisions = false) {
     if !instance_exists(instance)
         exit
     
-    if collision_rectangle(guipos_x(), guipos_y(), guipos_x() + o_camera.width, guipos_y() + o_camera.height, instance, percise_collisions, false)
+    if collision_rectangle(guipos_x() - tolerance, 
+        guipos_y() - tolerance, 
+        guipos_x() + o_camera.width + tolerance, 
+        guipos_y() + o_camera.height + tolerance, 
+        instance, percise_collisions, false
+    )
         return true
     else
         return false
@@ -445,6 +450,15 @@ function cosine(INP_DEVIDE, OUT_MULTIPLY, input = undefined) {
 	return sine_output
 }
 
+/// @desc converts a callable (or not callable) variable into value
+/// @arg {function|any} variable the variable you'd like to convert
+/// @arg {array} arg_array the array of arguments you'd like to pass to the function if it's callable. empty by default
+function variable_callable_to_value(variable, arg_array = []) {
+    if is_method(variable)
+        return method_call(variable, arg_array);
+    return variable;
+}
+
 /// @desc makes a black fade
 /// @arg {real}	start the starting point for the opacity of the fader. if set to undefined, will start from the fader's current opacity
 /// @arg {real}	end the target opacity for the fader
@@ -499,7 +513,7 @@ function afterimage(_decay_speed = 0.1, inst = id, gui = false, drawer = undefin
     _afterimage.image_angle = inst.image_angle
     _afterimage.decay_speed = _decay_speed
     
-    if !is_undefined(drawer) && is_callable(drawer)
+    if !is_undefined(drawer) && is_method(drawer)
         _afterimage.drawer = drawer
 
     return _afterimage;

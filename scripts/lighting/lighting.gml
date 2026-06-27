@@ -29,7 +29,7 @@ function lighting_darken_self(drawer = undefined) {
         __emitting_light = am_emitting_light
     
 	if o_eff_lighting_controller.lighting_alpha > 0 && !__emitting_light {
-        if !is_undefined(drawer) && is_callable(drawer)
+        if !is_undefined(drawer) && is_method(drawer)
             drawer(sprite_index, image_index,
     			x, y, image_xscale, image_yscale,
     			image_angle, c_black, o_eff_lighting_controller.lighting_alpha * o_eff_lighting_controller.lighting_darken

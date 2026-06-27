@@ -244,6 +244,33 @@ function cutscene_dialogue(dialogue, postfix = "{p}{e}", wait = true, box_pos_do
         event
     );
 }
+/// @desc runs a choicer in a cutscene and waits until the choicer is destroyed if asked to
+/// @arg {struct.text_typer_choice|string} _choices the choices given in the choicer
+/// @arg {bool} wait whether the cutscene should wait until the dialogue is destroyed
+/// @arg {undefined|bool} box_pos_down whether the box should be forced down (true), up (false) or automatic (undefined, the default)
+function cutscene_choicer(_choices, wait = true, box_pos_down = undefined) {
+	var event = new cutscene_event(undefined);
+    
+    event._choices = _choices;
+    event._wait = wait;
+    event._box_pos_down = box_pos_down;
+    event._inst_dialogue = noone;
+    
+    event.call = method(event, function() {
+        var choicer = text_typer_choicer(_choices, noone, _box_pos_down);
+        _inst_dialogue = choicer.caller;
+    });
+    event.resume_condition = (wait 
+        ? method(event, function() {return !instance_exists(_inst_dialogue)}) 
+        : undefined
+    );
+    
+    cutscene_queue_event(
+        cutscene_get_current(), 
+        event
+    );
+}
+
 /// @desc creates a speech bubble stemming from an actor instance
 /// @arg {string|array<string>} dialogue could be either an array or just a string. if it's an array, between the array entries the box will pause and clear itself afterwards.
 /// @arg {Id.Instance|Asset.GMObject} actor_inst the actor instance the bubble will stem from

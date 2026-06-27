@@ -336,8 +336,8 @@ function enc_button_item() : enc_button() constructor {
         }
         
         
-        if struct_exists(item_struct, "use_instant") && is_callable(item_struct.use_instant)
-            item_struct.use_instant(other.party_item_selection[other.party_selection - 1], target)
+        if struct_exists(item_struct, "use_instant") && is_method(item_struct.use_instant)
+            item_struct.use_instant(other.party_item_selection[other.party_selection - 1], target);
     }
     
     __determine_sprite()

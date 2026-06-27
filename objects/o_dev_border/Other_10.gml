@@ -4,4 +4,4 @@ if !is_callable(ref)
 
 global.current_dynamic_border = ref
 if global.border_mode == BORDER_MODE.DYNAMIC
-    border_set(ref)
+    border_set(ref);

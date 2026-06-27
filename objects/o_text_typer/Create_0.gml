@@ -132,7 +132,7 @@ __play_voice = function(symbol, bypass_conditions = false) {
     // choose the voice blip randomly if it's an array
     if is_array(voice)
         __v = array_shuffle(__v)[0]
-    else if is_callable(voice)
+    else if is_method(voice)
         __v = voice(disp_chars)
     
     if audio_exists(__v) && (!bypass_conditions ? (!skipping && timer % voice_skip == 0) : true) {
@@ -160,7 +160,7 @@ __play_voice = function(symbol, bypass_conditions = false) {
             )
         else if is_real(__pitch_calc)
             pitch = __pitch_calc
-        else if is_callable(__pitch_calc)
+        else if is_method(__pitch_calc)
             pitch = __pitch_calc()
         
         // play unless it's a punctuation sign

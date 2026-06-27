@@ -313,6 +313,15 @@ if climbing {
         }
         else {
             get_leader().sprite_index = get_leader().s_climb_slip_fall;
+            get_leader().override_blend = undefined;
+            
+            if audio_is_playing(sfx_charge)
+                audio_stop_sound(sfx_charge);
+            
+            jump_reach = 5;
+            jump_timer = 0;
+            jump_target_tile = noone;
+            jump_canceled = true;
             
             if leader_grab_when_falling {
                 var target_tile = __find_tile(leader_spd_y, 270, CLIMB_JUMP_MODE.NEAREST);

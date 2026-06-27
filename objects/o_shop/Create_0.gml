@@ -15,7 +15,7 @@ menu_in_options = true
 menu_expanded = false
 
 __get_flavor = function() {
-    return (is_callable(shop_data.flavor) ? shop_data.flavor() : shop_data.flavor)
+    return variable_callable_to_value(shop_data.flavor);
 }
 __get_waiting = function() {
     return waiting || waiting_internal

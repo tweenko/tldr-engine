@@ -132,7 +132,7 @@ if is_player && check_canmove {
 	
 	// make steps and call the `__step` method
 	if !sliding {
-		if floor(image_index % image_number) % 2 != 0 {
+		if floor((image_index % image_number)*2) % 2 != 0 {
 			if !made_step {
                 __step(floor(image_index % image_number));
                 made_step = true;
