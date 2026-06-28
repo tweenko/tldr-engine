@@ -149,7 +149,7 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
     
     var longest_name = 0;
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if !enc_enemy_isfighting(i)
+        if !enc_enemy_is_fighting(i)
             continue;
         
         var enemy_struct = encounter_data.enemies[i];
@@ -157,7 +157,7 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
     }
     
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if !enc_enemy_isfighting(i)
+        if !enc_enemy_is_fighting(i)
             continue
         
         var enemy_struct = encounter_data.enemies[i]

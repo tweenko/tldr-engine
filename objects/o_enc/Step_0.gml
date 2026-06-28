@@ -88,7 +88,7 @@ if battle_state == BATTLE_STATE.MENU {
         party_enemy_selection[party_selection] = cap_wraparound(party_enemy_selection[party_selection], array_length(encounter_data.enemies))
 		
 		// skip to the next enemy if needed
-		while !enc_enemy_isfighting(party_enemy_selection[party_selection]){
+		while !enc_enemy_is_fighting(party_enemy_selection[party_selection]){
 			party_enemy_selection[party_selection] += __delta_selection
 			party_enemy_selection[party_selection] = cap_wraparound(party_enemy_selection[party_selection], array_length(encounter_data.enemies))
 		}
@@ -250,7 +250,7 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
             
             turn_objects = array_create(array_length(encounter_data.enemies), noone)
     		for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-    			if !enc_enemy_isfighting(i)
+    			if !enc_enemy_is_fighting(i)
     				continue
     			
     			// create turn objects feed the information to them
@@ -369,7 +369,7 @@ else if battle_state == BATTLE_STATE.TURN {
             
             var move_on = true
             for (var i = 0; i < array_length(turn_objects); ++i) {
-                if !enc_enemy_isfighting(i) continue
+                if !enc_enemy_is_fighting(i) continue
                 if instance_exists(turn_objects[i]) move_on = false
             }
             if move_on {

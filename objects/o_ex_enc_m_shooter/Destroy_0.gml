@@ -1,7 +1,7 @@
 // destroy socks if possible and move back to where they were
 for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 	var _enemy = o_enc.encounter_data.enemies[i]
-	if enc_enemy_isfighting(i) && _enemy.name == "Shadowguy" && instance_exists(_enemy.actor_id){
+	if enc_enemy_is_fighting(i) && _enemy.name == "Shadowguy" && instance_exists(_enemy.actor_id){
 		var oo = _enemy.actor_id.my_socks
 		var percent = oo.hits/oo.maxhits * 100
 		if percent < 100 percent = 20
@@ -19,7 +19,7 @@ for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 		animate(_enemy.actor_id.y, saved_pos[i][1], 9, "linear", _enemy.actor_id, "y")
 	}
 	
-	if enc_enemy_isfighting(i) 
+	if enc_enemy_is_fighting(i) 
 		animate(.5, 0, 9, "linear", o_enc.encounter_data.enemies[i].actor_id, "darken")
 }
 

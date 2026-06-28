@@ -49,7 +49,7 @@ registred_commands = {
             if instance_exists(o_enc) {
                 if o_enc.battle_state == BATTLE_STATE.TURN {
                     for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
-                        if enc_enemy_isfighting(i)
+                        if enc_enemy_is_fighting(i)
                             instance_destroy(o_enc.turn_objects[i])
                     }
                 }
@@ -57,14 +57,14 @@ registred_commands = {
                     o_enc.battle_state = BATTLE_STATE.TURN
                     with o_enc {
                         for (var i = 0; i < array_length(inst_dialogues); ++i) {
-                            if enc_enemy_isfighting(i)
+                            if enc_enemy_is_fighting(i)
                     	        instance_destroy(inst_dialogues[i])
                     	}
                     }
                     
                     call_later(1, time_source_units_frames, function() {
                         for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
-                            if enc_enemy_isfighting(i)
+                            if enc_enemy_is_fighting(i)
                                 instance_destroy(o_enc.turn_objects[i])
                         }
                     })
@@ -74,7 +74,7 @@ registred_commands = {
                     
                     // destroy the enemy actors
                     for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
-                        if enc_enemy_isfighting(i)
+                        if enc_enemy_is_fighting(i)
                             instance_destroy(o_enc.encounter_data.enemies[i].actor_id)
                     }
                 }

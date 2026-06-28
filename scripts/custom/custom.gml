@@ -137,6 +137,26 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
     return noone;
 }
 
+/**
+ * plays a sound with decaying echo
+ * @param {asset} sound the sound to play
+ * @param {real} delay the delay between the echo instances
+ * @param {real} decay the decay power of the echo
+ * @param {real} [gain] the gain of the sound played. will be automatically mulitplied by the volume of the sound type
+ * @param {real} [pitch] the pitch of the sound played
+ */
+function audio_play_sound_echo(sound, delay = 10, decay = .2, gain = 1, pitch = 1) {
+    var _offset = 0;
+    for (var i = gain; i > 0; i -= decay) {
+        audio_play(
+            sound, false, 
+            i, pitch, 
+            false, AUDIO.SOUND, _offset
+        );
+        _offset += delay;
+    }
+}
+
 /// @desc returns an emitter based on an `AUDIO` sound type
 /// @arg {enum.AUDIO} sound_type
 function audio_get_target_emitter(sound_type) {

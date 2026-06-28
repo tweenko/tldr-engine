@@ -146,3 +146,11 @@ function marker_find_closest_id(xx, yy, mtype){
 function marker_find_closest_inst(xx, yy, mtype){
 	return marker_find_closest(xx, yy, mtype)
 }
+
+/// @arg enemy_slot
+/// @ignore
+/// @deprecated
+/// renamed to enc_enemy_isfighting
+function enc_enemy_isfighting(target) {
+    return enc_enemy_is_fighting(target);
+}

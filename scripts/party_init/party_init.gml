@@ -212,7 +212,8 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
     armor2 = new item_a_ambercard()
 	spells = [
 		new item_s_rudebuster(),
-        new item_s_susieheal()
+        new item_s_susieheal({progress: 3, uses: 0}),
+        new item_s_scythemare()
 	]
 	
 	// sprites

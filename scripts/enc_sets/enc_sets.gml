@@ -10,7 +10,7 @@ function enc_set() constructor { // base
 	}
     win_condition = function() { // if this is true, the battle will end
         for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
-            if enc_enemy_isfighting(i)
+            if enc_enemy_is_fighting(i)
                 return false;
         }
         return true;

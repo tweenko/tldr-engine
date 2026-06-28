@@ -1,18 +1,18 @@
 {
   "$GMSound":"v2",
-  "%Name":"snd_step2",
+  "%Name":"snd_swing",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "channelFormat":1,
-  "compression":2,
+  "channelFormat":0,
+  "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.7142857,
+  "duration":0.7268708,
   "exportDir":"",
-  "name":"snd_step2",
+  "name":"snd_swing",
   "parent":{
     "name":"sounds",
     "path":"folders/@Engine/sounds.yy",
@@ -21,6 +21,6 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_step2.wav",
+  "soundFile":"snd_swing.wav",
   "volume":1.0,
 }

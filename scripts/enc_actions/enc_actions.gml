@@ -74,7 +74,7 @@ function enc_action_act(_party_names, _enemy_target, _act) : enc_action(_party_n
     tp_taken = 0
     
     perform = function(_action_queue) {
-        if enc_enemy_isfighting(target) {
+        if enc_enemy_is_fighting(target) {
             // set the party sprites accordingly
             if !struct_exists(target_act, "perform_act_anim") 
                 || (struct_exists(target_act, "perform_act_anim") && target_act.perform_act_anim)
@@ -132,14 +132,14 @@ function enc_action_power(_party_names, _target, _spell, _spell_index) : enc_act
     perform = function(_action_queue) {
         // find other enemies if the target is not fighting
         if target_spell.use_type == ITEM_USE.ENEMY {
-            if !enc_enemy_isfighting(target) && !(struct_exists(target_spell, "is_party_act") && target_spell.is_party_act)
+            if !enc_enemy_is_fighting(target) && !(struct_exists(target_spell, "is_party_act") && target_spell.is_party_act)
                 for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
-                    if enc_enemy_isfighting(i) {
+                    if enc_enemy_is_fighting(i) {
                         target = i
                         break
                     }
                 }
-            if !enc_enemy_isfighting(target)
+            if !enc_enemy_is_fighting(target)
                 exit
         }
         
@@ -238,14 +238,14 @@ function enc_action_item(_party_names, _target, _item, _item_index) : enc_action
         
         // find other enemies if the target is not fighting
         if target_item.use_type == ITEM_USE.ENEMY {
-            if !enc_enemy_isfighting(target)
+            if !enc_enemy_is_fighting(target)
                 for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
-                    if enc_enemy_isfighting(i) {
+                    if enc_enemy_is_fighting(i) {
                         target = i
                         break
                     }
                 }
-            if !enc_enemy_isfighting(target)
+            if !enc_enemy_is_fighting(target)
                 exit
         }
         
@@ -306,15 +306,15 @@ function enc_action_item(_party_names, _target, _item, _item_index) : enc_action
 function enc_action_spare(_party_names, _enemy_target) : enc_action(_party_names) constructor {
     target = _enemy_target
     perform = function(_action_queue) {
-        if !enc_enemy_isfighting(target) // find another enemy to spare if this enemy is already spared
+        if !enc_enemy_is_fighting(target) // find another enemy to spare if this enemy is already spared
             for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
-                if enc_enemy_isfighting(i) {
+                if enc_enemy_is_fighting(i) {
                     target = i
                     if o_enc.encounter_data.enemies[i].mercy >= 100
                         break
                 }
             }
-        if !enc_enemy_isfighting(target)
+        if !enc_enemy_is_fighting(target)
             exit
         
         with other {
@@ -346,26 +346,26 @@ function enc_action_spare(_party_names, _enemy_target) : enc_action(_party_names
             else {
                 var txt = loc("enc_exec_spare_msg") + "{br}{resetx}" + loc("enc_exec_spare_notyellow")
                 
-                if __enemy.tired {
-                    var tgt_spell = -1
-                    var spellowner = ""
-                    for (var i = 0; i < party_length(); ++i) { // if party has a person who can use a mercy spell
-                        for (var j = 0; j < array_length(party_getdata(global.party_names[i], "spells")); ++j) {
-                            if party_getdata(global.party_names[i], "spells")[j].is_mercyspell {
-                                tgt_spell = party_getdata(global.party_names[i], "spells")[j]
-                                spellowner = party_getname(global.party_names[i])
-                                break
-                            }
-                        }
-                        if is_struct(tgt_spell) {
+                var tgt_spell = -1;
+                var spellowner = "";
+                for (var i = 0; i < party_length(); ++i) { // if party has a person who can use a mercy spell
+                    for (var j = 0; j < array_length(party_getdata(global.party_names[i], "spells")); ++j) {
+                        if party_getdata(global.party_names[i], "spells")[j].is_mercyspell 
+                            && (!is_method(party_getdata(global.party_names[i], "spells")[j].mercyspell_condition) || party_getdata(global.party_names[i], "spells")[j].mercyspell_condition(__enemy))
+                        {
+                            tgt_spell = party_getdata(global.party_names[i], "spells")[j];
+                            spellowner = party_getname(global.party_names[i]);
                             break
                         }
                     }
-                    if is_struct(tgt_spell) { // if mercyspell exists
-                        txt += "{p}{c}"
-                        txt += loc_string("enc_exec_spare_suggest_spell", spellowner, string_upper(item_get_name(tgt_spell)))
-                    }
+                    if is_struct(tgt_spell)
+                        break;
                 }
+                if is_struct(tgt_spell) { // if mercyspell exists
+                    txt += "{p}{c}"
+                    txt += loc_string("enc_exec_spare_suggest_spell", spellowner, string_upper(item_get_name(tgt_spell)))
+                }
+                
                 if __enemy.can_spare && __enemy.mercy_add_pity_percent > 0 { // add pity spare percentage
                     cutscene_func(enc_enemy_add_spare, [other.target, __enemy.mercy_add_pity_percent])
                     cutscene_func(method({__e_obj: __enemy.actor_id}, function() {
