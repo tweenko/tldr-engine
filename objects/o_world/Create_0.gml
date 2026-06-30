@@ -51,42 +51,46 @@ global.slide_speed = 5
 { // settings
     save_settings_init()
     
-    save_entry("SAVE_SLOT", 0 ,, function() { return global.save_slot; },, global.save_settings_recording, global.settings)
+    save_entry("SAVE_SLOT", 0, 
+        function(_raw_data) { global.save_slot = _raw_data; }, 
+        function() { return global.save_slot; }, 
+        global.save_settings_recording, global.settings
+    );
     
     save_entry("VOLUME_SFX", volume_sfx, 
         function(_raw) { 
             o_world.volume_sfx = _raw;
             audio_emitter_gain(o_world.emitter_sfx, _raw); 
         },
-        function() { return o_world.volume_sfx; },, 
+        function() { return o_world.volume_sfx; },
         global.save_settings_recording, global.settings
-    )
+    );
     save_entry("VOLUME_BGM", volume_bgm, 
         function(_raw) { 
             o_world.volume_bgm = _raw;
             audio_emitter_gain(o_world.emitter_bgm, _raw); 
         },
-        function() { return o_world.volume_bgm; },, 
+        function() { return o_world.volume_bgm; },
         global.save_settings_recording, global.settings
-    )
+    );
     save_entry("VOLUME_MASTER", volume_master, 
         function(_raw) { 
             o_world.volume_master = _raw;
             audio_master_gain(_raw); 
         },
-        function() { return o_world.volume_master; },, 
+        function() { return o_world.volume_master; },
         global.save_settings_recording, global.settings
-    )
+    );
     
-    save_entry("SIMPLIFY_VFX", false ,,,, global.save_settings_recording, global.settings)
-    save_entry("AUTO_RUN", false ,,,, global.save_settings_recording, global.settings)
+    save_entry("SIMPLIFY_VFX", false,,, global.save_settings_recording, global.settings)
+    save_entry("AUTO_RUN", false,,, global.save_settings_recording, global.settings)
     
     save_entry("CONTROLS_KEY", undefined, 
         function(_raw) { 
             if is_struct(_raw)
                 InputBindingsImport(false, _raw); 
         },
-        function() { return InputBindingsExport(false); },, 
+        function() { return InputBindingsExport(false); },
         global.save_settings_recording, global.settings
     )
     save_entry("CONTROLS_GP", undefined, 
@@ -94,19 +98,19 @@ global.slide_speed = 5
             if is_struct(_raw)
                 InputBindingsImport(true, _raw); 
         },
-        function() { return InputBindingsExport(true); },, 
+        function() { return InputBindingsExport(true); },
         global.save_settings_recording, global.settings
     )
     
     save_entry("LANG", "en", 
         function(_raw) { global.loc_lang = _raw; },
-        function() { return global.loc_lang; },, 
+        function() { return global.loc_lang; },
         global.save_settings_recording, global.settings
     )
-    save_entry("VERSION_SAVED", GAME_VERSION ,, function() { return GAME_VERSION; },, global.save_settings_recording, global.settings)
+    save_entry("VERSION_SAVED", GAME_VERSION,, function() { return GAME_VERSION; }, global.save_settings_recording, global.settings)
     save_entry("BORDER_MODE", global.border_mode, 
         function(_raw) { global.border_mode = _raw; },
-        function() { return global.border_mode; },, 
+        function() { return global.border_mode; },
         global.save_settings_recording, global.settings
     )
     
