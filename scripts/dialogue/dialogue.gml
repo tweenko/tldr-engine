@@ -60,8 +60,8 @@ function text_typer_choice(_text, _off_x = 0, _off_y = 0, _color = undefined, _s
         
         if _choicer.selection == _pos {
             draw_set_color(variable_callable_to_value(select_color));
-            _choicer.target_x = _x - 32;
-            _choicer.target_y = _y + 10;
+            _choicer.target_x = _x - 14;
+            _choicer.target_y = _y + 16;
         }
         draw_text_transformed(_x, _y, __t, 2, 2, 0);
         

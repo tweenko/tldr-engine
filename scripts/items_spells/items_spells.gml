@@ -287,6 +287,27 @@ function item_s_healprayer() : item_spell() constructor {
     
     item_localize("item_s_healprayer");
 }
+function item_s_revivesong() : item_spell() constructor {
+	name = "ReviveSong";
+	desc = ["Revives a DOWNed ally and heals them.\nOtherwise, heals a lot of HP.. Depends on Magic.", "Revive\nally"];
+	use_type = ITEM_USE.INDIVIDUAL;
+	tp_cost = 84;
+	
+    use = method(self, function(spell_user, target, caller) {
+        cutscene_enc_wait(true)
+		cutscene_dialogue(loc_string("item_spell_cast", party_getname(spell_user), item_get_name(self)),, false)
+        
+        cutscene_sleep(10)
+        cutscene_func(method({spell_user, target}, function() {
+            party_heal(global.party_names[target], party_getdata(spell_user, "magic") * 5);
+        }));
+        
+        cutscene_sleep(30)
+        cutscene_func(instance_destroy, [o_ui_dialogue])
+		cutscene_enc_wait(false)
+    });
+}
+
 
 function item_s_sleepmist() : item_spell() constructor {
     name = "Sleep Mist";

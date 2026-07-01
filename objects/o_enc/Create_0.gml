@@ -79,7 +79,6 @@
     party_ui_lerp = array_create(party_length(), 0)
     party_ui_button_surf = array_create(party_length(), -1)
     party_state = array_create(party_length(), PARTY_STATE.IDLE)
-    party_hurt_timer = array_create(party_length(), 0)
     party_buttons = array_create_ext(party_length(), function(index) {
         var buttons = [
             new enc_button_fight(),

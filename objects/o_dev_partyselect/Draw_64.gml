@@ -17,7 +17,7 @@ for (var i = 0; i < maxparty; ++i) {
 		for (var j = 0; j < 360; j += 90) {
 			var xdelta = lengthdir_x(2, j)
 			var ydelta = lengthdir_y(2, j)
-			draw_sprite_ext(party_geticon_ow(name), 0, 
+			draw_sprite_ext(party_get_icon_ow(name), 0, 
 				xx + xdelta,yy + ydelta,
 				2, 2,
 				0, c_white, (i==selection ? 1 : .3)
@@ -28,7 +28,7 @@ for (var i = 0; i < maxparty; ++i) {
 	
     if !party_contains(name, true)
 		shader_set(shd_greyscale)
-	draw_sprite_ext(party_geticon_ow(name), 0,
+	draw_sprite_ext(party_get_icon_ow(name), 0,
 		xx, yy,
 		2, 2,
 		0, (party_contains(name) ? c_white : c_gray), (i==selection ? 1 : .3)

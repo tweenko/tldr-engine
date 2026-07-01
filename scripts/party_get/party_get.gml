@@ -42,21 +42,21 @@ function party_getpossiblecount() {
 	return struct_names_count(global.party)
 }
 
-///@desc returns the icon of a party member
-function party_geticon(name) {
-	var a = sprite_get_name(party_getdata(name, "s_icon"))
-	return asset_get_index_state(a, party_getdata(name, "s_state"))
+/// @desc returns the icon of a party member
+function party_get_icon(member_name) {
+	var a = sprite_get_name(party_getdata(member_name, "s_icon"))
+	return asset_get_index_state(a, party_getdata(member_name, "s_state"))
 }
-///@desc returns the hurt icon of a party member
-function party_geticon_hurt(name) {
-	var a = sprite_get_name(party_getdata(name, "s_icon"))
-	return asset_get_index_state(a, "hurt" + (party_getdata(name, "s_state") == "" ? "" : "_") + party_getdata(name, "s_state"))
+/// @desc returns the hurt icon of a party member
+function party_get_icon_hurt(member_name) {
+	var a = sprite_get_name(party_getdata(member_name, "s_icon"))
+	return asset_get_index_state(a, "hurt" + (party_getdata(member_name, "s_state") == "" ? "" : "_") + party_getdata(member_name, "s_state"))
 }
 
-///@desc returns the overworld icon of a party member
-function party_geticon_ow(name) {
-	var a = sprite_get_name(party_getdata(name, "s_icon_ow"))
-	return asset_get_index_state(a, party_getdata(name, "s_state"))
+/// @desc returns the overworld icon of a party member
+function party_get_icon_ow(member_name) {
+	var a = sprite_get_name(party_getdata(member_name, "s_icon_ow"))
+	return asset_get_index_state(a, party_getdata(member_name, "s_state"))
 }
 
 ///@desc returns the id of the party member using their name

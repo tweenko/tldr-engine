@@ -14,6 +14,6 @@ if visible {
             instance_destroy();
     }
     
-    soul_x = lerp(soul_x, target_x, .8);
-    soul_y = lerp(soul_y, target_y, .8);
+    soul_x = lerp(soul_x, target_x, (modern_choicer ? .8 : 1));
+    soul_y = lerp(soul_y, target_y, (modern_choicer ? .8 : 1));
 }

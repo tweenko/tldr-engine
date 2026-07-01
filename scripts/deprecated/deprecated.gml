@@ -150,7 +150,26 @@ function marker_find_closest_inst(xx, yy, mtype){
 /// @arg enemy_slot
 /// @ignore
 /// @deprecated
-/// renamed to enc_enemy_isfighting
+/// renamed to `enc_enemy_isfighting`
 function enc_enemy_isfighting(target) {
     return enc_enemy_is_fighting(target);
+}
+
+/// @ignore
+/// @deprecated
+/// renamed to `party_get_icon`
+function party_geticon(member_name) {
+    return party_get_icon(member_name)
+}
+/// @ignore
+/// @deprecated
+/// renamed to `party_get_icon_hurt`
+function party_geticon_hurt(member_name) {
+    return party_get_icon_hurt(member_name)
+}
+/// @ignore
+/// @deprecated
+/// renamed to `party_get_icon_ow`
+function party_geticon_ow(member_name) {
+    return party_get_icon_ow(member_name)
 }
