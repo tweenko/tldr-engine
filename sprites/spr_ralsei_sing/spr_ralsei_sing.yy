@@ -61,7 +61,7 @@
     },
     "name":"spr_ralsei_sing",
     "playback":1,
-    "playbackSpeed":6.0,
+    "playbackSpeed":7.5,
     "playbackSpeedType":0,
     "resourceType":"GMSequence",
     "resourceVersion":"2.0",

@@ -1,6 +1,6 @@
 frames = 0
 volume_sfx = 1
-volume_bgm = 1
+volume_bgm = 0
 volume_master = .6
 
 window_scale = 1;

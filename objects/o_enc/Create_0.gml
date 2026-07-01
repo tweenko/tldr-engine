@@ -8,7 +8,7 @@
     waiting_internal = false // the waiting variable for ME!! me onLY!!!!!!! nGHHHHH im evil
     surf = -1
     
-    tp = 60
+    tp = 0
     tp_constrict = false // darkness constriction
     tp_glow_alpha = 0
     tp_defend = 16

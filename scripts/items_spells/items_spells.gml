@@ -294,16 +294,28 @@ function item_s_revivesong() : item_spell() constructor {
 	tp_cost = 84;
 	
     use = method(self, function(spell_user, target, caller) {
+        var target_actor = party_get_inst(global.party_names[target]);
+        var caster_actor = party_get_index(spell_user);
+        
         cutscene_enc_wait(true)
+        cutscene_func(enc_party_set_battle_sprite, [spell_user, "revivesong_sing_ready"]);
 		cutscene_dialogue(loc_string("item_spell_cast", party_getname(spell_user), item_get_name(self)),, false)
         
-        cutscene_sleep(10)
-        cutscene_func(method({spell_user, target}, function() {
-            party_heal(global.party_names[target], party_getdata(spell_user, "magic") * 5);
-        }));
+        cutscene_sleep(20)
+        cutscene_func(enc_party_set_battle_sprite, [spell_user, "revivesong_sing"]);
+        cutscene_instance_create(o_eff_revivesong,,, target_actor.depth - 10, {
+            target_actor: target_actor, 
+            target_member_name: global.party_names[target], 
+            target_hp: party_getdata(spell_user, "magic") * 7.5, // if the party member is down, revive them to this amount of hp
+            target_heal: party_getdata(spell_user, "magic") * 10, // if the party member is up, heal them this amount of hp
+        })
         
-        cutscene_sleep(30)
-        cutscene_func(instance_destroy, [o_ui_dialogue])
+        cutscene_wait_until(function() {return !instance_exists(o_eff_revivesong)});
+        cutscene_func(enc_party_set_battle_sprite, [spell_user, "idle"]);
+        cutscene_sleep(20);
+        
+        cutscene_func(instance_destroy, [o_ui_dialogue]);
+        
 		cutscene_enc_wait(false)
     });
 }
