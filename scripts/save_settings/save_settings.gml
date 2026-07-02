@@ -56,8 +56,8 @@ function save_settings_convert(_raw_data, _to_default_values = false) {
         var __recording = global.save_settings_recording[i];
         var __value = (_to_default_values ? variable_clone(__recording.default_value) : variable_clone(struct_get(_data, __recording.name)));
         
-        if !_to_default_values && is_callable(__recording.__convert)
-            __value = __recording.__convert(variable_clone(struct_get(_data, __recording.name)));
+        if !_to_default_values
+            __value = save_import_variable(variable_clone(struct_get(_data, __recording.name)));
         
         struct_set(_data, string_upper(__recording.name), __value);
     }
@@ -91,8 +91,8 @@ function save_settings_export() {
     // export everything into the temporary save struct
     for (var i = 0; i < array_length(global.save_settings_recording); i ++) {
         var __recording = global.save_settings_recording[i];
-        if is_callable(__recording.__export)
-            struct_set(_save, string_upper(__recording.name), __recording.__export());
+        if is_callable(__recording.__extract)
+            struct_set(_save, string_upper(__recording.name), save_import_variable(__recording.__extract()));
     }
     
     return _save;

@@ -10,8 +10,8 @@
   "name":"o_eff_iceshock",
   "overriddenProperties":[],
   "parent":{
-    "name":"effects",
-    "path":"folders/@Engine/objects/effects.yy",
+    "name":"spells",
+    "path":"folders/@Engine/objects/effects/spells.yy",
   },
   "parentObjectId":null,
   "persistent":false,

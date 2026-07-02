@@ -221,7 +221,7 @@ function enemy_virovirokun() : enemy() constructor{
                             a._start()
 					}
 					for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
-						if enc_enemy_isfighting(i) {
+						if enc_enemy_is_fighting(i) {
 							if is_instanceof(o_enc.encounter_data.enemies[i], enemy_virovirokun)
 								enc_enemy_add_spare(i, 100)
 							else 
@@ -273,6 +273,8 @@ function enemy_killercar() : enemy() constructor{
 	defense = 0
     turn_object = o_ex_turn_complex_box
     carrying_money = 1
+    
+    tired = true
     
     hp = 600
     max_hp = 600
@@ -330,7 +332,7 @@ function enemy_killercar() : enemy() constructor{
                 
                 cutscene_audio_play(snd_spellcast)
                 for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
-                    if !enc_enemy_isfighting(i)
+                    if !enc_enemy_is_fighting(i)
                         continue
                     cutscene_func(function(index) {
                         var __e_obj = o_enc.encounter_data.enemies[index].actor_id

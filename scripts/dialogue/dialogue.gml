@@ -34,12 +34,16 @@ function dialogue_array_to_string(arr) {
 /// @arg {real|function} _off_y adjustment on the choice's default y position. can be callable
 /// @arg {Constant.Colour|function} _color the color of the choice. can be callable
 /// @arg {Constant.Colour|function} _select_color the color of the choice when selected. can be callable
-function text_typer_choice(_text, _off_x = 0, _off_y = 0, _color = c_white, _select_color = c_yellow) constructor {
+/// @arg {bool|function} _can_select whether the option can be selected. can be callable
+function text_typer_choice(_text, _off_x = 0, _off_y = 0, _color = undefined, _select_color = c_yellow, _can_select = true) constructor {
+    _color ??= (_can_select ? c_white : c_gray);
+    
     text = _text;
     color = _color;
     select_color = _select_color;
     off_x = _off_x;
     off_y = _off_y;
+    can_select = _can_select;
     
     _draw = function(_x, _y, _pos, _choicer, _halign = fa_left) {
         var __t = variable_callable_to_value(text);
@@ -56,8 +60,8 @@ function text_typer_choice(_text, _off_x = 0, _off_y = 0, _color = c_white, _sel
         
         if _choicer.selection == _pos {
             draw_set_color(variable_callable_to_value(select_color));
-            _choicer.target_x = _x - 32;
-            _choicer.target_y = _y + 10;
+            _choicer.target_x = _x - 14;
+            _choicer.target_y = _y + 16;
         }
         draw_text_transformed(_x, _y, __t, 2, 2, 0);
         
@@ -71,7 +75,7 @@ function text_typer_choice(_text, _off_x = 0, _off_y = 0, _color = c_white, _sel
 /// @arg {bool} _box_pos_down whether the box should be on the bottom. by default equals to `undefined`, which makes it automatically pick the optimal position
 function text_typer_choicer(_choices, _caller = id, _box_pos_down = undefined) {
     for (var i = 0; i < array_length(_choices); i ++) {
-        if is_instanceof(_choices[i], text_typer_choice) || is_struct(_choices[i])
+        if is_instanceof(_choices[i], text_typer_choice) || is_struct(_choices[i]) || is_undefined(_choices[i])
             continue;
         _choices[i] = new text_typer_choice(_choices[i]);
     }

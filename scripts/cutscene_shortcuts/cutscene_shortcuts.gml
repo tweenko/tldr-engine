@@ -7,7 +7,7 @@ function cutscene_spare_enemy(index) {
         var _enemy = o_enc.encounter_data.enemies[index[i]]
         var obj = _enemy.actor_id
         
-        if !enc_enemy_isfighting(index[i])
+        if !enc_enemy_is_fighting(index[i])
             continue
         
         recruit_advance(_enemy)

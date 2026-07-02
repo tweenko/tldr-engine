@@ -301,7 +301,7 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                     else if item_type == ITEM_TYPE.ARMOR && array_contains(items[selection].armor_blacklist, global.party_names[i])
                         greyed_out = true
                     
-                    draw_sprite_ext(party_geticon(global.party_names[i]), 0, 425 + x_off, 160 + y_off, 1, 1, 0, (greyed_out ? c_gray : c_white), 1)
+                    draw_sprite_ext(party_get_icon(global.party_names[i]), 0, 425 + x_off, 160 + y_off, 1, 1, 0, (greyed_out ? c_gray : c_white), 1)
                     
                     if greyed_out 
                         continue

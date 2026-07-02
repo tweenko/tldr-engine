@@ -23,7 +23,7 @@ for (var i = 0; i < party_length(); ++i) {
 // setup the shadowguys to have socks and move
 for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
 	var _enemy = o_enc.encounter_data.enemies[i]
-	if _enemy.name == "Shadowguy" && enc_enemy_isfighting(i) && instance_exists(_enemy.actor_id){
+	if _enemy.name == "Shadowguy" && enc_enemy_is_fighting(i) && instance_exists(_enemy.actor_id){
 		array_push(saved_pos, [_enemy.actor_id.x, _enemy.actor_id.y])
 		animate(1, 0, 10, "linear", _enemy.actor_id, "flash")
 		_enemy.actor_id.image_index = 0

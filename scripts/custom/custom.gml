@@ -137,6 +137,26 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
     return noone;
 }
 
+/**
+ * plays a sound with decaying echo
+ * @param {asset} sound the sound to play
+ * @param {real} delay the delay between the echo instances
+ * @param {real} decay the decay power of the echo
+ * @param {real} [gain] the gain of the sound played. will be automatically mulitplied by the volume of the sound type
+ * @param {real} [pitch] the pitch of the sound played
+ */
+function audio_play_sound_echo(sound, delay = 10, decay = .2, gain = 1, pitch = 1) {
+    var _offset = 0;
+    for (var i = gain; i > 0; i -= decay) {
+        audio_play(
+            sound, false, 
+            i, pitch, 
+            false, AUDIO.SOUND, _offset
+        );
+        _offset += delay;
+    }
+}
+
 /// @desc returns an emitter based on an `AUDIO` sound type
 /// @arg {enum.AUDIO} sound_type
 function audio_get_target_emitter(sound_type) {
@@ -245,6 +265,31 @@ function draw_get_index_looped(sprite = undefined, timer = o_world.frames, img_f
     return floor((img_start_index + timer*img_fps/fps) % img_number)
 }
 
+/// @desc draws a cone based on two positions and a radius
+/// @arg {real} x1
+/// @arg {real} y1
+/// @arg {real} x2
+/// @arg {real} y2
+/// @arg {real} radius the radius of the end of the cone
+/// @arg {real} direction the direction of the cone's end
+function draw_cone(_x1, _y1, _x2, _y2, _radius, _direction = 0, _color = draw_get_colour(), _alpha = draw_get_alpha()) {
+    var dist = point_distance(_x1, _y1, _x2, _y2);
+    var og_color = draw_get_colour();
+    var og_alpha = draw_get_alpha();
+    
+    
+    draw_set_colour(_color);
+    draw_set_alpha(_alpha);
+    
+    draw_primitive_begin(pr_trianglelist);
+    draw_vertex(_x1, _y1);
+    draw_vertex(_x2 + lengthdir_x(_radius, _direction), _y2 + lengthdir_y(_radius, _direction));
+    draw_vertex(_x2 + lengthdir_x(_radius, _direction + 180), _y2 + lengthdir_y(_radius, _direction + 180));
+    draw_primitive_end();
+    
+    draw_set_colour(og_color);
+    draw_set_alpha(og_alpha);
+}
 
 // ------------- INSTANCE AND OBJECT STUFF --------------
 
@@ -429,6 +474,11 @@ function string_to_bool(_string) {
         return false
     else 
         return real(string_digits(_string)) > .5
+}
+
+function increment_towards(a, b, increment) {
+    var i = sign(b - a) * increment;
+    return a + i;
 }
 
 

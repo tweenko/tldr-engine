@@ -1,7 +1,7 @@
 var mmin = infinity
 
 enemy_hp = array_create_ext(array_length(caller.encounter_data.enemies), function(index) {
-    if !enc_enemy_isfighting(index)
+    if !enc_enemy_is_fighting(index)
         return 0
     return caller.encounter_data.enemies[index].hp
 })

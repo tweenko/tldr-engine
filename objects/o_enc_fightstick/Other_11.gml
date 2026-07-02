@@ -2,7 +2,7 @@
 if enc_enemy_count() == 0 
 	exit
 
-while !enc_enemy_isfighting(target) {
+while !enc_enemy_is_fighting(target) {
 	target ++
 	if target > array_length(ecaller.encounter_data.enemies) - 1 {
 		target = 0

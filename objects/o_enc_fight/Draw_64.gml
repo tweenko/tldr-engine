@@ -8,5 +8,5 @@ for (var i = 0; i < array_length(fighting); ++i) {
 	
 	draw_set_color(c_white)
 	draw_sprite_ext(loc_sprite("enc_fight_press_spr"), 0, 46, 371 + yy, 1, 1, 0, c_white, image_alpha)
-	draw_sprite_ext(party_geticon(fighting[i]), 0, 8, 375 + yy, 1, 1, 0, c_white, image_alpha)
+	draw_sprite_ext(party_get_icon(fighting[i]), 0, 8, 375 + yy, 1, 1, 0, c_white, image_alpha)
 }

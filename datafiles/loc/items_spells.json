@@ -1,25 +1,30 @@
 {
-    "spell_act_name": {
-        "en": "ACT", "ja": "こうどう"
-    },
-    "spell_act_desc": {
-        "en": "You can do many things.\nDon't confuse it with magic.",
-        "ja": "いろんなことをする。\nまほうではない。"
-    },
-
-    "spell_rude_buster_name": {
-        "en": "Rude Buster", "ja": "ルードバスター"
-    },
-    "spell_rude_buster_desc": {
-        "en": ["Deals moderate Rude-elemental damage to one foe. Depends on Attack & Magic.", "Rude Damage"],
-        "ja": ["敵1体に中程度の暴属性ダメージ。\nこうげきまりょく値によりダメージ量変化。", "暴属性\nダメージ"]
+    "item_s_act": {
+        "en": {
+            "name": "ACT",
+            "desc": "You can do many things.\nDon't confuse it with magic."
+        },
+        "ja": {
+            "name": "こうどう",
+            "desc": "いろんなことをする。\nまほうではない。"
+        }
     },
 
-    "spell_susieheal_name": {
-        "en": ["UltimateHeal", "UltraHeal", "OKHeal", "BetterHeal"], 
+    "item_s_rude_buster": {
+        "en": {
+            "name": "Rude Buster",
+            "desc": ["Deals moderate Rude-elemental damage to one foe. Depends on Attack & Magic.", "Rude Damage"]
+        },
+        "ja": {
+            "name": "ルードバスター",
+            "desc": ["敵1体に中程度の暴属性ダメージ。\nこうげきまりょく値によりダメージ量変化。", "暴属性\nダメージ"]
+        }
+    },
+    "item_s_susieheal_name": {
+        "en": ["UltimatHeal", "UltraHeal", "OKHeal", "BetterHeal"], 
         "ja": ["ウルティマヒール", "ウルトラヒール", "OKヒール", "ヒール"]
     },
-    "spell_susieheal_desc": {
+    "item_s_susieheal_desc": {
         "en": [
             ["Heals 1 party member to the best of Susie's ability.", "Best Healing"],
             ["An awesome healing spell. ... right?", "Best Healing"],
@@ -33,47 +38,79 @@
             ["練習をつんで自信を得て\n効果がアップした回復まほう", "仲間を\n回復"]
         ]
     },
-
-    "spell_pacify_name": {
-        "en": "Pacify", "ja": "スリープ"
-    },
-    "spell_pacify_desc": {
-        "en": ["SPARE a tired enemy by putting them to sleep.", "Spare TIRED foe", "* {0} cast {1}!{br}{resetx}{sleep(10)}* But the enemy wasn't {col(tired_aqua)}TIRED{reset_col}..."],
-        "ja": ["「くたびれ」状態の敵を眠らせて逃がす。", "くたびれた\n敵を逃がす", "＊ {0}は{1}を唱えた！{br}{resetx}{sleep(10)}＊ しかし　敵は{col(tired_aqua)}くたびれて{reset_col}いない…"]
-    },
-
-    "spell_heal_prayer_name": {
-        "en": "Heal Prayer", "ja": "いやしの詩"
-    },
-    "spell_heal_prayer_desc": {
-        "en": ["Heavenly Light restores a little HP to\none party member. Depends on Magic.", "Heal Ally"],
-        "ja": ["天から降り注ぐ光が仲間1人のHPを少量回復。\nまりょくによって回復量変化。", "仲間を\n回復"]
+    "item_s_scythemare": {
+        "en": {
+            "name": "Scythemare",
+            "desc": ["Inflicts all enemies with bad dreams.\nAll TIRED enemies will be SPAREd.", "Spare all\nTIRED foes"]
+        },
+        "ja": {
+            "name": "サイスメア",
+            "desc": ["敵全員に悪夢を見せる。\n「くたびれ」状態の敵全員を逃がす。", "くたびれ\n全員逃がす"]
+        }
     },
 
-    "spell_sleep_mist_name": {
-        "en": "Sleep Mist", "ja": "スリープミスト"
+    "item_s_pacify": {
+        "en": {
+            "name": "Pacify",
+            "desc": ["SPARE a tired enemy by putting them to sleep.", "Spare TIRED foe"],
+            "hint_message": "* {0} cast {1}!{br}{resetx}{sleep(10)}* But the enemy wasn't {col(tired_aqua)}TIRED{reset_col}..."
+        },
+        "ja": {
+            "name": "スリープ",
+            "desc": ["「くたびれ」状態の敵を眠らせて逃がす。", "くたびれた\n敵を逃がす"],
+            "hint_message": "＊ {0}は{1}を唱えた！{br}{resetx}{sleep(10)}＊ しかし　敵は{col(tired_aqua)}くたびれて{reset_col}いない…"
+        }
     },
-    "spell_sleep_mist_desc": {
-        "en": ["A cold mist sweeps through, sparing all TIRED enemies.", "Spare TIRED foes"],
-        "ja": ["冷たい霧混じりの風が吹き\nくたびれた敵を全員逃がす。", "くたびれた\n敵を逃がす"]
+    "item_s_healprayer": {
+        "en": {
+            "name": "Heal Prayer",
+            "desc": ["Heavenly Light restores a little HP to\none party member. Depends on Magic.", "Heal Ally"]
+        },
+        "ja": {
+            "name": "いやしの詩",
+            "desc": ["天から降り注ぐ光が仲間1人のHPを少量回復。\nまりょくによって回復量変化。", "仲間を\n回復"]
+        }
+    },
+    "item_s_revivesong": {
+        "en": {
+            "name": "ReviveSong",
+            "desc": ["Revives a DOWNed ally and heals them.\nOtherwise, heals a lot of HP.. Depends on Magic.", "Revive\nally"]
+        },
+        "ja": {
+            "name": "復活の詩",
+            "desc": ["倒れた仲間を復活させて　HPを回復する。\n倒れていない仲間は　HPが大量に回復。", "仲間が復活"]
+        }
     },
 
-    "spell_iceshock_name": {
-        "en": "IceShock", "ja": "アイスショック"
+    "item_s_sleepmist": {
+        "en": {
+            "name": "Sleep Mist",
+            "desc": ["A cold mist sweeps through, sparing all TIRED enemies.", "Spare TIRED foes"]
+        },
+        "ja": {
+            "name": "スリープミスト",
+            "desc": ["冷たい霧混じりの風が吹き\nくたびれた敵を全員逃がす。", "くたびれた\n敵を逃がす"]
+        }
     },
-    "spell_iceshock_desc": {
-        "en": ["Deal magical ICE damage to one enemy.", "Damage w/ ICE"],
-        "ja": ["氷属性のまほう。\n敵１体を　こうげきする。", "氷属性の\nこうげき"]
+    "item_s_iceshock": {
+        "en": {
+            "name": "IceShock",
+            "desc": ["Deal magical ICE damage to one enemy.", "Damage w/ ICE"]
+        },
+        "ja": {
+            "name": "アイスショック",
+            "desc": ["氷属性のまほう。\n敵１体を　こうげきする。", "氷属性の\nこうげき"]
+        }
     },
 
-    "spell_party_action_name": {
+    "item_s_party_action_name": {
         "en": "{0}-Action", "ja": "{0}アクション"
     },
-    "spell_party_action_desc": {
+    "item_s_party_action_desc": {
         "en": "Standard", "ja": "標準"
     },
 
-    "spell_cast" : {
+    "item_spell_cast" : {
       "en" : "* {0} cast {1}!",
       "ja" : "＊ {0}は{1}を唱えた！"
     }
