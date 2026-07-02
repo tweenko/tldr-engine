@@ -10,8 +10,8 @@
   "name":"o_plat_ground",
   "overriddenProperties":[],
   "parent":{
-    "name":"Perspective_Stuff_to-be-moved-to-base-tldr",
-    "path":"folders/Perspective_Stuff_to-be-moved-to-base-tldr.yy",
+    "name":"platforming",
+    "path":"folders/@Engine/objects/ow/platforming.yy",
   },
   "parentObjectId":{
     "name":"o_block",
@@ -31,13 +31,14 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v2","%Name":"collide_init","filters":[],"listItems":[],"multiselect":false,"name":"collide_init","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},
+    {"$GMObjectProperty":"v2","%Name":"collide_ow","filters":[],"listItems":[],"multiselect":false,"name":"collide_ow","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"True","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"collide_while_plat","filters":[],"listItems":[],"multiselect":false,"name":"collide_while_plat","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"True","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"pulpit","filters":[],"listItems":[],"multiselect":false,"name":"pulpit","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"wall_distance","filters":[],"listItems":[],"multiselect":false,"name":"wall_distance","rangeEnabled":true,"rangeMax":8.0,"rangeMin":-8.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
     {"$GMObjectProperty":"v2","%Name":"floor_tilesback_amount","filters":[],"listItems":[],"multiselect":false,"name":"floor_tilesback_amount","rangeEnabled":true,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"2","varType":1,},
     {"$GMObjectProperty":"v2","%Name":"floor_sprite","filters":[],"listItems":[],"multiselect":false,"name":"floor_sprite","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"spr_plat_default_floor","path":"sprites/spr_plat_default_floor/spr_plat_default_floor.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"spr_plat_default_floor","varType":5,},
     {"$GMObjectProperty":"v2","%Name":"lining_sprite","filters":[],"listItems":[],"multiselect":false,"name":"lining_sprite","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"noone","varType":5,},
+    {"$GMObjectProperty":"v2","%Name":"overlay_lining","filters":[],"listItems":[],"multiselect":false,"name":"overlay_lining","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"hide_while_not_plat","filters":[],"listItems":[],"multiselect":false,"name":"hide_while_not_plat","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"visible","filters":[],"listItems":[],"multiselect":false,"name":"visible","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"blend_while_plat","filters":[],"listItems":[],"multiselect":false,"name":"blend_while_plat","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"$FFFFFFFF","varType":7,},

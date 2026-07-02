@@ -10,8 +10,8 @@
   "name":"o_plat_groundlining",
   "overriddenProperties":[],
   "parent":{
-    "name":"Perspective_Stuff_to-be-moved-to-base-tldr",
-    "path":"folders/Perspective_Stuff_to-be-moved-to-base-tldr.yy",
+    "name":"platforming",
+    "path":"folders/@Engine/objects/ow/platforming.yy",
   },
   "parentObjectId":null,
   "persistent":false,

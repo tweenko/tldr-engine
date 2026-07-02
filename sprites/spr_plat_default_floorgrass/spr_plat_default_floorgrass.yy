@@ -44,8 +44,8 @@
   },
   "origin":9,
   "parent":{
-    "name":"Perspective_Stuff_to-be-moved-to-base-tldr",
-    "path":"folders/Perspective_Stuff_to-be-moved-to-base-tldr.yy",
+    "name":"platforming",
+    "path":"folders/@Engine/sprites/ow/platforming.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -1,5 +1,6 @@
 var spr = sprite_index
-if !sprite_exists(sprite_index) spr = spr_nothing
+if !sprite_exists(sprite_index) 
+    spr = spr_default
 
 // set the hurt sprite if hurt
 if is_player || is_follower

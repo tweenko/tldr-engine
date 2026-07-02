@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"collision_except",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"collision_except",
+  "parent":{
+    "name":"internal",
+    "path":"folders/@Engine/scripts/systems/general/internal.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

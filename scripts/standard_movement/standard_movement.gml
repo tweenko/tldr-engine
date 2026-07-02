@@ -74,10 +74,17 @@ function player_standard_movement_locomote(_colo, _xcep, _speed, _forcekeys = -1
 	if place_meeting_except(x+locomotionX, y+locomotionY, _colo, _xcep) {locomotionX = 0; locomotionY = 0}
 	
 	// Move the player
-	if locomotionX!=0 {x += locomotionX; am_locomoting = true}
-	if locomotionY!=0 {y += locomotionY; am_locomoting = true}
+	if locomotionX != 0 {
+        x += locomotionX; 
+        am_locomoting = true;
+    }
+	if locomotionY != 0 {
+        y += locomotionY; 
+        am_locomoting = true
+    }
 	if am_trying_to_locomoteX==true and locomotionX==0 failed_locomote_X=true
 	if am_trying_to_locomoteY==true and locomotionY==0 failed_locomote_Y=true
+        
 	moving = am_locomoting
 	
 	// Set the player's direction
@@ -116,26 +123,33 @@ function player_standard_movement_execute(){
 	
 	// Caterpillar spacing
 	for (var i = 0; i < party_length(true); ++i) {
-		var pinst = party_get_inst(global.party_names[i])
-		var targpos = get_leader().spacing * party_get_index(global.party_names[i])
-		pinst.pos = linear(pinst.pos, targpos, 2)
+		var pinst = party_get_inst(global.party_names[i]);
+		var targpos = get_leader().spacing * party_get_index(global.party_names[i]);
+		pinst.pos = increment_towards(pinst.pos, targpos, 2);
 	}
 	
 	// Movement speed
 	auto_run = global.settings.AUTO_RUN
 	if ((!auto_run and InputCheck(INPUT_VERB.CANCEL)) or (auto_run and !InputCheck(INPUT_VERB.CANCEL))) and moving {
-		running = true
-		runtimer++
+		running = true;
+		runtimer ++;
+        
 		if global.world == WORLD_TYPE.LIGHT {
-			spd = basespd+1
-			if runtimer>10 spd=basespd+2
-			if runtimer>60 spd=basespd+3
-		}else{
-			spd = basespd+1
-			if runtimer>10 spd=basespd+2
-			if runtimer>60 spd=basespd+2.5
+			spd = basespd + 1
+			if runtimer > 10 
+                spd = basespd+2;
+			if runtimer > 60 
+                spd = basespd+3;
 		}
-	}else{
+        else{
+			spd = basespd + 1
+			if runtimer > 10 
+                spd = basespd+2;
+			if runtimer > 60 
+                spd = basespd+2.5;
+		}
+	}
+    else {
 		running = false
 		runtimer = 0
 		spd = basespd
@@ -143,6 +157,14 @@ function player_standard_movement_execute(){
 
 	// Locomote
 	moving = false
-	var __c = noclip ? noone : player_array_collisions
-	player_standard_movement_locomote(__c, player_array_exceptions, spd)
+    
+    // re-calculate collisions
+    player_array_collisions = [];
+    for (var i = 0; i < instance_number(o_block); ++i) {
+		var inst = instance_find(o_block, i);
+		if variable_instance_exists(inst, "collide") and inst.collide {array_push(player_array_collisions, inst)};
+	}
+    
+	var __c = noclip ? noone : player_array_collisions;
+	player_standard_movement_locomote(__c, player_array_exceptions, spd);
 }

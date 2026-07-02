@@ -116,8 +116,7 @@ function party_member_interpolate(name){
 		record[1][0] = get_leader().y
 		record[2][0] = get_leader().dir
 		
-		for (var i = pos; i > 0; i -= 1)
-		{
+		for (var i = pos; i > 0; i -= 1) {
 			record[0][i] = lerp(get_leader().x, x, (i / pos))
 			record[1][i] = lerp(get_leader().y, y, (i / pos))
 			record[2][i] = ddir

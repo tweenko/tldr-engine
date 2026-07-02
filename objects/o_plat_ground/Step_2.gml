@@ -1,5 +1,5 @@
 // Set Y
-y = lerp(initial_y, initial_y+(tile_height*wall_distance), global.platforming_perspective)
+y = lerp(initial_y, initial_y + (tile_height*wall_distance), global.platforming_perspective)
 
 // Set connected object's Y
 if array_length(connected_instances) > 0 {
@@ -25,7 +25,11 @@ if array_length(connected_instances) > 0 {
 //depth = DEPTH_PLATFORMER.PLAT-y
 
 // Set collide
-if global.platforming_perspective>0 {collide = collide_while_plat} else {collide = collide_init}
+if global.platforming_perspective > 0 
+    collide = collide_while_plat;
+else 
+    collide = collide_ow;
 
 // Set plathidden
-if hide_while_not_plat {plathidden=global.platforming_perspective}
+if hide_while_not_plat 
+    plathidden = global.platforming_perspective;

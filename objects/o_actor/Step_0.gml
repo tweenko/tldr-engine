@@ -32,9 +32,11 @@ else if follow && is_follower {
 	sliding = record[5][pos]
 	
 	if y != get_leader().y && plat
-        get_leader().pf_caterrecordtime = 14
+        get_leader().pf_caterrecordtime = 14;
+    if !plat 
+        get_leader().pf_caterrecordtime = 0;
 	
-	if get_leader().moving or get_leader().pf_caterrecordtime > 0 {
+	if get_leader().moving or get_leader().pf_caterrecordtime > 0 && global.platforming_perspective == 1 {
 		array_insert_cycle(record[0], 0, get_leader().x)
 		array_insert_cycle(record[1], 0, get_leader().y)
 		array_insert_cycle(record[2], 0, get_leader().dir)
@@ -53,8 +55,8 @@ else if sliding {
 }
 
 // just make it known that you are moving (if you are not the player)
-var __xdiff = (x - xprevious != 0);
-var __ydiff = (y - yprevious != 0) && global.platforming_perspective % 1 == 0;
+var __xdiff = abs(x - xprevious) > 0;
+var __ydiff = abs(y - yprevious) > 0;
 
 if !is_player and ((__xdiff || __ydiff) and !is_in_battle and !is_enemy) or sliding {
     moving = true
@@ -102,7 +104,7 @@ else {
 }  */ 
 
 // sprites
-if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override {
+if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override && !get_leader().pf_enabled {
 	if !startedmoving {
 		startedmoving = true
         
@@ -113,7 +115,7 @@ if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override {
 	if !running
 		image_speed = s_walk_ispd
 }
-else if !is_in_battle && !is_enemy {
+else if !is_in_battle && !is_enemy && !get_leader().pf_enabled {
 	startedmoving = false
 	
 	if floor(image_index) % 2 == 0 && !s_override && s_dynamic {
@@ -123,7 +125,7 @@ else if !is_in_battle && !is_enemy {
 }
 
 // running sprites, walking sprites
-if !is_in_battle && !is_enemy && s_dynamic && !s_override {
+if !is_in_battle && !is_enemy && s_dynamic && !s_override && !get_leader().pf_enabled {
 	if running && moving {
 		image_speed = lerp(s_walk_ispd, s_run_ispd, (get_leader().spd - basespd) / (4 - basespd))
 		sprite_index = asset_get_index(sprite_get_name(s_move[dir]) + s_run_postfix)

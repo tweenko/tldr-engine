@@ -1,3 +1,14 @@
+if sprite_exists(queued_sprite) {
+    sprite_index = queued_sprite;
+    image_index = 0;
+    
+    queued_sprite = noone;
+    queued_sprite_index = 0;
+    queued_sprite_speed = 1;
+    
+    exit;
+}
+
 if sprname == ""
 	exit
 

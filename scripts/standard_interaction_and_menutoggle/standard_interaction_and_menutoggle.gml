@@ -1,7 +1,8 @@
 function player_standard_interaction_and_menutoggle_execute(_can_interact=true, _can_menutoggle=true){
 	// Interact
 	if InputPressed(INPUT_VERB.SELECT)
-	and _can_interact
+        and _can_interact
+        //and !get_leader().pf_enabled
 	{
 		for (var w = 2; w < 15; w ++) {
 			var __xw = -lengthdir_x(w, dir + 90)
@@ -18,9 +19,9 @@ function player_standard_interaction_and_menutoggle_execute(_can_interact=true, 
 
 	// Menu
 	else if InputPressed(INPUT_VERB.SPECIAL)
-	and _can_menutoggle
-	and !instance_exists([o_ui_menu, o_ui_menu_lw]) 
-	and !o_dodge_controller.dodge_mode
+        and _can_menutoggle
+        and !instance_exists([o_ui_menu, o_ui_menu_lw]) 
+        and !o_dodge_controller.dodge_mode
 	{
 		if sliding
 		//or place_meeting(x, y, o_trigger_jumpattack)

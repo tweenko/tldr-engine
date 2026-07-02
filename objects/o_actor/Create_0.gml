@@ -13,26 +13,26 @@ is_player = false
 is_party = false
 
 { // player specific
-	spd = 0
-	basespd = (global.world == WORLD_TYPE.LIGHT ? 3 : 2)
+    spd = (global.world == WORLD_TYPE.LIGHT ? 3 : 2);
+	basespd = spd;
+    
     auto_run = global.settings.AUTO_RUN
     noclip = false
+	
 	slide_vertical_allow = false // can move vertically while sliding
 	diagonal = true // can move diagonally
-	spacing = (global.world == WORLD_TYPE.LIGHT ? 15 : 12) // make the party member spacing bigger in the light world
-	playermask = spr_mask_15x8
-	player_array_collisions = []
-	for (var i = 0; i < instance_number(o_block); ++i) {
-		var inst = instance_find(o_block,i)
-		if variable_instance_exists(inst, "collide") and inst.collide {array_push(player_array_collisions, inst)}
-	}
-	player_array_exceptions = [o_exception]
-	player_platforming_movement_init() // set vars for platforming
 	
 	stepsounds = false
 	stepsoundprefix = "snd_step"
-	made_step = 0; 
+	made_step = 0;
 	stepgain = 1;
+	
+	spacing = 12; // the spacing will automatically be bigger due to higher speed
+    
+	playermask = spr_mask_15x8
+	player_array_collisions = [];
+	player_array_exceptions = [o_exception];
+	player_platforming_movement_init() // set vars for platforming
 }
 { // enemy specific
 	chaser = false
@@ -71,6 +71,7 @@ is_party = false
 		s_slide = spr_kris_slide
 		s_run_postfix = ""
         
+        // climbing sprites
         s_climb = spr_kris_climb;
         s_climb_charge = spr_kris_climb_charge;
         s_climb_charge_left = spr_kris_climb_charge_left;
@@ -81,6 +82,27 @@ is_party = false
         s_climb_land_left = spr_kris_climb_land_left;
         s_climb_land_right = spr_kris_climb_land_right;
         s_climb_slip_fall = spr_kris_climb_slip_fall;
+        
+        // platforming sprites
+        s_plat_idle = spr_plat_kris_idle;
+        s_plat_jump_up = spr_plat_kris_jump_up;
+        s_plat_jump_down = spr_plat_kris_jump_down;
+        s_plat_land = spr_plat_kris_land;
+        s_plat_run = spr_plat_kris_run;
+        s_plat_run_stop = spr_plat_kris_run_stop;
+        s_plat_turn = spr_plat_kris_turn;
+        
+        s_plat_hurt_ground = spr_plat_kris_hurt_ground;
+        s_plat_hurt_air = spr_plat_kris_hurt_air;
+        
+        s_plat_slash_ground = spr_plat_kris_slash_ground;
+        s_plat_slash_ground_fg = spr_plat_kris_slash_ground_fg;
+        s_plat_slash_ground_hbx = spr_plat_kris_slash_ground_hbx;
+        
+        s_plat_slash_air = spr_plat_kris_slash_air;
+        s_plat_slash_air_fg = spr_plat_kris_slash_air_fg;
+        s_plat_slash_air_hbx = spr_plat_kris_slash_air_hbx;
+        s_plat_slash_air_land = spr_plat_kris_slash_air_land;
 	
 		s_walk_ispd = 1;
 		s_run_ispd = 2;
@@ -163,6 +185,10 @@ is_party = false
     last_walk_frame = 0;
     last_walk_buffer = 0;
     alpha_mod = 1;
+    
+    queued_sprite = noone;
+    queued_sprite_index = 0;
+    queued_sprite_speed = 1;
     
     delta_x = 0;
     delta_y = 0;

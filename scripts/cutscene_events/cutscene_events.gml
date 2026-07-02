@@ -385,6 +385,7 @@ function cutscene_party_interpolate() {
         event
     );
 }
+
 /// @desc pan the camera using two animation instances during a cutscene
 /// @param {real} x_dest  set to undefined if you don't want to move on this axis
 /// @param {real} y_dest  set to undefined if you don't want to move on this axis
