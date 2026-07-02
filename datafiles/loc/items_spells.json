@@ -71,6 +71,16 @@
             "desc": ["天から降り注ぐ光が仲間1人のHPを少量回復。\nまりょくによって回復量変化。", "仲間を\n回復"]
         }
     },
+    "item_s_revivesong": {
+        "en": {
+            "name": "ReviveSong",
+            "desc": ["Revives a DOWNed ally and heals them.\nOtherwise, heals a lot of HP.. Depends on Magic.", "Revive\nally"]
+        },
+        "ja": {
+            "name": "復活の詩",
+            "desc": ["倒れた仲間を復活させて　HPを回復する。\n倒れていない仲間は　HPが大量に回復。", "仲間が復活"]
+        }
+    },
 
     "item_s_sleepmist": {
         "en": {

@@ -12,6 +12,7 @@ beam_rad = 0;
 timer = 0;
 cherub_draw = false;
 cherub_index = 0;
+spamton_variant = false;
 
 timer_event_descent = 10;
 

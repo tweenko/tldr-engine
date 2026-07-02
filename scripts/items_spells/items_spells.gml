@@ -308,6 +308,7 @@ function item_s_revivesong() : item_spell() constructor {
             target_member_name: global.party_names[target], 
             target_hp: party_getdata(spell_user, "magic") * 7.5, // if the party member is down, revive them to this amount of hp
             target_heal: party_getdata(spell_user, "magic") * 10, // if the party member is up, heal them this amount of hp
+            spamton_variant: (item_get_equipped(item_a_dealmaker, spell_user) ? random(1) <= .1 : false)
         })
         
         cutscene_wait_until(function() {return !instance_exists(o_eff_revivesong)});
@@ -318,7 +319,9 @@ function item_s_revivesong() : item_spell() constructor {
         
 		cutscene_enc_wait(false)
     });
-}
+    
+    item_localize("item_s_revivesong");
+};
 
 
 function item_s_sleepmist() : item_spell() constructor {

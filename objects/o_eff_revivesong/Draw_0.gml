@@ -55,6 +55,7 @@ draw_surface_ext(surf_feathers, guipos_x(), guipos_y(), .5, .5, 0, c_white, 1);
 
 if cherub_draw { 
     var yy = target_actor.y - target_actor.myheight + (party_isup(target_member_name) ? 0 : 20) + 5;
-    draw_sprite_ext(spr_eff_revivesong_cherub, cherub_index, x + 4, yy, 1, 1, 0, c_white, 1)
-    draw_sprite_ext(spr_eff_revivesong_cherub, cherub_index, x - 4, yy, -1, 1, 0, c_white, 1)
+    
+    draw_sprite_ext((spamton_variant ? spr_eff_revivesong_cherub_spamton : spr_eff_revivesong_cherub), cherub_index, x + 4, yy, 1, 1, 0, c_white, 1);
+    draw_sprite_ext((spamton_variant ? spr_eff_revivesong_cherub_peeved : spr_eff_revivesong_cherub), cherub_index, x - 4, yy, -1, 1, 0, c_white, 1);
 }

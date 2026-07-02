@@ -121,27 +121,19 @@ if battle_state == BATTLE_STATE.MENU {
             selected_item_index ++
 			if selected_item_index % 2 == 0
 				selected_item_index -= 2
-			
-			audio_play(snd_ui_move)
 		}
 		if InputPressed(INPUT_VERB.DOWN) && selected_item_index < array_length(list) - 2 {
 			selected_item_index += 2
-			audio_play(snd_ui_move)
 		}
 		if InputPressed(INPUT_VERB.LEFT) && selected_item_index > 0 {
 			selected_item_index -= 1
 			if selected_item_index % 2 == 1
 				selected_item_index += 2
-			audio_play(snd_ui_move)
 		}
-		else if InputPressed(INPUT_VERB.LEFT) && selected_item_index == 0 && array_length(list) > 1 {
+		else if InputPressed(INPUT_VERB.LEFT) && selected_item_index == 0 && array_length(list) > 1
 			selected_item_index -= 1
-			audio_play(snd_ui_move)
-		}
-		if InputPressed(INPUT_VERB.UP) && selected_item_index > 1 {
+		if InputPressed(INPUT_VERB.UP) && selected_item_index > 1
 			selected_item_index -= 2
-			audio_play(snd_ui_move)
-		}
         if selected_item_index > 5
 			array_set(variable_instance_get(self, battle_menu_inv_page_var_name), party_selection, 1)
 		else
