@@ -15,3 +15,13 @@ enum DEPTH_ENCOUNTER {
 	BULLETS_OUTSIDE = -6500,
 	UI = -7000,
 }
+
+enum DEPTH_PLATFORMER {
+    PLAT = -3000,
+    BACK2 = -3800,
+    BACK = -3900,
+    ACTORS = -4000,
+	LINING = -4100,
+    FORE = -4200,
+    FORE2 = -4300,
+}

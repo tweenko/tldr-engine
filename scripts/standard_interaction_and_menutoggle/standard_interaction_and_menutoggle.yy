@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"standard_interaction_and_menutoggle",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"standard_interaction_and_menutoggle",
+  "parent":{
+    "name":"player",
+    "path":"folders/@Engine/scripts/player.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

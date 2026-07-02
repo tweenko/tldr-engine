@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"custom_two",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"custom_two",
+  "parent":{
+    "name":"scripts",
+    "path":"folders/@Engine/scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,11 +1,12 @@
 var spr = sprite_index
+if !sprite_exists(sprite_index) spr = spr_nothing
 
 // set the hurt sprite if hurt
 if is_player || is_follower
 	s_hurt = party_getdata(name, "battle_sprites").hurt
 if is_enemy && struct_exists(enemy_struct, "s_hurt")
     s_hurt = enemy_struct.s_hurt
-if hurt > 0 && is_in_battle || run_away && is_in_battle && is_enemy
+if (hurt > 0 && is_in_battle || run_away && is_in_battle && is_enemy) && !(instance_exists(o_enc) and o_enc.party_state[party_get_index(name)] == PARTY_STATE.DEFEND)
 	spr = s_hurt
 	
 if (is_player || is_follower) && !party_isup(name)

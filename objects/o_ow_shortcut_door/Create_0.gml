@@ -1,7 +1,7 @@
 event_inherited()
 
 drawer = function(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha) {
-    draw_sprite_ext(spr_ow_shortcut_door_fire, o_world.frames * (2/15), x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha)
+    draw_sprite_ext(spr_ow_shortcut_door_fire, o_world.frames * (2/15), x, y, image_xscale, image_yscale*(1-global.platforming_perspective), image_angle, image_blend, image_alpha)
     draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha)
 }
 

@@ -13,20 +13,26 @@ is_player = false
 is_party = false
 
 { // player specific
-	spd = (global.world == WORLD_TYPE.LIGHT ? 3 : 2);
-	basespd = spd;
-    
+	spd = 0
+	basespd = (global.world == WORLD_TYPE.LIGHT ? 3 : 2)
     auto_run = global.settings.AUTO_RUN
     noclip = false
-	
 	slide_vertical_allow = false // can move vertically while sliding
 	diagonal = true // can move diagonally
+	spacing = (global.world == WORLD_TYPE.LIGHT ? 15 : 12) // make the party member spacing bigger in the light world
+	playermask = spr_mask_15x8
+	player_array_collisions = []
+	for (var i = 0; i < instance_number(o_block); ++i) {
+		var inst = instance_find(o_block,i)
+		if variable_instance_exists(inst, "collide") and inst.collide {array_push(player_array_collisions, inst)}
+	}
+	player_array_exceptions = [o_exception]
+	player_platforming_movement_init() // set vars for platforming
 	
 	stepsounds = false
 	stepsoundprefix = "snd_step"
-	made_step = 0;
-	
-	spacing = 12; // the spacing will automatically be bigger due to higher speed
+	made_step = 0; 
+	stepgain = 1;
 }
 { // enemy specific
 	chaser = false
@@ -160,6 +166,9 @@ is_party = false
     
     delta_x = 0;
     delta_y = 0;
+	
+	last_dir_left_right = dir
+	last_dir_up_down = dir
 }
 { // moveables
 	moveable = true // the user-defined one, used in cutscenes and such. not touched by any of the systems in the engine by default
@@ -172,6 +181,7 @@ is_party = false
 	moveable_anim = true
     moveable_recruits = true
     moveable_shop = true
+	moveable_array = []
 	
 	_checkmove = function() { // the main function that determines whether the player can move as of right now
 		return moveable 
@@ -184,6 +194,7 @@ is_party = false
 		&& moveable_anim 
         && moveable_recruits
         && moveable_shop
+		&& (array_length(moveable_array)==0 ? true : false)
 		
 		&& hurt == 0
         && spawn_buffer <= 0
@@ -218,12 +229,12 @@ __step = function(index) {
         var yy = y + random_range(-4, 4);
         
         var inst = lb_ripple_create(xx, yy, 3, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
-        inst.hspeed = delta_x;
-        inst.vspeed = delta_y;
+        inst.hspeed = locomotionX;
+        inst.vspeed = locomotionY;
         
         inst = lb_ripple_create(xx, yy, 2, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
-        inst.hspeed = delta_x;
-        inst.vspeed = delta_y;
+        inst.hspeed = locomotionX;
+        inst.vspeed = locomotionY;
     }
 }
 
