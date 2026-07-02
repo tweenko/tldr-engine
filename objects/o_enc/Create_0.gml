@@ -79,7 +79,6 @@
     party_ui_lerp = array_create(party_length(), 0)
     party_ui_button_surf = array_create(party_length(), -1)
     party_state = array_create(party_length(), PARTY_STATE.IDLE)
-    party_hurt_timer = array_create(party_length(), 0)
     party_buttons = array_create_ext(party_length(), function(index) {
         var buttons = [
             new enc_button_fight(),
@@ -160,7 +159,7 @@ __button_highlight = function(button, party_name) {
 		
 		// check whether we can pacify the enemy
 		for (var m = 0; m < array_length(encounter_data.enemies); ++m) {
-			if !enc_enemy_isfighting(m) 
+			if !enc_enemy_is_fighting(m) 
 				continue
 			
 			var _enemy = encounter_data.enemies[m]
@@ -178,7 +177,7 @@ __button_highlight = function(button, party_name) {
 		
 		// check whether we can spare the enemy
 		for (var m = 0; m < array_length(encounter_data.enemies); ++m) {
-			if !enc_enemy_isfighting(m) 
+			if !enc_enemy_is_fighting(m) 
 				continue
 			
 			var _enemy = encounter_data.enemies[m]
@@ -214,7 +213,7 @@ __battle_state_advance = function(state = battle_state) {
 
 __enemy_highlight = function(enemy_index) {
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if !enc_enemy_isfighting(i)
+        if !enc_enemy_is_fighting(i)
             continue
         if !instance_exists(encounter_data.enemies[i].actor_id)
             continue
@@ -227,7 +226,7 @@ __enemy_highlight = function(enemy_index) {
 }
 __enemy_highlight_reset = function() {
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if !enc_enemy_isfighting(i)
+        if !enc_enemy_is_fighting(i)
             continue
         if !instance_exists(encounter_data.enemies[i].actor_id)
             continue
@@ -321,7 +320,7 @@ __spell_sort = function(party_name) {
 /// @arg {string} event_name starts with "ev_" (e.g. "ev_pre_dialogue")
 __call_enc_event = function(event_name) {
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if enc_enemy_isfighting(i) {
+        if enc_enemy_is_fighting(i) {
             // call the pre-dialogue event for the enemies
             if is_method(variable_struct_get(encounter_data.enemies[i], event_name))
                 variable_struct_get(encounter_data.enemies[i], event_name)();

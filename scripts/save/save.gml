@@ -1,6 +1,7 @@
 #macro SAVE_FORMAT "save_ch{1}_{0}"
 #macro SAVE_SLOTS 3
 #macro SAVE_ENCODE true // if enabled, will encode the saves to base64 before saving them on the player's machine
+#macro SAVE_PRETTIFY false // if enabled, the JSON of the save will look be easier to read. will be overriden if saves are encoded
 
 /// @desc set up the save system
 function save_init() {
@@ -83,8 +84,8 @@ function save_convert(_raw_data, _to_default_values = false) {
         var __recording = global.save_recording[i];
         var __value = (_to_default_values ? variable_clone(__recording.default_value) : variable_clone(struct_get(_data, __recording.name)));
         
-        if !_to_default_values && is_callable(__recording.__convert)
-            __value = __recording.__convert(variable_clone(struct_get(_data, __recording.name)));
+        if !_to_default_values
+            __value = save_import_variable(variable_clone(struct_get(_data, __recording.name)));
         
         struct_set(_data, string_upper(__recording.name), __value);
     }
@@ -123,8 +124,8 @@ function save_export(_data = global.save) {
     // export everything into the temporary save struct
     for (var i = 0; i < array_length(global.save_recording); i ++) {
         var __recording = global.save_recording[i];
-        if is_callable(__recording.__export)
-            struct_set(_save, string_upper(__recording.name), __recording.__export());
+        if is_callable(__recording.__extract)
+            struct_set(_save, string_upper(__recording.name), save_export_variable(__recording.__extract()));
     }
     
     return _save;
@@ -162,7 +163,7 @@ function save_reload(_chapter = global.chapter) {
 
 /// @desc turns a ready-for-export save file into a string format that can be saved into a file
 function save_to_string(_save_data) {
-    var _data = json_stringify(_save_data);
+    var _data = json_stringify(_save_data, (!SAVE_ENCODE && SAVE_PRETTIFY));
     if SAVE_ENCODE
         _data = base64_encode(_data);
     
@@ -170,7 +171,7 @@ function save_to_string(_save_data) {
 }
 /// @desc turns a string input into a raw save file that should be read by `save_convert`
 function save_from_string(_string_data) {
-    var _data = _string_data
+    var _data = _string_data;
     if SAVE_ENCODE
         _data = base64_decode(_data);
     

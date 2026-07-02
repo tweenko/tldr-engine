@@ -1,15 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"o_eff_slidedust",
+  "%Name":"o_eff_revivesong_feather",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":7,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_eff_slidedust",
+  "name":"o_eff_revivesong_feather",
   "overriddenProperties":[],
   "parent":{
-    "name":"particles",
-    "path":"folders/@Engine/objects/effects/particles.yy",
+    "name":"spells",
+    "path":"folders/@Engine/objects/effects/spells.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -30,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_eff_slidedust",
-    "path":"sprites/spr_eff_slidedust/spr_eff_slidedust.yy",
+    "name":"spr_eff_revivesong_feathers",
+    "path":"sprites/spr_eff_revivesong_feathers/spr_eff_revivesong_feathers.yy",
   },
   "spriteMaskId":null,
   "visible":true,

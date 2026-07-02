@@ -8,7 +8,7 @@ if grazed_inst != grazed_previous {
     
     if grazed_inst.time_points > 0
         for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
-            if instance_exists(o_enc.turn_objects[i]) && enc_enemy_isfighting(i) 
+            if instance_exists(o_enc.turn_objects[i]) && enc_enemy_is_fighting(i) 
                 && o_enc.turn_objects[i].shorten_by_tension && is_real(o_enc.turn_objects[i].timer_end) 
                 && o_enc.turn_objects[i].timer_end - o_enc.turn_objects[i].timer > 10
             {
@@ -30,7 +30,7 @@ else {
     
     if grazed_inst.time_points > 0
         for (var i = 0; i < array_length(o_enc.turn_objects); i ++) {
-            if instance_exists(o_enc.turn_objects[i]) && enc_enemy_isfighting(i) 
+            if instance_exists(o_enc.turn_objects[i]) && enc_enemy_is_fighting(i) 
                 && o_enc.turn_objects[i].shorten_by_tension && is_real(o_enc.turn_objects[i].timer_end) 
                 && o_enc.turn_objects[i].timer_end - o_enc.turn_objects[i].timer > 10
             {

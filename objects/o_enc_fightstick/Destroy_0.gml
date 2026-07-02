@@ -1,13 +1,13 @@
-if !enc_enemy_isfighting(target) 
+if !enc_enemy_is_fighting(target) 
 	exit
 
 var enemy_struct = ecaller.encounter_data.enemies[target]
 var o = enemy_struct.actor_id
 
 // change target if needed
-if !enc_enemy_isfighting(target) || caller.enemy_hp[target] <= 0 {
+if !enc_enemy_is_fighting(target) || caller.enemy_hp[target] <= 0 {
     for (var i = 0; i < array_length(ecaller.encounter_data.enemies); i ++) {
-        if enc_enemy_isfighting(i) && caller.enemy_hp[i] > 0 {
+        if enc_enemy_is_fighting(i) && caller.enemy_hp[i] > 0 {
             target = i
             break
         }

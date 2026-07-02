@@ -2,6 +2,8 @@ function item() constructor {
 	name = ["Item"] // short, then long (first is default). each one can be callable
 	desc = ["Overworld Description", "Battle Text", "Action Description", "Shop Description"] // ow, battle, action, shop
 	type = ITEM_TYPE.CONSUMABLE
+	tp_cost = 0
+	color = c_white
 	
 	lw_counterpart = undefined // reference a script, nothing appears in the light world if it's undefined
 	dw_counterpart = undefined // reference a script, nothing appears in the dark world if it's undefined
@@ -24,17 +26,13 @@ function item() constructor {
 		}, // out of 1
 	}
     stats_misc = {} // money_modifier
+	reactions = {} // entries inside can be callable
     
 	effect = undefined // (struct with the sprite key and text key)
 	icon = spr_ui_menu_icon_exclamation
-	
-	tp_cost = 0
-	color = c_white
     
     // party act specific
     perform_act_anim = true
-	
-	reactions = {} // entries inside can be callable
     
     use_instant = function(item_index, target_index) {}
     use_instant_cancel = function(item_index, target_index) {}
@@ -46,8 +44,8 @@ function item() constructor {
     unequipped = function(new_item_index) {}
 	
 	buy_price = 0 // can be callable
-    // sell_price = 0 // can be callable
-     shop_in_stock = infinity // determines whether a shop item is in stock. if set to real, shows how much of it can be sold
+    sell_price = undefined // can be callable. if undefined, will be sold for half its buy price
+    shop_in_stock = infinity // determines whether a shop item is in stock. if set to real, shows how much of it can be sold
     can_sell = true // determines whether it can be sold to vendors
 }
 
@@ -221,8 +219,8 @@ function item_get_buy_price(item_struct) {
 function item_get_sell_price(item_struct) {
     if is_undefined(item_struct)
         return 0
-    if !struct_exists(item_struct, "sell_price")
-        return round(item_get_buy_price(item_struct)/2)
+    if !struct_exists(item_struct, "sell_price") || is_undefined(item_struct.sell_price)
+        return round(item_get_buy_price(item_struct)/2);
 	return variable_callable_to_value(item_struct.sell_price);
 }
 

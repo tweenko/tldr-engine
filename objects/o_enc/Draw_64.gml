@@ -31,9 +31,10 @@ for (var i = 0; i < party_length(); ++i) {
     
     // draw the icon
     if party_state[i] == PARTY_STATE.IDLE {
-        var __icon = party_geticon(member_name)
-        if party_hurt_timer[i] > 0
-            __icon = party_geticon_hurt(member_name)
+        var __icon = party_get_icon(member_name)
+        var __inst = party_get_inst(member_name);
+        if instance_exists(__inst) && variable_instance_exists(__inst, "hurt") && __inst.hurt > 0
+            __icon = party_get_icon_hurt(member_name)
         
         draw_sprite_ext(__icon, 0, 12 + xoff, box_base_y + 11, 1, 1, 0, c_white, 1)
     }
@@ -149,7 +150,7 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
     
     var longest_name = 0;
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if !enc_enemy_isfighting(i)
+        if !enc_enemy_is_fighting(i)
             continue;
         
         var enemy_struct = encounter_data.enemies[i];
@@ -157,7 +158,7 @@ if battle_menu == BATTLE_MENU.ENEMY_SELECTION {
     }
     
     for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
-        if !enc_enemy_isfighting(i)
+        if !enc_enemy_is_fighting(i)
             continue
         
         var enemy_struct = encounter_data.enemies[i]
@@ -251,6 +252,10 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
         var txt = item_get_name(list[i])
         var item_xoffset = 0
         
+        // draw the soul under the icons for accuracy
+        if i == selected_item_index
+            draw_sprite_ext(spr_uisoul, 0, 10 + (__drawn % 2 == 1 ? 230 : 0) - 2, 385 + 30 * floor(__drawn/2), 1, 1, 0, c_red, 1)
+        
         // draw the icons (act exclusive)
         if __button.name == "act" {
             if array_length(list[i].party) > 0 || list[i].party == -1 {
@@ -264,7 +269,7 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
                         if j == party_selection // don't draw the one calling the act
                             continue
                         
-                        draw_sprite_ext(party_geticon(global.party_names[j]), 0, (__drawn % 2 == 1 ? 260 : 30) + 30*n_drawn - 1, 375 + 30 * floor(__drawn/2), 1, 1, 0, c_white, 1)
+                        draw_sprite_ext(party_get_icon(global.party_names[j]), 0, (__drawn % 2 == 1 ? 260 : 30) + 30*n_drawn  - 8, 375 + 30 * floor(__drawn/2), 1, 1, 0, c_white, 1)
                         n_drawn ++
                     }
                     item_xoffset = n_drawn*30
@@ -278,15 +283,13 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
                         if list[i].party[j] == global.party_names[party_selection] // don't draw the one calling the act
                             continue
                         
-                        draw_sprite_ext(party_geticon(name), 0, 30 + (__drawn % 2 == 1 ? 230 : 0) + 30*n_drawn - 1, 375 + 30 * floor(__drawn/2), 1, 1, 0, c_white, 1)
+                        draw_sprite_ext(party_get_icon(name), 0, 30 + (__drawn % 2 == 1 ? 230 : 0) + 30*n_drawn - 8, 375 + 30 * floor(__drawn/2), 1, 1, 0, c_white, 1)
                         n_drawn ++
                     }
                     item_xoffset = n_drawn*30
                 }
             }
         }
-        if i == selected_item_index
-            draw_sprite_ext(spr_uisoul, 0, 10 + (__drawn % 2 == 1 ? 230 : 0), 385 + 30 * floor(__drawn/2), 1, 1, 0, c_red, 1)
     
         // draw the item tp cost if applicable
         draw_set_color(c_orange)

@@ -22,7 +22,7 @@ function enc_getparty_sprite(party_name, sprname) {
 /// @param {string} [seed]
 function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed = "") {
 	var enemy_struct = o_enc.encounter_data.enemies[target]
-    if !enc_enemy_isfighting(target)
+    if !enc_enemy_is_fighting(target)
         return false
     
     hurt = round(hurt)
@@ -33,7 +33,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed
     
     if !is_struct(enemy_struct)
         exit
-    if enemy_struct.hp <= 0 || !enc_enemy_isfighting(target)
+    if enemy_struct.hp <= 0 || !enc_enemy_is_fighting(target)
 		exit
 	enemy_struct.hp -= hurt
 	
@@ -81,7 +81,7 @@ function enc_hurt_enemy(target, hurt, user, sfx = undefined, fatal = false, seed
 /// @arg {real} percent the amount of percent to add
 /// @arg {Asset.GMSound} sfx the sfx to play upon adding the percentage
 function enc_enemy_add_spare(target, percent, sfx = snd_mercyadd) {
-    if !enc_enemy_isfighting(target)
+    if !enc_enemy_is_fighting(target)
         exit
     
 	o_enc.encounter_data.enemies[target].mercy += percent
@@ -129,7 +129,7 @@ function enc_enemy_add_spare_from_var(target, instance, variable, sfx = snd_merc
 function enc_enemy_set_tired(enemy_index, _tired) {
     if !instance_exists(o_enc)
         exit
-    if !enc_enemy_isfighting(enemy_index)
+    if !enc_enemy_is_fighting(enemy_index)
         exit
     
     o_enc.encounter_data.enemies[enemy_index].tired = _tired
@@ -142,7 +142,7 @@ function tp_clamp(tp) {
 
 /// @desc returns whether an enemy is still fighting
 /// @arg enemy_slot
-function enc_enemy_isfighting(target) {
+function enc_enemy_is_fighting(target) {
     if target >= array_length(o_enc.encounter_data.enemies) || target < 0
         return false
     
@@ -164,7 +164,7 @@ function enc_enemy_count(only_alive = true) {
 	if only_alive {
 		var c = 0
 		for (var i = 0; i < array_length(o_enc.encounter_data.enemies); ++i) {
-		    if enc_enemy_isfighting(i) 
+		    if enc_enemy_is_fighting(i) 
 				c ++
 		}
 		return c
@@ -232,7 +232,7 @@ function enc_get_flavor(data = o_enc.encounter_data) {
 function enc_count_fighting_enemies() {
     var count = 0
     for (var i = 0; i < array_length(o_enc.encounter_data.enemies); i ++) {
-        if enc_enemy_isfighting(i)
+        if enc_enemy_is_fighting(i)
             count ++
     }
     return count
@@ -245,7 +245,7 @@ function enc_set_contains_enemy(set_or_ref, enemy_ref) {
         set_or_ref = new set_or_ref()
     
     for (var i = 0; i < array_length(set_or_ref.enemies); i ++) {
-        if enc_enemy_isfighting(i) && is_instanceof(set_or_ref.enemies[i], enemy_ref)
+        if enc_enemy_is_fighting(i) && is_instanceof(set_or_ref.enemies[i], enemy_ref)
             return true
     }
 }
@@ -257,7 +257,7 @@ function enc_set_count_enemy(set_or_ref, enemy_ref) {
     
     var counter = 0
     for (var i = 0; i < array_length(set_or_ref.enemies); i ++) {
-        if enc_enemy_isfighting(i) && is_instanceof(set_or_ref.enemies[i], enemy_ref)
+        if enc_enemy_is_fighting(i) && is_instanceof(set_or_ref.enemies[i], enemy_ref)
             counter ++
     }
     return counter
