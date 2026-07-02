@@ -237,8 +237,6 @@ __enemy_highlight_reset = function() {
 __ally_highlight = function(ally_index) {
     for (var i = 0; i < party_length(); ++i) {
         var inst = party_get_inst(global.party_names[i])
-        if !party_isup(global.party_names[i])
-            continue
         if !instance_exists(inst)
             continue
         
@@ -251,8 +249,6 @@ __ally_highlight = function(ally_index) {
 __ally_highlight_reset = function() {
     for (var i = 0; i < party_length(); ++i) {
         var inst = party_get_inst(global.party_names[i])
-        if !party_isup(global.party_names[i])
-            continue
         if !instance_exists(inst)
             continue
         

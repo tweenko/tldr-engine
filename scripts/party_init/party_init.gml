@@ -199,7 +199,7 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
 	]
 	
 	max_hp =	party_m_calculate_hp(110, lv)
-    hp =        max_hp
+    hp =        max_hp - 199
 	attack =	16
 	defense =	2
 	magic =		1
