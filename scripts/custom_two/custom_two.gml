@@ -2,7 +2,6 @@
 
 /// @desc Returns if value is or is between a minimum and maximum.
 function ioib(value, minimum, maximum) {return value >= minimum && value <= maximum;}
-function is_or_is_between(value, minimum, maximum) {return ioib(value, minimum, maximum)}
 
 /// @desc Lerp with snapping
 function lerp_snap(a, b, amt, range=0.1){

@@ -1,13 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_plat_ground",
+  "%Name":"o_plat_ground",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":2,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_plat_ground",
+  "name":"o_plat_ground",
   "overriddenProperties":[],
   "parent":{
     "name":"Perspective_Stuff_to-be-moved-to-base-tldr",
@@ -31,6 +31,7 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
+    {"$GMObjectProperty":"v2","%Name":"collide_init","filters":[],"listItems":[],"multiselect":false,"name":"collide_init","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"true","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"collide_while_plat","filters":[],"listItems":[],"multiselect":false,"name":"collide_while_plat","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"True","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"pulpit","filters":[],"listItems":[],"multiselect":false,"name":"pulpit","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varType":3,},
     {"$GMObjectProperty":"v2","%Name":"wall_distance","filters":[],"listItems":[],"multiselect":false,"name":"wall_distance","rangeEnabled":true,"rangeMax":8.0,"rangeMin":-8.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},

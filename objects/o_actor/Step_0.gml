@@ -31,11 +31,10 @@ else if follow && is_follower {
 	state = record[4][pos]
 	sliding = record[5][pos]
 	
-	if y!=get_leader().y get_leader().pf_caterrecordtime = 14
+	if y != get_leader().y && plat
+        get_leader().pf_caterrecordtime = 14
 	
-	if get_leader().moving 
-	or get_leader().pf_caterrecordtime>0
-	{
+	if get_leader().moving or get_leader().pf_caterrecordtime > 0 {
 		array_insert_cycle(record[0], 0, get_leader().x)
 		array_insert_cycle(record[1], 0, get_leader().y)
 		array_insert_cycle(record[2], 0, get_leader().dir)
@@ -44,7 +43,7 @@ else if follow && is_follower {
 		array_insert_cycle(record[5], 0, get_leader().sliding)
 	}
 }
-else if sliding{
+else if sliding {
 	if instance_exists(slideinst) && !place_meeting(x, y, slideinst){
 		sliding = false
 		y -= global.slide_speed
@@ -54,9 +53,16 @@ else if sliding{
 }
 
 // just make it known that you are moving (if you are not the player)
-if !is_player and ((x!=xprevious or y!=yprevious) and !is_in_battle and !is_enemy) or sliding {moving = true}
-else if moving and ((x!=xprevious or y!=yprevious) and !is_in_battle and !is_enemy) {}
-else {moving = false}
+var __xdiff = (x - xprevious != 0);
+var __ydiff = (y - yprevious != 0) && global.platforming_perspective % 1 == 0;
+
+if !is_player and ((__xdiff || __ydiff) and !is_in_battle and !is_enemy) or sliding {
+    moving = true
+}
+else if moving and ((__xdiff || __ydiff) and !is_in_battle and !is_enemy) {}
+else {
+    moving = false
+}
 
 // something
 /*if (!is_in_battle && !is_enemy && !s_override && s_dynamic) {
