@@ -257,7 +257,7 @@ function draw_sprite_looped(offset, amp, sprite, image, xx, yy, xscale = 1, ysca
 /// @arg {real|undefined} img_fps the fps of the sprite on display. if set to undefined, the value will be auto determined depending on the sprite argument
 /// @arg {real} img_start_index the starting index of the animation. defaults to 0
 /// @arg {real|undefined} img_number the number of frames the animation has in total. if set to undefined, the value will be auto determined depending on the sprite argument
-function draw_get_index_looped(sprite = undefined, timer = o_world.frames, img_fps = undefined, img_start_index = 0, img_number = undefined) {
+function draw_get_subimg(sprite = undefined, timer = o_world.frames, img_fps = undefined, img_start_index = 0, img_number = undefined) {
     if !is_undefined(sprite) {
         img_fps ??= sprite_get_speed(sprite)
         img_number ??= sprite_get_number(sprite)
@@ -478,7 +478,12 @@ function string_to_bool(_string) {
 
 function increment_towards(a, b, increment) {
     var i = sign(b - a) * increment;
-    return a + i;
+    return clamp(a + i, min(a, b), max(a, b));
+}
+
+/// @desc Reset matrix
+function matrix_reset(){
+	matrix_set(matrix_world, matrix_build_identity())
 }
 
 
@@ -593,6 +598,39 @@ function time_format(time_s, display_hours = true){
 		time = $"{time_m}:{time_s}"
 	
 	return time
+}
+
+/// @desc Move with collision without slope support and returns the id of what's being collided with. By notrealnevereveal
+function move_and_collide_simple(dx, dy, inst) {
+	var tx = sign(dx), ty = sign(dy), col = noone, colid = noone;
+
+	col = instance_place(x + dx, y, inst)
+	if col != noone {
+		repeat(abs(dx)+1) {
+            if place_meeting(x + tx, y, inst) 
+                break; 
+            x += tx;
+        }
+        
+		dx = 0;
+		colid = col;
+	}
+	x += dx;
+
+	col = instance_place(x, y + dy, inst);
+	if col != noone {
+		repeat(abs(dy) + 1) {
+            if place_meeting(x, y + ty, inst) 
+                break; 
+            y += ty;
+        }
+        
+		dy = 0;
+		colid = col;
+	}
+	y += dy;
+
+	return colid;
 }
 
 

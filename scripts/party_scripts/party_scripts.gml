@@ -92,6 +92,7 @@ function party_member_create(name, recordnow = true, xx = get_leader().x, yy = g
 	var inst = actor_create(party_get_obj(name), xx, yy, get_leader().depth)
 	inst.is_follower = true
     inst.is_party = true
+    inst.follow_target = get_leader();
 	inst.pos = get_leader().spacing * party_get_index(name)
 	
 	with inst {
@@ -111,17 +112,19 @@ function party_member_interpolate(name){
 		exit
     
 	with party_get_inst(name) {
-		var ddir = actor_angletodir(point_direction(x, y, get_leader().x, get_leader().y))
-		record[0][0] = get_leader().x
-		record[1][0] = get_leader().y
-		record[2][0] = get_leader().dir
-		
-		for (var i = pos; i > 0; i -= 1)
-		{
-			record[0][i] = lerp(get_leader().x, x, (i / pos))
-			record[1][i] = lerp(get_leader().y, y, (i / pos))
-			record[2][i] = ddir
-			record[3][i] = false
+        if !instance_exists(follow_target)
+            continue;
+        
+		var ddir = actor_angletodir(point_direction(x, y, follow_target.x, follow_target.y))
+		record[0].x = follow_target.x
+		record[0].y = follow_target.y
+		record[0].dir = follow_target.dir
+        
+		for (var i = pos; i > 0; i -= 1) {
+			record[i].x = lerp(follow_target.x, x, (i / pos));
+			record[i].y = lerp(follow_target.y, y, (i / pos));
+			record[i].dir = ddir;
+			record[i].running = false;
 		}
 	}
 }
@@ -150,14 +153,14 @@ function party_reposition(lx = get_leader().x, ly = get_leader().y){
 			
 			with inst { // set position, initialize the followers
 				if array_length(record) == 0 
-					event_user(1)
+					event_user(1);
 				
-				x = record[0][pos]
-				y = record[1][pos]
-				dir = record[2][pos]
+				x = record[pos].x;
+				y = record[pos].y;
+				dir = record[pos].dir;
 				
-				event_user(2)
-				init = true
+				event_user(2);
+				init = true;
 			}
 		}
 	}

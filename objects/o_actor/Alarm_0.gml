@@ -1,2 +1,2 @@
 if !init
-    __initialize()
+    __initialize();
