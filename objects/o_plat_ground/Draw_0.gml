@@ -23,7 +23,7 @@ draw_sprite_ext(sprite_index, draw_get_subimg(sprite_index), 0, 0, image_xscale,
 
 // Draw floor
 if floor_tilesback_amount > 0 {
-	matrix_set(matrix_world, matrix_build(x, y, 0, 0, 0, 0, 1, clamp(1*pers, 5/sprite_get_height(floor_sprite), 1), 1));
+	matrix_set(matrix_world, matrix_build(x, y, 0, 0, 0, 0, 1, clamp(1*pers, 4/sprite_get_height(floor_sprite), 1), 1));
 	draw_sprite_stretched_ext(floor_sprite, draw_get_subimg(floor_sprite), 0, -floor_height, floor_width, floor_height, blend, image_alpha*plathidden);
 }
 

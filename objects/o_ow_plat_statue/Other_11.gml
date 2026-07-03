@@ -49,7 +49,7 @@ if global.platforming_perspective == 0 {
 	for (var i = 0; i < party_length(true); ++i) {
 		cutscene_sleep(4 - i);
 		var inst = party_get_inst(global.party_names[i]);
-		cutscene_animate(-10, 0, 8, "sine_in", inst, "yoff");
+		cutscene_animate(-10, -2, 8, "sine_in", inst, "yoff");
 	}
 	cutscene_sleep(8)
 	cutscene_audio_play(snd_dtrans_flip, , , 1.3)
@@ -81,6 +81,7 @@ else if global.platforming_perspective == 1 {
         
 		cutscene_animate(inst.x, x + offset_x, transtime_2, "sine_in_out", inst, "x");
 		cutscene_animate(inst.y, initial_y + 15, transtime_2, "sine_in_out", inst, "y");
+		cutscene_animate(inst.yoff, -2, transtime_2, "linear", inst, "yoff");
 	}
 	cutscene_sleep(transtime_2);
     
