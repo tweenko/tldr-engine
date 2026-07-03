@@ -173,3 +173,10 @@ function party_geticon_hurt(member_name) {
 function party_geticon_ow(member_name) {
     return party_get_icon_ow(member_name)
 }
+
+/// @ignore
+/// @deprecated
+/// awkward name changed to draw_get_subimg
+function draw_get_index_looped(sprite = undefined, timer = o_world.frames, img_fps = undefined, img_start_index = 0, img_number = undefined) {
+    return draw_get_subimg(sprite, timer, img_fps, img_start_index, img_number);
+}

@@ -52,6 +52,7 @@ function party_subtractdata(name, hash, value) {
 ///@desc set whether the party members should be following their leader
 function party_setfollow(follow) {
 	for (var i = 1; i < party_length(true); ++i) {
-		party_get_inst(global.party_names[i]).follow = follow
+		party_get_inst(global.party_names[i]).follow = follow;
+		party_get_inst(global.party_names[i]).follow_target = get_leader();
 	}
 }

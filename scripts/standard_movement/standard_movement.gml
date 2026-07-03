@@ -9,50 +9,72 @@ function player_standard_movement_locomote(_colo, _xcep, _speed, _forcekeys = -1
 	failed_locomote_Y = false
 	
 	// Walk and force keys
-	var yaw = 270
-	var attemptX=0
-	var attemptY=0
-	if _useplayerhorizontalinput==true attemptX = _speed * InputOpposing(INPUT_VERB.LEFT, INPUT_VERB.RIGHT, 0, true)
-	if _useplayerverticalinput==true attemptY = _speed * InputOpposing(INPUT_VERB.UP, INPUT_VERB.DOWN, 0, true)
+	var yaw = 270;
+	var attemptX = 0;
+	var attemptY = 0;
+    
+	if _useplayerhorizontalinput 
+        attemptX = _speed * InputOpposing(INPUT_VERB.LEFT, INPUT_VERB.RIGHT, 0, true);
+	if _useplayerverticalinput 
+        attemptY = _speed * InputOpposing(INPUT_VERB.UP, INPUT_VERB.DOWN, 0, true);
+        
 	if is_array(_forcekeys){ // If forcekey is an array, for example [0,1,0,0], [0,0,1,1], etc, it is ordered Left, Right, Down, Up, which you can set to 0 or 1.
-		attemptX =  _speed * (_forcekeys[0]+_forcekeys[1])
-		attemptY =  _speed * (_forcekeys[2]+_forcekeys[3])
+		attemptX =  _speed * (_forcekeys[0] + _forcekeys[1])
+		attemptY =  _speed * (_forcekeys[2] + _forcekeys[3])
 	}
-	locomotionX += (lengthdir_x(-attemptX,yaw-90)+lengthdir_x(attemptY,yaw))
-	locomotionY += (lengthdir_y(-attemptX,yaw-90)+lengthdir_y(attemptY,yaw))
-	if place_meeting_except(x+sign(attemptX), y, _colo, _xcep)
-	or place_meeting_except(x, y+sign(attemptY), _colo, _xcep) {
+	locomotionX += (lengthdir_x(-attemptX, yaw-90) + lengthdir_x(attemptY, yaw));
+	locomotionY += (lengthdir_y(-attemptX, yaw-90) + lengthdir_y(attemptY, yaw));
+    
+	if place_meeting_except(x + sign(attemptX), y, _colo, _xcep)
+	   or place_meeting_except(x, y+sign(attemptY), _colo, _xcep) 
+    {
 		locomotionX = clamp(abs(locomotionX), 0, basespd+1)*sign(locomotionX)
 		locomotionY = clamp(abs(locomotionY), 0, basespd+1)*sign(locomotionY)
 	}
-	var rv=0.5
-	if !place_meeting_except(x+round_p(locomotionX,rv), y, _colo, _xcep) {locomotionX = round_p(locomotionX,rv)}
-	if !place_meeting_except(x, y+round_p(locomotionY,rv), _colo, _xcep) {locomotionY = round_p(locomotionY,rv)}
-	if locomotionX!=0 am_trying_to_locomoteX=true
-	if locomotionY!=0 am_trying_to_locomoteY=true
+    
+	var rv = 0.5
+	if !place_meeting_except(x + round_p(locomotionX, rv), y, _colo, _xcep) 
+        locomotionX = round_p(locomotionX, rv);
+	if !place_meeting_except(x, y + round_p(locomotionY, rv), _colo, _xcep) 
+        locomotionY = round_p(locomotionY, rv);
+    
+	if locomotionX != 0 
+        am_trying_to_locomoteX = true;
+	if locomotionY != 0 
+        am_trying_to_locomoteY = true;
 	
 	// Walking collision pardons
 	var _slinv = array_concat(_xcep, [o_noslope])
-	if locomotionY = 0 and place_meeting_except(x+locomotionX, y, _colo, _slinv){
-		var t = locomotionX
-		if !place_meeting_except(x+t, y+t, _colo, _xcep) locomotionY = t
-		else if !place_meeting_except(x+t, y-t, _colo, _xcep) locomotionY = -t
+	if locomotionY == 0 and place_meeting_except(x+locomotionX, y, _colo, _slinv){
+		var t = locomotionX;
+		if !place_meeting_except(x+t, y+t, _colo, _xcep) 
+            locomotionY = t;
+		else if !place_meeting_except(x+t, y-t, _colo, _xcep) 
+            locomotionY = -t;
 	}
-	else if locomotionY = 0 and place_meeting_except(x+sign(locomotionX), y, _colo, _slinv){
+	else if locomotionY == 0 and place_meeting_except(x+sign(locomotionX), y, _colo, _slinv){
 		var t = sign(locomotionX)
-		if !place_meeting_except(x+t, y+t, _colo, _xcep) locomotionY = t
-		else if !place_meeting_except(x+t, y-t, _colo, _xcep) locomotionY = -t
+		if !place_meeting_except(x+t, y+t, _colo, _xcep) 
+            locomotionY = t;
+		else if !place_meeting_except(x+t, y-t, _colo, _xcep) 
+            locomotionY = -t;
 	}
-	if locomotionX = 0 and place_meeting_except(x, y+locomotionY, _colo, _slinv){
-		var t = locomotionY
-		if !place_meeting_except(x+t, y+t, _colo, _xcep) locomotionX = t
-		else if !place_meeting_except(x-t, y+t, _colo, _xcep) locomotionX = -t
+    
+	if locomotionX == 0 and place_meeting_except(x, y+locomotionY, _colo, _slinv){
+		var t = locomotionY;
+		if !place_meeting_except(x+t, y+t, _colo, _xcep) 
+            locomotionX = t;
+		else if !place_meeting_except(x-t, y+t, _colo, _xcep) 
+            locomotionX = -t;
 	}
-	else if locomotionX = 0 and place_meeting_except(x, y+sign(locomotionY), _colo, _slinv){
-		var t = sign(locomotionY)
-		if !place_meeting_except(x+t, y+t, _colo, _xcep) locomotionX = t
-		else if !place_meeting_except(x-t, y+t, _colo, _xcep) locomotionX = -t
+	else if locomotionX == 0 and place_meeting_except(x, y+sign(locomotionY), _colo, _slinv){
+		var t = sign(locomotionY);
+		if !place_meeting_except(x+t, y+t, _colo, _xcep) 
+            locomotionX = t;
+		else if !place_meeting_except(x-t, y+t, _colo, _xcep) 
+            locomotionX = -t;
 	}
+    
 	if place_meeting_except(x+locomotionX, y+locomotionY, _colo, _xcep){
 		var six = sign(locomotionX)
 		var siy = sign(locomotionY)
@@ -60,6 +82,7 @@ function player_standard_movement_locomote(_colo, _xcep, _speed, _forcekeys = -1
 		var bsy = (siy*basespd)
 		var pfx = (six*0.5)
 		var pfy = (siy*0.5)
+        
 		if !place_meeting_except(x+locomotionX, y+bsy, _colo, _xcep) locomotionY = bsy
 		else if !place_meeting_except(x+bsx, y+locomotionY, _colo, _xcep) locomotionX = bsx
 		else if !place_meeting_except(x+locomotionX, y+siy, _colo, _xcep) locomotionY = siy
@@ -71,19 +94,24 @@ function player_standard_movement_locomote(_colo, _xcep, _speed, _forcekeys = -1
 	}
 	
 	// Final check
-	if place_meeting_except(x+locomotionX, y+locomotionY, _colo, _xcep) {locomotionX = 0; locomotionY = 0}
+	if place_meeting_except(x+locomotionX, y+locomotionY, _colo, _xcep) {
+        locomotionX = 0; 
+        locomotionY = 0;
+    }
 	
 	// Move the player
 	if locomotionX != 0 {
         x += locomotionX; 
         am_locomoting = true;
     }
-	if locomotionY != 0 {
+	if locomotionY != 0 and (!sliding or slide_vertical_allow) {
         y += locomotionY; 
         am_locomoting = true
     }
-	if am_trying_to_locomoteX==true and locomotionX==0 failed_locomote_X=true
-	if am_trying_to_locomoteY==true and locomotionY==0 failed_locomote_Y=true
+	if am_trying_to_locomoteX and locomotionX == 0
+        failed_locomote_X = true;
+	if am_trying_to_locomoteY and locomotionY == 0 
+        failed_locomote_Y = true;
         
 	moving = am_locomoting
 	
@@ -93,28 +121,45 @@ function player_standard_movement_locomote(_colo, _xcep, _speed, _forcekeys = -1
 	var ku = attemptY<0 ? 1 : 0
 	var kd = attemptY>0 ? 1 : 0
 	
-	if !variable_global_exists("loco_key_first") global.loco_key_first=-1
+	if !variable_global_exists("loco_key_first") 
+        global.loco_key_first = -1;
 	
-	if !kl and global.loco_key_first == DIR.LEFT global.loco_key_first = -1
-	if !kr and global.loco_key_first == DIR.RIGHT global.loco_key_first = -1
-	if !ku and global.loco_key_first == DIR.UP global.loco_key_first = -1
-	if !kd and global.loco_key_first == DIR.DOWN global.loco_key_first = -1
+	if !kl and global.loco_key_first == DIR.LEFT 
+        global.loco_key_first = -1;
+	if !kr and global.loco_key_first == DIR.RIGHT 
+        global.loco_key_first = -1;
+	if !ku and global.loco_key_first == DIR.UP 
+        global.loco_key_first = -1;
+	if !kd and global.loco_key_first == DIR.DOWN 
+        global.loco_key_first = -1;
 	
-	if kl and kr and ku and kd global.loco_key_first = -1
-	else if global.loco_key_first == -1 and kr global.loco_key_first = DIR.RIGHT
-	else if global.loco_key_first == -1 and kl global.loco_key_first = DIR.LEFT
-	else if global.loco_key_first == -1 and ku global.loco_key_first = DIR.UP
-	else if global.loco_key_first == -1 and kd global.loco_key_first = DIR.DOWN
-	else if !kl and !kr and !ku and !kd global.loco_key_first = -1
+	if kl and kr and ku and kd 
+        global.loco_key_first = -1;
+	else if global.loco_key_first == -1 and kr 
+        global.loco_key_first = DIR.RIGHT;
+	else if global.loco_key_first == -1 and kl 
+        global.loco_key_first = DIR.LEFT;
+	else if global.loco_key_first == -1 and ku 
+        global.loco_key_first = DIR.UP;
+	else if global.loco_key_first == -1 and kd 
+        global.loco_key_first = DIR.DOWN;
+	else if !kl and !kr and !ku and !kd 
+        global.loco_key_first = -1;
 	
-	if failed_locomote_X and failed_locomote_Y global.loco_key_first = -1
+	if failed_locomote_X and failed_locomote_Y 
+        global.loco_key_first = -1;
 	
-	if global.loco_key_first == DIR.RIGHT and locomotionX<0 global.loco_key_first = DIR.LEFT
-	if global.loco_key_first == DIR.LEFT and locomotionX>0 global.loco_key_first = DIR.RIGHT
-	if global.loco_key_first == DIR.DOWN and locomotionY<0 global.loco_key_first = DIR.UP
-	if global.loco_key_first == DIR.UP and locomotionY>0 global.loco_key_first = DIR.DOWN
+	if global.loco_key_first == DIR.RIGHT and locomotionX < 0 
+        global.loco_key_first = DIR.LEFT;
+	if global.loco_key_first == DIR.LEFT and locomotionX > 0 
+        global.loco_key_first = DIR.RIGHT;
+	if global.loco_key_first == DIR.DOWN and locomotionY < 0 
+        global.loco_key_first = DIR.UP;
+	if global.loco_key_first == DIR.UP and locomotionY > 0 
+        global.loco_key_first = DIR.DOWN;
 	
-	if global.loco_key_first!=-1 dir = global.loco_key_first
+	if global.loco_key_first != -1 
+        dir = global.loco_key_first;
 }
 
 function player_standard_movement_execute(){

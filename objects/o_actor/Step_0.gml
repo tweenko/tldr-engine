@@ -20,30 +20,21 @@ if is_player && check_canmove {
 }
 
 // if i am a follower and i am following the leader
-else if follow && is_follower {
+else if follow && is_follower && instance_exists(follow_target) {
 	var plat = get_leader().pf_enabled
 	
-	x = record[0][pos]
-	y = record[1][pos]
-	
-	dir = record[2][pos]
-	running = record[3][pos]
-	state = record[4][pos]
-	sliding = record[5][pos]
-	
+	if get_leader().moving or get_leader().pf_caterrecordtime > 0 && global.platforming_perspective == 1 {
+		array_insert_cycle(record, 0, __new_record());
+	}
+    __refresh_follow(pos);
+    
 	if y != get_leader().y && plat
         get_leader().pf_caterrecordtime = 14;
     if !plat 
         get_leader().pf_caterrecordtime = 0;
-	
-	if get_leader().moving or get_leader().pf_caterrecordtime > 0 && global.platforming_perspective == 1 {
-		array_insert_cycle(record[0], 0, get_leader().x)
-		array_insert_cycle(record[1], 0, get_leader().y)
-		array_insert_cycle(record[2], 0, get_leader().dir)
-		array_insert_cycle(record[3], 0, get_leader().running)
-		array_insert_cycle(record[4], 0, get_leader().state)
-		array_insert_cycle(record[5], 0, get_leader().sliding)
-	}
+    
+    if plat 
+        actor_platforming_animate(pf_grounded, x - xprevious, y - yprevious, dir);
 }
 else if sliding {
 	if instance_exists(slideinst) && !place_meeting(x, y, slideinst){
@@ -65,43 +56,6 @@ else if moving and ((__xdiff || __ydiff) and !is_in_battle and !is_enemy) {}
 else {
     moving = false
 }
-
-// something
-/*if (!is_in_battle && !is_enemy && !s_override && s_dynamic) {
-    if (walkbuffer > 3) {
-        walktimer += 1.5;
-            
-        if (running)
-            walktimer += 1.5;
-            
-        if (walktimer >= 40)
-            walktimer = 0;
-            
-        if (walktimer < 10)
-            image_index = 0;
-        if (walktimer >= 10)
-            image_index = 1;
-        if (walktimer >= 20)
-            image_index = 2;
-        if (walktimer >= 30)
-            image_index = 3;
-    }
-        
-    if (walkbuffer <= 0) {
-        if (walktimer < 10)
-            walktimer = 9.5;
-            
-            if (walktimer >= 10 && walktimer < 20)
-                walktimer = 19.5;
-            
-            if (walktimer >= 20 && walktimer < 30)
-                walktimer = 29.5;
-            if (walktimer >= 30)
-                walktimer = 39.5;
-            
-            image_index = 0;
-    }
-}  */ 
 
 // sprites
 if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override && !get_leader().pf_enabled {
@@ -127,10 +81,11 @@ else if !is_in_battle && !is_enemy && !get_leader().pf_enabled {
 // running sprites, walking sprites
 if !is_in_battle && !is_enemy && s_dynamic && !s_override && !get_leader().pf_enabled {
 	if running && moving {
-		image_speed = lerp(s_walk_ispd, s_run_ispd, (get_leader().spd - basespd) / (4 - basespd))
+		image_speed = s_run_ispd;
 		sprite_index = asset_get_index(sprite_get_name(s_move[dir]) + s_run_postfix)
 	}
 	else {
+		image_speed = s_walk_ispd;
 		sprite_index = s_move[dir]
     }
 }

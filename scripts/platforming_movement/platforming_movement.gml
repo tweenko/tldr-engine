@@ -34,7 +34,10 @@ function player_platforming_movement_init(){
 
 	pf_dir = DIR.LEFT
 	pf_attacking = false
-	pf_hurt=false
+	pf_hurt = false
+    
+    pf_land = 0;
+    pf_grounded = false;
 }
 
 function player_platforming_movement_execute(){
@@ -45,10 +48,7 @@ function player_platforming_movement_execute(){
 	pf_caterrecordtime = max(pf_caterrecordtime - 1, 0);
 	for (var i = 0; i < party_length(true); ++i) {
 		var pinst = party_get_inst(global.party_names[i]);
-		var targpos = 5 * party_get_index(global.party_names[i]);
-        
-		pinst.pos = increment_towards(pinst.pos, targpos, 2);
-		pinst.depth = depth+party_get_index(global.party_names[i]);
+		pinst.depth = depth + party_get_index(global.party_names[i]);
 	}
 	
 	// Collision array
@@ -157,8 +157,10 @@ function player_platforming_movement_execute(){
     
 	if grounded {
         // play landing noise if we landed
-		if pf_jumptime != 0 and pf_hmove == 0 
+		if pf_jumptime != 0 and pf_hmove == 0 {
             audio_play(snd_noise, , , 1.2);
+            pf_land = 8;
+        }
         
         // reset variables upon landing
 		pf_jumpcoyotetime = pf_jumpcoyotetimemax;
@@ -243,35 +245,39 @@ function player_platforming_movement_execute(){
         pf_dir = DIR.RIGHT; 
         dir = pf_dir;
     }
+    
+    if pf_land > 0
+        pf_land --;
 	
 	// Set moving
 	if pf_hmove != 0 or pf_jump_smoothed_final_y_change != 0 or !grounded {
         moving = true;
     }	
     
-    image_xscale = (pf_dir == DIR.RIGHT ? 1 : -1);
-    if !grounded {
-        if pf_jump_smoothed_final_y_change < 0 {
-            sprite_index = spr_plat_kris_jump_up;
-            image_speed = 1;
-        }
-        else if pf_jump_smoothed_final_y_change >= 0 {
-            sprite_index = spr_plat_kris_jump_down;
-            image_speed = 1;
-        }
+    pf_grounded = grounded;
+    actor_platforming_animate(pf_grounded, pf_hmove, pf_jump_smoothed_final_y_change, pf_dir);
+}
+
+function actor_platforming_animate(_grounded, _dx, _dy, _dir) {
+    image_xscale = (_dir == DIR.RIGHT ? 1 : -1);
+    image_speed = 1;
+    
+    if !_grounded {
+        if _dy < 0
+            sprite_index = s_plat_jump_up;
+        else if _dy >= 0 
+            sprite_index = s_plat_jump_down;
     }
-    else if pf_hmove != 0 {
+    else if _dx != 0 
         sprite_index = s_plat_run;
-        image_speed = 1;
+    else if pf_land > 0 {
+        sprite_index = s_plat_land;
+        image_index = image_number - pf_land/4;
     }
     else if sprite_index == s_plat_run {
         sprite_index = s_plat_run_stop;
-        image_speed = 1;
-        
         queued_sprite = s_plat_idle;
     }
-    else {
+    else 
         sprite_index = s_plat_idle;
-        image_speed = 1;
-    }
 }

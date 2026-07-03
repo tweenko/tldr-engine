@@ -61,6 +61,11 @@ if global.platforming_perspective == 0 {
             event_user(1)
 	})
     
+    cutscene_func(function() {
+        for (var i = 0; i < party_length(true); i ++) {
+            party_get_inst(global.party_names[i]).pos = 5 * i;
+        }
+    })
     cutscene_party_interpolate();
     cutscene_party_follow(true);
     

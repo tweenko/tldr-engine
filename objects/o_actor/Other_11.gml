@@ -1,10 +1,12 @@
 /// @description init record
-var size = pos + 1
-record = [
-	array_create(size, x),
-	array_create(size, y),
-	array_create(size, dir),
-	array_create(size, false),
-	array_create(size, -1),
-	array_create(size, false),
-] // x, y, dir, running, moving, state, sliding
+var size = pos + 1;
+
+record_targets = [
+    new record_target("x", x),
+    new record_target("y", y),
+    new record_target("dir", dir),
+    new record_target("running", false),
+    new record_target("sliding", false),
+    new record_target("pf_grounded", false),
+];
+record = array_create_ext(size, function() { return __new_record(true) });

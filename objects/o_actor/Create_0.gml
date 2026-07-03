@@ -2,7 +2,6 @@ event_inherited()
 collide = false
 
 name = ""
-state = -1
 
 // actor type
 is_enemy = false
@@ -13,7 +12,7 @@ is_player = false
 is_party = false
 
 { // player specific
-    spd = (global.world == WORLD_TYPE.LIGHT ? 3 : 2);
+	spd = (global.world == WORLD_TYPE.LIGHT ? 3 : 2);
 	basespd = spd;
     
     auto_run = global.settings.AUTO_RUN
@@ -39,7 +38,9 @@ is_party = false
 	chasing = false
 }
 { // actor variables
-	follow = true
+	follow = true;
+    follow_target = get_leader();
+    
 	hurt = 0 // the timer of the sprite switch
     link_id = undefined
 	
@@ -178,6 +179,20 @@ is_party = false
 	init = false
 	
 	record = []
+    record_targets = [];
+    record_target = function(_var_name, _value_default, _refresh_method = method(self, function(_record) { 
+        variable_instance_set(save_self, var_name, struct_get(_record, var_name)); 
+    })) constructor {
+        var_name = _var_name;
+        save_self = other.id;
+        
+        value_default = _value_default;
+        value_get = method(self, function(follow_target) {
+            return variable_instance_get(follow_target, var_name);
+        })
+        
+        refresh_method = _refresh_method;
+    }
     
     dodge_outline_surf = -1
     dodge_mysoul = noone
@@ -220,7 +235,7 @@ is_party = false
 		&& moveable_anim 
         && moveable_recruits
         && moveable_shop
-		&& (array_length(moveable_array)==0 ? true : false)
+		&& (array_length(moveable_array) == 0 ? true : false)
 		
 		&& hurt == 0
         && spawn_buffer <= 0
@@ -261,6 +276,18 @@ __step = function(index) {
         inst = lb_ripple_create(xx, yy, 2, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
         inst.hspeed = locomotionX;
         inst.vspeed = locomotionY;
+    }
+}
+__new_record = method(self, function(_default = false) {
+    var _s = {};
+    for (var i = 0; i < array_length(record_targets); i ++) {
+        struct_set(_s, record_targets[i].var_name, (_default ? record_targets[i].value_default : record_targets[i].value_get(follow_target)));
+    }
+    return _s;
+});
+__refresh_follow = function(_pos) {
+    for (var i = 0; i < array_length(record_targets); i ++) {
+        record_targets[i].refresh_method(record[_pos]);
     }
 }
 
