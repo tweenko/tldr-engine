@@ -37,7 +37,7 @@ function player_platforming_movement_init(){
 	pf_hurt = false
     
     pf_land = 0;
-    pf_grounded = false;
+    pf_grounded = true;
 }
 
 function player_platforming_movement_execute(){
