@@ -1,16 +1,16 @@
 global.party = {}
 
 /// @desc intializes the party stuff
-function party_init() {
-    party_m_initialize("kris", party_m_kris)
-    party_m_initialize("susie", party_m_susie)
-    party_m_initialize("ralsei", party_m_ralsei)
-    party_m_initialize("noelle", party_m_noelle)
+function party_init(_chapter = save_get("chapter")) {
+    party_m_initialize("kris", party_m_kris, _chapter)
+    party_m_initialize("susie", party_m_susie, _chapter)
+    party_m_initialize("ralsei", party_m_ralsei, _chapter)
+    party_m_initialize("noelle", party_m_noelle, _chapter)
     
 	global.party_names = []
 }
-function party_m_initialize(_name, _constructor) {
-    struct_set(global.party, _name, new _constructor(_name))
+function party_m_initialize(_name, _constructor, _chapter) {
+    struct_set(global.party, _name, new _constructor(_name, _chapter))
 }
 
 /// @desc applies the equipment to party members (only for raw saves)
@@ -21,13 +21,27 @@ function party_apply_equipment() {
         item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
     }
 }
-function party_m_calculate_hp(base_hp, level) {
-    if level == 1
-        return base_hp
-    else if level == 2
-        return base_hp + 30
-    else
-        return base_hp + 30 + 40*level
+function party_m_calculate_hp(_hp_by_chapter, _chapter) {
+    var _chapter_index = clamp(floor(_chapter), 1, array_length(_hp_by_chapter)) - 1
+    return _hp_by_chapter[_chapter_index]
+}
+
+/// @desc rebuilds the default party data for a newly selected chapter
+/// @arg {real} _chapter
+function party_set_default_chapter(_chapter) {
+    var _active_party = global.party
+    var _active_party_names = global.party_names
+    var _default_party_names = variable_clone(save_entry_get_default("PARTY_NAMES"))
+
+    save_entry_set_default("CHAPTER", _chapter)
+
+    party_init(_chapter)
+    global.party_names = _default_party_names
+    party_apply_equipment()
+    save_entry_set_default("PARTY_DATA", variable_clone(global.party))
+
+    global.party = _active_party
+    global.party_names = _active_party_names
 }
     
 function party_m(_initialized_name) constructor {
@@ -116,7 +130,7 @@ function party_m(_initialized_name) constructor {
     __get_sprite = party_m_get_sprite
 }
 
-function party_m_kris(_initialized_name) : party_m(_initialized_name) constructor {
+function party_m_kris(_initialized_name, _chapter = save_get("chapter")) : party_m(_initialized_name) constructor {
 	name = "party_kris_name"
     action_letter = "party_kris_action_letter"
 	obj = o_actor_kris
@@ -127,7 +141,7 @@ function party_m_kris(_initialized_name) : party_m(_initialized_name) constructo
 	iconcolor = #00A2E8
 	
 	// stats
-	lv =	save_get("chapter")
+	lv =	_chapter
 	desc =	"party_kris_desc"
 	power_stats = [
 		"???",
@@ -135,7 +149,7 @@ function party_m_kris(_initialized_name) : party_m(_initialized_name) constructo
 		["party_stat_guts", 2, spr_ui_menu_icon_fire],
 	]
 	
-	max_hp =	party_m_calculate_hp(90, lv)
+	max_hp =	party_m_calculate_hp([90, 120, 160, 200, 240], lv)
     hp =		max_hp
 	attack =	12
 	defense =	2
@@ -179,7 +193,7 @@ function party_m_kris(_initialized_name) : party_m(_initialized_name) constructo
 		attack_eff: spr_bkris_attackeff,
 	}
 }
-function party_m_susie(_initialized_name) : party_m(_initialized_name) constructor {
+function party_m_susie(_initialized_name, _chapter = save_get("chapter")) : party_m(_initialized_name) constructor {
 	name = "party_susie_name"
     action_letter = "party_susie_action_letter"
 	obj = o_actor_susie
@@ -190,7 +204,7 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
 	iconcolor = #EA79C8
 	
 	// stats
-	lv =	save_get("chapter")
+	lv =	_chapter
 	desc =	"party_susie_desc"
 	power_stats = [
 		["party_susie_stat_rudeness", 89, spr_ui_menu_icon_demon],
@@ -198,7 +212,7 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
 		["party_stat_guts", 2, spr_ui_menu_icon_fire],
 	]
 	
-	max_hp =	party_m_calculate_hp(110, lv)
+	max_hp =	party_m_calculate_hp([110, 140, 190, 230, 290], lv)
     hp =        max_hp
 	attack =	16
 	defense =	2
@@ -248,7 +262,7 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
 		rudebuster: [spr_bsusie_rudebuster, 14],
 	}
 }
-function party_m_ralsei(_initialized_name) : party_m(_initialized_name) constructor {
+function party_m_ralsei(_initialized_name, _chapter = save_get("chapter")) : party_m(_initialized_name) constructor {
 	name = "party_ralsei_name"
     action_letter = "party_ralsei_action_letter"
 	obj = o_actor_ralsei
@@ -259,7 +273,7 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 	iconcolor = #B5E61D
 	
 	// stats
-	lv =	save_get("chapter")
+	lv =	_chapter
 	desc =	"party_ralsei_desc"
 	power_stats = [
 		["party_ralsei_stat_sweetness", 97, spr_ui_menu_icon_lollipop],
@@ -267,7 +281,7 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 		["party_stat_guts", 0, spr_ui_menu_icon_fire],
 	]
 	
-	max_hp =	party_m_calculate_hp(70, lv)
+	max_hp =	party_m_calculate_hp([70, 100, 140, 180, 210], lv)
     hp =		max_hp
 	attack =	8
 	defense =	2
@@ -317,7 +331,7 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
         revivesong_sing: spr_ralsei_sing,
 	}
 }
-function party_m_noelle(_initialized_name) : party_m(_initialized_name) constructor {
+function party_m_noelle(_initialized_name, _chapter = 1) : party_m(_initialized_name) constructor {
 	name = "party_noelle_name"
     action_letter = "party_noelle_action_letter"
 	obj = o_actor_noelle
@@ -336,7 +350,7 @@ function party_m_noelle(_initialized_name) : party_m(_initialized_name) construc
 		["party_stat_guts", 0, spr_ui_menu_icon_fire],
 	] 
     
-    max_hp =	party_m_calculate_hp(90, lv)
+    max_hp =	party_m_calculate_hp([90], lv)
 	hp =		max_hp
 	attack =	3
 	defense =	1

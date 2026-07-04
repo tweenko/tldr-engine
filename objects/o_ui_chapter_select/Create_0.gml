@@ -11,7 +11,7 @@ chapters = [
 				global.chapter = 1
                 
                 save_entry_set_default("ROOM", room_ex_dforest)
-                save_entry_set_default("CHAPTER", 1)
+                party_set_default_chapter(1)
                 
                 save_reload()
 				room_goto(room_save_select)
@@ -30,7 +30,7 @@ chapters = [
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 2
                 save_entry_set_default("ROOM", room_ex_city)
-                save_entry_set_default("CHAPTER", 2)
+                party_set_default_chapter(2)
                 
 				save_reload()
 				room_goto(room_save_select)
@@ -49,7 +49,7 @@ chapters = [
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 3
                 save_entry_set_default("ROOM", room_test_main)
-                save_entry_set_default("CHAPTER", 3)
+                party_set_default_chapter(3)
                 
 				save_reload()
 				room_goto(room_save_select)
@@ -68,7 +68,7 @@ chapters = [
 			call_later(80, time_source_units_frames, function() {
 				global.chapter = 4
                 save_entry_set_default("ROOM", room_ex_church)
-                save_entry_set_default("CHAPTER", 4)
+                party_set_default_chapter(4)
                 
 				save_reload()
 				room_goto(room_save_select)
