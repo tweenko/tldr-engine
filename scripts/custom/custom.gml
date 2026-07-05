@@ -600,8 +600,8 @@ function time_format(time_s, display_hours = true){
 	return time
 }
 
-/// @desc Move with collision without slope support and returns the id of what's being collided with. By notrealnevereveal
-function move_and_collide_simple(dx, dy, inst) {
+/// @desc Move with collision without slope support and only return the id of what's being collided with.
+function move_and_collide_simpler(dx, dy, inst) {
 	var tx = sign(dx), ty = sign(dy), col = noone, colid = noone;
 
 	col = instance_place(x + dx, y, inst)

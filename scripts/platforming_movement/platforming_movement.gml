@@ -218,7 +218,7 @@ function player_platforming_movement_execute(){
 	pf_jump_smoothed_final_y_change = final_y_change<0 ? final_y_change : increment_towards(pf_jump_smoothed_final_y_change, final_y_change, 1.25);
 	
 	// Move
-	move_and_collide_simple(pf_hmove, pf_jump_smoothed_final_y_change, pf_collide);
+	move_and_collide_simpler(pf_hmove, pf_jump_smoothed_final_y_change, pf_collide);
 	
 	// Ground fix
 	var inst = instance_place(x, y + 1, pf_collide);
