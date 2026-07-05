@@ -4,7 +4,7 @@ y = lerp(initial_y, initial_y + (tile_height*wall_distance), global.platforming_
 // Set connected object's Y
 if array_length(connected_instances) > 0 {
     for (var i = 0; i < array_length(connected_instances); i += 1){
-        with connected_instances[i]{
+        with connected_instances[i] {
             if !variable_instance_exists(self, "initial_y") 
                 initial_y = y;
             if !variable_instance_exists(self, "plat_ydifference") 
@@ -17,6 +17,19 @@ if array_length(connected_instances) > 0 {
                 depth = DEPTH_PLATFORMER.BACK2
                 
             //issue: not accounting for negative wall distance
+        }
+    }
+}
+if array_length(connected_instances_wall) > 0 {
+    for (var i = 0; i < array_length(connected_instances_wall); i += 1){
+        with connected_instances_wall[i] {
+            if !variable_instance_exists(self, "initial_y") 
+                initial_y = y;
+            
+            y = lerp(initial_y, initial_y + (other.tile_height * other.wall_distance), global.platforming_perspective);
+            
+            if global.platforming_perspective >= 1 
+                depth = DEPTH_PLATFORMER.FORE
         }
     }
 }

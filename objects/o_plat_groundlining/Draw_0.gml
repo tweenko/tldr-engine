@@ -6,5 +6,7 @@ image_xscale = (sprite_get_width(maker.sprite_index)*maker.image_xscale) / sprit
 x = maker.x;
 y = maker.y;
 
-if sprite_index != spr_plat_default_lining_mask 
+if is_callable(drawer)
+    drawer(maker.x, maker.y, image_xscale, 1, blend, maker.image_alpha*global.platforming_perspective);
+else if sprite_exists(sprite_index) && sprite_index != spr_plat_default_lining_mask
     draw_sprite_ext(sprite_index, draw_get_subimg(sprite_index), maker.x, maker.y, image_xscale, 1, 0, blend, maker.image_alpha*global.platforming_perspective);

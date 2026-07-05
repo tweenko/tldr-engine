@@ -276,8 +276,9 @@ function actor_platforming_animate(_grounded, _dx, _dy, _dir) {
     }
     else if sprite_index == s_plat_run {
         sprite_index = s_plat_run_stop;
+        image_index = 0;
         queued_sprite = s_plat_idle;
     }
-    else 
+    else if sprite_index != s_plat_run_stop
         sprite_index = s_plat_idle;
 }
