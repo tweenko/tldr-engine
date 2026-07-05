@@ -10,6 +10,15 @@ if global.platforming_perspective == 0 {
     cutscene_player_canmove(false);
     cutscene_party_follow(false);
     
+    cutscene_func(function() {
+        for (var i = 0; i < party_length(true); i ++) {
+            with party_get_inst(global.party_names[i]) {
+                s_override = true;
+                sprite_index = s_plat_jump_down;
+            }
+        }
+    });
+    
 	cutscene_func(function(){
         audio_stop_sound(snd_grab); 
         audio_play_sound(snd_grab, 0, false, 1, 0, 1.25)
@@ -22,6 +31,8 @@ if global.platforming_perspective == 0 {
 	for (var i = 0; i < party_length(true); ++i) {
 		var inst = party_get_inst(global.party_names[i]);
         var offset_x = ((i + 1) div 2) * cos(i * pi) * 20;
+        var offset_y = (i > 0 ? -16 : -8);
+        
 		cutscene_animate(inst.x, x + offset_x, 14, "sine_in_out", inst, "x");
         
 		var plat_parent = noone; //temp
@@ -42,7 +53,7 @@ if global.platforming_perspective == 0 {
 		if instance_exists(plat_parent) 
             cutscene_animate(inst.y, plat_parent.initial_y - (-(plat_parent.tile_height * plat_parent.wall_distance)), 14, "sine_in_out", inst, "y");
 		
-		cutscene_animate(0, -10, 8, "sine_out", inst, "yoff")
+		cutscene_animate(0, offset_y, 8, "sine_out", inst, "yoff")
         
         if i > 0
             cutscene_animate(0, .5, 12, anime_curve.linear, inst, "darken");
@@ -50,13 +61,14 @@ if global.platforming_perspective == 0 {
 	cutscene_sleep(12)
     
 	for (var i = 0; i < party_length(true); ++i) {
+        var offset_y = (i > 0 ? -16 : -8);
+        
 		cutscene_sleep(4 - i);
 		var inst = party_get_inst(global.party_names[i]);
-		cutscene_animate(-10, -2, 8, "sine_in", inst, "yoff");
+		cutscene_animate(offset_y, -2, 8, "sine_in", inst, "yoff");
 	}
-	cutscene_sleep(8)
-	cutscene_audio_play(snd_dtrans_flip, , , 1.3)
-	cutscene_player_canmove(true)
+	cutscene_sleep(7)
+	cutscene_audio_play(snd_dtrans_flip,,, 1.3)
     
 	cutscene_set_variable(get_leader(), "pf_enabled", true);
 	cutscene_func(function(){
@@ -65,10 +77,16 @@ if global.platforming_perspective == 0 {
 	})
     
     cutscene_func(function() {
+        get_leader().spacing = get_leader().spacing_plat;
         for (var i = 0; i < party_length(true); i ++) {
-            party_get_inst(global.party_names[i]).pos = 5 * i;
+            with party_get_inst(global.party_names[i]) {
+                s_override = false;
+                pos = get_leader().spacing * i;
+            }
         }
     })
+    
+	cutscene_player_canmove(true)
     cutscene_party_interpolate();
     cutscene_party_follow(true);
     
@@ -79,6 +97,15 @@ else if global.platforming_perspective == 1 {
     
     cutscene_player_canmove(false);
     cutscene_party_follow(false);
+    
+    cutscene_func(function() {
+        for (var i = 1; i < party_length(true); i ++) {
+            with party_get_inst(global.party_names[i]) {
+                s_override = true;
+                sprite_index = s_plat_jump_down;
+            }
+        }
+    });
     
 	cutscene_audio_play(snd_platswap_1);
 	cutscene_animate(1, 0, transtime_2, "sine_in_out", global, "platforming_perspective");
@@ -102,10 +129,15 @@ else if global.platforming_perspective == 1 {
 	cutscene_player_canmove(true);
     
     cutscene_func(function() {
+        get_leader().spacing = get_leader().spacing_ow;
         for (var i = 0; i < party_length(true); i ++) {
-            party_get_inst(global.party_names[i]).pos = 12 * i;
-            party_get_inst(global.party_names[i]).dir = DIR.DOWN;
-            party_get_inst(global.party_names[i]).image_xscale = 1;
+            with party_get_inst(global.party_names[i]) {
+                s_override = false;
+                
+                dir = DIR.DOWN;
+                image_xscale = 1;
+                pos = get_leader().spacing * i;
+            }
         }
     })
     cutscene_party_interpolate();

@@ -57,8 +57,9 @@ if climbing {
                     }
                     
                     // cap the jump reach
-                    if jump_reach < jump_reach_max
-                        jump_reach += 2;
+                    var _charge_spd = 2;
+                    if jump_reach + _charge_spd < jump_reach_max
+                        jump_reach += _charge_spd;
                     else 
                         jump_reach = jump_reach_max;
                     
@@ -74,12 +75,12 @@ if climbing {
                     }
                     // animate them
                     get_leader().sprite_index = charge_sprite;
-						  if jump_reach/clamp(jump_reach_max, 0, 50) > 2/3
-						      get_leader().image_index = 2;
-						  else if jump_reach/clamp(jump_reach_max, 0, 50) > 1/3
-						      get_leader().image_index = 1;
+                    if jump_reach/clamp(jump_reach_max, 0, 50) > 2/3
+                        get_leader().image_index = 2;
+                    else if jump_reach/clamp(jump_reach_max, 0, 50) > 1/3
+                        get_leader().image_index = 1;
                     else
-						      get_leader().image_index = 0;
+                        get_leader().image_index = 0;
                     
                     // player charge indicator
                     if jump_reach/clamp(jump_reach_max, 0, 50) > 2/3 {

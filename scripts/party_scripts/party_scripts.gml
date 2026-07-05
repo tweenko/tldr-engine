@@ -95,6 +95,7 @@ function party_member_create(name, recordnow = true, xx = get_leader().x, yy = g
     inst.is_party = true
     inst.follow_target = get_leader();
 	inst.pos = get_leader().spacing * party_get_index(name)
+    inst.pos_max = get_leader().spacing_ow * party_get_index(name)
 	
 	with inst {
 		if recordnow 
@@ -120,12 +121,14 @@ function party_member_interpolate(name) {
 		record[0].x = follow_target.x
 		record[0].y = follow_target.y
 		record[0].dir = follow_target.dir
+        record[0].pf_grounded = true;
 		
 		for (var i = pos; i > 0; i -= 1) {
 			record[i].x = lerp(follow_target.x, x, (i / pos));
 			record[i].y = lerp(follow_target.y, y, (i / pos));
 			record[i].dir = ddir;
 			record[i].running = false;
+			record[i].pf_grounded = true;
 		}
 	}
 }

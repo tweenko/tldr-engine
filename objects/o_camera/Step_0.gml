@@ -6,20 +6,19 @@ if instance_exists(target) {
         if climb_check() {
             var dist = target.x - x_real;
             
-            var d = abs(dist / 20);
-            d = clamp(d, 0, (d >= 2 ? 5 : 2));
+            var d = abs(dist / 40);
+            d = clamp(d, 0, 1);
             
-            var spd = lerp(1, 4, d) * sign(dist);
+            var spd = lerp(.5, 8, d) * sign(dist);
+            var diff_dist = abs(dist) - abs(spd);
             
-            if abs(dist) < abs(spd*2){
-                if abs(dist) < abs(spd)
-                    x = target.x;
-                else
-                    x = x_real + (spd/2);
-            }
+            if diff_dist < abs(spd)
+                x = target.x;
             else 
                 x = x_real + spd;
         }
+        else if global.platforming_perspective > .5
+            x = target.x;
         else
             x = target.x;
         
@@ -32,17 +31,20 @@ if instance_exists(target) {
     if follow_y {
         if climb_check() {
             var dist = target.y - y_real;
-            var spd = lerp(1, 4, clamp(abs(dist / 20), 0, 1)) * sign(dist);
             
-            if abs(dist) < abs(spd*2){
-                if abs(dist) < abs(spd)
-                    y = target.y;
-                else
-                    y = y_real + (spd/2);
-            }
-				else 
+            var d = abs(dist / 40);
+            d = clamp(d, 0, 1);
+            
+            var spd = lerp(.5, 8, d) * sign(dist);
+            var diff_dist = abs(dist) - abs(spd);
+            
+            if diff_dist < abs(spd)
+                y = target.y;
+            else 
                 y = y_real + spd;
         }
+        else if global.platforming_perspective > .5
+            y = target.y;
         else
             y = target.y;
         

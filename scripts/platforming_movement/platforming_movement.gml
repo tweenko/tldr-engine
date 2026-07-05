@@ -38,6 +38,8 @@ function player_platforming_movement_init(){
     
     pf_land = 0;
     pf_grounded = true;
+    pf_xscale_prev = image_xscale;
+    pf_turn_timer = 0;
 }
 
 function player_platforming_movement_execute(){
@@ -110,28 +112,28 @@ function player_platforming_movement_execute(){
 	
 	if !_dont_accel{
 		if pf_keyLeft {
-			if grounded and keyPressLeft {}//vfx_dust(1)
+			if grounded and keyPressLeft
+                instance_create(o_eff_generic_animation, x + 16, y, depth, {sprite_index: spr_eff_plat_land_dust, image_xscale: -1});
             
 			var last_hspeed = pf_hmove;
 			pf_hmove -= _haccel;
             
 			//if run_zone {_hspeedmin = -(dashspeed_modified+4)}
             
-			if last_hspeed <=_hspeedmin {
+			if last_hspeed <=_hspeedmin
                 pf_hmove = clamp(pf_hmove*_hdecel, last_hspeed, _hspeedmin);
-            }
 		}
 		if pf_keyRight {
-			if grounded and keyPressRight {}//vfx_dust(-1)
+			if grounded and keyPressRight 
+                instance_create(o_eff_generic_animation, x - 16, y, depth, {sprite_index: spr_eff_plat_land_dust, image_xscale: 1});
             
 			var last_hspeed = pf_hmove;
 			pf_hmove += _haccel;
             
 			//if run_zone {_hspeedmax = dashspeed_modified-4}
             
-			if last_hspeed >=_hspeedmax {
+			if last_hspeed >=_hspeedmax
                 pf_hmove = clamp(pf_hmove*_hdecel, _hspeedmax, last_hspeed);
-            }
 		}
 	}
 	
@@ -156,10 +158,14 @@ function player_platforming_movement_execute(){
         pf_jumpbuffer = max(pf_jumpbuffer - 1, 0);
     
 	if grounded {
-        // play landing noise if we landed
-		if pf_jumptime != 0 and pf_hmove == 0 {
-            audio_play(snd_noise, , , 1.2);
-            pf_land = 8;
+		if pf_jumptime != 0 {
+            if pf_hmove == 0  // land animation
+                audio_play(snd_noise, , , 1.2);
+            
+            pf_land = 4;
+            
+            instance_create(o_eff_generic_animation, x - 16, y, depth, {sprite_index: spr_eff_plat_land_dust, image_xscale: 1});
+            instance_create(o_eff_generic_animation, x + 16, y, depth, {sprite_index: spr_eff_plat_land_dust, image_xscale: -1});
         }
         
         // reset variables upon landing
@@ -191,7 +197,7 @@ function player_platforming_movement_execute(){
 	    pf_jumpsquat = max(pf_jumpsquat+inc, 1);
 	    pf_jumpbuffer = 0;
         
-		if pf_jumpsquat > pf_jumpsquatmax{
+		if pf_jumpsquat > pf_jumpsquatmax {
 			pf_jumpsquat = 0;
 			pf_jumpcoyotetime = 0;
             
@@ -259,8 +265,13 @@ function player_platforming_movement_execute(){
 }
 
 function actor_platforming_animate(_grounded, _dx, _dy, _dir) {
+    var turn_anim_len = 6;
+    
     image_xscale = (_dir == DIR.RIGHT ? 1 : -1);
     image_speed = 1;
+    
+    if pf_xscale_prev != image_xscale && pf_turn_timer == 0
+        pf_turn_timer = turn_anim_len;
     
     if !_grounded {
         if _dy < 0
@@ -268,17 +279,28 @@ function actor_platforming_animate(_grounded, _dx, _dy, _dir) {
         else if _dy >= 0 
             sprite_index = s_plat_jump_down;
     }
-    else if _dx != 0 
-        sprite_index = s_plat_run;
     else if pf_land > 0 {
         sprite_index = s_plat_land;
-        image_index = image_number - pf_land/4;
+        image_index = (image_number - 1) * pf_land/8;
     }
-    else if sprite_index == s_plat_run {
+    else if _dx != 0 {
+        if pf_turn_timer > 0 {
+            sprite_index = s_plat_turn;
+            image_index = (1 - pf_turn_timer/turn_anim_len) * (sprite_get_number(s_plat_turn) - 1);
+            image_speed = 0;
+        }
+        else
+            sprite_index = s_plat_run;
+    }
+    else if (sprite_index == s_plat_run || sprite_index == s_plat_turn) {
         sprite_index = s_plat_run_stop;
         image_index = 0;
         queued_sprite = s_plat_idle;
     }
     else if sprite_index != s_plat_run_stop
         sprite_index = s_plat_idle;
+    
+    pf_xscale_prev = image_xscale;
+    if pf_turn_timer > 0
+        pf_turn_timer --;
 }

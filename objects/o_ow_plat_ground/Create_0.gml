@@ -17,3 +17,5 @@ else if sprite_exists(lining_sprite)
 
 plathidden = 1
 floorbackclamping = floor_tilesback_amount
+
+initial_y = y;

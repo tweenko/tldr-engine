@@ -8,7 +8,7 @@ if array_length(connected_instances) > 0 {
             if !variable_instance_exists(self, "initial_y") 
                 initial_y = y;
             if !variable_instance_exists(self, "plat_ydifference") 
-                plat_ydifference = y - other.y;
+                plat_ydifference = y - other.ystart;
             
             //image_blend = c_red
             y = lerp(initial_y, initial_y + (other.tile_height * other.wall_distance) - plat_ydifference, global.platforming_perspective);

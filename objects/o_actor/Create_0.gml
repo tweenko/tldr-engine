@@ -26,7 +26,10 @@ is_party = false
 	made_step = 0;
 	stepgain = 1;
 	
-	spacing = 12; // the spacing will automatically be bigger due to higher speed
+    spacing_ow = 12;
+    spacing_plat = 6;
+    
+	spacing = (global.platforming_perspective > 0 ? spacing_plat : spacing_ow); // the spacing will automatically be bigger due to higher speed
     
 	playermask = spr_mask_15x8
 	player_array_collisions = [];
@@ -49,6 +52,7 @@ is_party = false
 	
 	depth_override = undefined
 	pos = 0
+    pos_max = 0;
     
     interaction_code = function() {}
     interaction_args = []
