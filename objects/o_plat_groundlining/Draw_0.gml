@@ -7,6 +7,6 @@ x = maker.x;
 y = maker.y;
 
 if is_callable(drawer)
-    drawer(maker.x, maker.y, image_xscale, 1, blend, maker.image_alpha*global.platforming_perspective);
+    drawer(maker.x, maker.y, sprite_width, 1, blend, maker.image_alpha*global.platforming_perspective);
 else if sprite_exists(sprite_index) && sprite_index != spr_plat_default_lining_mask
     draw_sprite_ext(sprite_index, draw_get_subimg(sprite_index), maker.x, maker.y, image_xscale, 1, 0, blend, maker.image_alpha*global.platforming_perspective);
