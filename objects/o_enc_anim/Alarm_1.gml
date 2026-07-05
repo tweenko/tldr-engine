@@ -69,7 +69,10 @@ for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 	enemy_struct.slot = i
 }
 
-var inst = instance_create(o_eff_bg,,,DEPTH_ENCOUNTER.BACKGROUND)
-inst.bgtype = encounter_data.bg_type
-
 alarm[2] = 10
+
+background = encounter_data.background;
+bulletdark = encounter_data.bulletdark;
+background();
+bulletdark();
+o_eff_bg.alphain = true;

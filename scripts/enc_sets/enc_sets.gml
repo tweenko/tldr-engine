@@ -2,7 +2,6 @@ function enc_set() constructor { // base
 	debug_name	=	"undefined"
     
 	enemies	= []
-	bg_type = ENC_BG.GRID
     
     flavor = function() { // can also be a string
 		var text = "* undefined"
@@ -15,6 +14,9 @@ function enc_set() constructor { // base
         }
         return true;
     }
+	
+	background = function(){with o_eff_bg enc_background()}
+	bulletdark = function(){with o_eff_bg enc_bulletdark()}
     
     bgm = mus_battle
     bgm_pitch = 1
