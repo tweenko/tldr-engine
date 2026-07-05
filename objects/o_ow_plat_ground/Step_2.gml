@@ -13,7 +13,7 @@ if array_length(connected_instances) > 0 {
             //image_blend = c_red
             y = lerp(initial_y, initial_y + (other.tile_height * other.wall_distance) - plat_ydifference, global.platforming_perspective);
             
-            if global.platforming_perspective >= 1 
+            if global.platforming_perspective >= 1 && !(variable_instance_exists(id, "custom_platforming_depth") && custom_platforming_depth)
                 depth = DEPTH_PLATFORMER.BACK2
                 
             //issue: not accounting for negative wall distance
@@ -28,17 +28,20 @@ if array_length(connected_instances_wall) > 0 {
             
             y = lerp(initial_y, initial_y + (other.tile_height * other.wall_distance), global.platforming_perspective);
             
-            if global.platforming_perspective >= 1 
+            if global.platforming_perspective >= 1 && !(variable_instance_exists(id, "custom_platforming_depth") && custom_platforming_depth)
                 depth = DEPTH_PLATFORMER.FORE
         }
     }
 }
 
 // Set depth
-//depth = DEPTH_PLATFORMER.PLAT-y
+if !is_undefined(depth_platforming) && global.platforming_perspective > 0
+    depth = depth_platforming;
+else 
+    depth = depth_start;
 
 // Set collide
-if global.platforming_perspective > 0 
+if global.platforming_perspective > 0
     collide = collide_while_plat;
 else 
     collide = collide_ow;

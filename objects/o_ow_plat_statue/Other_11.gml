@@ -29,14 +29,14 @@ if global.platforming_perspective == 0 {
         
         with inst {
             for (var j = 0; j < ground_find_range; j += 2) {
-                with instance_place(x, y + j, o_plat_ground) {
+                with instance_place(x, y + j, o_ow_plat_ground) {
                     plat_parent = id;
                 }
                 if instance_exists(plat_parent)
                     break;
             }
             if !instance_exists(plat_parent)
-                plat_parent = instance_nearest(x, y, o_plat_ground);
+                plat_parent = instance_nearest(x, y, o_ow_plat_ground);
         };
         
 		if instance_exists(plat_parent) 

@@ -16,6 +16,9 @@ var floor_width = sprite_get_width(sprite_index) * image_xscale;
 var pers = (1 - global.platforming_perspective);
 var blend = merge_color(image_blend, blend_while_plat, global.platforming_perspective);
 
+// start plat palette
+with o_ow_plat_palette_controller start();
+    
 // Draw wall
 matrix_set(matrix_world, matrix_build(x, y, 0, 0, 0, 0, 1, 1, 1));
 draw_sprite_ext(sprite_index, image_index, 0, 0, image_xscale, image_yscale, 0, blend, image_alpha*plathidden);
@@ -39,3 +42,6 @@ matrix_reset();
 var shadow_blend = merge_colour(blend, c_black, pers);
 if sprite_exists(floor_sprite)
     draw_sprite_stretched_ext(floor_sprite, draw_get_subimg(floor_sprite), x, y - 4, floor_width, 8, shadow_blend, image_alpha*plathidden * global.platforming_perspective);
+
+// end plat palette
+with o_ow_plat_palette_controller stop();
