@@ -1,6 +1,8 @@
 function ex_enc_set_shadowguys() : enc_set() constructor {
 	debug_name	=	"shadowguys"
     
+	background = function(){with o_eff_bg ex_enc_background_colorable_grid(merge_color(c_black, c_yellow, 66/255))}
+	
 	enemies = [
 		new ex_enemy_shadowguy(),
 		new ex_enemy_shadowguy(),
@@ -26,6 +28,9 @@ function ex_enc_set_shadowguys() : enc_set() constructor {
 function ex_enc_set_spawn() : enc_set() constructor {
 	debug_name	=	"spawnlings"
     
+	background = function(){with o_eff_bg ex_enc_background_colorable_grid(merge_color(c_black, c_red, 66/255))}
+	bulletdark = function(){with o_eff_bg ex_enc_bulletdark_fullalpha()}
+	
 	enemies = [
 		new ex_enemy_spawnling(),
 		new ex_enemy_dentos(),

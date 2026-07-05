@@ -1,22 +1,25 @@
-var xx = guipos_x()
-var yy = guipos_y()
+xx = guipos_x();
+yy = guipos_y();
 
-siner += 0.25
-siner2 += .5
+// Background
+draw_set_color(bg_clear_color);
+draw_set_alpha(image_alpha * bg_clear_alpha);
+draw_rectangle(-100, -100, room_width + 100, room_height + 100, false);
+draw_set_color(c_white);
+draw_set_alpha(1);
+if !surface_exists(bg_surface)
+	bg_surface = surface_create(320 * 2, 240 * 2);
+surface_set_target(bg_surface);
+bg_draw();
+surface_reset_target();
+bg_surface_draw();
 
-if bgtype != ENC_BG.NONE {
-    draw_set_alpha(image_alpha)
-    draw_set_color(c_black)
-    draw_rectangle(-10, -10, guipos_x()+320 + 10, guipos_y()+240 + 10, false)
-    draw_set_alpha(1)
-}
-if bgtype == ENC_BG.GRID {
-    draw_sprite_tiled_ext(spr_enc_bg, 0, round_p((-50 + siner), .25), round_p((-50 + siner), .25), .5, .5, image_blend, (image_alpha / 2))
-    draw_sprite_tiled_ext(spr_enc_bg, 0, round_p((-100 - siner2), .25), round_p((-105 - siner2), .25), .5, .5, image_blend, image_alpha)
-}
+// Bullet Darkness
+if !surface_exists(bg_bulletdark_surface) 
+	bg_bulletdark_surface = surface_create(320 * 2, 240 * 2);
+surface_set_target(bg_bulletdark_surface);
+draw_clear_alpha(bg_bulletdark_clear_color, bg_bulletdark_clear_alpha);
+bg_bulletdark_draw();
+surface_reset_target();
+bg_bulletdark_surface_draw();
 
-draw_set_alpha(fade)
-draw_set_color(c_black)
-draw_rectangle(-10, -10, (guipos_x()+320 + 10), (guipos_y()+240 + 10), false)
-draw_set_alpha(1)
-draw_set_color(c_white)
