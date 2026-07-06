@@ -15,12 +15,12 @@ function enc_set() constructor { // base
         return true;
     }
 	
-	background = function(){with o_eff_bg enc_background()}
-	bulletdark = function(){with o_eff_bg enc_bulletdark()}
+	background = new enc_background();
+    bulletdark = new enc_bulletdark();
     
-    bgm = mus_battle
-    bgm_pitch = 1
-    bgm_gain = 1
+    bgm = mus_battle;
+    bgm_pitch = 1;
+    bgm_gain = 1;
     
     // positions
 	enemies_pos = undefined // [x, y, relative] OR just a function that returns [x, y]

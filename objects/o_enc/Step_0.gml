@@ -238,7 +238,7 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
     }
     if !__check_waiting() && buffer == 0 {
         if !dialogue_init {
-            animate(0, .75, 15, "linear", o_eff_bg, "fade")
+            animate(o_enc_bg.fade, 1, 15, "linear", o_enc_bg, "fade")
             
             turn_objects = array_create(array_length(encounter_data.enemies), noone)
     		for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
@@ -368,7 +368,7 @@ else if battle_state == BATTLE_STATE.TURN {
                 mybox.__close()
                 mysoul.alarm[0] = 1
                 
-                animate(o_eff_bg.fade, 0, 20, anime_curve.linear, o_eff_bg, "fade")
+                animate(o_enc_bg.fade, 0, 20, anime_curve.linear, o_enc_bg, "fade")
             }
         }
     }
@@ -457,7 +457,7 @@ else if battle_state == BATTLE_STATE.WIN {
 		
         cutscene_func(instance_destroy, [self])
         cutscene_func(instance_destroy, [inst_tp_bar])
-		cutscene_set_variable(o_eff_bg, "destroy", true)
+		cutscene_set_variable(o_enc_bg, "destroy", true)
 		cutscene_func(music_fade, [1, 0, 15])
         
         // move the party members and the enemies to where they need to be

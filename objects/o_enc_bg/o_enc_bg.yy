@@ -1,17 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"o_eff_bg",
+  "%Name":"o_enc_bg",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_eff_bg",
+  "name":"o_enc_bg",
   "overriddenProperties":[],
   "parent":{
-    "name":"effects",
-    "path":"folders/@Engine/objects/effects.yy",
+    "name":"enc",
+    "path":"folders/@Engine/objects/enc.yy",
   },
   "parentObjectId":null,
   "persistent":false,

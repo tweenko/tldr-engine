@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"ex_enc_effbgs",
+  "%Name":"enc_background",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"ex_enc_effbgs",
+  "name":"enc_background",
   "parent":{
     "name":"encounter",
-    "path":"folders/zzz Examples/Scripts/encounter.yy",
+    "path":"folders/@Engine/scripts/encounter.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

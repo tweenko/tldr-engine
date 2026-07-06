@@ -1,9 +1,9 @@
-audio_play(snd_impact,,.7)
+audio_play(snd_impact,, .7);
 
 if epic 
-	audio_play(snd_weaponpull,,.8)
+	audio_play(snd_weaponpull,, .8);
 else 
-	audio_play(snd_weaponpull_fast,,.8)
+	audio_play(snd_weaponpull_fast,, .8);
 
 // pull the weapons
 for (var i = 0; i < party_length(); ++i) {
