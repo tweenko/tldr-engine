@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"ex_misc",
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"Scripts",
+    "path":"folders/zzz Examples/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

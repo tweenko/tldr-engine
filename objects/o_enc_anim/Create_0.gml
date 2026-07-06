@@ -4,10 +4,10 @@ get_leader().moveable_battle = false
 alarm[0] = 8
 
 epic = false // whether it's the full animation or not
-save_pos = []
+save_pos = [];
+save_follow = [];
 
 encounter_data = {}
-save_follow = []
 
 enemy_objects = []
 alarm[4] = 1

@@ -1,10 +1,10 @@
-save_follow = array_create(party_length(true))
+save_follow = array_create(party_length(true));
 
 for (var i = 0; i < party_length(true); i ++) {
-    var inst = party_get_inst(global.party_names[i])
-    save_follow[i] = inst.follow
+    var inst = party_get_inst(global.party_names[i]);
+    save_follow[i] = inst.follow;
 }
-party_setfollow(false)
+party_setfollow(false);
 
 // animate the party in
 for (var i = 0; i < party_length(); ++i) {
@@ -21,6 +21,7 @@ for (var i = 0; i < party_length(); ++i) {
 		obj.sprite_index = enc_getparty_sprite(global.party_names[i], "introb")
 	
 	obj.image_speed = 1
+	obj.image_xscale = 1
 	obj.trail = true
 	obj.is_in_battle = true
 }

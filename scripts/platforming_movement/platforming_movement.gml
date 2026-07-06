@@ -33,7 +33,10 @@ function player_platforming_movement_init(){
 	pf_keyRight = 0
 
 	pf_dir = DIR.LEFT
+    
 	pf_attacking = false
+    pf_attack_timer = 0;
+    pf_attack_length = 20;
 	pf_hurt = false
     
     pf_land = 0;

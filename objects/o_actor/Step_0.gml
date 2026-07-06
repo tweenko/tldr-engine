@@ -21,8 +21,8 @@ if is_player && check_canmove {
 
 // if i am a follower and i am following the leader
 else if follow && is_follower && instance_exists(follow_target) {
-	var plat = get_leader().pf_enabled
-	
+	var plat = get_leader().pf_enabled;
+    
     __refresh_follow(pos);
 	if get_leader().moving or get_leader().pf_caterrecordtime > 0 && global.platforming_perspective == 1 {
 		array_insert_cycle(record, 0, __new_record());
@@ -88,6 +88,12 @@ if !is_in_battle && !is_enemy && s_dynamic && !s_override && !get_leader().pf_en
 		image_speed = s_walk_ispd;
 		sprite_index = s_move[dir]
     }
+}
+
+// darken in certain conditions
+if is_follower {
+	var plat_should_darken = (global.platforming_perspective > .5 && !(instance_exists(o_enc) || instance_exists(o_enc_anim)));
+    darken_plat = increment_towards(darken_plat, (plat_should_darken ? .5 : 0), .05);
 }
 
 { // timers and siners

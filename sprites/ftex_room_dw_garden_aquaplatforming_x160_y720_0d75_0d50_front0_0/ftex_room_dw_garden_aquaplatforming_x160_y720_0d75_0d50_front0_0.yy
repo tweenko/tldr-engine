@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"plat_ftex",
+    "path":"folders/zzz Examples/Sprites/ow/garden/plat_ftex.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

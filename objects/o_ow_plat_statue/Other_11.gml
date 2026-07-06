@@ -54,9 +54,6 @@ if global.platforming_perspective == 0 {
             cutscene_animate(inst.y, plat_parent.initial_y - (-(plat_parent.tile_height * plat_parent.wall_distance)), 14, "sine_in_out", inst, "y");
 		
 		cutscene_animate(0, offset_y, 8, "sine_out", inst, "yoff")
-        
-        if i > 0
-            cutscene_animate(0, .5, 12, anime_curve.linear, inst, "darken");
 	}
 	cutscene_sleep(12)
     
@@ -117,9 +114,6 @@ else if global.platforming_perspective == 1 {
 		cutscene_animate(inst.x, x + offset_x, transtime_2, "sine_in_out", inst, "x");
 		cutscene_animate(inst.y, initial_y + 15, transtime_2, "sine_in_out", inst, "y");
 		cutscene_animate(inst.yoff, -2, transtime_2, "linear", inst, "yoff");
-        
-        if i > 0
-            cutscene_animate(inst.darken, 0, transtime_2, anime_curve.linear, inst, "darken");
 	}
 	cutscene_sleep(transtime_2);
     

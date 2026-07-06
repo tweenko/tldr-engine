@@ -17,7 +17,7 @@ var xx = x + xoff + sine(.5, shake)
 var yy = y + yoff
 
 var isave = image_blend
-image_blend = merge_color(image_blend, c_black, darken);
+image_blend = merge_color(image_blend, c_black, clamp(darken + darken_plat, 0, 1));
 if !is_undefined(override_blend)
     image_blend = override_blend;
 

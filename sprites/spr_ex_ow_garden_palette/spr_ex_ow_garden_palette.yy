@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"garden",
+    "path":"folders/zzz Examples/Sprites/ow/garden.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

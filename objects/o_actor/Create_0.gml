@@ -131,6 +131,7 @@ is_party = false
 	trail = false // afterimage
 	flashing = false
 	darken = 0
+    darken_plat = 0;
 	dim = 0
 	sweat = false
 	
