@@ -1,7 +1,7 @@
 #macro SAVE_FORMAT "save_ch{1}_{0}"
 #macro SAVE_SLOTS 3
 #macro SAVE_ENCODE true // if enabled, will encode the saves to base64 before saving them on the player's machine
-#macro SAVE_PRETTIFY false // if enabled, the JSON of the save will look be easier to read. will be overriden if saves are encoded
+#macro SAVE_PRETTIFY true // if enabled, the JSON of the save will look be easier to read. will be overriden if saves are encoded
 
 /// @desc set up the save system
 function save_init() {
