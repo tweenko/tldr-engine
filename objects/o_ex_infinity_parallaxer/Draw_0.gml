@@ -1,0 +1,1 @@
+draw_sprite_tiled_ext(sprite_index, image_index, guipos_x() + x, guipos_y() + y, 1, 1, c_white, image_alpha);
