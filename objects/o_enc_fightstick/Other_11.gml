@@ -33,8 +33,13 @@ dmg -= 3 * ecaller.encounter_data.enemies[target].defense
 dmg = max(1, dmg)
 
 // add the element multiplier
-if weapon_element.element == ecaller.encounter_data.enemies[target].element
-    dmg *= weapon_element.multiplier
+var weE = weapon_element.element
+var eeE = ecaller.encounter_data.enemies[target].element
+if is_array(weE) and is_array(eeE) and function(){for (var i=0; i<array_length(weE)-1; i+=1){for (var j=0; j<array_length(eeE)-1; j+=1){if weE[i]==eeE[j] return true else return false}}}
+or is_array(weE) and !is_array(eeE) and array_contains(weE, eeE) 
+or !is_array(weE) and is_array(eeE) and array_contains(eeE, weE) 
+or weE == eeE
+    dmg *= weapon_element.multiplier;
 
 dmg = round(dmg)
 

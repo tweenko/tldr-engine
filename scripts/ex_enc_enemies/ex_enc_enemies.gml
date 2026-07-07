@@ -134,6 +134,7 @@ function ex_enemy_spawnling() : enemy() constructor{
 	max_hp =	5000
 	attack =	30
 	defense =	6
+	element = ["Dark"]
     
     can_spare = false
     mercy_add_pity_percent = 0
@@ -169,6 +170,7 @@ function ex_enemy_dentos() : enemy() constructor{
 	max_hp =	5000
 	attack =	30
 	defense =	6
+	element = ["Dark"]
     
     can_spare = false
     mercy_add_pity_percent = 0
