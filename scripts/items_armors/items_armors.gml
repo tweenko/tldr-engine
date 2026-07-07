@@ -240,6 +240,58 @@ function item_a_shadowmantle() : item_armor() constructor {
     item_localize("item_a_shadowmantle")
 }
 
+function item_a_scarletbadge(data = {
+        save_colors: {},
+    }) : item_armor() constructor {
+    name = ["ScarletBadge"]
+    desc = ["Debug item. The bearer's color shifts to a dull red while worn.", "--"]
+    
+	stats = {
+		defense: 6,
+	}
+	effect = {
+        text: "Redness",
+        sprite: spr_ui_menu_icon_up
+    }
+	
+	reactions = {
+		susie: "Blood! Nice!",
+		ralsei: "... well, it fits my horns!",
+		noelle: "Candy-cane red? Does it look good?",
+	}
+    
+    _data = data;
+    scarlet_icons = {
+        kris: spr_ex_misc_scarlet_icon_kris,
+        susie: spr_ex_misc_scarlet_icon_susie,
+        ralsei: spr_ex_misc_scarlet_icon_ralsei,
+        noelle: spr_ex_misc_scarlet_icon_noelle,
+    }
+    
+    apply = method(self, function(member_name) {
+        _data.save_colors = {
+            color: party_getdata(member_name, "color"),
+            darkcolor: party_getdata(member_name, "darkcolor"),
+            iconcolor: party_getdata(member_name, "iconcolor"),
+            s_icon: party_getdata(member_name, "s_icon"),
+        };
+        party_setdata(member_name, "color", #db0025);
+        party_setdata(member_name, "darkcolor", #a2002f);
+        party_setdata(member_name, "iconcolor", #E35A71);
+        
+        if struct_exists(scarlet_icons, member_name)
+            party_setdata(member_name, "s_icon", struct_get(scarlet_icons, member_name));
+    })
+    deapply = method(self, function(member_name) {
+        var __struct_names = struct_get_names(_data.save_colors)
+        for (var i = 0; i < array_length(__struct_names); i ++) {
+            party_setdata(member_name, __struct_names[i], struct_get(_data.save_colors, __struct_names[i]));
+        }
+    })
+    
+    sell_price = 200;
+}
+
 function item_a_lw_bandage() : item_armor() constructor {
     name = ["Bandage"]
     desc = ["", "--"]

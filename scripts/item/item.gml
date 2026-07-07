@@ -27,6 +27,8 @@ function item() constructor {
 	}
     stats_misc = {} // money_modifier
 	reactions = {} // entries inside can be callable
+    apply = function(party_name) {}
+    deapply = function(party_name) {}
     
 	effect = undefined // (struct with the sprite key and text key)
 	icon = spr_ui_menu_icon_exclamation
@@ -41,7 +43,7 @@ function item() constructor {
 	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
     
-    unequipped = function(new_item_index) {}
+    unequipped = function(new_item_index, target_index) {}
 	
 	buy_price = 0 // can be callable
     sell_price = undefined // can be callable. if undefined, will be sold for half its buy price
@@ -136,6 +138,9 @@ function item_set(item_struct, index, type = ITEM_TYPE.CONSUMABLE) {
 }
 
 ///@desc calls the item's use method
+/// @arg {struct.item} item_struct
+/// @arg {real} item_index
+/// @arg {real} target_index
 function item_use(item_struct, item_index, target) {
     if is_undefined(item_struct)
         return undefined
@@ -546,6 +551,7 @@ function item_apply(item_struct, party_name) {
         for (var i = 0; i < array_length(structnames); ++i) {
             party_adddata(party_name, structnames[i], struct_get(item_struct.stats, structnames[i]))
         }
+        method_call(item_struct.apply, [party_name]);
     }
 }
 /// @desc for weapons and armors
@@ -555,6 +561,7 @@ function item_deapply(item_struct, party_name) {
         for (var i = 0; i < array_length(structnames); ++i) {
             party_subtractdata(party_name, structnames[i], struct_get(item_struct.stats, structnames[i]))
         }
+        method_call(item_struct.deapply, [party_name]);
     }
 }
 

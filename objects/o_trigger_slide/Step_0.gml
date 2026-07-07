@@ -22,11 +22,9 @@ if instance_exists(target) {
 			o.s_override = false
 			o.dir = DIR.DOWN
 			o.follow = follow_save
-			o.slideinst = noone
+			o.slideinst = noone;
 			
-			with o 
-				event_user(1)
-			party_member_interpolate(o.name)
+			party_member_interpolate(o.name);
 		}
 	}
 }

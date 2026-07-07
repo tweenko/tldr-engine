@@ -144,25 +144,13 @@ if is_player && check_canmove {
 }
 
 // if i am a follower and i am following the leader
-else if follow && is_follower {
-	x = record[0][pos]
-	y = record[1][pos]
-	
-	dir = record[2][pos]
-	running = record[3][pos]
-	state = record[4][pos]
-	sliding = record[5][pos]
-	
+else if follow && is_follower && instance_exists(follow_target) {
 	if get_leader().moving {
-		array_insert_cycle(record[0], 0, get_leader().x)
-		array_insert_cycle(record[1], 0, get_leader().y)
-		array_insert_cycle(record[2], 0, get_leader().dir)
-		array_insert_cycle(record[3], 0, get_leader().running)
-		array_insert_cycle(record[4], 0, get_leader().state)
-		array_insert_cycle(record[5], 0, get_leader().sliding)
+		array_insert_cycle(record, 0, __new_record());
 	}
+	__refresh_follow(pos);
 }
-else if sliding{
+else if sliding {
 	if instance_exists(slideinst) && !place_meeting(x, y, slideinst){
 		sliding = false
 		y -= global.slide_speed
