@@ -379,6 +379,9 @@ function enc_action_spare(_party_names, _enemy_target) : enc_action(_party_names
                         call_later(10, time_source_units_frames, function() {__e_obj.flash_color = c_white;});
                     }));
                 }
+				else { // cannot be spared
+					txt = __enemy.no_mercy_text;
+				}
                 
                 cutscene_dialogue(string(txt, party_getname(other.acting_member), __enemy.name),, true)
                 cutscene_set_variable(o_enc, "waiting_internal", false)

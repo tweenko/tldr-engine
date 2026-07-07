@@ -15,6 +15,7 @@ function enemy() constructor {
 	mercy =	0
     mercy_add_pity_percent = 20
     can_spare = true
+	no_mercy_text = "* But you couldn't spare it, for some reason."
     
 	tired =	false
     low_hp_tired = true // whether the enemy should turn tired when hp is low
