@@ -6,7 +6,7 @@ enum BULLET_COLOR {
 
 graze = 2; // how many graze points the bullet should give upon first contact
 att = 6; // what attack stat to base the damage off
-inv = ENC_SETUP_SOUL_INV; // how many invincibility frames the bullet should give upon damage
+inv = global.enc_soul_inv; // how many invincibility frames the bullet should give upon damage
 time_points = 5; // how many time points the bullet should award for grazing (reduce turn length)
 
 color = BULLET_COLOR.SOLID; // the color of the bullet
