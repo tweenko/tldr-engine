@@ -289,17 +289,14 @@ function enc_item_get_enabled(item_struct) {
         }
     }
     
+	if struct_exists(item_struct, "enabled") {
+        can_perform = variable_callable_to_value(item_struct.enabled)
+    }
+
     if struct_exists(item_struct, "tp_cost") {
-        if item_struct.tp_cost > o_enc.tp
+        if item_struct.tp_cost >= o_enc.tp
             can_perform = false
-    }
-    if struct_exists(item_struct, "enabled") {
-        if is_bool(item_struct.enabled)
-            can_perform = item_struct.enabled
-        else if is_callable(item_struct.enabled)
-            can_perform = item_struct.enabled
-    }
-    
+    }    
     return can_perform
 }
 
