@@ -5,7 +5,7 @@ console_caller = function() {
 
 registred_commands = {
 	h: {
-		name: "help",
+		name: "Help",
 		desc: "Helps you, apparently.",
 		
 		execute: function() {
@@ -22,28 +22,28 @@ registred_commands = {
 		}
 	},
 	r: {
-		name: "room_select",
+		name: "Open Room Selector",
 		desc: "Lets you select a room to be transported to instantly.",
 		execute: function(){
 			instance_create(o_dev_roomselect)
 		}
 	},
 	p: {
-		name: "party_select",
+		name: "Open Party Selector",
 		desc: "Lets you select the party members you desire to be part of your team.",
 		execute: function(){
 			instance_create(o_dev_partyselect)
 		}
 	},
 	e: {
-		name: "encounter_select",
+		name: "Open Encounter Selector",
 		desc: "Lets you initiate an encounter from the console instantly.",
 		execute: function(){
 			instance_create(o_dev_encselect)
 		}
 	},
     w: {
-        name: "encounter_end",
+        name: "End an Encounter",
         desc: "Lets you end an encounter instantly.",
         execute: function() {
             if instance_exists(o_enc) {
@@ -85,17 +85,30 @@ registred_commands = {
         }
     },
     l: {
-        name: "language_switch",
-        desc: "switches the language of the session. will set you back to your last save",
+        name: "Switch Language",
+        desc: "Switches the language of the session. will set you back to your last save",
         execute: function() {
             loc_switch_lang()
         }
     },
     d: {
-        name: "save_wipe",
+        name: "Wipe Save Files",
         desc: "Deletes all the save files (including settings!) permanently.",
         execute: function() {
             instance_create(o_dev_savewipe_prompt)
+        }
+    },
+    t: {
+        name: "Max out TP",
+        desc: "Sets TP to 100% during an encounter.",
+        execute: function() {
+            if instance_exists(o_enc) {
+                o_enc.tp = 100;
+                audio_play(snd_cardrive,, 1, 1.2);
+                audio_play(snd_wing,, 1, 1.2);
+            }
+            else 
+                show_debug_message("CONSOLE: o_enc not found, TP not maxed out")
         }
     }
 }
