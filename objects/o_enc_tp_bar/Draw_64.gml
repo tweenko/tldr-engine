@@ -14,7 +14,7 @@ surface_set_target(surf)
         
         draw_sprite_ext(loc_sprite("enc_ui_spr_tp"), 0, x - 40 + x_offset, y - 61, 2, 2, 0, c_white, 1)
         
-        if round(tp_visual_fast) >= 100 {
+        if floor(tp_visual_fast) >= 100 {
             full = true
             
             draw_set_color(c_yellow)
@@ -23,7 +23,7 @@ surface_set_target(surf)
             draw_text_transformed(x-32 + x_offset, y+20, "X", 2, 2, 0)
         }
         else {
-            draw_text_transformed(x-42 + x_offset, y-28, round(tp_visual_fast), 2, 2, 0)
+            draw_text_transformed(x-42 + x_offset, y-28, floor(tp_visual_fast), 2, 2, 0)
             draw_text_transformed(x-37 + x_offset, y-3, "%", 2, 2, 0)
         }
     }
