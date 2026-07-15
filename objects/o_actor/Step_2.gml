@@ -1,8 +1,5 @@
 depth = -2000 - y;
 
-if global.platforming_perspective > 0 
-    depth = DEPTH_PLATFORMER.ACTORS;
-
 if is_in_battle and instance_exists(o_enc_bg) and o_enc_bg.alphain == true
     depth = DEPTH_ENCOUNTER.ACTORS - (y - guipos_y());
 if is_real(depth_override) 

@@ -6,9 +6,8 @@ depth += wall_distance
 depth_platforming = undefined;
 depth_start = depth;
 
-inst_lining = instance_create(o_ow_plat_groundlining)
-inst_lining.maker = self
-inst_lining.depth_start = (overlay_lining ? DEPTH_PLATFORMER.LINING + wall_distance : depth - 10);
+inst_lining = instance_create(o_ow_plat_groundlining);
+inst_lining.maker = self;
 
 if is_callable(lining_drawer)
     inst_lining.drawer = lining_drawer;

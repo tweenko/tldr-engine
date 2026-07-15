@@ -14,7 +14,7 @@ for (var i = 0; i < party_length(true); ++i) {
 	if inst.y < min_party_y 
         min_party_y = inst.y;
 }
-if y + 1 < min_party_y or collide == false and (maker.collide_while_plat == false) && !maker.overlay_lining
-    depth = DEPTH_PLATFORMER.BACK
-else 
-    depth = depth_start;
+
+depth = -2000 - y - 1;
+if collide == false and maker.collide_while_plat == false and maker.pulpit == false 
+	depth = -2000;

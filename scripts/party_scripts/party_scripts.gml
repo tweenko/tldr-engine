@@ -64,23 +64,24 @@ function party_leader_create(name, xx, yy, ddepth) {
 /// @arg {string,any} target_marker_type
 /// @arg {string,any} target_marker_id
 /// @arg {enum.DIR} warp_dir the direction the leader and party will be facing after being warped
-function party_leader_warp(target_marker_type, target_marker_id, warp_dir = DIR.DOWN) {
+function party_leader_warp(target_marker_type, target_marker_id, warp_dir = DIR.DOWN, override_x = -1, override_y = -1) {
     if !instance_exists(get_leader()) 
         return false
     
     var marker = marker_get(target_marker_type, target_marker_id)
     
     if instance_exists(marker) {
-        get_leader().x = marker.x
-        get_leader().y = marker.y
+        get_leader().x = override_x == -1 ? marker.x : override_x
+        get_leader().y = override_y == -1 ? marker.y : override_y
         
-        get_leader().dir = warp_dir
+		get_leader().dir = warp_dir
     }
     for (var i = 0; i < party_length(true); ++i) {
         with party_get_inst(global.party_names[i]) {
             x = get_leader().x
             y = get_leader().y
-            dir = get_leader().dir
+            
+			dir = get_leader().dir
             
             event_user(1)
         }

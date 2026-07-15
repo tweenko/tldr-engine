@@ -17,11 +17,9 @@ enum DEPTH_ENCOUNTER {
 }
 
 enum DEPTH_PLATFORMER {
-    PLAT = -3000,
-    BACK2 = -3800,
-    BACK = -3900,
-    ACTORS = -4000,
-	LINING = -4100,
-    FORE = -4200,
-    FORE2 = -4300,
+    BACK2 = -1800,
+    BACK = -1900,
+    //ACTORS = -2000,
+    //FORE = -5000,
+    //FORE2 = -5100,
 }
