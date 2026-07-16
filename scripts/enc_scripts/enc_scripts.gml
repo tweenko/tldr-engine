@@ -294,7 +294,7 @@ function enc_item_get_enabled(item_struct) {
     }
 
     if struct_exists(item_struct, "tp_cost") {
-        if item_struct.tp_cost >= o_enc.tp
+        if item_struct.tp_cost > o_enc.tp
             can_perform = false
     }    
     return can_perform

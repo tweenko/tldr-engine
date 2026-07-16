@@ -320,10 +320,10 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
         draw_set_color(c_white)
     }
     
+    if page_count > 0 && page_index < page_count
+        draw_sprite_ext(spr_ui_arrow_down, 0, 470, 446 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
     if page_count > 0 && page_index > 0
-        draw_sprite_ext(spr_ui_arrow_down, 0, 470, 446 + round(sine(12,3)), 1, 1, 0, c_white, 1)
-    if page_count > 0 && page_index < page_count - 1
-        draw_sprite_ext(spr_ui_arrow_up, 0, 470, 382 + round(sine(12,3)), 1, 1, 0, c_white, 1)
+        draw_sprite_ext(spr_ui_arrow_up, 0, 470, 382 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
 }
 else if battle_menu == BATTLE_MENU.PARTY_SELECTION {
     for (var i = 0; i < party_length(); ++i) {

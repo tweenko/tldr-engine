@@ -145,9 +145,12 @@ if battle_state == BATTLE_STATE.MENU {
             __moved = true;
         }
         
-        array_set(variable_instance_get(self, battle_menu_inv_page_var_name), party_selection, selected_item_index div 6);
+        // clamp the item index
+        selected_item_index = clamp(selected_item_index, 0, array_length(list)-1)
+        selection_operate(selected_item_index, true)
         
-        selection_operate(cap_wraparound(selected_item_index, array_length(list)), true)
+        // change page number
+        array_set(variable_instance_get(self, battle_menu_inv_page_var_name), party_selection, selected_item_index div 6);
         
         // make the tp cost visible
         if __moved
