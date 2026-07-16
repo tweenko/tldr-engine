@@ -70,6 +70,7 @@ function enc_button_act() : enc_button() constructor {
                     if _abs     party_act_selection[party_selection] = _delta
                     else        party_act_selection[party_selection] += _delta
                 }
+                __tp_update_cost(battle_menu_inv_list[variable_instance_get(id, battle_menu_inv_var_name)[party_selection]]);
                 
                 battle_menu_inv_proceed = function(item_struct) {
                     var __button = party_buttons[party_selection][party_button_selection[party_selection]]
@@ -78,10 +79,14 @@ function enc_button_act() : enc_button() constructor {
                         audio_play(snd_ui_select)
                         __button.submit_action(item_struct)
                     }
+                    
+                    __tp_update_cost();
                 }
                 battle_menu_inv_cancel = function() {
                     battle_menu = BATTLE_MENU.BUTTON_SELECTION
-                __enemy_highlight_reset()
+                    __enemy_highlight_reset()
+                    
+                    __tp_update_cost();
                 }
             }
             battle_menu_enemy_cancel = function() {
@@ -147,6 +152,7 @@ function enc_button_power() : enc_button() constructor {
                 if _abs     party_spell_selection[party_selection] = _delta
                 else        party_spell_selection[party_selection] += _delta
             }
+            __tp_update_cost(battle_menu_inv_list[variable_instance_get(id, battle_menu_inv_var_name)[party_selection]]);
             
             battle_menu_inv_proceed = function(spell_struct) {
                 if enc_item_get_enabled(spell_struct){
@@ -155,6 +161,8 @@ function enc_button_power() : enc_button() constructor {
                         case ITEM_USE.EVERYONE: // continue right away
                             var __button = party_buttons[party_selection][party_button_selection[party_selection]]
                             __button.submit_action(spell_struct, -1)
+                            
+                            __tp_update_cost();
                             break
                         case ITEM_USE.INDIVIDUAL: // let the player choose an ally
                             battle_menu = BATTLE_MENU.PARTY_SELECTION
@@ -166,6 +174,8 @@ function enc_button_power() : enc_button() constructor {
                                 var __button = party_buttons[party_selection][party_button_selection[party_selection]]
                                 var __target_spell = battle_menu_inv_list[party_spell_selection[party_selection]]
                                 __button.submit_action(__target_spell, party_ally_selection[party_selection])
+                                
+                                __tp_update_cost();
                             }
                             battle_menu_party_cancel = function() {
                                 battle_menu = BATTLE_MENU.INV_SELECTION
@@ -183,6 +193,8 @@ function enc_button_power() : enc_button() constructor {
                                 var __button = party_buttons[party_selection][party_button_selection[party_selection]]
                                 var __target_spell = battle_menu_inv_list[party_spell_selection[party_selection]]
                                 __button.submit_action(__target_spell, party_enemy_selection[party_selection])
+                                
+                                __tp_update_cost();
                             }
                             battle_menu_enemy_cancel = function() {
                                 battle_menu = BATTLE_MENU.INV_SELECTION
@@ -194,6 +206,7 @@ function enc_button_power() : enc_button() constructor {
             }
             battle_menu_inv_cancel = function() {
                 battle_menu = BATTLE_MENU.BUTTON_SELECTION
+                __tp_update_cost();
             }
         }
     }
@@ -255,6 +268,7 @@ function enc_button_item() : enc_button() constructor {
                 if _abs     party_item_selection[party_selection] = _delta
                 else        party_item_selection[party_selection] += _delta
             }
+            __tp_update_cost(battle_menu_inv_list[variable_instance_get(id, battle_menu_inv_var_name)[party_selection]]);
             
             battle_menu_inv_proceed = function(item_struct) {
                 if enc_item_get_enabled(item_struct) {
@@ -263,6 +277,8 @@ function enc_button_item() : enc_button() constructor {
                         case ITEM_USE.EVERYONE: // continue right away
                             var __button = party_buttons[party_selection][party_button_selection[party_selection]]
                             __button.submit_action(item_struct, -1)
+                            
+                            __tp_update_cost();
                             break
                         case ITEM_USE.INDIVIDUAL: // let the player choose an ally
                             battle_menu = BATTLE_MENU.PARTY_SELECTION
@@ -274,6 +290,8 @@ function enc_button_item() : enc_button() constructor {
                                 var __button = party_buttons[party_selection][party_button_selection[party_selection]]
                                 var __target_item = battle_menu_inv_list[party_item_selection[party_selection]]
                                 __button.submit_action(__target_item, party_ally_selection[party_selection])
+                                
+                                __tp_update_cost();
                             }
                             battle_menu_party_cancel = function() {
                                 battle_menu = BATTLE_MENU.INV_SELECTION
@@ -291,6 +309,8 @@ function enc_button_item() : enc_button() constructor {
                                 var __button = party_buttons[party_selection][party_button_selection[party_selection]]
                                 var __target_item = battle_menu_inv_list[party_item_selection[party_selection]]
                                 __button.submit_action(__target_item, party_enemy_selection[party_selection])
+                                
+                                __tp_update_cost();
                             }
                             battle_menu_enemy_cancel = function() {
                                 battle_menu = BATTLE_MENU.INV_SELECTION
@@ -302,6 +322,7 @@ function enc_button_item() : enc_button() constructor {
             }
             battle_menu_inv_cancel = function() {
                 battle_menu = BATTLE_MENU.BUTTON_SELECTION
+                __tp_update_cost();
             }
         }
     }

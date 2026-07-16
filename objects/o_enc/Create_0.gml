@@ -234,6 +234,13 @@ __enemy_highlight_reset = function() {
         encounter_data.enemies[i].actor_id.flashing = false
     }
 }
+__tp_update_cost = function(_item = undefined) {
+    with inst_tp_bar {
+        tp_cost_display = 0;
+        if is_struct(_item) && struct_exists(_item, "tp_cost") && other.tp >= _item.tp_cost
+            tp_cost_display = _item.tp_cost;
+    }
+}
 __ally_highlight = function(ally_index) {
     for (var i = 0; i < party_length(); ++i) {
         var inst = party_get_inst(global.party_names[i])
