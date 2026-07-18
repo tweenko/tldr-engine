@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"typer",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"typer",
+  "parent":{
+    "name":"tldr-engine",
+    "path":"tldr-engine.yyp",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
