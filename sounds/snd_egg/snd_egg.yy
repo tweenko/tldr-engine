@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.979592,
+  "duration":0.97959185,
   "exportDir":"",
   "name":"snd_egg",
   "parent":{

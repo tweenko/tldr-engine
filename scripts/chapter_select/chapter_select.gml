@@ -16,7 +16,7 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _s
     set_defaults = _set_defaults_method;
     
 	intro_seq_default = o_intro_legend;
-	intro_seq_first_run = -1;
+	intro_seq_first_run = o_ex_intro_tldr;
 	intro_seq_midgame = -1;
 	
     exec = method(self, function(caller) {
