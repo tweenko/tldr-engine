@@ -52,14 +52,14 @@ else {
 	}
 	else if InputPressed(INPUT_VERB.UP) && !confirming {
 		if selection > 1 {
-			var save = selection
+			var _save = selection
 			selection --
 			audio_play(snd_ui_move)
 			
 			while selection > 0 && !is_struct(chapters[selection-1]) 
 				selection--
 			if selection==0 
-				selection=save
+				selection=_save
 		}
 		else {
 			selection = total+1

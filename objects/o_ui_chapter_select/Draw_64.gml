@@ -99,7 +99,7 @@ else {
 			}
 	
 			if !is_struct(chapters[i])
-				draw_sprite_ext(spr_ui_chs_defafult, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
+				draw_sprite_ext(spr_ui_chs_default, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
 			else
 				draw_sprite_ext(chapters[i].icon, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
 		}
