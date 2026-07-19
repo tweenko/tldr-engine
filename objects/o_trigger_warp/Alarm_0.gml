@@ -18,7 +18,7 @@ call_later(2, time_source_units_frames, function() {
 	if plat_yretain_enabled and is_numeric(plat_yretain_ylevel_next) and global.platforming_perspective > 0 {
 		y_override = plat_yretain_ylevel_next;
 		y_override = clamp(y_override, 0, room_height);
-		get_leader().pf_jumptime = 60;
+		get_leader().pf_airtime = 60;
 	}
 	
     party_leader_warp(MARKER_LAND, target_marker, exit_direction ?? savedir, x_override, y_override);

@@ -8,21 +8,7 @@ function player_platforming_movement_init(){
 	pf_caterrecordtime = 0
 
 	pf_collide = []
-
-	pf_can_jump = true
-	pf_jumptime=0
-	pf_jumpvmove=0
-	pf_jumpsquat=0
-	pf_jumpsquatmax=2
-	pf_jumpcoyotetime=0
-	pf_jumpcoyotetimemax=4
-	pf_jumpbuffer=0
-	pf_jumping = 0
-	pf_jumpheight=9
-	pf_jumpvgrav = 1
-	pf_jump_key_held_time = 0
-	pf_jump_smoothed_final_y_change = 0
-
+	
 	pf_hmove = 0
 	pf_air_accel = 2
 	pf_air_decel = 0.5
@@ -34,15 +20,70 @@ function player_platforming_movement_init(){
 
 	pf_dir = DIR.LEFT
     
-	pf_attacking = false
-    pf_attack_timer = 0;
-    pf_attack_length = 20;
-	pf_hurt = false
-    
-    pf_land = 0;
-    pf_grounded = true;
     pf_xscale_prev = image_xscale;
     pf_turn_timer = 0;
+	
+	pf__gravity = 1.25/2;
+	pf__canjump = true;
+	pf__infinitejumps = false; //u
+	pf__jumpheight = 7;
+	pf__airmintime = 4;
+	pf__coyotetimemax = 4;
+	pf__squattimemax = 2;
+
+	pf_currentgravity = pf__gravity;
+	pf_vspeed = 0;
+	pf_jump_key_held_time = 0;
+	pf_jumpstage = 0;
+	pf_airtime = 0;
+	pf_cotoyetime = 0;
+	pf_squattime = 0;
+	pf_jumpbuffer = 0;
+	pf_final_xchange = 0;
+	pf_final_ychange = 0;
+    pf_land = 0;
+    pf_grounded = true;
+	
+	pf_attacking = false; //u
+    pf_attack_timer = 0; //u
+    pf_attack_length = 20; //u
+	pf_hurt = false //u
+	pf_hitstop = 0; //u
+}
+
+function temp_player_platforming_movement_execute(){
+	{
+	// Mask
+	mask_index = playermask;
+	
+	// Caterpillar spacing
+	pf_caterrecordtime = max(pf_caterrecordtime - 1, 0);
+	for (var i = 0; i < party_length(true); ++i) {
+		var pinst = party_get_inst(global.party_names[i]);
+		pinst.depth = depth + party_get_index(global.party_names[i]);
+	}
+	
+	// Collision array
+	pf_collide = [];
+	for (var i = 0; i < instance_number(o_ow_plat_ground); ++i) {
+		var inst = instance_find(o_ow_plat_ground, i);
+		if variable_instance_exists(inst, "collide") and inst.collide
+            array_push(pf_collide, inst);
+		
+	}
+	for (var i = 0; i < instance_number(o_ow_plat_groundlining); ++i) {
+		var inst = instance_find(o_ow_plat_groundlining, i);
+		if variable_instance_exists(inst, "collide") and inst.collide 
+            array_push(pf_collide, inst);
+	}}
+	var grounded = place_meeting(x, y+1, pf_collide);
+	var ceilded = place_meeting(x, y-4, pf_collide);
+    var _turn_sprite = false;
+	
+	pf_hmove = (InputCheck(INPUT_VERB.RIGHT)-InputCheck(INPUT_VERB.LEFT))*4
+	
+
+	
 }
 
 function player_platforming_movement_execute(){
@@ -73,7 +114,7 @@ function player_platforming_movement_execute(){
 	var ceilded = place_meeting(x, y-4, pf_collide);
     var _turn_sprite = false;
 	
-	// Platforming Horizontal Movement
+	// Platforming Horizontal Movement ---------
 	pf_keyLeft = InputCheck(INPUT_VERB.LEFT);
 	pf_keyRight = InputCheck(INPUT_VERB.RIGHT);
 	var keyPressLeft = InputPressed(INPUT_VERB.LEFT);
@@ -89,7 +130,7 @@ function player_platforming_movement_execute(){
 	var _dont_accel = false;
 	if (pf_keyLeft and instance_place(x - 4 - abs(pf_hmove), y, pf_collide))
 	   or (pf_keyRight and instance_place(x + 4 + abs(pf_hmove), y, pf_collide))
-	   or pf_hurt or pf_jumping == 3 
+	   or pf_hurt //or pf_jumpstage == 3 
     {
         _dont_accel = true
     }
@@ -110,8 +151,8 @@ function player_platforming_movement_execute(){
 	var force_decel = false;
 	if grounded and pf_attacking or pf_hurt 
         force_decel = true;
-	if pf_jumping == 3 
-        _hdecel = 1;
+	/*if pf_jumpstage == 3 
+        _hdecel = 1;*/
 	
 	if !_dont_accel{
 		if pf_keyLeft {
@@ -143,25 +184,25 @@ function player_platforming_movement_execute(){
 	if ((!pf_keyLeft and !pf_keyRight) or (pf_keyLeft and pf_keyRight) or force_decel) 
         pf_hmove *= _hdecel;
 	
-	// Platforming pf_jumping
+	// Platforming Jumping Vertical Movement --------
 	var keyIsInvertJumpAndAttack = false
 	var keyJump = keyIsInvertJumpAndAttack ? InputCheck(INPUT_VERB.SELECT) : InputCheck(INPUT_VERB.CANCEL)
 	var keyJumpPressed = keyIsInvertJumpAndAttack ? InputPressed(INPUT_VERB.SELECT) : InputPressed(INPUT_VERB.CANCEL)
 	var keyAttack = keyIsInvertJumpAndAttack ? InputCheck(INPUT_VERB.CANCEL) : InputCheck(INPUT_VERB.SELECT)
-	var jumpheight_real = pf_jumpheight;
-    
-	if !pf_can_jump {
+	var keyAttackPressed = keyIsInvertJumpAndAttack ? InputPressed(INPUT_VERB.CANCEL) : InputPressed(INPUT_VERB.SELECT)
+	
+	if !pf__canjump {
         keyJump = 0; 
         keyJumpPressed = 0;
     }
-    
+	
 	if keyJumpPressed
         pf_jumpbuffer = 4;
     else 
         pf_jumpbuffer = max(pf_jumpbuffer - 1, 0);
-    
+	
 	if grounded {
-		if pf_jumptime != 0 {
+		if pf_airtime != 0 {
             if pf_hmove == 0  // land animation
                 audio_play(snd_noise, , , 1.2);
             
@@ -170,64 +211,71 @@ function player_platforming_movement_execute(){
             instance_create(o_eff_generic_animation, x - 16, y, depth, {sprite_index: spr_eff_plat_land_dust, image_xscale: 1});
             instance_create(o_eff_generic_animation, x + 16, y, depth, {sprite_index: spr_eff_plat_land_dust, image_xscale: -1});
         }
-        
-        // reset variables upon landing
-		pf_jumpcoyotetime = pf_jumpcoyotetimemax;
-		pf_jumping = 0;
-		pf_jumptime = 0;
-		pf_jumpvmove = 0;
-		pf_jumpvgrav = 0;
+		
+		pf_jumpstage = 0;
+		pf_vspeed = 0;
+		pf_airtime = 0;
+		pf_cotoyetime = pf__coyotetimemax;
 	}
-    
+	else{
+		pf_airtime++;
+		if pf_jumpstage == 0
+			pf_jumpstage = 2;
+	}
+	
 	var release_jump = false;
-	if ceilded or (!keyJump and pf_jumptime >= pf_jumpcoyotetimemax) {
+	
+	if ceilded or (!keyJump and pf_airtime >= pf__coyotetimemax) {
         release_jump = true; 
-        pf_jumptime = max(pf_jumptime, pf_jumpcoyotetimemax + 1);
+        pf_airtime = max(pf_airtime, pf__coyotetimemax + 1);
     }
-	if keyJump 
-        pf_jump_key_held_time ++;
-    else
-        pf_jump_key_held_time = 0;
-    
-	if !grounded 
-        pf_jumpvgrav += 1.2/2;
-    
-	if !pf_jumpbuffer and pf_jumpsquat <= 0 and (!grounded and pf_jumpcoyotetime > 0) 
-        pf_jumpcoyotetime --;
-    
-	if keyJump and pf_jump_key_held_time < 4 and (grounded or (pf_jumpcoyotetime > 0 and pf_jumpvmove > -1)) and !pf_attacking and !pf_hurt {
-	    var inc = 1;
-	    pf_jumpsquat = max(pf_jumpsquat+inc, 1);
-	    pf_jumpbuffer = 0;
+	
+	if !pf_jumpbuffer and pf_squattime <= 0 and (!grounded and pf_cotoyetime > 0) 
+        pf_cotoyetime --;
+		
+	if keyJump {
+		pf_jump_key_held_time ++;
+		if pf_jump_key_held_time < 4 and (grounded or (pf_cotoyetime > 0 and pf_vspeed > -1)) /*and !pf_attacking and !pf_hurt*/ {
+		    var inc = 1;
+		    pf_squattime = max(pf_squattime + inc, 1);
+		    pf_jumpbuffer = 0;
         
-		if pf_jumpsquat > pf_jumpsquatmax {
-			pf_jumpsquat = 0;
-			pf_jumpcoyotetime = 0;
+			if pf_squattime > pf__squattimemax {
+				pf_squattime = 0;
+				pf_cotoyetime = 0;
             
-			if !ceilded {
-                y -= 1; 
-                pf_jumpvmove = -jumpheight_real; 
-                pf_jumping = 1; 
-                audio_play(snd_ui_cancel_small, , , 1.5);
-            };
+				if !ceilded {
+	                y -= 1; 
+	                pf_vspeed = -pf__jumpheight; 
+	                pf_jumpstage = 1; 
+	                audio_play(snd_ui_cancel_small, , , 1.5);
+	            }
+			}
+		}
+		else {
+	        pf_squattime = 0;
 		}
 	}
-	else
-        pf_jumpsquat = 0;
+	else {
+		pf_jump_key_held_time = 0;
+		if (pf_jumpstage == 1 and pf_airtime > pf__airmintime) {
+			release_jump = true;
+			pf_jumpstage = 2;
+		}
+	}
     
-	if pf_jumping == 1 and pf_jumpvmove > 0 
-        pf_jumping = 2;
-	if pf_jumping 
-        pf_jumptime ++;
-    
-	if pf_jumpvmove < 0 and release_jump 
-        pf_jumpvmove *= 0.75;
-    
-	var final_y_change = clamp(pf_jumpvmove + pf_jumpvgrav, -jumpheight_real, jumpheight_real);
-	pf_jump_smoothed_final_y_change = final_y_change<0 ? final_y_change : increment_towards(pf_jump_smoothed_final_y_change, final_y_change, 1.25);
+	if (pf_vspeed < 0 or pf_hitstop > 0) and release_jump /*and !pf_hurt*/{
+		pf_vspeed *= 0.5;
+	}
 	
-	// Move
-	move_and_collide_simpler(pf_hmove, pf_jump_smoothed_final_y_change, pf_collide);
+	if array_contains([1, 2], pf_jumpstage) and !grounded and pf_airtime > pf__airmintime {
+		pf_vspeed += pf_currentgravity
+	}
+	
+	// Platforming Finish Movement -----
+	pf_final_xchange = pf_hmove
+	pf_final_ychange = pf_vspeed
+	move_and_collide_simpler(pf_final_xchange, pf_final_ychange, pf_collide)
 	
 	// Ground fix
 	var inst = instance_place(x, y + 1, pf_collide);
@@ -259,12 +307,12 @@ function player_platforming_movement_execute(){
         pf_land --;
 	
 	// Set moving
-	if pf_hmove != 0 or pf_jump_smoothed_final_y_change != 0 or !grounded {
+	if pf_hmove != 0 or pf_final_ychange != 0 or !grounded {
         moving = true;
     }	
     
     pf_grounded = grounded;
-    actor_platforming_animate(pf_grounded, pf_hmove, pf_jump_smoothed_final_y_change, pf_dir);
+    actor_platforming_animate(pf_grounded, pf_final_xchange, pf_final_ychange, pf_dir);
 }
 
 function actor_platforming_animate(_grounded, _dx, _dy, _dir) {
@@ -276,7 +324,11 @@ function actor_platforming_animate(_grounded, _dx, _dy, _dir) {
     if pf_xscale_prev != image_xscale && pf_turn_timer == 0
         pf_turn_timer = turn_anim_len;
     
-    if !_grounded {
+	if pf_airtime <= 1 and pf_jumpstage == 1{
+        sprite_index = s_plat_land;
+        image_index = 0;
+	}
+    else if !_grounded {
         if _dy < 0
             sprite_index = s_plat_jump_up;
         else if _dy >= 0 
