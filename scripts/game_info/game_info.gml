@@ -1,4 +1,4 @@
-#macro GAME_VERSION "v2.2.4"
+#macro GAME_VERSION "v2.3.0"
 #macro GAME_NAME "tlDR Engine"
 #macro GAME_LAST_COMPATIBLE_VERSION "v2.0.0" // last compatible save version
 
