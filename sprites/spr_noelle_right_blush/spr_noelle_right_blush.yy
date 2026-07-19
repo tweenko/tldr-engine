@@ -12,21 +12,24 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"15771c73-a1d8-41e5-a7c2-af9ffec04442","name":"15771c73-a1d8-41e5-a7c2-af9ffec04442","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"a7e1f4f9-61e9-4508-9840-8192d5dae628","name":"a7e1f4f9-61e9-4508-9840-8192d5dae628","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"d4bb41f3-37cd-4bcc-8897-05905264f0da","name":"d4bb41f3-37cd-4bcc-8897-05905264f0da","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"725eefc0-d30f-4b7a-a7fb-f930feb4ca07","name":"725eefc0-d30f-4b7a-a7fb-f930feb4ca07","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"d3016507-b468-4762-8ac1-11441438750f","name":"d3016507-b468-4762-8ac1-11441438750f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":46,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"19efe9fc-8f92-47b3-8451-a62c6e36d0b5","blendMode":0,"displayName":"default","isLocked":false,"name":"19efe9fc-8f92-47b3-8451-a62c6e36d0b5","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"eeacc555-86e8-4e39-bb36-16afc02e6298","blendMode":0,"displayName":"default","isLocked":false,"name":"eeacc555-86e8-4e39-bb36-16afc02e6298","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_noelle_right_blush",
   "nineSlice":null,
   "origin":7,
   "parent":{
-    "name":"noelle",
-    "path":"folders/@Engine/sprites/actors/noelle.yy",
+    "name":"blush",
+    "path":"folders/@Engine/sprites/actors/noelle/blush.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
@@ -49,7 +52,7 @@
     },
     "eventStubScript":null,
     "eventToFunction":{},
-    "length":1.0,
+    "length":4.0,
     "lockOrigin":false,
     "moments":{
       "$KeyframeStore<MomentsEventKeyframe>":"",
@@ -59,7 +62,7 @@
     },
     "name":"spr_noelle_right_blush",
     "playback":1,
-    "playbackSpeed":0.0,
+    "playbackSpeed":4.0,
     "playbackSpeedType":0,
     "resourceType":"GMSequence",
     "resourceVersion":"2.0",
@@ -70,7 +73,18 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"15771c73-a1d8-41e5-a7c2-af9ffec04442","path":"sprites/spr_noelle_right_blush/spr_noelle_right_blush.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"e849dcaf-1e10-4545-85d3-73b76eba925f","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"a7e1f4f9-61e9-4508-9840-8192d5dae628","path":"sprites/spr_noelle_right_blush/spr_noelle_right_blush.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"544c1202-ad66-41ab-a2e9-b59001e35d98","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d4bb41f3-37cd-4bcc-8897-05905264f0da","path":"sprites/spr_noelle_right_blush/spr_noelle_right_blush.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"43a6cbf7-347b-4bd3-8977-639fe910033f","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"725eefc0-d30f-4b7a-a7fb-f930feb4ca07","path":"sprites/spr_noelle_right_blush/spr_noelle_right_blush.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"451f480b-0b06-4b7e-8f3e-b0d8153f825b","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d3016507-b468-4762-8ac1-11441438750f","path":"sprites/spr_noelle_right_blush/spr_noelle_right_blush.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"d98b698d-402d-42c5-b17e-a80ce8d0db55","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

@@ -23,7 +23,7 @@ trigger_code = function() {
     cutscene_func(music_fade, [0, 0])
     
     cutscene_func(function() {
-        party_set_state("susie", "serious")
+        party_set_state("susie", "serious");
     })
     cutscene_dialogue("{char(susie, 6)}* Woah... Is that...",, false)
     for (var i = 0; i < party_length(true); i ++) {

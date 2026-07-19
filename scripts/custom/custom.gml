@@ -334,8 +334,6 @@ function object_get_base_parent(o_index, stop_at = noone) {
 /// @desc returns an asset index with specified name but if the prefix version does not exists, returns the normal sprite
 function asset_get_index_state(str, state){
 	var ret = asset_get_index(str)
-    if !sprite_exists(ret)
-        return undefined
     
     var __states = string_split(state, "_", true)
 	
@@ -387,6 +385,12 @@ function array_sort_ext(array, sort_type_or_function) {
 	array_sort(arr, sort_type_or_function)
 	return arr
 }
+/// @desc finds a value and then deletes it
+function array_delete_by_value(_array, _value) {
+    var index = array_get_index(_array, _value);
+    array_delete(_array, index, 1);
+}
+
 /// @param {string}  substring  The string to find.
 /// @param {string}  fullstring  The string to find from.
 /// @description              Check if a string contains a string inside it.
