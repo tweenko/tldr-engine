@@ -15,6 +15,10 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _s
     target_room = _default_room;
     set_defaults = _set_defaults_method;
     
+	intro_seq_default = o_intro_legend;
+	intro_seq_first_run = -1;
+	intro_seq_midgame = -1;
+	
     exec = method(self, function(caller) {
         cutscene_create();
 
@@ -23,7 +27,7 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _s
         cutscene_animate(0, 1, 20, "linear", caller, "trans_shrink")
         cutscene_sleep(80);
 
-        cutscene_func(method({set_defaults, target_room, target_chapter}, function() {
+        cutscene_func(method({caller, set_defaults, target_room, target_chapter, intro_seq_default, intro_seq_first_run, intro_seq_midgame}, function() {
             global.chapter = target_chapter;
             
             save_entry_set_default("ROOM", target_room);
@@ -31,9 +35,33 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _s
             set_defaults();
             
             save_reload();
-            room_goto(room_save_select);
+			
+			// determine right intro sequence
+			var _introseq = intro_seq_default;
+			
+			var _anySaves = save_exists(0) || save_exists(1) || save_exists(2);
+			var _anyCompletedSave = false;
+			
+			for (var i=0; i<SAVE_SLOTS; i++) {
+				if caller.save_chs[global.chapter-1] != -1 && caller.save_chs[global.chapter-1][i] != -1 {
+					_anyCompletedSave += caller.save_chs[global.chapter-1][i][1];
+					_anyCompletedSave = min(_anyCompletedSave, 1);
+				}
+			}
+	
+			if _anySaves {
+				if !_anyCompletedSave {
+					_introseq = object_exists(intro_seq_midgame) ? intro_seq_midgame : intro_seq_default;
+				}
+			}
+			else {
+				_introseq = object_exists(intro_seq_first_run) ? intro_seq_first_run : intro_seq_default;	
+			}
+						
+			room_instance_add(room_intro, 0, 0, _introseq);
+			room_goto(room_intro);
         }))
-
+		
         cutscene_play();
     });
 }
