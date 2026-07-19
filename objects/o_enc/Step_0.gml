@@ -236,14 +236,14 @@ else if battle_state == BATTLE_STATE.EXEC {
                 var action = action_queue[0]
                 array_delete(action_queue, 0, 1) // dequeue the action
                 
-                action.perform(action_queue)
+                action.perform(action_queue);
             }
             else 
                 __battle_state_advance()
         }
     }
     else 
-        buffer = 2
+        buffer = 2;
 }
 else if battle_state == BATTLE_STATE.DIALOGUE {
     if !pre_dialogue_init {

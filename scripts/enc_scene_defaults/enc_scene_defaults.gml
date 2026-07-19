@@ -1,4 +1,5 @@
-///@arg {string, array<string>} dialogue
+/// @desc creates a cutsscene with a simple dialogue and makes the encounter wait while the cutscene is being executed
+/// @arg {string, array<string>} dialogue
 function encounter_scene_dialogue(dialogue, pre = "") {
 	dialogue = dialogue_array_to_string(dialogue)
 	

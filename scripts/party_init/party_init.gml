@@ -289,7 +289,7 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 	
 	// sprites
     s_name = "ralsei"
-	s_state =		"" // sad, sad_subtle, hat
+	s_state =		"" // sad, sad_subtle, hat, serious
 	s_substate =	""
 	s_icon =		spr_ui_ralsei_icon
 	s_icon_ow =		spr_ui_ralsei_head

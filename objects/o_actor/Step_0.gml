@@ -129,18 +129,6 @@ if is_player && check_canmove {
 		else // light world
 			instance_create(o_ui_menu_lw)
 	}
-	
-	// make steps and call the `__step` method
-	if !sliding {
-		if floor((image_index % image_number)*2) % 2 != 0 {
-			if !made_step {
-                __step(floor(image_index % image_number));
-                made_step = true;
-            }
-		}
-		else 
-			made_step = false;
-	}
 }
 
 // if i am a follower and i am following the leader
@@ -157,6 +145,20 @@ else if sliding {
 	}
     
 	y += global.slide_speed
+}
+
+if (track_footsteps || is_player) {
+    // make steps and call the `__step` method
+	if !sliding {
+		if floor((image_index % image_number)*2) % 2 != 0 {
+			if !made_step {
+                __step(floor(image_index % image_number));
+                made_step = true;
+            }
+		}
+		else 
+			made_step = false;
+	}
 }
 
 moving = false
@@ -297,21 +299,45 @@ if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override {
 else if !is_in_battle && !is_enemy {
 	startedmoving = false
 	
-	if floor(image_index) % 2 == 0 && !s_override && s_dynamic {
-		image_speed = 0;
-		image_index = 0
-	}
+	if floor(image_index) % 2 == 0 && !s_override && s_dynamic && s_current_animation != ACTOR_ANIMATIONS.IDLE
+		s_current_animation = ACTOR_ANIMATIONS.IDLE;
 }
 
 // running sprites, walking sprites
 if !is_in_battle && !is_enemy && s_dynamic && !s_override {
-	if running && moving {
-		image_speed = s_run_ispd;
-		sprite_index = asset_get_index(sprite_get_name(s_move[dir]) + s_run_postfix)
-	}
-	else {
-		image_speed = s_walk_ispd;
-		sprite_index = s_move[dir]
+	if running && moving 
+        s_current_animation = ACTOR_ANIMATIONS.RUN;
+    else if moving
+        s_current_animation = ACTOR_ANIMATIONS.WALK;
+    
+    switch s_current_animation {
+        default: // idle
+            var possible_idle = s_idle[dir];
+            
+            if sprite_exists(possible_idle) { // switch to an idle sprite
+                sprite_index = possible_idle;
+                image_speed = s_idle_ispd;
+                
+                if s_previous_animation != s_current_animation 
+                    image_index = 0;
+            }
+            else { // using only the walk sprites
+                sprite_index = s_move[dir];
+                image_speed = 0;
+                image_index = 0;
+            }
+            
+            break;
+        case ACTOR_ANIMATIONS.WALK:
+            sprite_index = s_move[dir];
+            image_speed = s_walk_ispd;
+            
+            break;
+        case ACTOR_ANIMATIONS.RUN:
+            sprite_index = asset_get_index_state(sprite_get_name(s_move[dir]), s_run_postfix);
+            image_speed = s_run_ispd;
+            
+            break;
     }
 }
 
