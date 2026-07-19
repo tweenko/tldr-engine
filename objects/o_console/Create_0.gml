@@ -110,6 +110,14 @@ registred_commands = {
             else 
                 show_debug_message("CONSOLE: o_enc not found, TP not maxed out")
         }
+    },
+    m: {
+        name: "Toggle Mute BGM",
+        desc: "Mutes/Unmutes BGM, persists through reloads",
+        execute: function() {
+            o_world.volume_bgm = (o_world.volume_bgm > 0 ? 0 : 1);
+            audio_emitter_gain(o_world.emitter_bgm, o_world.volume_bgm); 
+        }
     }
 }
 

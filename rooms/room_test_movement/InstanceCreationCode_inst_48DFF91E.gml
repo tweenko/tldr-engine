@@ -1,5 +1,3 @@
-name = "toggle wind state";
-
 execute_code = function() {
     var currently_windy = (party_getdata(global.party_names[0], "s_state") == "wind");
     
