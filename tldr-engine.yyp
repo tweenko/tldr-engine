@@ -267,6 +267,7 @@
     {"$GMIncludedFile":"","%Name":"items_spells.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"items_spells.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"items_weapons.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"items_weapons.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"items.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"items.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"legend.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"legend.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"menu.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"menu.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"money_display.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"money_display.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"naming_menu.json","CopyToMask":-1,"filePath":"datafiles/loc","name":"naming_menu.json","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
@@ -486,6 +487,7 @@
     {"id":{"name":"room_init","path":"rooms/room_init/room_init.yy",},},
     {"id":{"name":"room_intro","path":"rooms/room_intro/room_intro.yy",},},
     {"id":{"name":"room_lb_dark_lighting","path":"rooms/room_lb_dark_lighting/room_lb_dark_lighting.yy",},},
+    {"id":{"name":"room_logo","path":"rooms/room_logo/room_logo.yy",},},
     {"id":{"name":"room_save_select","path":"rooms/room_save_select/room_save_select.yy",},},
     {"id":{"name":"room_shop","path":"rooms/room_shop/room_shop.yy",},},
     {"id":{"name":"room_test_climbing","path":"rooms/room_test_climbing/room_test_climbing.yy",},},
@@ -1618,6 +1620,7 @@
     {"roomId":{"name":"room_shop","path":"rooms/room_shop/room_shop.yy",},},
     {"roomId":{"name":"room_lb_dark_lighting","path":"rooms/room_lb_dark_lighting/room_lb_dark_lighting.yy",},},
     {"roomId":{"name":"room_intro","path":"rooms/room_intro/room_intro.yy",},},
+    {"roomId":{"name":"room_logo","path":"rooms/room_logo/room_logo.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

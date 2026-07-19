@@ -596,8 +596,7 @@ if global.chapter < 4 {
 	});
 	
 	cutscene_sleep(80);
-	cutscene_instance_create(o_intro_logo, GAME_W/2, GAME_H/2);
-	cutscene_func(instance_destroy, [id]);
+	cutscene_func(room_goto, [room_logo]);
 }
 else {
 	cutscene_func(__cs1_neo_pic_init);
@@ -636,8 +635,7 @@ else {
 	cutscene_func(instance_destroy, [o_text_typer]);
 	
 	cutscene_sleep(50);
-	cutscene_instance_create(o_intro_logo, GAME_W/2, GAME_H/2);
-	cutscene_func(instance_destroy, [id]);
+	cutscene_func(room_goto, [room_logo]);
 }
 		
 cutscene_play();

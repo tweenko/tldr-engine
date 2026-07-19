@@ -43,14 +43,11 @@ draw_set_alpha(1);
 if !skipped && InputCheck(INPUT_VERB.SELECT) {
 	skipped = true;
 	
-	cutscene_stop();
-	
 	cutscene_create();
 	cutscene_func(fader_fade, [0, 1, 30, DEPTH_UI.CONSOLE]);
 	cutscene_func(music_fade, [0, 0, 30]);
 	cutscene_sleep(40);
 	
-	cutscene_instance_create(o_intro_logo, GAME_W/2, GAME_H/2);
-	cutscene_func(instance_destroy, [id]);
+	cutscene_func(room_goto, [room_logo]);
 	cutscene_play();
 }
