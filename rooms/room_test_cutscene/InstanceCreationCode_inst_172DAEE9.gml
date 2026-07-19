@@ -69,7 +69,7 @@ trigger_code = function() {
     cutscene_sleep(50)
     
     cutscene_set_variable(party_get_inst("susie"), "image_xscale", 1)
-    cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_walk_down_serious)
+    cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_down_serious)
     cutscene_actor_override(party_get_inst("susie"), false);
     cutscene_audio_play(snd_noise)
     cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_shock)
@@ -88,7 +88,7 @@ trigger_code = function() {
     ],,, false)
     cutscene_sleep(10)
     
-    cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_walk_up)
+    cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_up)
     cutscene_dialogue([
         "{char(noelle, 25)}* ...", 
         "{char(susie, 11)}* ...",
@@ -110,10 +110,10 @@ trigger_code = function() {
     ],, false, false)
     cutscene_wait_dialogue_boxes(2)
     
-    cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_walk_right)
+    cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_right)
     cutscene_wait_dialogue_boxes(1)
     
-    cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_walk_right_blush)
+    cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_right_blush)
     cutscene_wait_dialogue_finish()
     
     cutscene_sleep(40)
@@ -124,12 +124,12 @@ trigger_code = function() {
     ],, false, false)
     cutscene_wait_dialogue_boxes(1)
     
-    cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_walk_up)
+    cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_up)
     cutscene_wait_dialogue_finish()
     
     cutscene_camera_pan(undefined, 320, 30, false)
     
-    cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_walk_down)
+    cutscene_set_variable(o_actor_noelle, "sprite_index", spr_noelle_down)
     for (var i = 0; i < party_length(true); i ++) {
         cutscene_actor_move(party_get_inst(global.party_names[i]), [
             new actor_movement(80, 150 + 90, 20),

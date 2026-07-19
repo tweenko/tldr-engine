@@ -1,20 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"o_actor_ralsei",
+  "%Name":"o_dev_console_message",
   "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":12,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_actor_ralsei",
+  "name":"o_dev_console_message",
   "overriddenProperties":[],
   "parent":{
-    "name":"party",
-    "path":"folders/@Engine/objects/actors/party.yy",
+    "name":"menus",
+    "path":"folders/@Engine/objects/dev/menus.yy",
   },
-  "parentObjectId":{
-    "name":"o_actor",
-    "path":"objects/o_actor/o_actor.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -32,13 +32,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_ralsei_down",
-    "path":"sprites/spr_ralsei_down/spr_ralsei_down.yy",
-  },
-  "spriteMaskId":{
-    "name":"spr_ralsei_down",
-    "path":"sprites/spr_ralsei_down/spr_ralsei_down.yy",
-  },
+  "spriteId":null,
+  "spriteMaskId":null,
   "visible":true,
 }

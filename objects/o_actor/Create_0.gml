@@ -57,10 +57,10 @@ is_party = false
 		s_dynamic = true
         
         // fallback move sprites
-		s_move[DIR.UP] = spr_kris_walk_up;
-		s_move[DIR.DOWN] = spr_kris_walk_down;
-		s_move[DIR.LEFT] = spr_kris_walk_left;
-		s_move[DIR.RIGHT] = spr_kris_walk_right;
+		s_move[DIR.UP] = spr_kris_up;
+		s_move[DIR.DOWN] = spr_kris_down;
+		s_move[DIR.LEFT] = spr_kris_left;
+		s_move[DIR.RIGHT] = spr_kris_right;
         
         s_idle[DIR.UP] = undefined;
         s_idle[DIR.DOWN] = undefined;

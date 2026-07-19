@@ -33,12 +33,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_noelle_walk_down",
-    "path":"sprites/spr_noelle_walk_down/spr_noelle_walk_down.yy",
+    "name":"spr_noelle_down",
+    "path":"sprites/spr_noelle_down/spr_noelle_down.yy",
   },
   "spriteMaskId":{
-    "name":"spr_noelle_walk_down",
-    "path":"sprites/spr_noelle_walk_down/spr_noelle_walk_down.yy",
+    "name":"spr_noelle_down",
+    "path":"sprites/spr_noelle_down/spr_noelle_down.yy",
   },
   "visible":true,
 }

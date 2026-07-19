@@ -33,12 +33,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_kris_walk_down",
-    "path":"sprites/spr_kris_walk_down/spr_kris_walk_down.yy",
+    "name":"spr_kris_down",
+    "path":"sprites/spr_kris_down/spr_kris_down.yy",
   },
   "spriteMaskId":{
-    "name":"spr_kris_walk_down",
-    "path":"sprites/spr_kris_walk_down/spr_kris_walk_down.yy",
+    "name":"spr_kris_down",
+    "path":"sprites/spr_kris_down/spr_kris_down.yy",
   },
   "visible":true,
 }

@@ -33,12 +33,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_susie_walk_down",
-    "path":"sprites/spr_susie_walk_down/spr_susie_walk_down.yy",
+    "name":"spr_susie_down",
+    "path":"sprites/spr_susie_down/spr_susie_down.yy",
   },
   "spriteMaskId":{
-    "name":"spr_susie_walk_down",
-    "path":"sprites/spr_susie_walk_down/spr_susie_walk_down.yy",
+    "name":"spr_susie_down",
+    "path":"sprites/spr_susie_down/spr_susie_down.yy",
   },
   "visible":true,
 }
