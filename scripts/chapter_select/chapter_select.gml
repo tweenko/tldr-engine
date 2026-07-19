@@ -57,7 +57,8 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _s
 			else {
 				_introseq = object_exists(intro_seq_first_run) ? intro_seq_first_run : intro_seq_default;	
 			}
-						
+				
+			room_instance_clear(room_intro);
 			room_instance_add(room_intro, 0, 0, _introseq);
 			room_goto(room_intro);
         }))

@@ -43,6 +43,8 @@ draw_set_alpha(1);
 if !skipped && InputCheck(INPUT_VERB.SELECT) {
 	skipped = true;
 	
+	cutscene_stop();
+	
 	cutscene_create();
 	cutscene_func(fader_fade, [0, 1, 30, DEPTH_UI.CONSOLE]);
 	cutscene_func(music_fade, [0, 0, 30]);

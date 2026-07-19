@@ -204,6 +204,17 @@ _cs1_move_img = function() {
 	}), [], 125)
 	
 	time_source_start(ts);
+	
+	//cutscene_create();
+	//repeat(125) {
+	//cutscene_func(method(o_intro_legend, function(){
+	//	picYOff -= 2;
+	//	picYOff = max(picYOff, -240);
+	//}))
+	//cutscene_sleep(4);
+	//}
+	
+	//cutscene_play();
 }
 
 _cs1neo_move_img = function() {
