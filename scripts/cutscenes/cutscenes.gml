@@ -62,7 +62,10 @@ function cutscene(_local = true) constructor {
     };
     destroy = function() {
         if time_source_exists(time_source)
-            call_cancel(time_source);
+            time_source_destroy(time_source);
+        
+        queue = [];
+        current_event = undefined;
         time_source = undefined;
         
         return false;
@@ -106,6 +109,7 @@ function cutscene_stop(_cutscene = global.current_cutscene) {
         return false
     
     method_call(_cutscene.destroy);
+    delete _cutscene;
 }
 
 /// @desc adds a cutscene event to the tail of the current cutscene queue
