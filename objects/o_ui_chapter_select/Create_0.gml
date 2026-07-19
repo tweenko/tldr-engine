@@ -1,7 +1,7 @@
 chapters = [
 	new chapter_option("chapter_1", spr_ui_chs_ch1, snd_ui_scary, 1, room_ex_dforest),
 	new chapter_option("chapter_2", spr_ui_chs_ch2, snd_chs_ch2, 2, room_ex_city),
-	new chapter_option("chapter_3", spr_ui_chs_ch3, snd_chs_ch3, 3, room_test_main),
+	new chapter_option("chapter_3", spr_ui_chs_ch3, snd_chs_ch3, 3, room_test_main, ,spr_ui_chs_ch3_completed),
 	new chapter_option("chapter_4", spr_ui_chs_ch4, snd_chs_ch4, 4, room_ex_church),
 	new chapter_option("chapter_5", spr_ui_chs_ch5, snd_chs_ch5, 5, room_test_main),
 	-1,

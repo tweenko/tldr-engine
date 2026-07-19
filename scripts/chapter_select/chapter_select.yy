@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"chapter_select",
   "parent":{
-    "name":"tldr-engine",
-    "path":"tldr-engine.yyp",
+    "name":"scripts",
+    "path":"folders/@Engine/scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

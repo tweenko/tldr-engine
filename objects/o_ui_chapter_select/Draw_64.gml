@@ -100,8 +100,24 @@ else {
 	
 			if !is_struct(chapters[i])
 				draw_sprite_ext(spr_ui_chs_default, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
-			else
-				draw_sprite_ext(chapters[i].icon, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
+			else {
+				var _spr = chapters[i].icon;
+				var _chcompleted = false;
+				
+				// check if any save slot for the chapter is completed
+				for (var j=0; j<SAVE_SLOTS; j++) {
+					if save_chs[i] != -1 && save_chs[i][j] != -1 {
+						_chcompleted += save_chs[i][j][1];
+						_chcompleted = min(_chcompleted, 1);
+					}
+				}
+				
+				if _chcompleted {
+					_spr = chapters[i].icon_completed;
+				}
+				
+				draw_sprite_ext(_spr, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
+			}
 		}
 		
 		draw_set_color(c_white)

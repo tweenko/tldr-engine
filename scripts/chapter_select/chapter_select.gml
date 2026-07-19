@@ -1,13 +1,15 @@
 /// @desc a constructor for adding chapter options to the chapter select menu
 /// @arg {string} _name the name of the chapter. will be localized, if applicable
-/// @arg {Asset.GMSprite} _icon the chapter option's icon
+/// @arg {Asset.GMSprite} _icon the chapter's icon
 /// @arg {Asset.GMSound} _sound the sound that's going to play on chapter selection
 /// @arg {real} _target_chapter the chapter number you'll load into
 /// @arg {Asset.GMRoom} _default_room the room the chapter will start in in a fresh save
 /// @arg {function} _set_defaults_method the method for setting the defaults
-function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _set_defaults_method = function() {}) constructor {
+///@arg {Asset.GMSprite} _icon_completed the chapter's icon upon completion
+function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _set_defaults_method = function() {}, _icon_completed=_icon) constructor {
     name = _name;
     icon = _icon;
+	icon_completed = _icon_completed;
     sound = _sound;
     target_chapter = _target_chapter;
     target_room = _default_room;
