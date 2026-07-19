@@ -23,10 +23,10 @@ if is_player && check_canmove {
 else if follow && is_follower && instance_exists(follow_target) {
 	var plat = get_leader().pf_enabled;
     
-    __refresh_follow(pos);
 	if get_leader().moving or get_leader().pf_caterrecordtime > 0 && global.platforming_perspective == 1 {
 		array_insert_cycle(record, 0, __new_record());
 	}
+    __refresh_follow(pos);
     
 	if y != get_leader().y && plat
         get_leader().pf_caterrecordtime = 14;

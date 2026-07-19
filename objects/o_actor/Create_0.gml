@@ -300,6 +300,7 @@ __step = function(index) {
             inst = lb_ripple_create(xx, yy, 2, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
             inst.hspeed = locomotionX;
             inst.vspeed = locomotionY;
+        }
     }
 }
 __new_record = method(self, function(_default = false) {
