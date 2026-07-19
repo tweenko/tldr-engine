@@ -43,7 +43,7 @@ trigger_code = function() {
     cutscene_set_variable(party_get_inst("susie"), "image_xscale", __healdir)
     
     cutscene_actor_override(party_get_inst("noelle"), true);
-    cutscene_set_variable(party_get_inst("noelle"), "sprite_index", spr_noelle_right_blush)
+    cutscene_set_variable(party_get_inst("noelle"), "sprite_index", spr_noelle_walk_right_blush)
     
     cutscene_dialogue([
         "{char(susie, 7)}* Check this out!!"

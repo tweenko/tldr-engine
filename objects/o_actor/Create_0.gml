@@ -55,11 +55,18 @@ is_party = false
 		s_prefix = ""
 		s_override = false
 		s_dynamic = true
-	
-		s_move[DIR.UP] = spr_kris_up
-		s_move[DIR.DOWN] = spr_kris_down
-		s_move[DIR.LEFT] = spr_kris_left
-		s_move[DIR.RIGHT] = spr_kris_right
+        
+        // fallback move sprites
+		s_move[DIR.UP] = spr_kris_walk_up;
+		s_move[DIR.DOWN] = spr_kris_walk_down;
+		s_move[DIR.LEFT] = spr_kris_walk_left;
+		s_move[DIR.RIGHT] = spr_kris_walk_right;
+        
+        s_idle[DIR.UP] = undefined;
+        s_idle[DIR.DOWN] = undefined;
+        s_idle[DIR.LEFT] = undefined;
+        s_idle[DIR.RIGHT] = undefined;
+        
 		s_hurt = spr_e_virovirokun_hurt
 		s_ball = spr_kris_ball
 		s_landed = spr_kris_landed
@@ -78,8 +85,17 @@ is_party = false
         s_climb_land_right = spr_kris_climb_land_right;
         s_climb_slip_fall = spr_kris_climb_slip_fall;
 	
+		s_idle_ispd = 1;
 		s_walk_ispd = 1;
 		s_run_ispd = 2;
+        
+        enum ACTOR_ANIMATIONS {
+            IDLE,
+            WALK,
+            RUN,
+        }
+        s_current_animation = ACTOR_ANIMATIONS.IDLE;
+        s_previous_animation = ACTOR_ANIMATIONS.IDLE;
 	}
 	
 	s_drawer = function(_sprite, _index, _xx, _yy, _xscale, _yscale, _angle, _blend, _alpha) {
@@ -232,20 +248,24 @@ __initialize = function() {
     		myheight = party_getbattleheight(name)
     }
 }
+
+track_footsteps = false;
 __step = function(index) {
-    if stepsounds && index % 2 == 1
-        audio_play(asset_get_index(stepsoundprefix + string(index div 2 + 1)));
-    if instance_exists(o_lb_ripple_vision) && index div 2 == 0 {
-        var xx = x + random_range(-4, 4);
-        var yy = y + random_range(-4, 4);
-        
-        var inst = lb_ripple_create(xx, yy, 3, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
-        inst.hspeed = delta_x;
-        inst.vspeed = delta_y;
-        
-        inst = lb_ripple_create(xx, yy, 2, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
-        inst.hspeed = delta_x;
-        inst.vspeed = delta_y;
+    if moving {
+        if stepsounds && index % 2 == 1
+            audio_play(asset_get_index(stepsoundprefix + string(index div 2 + 1)));
+        if instance_exists(o_lb_ripple_vision) && index div 2 == 0 {
+            var xx = x + random_range(-4, 4);
+            var yy = y + random_range(-4, 4);
+            
+            var inst = lb_ripple_create(xx, yy, 3, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
+            inst.hspeed = delta_x;
+            inst.vspeed = delta_y;
+            
+            inst = lb_ripple_create(xx, yy, 2, party_getdata(name, "iconcolor"),,,,,,,,, 1/40);
+            inst.hspeed = delta_x;
+            inst.vspeed = delta_y;
+        }
     }
 }
 __new_record = method(self, function(_default = false) {

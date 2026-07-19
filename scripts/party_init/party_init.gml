@@ -99,8 +99,8 @@ function party_m(_initialized_name) constructor {
 		defend: [spr_bsusie_defend, true],
 		hurt: spr_bsusie_hurt,
 		idle: spr_bsusie_idle,
-		intro: spr_susie_right,
-		introb: spr_susie_right,
+		intro: spr_susie_walk_right,
+		introb: spr_susie_walk_right,
 		itemuse: [spr_bsusie_item, "idle", 1],
 		itemready: spr_bsusie_itemready,
 		spell: [spr_bsusie_spell, "idle", 1],
@@ -237,8 +237,8 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
 		defend: [spr_bsusie_defend, true],
 		hurt: spr_bsusie_hurt,
 		idle: spr_bsusie_idle,
-		intro: spr_susie_right,
-		introb: spr_susie_right,
+		intro: spr_susie_walk_right,
+		introb: spr_susie_walk_right,
 		itemuse: [spr_bsusie_item, "idle", 1],
 		itemready: spr_bsusie_itemready,
 		spell: [spr_bsusie_spell, "idle", 1],
@@ -289,7 +289,7 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 	
 	// sprites
     s_name = "ralsei"
-	s_state =		"" // sad, sad_subtle, hat
+	s_state =		"" // sad, sad_subtle, hat, serious
 	s_substate =	""
 	s_icon =		spr_ui_ralsei_icon
 	s_icon_ow =		spr_ui_ralsei_head
@@ -307,7 +307,7 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 		hurt: spr_bralsei_hurt,
 		idle: spr_bralsei_idle,
 		intro: [spr_bralsei_intro, true],
-		introb: spr_ralsei_right,
+		introb: spr_ralsei_walk_right,
 		itemuse: [spr_bralsei_item, "idle", 1],
 		itemready: spr_bralsei_itemready,
 		spell: [spr_bralsei_spell, "idle", 1],
@@ -376,7 +376,7 @@ function party_m_noelle(_initialized_name) : party_m(_initialized_name) construc
 		hurt: spr_bnoelle_hurt,
 		idle: spr_bnoelle_idle,
 		intro: [spr_bnoelle_intro, true],
-		introb: spr_noelle_right,
+		introb: spr_noelle_walk_right,
 		itemuse: [spr_bnoelle_item, "idle", 1],
 		itemready: spr_bnoelle_itemready,
 		spell: [spr_bnoelle_spell, "idle", 1],

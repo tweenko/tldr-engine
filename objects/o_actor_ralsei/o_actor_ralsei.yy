@@ -33,12 +33,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_ralsei_down",
-    "path":"sprites/spr_ralsei_down/spr_ralsei_down.yy",
+    "name":"spr_ralsei_walk_down",
+    "path":"sprites/spr_ralsei_walk_down/spr_ralsei_walk_down.yy",
   },
   "spriteMaskId":{
-    "name":"spr_ralsei_down",
-    "path":"sprites/spr_ralsei_down/spr_ralsei_down.yy",
+    "name":"spr_ralsei_walk_down",
+    "path":"sprites/spr_ralsei_walk_down/spr_ralsei_walk_down.yy",
   },
   "visible":true,
 }
