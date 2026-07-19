@@ -51,41 +51,6 @@ function player_platforming_movement_init(){
 	pf_hitstop = 0; //u
 }
 
-function temp_player_platforming_movement_execute(){
-	{
-	// Mask
-	mask_index = playermask;
-	
-	// Caterpillar spacing
-	pf_caterrecordtime = max(pf_caterrecordtime - 1, 0);
-	for (var i = 0; i < party_length(true); ++i) {
-		var pinst = party_get_inst(global.party_names[i]);
-		pinst.depth = depth + party_get_index(global.party_names[i]);
-	}
-	
-	// Collision array
-	pf_collide = [];
-	for (var i = 0; i < instance_number(o_ow_plat_ground); ++i) {
-		var inst = instance_find(o_ow_plat_ground, i);
-		if variable_instance_exists(inst, "collide") and inst.collide
-            array_push(pf_collide, inst);
-		
-	}
-	for (var i = 0; i < instance_number(o_ow_plat_groundlining); ++i) {
-		var inst = instance_find(o_ow_plat_groundlining, i);
-		if variable_instance_exists(inst, "collide") and inst.collide 
-            array_push(pf_collide, inst);
-	}}
-	var grounded = place_meeting(x, y+1, pf_collide);
-	var ceilded = place_meeting(x, y-4, pf_collide);
-    var _turn_sprite = false;
-	
-	pf_hmove = (InputCheck(INPUT_VERB.RIGHT)-InputCheck(INPUT_VERB.LEFT))*4
-	
-
-	
-}
-
 function player_platforming_movement_execute(){
 	// Mask
 	mask_index = playermask;
@@ -202,16 +167,13 @@ function player_platforming_movement_execute(){
         pf_jumpbuffer = max(pf_jumpbuffer - 1, 0);
 	
 	if grounded {
-		if pf_airtime != 0 {
-            if pf_hmove == 0  // land animation
-                audio_play(snd_noise, , , 1.2);
-            
+		if pf_airtime > pf__airmintime and o_fader.image_alpha == 0 {
             pf_land = 4;
-            
             instance_create(o_eff_generic_animation, x - 16, y, depth, {sprite_index: spr_eff_plat_land_dust, image_xscale: 1});
             instance_create(o_eff_generic_animation, x + 16, y, depth, {sprite_index: spr_eff_plat_land_dust, image_xscale: -1});
-        }
-		
+            if pf_hmove == 0
+                audio_play(snd_noise, , , 1.2);
+		}
 		pf_jumpstage = 0;
 		pf_vspeed = 0;
 		pf_airtime = 0;

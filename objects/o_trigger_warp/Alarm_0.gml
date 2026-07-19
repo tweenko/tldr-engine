@@ -11,14 +11,14 @@ if audio_exists(exit_sound)
 call_later(2, time_source_units_frames, function() {
 	var x_override = -1, y_override = -1;
 	
-	if plat_yretain_ylevel_next != -1 and instance_exists(plat_yretain_ylevel_next) {
+	if (plat_yretain_ylevel_next != -1 and instance_exists(plat_yretain_ylevel_next))
 		plat_yretain_ylevel_next = plat_yretain_ylevel_next.initial_y + (plat_yretain_ylevel_next.tile_height * plat_yretain_ylevel_next.wall_distance) - (plat_yretain_ylevel_now - enter_y);
-	}
 	
-	if plat_yretain_enabled and is_numeric(plat_yretain_ylevel_next) and global.platforming_perspective > 0 {
+	if (plat_yretain_enabled and is_numeric(plat_yretain_ylevel_next) and global.platforming_perspective > 0) {
 		y_override = plat_yretain_ylevel_next;
 		y_override = clamp(y_override, 0, room_height);
-		get_leader().pf_airtime = 60;
+		var l = get_leader()
+		l.pf_airtime = 60;
 	}
 	
     party_leader_warp(MARKER_LAND, target_marker, exit_direction ?? savedir, x_override, y_override);
