@@ -22,9 +22,9 @@ function console_command() constructor {
 function console_command_help() : console_command() constructor {
     hotkey = ord("H");
     name = "Help";
-    desc = "Gives info about the Console System in the GM Output.";
+    desc = "Gives info about the Console System.";
     execute = function() {
-        var _msg = "\nBelow are the keys you can use with [Tab] and what they do.\n"
+        var _msg = "\nBelow are the keys you can use with [Tab] and what they do.\n\n"
         
         for (var i = 0; i < array_length(o_console.registred_commands); ++i) {
             var __cmd = o_console.registred_commands[i];
@@ -32,7 +32,10 @@ function console_command_help() : console_command() constructor {
             _msg += $"[{__cmd.hotkeys_to_string()}] {__cmd.name} : {__cmd.desc}" + "\n"
         }
         
-        show_debug_message(_msg)
+        var inst = instance_create(o_dev_console_message);
+        inst.drawer = method({message: _msg}, function() {
+            draw_text_transformed(32, 32, message, 1, 1, 0);
+        });
     };
 }
 function console_command_room_select() : console_command() constructor {

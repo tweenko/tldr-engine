@@ -5,6 +5,6 @@ drawer();
 
 draw_set_halign(fa_center);
 draw_set_alpha(.5);
-draw_text_transformed(320, 480 - 20, $"(Press [{input_binding_to_string(INPUT_VERB.SELECT)}] to close the Message)", 1, 1, 0);
+input_binding_draw(INPUT_VERB.SELECT, 320, 480 - 20, 1, " to close the Message)", "(Press ");
 draw_set_alpha(1);
 draw_set_halign(fa_left);
