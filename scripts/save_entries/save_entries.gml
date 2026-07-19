@@ -93,7 +93,7 @@ function save_export_variable(_variable) {
             }
             return __output_array;
         case "struct":
-            if instanceof(_variable) == "struct" {
+            if instanceof(_variable) == "struct" || (struct_exists(_variable, "__constructable") && !_variable.__constructable) {
                 var __struct_names = struct_get_names(_variable);
                 var __output_struct = {};
                 

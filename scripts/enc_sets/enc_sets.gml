@@ -70,7 +70,7 @@ function ex_item_s_weep(nname) : item_spell() constructor {
 	use_type = ITEM_USE.ENEMY;
 	is_party_act = true;
     exec = method(self, function(enemy_index, acting_member) {
-        encounter_scene_dialogue($"* {party_getname(acting_member)} wept inconsolably.")
+        cutscene_dialogue($"* {party_getname(acting_member)} wept inconsolably.")
     });
 	
 	color = merge_color(party_getdata(nname, "color"), c_white, 0.5);

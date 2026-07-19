@@ -1,5 +1,3 @@
-name = "looping choicer";
-
 target_memory_category = "choicer_test_01";
 choice_pool = [
     "Option 1",

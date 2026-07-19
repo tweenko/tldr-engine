@@ -7,6 +7,7 @@ for (var i = 0; i < party_length(); ++i) {
     obj.image_index = 0
 }
 
+enc_setup();
 var inst = instance_create(o_enc,,,,{
 	encounter_data: encounter_data, 
 	save_pos,

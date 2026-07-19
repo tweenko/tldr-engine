@@ -244,7 +244,7 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
     var list = battle_menu_inv_list
     var selected_item_index = variable_instance_get(self, battle_menu_inv_var_name)[party_selection]
     var page_index = variable_instance_get(self, battle_menu_inv_page_var_name)[party_selection]
-    var page_count = array_length(list) div 6;
+    var page_count = (array_length(list)-1) div 6;
     selected_item_index = clamp(selected_item_index, 0, array_length(list)-1)
     
     for (var i = page_index*6; i < min(page_index*6 + 6, array_length(list)); i ++) {
@@ -320,10 +320,10 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
         draw_set_color(c_white)
     }
     
+    if page_count > 0 && page_index < page_count
+        draw_sprite_ext(spr_ui_arrow_down, 0, 470, 446 + round(sine(12, -3)), 1, 1, 0, c_white, 1)
     if page_count > 0 && page_index > 0
-        draw_sprite_ext(spr_ui_arrow_down, 0, 470, 446 + round(sine(12,3)), 1, 1, 0, c_white, 1)
-    if page_count > 0 && page_index < page_count - 1
-        draw_sprite_ext(spr_ui_arrow_up, 0, 470, 382 + round(sine(12,3)), 1, 1, 0, c_white, 1)
+        draw_sprite_ext(spr_ui_arrow_up, 0, 470, 382 + round(sine(12, 3)), 1, 1, 0, c_white, 1)
 }
 else if battle_menu == BATTLE_MENU.PARTY_SELECTION {
     for (var i = 0; i < party_length(); ++i) {

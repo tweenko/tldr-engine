@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"console",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"console",
+  "parent":{
+    "name":"external",
+    "path":"folders/@Engine/scripts/systems/general/external.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

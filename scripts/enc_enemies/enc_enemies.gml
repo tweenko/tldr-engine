@@ -15,6 +15,7 @@ function enemy() constructor {
 	mercy =	0
     mercy_add_pity_percent = 20
     can_spare = true
+	no_mercy_text = "* But you couldn't spare it, for some reason."
     
 	tired =	false
     low_hp_tired = true // whether the enemy should turn tired when hp is low
@@ -33,7 +34,7 @@ function enemy() constructor {
             perform_act_anim: true, // optional, true by default
             return_to_idle_sprites: true, // optional, true by default
             
-			exec: function(enemy_slot, user_index){
+			exec: function(enemy_slot, user_index) {
 				encounter_scene_dialogue("* Empty CHECK text.")
 			},
             exec_args: []

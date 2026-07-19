@@ -72,21 +72,45 @@ if moving && !is_in_battle && !is_enemy && s_dynamic && !s_override && !get_lead
 else if !is_in_battle && !is_enemy && !get_leader().pf_enabled {
 	startedmoving = false
 	
-	if floor(image_index) % 2 == 0 && !s_override && s_dynamic {
-		image_speed = 0;
-		image_index = 0
-	}
+	if floor(image_index) % 2 == 0 && !s_override && s_dynamic && s_current_animation != ACTOR_ANIMATIONS.IDLE
+		s_current_animation = ACTOR_ANIMATIONS.IDLE;
 }
 
 // running sprites, walking sprites
 if !is_in_battle && !is_enemy && s_dynamic && !s_override && !get_leader().pf_enabled {
-	if running && moving {
-		image_speed = s_run_ispd;
-		sprite_index = asset_get_index(sprite_get_name(s_move[dir]) + s_run_postfix)
-	}
-	else {
-		image_speed = s_walk_ispd;
-		sprite_index = s_move[dir]
+	if running && moving 
+        s_current_animation = ACTOR_ANIMATIONS.RUN;
+    else if moving
+        s_current_animation = ACTOR_ANIMATIONS.WALK;
+    
+    switch s_current_animation {
+        default: // idle
+            var possible_idle = s_idle[dir];
+            
+            if sprite_exists(possible_idle) { // switch to an idle sprite
+                sprite_index = possible_idle;
+                image_speed = s_idle_ispd;
+                
+                if s_previous_animation != s_current_animation 
+                    image_index = 0;
+            }
+            else { // using only the walk sprites
+                sprite_index = s_move[dir];
+                image_speed = 0;
+                image_index = 0;
+            }
+            
+            break;
+        case ACTOR_ANIMATIONS.WALK:
+            sprite_index = s_move[dir];
+            image_speed = s_walk_ispd;
+            
+            break;
+        case ACTOR_ANIMATIONS.RUN:
+            sprite_index = asset_get_index_state(sprite_get_name(s_move[dir]), s_run_postfix);
+            image_speed = s_run_ispd;
+            
+            break;
     }
 }
 

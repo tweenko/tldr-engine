@@ -19,15 +19,15 @@ if !surface_exists(surf_feathers)
 
 surface_set_target(surf_light);
     draw_clear_alpha(0, 0);
-    draw_cone(x*2, y*2 - 360, x*2, y * 2, beam_w,,, .85);
-    draw_ellipse(x*2 - beam_w, y*2 - beam_h, x*2 + beam_w, y*2 + beam_h, false);
+    draw_cone(x*2 - guipos_x()*2, y*2 - 360 - guipos_y()*2, x*2 - guipos_x()*2, y * 2 - guipos_y()*2, beam_w,,, .85);
+    draw_ellipse(x*2 - beam_w - guipos_x()*2, y*2 - beam_h - guipos_y()*2, x*2 + beam_w - guipos_x()*2, y*2 + beam_h - guipos_y()*2, false);
 surface_reset_target();
 
 surface_set_target(surf_feathers);
     draw_clear_alpha(0, 0);
     
     with o_eff_revivesong_feather
-        draw_sprite_ext(sprite_index, image_index, x*2 - guipos_x(), y*2 - guipos_y(), image_xscale*2, image_yscale*2, image_angle, image_blend, image_alpha);
+        draw_sprite_ext(sprite_index, image_index, x*2 - guipos_x()*2, y*2 - guipos_y()*2, image_xscale*2, image_yscale*2, image_angle, image_blend, image_alpha);
     
     gpu_set_colourwriteenable(true, true, true, false);
     draw_surface_ext(surf_light, 0, 0, 1, 1, 0, #FFB56C, image_alpha * .5); // make feathers react to lighting

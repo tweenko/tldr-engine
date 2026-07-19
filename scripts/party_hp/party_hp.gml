@@ -83,7 +83,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 				screen_shake(5)
 				
 				if instance_exists(get_leader().dodge_mysoul) 
-					get_leader().dodge_mysoul.i_frames = ENC_SETUP_SOUL_INV;
+					get_leader().dodge_mysoul.i_frames = global.ow_dodge_inv;
                 else if climb_check()
                     o_dev_climb_controller.leader_inv = o_dev_climb_controller.leader_inv_max;
 				

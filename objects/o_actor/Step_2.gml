@@ -7,6 +7,7 @@ if is_real(depth_override)
 
 // record the sliding states
 prevsliding = sliding;
+s_previous_animation = s_current_animation;
 
 // get the last dirs up/down and left/right
 var dirM = cap_wraparound(360 - point_direction(xprevious, yprevious, x, y) + 90, 360);

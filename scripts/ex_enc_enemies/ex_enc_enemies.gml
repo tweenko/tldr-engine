@@ -138,6 +138,7 @@ function ex_enemy_spawnling() : enemy() constructor{
     
     can_spare = false
     mercy_add_pity_percent = 0
+	no_mercy_text = "* But, it was not something that can understand MERCY."
     
     // sprites
     s_idle = spr_ex_e_spawnling
@@ -174,6 +175,7 @@ function ex_enemy_dentos() : enemy() constructor{
     
     can_spare = false
     mercy_add_pity_percent = 0
+	no_mercy_text = "* But, it was not something that can understand MERCY."
 	
     // sprites
     s_idle = spr_ex_e_dentos

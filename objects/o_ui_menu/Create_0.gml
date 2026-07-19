@@ -116,7 +116,7 @@ if !global.can_use_borders {
     })
 }
 else {
-    array_insert(c_config, 5, {
+    array_insert(c_config, 4, {
         name: loc("menu_config_border"),
         display: function() {
             return loc($"menu_config_border_mode_{global.border_mode}")

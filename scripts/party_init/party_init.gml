@@ -16,9 +16,9 @@ function party_m_initialize(_name, _constructor) {
 /// @desc applies the equipment to party members (only for raw saves)
 function party_apply_equipment() {
     for (var i = 0; i < party_length(true); i ++) {
-        item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i])
-        item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i])
-        item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i])
+        item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i]);
+        item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i]);
+        item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i]);
     }
 }
 function party_m_calculate_hp(base_hp, level) {
@@ -31,6 +31,8 @@ function party_m_calculate_hp(base_hp, level) {
 }
     
 function party_m(_initialized_name) constructor {
+    __constructable = false; // make sure the save system doesn't take them as constructables
+    
 	name = "???"
     initialized_name = _initialized_name
     action_letter = "?"
@@ -287,7 +289,7 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 	
 	// sprites
     s_name = "ralsei"
-	s_state =		"" // sad, sad_subtle, hat
+	s_state =		"" // sad, sad_subtle, hat, serious
 	s_substate =	""
 	s_icon =		spr_ui_ralsei_icon
 	s_icon_ow =		spr_ui_ralsei_head

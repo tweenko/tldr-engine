@@ -2,9 +2,10 @@
 incomplete_ch = global.chapter
 if save_get("completed")
 	complete_ch = global.chapter
-else
+else {
 	incomplete_ch = global.chapter
 	complete_ch = 0
+}
 
 txt = loc_string("chapter_select_start_1", incomplete_ch)
 tselec = incomplete_ch
