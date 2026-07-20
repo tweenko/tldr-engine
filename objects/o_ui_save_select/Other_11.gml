@@ -1,5 +1,5 @@
 /// @description theme set
-var theme = ""
+var theme = is_struct(o_world.chapters[global.chapter-1]) ? o_world.chapters[global.chapter-1].save_theme_default : "finished";
 //theme = "ominous"
 //theme = "finished"
 
@@ -15,7 +15,8 @@ for(var i = 0; i < array_length(slots); i++)
     }
 }
 if completed
-    theme = "finished"
+    theme = is_struct(o_world.chapters[global.chapter-1]) ? o_world.chapters[global.chapter-1].save_theme_completed : "finished";
+
 loc_id_messages = "save_select_messages_normal"
 
 if theme == "ominous" {
@@ -121,14 +122,18 @@ else if theme == "finished" {
 		shadow = c_black
 		yellow = #ffff66
 		outline_thickness = 4
-		bg = spr_ui_saveselect_fountain
+		bg = spr_ui_saveselect_fountain;
 		image_alpha = 0
 	}
 	
-	target_music = mus_story
+	if global.chapter >= 4 
+		{target_music = mus_quiet_church};
+	else 
+		{target_music = mus_story};
+	target_music_pitch = 0.95;
 }
 else {
-	target_music = mus_menu
+	target_music = mus_menu;
 }
 	
 fader_fade(1, 0, 15)

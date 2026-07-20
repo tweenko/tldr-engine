@@ -1,17 +1,17 @@
-global.last_room = -1;
-
-/// @desc a constructor for adding chapter options to the chapter select menu
-/// @arg {string} _name the name of the chapter. will be localized, if applicable
-/// @arg {Asset.GMSprite} _icon the chapter's icon
-/// @arg {Asset.GMSound} _sound the sound that's going to play on chapter selection
-/// @arg {real} _target_chapter the chapter number you'll load into
-/// @arg {Asset.GMRoom} _default_room the room the chapter will start in in a fresh save
-/// @arg {Asset.GMObject} _intro_seq_first_run the intro sequence that's going to play if you have no saves on that chapter
-/// @arg {Asset.GMObject} _intro_seq_midgame  the intro sequence that's going to play if you have no completed saves on that chapter
-/// @arg {Asset.GMObject} _intro_seq_default the intro sequence that's going to play if you have at least one completed chapter, or if the previous intro sequences have not been defined. o_intro_legend by default
-/// @arg {function} _set_defaults_method the method for setting the defaults. empty function by default
-///@arg {Asset.GMSprite} _icon_completed the chapter's icon upon completion. same as _icon by default
-function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _intro_seq_firstrun=-1, _intro_seq_midgame=-1, _intro_seq_default = o_intro_legend, _set_defaults_method = function() {}, _icon_completed=_icon) constructor {
+/// @desc This is a constructor used to add chapter options to the chapter select menu (in o_world.chapters).
+/// @arg {string} _name The chapter's name or localization code, if applicable.
+/// @arg {Asset.GMSprite} _icon The chapter's default icon.
+/// @arg {Asset.GMSound} _sound The sound that's going to play upon chapter selection.
+/// @arg {real} _target_chapter The chapter number you'll load into.
+/// @arg {Asset.GMRoom} _default_room The room the chapter will start in on a fresh save.
+/// @arg {Asset.GMObject} _intro_seq_first_run The intro sequence object that's going to play if you have no saves on that chapter. (-1 (none) by default)
+/// @arg {Asset.GMObject} _intro_seq_midgame  The intro sequence object that's going to play if you have no completed saves on that chapter. (-1 (none) by default)
+/// @arg {Asset.GMObject} _intro_seq_default The intro sequence object that's going to play if you have any completed saves on that chapter, or if the previous intro sequences have not been defined. (o_intro_legend by default)
+/// @arg {string} _save_theme_default The theme to use for room_save_select while the chapter isn't completed. (Great Door by default)
+/// @arg {string} _save_theme_completed The theme to use for room_save_select if the chapter is completed. (Fountain by default)
+/// @arg {function} _set_defaults_method The method for setting the defaults. (Empty function by default)
+///@arg {Asset.GMSprite} _icon_completed The chapter's icon if it's been completed. (same as _icon by default)
+function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _intro_seq_firstrun=-1, _intro_seq_midgame=-1, _intro_seq_default = o_intro_legend, _save_theme_default="", _save_theme_completed="finished", _set_defaults_method = function() {}, _icon_completed=_icon) constructor {
     name = _name;
     icon = _icon;
 	icon_completed = _icon_completed;
@@ -23,6 +23,9 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _i
 	intro_seq_default = _intro_seq_default;
 	intro_seq_first_run = _intro_seq_firstrun;
 	intro_seq_midgame = _intro_seq_midgame;
+	
+	save_theme_default = _save_theme_default;
+	save_theme_completed = _save_theme_completed;
 	
     exec = method(self, function(caller) {
         cutscene_create();

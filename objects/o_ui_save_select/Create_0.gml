@@ -37,6 +37,7 @@ allow_savename = true
 }
 
 target_music = mus_story
+target_music_pitch = 1;
 event_user(1)
 
 files = []

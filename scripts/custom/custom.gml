@@ -637,7 +637,6 @@ function move_and_collide_simple(dx, dy, inst) {
 	return colid;
 }
 
-
 // ----------- INPUT STUFF --------------------
 /// @desc converts binds to keys
 function input_binding_to_string(bind, upper = true, _is_gamepad = InputDeviceIsGamepad(InputPlayerGetDevice())){
