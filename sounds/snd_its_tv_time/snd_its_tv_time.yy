@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"snd_its_tv_time",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":1,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":5.532018,
+  "exportDir":"",
+  "name":"snd_its_tv_time",
+  "parent":{
+    "name":"sounds",
+    "path":"folders/@Engine/sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_its_tv_time.wav",
+  "volume":1.0,
+}
