@@ -9,14 +9,14 @@ while room_exists(rm) {
     index ++
 }
 
-select = function(_item) {
+_select = function(_item) {
     instance_destroy()
     music_stop_all()
     audio_play(snd_ui_select)
     
     room_goto(_item)
 }
-item_name = function(_item, _category, _item_index) {
+_item_name = function(_item) {
     return room_get_name(_item)
 }
 
@@ -50,4 +50,5 @@ item_categories = [
         ]
     }
 ]
-sort_items()
+
+_sort_items();

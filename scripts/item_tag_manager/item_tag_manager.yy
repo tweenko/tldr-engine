@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"item_tag_manager",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"item_tag_manager",
+  "parent":{
+    "name":"inventory",
+    "path":"folders/@Engine/scripts/inventory.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

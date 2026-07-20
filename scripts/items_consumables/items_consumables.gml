@@ -1,4 +1,8 @@
-function item_lightcandy() : item() constructor {
+function item_consumable() : item() constructor {
+	type = ITEM_TYPE.CONSUMABLE;
+}
+
+function item_lightcandy() : item_consumable() constructor {
 	name = ["LightCandy"]
 	desc = ["White candy with a chalky texture.\nIt'll recover 120HP.", "Heals 120HP"]
 	
@@ -16,7 +20,9 @@ function item_lightcandy() : item() constructor {
     
     item_localize("item_c_lightcandy")
 }
-function item_darker_candy() : item() constructor {
+item_register(item_lightcandy);
+
+function item_darker_candy() : item_consumable() constructor {
 	name = ["Darker Candy"]
 	desc = ["A candy that has grown sweeter with time.\nSaid to taste like toasted marshmallow. +120HP", "Heals 120HP"]
 	
@@ -40,7 +46,9 @@ function item_darker_candy() : item() constructor {
     
     item_localize("item_c_darker_candy")
 }
-function item_top_cake() : item() constructor {
+item_register(item_darker_candy);
+
+function item_top_cake() : item_consumable() constructor {
 	name = ["Top Cake"]
 	desc = ["This cake will make your taste buds spin! Heals 160HP to the team", "Heals team 160HP"]
 	
@@ -60,8 +68,9 @@ function item_top_cake() : item() constructor {
     
     item_localize("item_c_top_cake")
 }
+item_register(item_top_cake);
 
-function item_revivemint() : item() constructor {
+function item_revivemint() : item_consumable() constructor {
 	name = ["ReviveMint"]
 	desc = ["Heals a fallen ally to MAX HP.\nA minty green crystal.", "Heals Downed Ally"]
 	
@@ -94,8 +103,9 @@ function item_revivemint() : item() constructor {
     
     item_localize("item_c_revivemint")
 }
+item_register(item_revivemint);
 
-function item_lw_shit() : item() constructor {
+function item_lw_shit() : item_consumable() constructor {
 	name = ["Actual Shit"]
 	desc = ["* Nobody knows what it actually does...", "HOW"]
 	
@@ -106,26 +116,29 @@ function item_lw_shit() : item() constructor {
 	}
 	throw_scripts = {
 		can: true,
-		execute_code: function(index, item_index){
+        item_type: type,
+		execute_code: method(self, function(index, item_index){
 			dialogue_start("* You dropped the shit. Now the room stinks. Thanks.")
-			item_delete(item_index, ITEM_TYPE.LIGHT)
-		}
+			item_delete(item_index, item_type);
+		})
 	}
     
     sell_price = 2
 }
+item_register(item_lw_shit);
 
-function item_lw_bandage() : item() constructor {
+function item_lw_bandage() : item_consumable() constructor {
     name = ["Bandage"]
     desc = ["", "--"]
     
-    use = function(item_index, target_index, caller) {
+    use = method(self, function(item_index, target_index, caller) {
         audio_play(snd_heal)
         save_set("LW_HP", clamp(save_get("LW_HP") + 10, 0, save_get("LW_MAXHP")))
 		dialogue_start(loc("item_c_lw_bandage_apply"))
         
-        item_delete(item_index, ITEM_TYPE.LIGHT)
-	}
+        item_delete(item_index, type);
+	})
     
     item_localize("item_c_lw_bandage")
 }
+item_register(item_lw_bandage);

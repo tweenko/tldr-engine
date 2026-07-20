@@ -256,7 +256,23 @@ function item_get_in_stock(item_struct) {
 function item_get_type(item_struct) {
     if is_undefined(item_struct)
         return undefined
-	return item_struct.type
+    
+    if is_struct(item_struct)
+        return item_struct.type;
+    else {
+        var tags = asset_get_tags(item_struct);
+        
+        if array_contains(tags, "@@parent=item_consumable")
+            return ITEM_TYPE.CONSUMABLE;
+        if array_contains(tags, "@@parent=item_weapon")
+            return ITEM_TYPE.WEAPON;
+        if array_contains(tags, "@@parent=item_armor")
+            return ITEM_TYPE.ARMOR;
+        if array_contains(tags, "@@parent=item_key")
+            return ITEM_TYPE.KEY;
+        if array_contains(tags, "@@parent=item_spell")
+            return ITEM_TYPE.SPELL; 
+    }
 }
 
 ///@desc returns whether the item can deal fatal damage to the enemies
@@ -579,6 +595,9 @@ function item_check_useable(item_struct) {
  * @param {string} _loc the loc_id of the item struct
  */
 function item_localize(_loc) {
+    if !variable_global_exists("loc_source")
+        exit;
+    
     var __data = loc(_loc)
     if !is_struct(__data) {
         show_debug_message($"attempted to localize an item with the loc id of {_loc}, but the localized string didn't return a struct. aborted localization")
