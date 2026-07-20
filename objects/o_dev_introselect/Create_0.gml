@@ -1,6 +1,6 @@
 event_inherited();
 
-select = function(_item) {
+_select = function(_item) {
     instance_destroy()
     music_stop_all()
     audio_play(snd_ui_select)
@@ -20,7 +20,7 @@ select = function(_item) {
 	cutscene_play();
 }
 
-item_name = function(_item, _category, _item_index) {
+_item_name = function(_item, _category, _item_index) {
     return object_get_name(_item);
 }
 
@@ -57,4 +57,4 @@ item_categories = [
 item_blocked = tag_get_asset_ids(["TLDR_Intro_NoPick"], asset_object);
 item_list = tag_get_asset_ids("TLDR_Intro", asset_object);
 
-sort_items();
+_sort_items();
