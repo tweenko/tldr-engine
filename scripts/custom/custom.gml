@@ -414,6 +414,27 @@ function array_delete_by_value(_array, _value) {
 function string_contains(substring, fullString) {
     return string_pos(substring, fullString) > 0;
 }
+/// @desc truncates a string, if it's bigger than the max_len it will be truncated down to it. will avoid cutting words if possible
+/// @param {string} str the original string
+/// @param {string} max_len the maximum allowed length
+function string_truncate_words(str, max_len) {
+    if string_length(str) <= max_len 
+        return str;
+    
+    var cut_str = string_copy(str, 1, max_len);
+    
+    var last_space = 0;
+    for (var i = string_length(cut_str); i > 0; i --) {
+        if array_contains(TYPER_CONSIDER_SPACES, string_char_at(cut_str, i)) {
+            last_space = i;
+            break;
+        }
+    }
+    
+    if last_space > 0
+        return string_copy(cut_str, 1, last_space - 1) + "...";
+    return cut_str + "..."; // if it doesn't have 
+}
 
 /// @desc snaps a number x to a multiple of n
 /// @arg {real} x the number to snap

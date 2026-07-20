@@ -184,6 +184,6 @@ typer_chars_init()
 new ex_typer_gerson().__initialize()
 // << initialize your typer chars here
 
-show_debug_message(tag_get_assets(TLDR_AssetTag_item_consumable));
+show_debug_message(tag_get_assets(AssetTag_item_consumable));
 
 room_goto_next()

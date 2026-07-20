@@ -73,7 +73,7 @@ function ex_item_a_bshotbowtie() : item_armor() constructor {
 }
 item_register(ex_item_a_bshotbowtie);
 
-function ex_item_tesniongem() : item_consumable() constructor {
+function ex_item_tensiongem() : item_consumable() constructor {
     name = "TensionGem"
     desc = [
         "Raises TP by 50% in battle.",
@@ -100,4 +100,4 @@ function ex_item_tesniongem() : item_consumable() constructor {
     
     item_localize("ex_item_tensiongem")
 }
-item_register(ex_item_tesniongem);
+item_register(ex_item_tensiongem);

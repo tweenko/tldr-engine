@@ -21,34 +21,20 @@ _item_name = function(_item) {
 }
 
 item_blocked = [room_init]
-item_categories = [
-    {
-        name: "test zone",
-        keybind: ord("T"),
-        color: c_purple,
-        items: [
-            room_test_main,
-            room_test_movement,
-            room_test_inventory,
-            room_test_cutscene,
-            room_test_shops,
-            room_test_loopback,
-            room_test_climbing
-        ]
-    },
-    {
-        name: "examples",
-        keybind: ord("E"),
-        color: c_aqua,
-        items: [
-            room_ex_dforest,
-            room_ex_city,
-            room_ex_church,
-            room_ex_light_world,
-            room_ex_multi_path,
-            room_ex_infinity_room,
-        ]
+item_categories = []
+
+var unique_tags = [];
+
+for (var i = 0; i < array_length(item_list); i ++) {
+    var tags = asset_get_tags(item_list[i], asset_room);
+    for (var j = 0; j < array_length(tags); j ++) {
+        if !array_contains(unique_tags, tags[j])
+            array_push(unique_tags, tags[j]);
     }
-]
+}
+
+for (var i = 0; i < array_length(unique_tags); i ++) {
+    array_push(item_categories, new _item_category(unique_tags[i], tag_get_asset_ids(unique_tags[i], asset_room)));
+}
 
 _sort_items();

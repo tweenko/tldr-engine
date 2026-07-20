@@ -1,3 +1,5 @@
+#macro AssetTag_command "TLDR_command"
+
 function console_command() constructor {
     hotkey = undefined; // can be an array
     name = "";
@@ -16,6 +18,9 @@ function console_command() constructor {
         }
         return ret;
     })
+}
+function console_command_register(_command_script) {
+    asset_add_tags(_command_script, AssetTag_command);
 }
 
 // default commands
@@ -38,6 +43,8 @@ function console_command_help() : console_command() constructor {
         });
     };
 }
+console_command_register(console_command_help);
+
 function console_command_room_select() : console_command() constructor {
     hotkey = ord("R");
     name = "Open Room Select";
@@ -46,6 +53,8 @@ function console_command_room_select() : console_command() constructor {
         instance_create(o_dev_roomselect)
     };
 }
+console_command_register(console_command_room_select);
+
 function console_command_party_select() : console_command() constructor {
     hotkey = ord("P");
     name = "Open Party Select";
@@ -54,6 +63,8 @@ function console_command_party_select() : console_command() constructor {
         instance_create(o_dev_partyselect)
     };
 }
+console_command_register(console_command_party_select);
+
 function console_command_enc_select() : console_command() constructor {
     hotkey = ord("E");
     name = "Open Encounter Select";
@@ -62,6 +73,18 @@ function console_command_enc_select() : console_command() constructor {
         instance_create(o_dev_encselect)
     };
 }
+console_command_register(console_command_enc_select);
+
+function console_command_item_select() : console_command() constructor {
+    hotkey = ord("I");
+    name = "Open Item Select";
+    desc = "Lets you manage inventory items.";
+    execute = function() {
+        instance_create(o_dev_itemselect);
+    };
+}
+console_command_register(console_command_item_select);
+
 function console_command_enc_end() : console_command() constructor {
     hotkey = ord("W");
     name = "End an Encounter";
@@ -105,6 +128,8 @@ function console_command_enc_end() : console_command() constructor {
             show_debug_message("CONSOLE: o_enc not found, no encounter ended")
     };
 }
+console_command_register(console_command_enc_end);
+
 function console_command_switch_lang() : console_command() constructor {
     hotkey = ord("L");
     name = "Switch Language";
@@ -113,6 +138,8 @@ function console_command_switch_lang() : console_command() constructor {
         loc_switch_lang()
     };
 }
+console_command_register(console_command_switch_lang);
+
 function console_command_save_wipe() : console_command() constructor {
     hotkey = ord("D");
     name = "Wipe Save Files";
@@ -121,6 +148,8 @@ function console_command_save_wipe() : console_command() constructor {
         instance_create(o_dev_savewipe_prompt)
     };
 }
+console_command_register(console_command_save_wipe);
+
 function console_command_max_tp() : console_command() constructor {
     hotkey = ord("T");
     name = "Max out TP";
@@ -135,6 +164,8 @@ function console_command_max_tp() : console_command() constructor {
             show_debug_message("CONSOLE: o_enc not found, TP not maxed out")
     };
 }
+console_command_register(console_command_max_tp);
+
 function console_command_mute_bgm() : console_command() constructor {
     hotkey = ord("M");
     name = "Toggle Mute BGM";
@@ -144,3 +175,4 @@ function console_command_mute_bgm() : console_command() constructor {
         audio_emitter_gain(o_world.emitter_bgm, o_world.volume_bgm); 
     };
 }
+console_command_register(console_command_mute_bgm);

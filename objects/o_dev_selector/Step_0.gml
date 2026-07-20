@@ -64,7 +64,7 @@ else {
     arrow_y = 0;
     scroll = lerp(scroll, 0, .3);
     
-    if InputPressed(INPUT_VERB.DOWN) {
+    if keyboard_check_pressed(vk_down) || keyboard_check_pressed(vk_enter) {
         search_mode = false;
         
         category = 0;
@@ -77,13 +77,22 @@ else {
         if category >= array_length(display_list) {
             search_mode = true;
         }
+        
+        if !search_mode && keyboard_check_pressed(vk_enter) {
+            if !array_contains(item_blocked, display_list[category].items[selection]) 
+                _select(display_list[category].items[selection])
+        	else 
+        		audio_play(snd_ui_cant_select)
+        }
     }
     
     if keyboard_check_pressed(vk_anykey) && !array_contains(blacklist_keys, keyboard_key) {
         if keyboard_string != "" {
             var possible_chr = string_char_at(keyboard_string, string_length(keyboard_string));
-            if ord(possible_chr) > ord("0") && ord(possible_chr) < ord("z")
+            if ord(possible_chr) > ord("0") && ord(possible_chr) < ord("z") {
                 search_input += possible_chr;
+                search_cursor_timer = 0;
+            }
             
             keyboard_string = "";
         }
@@ -91,6 +100,7 @@ else {
     }
     if keyboard_check_repeat(vk_backspace, 2) && string_length(search_input) > 0 {
         search_input = string_delete(search_input, string_length(search_input), 1);
+        search_cursor_timer = 0;
         _sort_items(_search_contains);
     }
     

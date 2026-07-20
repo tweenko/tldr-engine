@@ -25,7 +25,7 @@ _item_name = function(_item) {
 /// @arg {function} _filter_condition
 _sort_items = function(_filter_condition = undefined) {
     last_search_input = search_input;
-    display_list = [ {name: "uncategorized", keybind: ord("U"), items: [], color: c_white} ]
+    display_list = [ new _item_category("Uncategorized", [], c_white) ]
     
     var has_filter_condition = !is_undefined(_filter_condition);
     var __items_added = []
@@ -65,6 +65,23 @@ _search_contains = function(_item) {
     return string_contains(search_input, _item_name(_item));
 }
 
+/// @desc a constructor for item categories for console selectors
+/// @arg {string} _name
+/// @arg {array} _items
+/// @arg {constant.Color} _color
+_item_category = function(_name, _items, _color = undefined) constructor {
+    name = _name;
+    items = _items;
+    
+    _color ??= method(other, function() {
+        color_list_counter ++;
+        return color_list[color_list_counter % array_length(color_list)];
+    })();
+    color = _color;
+}
+
+color_list_counter = 0;
+color_list = [c_purple, c_aqua, c_blue, c_fuchsia, c_green, c_lime, c_maroon, c_navy, c_orange, c_teal, c_red, c_yellow];
 blacklist_keys = [
     vk_tab, vk_capslock, vk_shift, vk_control, vk_lcontrol, vk_alt, 
     vk_lalt, vk_lshift, vk_enter, vk_backspace, vk_numlock,
