@@ -1,18 +1,18 @@
 {
   "$GMSound":"v2",
-  "%Name":"snd_chs_ch2",
+  "%Name":"snd_queen_laugh_title",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "channelFormat":0,
+  "channelFormat":1,
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.3574376,
+  "duration":1.3986849,
   "exportDir":"",
-  "name":"snd_chs_ch2",
+  "name":"snd_queen_laugh_title",
   "parent":{
     "name":"sounds",
     "path":"folders/@Engine/sounds.yy",
@@ -21,6 +21,6 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_chs_ch2.wav",
+  "soundFile":"snd_queen_laugh_title.wav",
   "volume":1.0,
 }
