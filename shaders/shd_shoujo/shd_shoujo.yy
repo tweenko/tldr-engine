@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"shd_shoujo",
+  "name":"shd_shoujo",
+  "parent":{
+    "name":"intros",
+    "path":"folders/@Engine/shaders/intros.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}
