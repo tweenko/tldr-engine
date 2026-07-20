@@ -1,3 +1,5 @@
+event_inherited();
+
 __init = function() {
 	fader_fade(1, 0, 1);
 	music_play(snd_intro_noise, 0, false);

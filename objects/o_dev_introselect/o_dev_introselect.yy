@@ -1,21 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"o_intro_logo",
+  "%Name":"o_dev_introselect",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":5,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_intro_logo",
+  "name":"o_dev_introselect",
   "overriddenProperties":[],
   "parent":{
-    "name":"intros",
-    "path":"folders/@Engine/objects/intros.yy",
+    "name":"menus",
+    "path":"folders/@Engine/objects/dev/menus.yy",
   },
   "parentObjectId":{
-    "name":"o_intro",
-    "path":"objects/o_intro/o_intro.yy",
+    "name":"o_dev_selector",
+    "path":"objects/o_dev_selector/o_dev_selector.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -34,10 +32,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_intro_logo",
-    "path":"sprites/spr_intro_logo/spr_intro_logo.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

@@ -13,6 +13,7 @@ registred_commands = [
     new console_command_save_wipe(),
     new console_command_switch_lang(),
     new console_command_mute_bgm(),
+	new console_command_intro(),
 ];
 for (var i = 0; i < array_length(registred_commands); i ++) {
     if !is_array(registred_commands[i].hotkey)

@@ -1,3 +1,5 @@
+global.last_room = -1;
+
 /// @desc a constructor for adding chapter options to the chapter select menu
 /// @arg {string} _name the name of the chapter. will be localized, if applicable
 /// @arg {Asset.GMSprite} _icon the chapter's icon
@@ -59,8 +61,18 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _s
 			}
 				
 			room_instance_clear(room_intro);
-			room_instance_add(room_intro, 0, 0, _introseq);
 			room_goto(room_intro);
+			
+			cutscene_create(false);
+			cutscene_wait_until(function(){return room == room_intro});
+			cutscene_func(function(_i){
+				if !instance_exists(_i) {
+					with instance_create(_i) {
+						__intro_init();
+					}
+				}
+			}, _introseq);
+			cutscene_play();
         }))
 		
         cutscene_play();

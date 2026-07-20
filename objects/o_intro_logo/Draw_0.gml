@@ -96,7 +96,7 @@ if active {
 			}
 			
 			if aa < -0.5 && !skipped {
-				room_goto(room_save_select);
+				room_goto(target_room);
 			}
 		}
 			break;
@@ -115,7 +115,7 @@ if InputCheck(INPUT_VERB.SELECT) && !skipped {
 	cutscene_func(method(o_intro_logo, event_perform), [ev_room_end, 0]);
 	cutscene_sleep(2);
 	cutscene_func(__init);
-	cutscene_func(room_goto, room_save_select);
+	cutscene_func(room_goto, target_room);
 	
 	cutscene_play();
 }

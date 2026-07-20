@@ -144,3 +144,12 @@ function console_command_mute_bgm() : console_command() constructor {
         audio_emitter_gain(o_world.emitter_bgm, o_world.volume_bgm); 
     };
 }
+
+function console_command_intro() : console_command() constructor {
+	hotkey = ord("I");
+	name = "Open Intro Sequence";
+	desc = "Lets you check any intro sequence there is available.";
+	execute = function() {
+		instance_create(o_dev_introselect);
+	}
+}

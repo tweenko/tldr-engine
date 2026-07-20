@@ -1,24 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"o_intro_legend",
+  "%Name":"o_intro",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":12,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":5,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":10,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"o_intro_legend",
+  "name":"o_intro",
   "overriddenProperties":[],
   "parent":{
     "name":"intros",
     "path":"folders/@Engine/objects/intros.yy",
   },
-  "parentObjectId":{
-    "name":"o_intro",
-    "path":"objects/o_intro/o_intro.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -40,6 +35,7 @@
   "spriteMaskId":null,
   "tags":[
     "TLDR_Object_Intro",
+    "TLDR_Intro_NoPick",
   ],
   "visible":true,
 }
