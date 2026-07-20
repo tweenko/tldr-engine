@@ -1,8 +1,21 @@
 /// @description theme set
 var theme = ""
 //theme = "ominous"
-theme = "finished"
+//theme = "finished"
 
+var completed = false;
+var slots = save_read_all(global.chapter)
+for(var i = 0; i < array_length(slots); i++)
+{
+    slots[i] = save_convert(slots[i]);
+    if slots[i].COMPLETED == true
+    {
+        completed = true;
+        break;
+    }
+}
+if completed
+    theme = "finished"
 loc_id_messages = "save_select_messages_normal"
 
 if theme == "ominous" {
