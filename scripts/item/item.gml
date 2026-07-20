@@ -31,7 +31,7 @@ function item() constructor {
     deapply = function(party_name) {}
     
 	effect = undefined // (struct with the sprite key and text key)
-	icon = spr_ui_menu_icon_exclamation
+	icon = undefined;
     
     // party act specific
     perform_act_anim = true
@@ -256,7 +256,23 @@ function item_get_in_stock(item_struct) {
 function item_get_type(item_struct) {
     if is_undefined(item_struct)
         return undefined
-	return item_struct.type
+    
+    if is_struct(item_struct)
+        return item_struct.type;
+    else {
+        var tags = asset_get_tags(item_struct);
+        
+        if array_contains(tags, "@@parent=item_consumable")
+            return ITEM_TYPE.CONSUMABLE;
+        if array_contains(tags, "@@parent=item_weapon")
+            return ITEM_TYPE.WEAPON;
+        if array_contains(tags, "@@parent=item_armor")
+            return ITEM_TYPE.ARMOR;
+        if array_contains(tags, "@@parent=item_key")
+            return ITEM_TYPE.KEY;
+        if array_contains(tags, "@@parent=item_spell")
+            return ITEM_TYPE.SPELL; 
+    }
 }
 
 ///@desc returns whether the item can deal fatal damage to the enemies
@@ -579,6 +595,9 @@ function item_check_useable(item_struct) {
  * @param {string} _loc the loc_id of the item struct
  */
 function item_localize(_loc) {
+    if !variable_global_exists("loc_source")
+        exit;
+    
     var __data = loc(_loc)
     if !is_struct(__data) {
         show_debug_message($"attempted to localize an item with the loc id of {_loc}, but the localized string didn't return a struct. aborted localization")
@@ -596,5 +615,89 @@ function item_localize(_loc) {
         }
         else
             struct_set(self, __names[i], __value)
+    }
+}
+
+/// @desc draws a diff board for an item containing all party members on a certain x and y position. for WEAPONS/ARMORS
+/// @arg {struct.item} item
+/// @arg {real} x
+/// @arg {real} y
+function item_draw_diff_board(_item, _x, _y) {
+    var item_type = item_get_type(_item);
+    var __get_diff_color = function(diff) {
+        switch sign(diff) {
+            default:
+                return c_white
+            case 1:
+                return c_yellow
+            case -1:
+                return c_aqua
+        }
+    }
+    
+    if item_type != ITEM_TYPE.WEAPON && item_type != ITEM_TYPE.ARMOR
+        return false;
+    
+    draw_set_font(loc_font("enc"))
+    for (var i = 0; i < party_length(); i ++) {
+        var x_off = (i % 2) * 100
+        var y_off = (i div 2) * 45
+        
+        var greyed_out = false
+        if item_type == ITEM_TYPE.WEAPON && !array_contains(_item.weapon_whitelist, global.party_names[i])
+            greyed_out = true
+        else if item_type == ITEM_TYPE.ARMOR && array_contains(_item.armor_blacklist, global.party_names[i])
+            greyed_out = true
+        
+        draw_sprite_ext(party_get_icon(global.party_names[i]), 0, _x + x_off, _y + y_off, 1, 1, 0, (greyed_out ? c_gray : c_white), draw_get_alpha());
+        
+        if greyed_out 
+            continue
+        if item_type == ITEM_TYPE.WEAPON {
+            var og_attack = item_get_stat(party_getdata(global.party_names[i], "weapon"), "attack")
+            var attack_diff = item_get_stat(_item, "attack") - og_attack
+            var og_magic = item_get_stat(party_getdata(global.party_names[i], "weapon"), "magic")
+            var magic_diff = item_get_stat(_item, "magic") - og_magic
+            
+            draw_sprite_ext(spr_ui_shop_weapon, 0, _x+45 + x_off, _y-5 + y_off, 1, 1, 0, c_white, draw_get_alpha())
+            draw_sprite_ext(spr_ui_shop_magic, 0, _x+45 + x_off, _y+15 + y_off, 1, 1, 0, c_white, draw_get_alpha())
+            
+            draw_set_colour(__get_diff_color(attack_diff))
+            
+            if sign(attack_diff) == 1 
+                attack_diff = $"+{attack_diff}"
+            draw_text(_x+65 + x_off, _y-4 + y_off, attack_diff)
+            
+            draw_set_colour(__get_diff_color(magic_diff))
+            
+            if sign(magic_diff) == 1 
+                magic_diff = $"+{magic_diff}"
+            draw_text(_x+65 + x_off, _y+16 + y_off, magic_diff)
+            
+            draw_set_colour(c_white)
+        }
+        else if item_type == ITEM_TYPE.ARMOR {
+            var a1_og_defense = item_get_stat(party_getdata(global.party_names[i], "armor1"), "defense")
+            var a1_diff = item_get_stat(_item, "defense") - a1_og_defense
+            var a2_og_defense = item_get_stat(party_getdata(global.party_names[i], "armor2"), "defense")
+            var a2_diff = item_get_stat(_item, "defense") - a2_og_defense
+            
+            draw_sprite_ext(spr_ui_menu_armor1, 0, _x+45 + x_off, _y-5 + y_off, 1, 1, 0, c_white, draw_get_alpha())
+            draw_sprite_ext(spr_ui_menu_armor2, 0, _x+45 + x_off, _y+15 + y_off, 1, 1, 0, c_white, draw_get_alpha())
+            
+            draw_set_colour(__get_diff_color(a1_diff))
+            
+            if sign(a1_diff) == 1 
+                a1_diff = $"+{a1_diff}"
+            draw_text(_x+65 + x_off, _y-4 + y_off, a1_diff)
+            
+            draw_set_colour(__get_diff_color(a2_diff))
+            
+            if sign(a2_diff) == 1 
+                a2_diff = $"+{a2_diff}"
+            draw_text(_x+65 + x_off, _y+16 + y_off, a2_diff)
+            
+            draw_set_colour(c_white)
+        }
     }
 }

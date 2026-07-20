@@ -3,19 +3,9 @@ console_caller = function() {
 	return keyboard_check_pressed(vk_tab)
 }
 
-registred_commands = [
-    new console_command_enc_end(),
-    new console_command_enc_select(),
-    new console_command_help(),
-    new console_command_max_tp(),
-    new console_command_party_select(),
-    new console_command_room_select(),
-    new console_command_save_wipe(),
-    new console_command_switch_lang(),
-    new console_command_mute_bgm(),
-	new console_command_intro(),
-];
+registred_commands = tag_get_asset_ids(AssetTag_command, asset_script);
 for (var i = 0; i < array_length(registred_commands); i ++) {
+    registred_commands[i] = new registred_commands[i]();
     if !is_array(registred_commands[i].hotkey)
         registred_commands[i].hotkey = [registred_commands[i].hotkey];
 }
