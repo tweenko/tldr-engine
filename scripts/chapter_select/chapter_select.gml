@@ -6,9 +6,12 @@ global.last_room = -1;
 /// @arg {Asset.GMSound} _sound the sound that's going to play on chapter selection
 /// @arg {real} _target_chapter the chapter number you'll load into
 /// @arg {Asset.GMRoom} _default_room the room the chapter will start in in a fresh save
-/// @arg {function} _set_defaults_method the method for setting the defaults
-///@arg {Asset.GMSprite} _icon_completed the chapter's icon upon completion
-function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _set_defaults_method = function() {}, _icon_completed=_icon) constructor {
+/// @arg {Asset.GMObject} _intro_seq_first_run the intro sequence that's going to play if you have no saves on that chapter
+/// @arg {Asset.GMObject} _intro_seq_midgame  the intro sequence that's going to play if you have no completed saves on that chapter
+/// @arg {Asset.GMObject} _intro_seq_default the intro sequence that's going to play if you have at least one completed chapter, or if the previous intro sequences have not been defined. o_intro_legend by default
+/// @arg {function} _set_defaults_method the method for setting the defaults. empty function by default
+///@arg {Asset.GMSprite} _icon_completed the chapter's icon upon completion. same as _icon by default
+function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _intro_seq_firstrun=-1, _intro_seq_midgame=-1, _intro_seq_default = o_intro_legend, _set_defaults_method = function() {}, _icon_completed=_icon) constructor {
     name = _name;
     icon = _icon;
 	icon_completed = _icon_completed;
@@ -17,9 +20,9 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _s
     target_room = _default_room;
     set_defaults = _set_defaults_method;
     
-	intro_seq_default = o_intro_legend;
-	intro_seq_first_run = o_ex_intro_tldr;
-	intro_seq_midgame = -1;
+	intro_seq_default = _intro_seq_default;
+	intro_seq_first_run = _intro_seq_firstrun;
+	intro_seq_midgame = _intro_seq_midgame;
 	
     exec = method(self, function(caller) {
         cutscene_create();

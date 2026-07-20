@@ -1,4 +1,3 @@
-members = []
 name = "complete chapter"
 
 execute_code = function() {
