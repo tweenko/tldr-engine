@@ -24,7 +24,37 @@ item_name = function(_item, _category, _item_index) {
     return object_get_name(_item);
 }
 
-item_blocked = tag_get_asset_ids(["TLDR_Intro_NoPick", "TLDR_Intro_Unfinished"], asset_object);
+item_categories = [
+	{
+		name : "Examples",
+		keybind : ord("E"),
+		color: c_aqua,
+		items: tag_get_asset_ids("TLDR_Intro_Example", asset_object)
+	},
+	
+	{
+		name : "DELTARUNE",
+		keybind : ord("D"),
+		color: c_white,
+		items: tag_get_asset_ids("TLDR_Intro_DR", asset_object)
+	},
+	
+	{
+        name: "Unfinished",
+        keybind: ord("U"),
+        color: c_purple,
+        items: tag_get_asset_ids("TLDR_Intro_NotDone", asset_object)
+    },
+	
+	{
+		name : "Unavailable",
+		keybind: -1,
+		color: c_dkgray,
+		items: tag_get_asset_ids("TLDR_Intro_NoPick", asset_object)
+	},
+]
+
+item_blocked = tag_get_asset_ids(["TLDR_Intro_NoPick"], asset_object);
 item_list = tag_get_asset_ids("TLDR_Intro", asset_object);
 
 sort_items();

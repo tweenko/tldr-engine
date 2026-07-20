@@ -41,6 +41,7 @@
   "spriteMaskId":null,
   "tags":[
     "TLDR_Intro",
+    "TLDR_Intro_Example",
   ],
   "visible":true,
 }
