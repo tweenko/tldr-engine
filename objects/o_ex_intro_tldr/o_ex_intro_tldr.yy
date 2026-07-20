@@ -40,7 +40,7 @@
   },
   "spriteMaskId":null,
   "tags":[
-    "TLDR_Object_Intro",
+    "TLDR_Intro",
   ],
   "visible":true,
 }

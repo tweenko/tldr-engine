@@ -25,6 +25,6 @@ item_name = function(_item, _category, _item_index) {
 }
 
 item_blocked = tag_get_asset_ids("TLDR_Intro_NoPick", asset_object);
-item_list = tag_get_asset_ids("TLDR_Object_Intro", asset_object);
+item_list = tag_get_asset_ids("TLDR_Intro", asset_object);
 
 sort_items();

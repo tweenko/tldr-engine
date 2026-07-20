@@ -101,22 +101,21 @@ if active {
 		}
 			break;
 	}
+	
+	if InputCheck(INPUT_VERB.SELECT) && !skipped {
+		skipped = true;
+		
+		fader_fade(0, 1, 25);
+		music_fade(0, 0, 40);
+		
+		cutscene_create();
+		
+		cutscene_sleep(28);
+		cutscene_func(method(o_intro_logo, event_perform), [ev_room_end, 0]);
+		cutscene_sleep(2);
+		cutscene_func(__init);
+		cutscene_func(room_goto, target_room);
+		
+		cutscene_play();
+	}
 }
-
-if InputCheck(INPUT_VERB.SELECT) && !skipped {
-	skipped = true;
-	
-	fader_fade(0, 1, 25);
-	music_fade(0, 0, 40);
-	
-	cutscene_create();
-	
-	cutscene_sleep(28);
-	cutscene_func(method(o_intro_logo, event_perform), [ev_room_end, 0]);
-	cutscene_sleep(2);
-	cutscene_func(__init);
-	cutscene_func(room_goto, target_room);
-	
-	cutscene_play();
-}
-
