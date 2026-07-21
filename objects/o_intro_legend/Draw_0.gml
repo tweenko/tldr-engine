@@ -37,9 +37,6 @@ if active {
 		gpu_set_blendmode(bm_add);
 		draw_surface(propSurf, picX, picY);
 		draw_surface(propSurf, picX, picY);
-		//draw_set_alpha(fadeWhiteAlpha/3);
-		//draw_rectangle(0, 0, GAME_W, GAME_H, false);
-		//draw_set_alpha(1);
 		gpu_set_blendmode(bm_normal);
 	}
 	
