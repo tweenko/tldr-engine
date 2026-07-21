@@ -1,7 +1,11 @@
 {
   "$GMObject":"",
   "%Name":"o_intro_ch4_firstrun",
-  "eventList":[],
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":10,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":12,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
   "name":"o_intro_ch4_firstrun",
   "overriddenProperties":[],
@@ -34,7 +38,7 @@
   "spriteMaskId":null,
   "tags":[
     "TLDR_Intro",
-    "TLDR_Intro_NotDone",
+    "TLDR_Intro_DR",
   ],
   "visible":true,
 }
