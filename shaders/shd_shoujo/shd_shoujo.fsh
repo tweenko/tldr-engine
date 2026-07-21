@@ -1,3 +1,5 @@
+// Shader originally made by Sara Spalding
+
 //Sara's Magical Girl Shader :3
 varying vec2 v_vTexcoord;
 varying vec4 v_vColour;

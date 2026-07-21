@@ -38,7 +38,7 @@
   "spriteMaskId":null,
   "tags":[
     "TLDR_Intro",
-    "TLDR_Intro_NotDone",
+    "TLDR_Intro_DR",
   ],
   "visible":true,
 }
