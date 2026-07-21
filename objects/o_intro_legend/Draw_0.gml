@@ -19,26 +19,31 @@ if active {
 		
 		surface_set_target(propSurf);
 	
-		draw_sprite_looped_xy(propOffset, -propOffset, 1, spr_depth_legend, 0, -picX, -picY, 1, 1, 0, propBlue);
-		draw_set_alpha(0.2);
-		draw_rectangle(0,0,picW,picH, false);
-		
-		gpu_set_blendmode(bm_subtract);
-		
-		draw_set_alpha(1 - picAlpha*(1-propAlpha));
-		draw_sprite_part(pic, 1, -picXOff, -picYOff, picW, picH, 0, 0);
-		draw_set_alpha(1);
-		
-		gpu_set_blendmode(bm_normal);
+			draw_sprite_looped_xy(propOffset, -propOffset, 1, spr_depth_loop, 0, -picX, -picY, 1, 1, 0, propBlue, 1);
+			draw_set_alpha(0.2/3);
+			draw_rectangle(0,0,picW,picH, false);
+			
+			gpu_set_blendmode(bm_subtract);
+			
+			draw_set_alpha(1 - picAlpha*(1-propAlpha));
+			draw_sprite_part(pic, 1, -picXOff, -picYOff, picW, picH, 0, 0);
+			draw_set_alpha(1);
+			
+			gpu_set_blendmode(bm_normal);
 		
 		surface_reset_target();
-	
+		
 		draw_surface(propSurf, picX, picY);
+		gpu_set_blendmode(bm_add);
+		draw_surface(propSurf, picX, picY);
+		draw_surface(propSurf, picX, picY);
+		//draw_set_alpha(fadeWhiteAlpha/3);
+		//draw_rectangle(0, 0, GAME_W, GAME_H, false);
+		//draw_set_alpha(1);
+		gpu_set_blendmode(bm_normal);
 	}
 	
-	draw_set_alpha(fadeWhiteAlpha);
-	draw_rectangle(0, 0, GAME_W, GAME_H, false);
-	draw_set_alpha(1);
+	
 	
 	
 	if !skipped && InputCheck(INPUT_VERB.SELECT) {
