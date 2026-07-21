@@ -15,7 +15,7 @@
   "name":"snd_intro_noise",
   "parent":{
     "name":"sounds",
-    "path":"folders/@Engine/sounds.yy",
+    "path":"folders/zzz Intro Sequences/sounds.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

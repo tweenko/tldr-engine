@@ -3,8 +3,8 @@
   "%Name":"shd_shoujo",
   "name":"shd_shoujo",
   "parent":{
-    "name":"intros",
-    "path":"folders/@Engine/shaders/intros.yy",
+    "name":"shaders",
+    "path":"folders/zzz Intro Sequences/shaders.yy",
   },
   "resourceType":"GMShader",
   "resourceVersion":"2.0",

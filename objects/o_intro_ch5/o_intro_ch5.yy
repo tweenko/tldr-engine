@@ -9,8 +9,8 @@
   "name":"o_intro_ch5",
   "overriddenProperties":[],
   "parent":{
-    "name":"intros",
-    "path":"folders/@Engine/objects/intros.yy",
+    "name":"objects",
+    "path":"folders/zzz Intro Sequences/objects.yy",
   },
   "parentObjectId":{
     "name":"o_intro",
@@ -37,7 +37,6 @@
   "spriteMaskId":null,
   "tags":[
     "TLDR_Intro",
-    "TLDR_Intro_NotDone",
   ],
   "visible":true,
 }

@@ -15,7 +15,7 @@
   "name":"mus_intro_ch5",
   "parent":{
     "name":"music",
-    "path":"folders/@Engine/music.yy",
+    "path":"folders/zzz Intro Sequences/music.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

@@ -10,8 +10,8 @@
   "name":"o_intro",
   "overriddenProperties":[],
   "parent":{
-    "name":"intros",
-    "path":"folders/@Engine/objects/intros.yy",
+    "name":"objects",
+    "path":"folders/@Engine/objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

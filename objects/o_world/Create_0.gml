@@ -144,7 +144,7 @@ chapters = [
 	new chapter_option("chapter_2", spr_ui_chs_ch2, snd_chs_ch2, 2, room_ex_city, o_intro_ch2_firstrun, o_intro_ch2_midgame),
 	new chapter_option("chapter_3", spr_ui_chs_ch3, snd_chs_ch3, 3, room_test_main,,o_intro_ch3_midgame,,,,,spr_ui_chs_ch3_completed),
 	new chapter_option("chapter_4", spr_ui_chs_ch4, snd_chs_ch4, 4, room_ex_church),
-	new chapter_option("chapter_5", spr_ui_chs_ch5, snd_chs_ch5, 5, room_test_main),
+	new chapter_option("chapter_5", spr_ui_chs_ch5, snd_chs_ch5, 5, room_test_main, o_intro_ch5, o_intro_ch5),
 	-1,
 	-1,
 ]

@@ -11,8 +11,8 @@
   "name":"o_intro_logo",
   "overriddenProperties":[],
   "parent":{
-    "name":"intros",
-    "path":"folders/@Engine/objects/intros.yy",
+    "name":"objects",
+    "path":"folders/zzz Intro Sequences/objects.yy",
   },
   "parentObjectId":{
     "name":"o_intro",

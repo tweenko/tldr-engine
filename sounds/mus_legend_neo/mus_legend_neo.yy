@@ -15,7 +15,7 @@
   "name":"mus_legend_neo",
   "parent":{
     "name":"music",
-    "path":"folders/@Engine/music.yy",
+    "path":"folders/zzz Intro Sequences/music.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

@@ -10,7 +10,7 @@
   "collisionTolerance":0,
   "DynamicTexturePage":false,
   "edgeFiltering":false,
-  "For3D":false,
+  "For3D":true,
   "frames":[
     {"$GMSpriteFrame":"v1","%Name":"1da3aa46-a384-4e59-a9db-c2ea43f30ba5","name":"1da3aa46-a384-4e59-a9db-c2ea43f30ba5","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"intros",
-    "path":"folders/@Engine/sprites/intros.yy",
+    "name":"sprites",
+    "path":"folders/zzz Intro Sequences/sprites.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

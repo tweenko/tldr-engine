@@ -15,7 +15,7 @@
   "name":"snd_its_tv_time",
   "parent":{
     "name":"sounds",
-    "path":"folders/@Engine/sounds.yy",
+    "path":"folders/zzz Intro Sequences/sounds.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

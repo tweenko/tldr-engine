@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"legend",
-    "path":"folders/@Engine/sprites/intros/legend.yy",
+    "path":"folders/zzz Intro Sequences/sprites/legend.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

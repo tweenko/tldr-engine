@@ -32,8 +32,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"intros",
-    "path":"folders/@Engine/sprites/intros.yy",
+    "name":"sprites",
+    "path":"folders/zzz Intro Sequences/sprites.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
