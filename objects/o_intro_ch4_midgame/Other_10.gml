@@ -19,7 +19,7 @@ __wave = function(_a0, _a1, _a2, _a3) {
 }
 
 cutscene_create();
-	cutscene_sleep(1);
+	cutscene_sleep(15);
 	cutscene_set_variable(id, "active", true);
 	cutscene_sleep(75);
 	cutscene_animate(id.scrollSpeed, 0, 52, anime_curve.linear, id, "scrollSpeed");

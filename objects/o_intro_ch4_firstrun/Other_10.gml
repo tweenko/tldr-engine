@@ -31,7 +31,7 @@ scrollSpeed = -2;
 // cutscene
 cutscene_create();
 
-cutscene_sleep(1);
+cutscene_sleep(15);
 cutscene_set_variable(id, "active", true);
 cutscene_func(music_play, [mus_intro_ch4, 0, false]);
 
