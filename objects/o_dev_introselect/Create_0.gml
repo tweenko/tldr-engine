@@ -40,13 +40,6 @@ item_categories = [
 	},
 	
 	{
-        name: "Unfinished",
-        keybind: ord("U"),
-        color: c_purple,
-        items: tag_get_asset_ids("TLDR_Intro_NotDone", asset_object)
-    },
-	
-	{
 		name : "Unavailable",
 		keybind: -1,
 		color: c_dkgray,
