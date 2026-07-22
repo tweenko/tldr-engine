@@ -25,26 +25,9 @@ _item_name = function(_item, _category, _item_index) {
 }
 
 item_categories = [
-	{
-		name : "Examples",
-		keybind : ord("E"),
-		color: c_aqua,
-		items: tag_get_asset_ids("TLDR_Intro_Example", asset_object)
-	},
-	
-	{
-		name : "DELTARUNE",
-		keybind : ord("D"),
-		color: c_white,
-		items: tag_get_asset_ids("TLDR_Intro_DR", asset_object)
-	},
-	
-	{
-		name : "Unavailable",
-		keybind: -1,
-		color: c_dkgray,
-		items: tag_get_asset_ids("TLDR_Intro_NoPick", asset_object)
-	},
+    new _item_category("Examples", tag_get_asset_ids("TLDR_Intro_Example", asset_object)),
+    new _item_category("DELTARUNE", tag_get_asset_ids("TLDR_Intro_DR", asset_object)),
+    new _item_category("Unavailable", tag_get_asset_ids("TLDR_Intro_NoPick", asset_object)),
 ]
 
 item_blocked = tag_get_asset_ids(["TLDR_Intro_NoPick"], asset_object);

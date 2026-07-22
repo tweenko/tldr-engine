@@ -139,8 +139,8 @@ global.lw_weapon = undefined
 global.lw_armor = undefined
 
 // chapter options
-chapters = [
-	new chapter_option("chapter_1", spr_ui_chs_ch1, snd_ui_scary, 1, room_ex_dforest, o_intro_none, o_intro_none,,"ominous"),
+global.registered_chapters = [
+	new chapter_option("chapter_1", spr_ui_chs_ch1, snd_ui_scary, 1, room_ex_dforest, o_intro_none, o_intro_none,, SAVE_SELECT_THEME.OMINOUS),
 	new chapter_option("chapter_2", spr_ui_chs_ch2, snd_chs_ch2, 2, room_ex_city, o_intro_ch2_firstrun, o_intro_ch2_midgame),
 	new chapter_option("chapter_3", spr_ui_chs_ch3, snd_chs_ch3, 3, room_test_main,o_intro_ch3_firstrun, o_intro_ch3_midgame,,,,,spr_ui_chs_ch3_completed),
 	new chapter_option("chapter_4", spr_ui_chs_ch4, snd_chs_ch4, 4, room_ex_church, o_intro_ch4_firstrun, o_intro_ch4_midgame),

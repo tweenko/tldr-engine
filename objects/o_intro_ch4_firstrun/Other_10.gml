@@ -48,9 +48,9 @@ cutscene_animate(0, 1, 90, anime_curve.linear, id, "chTextAlpha");
 cutscene_sleep(210);
 
 cutscene_animate(scrollSpeed, 0, 60, anime_curve.linear, id, "scrollSpeed");
-
-cutscene_wait_until(function(){return !audio_is_playing(mus_intro_ch4)});
-cutscene_debug_message("to do: crack")
+cutscene_wait_until(function() {
+    return !audio_is_playing(mus_intro_ch4);
+});
 
 cutscene_set_variable(id, "cracked", true);
 cutscene_audio_play(snd_break1, false, 0.95);
@@ -59,12 +59,12 @@ cutscene_sleep(19);
 // stop displaying the logo + spawn glass shards
 cutscene_set_variable(id, "logoAlpha", 0);
 cutscene_func(method(id, method(id, function(){
-	for (var i=0; i<sprite_get_number(spr_intro_logo_shatter); i++) {
-		var inst = instance_create(o_part_fallingsprite, x, y);
+	for (var i=0; i<sprite_get_number(spr_intro_ch4_logo_shatter); i++) {
+		var inst = instance_create(o_eff_intro_ch4_shard, x, y);
 		
 		with inst {
 			direction = random(360)
-			sprite_index = spr_intro_logo_shatter
+			sprite_index = spr_intro_ch4_logo_shatter
 			image_speed = 0
 			image_index = i
 			depth = other.depth+1;
@@ -102,7 +102,7 @@ cutscene_func(method(id, function(){
 		var _xx = 160 - 100 + i*199/_num + random_range(-15, 15);
 		var _yy = 120 + random(30);
 		
-		instance_create(o_part_groundshards, _xx, _yy, depth+1);
+		instance_create(o_eff_intro_ch4_ground_shard, _xx, _yy, depth+1);
 	}
 }))
 cutscene_sleep(45);

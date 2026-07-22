@@ -11,7 +11,7 @@ if active {
 		draw_clear_alpha(0,0);
 		draw_sprite_tiled_ext(spr_depth_loop, 0, 15*tick/2, 15*tick/2, 1, 1, propBlue, 1)
 		gpu_set_blendmode(bm_add);
-		draw_sprite_tiled_ext(spr_perlin_noise_looping, 0, 15*tick/2, 15*tick/2, 1, 1, propBlue, __wave(0, 0.4, 4, 0))
+		draw_sprite_tiled_ext(spr_noise_perlin, 0, 15*tick/2, 15*tick/2, 1, 1, propBlue, __wave(0, 0.4, 4, 0))
 		gpu_set_blendmode(bm_subtract);
 		draw_sprite(sprLogo, 2, sprW/2, sprH/2);
 		gpu_set_blendmode(bm_normal);
@@ -32,10 +32,10 @@ if active {
 		gpu_set_blendmode(bm_normal);
 		draw_set_alpha(1);
 		
-		draw_sprite_ext(spr_intro_logo_chapter, 4, x, y+chYOffset, .5, .5, 0, c_white, chTextAlpha);
+		draw_sprite_ext(spr_intro_chapter_number, 4, x, y+chYOffset, .5, .5, 0, c_white, chTextAlpha);
 	}
 	else {
-		draw_sprite_ext(spr_intro_logo_cracked, 0, x, y+logoYOffset, 1, 1, 0, c_white, logoAlpha);	
+		draw_sprite_ext(spr_intro_ch4_logo_cracked, 0, x, y+logoYOffset, 1, 1, 0, c_white, logoAlpha);	
 	}
 	
 	draw_sprite_ext(sprLogo, 1, x, y+logoYOffset, 1, 1, 0, c_white, heartAlpha);

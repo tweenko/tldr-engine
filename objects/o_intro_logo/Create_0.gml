@@ -1,29 +1,28 @@
 event_inherited();
 
-__init = function() {
-	fader_fade(1, 0, 1);
-	music_play(snd_intro_noise, 0, false);
-	
-	x = 160;
-	y = 120;
-	
-	show_chapter = true;
-	
-	siner = 0;
-	factor = 1;
-	factor2 = 0;
+fader_fade(1, 0, 0);
+audio_play(snd_intro_noise);
+audio_sound_gain(snd_intro_noise, 1);
 
-	aa = 1;
-	ab = 1;
-	phaseplus = false;
+x = GAME_W/2;
+y = GAME_H/2;
 
-	active = false;
-	state = 0;
+show_chapter = true;
 
-	skipped = false;
-}
+siner = 0;
+factor = 1;
+factor2 = 0;
 
-__init();
-game_set_speed(15, gamespeed_fps);
+aa = 1;
+ab = 1;
+phaseplus = false;
+
+active = false;
+state = 0;
+
+skipped = false;
 
 __intro_init();
+
+timer = 0;
+surf = -1;

@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"chapter_select",
   "parent":{
-    "name":"scripts",
-    "path":"folders/@Engine/scripts.yy",
+    "name":"engine",
+    "path":"folders/@Engine/scripts/systems/engine.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

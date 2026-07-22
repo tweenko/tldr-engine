@@ -1,3 +1,9 @@
+enum SAVE_SELECT_THEME {
+    GREAT_DOOR,
+    OMINOUS,
+    FOUNTAIN
+}
+
 msg = ""
 msg_temp = ""
 msg_time = 0

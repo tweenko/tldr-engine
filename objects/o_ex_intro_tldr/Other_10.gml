@@ -36,7 +36,7 @@ repeat(8) {
 cutscene_animate(0, 1, 30, anime_curve.linear, id, "heartAlpha");
 cutscene_sleep(60);
 	
-cutscene_func(fader_fade, [0, 1, 30]);
+cutscene_func(fader_fade, [o_fader.image_alpha, 1, 30]);
 cutscene_sleep(50);
 cutscene_func(room_goto, target_room);
 	

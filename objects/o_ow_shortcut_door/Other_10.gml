@@ -27,13 +27,13 @@ cutscene_func(function(__same_room, room_list, caller) {
         cutscene_dialogue(loc("txt_shortcut_door_open"))
         cutscene_sleep(15)
         
-        cutscene_func(fader_fade, [0, 1, 0])
+        cutscene_func(fader_fade, [o_fader.image_alpha, 1, 0])
         cutscene_func(music_stop_all)
         cutscene_audio_play(snd_doorclose)
         cutscene_sleep(30)
         
         cutscene_func(room_goto, [room_list[global.temp_choice]])
-        cutscene_func(fader_fade, [1, 0, 10])
+        cutscene_func(fader_fade, [o_fader.image_alpha, 0, 10])
         cutscene_audio_play(snd_dooropen)
     
         cutscene_player_canmove(true)

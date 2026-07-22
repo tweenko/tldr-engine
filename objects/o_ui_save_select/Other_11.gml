@@ -1,8 +1,4 @@
 /// @description theme set
-var theme = is_struct(o_world.chapters[global.chapter-1]) ? o_world.chapters[global.chapter-1].save_theme_default : "finished";
-//theme = "ominous"
-//theme = "finished"
-
 var completed = false;
 var slots = save_read_all(global.chapter)
 for(var i = 0; i < array_length(slots); i++)
@@ -14,12 +10,12 @@ for(var i = 0; i < array_length(slots); i++)
         break;
     }
 }
-if completed
-    theme = is_struct(o_world.chapters[global.chapter-1]) ? o_world.chapters[global.chapter-1].save_theme_completed : "finished";
+
+var theme = is_struct(completed ? global.registered_chapters[global.chapter-1].save_theme_default : SAVE_SELECT_THEME.FOUNTAIN);
 
 loc_id_messages = "save_select_messages_normal"
 
-if theme == "ominous" {
+if theme == SAVE_SELECT_THEME.OMINOUS {
 	{ // theme
 		white = #07FF00
 		dark = #008000
@@ -115,7 +111,7 @@ if theme == "ominous" {
 	
 	target_music = mus_drone
 }
-else if theme == "finished" {
+else if theme == SAVE_SELECT_THEME.FOUNTAIN {
 	{ // theme
 		white = c_white
 		dark = #9a9ab3

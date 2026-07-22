@@ -39,6 +39,7 @@
   "sequenceId":null,
   "tags":[
     "TLDR_Room_NoTracking",
+    "TLDR_DebugExclude",
   ],
   "views":[
     {"hborder":160,"hport":480,"hspeed":-1,"hview":240,"inherit":false,"objectId":null,"vborder":120,"visible":false,"vspeed":-1,"wport":640,"wview":320,"xport":0,"xview":0,"yport":0,"yview":0,},

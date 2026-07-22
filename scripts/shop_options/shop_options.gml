@@ -643,7 +643,7 @@ function shop_option_exit(_exit_call) : shop_option() constructor {
             exit_call()
         
         if room == room_shop { // is a full-screen shop
-            cutscene_func(fader_fade, [0, 1, 15])
+            cutscene_func(fader_fade, [o_fader.image_alpha, 1, 15])
             if asset_get_index(o_shop.shop_data.bgm) != -1
                 cutscene_func(music_fade, [0, 0, 30])
             cutscene_sleep(30)

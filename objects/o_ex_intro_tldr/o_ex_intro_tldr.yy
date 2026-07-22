@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"intros",
-    "path":"folders/zzz Examples/Objects/intros.yy",
+    "path":"folders/zzz Examples/Objects/misc/intros.yy",
   },
   "parentObjectId":{
     "name":"o_intro",

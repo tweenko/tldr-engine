@@ -26,12 +26,12 @@ complete_ch = 0
 incomplete_ch = 0
 tselec = 0
 possible_chapters = 0
-for (var i = 0; i < array_length(o_world.chapters); i ++) {
-    if !is_struct(o_world.chapters[i])
+for (var i = 0; i < array_length(global.registered_chapters); i ++) {
+    if !is_struct(global.registered_chapters[i])
         break
     possible_chapters ++
 }
-for (var i = 0; i < array_length(o_world.chapters); i ++) {
+for (var i = 0; i < array_length(global.registered_chapters); i ++) {
     for (var j = 0; j < array_length(SAVE_SLOTS); j ++) {
         
     }

@@ -1,4 +1,4 @@
-/// @desc This is a constructor used to add chapter options to the chapter select menu (in o_world.chapters).
+/// @desc This is a constructor used to add chapter options to the chapter select menu (in global.registered_chapters).
 /// @arg {string} _name The chapter's name or localization code, if applicable.
 /// @arg {Asset.GMSprite} _icon The chapter's default icon.
 /// @arg {Asset.GMSound} _sound The sound that's going to play upon chapter selection.
@@ -11,7 +11,7 @@
 /// @arg {string} _save_theme_completed The theme to use for room_save_select if the chapter is completed. (Fountain by default)
 /// @arg {function} _set_defaults_method The method for setting the defaults. (Empty function by default)
 ///@arg {Asset.GMSprite} _icon_completed The chapter's icon if it's been completed. (same as _icon by default)
-function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _intro_seq_firstrun=-1, _intro_seq_midgame=-1, _intro_seq_default = o_intro_legend, _save_theme_default="", _save_theme_completed="finished", _set_defaults_method = function() {}, _icon_completed=_icon) constructor {
+function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _intro_seq_firstrun=-1, _intro_seq_midgame=-1, _intro_seq_default = o_intro_legend, _save_theme_default=SAVE_SELECT_THEME.GREAT_DOOR, _save_theme_completed=SAVE_SELECT_THEME.FOUNTAIN, _set_defaults_method = function() {}, _icon_completed=_icon) constructor {
     name = _name;
     icon = _icon;
 	icon_completed = _icon_completed;

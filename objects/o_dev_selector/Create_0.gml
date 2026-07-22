@@ -25,7 +25,7 @@ _item_name = function(_item) {
 /// @arg {function} _filter_condition
 _sort_items = function(_filter_condition = undefined) {
     last_search_input = search_input;
-    display_list = [ new _item_category("Uncategorized", [], c_white) ]
+    display_list = [];
     
     var has_filter_condition = !is_undefined(_filter_condition);
     var __items_added = []
@@ -49,8 +49,10 @@ _sort_items = function(_filter_condition = undefined) {
             
             array_push(display_list, category);
         }
-    }   
+        array_sort(display_list[i].items, method(self, function(a, b) { return string_compare_alphabetically(_item_name(a), _item_name(b)); }));
+    }
     
+    var uncategorized_array = [];
     for (var i = 0; i < array_length(item_list); i ++) {
         var __item = item_list[i]
         if array_contains(__items_added, __item)
@@ -58,8 +60,14 @@ _sort_items = function(_filter_condition = undefined) {
         if has_filter_condition && !_filter_condition(__item)
             continue;
         
-        array_push(display_list[0].items, __item)
+        array_push(uncategorized_array, __item)
     }
+    array_sort(uncategorized_array, method(self, function(a, b) { return string_compare_alphabetically(_item_name(a), _item_name(b)); }));
+    
+    // sort alphabetically
+    array_sort(display_list, function(a, b) { return string_compare_alphabetically(a.name, b.name); });
+    
+    array_push(display_list, new _item_category("Uncategorized", uncategorized_array, c_white));
 }
 _search_contains = function(_item) {
     return string_contains(search_input, _item_name(_item));
@@ -89,3 +97,5 @@ blacklist_keys = [
     vk_f1, vk_f2, vk_f3, vk_f4, vk_f5, vk_f6, vk_f7, vk_f8, vk_f9, vk_f10, vk_f11, vk_f12,
     vk_insert, vk_delete, vk_decimal, vk_multiply, vk_menu, vk_escape, vk_space, vk_numlock, vk_end
 ];
+
+init = false;
