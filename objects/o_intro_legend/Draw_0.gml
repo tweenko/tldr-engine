@@ -40,7 +40,7 @@ if active {
 		gpu_set_blendmode(bm_normal);
 	}
 	
-	
+	draw_sprite_ext(spr_pixel, 0, 0, 0, GAME_W, GAME_H, 0, c_white, fadeWhiteAlpha);
 	
 	
 	if !skipped && InputCheck(INPUT_VERB.SELECT) {

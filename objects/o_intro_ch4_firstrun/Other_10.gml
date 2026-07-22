@@ -56,7 +56,7 @@ cutscene_set_variable(id, "cracked", true);
 cutscene_audio_play(snd_break1, false, 0.95);
 cutscene_sleep(19);
 
-// stop displaying the prophecy icon + spawn glass shards
+// stop displaying the logo + spawn glass shards
 cutscene_set_variable(id, "logoAlpha", 0);
 cutscene_func(method(id, method(id, function(){
 	for (var i=0; i<sprite_get_number(spr_intro_logo_shatter); i++) {

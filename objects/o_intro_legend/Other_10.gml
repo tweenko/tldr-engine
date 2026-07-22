@@ -140,16 +140,13 @@ _cs_pic_ov_fadein = function(spd=0.02) {
 		
 	cutscene_create();
 	cutscene_set_variable(o_intro_legend, "picAlpha", .25);
-	cutscene_set_variable(o_intro_legend, "ovAlpha", .25);
+	cutscene_set_variable(o_intro_legend, "ovAlpha", 0);
 	cutscene_sleep(f)
 	cutscene_set_variable(o_intro_legend, "picAlpha", .5);
-	cutscene_set_variable(o_intro_legend, "ovAlpha", .5);
 	cutscene_sleep(f)
 	cutscene_set_variable(o_intro_legend, "picAlpha", .75);
-	cutscene_set_variable(o_intro_legend, "ovAlpha", .75);
 	cutscene_sleep(f)
 	cutscene_set_variable(o_intro_legend, "picAlpha", 1);
-	cutscene_set_variable(o_intro_legend, "ovAlpha", 1);
 	
 	cutscene_play();
 }
@@ -157,16 +154,13 @@ _cs_pic_ov_fadeout = function(spd=0.02) {
 	var f = round(1/spd/5);
 		
 	cutscene_create();
-	cutscene_set_variable(o_intro_legend, "picAlpha", .75);
+	cutscene_set_variable(o_intro_legend, "picAlpha", 0);
 	cutscene_set_variable(o_intro_legend, "ovAlpha", .75);
 	cutscene_sleep(f)
-	cutscene_set_variable(o_intro_legend, "picAlpha", .5);
 	cutscene_set_variable(o_intro_legend, "ovAlpha", .5);
 	cutscene_sleep(f)
-	cutscene_set_variable(o_intro_legend, "picAlpha", .25);
 	cutscene_set_variable(o_intro_legend, "ovAlpha", .25);
 	cutscene_sleep(f)
-	cutscene_set_variable(o_intro_legend, "picAlpha", 0);
 	cutscene_set_variable(o_intro_legend, "ovAlpha", 0);
 		
 	cutscene_play();
@@ -389,50 +383,45 @@ if global.chapter < 4 {
 		cutscene_sleep(600);
 		cutscene_func(music_pause, [0]);
 		cutscene_play();
-			
-		//call_later(600, time_source_units_frames, method(o_intro_legend, function(){music_pause(0)}), false);
-			
 	});
 	cutscene_sleep(6);
 		
 	// Once upon a time, a LEGEND was whispered among shadows.
-	cutscene_func(spawn_text, [0, 80, 320]);
+	cutscene_func(spawn_text, [0, 80, 320, 214]);
 	cutscene_sleep(214);
-	cutscene_func(instance_destroy, [o_text_typer]);
 		
 	// It was a legend of HOPE. It was a legend of DREAMS.
-	cutscene_func(spawn_text, [1, 80, 320]);
-	cutscene_func(spawn_text, [2, 440, 320]);
+	cutscene_func(spawn_text, [1, 80, 320, 120]);
+	cutscene_func(spawn_text, [2, 440, 320, 120]);
 	cutscene_sleep(120);
-	cutscene_func(instance_destroy, [o_text_typer]);
 	
 	// It was a legend of LIGHT. It was a legend of DARK.
-	cutscene_func(spawn_text, [3, 80, 320]);
-	cutscene_func(spawn_text, [4, 440, 320]);
+	cutscene_func(spawn_text, [3, 80, 320, 120]);
+	cutscene_func(spawn_text, [4, 440, 320, 120]);
 	cutscene_sleep(120);
-	cutscene_func(instance_destroy, [o_text_typer]);
-		
+
 	// This is the legend of DELTA RUNE
 	cutscene_func(spawn_text, [5, 160, 320]);
 		
 	cutscene_wait_until(function(i){return (i.picYOff <= -240)}, [o_intro_legend]);
-	cutscene_sleep(90);
+	cutscene_sleep(120);
 	cutscene_func(_cs_pic_fadeout);
-	cutscene_sleep(41);
+	cutscene_sleep(30);
 	cutscene_func(instance_destroy, [o_text_typer]);
+	cutscene_sleep(11);
+	
 	cutscene_func(__cs2_pic_init);
 	
 	cutscene_func(music_resume, [0]);
 	cutscene_func(_cs_pic_fadein);
 		
 	// For millenia, LIGHT and DARK have lived in balance, Bringing peace to the WORLD.
-	cutscene_func(spawn_text, [6, 80, 320]);
+	cutscene_func(spawn_text, [6, 80, 320, 270]);
 	cutscene_sleep(270);
-	cutscene_func(instance_destroy, [o_text_typer]);
 		
 	// But if this harmony were to shatter...
 	cutscene_func(_cs_ov_fadein);
-	cutscene_func(spawn_text, [7, 140, 320]);
+	cutscene_func(spawn_text, [7, 140, 320, 140]);
 	cutscene_sleep(130);
 	cutscene_func(instance_destroy, [o_text_typer]);
 		
