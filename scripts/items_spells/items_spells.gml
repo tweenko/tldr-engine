@@ -112,7 +112,7 @@ function item_s_susieheal(data = {
             });
         }
         
-        name = [loc("item_s_susieheal_name")[__prog]]
+        name = loc("item_s_susieheal_name")[__prog]
         desc = loc("item_s_susieheal_desc")[__prog]
     })
     
