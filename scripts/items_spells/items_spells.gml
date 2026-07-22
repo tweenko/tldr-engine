@@ -73,23 +73,21 @@ function item_s_susieheal(data = {
     __heal_calc = function(user) {
         return 1
     }
-    __update_spell = function(__data) {
-        _data = __data
-        
+    __update_spell = method(self, function() {
         var __prog = _data.progress
         if __prog == 0 {
             tp_cost = 100
-            __heal_calc = function(user) {
+            __heal_calc = method(self, function(user) {
                 return party_getdata(user, "magic") + 1
-            }
+            });
         }
         else if __prog == 1 {
            _data.uses = clamp(_data.uses, 0, 5)
             
             tp_cost = 90 - _data.uses
-            __heal_calc = function(user) {
+            __heal_calc = method(self, function(user) {
                 return round(party_getdata(user, "magic") * 1.5 + 5) + _data.uses
-            }
+            });
         }
         else if __prog == 2 {
             _data.uses = clamp(_data.uses, 0, 15)
@@ -97,9 +95,9 @@ function item_s_susieheal(data = {
             tp_cost = 85
             tp_cost -= clamp((_data.uses div 3) + 1, 0, 5)
             
-            __heal_calc = function(user) {
+            __heal_calc = method(self, function(user) {
                 return round(party_getdata(user, "magic") * 5 + 15) + _data.uses*2
-            }
+            });
         }
         else if __prog >= 3 {
             _data.uses = clamp(_data.uses, 0, 15)
@@ -107,37 +105,33 @@ function item_s_susieheal(data = {
             tp_cost = 80
             tp_cost -= clamp((_data.uses div 3) + 1, 0, 5)
             
-            __heal_calc = function(user) {
+            __heal_calc = method(self, function(user) {
                 return round(party_getdata(user, "magic") * 7 + 15) + _data.uses*2
-            }
+            });
         }
         
         name = [loc("item_s_susieheal_name")[__prog]]
         desc = loc("item_s_susieheal_desc")[__prog]
-        
-        self._data = __data
-        use_args = [name[0], __heal_calc, function(){
-            _data.uses ++
-            __update_spell(_data)
-        }]
-    }
+    })
     
-    use = function(spell_user, target, caller, _spell_name, _calc, _use) {
+    use = method(self, function(spell_user, target, caller) {
         cutscene_enc_wait(true)
-		cutscene_dialogue(loc_string("item_spell_cast", party_getname(spell_user), _spell_name),, false)
+		cutscene_dialogue(loc_string("item_spell_cast", party_getname(spell_user), item_get_name(self)),, false)
         
         cutscene_sleep(10)
-        cutscene_func(function(spell_user, target, _spell_name, _calc, _use) {
-            party_heal(global.party_names[target], _calc(spell_user))
-            _use()
-        }, [spell_user, target, _spell_name, _calc, _use])
+        cutscene_func(method(self, function(spell_user, target) {
+            party_heal(global.party_names[target], __heal_calc(spell_user))
+            
+            _data.uses ++;
+            __update_spell();
+        }), [spell_user, target])
         
         cutscene_sleep(30)
         cutscene_func(instance_destroy, [o_ui_dialogue])
 		cutscene_enc_wait(false)
-    }
+    })
     
-    __update_spell(_data);
+    __update_spell();
 }
 function item_s_scythemare() : item_spell() constructor {
 	name = "Scythemare";

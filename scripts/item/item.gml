@@ -152,6 +152,9 @@ function item_use(item_struct, item_index, target) {
 }
 
 ///@desc calls the spell's use method
+/// @arg {struct.item_spell} spell_struct
+/// @arg {real} spell_user
+/// @arg {real} target_index
 function item_spell_use(spell_struct, spell_user, target) {
     if is_undefined(spell_struct)
         return undefined
