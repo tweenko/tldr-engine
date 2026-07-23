@@ -123,9 +123,9 @@ else if theme == SAVE_SELECT_THEME.FOUNTAIN {
 	}
 	
 	if global.chapter >= 4 
-		{target_music = mus_quiet_church};
+		{target_music = mus_quiet_church}
 	else 
-		{target_music = mus_story};
+		{target_music = mus_story}
 	target_music_pitch = 0.95;
 }
 else {
