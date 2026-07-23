@@ -487,9 +487,9 @@ cutscene_create();
 		
 	// And with it, the balance of LIGHT and DARK begins to shift...
 	cutscene_func(__spawn_text, [26, 80, 320]);
-	cutscene_sleep(240);
-	
+	cutscene_sleep(120);
 	cutscene_func(_cs_pic_fadeout);	
+	cutscene_sleep(120);
 	cutscene_func(music_fade, [0, 0, 30]);
 	cutscene_func(fader_fade, [0, 1, 30, DEPTH_UI.CONSOLE]);
 		

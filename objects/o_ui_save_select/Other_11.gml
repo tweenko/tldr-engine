@@ -11,7 +11,7 @@ for(var i = 0; i < array_length(slots); i++)
     }
 }
 
-var theme = is_struct(completed ? global.registered_chapters[global.chapter-1].save_theme_default : SAVE_SELECT_THEME.FOUNTAIN);
+var theme = completed ? global.registered_chapters[global.chapter-1].save_theme_completed : global.registered_chapters[global.chapter-1].save_theme_default;
 
 loc_id_messages = "save_select_messages_normal"
 
