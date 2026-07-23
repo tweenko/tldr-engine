@@ -7,8 +7,8 @@
 /// @arg {Asset.GMObject} _intro_seq_first_run The intro sequence object that's going to play if you have no saves on that chapter. (-1 (none) by default)
 /// @arg {Asset.GMObject} _intro_seq_midgame  The intro sequence object that's going to play if you have no completed saves on that chapter. (-1 (none) by default)
 /// @arg {Asset.GMObject} _intro_seq_default The intro sequence object that's going to play if you have any completed saves on that chapter, or if the previous intro sequences have not been defined. (`o_intro_legend` by default)
-/// @arg {Real} _save_theme_default The theme to use for room_save_select while the chapter isn't completed. (`SAVE_SELECT_THEME.GREAT_DOOR` by default)
-/// @arg {Real} _save_theme_completed The theme to use for room_save_select if the chapter is completed. (`SAVE_SELECT_THEME.FOUNTAIN` by default)
+/// @arg {Enum.SAVE_SELECT_THEME} _save_theme_default The theme to use for room_save_select while the chapter isn't completed. (`SAVE_SELECT_THEME.GREAT_DOOR` by default)
+/// @arg {Enum.SAVE_SELECT_THEME} _save_theme_completed The theme to use for room_save_select if the chapter is completed. (`SAVE_SELECT_THEME.FOUNTAIN` by default)
 /// @arg {function} _set_defaults_method The method for setting the defaults. (Empty function by default)
 /// @arg {Asset.GMSprite} _icon_completed The chapter's icon if it's been completed. (same as `_icon` by default)
 function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _intro_seq_firstrun=-1, _intro_seq_midgame=-1, _intro_seq_default = o_intro_legend, _save_theme_default=SAVE_SELECT_THEME.GREAT_DOOR, _save_theme_completed=SAVE_SELECT_THEME.FOUNTAIN, _set_defaults_method = function() {}, _icon_completed=_icon) constructor {
