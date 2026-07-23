@@ -303,7 +303,7 @@ cutscene_create();
 	cutscene_wait_until(method(self, function() { return picYOff <= -240; }));
     
 	cutscene_func(_cs_pic_fadeout);
-	cutscene_sleep(30);
+	cutscene_sleep(60);
     
 	cutscene_func(instance_destroy, [o_text_typer]);
 	cutscene_sleep(11);
@@ -486,15 +486,12 @@ cutscene_create();
 	cutscene_func(instance_destroy, [o_text_typer]);
 		
 	// And with it, the balance of LIGHT and DARK begins to shift...
-	cutscene_func(_cs_pic_fadeout);
 	cutscene_func(__spawn_text, [26, 80, 320]);
 	cutscene_sleep(240);
-		
+	
+	cutscene_func(_cs_pic_fadeout);	
 	cutscene_func(music_fade, [0, 0, 30]);
-	cutscene_func(function() {
-		fader_fade(0, 1, 30);
-		o_fader.depth = DEPTH_UI.CONSOLE;
-	});
+	cutscene_func(fader_fade, [0, 1, 30, DEPTH_UI.CONSOLE]);
 		
 	cutscene_sleep(80);
 	cutscene_func(room_goto, [room_logo]);
