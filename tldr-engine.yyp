@@ -448,6 +448,7 @@
     {"id":{"name":"o_intro_ch4_firstrun","path":"objects/o_intro_ch4_firstrun/o_intro_ch4_firstrun.yy",},},
     {"id":{"name":"o_intro_ch4_midgame","path":"objects/o_intro_ch4_midgame/o_intro_ch4_midgame.yy",},},
     {"id":{"name":"o_intro_ch5","path":"objects/o_intro_ch5/o_intro_ch5.yy",},},
+    {"id":{"name":"o_intro_legend_neo","path":"objects/o_intro_legend_neo/o_intro_legend_neo.yy",},},
     {"id":{"name":"o_intro_legend","path":"objects/o_intro_legend/o_intro_legend.yy",},},
     {"id":{"name":"o_intro_logo","path":"objects/o_intro_logo/o_intro_logo.yy",},},
     {"id":{"name":"o_intro_none","path":"objects/o_intro_none/o_intro_none.yy",},},
