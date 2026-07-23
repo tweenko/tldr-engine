@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.894671,
+  "duration":0.8946712,
   "exportDir":"",
   "name":"snd_metalhit",
   "parent":{

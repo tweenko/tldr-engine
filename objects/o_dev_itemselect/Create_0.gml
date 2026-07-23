@@ -29,6 +29,8 @@ for (var i = 0; i < array_length(unique_tags); i ++) {
     array_push(item_categories, new _item_category(unique_tags[i], tag_get_asset_ids(unique_tags[i], asset_script)));
 }
 
+item_blocked = tag_get_asset_ids("TLDR_DebugExclude", asset_script);
+
 _sort_items();
 
 hovered_item = undefined;

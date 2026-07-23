@@ -1,4 +1,6 @@
 members = []
+name = "party wait"
+
 
 execute_code = function() {
 	cutscene_create()

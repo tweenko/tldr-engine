@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.044898,
+  "duration":1.0448979,
   "exportDir":"",
   "name":"snd_won",
   "parent":{

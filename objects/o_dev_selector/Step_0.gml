@@ -1,3 +1,21 @@
+if !init {
+    var save_category = category;
+    if category < array_length(display_list) && selection >= array_length(display_list[category].items) {
+        category ++;
+        while category < array_length(display_list) && array_length(display_list[category].items) == 0
+            category ++;
+        
+        if category >= array_length(display_list) {
+            category = save_category;
+            selection = array_length(display_list[category].items) - 1;
+        }
+        else 
+            selection = 0;
+    }
+    
+    init = true;
+}
+
 global.console = true
 
 if !search_mode {
@@ -24,7 +42,7 @@ if !search_mode {
         selection ++
         
         var save_category = category;
-        if selection >= array_length(display_list[category].items) {
+        if category < array_length(display_list) && selection >= array_length(display_list[category].items) {
             category ++;
             while category < array_length(display_list) && array_length(display_list[category].items) == 0
                 category ++;

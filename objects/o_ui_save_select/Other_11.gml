@@ -1,11 +1,21 @@
 /// @description theme set
-var theme = ""
-//theme = "ominous"
-theme = "finished"
+var completed = false;
+var slots = save_read_all(global.chapter)
+for(var i = 0; i < array_length(slots); i++)
+{
+    slots[i] = save_convert(slots[i]);
+    if slots[i].COMPLETED == true
+    {
+        completed = true;
+        break;
+    }
+}
+
+var theme = completed ? global.registered_chapters[global.chapter-1].save_theme_completed : global.registered_chapters[global.chapter-1].save_theme_default;
 
 loc_id_messages = "save_select_messages_normal"
 
-if theme == "ominous" {
+if theme == SAVE_SELECT_THEME.OMINOUS {
 	{ // theme
 		white = #07FF00
 		dark = #008000
@@ -101,21 +111,26 @@ if theme == "ominous" {
 	
 	target_music = mus_drone
 }
-else if theme == "finished" {
+else if theme == SAVE_SELECT_THEME.FOUNTAIN {
 	{ // theme
 		white = c_white
 		dark = #9a9ab3
 		shadow = c_black
 		yellow = #ffff66
 		outline_thickness = 4
-		bg = spr_ui_saveselect_fountain
+		bg = spr_ui_saveselect_fountain;
 		image_alpha = 0
 	}
 	
-	target_music = mus_story
+	if global.chapter >= 4 
+		{target_music = mus_quiet_church}
+	else 
+		{target_music = mus_story}
+	target_music_pitch = 0.95;
 }
 else {
-	target_music = mus_menu
+	target_music = mus_menu;
+	target_music_pitch = 0.95;
 }
 	
 fader_fade(1, 0, 15)

@@ -14,7 +14,7 @@ function shop_start(_shop_struct, _return_room, _return_marker_id, _return_direc
     if _fade_out {
         if asset_get_index(_shop_struct.bgm) != -1
             cutscene_func(music_fade, [0, 0, 15])
-        cutscene_func(fader_fade, [0, 1, 15])
+        cutscene_func(fader_fade, [o_fader.image_alpha, 1, 15])
         cutscene_sleep(15)
     }
     

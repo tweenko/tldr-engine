@@ -18,7 +18,7 @@ if state == -1 {
 	if InputPressed(INPUT_VERB.SELECT) {
 		audio_play(snd_ui_select)
 		if sselection == 0 {
-			chapters[tselec-1].exec(id) // run the chapter start script
+			global.registered_chapters[tselec-1].exec(id) // run the chapter start script
 			lock = true
 		}
 		else {
@@ -31,7 +31,7 @@ if state == -1 {
 	}
 }
 else {
-	var total = array_length(chapters)
+	var total = array_length(global.registered_chapters)
     
 	if !musplayed && music_getplaying(0) != mus_drone {
 		musplayed = true
@@ -46,20 +46,20 @@ else {
 			selection ++
 			
 			audio_play(snd_ui_move)
-			while selection < total + 1 && !is_struct(chapters[selection-1]) 
+			while selection < total + 1 && !is_struct(global.registered_chapters[selection-1]) 
 				selection++
 		}
 	}
 	else if InputPressed(INPUT_VERB.UP) && !confirming {
 		if selection > 1 {
-			var save = selection
+			var _save = selection
 			selection --
 			audio_play(snd_ui_move)
 			
-			while selection > 0 && !is_struct(chapters[selection-1]) 
+			while selection > 0 && !is_struct(global.registered_chapters[selection-1]) 
 				selection--
 			if selection==0 
-				selection=save
+				selection=_save
 		}
 		else {
 			selection = total+1
@@ -95,10 +95,10 @@ else {
 
 	if InputPressed(INPUT_VERB.SELECT) {
 		if selection <= total {
-			if is_struct(chapters[selection - 1]) {
+			if is_struct(global.registered_chapters[selection - 1]) {
 				if confirming == true && confirmselection == 0{
 					audio_play(snd_ui_select)
-					chapters[selection - 1].exec(id)
+					global.registered_chapters[selection - 1].exec(id)
 					lock = true
 				}
 				else if confirming == true && confirmselection == 1 {

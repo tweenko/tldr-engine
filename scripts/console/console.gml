@@ -176,3 +176,12 @@ function console_command_mute_bgm() : console_command() constructor {
     };
 }
 console_command_register(console_command_mute_bgm);
+function console_command_intro() : console_command() constructor {
+	hotkey = ord("N");
+	name = "Open Intro Sequence";
+	desc = "Lets you check any intro sequence there is available.";
+	execute = function() {
+		instance_create(o_dev_introselect);
+	}
+}
+console_command_register(console_command_intro);

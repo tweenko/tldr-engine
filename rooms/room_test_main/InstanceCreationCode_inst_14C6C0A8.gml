@@ -1,3 +1,5 @@
+name = "choicer test"
+
 execute_code = function() {
     var evil = memory_get("choices", "test_evil")
     

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"chapter_select",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"chapter_select",
+  "parent":{
+    "name":"engine",
+    "path":"folders/@Engine/scripts/systems/engine.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

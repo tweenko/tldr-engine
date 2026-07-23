@@ -32,15 +32,15 @@ else {
 	surface_set_target(surf) {
 		draw_clear_alpha(0, 0)
         
-		var total = array_length(chapters)
+		var total = array_length(global.registered_chapters)
         
 		draw_set_font(loc_font("main"))
 		draw_set_alpha(alpha)
         
-		for (var i = 0; i < array_length(chapters); ++i) {
+		for (var i = 0; i < array_length(global.registered_chapters); ++i) {
 			if selection == i+1 
 				draw_set_color(c_yellow)
-			else if !is_struct(chapters[i]) 
+			else if !is_struct(global.registered_chapters[i]) 
 				draw_set_color(c_gray)
 			else 
 				draw_set_color(c_white)
@@ -93,15 +93,31 @@ else {
 			else {
 				draw_set_halign(fa_center)
 				
-				var title = (!is_struct(chapters[i]) ? "- -" : loc(chapters[i].name))
+				var title = (!is_struct(global.registered_chapters[i]) ? "- -" : loc(global.registered_chapters[i].name))
 				draw_text_transformed(360, 24-8 + i*60 + yadd, title, 2, 2, 0)
 				draw_set_halign(fa_left)
 			}
 	
-			if !is_struct(chapters[i])
-				draw_sprite_ext(spr_ui_chs_defafult, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
-			else
-				draw_sprite_ext(chapters[i].icon, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
+			if !is_struct(global.registered_chapters[i])
+				draw_sprite_ext(spr_ui_chs_default, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
+			else {
+				var _spr = global.registered_chapters[i].icon;
+				var _chcompleted = false;
+				
+				// check if any save slot for the chapter is completed
+				for (var j=0; j<SAVE_SLOTS; j++) {
+					if save_chs[i] != -1 && save_chs[i][j] != -1 {
+						_chcompleted += save_chs[i][j][1];
+						_chcompleted = min(_chcompleted, 1);
+					}
+				}
+				
+				if _chcompleted {
+					_spr = global.registered_chapters[i].icon_completed;
+				}
+				
+				draw_sprite_ext(_spr, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
+			}
 		}
 		
 		draw_set_color(c_white)

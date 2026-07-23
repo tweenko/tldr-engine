@@ -116,7 +116,7 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
         return undefined;
     
     if offset > 0 
-        call_later(offset, time_source_units_frames, method({type, sound, loop, gain, pitch}, function() {
+        return call_later(offset, time_source_units_frames, method({type, sound, loop, gain, pitch}, function() {
             audio_play_sound_on(audio_get_target_emitter(type), 
                 sound, loop, 
                 0, gain,
@@ -129,12 +129,13 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
             0, gain,
             0, pitch
         );
+        audio_sound_gain(ret, gain);
+        audio_sound_pitch(ret, pitch);
+        
         o_world.sound_on_frame = sound;
         
         return ret;
     }
-    
-    return noone;
 }
 
 /**
@@ -435,6 +436,18 @@ function string_truncate_words(str, max_len) {
         return string_copy(cut_str, 1, last_space - 1) + "...";
     return cut_str + "..."; // if it doesn't have 
 }
+/// @desc compares two strings using an ascii table. the result will be -1 if string A is earlier and 1 if string B is earlier. a 0 can be returned if strings are identical
+function string_compare_alphabetically(a, b) {
+    var name_a = string_lower(a);
+    var name_b = string_lower(b);
+    
+    if name_a < name_b
+        return -1;
+    else if name_a > name_b
+        return 1;
+    else
+        return 0;
+}
 
 /// @desc snaps a number x to a multiple of n
 /// @arg {real} x the number to snap
@@ -689,7 +702,6 @@ function move_and_collide_simple(dx, dy, inst) {
 
 	return colid;
 }
-
 
 // ----------- INPUT STUFF --------------------
 /// @desc converts binds to keys

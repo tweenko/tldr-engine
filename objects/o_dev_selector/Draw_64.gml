@@ -1,7 +1,7 @@
 draw_sprite_ext(spr_pixel, 0, 0, 0, GAME_W_GUI, GAME_H_GUI, 0, c_black, .85)
 draw_set_font(loc_font("main"))
 
-var yy = 50
+var yy = 60
 for (var i = 0; i < array_length(display_list); i ++) {
     if array_length(display_list[i].items) == 0
         continue;

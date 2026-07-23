@@ -1,3 +1,9 @@
+enum SAVE_SELECT_THEME {
+    GREAT_DOOR,
+    OMINOUS,
+    FOUNTAIN
+}
+
 msg = ""
 msg_temp = ""
 msg_time = 0
@@ -37,6 +43,7 @@ allow_savename = true
 }
 
 target_music = mus_story
+target_music_pitch = 1;
 event_user(1)
 
 files = []
