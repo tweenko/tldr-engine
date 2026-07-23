@@ -130,6 +130,7 @@ else if theme == SAVE_SELECT_THEME.FOUNTAIN {
 }
 else {
 	target_music = mus_menu;
+	target_music_pitch = 0.95;
 }
 	
 fader_fade(1, 0, 15)

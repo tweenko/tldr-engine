@@ -18,9 +18,8 @@ if active {
 	surface_reset_target();
 
 	if !cracked {
-		var __blend = merge_colour(c_black, c_white, 0.4*surfaceAlpha)
-		draw_surface_ext(surf, x-sprW/2+afterimageOffset, y-sprH/2+afterimageOffset,1,1,0,__blend, 1);
-		draw_surface_ext(surf, x-sprW/2-afterimageOffset, y-sprH/2-afterimageOffset,1,1,0,__blend, 1);
+		draw_surface_ext(surf, x-sprW/2+afterimageOffset, y-sprH/2+afterimageOffset,1,1,0,c_white, surfaceAlpha*0.4);
+		draw_surface_ext(surf, x-sprW/2-afterimageOffset, y-sprH/2-afterimageOffset,1,1,0,c_white, surfaceAlpha*0.4);
 		
 		draw_sprite_ext(sprLogo, 0, x, y+logoYOffset, 1, 1, 0, c_white, logoAlpha);
 		

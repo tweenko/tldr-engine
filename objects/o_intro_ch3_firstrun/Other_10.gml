@@ -21,7 +21,7 @@ drawChText = false;
 //cutscene
 cutscene_create();
 
-cutscene_sleep(15);
+cutscene_sleep(60);
 
 cutscene_set_variable(id, "active", true);
 cutscene_func(audio_play, [snd_tv_static, true]);

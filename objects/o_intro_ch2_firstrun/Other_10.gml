@@ -12,7 +12,7 @@ chYOff = 15;
 showChapter = false;
 	
 cutscene_create();
-cutscene_sleep(15);
+cutscene_sleep(60);
 cutscene_set_variable(self, "active", true);
 cutscene_audio_play(snd_noise, false, 0.8, random_range(0.5, 1.5));
 
