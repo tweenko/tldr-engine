@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"gb_malign_combat",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"gb_malign_combat",
+  "parent":{
+    "name":"encounters",
+    "path":"folders/Goob/scripts/encounters.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"gb_enc_set",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"gb_enc_set",
+  "parent":{
+    "name":"encounters",
+    "path":"folders/Goob/scripts/encounters.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
