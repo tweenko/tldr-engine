@@ -29,9 +29,11 @@ trigger_code = function() {
     cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_up_head_down)
     cutscene_wait_dialogue_boxes(2)
     
-    cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_up)
+    cutscene_actor_override(party_get_inst("susie"), false);
+    cutscene_set_variable(party_get_inst("susie"), "dir", DIR.UP);
     cutscene_wait_dialogue_boxes(1)
     
+    cutscene_actor_override(party_get_inst("susie"), true);
     cutscene_set_variable(party_get_inst("susie"), "sprite_index", spr_susie_up_head_down)
     cutscene_wait_dialogue_finish()
     

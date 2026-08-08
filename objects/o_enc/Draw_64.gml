@@ -244,7 +244,7 @@ else if battle_menu == BATTLE_MENU.INV_SELECTION {
     var list = battle_menu_inv_list
     var selected_item_index = variable_instance_get(self, battle_menu_inv_var_name)[party_selection]
     var page_index = variable_instance_get(self, battle_menu_inv_page_var_name)[party_selection]
-    var page_count = array_length(list) div 6;
+    var page_count = (array_length(list)-1) div 6;
     selected_item_index = clamp(selected_item_index, 0, array_length(list)-1)
     
     for (var i = page_index*6; i < min(page_index*6 + 6, array_length(list)); i ++) {

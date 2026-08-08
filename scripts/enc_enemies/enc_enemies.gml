@@ -34,7 +34,7 @@ function enemy() constructor {
             perform_act_anim: true, // optional, true by default
             return_to_idle_sprites: true, // optional, true by default
             
-			exec: function(enemy_slot, user_index){
+			exec: function(enemy_slot, user_index) {
 				encounter_scene_dialogue("* Empty CHECK text.")
 			},
             exec_args: []

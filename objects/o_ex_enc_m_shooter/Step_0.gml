@@ -8,7 +8,7 @@ else {
         timer --
 	siner ++
 	
-	if siner == 1 exit
+	if siner < 10 exit
 	
 	if sguy_amp < 10 && start_timer sguy_amp += .5
 	
@@ -34,7 +34,7 @@ else {
 	var xrange = 50
 	var yrange = 60
 	
-	if InputPressed(INPUT_VERB.SPECIAL) && !start_timer{
+	if InputCheck(INPUT_VERB.SPECIAL) && !start_timer{
 		start_timer = true
 		event_user(0)
 	}

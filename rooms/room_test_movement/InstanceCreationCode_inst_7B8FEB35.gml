@@ -1,5 +1,3 @@
-name = "kris jump alone"
-
 execute_code = function() {
     cutscene_create()
 	cutscene_player_canmove(false)

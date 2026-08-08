@@ -18,7 +18,7 @@ if state == -1 {
 	if InputPressed(INPUT_VERB.SELECT) {
 		audio_play(snd_ui_select)
 		if sselection == 0 {
-			chapters[tselec-1].exec(id) // run the chapter start script
+			global.registered_chapters[tselec].exec(id) // run the chapter start script
 			lock = true
 		}
 		else {
@@ -31,38 +31,38 @@ if state == -1 {
 	}
 }
 else {
-	var total = array_length(chapters)
+	var total = array_length(global.registered_chapters)
     
 	if !musplayed && music_getplaying(0) != mus_drone {
 		musplayed = true
 		music_play(mus_drone, 0)
 	}
 	if InputPressed(INPUT_VERB.DOWN) && !confirming {
-		if selection >= total + 1 {
-			selection = 1
+		if selection >= total {
+			selection = 0
 			audio_play(snd_ui_move)
 		}
 		else {
-			selection ++
+			selection ++;
 			
 			audio_play(snd_ui_move)
-			while selection < total + 1 && !is_struct(chapters[selection-1]) 
-				selection++
+			while selection < total && !is_struct(global.registered_chapters[selection]) 
+				selection ++
 		}
 	}
 	else if InputPressed(INPUT_VERB.UP) && !confirming {
-		if selection > 1 {
-			var save = selection
-			selection --
-			audio_play(snd_ui_move)
+		if selection > 0 {
+			var _save = selection;
+			selection --;
+			audio_play(snd_ui_move);
 			
-			while selection > 0 && !is_struct(chapters[selection-1]) 
-				selection--
-			if selection==0 
-				selection=save
+			while selection >= 0 && !is_struct(global.registered_chapters[selection]) 
+				selection --
+			if selection == -1
+				selection = _save;
 		}
 		else {
-			selection = total+1
+			selection = total
 			audio_play(snd_ui_move)
 		}
 	}
@@ -77,11 +77,11 @@ else {
 	}
 	
 	if languages {
-		if InputPressed(INPUT_VERB.RIGHT) && selection == total+1 {
+		if InputPressed(INPUT_VERB.RIGHT) && selection == total {
 			horselection = 1
 			audio_play(snd_ui_move)
 		}
-		if InputPressed(INPUT_VERB.LEFT) && selection == total+1 {
+		if InputPressed(INPUT_VERB.LEFT) && selection == total {
 			horselection = 0
 			audio_play(snd_ui_move)
 		}
@@ -90,15 +90,15 @@ else {
 		if horselection != 0 
 			horselection = 0
 	
-	if selection != total+1 && horselection != 0 
+	if selection != total && horselection != 0 
 		horselection = 0
 
 	if InputPressed(INPUT_VERB.SELECT) {
-		if selection <= total {
-			if is_struct(chapters[selection - 1]) {
-				if confirming == true && confirmselection == 0{
+		if selection < total {
+			if is_struct(global.registered_chapters[selection]) {
+				if confirming == true && confirmselection == 0 {
 					audio_play(snd_ui_select)
-					chapters[selection - 1].exec(id)
+					global.registered_chapters[selection].exec(id)
 					lock = true
 				}
 				else if confirming == true && confirmselection == 1 {
@@ -114,7 +114,7 @@ else {
 				audio_play(snd_ui_cant_select)
 		}
         
-		if selection == total + 1 {
+		if selection == total {
             if horselection == 0
                 game_end()
             else {

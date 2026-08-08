@@ -3,3 +3,4 @@ depth = (is_real(depth_override) ? depth_override : depth)
 
 // record the sliding states
 prevsliding = sliding
+s_previous_animation = s_current_animation;

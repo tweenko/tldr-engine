@@ -1,3 +1,9 @@
+enum SAVE_SELECT_THEME {
+    GREAT_DOOR,
+    OMINOUS,
+    FOUNTAIN
+}
+
 msg = ""
 msg_temp = ""
 msg_time = 0
@@ -37,6 +43,7 @@ allow_savename = true
 }
 
 target_music = mus_story
+target_music_pitch = 1;
 event_user(1)
 
 files = []
@@ -64,25 +71,17 @@ credit = $"{GAME_NAME} {GAME_VERSION}"
 
 event_user(0)
 
-prepared = 0
-if files[0] != -1 { //check if its prepared
-	var f = 1
-	var a = [files[0].NAME, files[0].TIME]
-	for (var i = 0; i < array_length(self.files); ++i) {
-		if files[i] != -1 {
-			if files[i].NAME == a[0] && files[i].TIME == a[1] {}
-			else {
-				f = 0; 
-				break
-			}
-		}
-		else {
-			f=0; 
-			break
+prepared = false;
+if files[0] != -1 { // check if all saves are identical (very specific secret in DR)
+	prepared = true;
+    
+	var reference_save = [files[0].NAME, files[0].TIME];
+	for (var i = 0; i < array_length(files); ++i) {
+		if is_struct(files[i]) || (files[i].NAME == reference_save[0] && files[i].TIME == reference_save[1]) {
+			prepared = false; 
+			break;
 		}
 	}
-	
-	prepared = f
 }
 
 soul_put = function(xx, yy) {

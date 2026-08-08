@@ -45,7 +45,7 @@
         {"$GMRInstance":"v4","%Name":"inst_3DCEB48A","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_3DCEB48A","objectId":{"name":"o_block","path":"objects/o_block/o_block.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":3.0,"x":0.0,"y":140.0,},
       ],"layers":[],"name":"collisions","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":false,},
     {"$GMRInstanceLayer":"","%Name":"Instances","depth":100,"effectEnabled":true,"effectType":null,"gridX":5,"gridY":20,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
-        {"$GMRInstance":"v4","%Name":"inst_15D031D5","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_15D031D5","objectId":{"name":"o_ow_save","path":"objects/o_ow_save/o_ow_save.yy",},"properties":[
+        {"$GMRInstance":"v4","%Name":"inst_15D031D5","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_15D031D5","objectId":{"name":"o_ow_save","path":"objects/o_ow_save/o_ow_save.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"o_ow_save","path":"objects/o_ow_save/o_ow_save.yy",},"propertyId":{"name":"save_room_name","path":"objects/o_ow_save/o_ow_save.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"txt_room_test_zone_entrance",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":160.0,"y":100.0,},
         {"$GMRInstance":"v4","%Name":"inst_37C30399","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_37C30399","objectId":{"name":"o_dev_playermarker","path":"objects/o_dev_playermarker/o_dev_playermarker.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":160.0,"y":140.0,},
@@ -128,6 +128,9 @@
     "Width":320,
   },
   "sequenceId":null,
+  "tags":[
+    "Test Zone",
+  ],
   "views":[
     {"hborder":32,"hport":240,"hspeed":-1,"hview":240,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":320,"wview":320,"xport":0,"xview":0,"yport":0,"yview":0,},
     {"hborder":32,"hport":240,"hspeed":-1,"hview":240,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":320,"wview":320,"xport":0,"xview":0,"yport":0,"yview":0,},

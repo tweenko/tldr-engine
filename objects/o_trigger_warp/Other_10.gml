@@ -1,6 +1,6 @@
 /// @description Trigger Entered
-triggered = true;
-trigger_exit = true; //always leave in
+event_inherited();
+
 savedir = get_leader().dir;
 was_climbing = climb_check();
 

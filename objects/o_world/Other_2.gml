@@ -22,24 +22,13 @@ if global.console_enabled && !instance_exists(o_dev_savewipe_prompt)
     instance_create(o_console)
 
 { // get window ready
-    window_scale = 1;
-    
-    // the exact way deltarune finds window scale
 	var display_height = display_get_height();
     var display_width = display_get_width();
     
-    // find the window and bordered window scale 
-    for (var _ww = 2; _ww < 6; _ww += 1) {
-        if (display_width > (GAME_W_GUI * _ww) && display_height > (GAME_H_GUI * _ww))
-            window_scale = _ww;
-        if (display_width > (960 * _ww) && display_height > (540 * _ww))
-            window_border_scale = _ww;
-    };
-    
-	var divide = 540;
-	if display_get_width() < display_get_height()
-		divide = 960;
-    fullscreen_scale = min(display_get_width(), display_get_height()) / divide;
+    // logic by Ally
+    window_scale = clamp(ceil(min(display_width / GAME_W_GUI, display_height / GAME_H_GUI)) - 1, 1, 11);
+    window_border_scale = clamp(ceil(min(display_width / 960, display_height / 540)) - 1, 1, 11);
+    fullscreen_scale = min(display_get_width(), display_get_height()) / (display_get_width() < display_get_height() ? 960 : 540);
     
     borders_toggle(global.border_mode != BORDER_MODE.OFF);
     borders_window_resize();
@@ -73,7 +62,7 @@ array_push(global.key_items, new item_key_cell_phone())
     // base player data
     save_entry("NAME", "PLAYER")
     save_entry("ROOM", room_test_main, undefined, function() { return room })
-    save_entry("ROOM_NAME", "", function(_conv_data){ global.room_name = _conv_data }, function(){ return global.room_name })
+    save_entry("ROOM_NAME", "Default Room Name", function(_conv_data){ global.room_name = _conv_data }, function(){ return global.room_name })
     
     save_entry("TIME", global.time, function(_conv_data){ global.time = _conv_data }, function(){ return global.time })
     save_entry("CHAPTER", global.chapter, function(_conv_data){ global.chapter = _conv_data }, function(){ return global.chapter })
@@ -82,9 +71,6 @@ array_push(global.key_items, new item_key_cell_phone())
     save_entry("EXP", 0)
     
     save_entry("CRYSTAL", false)
-    save_entry("COMPLETED", false)
-    save_entry("COMPLETE_ROOM", "undefined")
-    save_entry("COMPLETE_TIME", 0)
     
     // light world data
     save_entry("LW_NAME", loc("party_kris_name"))

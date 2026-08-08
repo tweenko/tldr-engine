@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"macro_typer",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"macro_typer",
+  "parent":{
+    "name":"macro",
+    "path":"folders/@Engine/scripts/macro.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

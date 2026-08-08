@@ -303,20 +303,29 @@ __act_sort = function(enemy_index) {
 	return acts
 }
 __item_sort = function(at_point = array_length(items_using)) {
-	var __items = variable_clone(item_get_array(0))
-	for (var i = array_length(__items)-1; i >= 0; i --) {
-        if array_contains(items_using, i)
-            array_delete(__items, i, 1)
+	var items = [];
+	var og_items = item_get_array(0)
+    for (var i = 0; i < array_length(og_items); i ++) {
+        array_push(items, og_items[i]);
     }
-	return __items
+    
+	for (var i = array_length(items)-1; i >= 0; i --) {
+        if array_contains(items_using, i)
+            array_delete(items, i, 1);
+    }
+	return items;
 }
 __spell_sort = function(party_name) {
     var spells = []
-    spells = variable_clone(party_getdata(party_name, "spells"))
-    for (var i = 0; i < array_length(struct_get(encounter_data.party_actions, party_name)); ++i) {
-        array_insert(spells, i, struct_get(encounter_data.party_actions, party_name)[i])
+    var og_spells = party_getdata(party_name, "spells")
+    for (var i = 0; i < array_length(og_spells); i ++) {
+        array_push(spells, og_spells[i]);
     }
-    return spells
+    
+    for (var i = 0; i < array_length(struct_get(encounter_data.party_actions, party_name)); ++i) {
+        array_insert(spells, i, struct_get(encounter_data.party_actions, party_name)[i]);
+    }
+    return spells;
 }
 
 /// @description calls events for all enemies and the encounter struct

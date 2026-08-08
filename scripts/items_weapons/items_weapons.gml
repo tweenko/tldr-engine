@@ -37,6 +37,8 @@ function item_w_spookysword() : item_weapon() constructor {
     
     item_localize("item_w_spookysword")
 }
+item_register(item_w_spookysword);
+
 function item_w_lw_halloween_pencil() : item_weapon() constructor {
     name = ["Halloween Pencil"]
 	desc = ["* Orange with black bats on it.", "--"]
@@ -47,6 +49,7 @@ function item_w_lw_halloween_pencil() : item_weapon() constructor {
     
     item_localize("item_w_lw_halloween_pencil")
 }
+item_register(item_w_lw_halloween_pencil);
 
 function item_w_wood_blade() : item_weapon() constructor {
 	name = ["Wood Blade"]
@@ -67,6 +70,8 @@ function item_w_wood_blade() : item_weapon() constructor {
     
     item_localize("item_w_wood_blade")
 }
+item_register(item_w_wood_blade);
+
 function item_w_lw_pencil() : item_weapon() constructor {
     name = ["Pencil"]
 	desc = ["* \"Pencil\" - Weapon 1 AT{br}{resetx}{sleep(10)}* Mightier than a sword?{br}{resetx}{sleep(10)} * Maybe equal at best.", "--"]
@@ -77,6 +82,7 @@ function item_w_lw_pencil() : item_weapon() constructor {
     
     item_localize("item_w_lw_pencil")
 }
+item_register(item_w_lw_pencil);
 
 function item_w_saber10() : item_weapon() constructor {
 	name = ["Saber10"]
@@ -99,6 +105,8 @@ function item_w_saber10() : item_weapon() constructor {
     
     item_localize("item_w_saber10")
 }
+item_register(item_w_saber10);
+
 function item_w_lw_cactusneedle() : item_weapon() constructor {
 	name = ["CactusNeedle"]
 	desc = ["* Ouch! ... It's somewhat sentimental in a way.", "--"]
@@ -109,6 +117,7 @@ function item_w_lw_cactusneedle() : item_weapon() constructor {
     
     item_localize("item_w_lw_cactusneedle")
 }
+item_register(item_w_lw_cactusneedle);
 
 function item_w_jingleblade() : item_weapon() constructor {
 	name = ["JingleBlade"]
@@ -136,6 +145,8 @@ function item_w_jingleblade() : item_weapon() constructor {
     
     item_localize("item_w_jingleblade")
 }
+item_register(item_w_jingleblade);
+
 function item_w_lw_holiday_pencil() : item_weapon() constructor {
 	name = ["Holiday Pencil"]
 	desc = ["* \"Holiday Pencil\" - 1 AT{br}{resetx}{sleep(10)}* A festive candycane pencil.{br}{resetx}{sleep(10)}* Do not eat.", "--"]
@@ -146,6 +157,7 @@ function item_w_lw_holiday_pencil() : item_weapon() constructor {
     
     item_localize("item_w_lw_holiday_pencil")
 }
+item_register(item_w_lw_holiday_pencil);
 
 // axes
 function item_w_mane_ax() : item_weapon() constructor {
@@ -166,6 +178,8 @@ function item_w_mane_ax() : item_weapon() constructor {
     
     item_localize("item_w_mane_ax")
 }
+item_register(item_w_mane_ax);
+
 function item_w_devilsknife() : item_weapon() constructor {
 	name = ["Devilsknife"]
 	desc = ["Skull-emblazoned scythe-ax.\nReduces Rudebuster's cost by 10"]
@@ -190,7 +204,9 @@ function item_w_devilsknife() : item_weapon() constructor {
     can_sell = false
     
     item_localize("item_w_devilsknife")
-}    
+}
+item_register(item_w_devilsknife);
+
 function item_w_absorbax() : item_weapon() constructor {
 	name = ["AbsorbAx"]
 	desc = ["A long, curved axe with an indent. Scoop up HP when you attack."]
@@ -214,7 +230,8 @@ function item_w_absorbax() : item_weapon() constructor {
     sell_price = 617
     
     item_localize("item_w_absorbax")
-}  
+}
+item_register(item_w_absorbax);
 
 // scarfs
 function item_w_red_scarf() : item_weapon() constructor {
@@ -235,6 +252,8 @@ function item_w_red_scarf() : item_weapon() constructor {
     
     item_localize("item_w_red_scarf")
 }
+item_register(item_w_red_scarf);
+
 function item_w_flexscarf() : item_weapon() constructor {
 	name = ["FlexScarf"]
 	desc = ["A scarf that is warm and fuzzy, but with a metal core that lets it keep its shape.", "--", "Weaklings can flex too"]
@@ -256,6 +275,8 @@ function item_w_flexscarf() : item_weapon() constructor {
     
     item_localize("item_w_flexscarf")
 }
+item_register(item_w_flexscarf);
+
 function item_w_puppetscarf() : item_weapon() constructor {
 	name = ["PuppetScarf"]
 	desc = ["A scarf made of strange strings. For those that abandon healing."]
@@ -277,6 +298,7 @@ function item_w_puppetscarf() : item_weapon() constructor {
     
     item_localize("item_w_puppetscarf")
 } 
+item_register(item_w_puppetscarf);
 
 // rings
 function item_w_snowring() : item_weapon() constructor {
@@ -297,6 +319,8 @@ function item_w_snowring() : item_weapon() constructor {
     
     item_localize("item_w_snowring")
 }
+item_register(item_w_snowring);
+
 function item_w_freezering() : item_weapon() constructor {
 	name = ["FreezeRing"]
 	desc = ["A ring with a snowglobe on it. ... is that someone inside?"]
@@ -318,3 +342,4 @@ function item_w_freezering() : item_weapon() constructor {
     
     item_localize("item_w_freezering")
 }  
+item_register(item_w_freezering);

@@ -1,6 +1,6 @@
 trigger_code = function() {
     for (var i = 1; i < party_length(true); i ++) {
-        var marker = marker_getpos("test_pm_wait", i)
+        var marker = marker_get("test_pm_wait", i);
         
         if !is_undefined(marker) {
             actor_move(party_get_inst(global.party_names[i]), new actor_movement(marker.x, marker.y, 15,,, DIR.RIGHT), i)

@@ -54,10 +54,10 @@ function borders_toggle(borders_on = !global.border) {
 /// @arg {bool} force       whether to set the border even if they aren't dynamic
 /// @arg {real} animation_length (in frames) the length of the crossfade animation. 30 by default, 0 if instant
 function border_set(_border, _force = false, _animation_length = 30) {
-    if instanceof(_border) == instanceof(global.border_struct) // don't do anything if the previous border and the current border are the same
-        return
+    if is_instanceof(global.border_struct, _border) // don't do anything if the previous border and the current border are the same
+        return false;
     if !global.border
-        return
+        return false;
     
     with o_window {
         if !surface_exists(surf_border)
@@ -105,7 +105,7 @@ function borders_window_resize(borders_on = global.border, window_scale = o_worl
     }
     else {
         window_set_size(res_window[0], res_window[1]);
-        winx -= (res_window[0] - res_borders[0])/2;;
+        winx -= (res_window[0] - res_borders[0])/2;
         winy -= (res_window[1] - res_borders[1])/2
     }
     

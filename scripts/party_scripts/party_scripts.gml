@@ -149,7 +149,7 @@ function party_reposition(lx = get_leader().x, ly = get_leader().y){
 		if instance_exists(party_get_inst(global.party_names[i])) {
 			var inst = party_get_inst(global.party_names[i])
 			inst.is_follower = true
-			inst.pos = get_leader().spacing * party_get_index(global.party_names[i])
+			inst.pos = get_leader().spacing * i;
 			
 			with inst { // set position, initialize the followers
 				if array_length(record) == 0 
@@ -214,7 +214,7 @@ function party_get_sprite_from_scheme(name, identifier, prefix = "", state = "",
 
 /// @desc  returns the party sprite with a certain naming scheme.
 /// the examples below are based on the following example sprite:
-/// `spr_ex_berdly_down_sad`
+/// `spr_ex_berdly_idle_down_sad`
 /// @param {string} name         the name of the party member
 /// @param {string} [prefix]     the sprite prefix (e.g. `ex`)
 /// @param {string} [state]      the actor state. always at the very end of the sprite name and not a part of the naming scheme (e.g. `sad`)
@@ -223,11 +223,39 @@ function party_get_sprite_from_scheme(name, identifier, prefix = "", state = "",
 /// @param {asset.gmsprite} [fallback]   the default sprite to use in case of failure
 /// @returns {array<Asset.GMSprite>}
 function party_get_cardinal(name, prefix = "", state = "", scheme = "spr_{0}_{1}_{2}", optional_arguments = [], fallback = spr_default) {
-    var cardinal = []
+    var cardinal = {
+        s_idle: [],
+    };
+    cardinal.s_idle[DIR.DOWN] = undefined;
+    cardinal.s_idle[DIR.LEFT] = undefined;
+    cardinal.s_idle[DIR.RIGHT] = undefined;
+    cardinal.s_idle[DIR.UP] = undefined;
+    
     for (var i = 0; i < 360; i += 90) {
-        cardinal[i] = party_get_sprite_from_scheme(name, dir_to_string(i), prefix, state, scheme, optional_arguments, fallback)
+        var dir_string = dir_to_string(i);
+        
+        // old format will be counted as a walk sprite alternative
+        var old_format_sprite = party_get_sprite_from_scheme(name, dir_string, prefix, state, scheme, optional_arguments, fallback);
+        
+        var idle_sprite = party_get_sprite_from_scheme(name, "idle_" + dir_string, prefix, state, scheme, optional_arguments, fallback);
+        var walk_sprite = party_get_sprite_from_scheme(name, "walk_" + dir_string, prefix, state, scheme, optional_arguments, fallback);
+        
+        if sprite_exists(idle_sprite) && idle_sprite != fallback
+            array_set(struct_get(cardinal, "s_idle"), i, idle_sprite);
+        
+        if sprite_exists(walk_sprite) && walk_sprite != fallback {
+            if !struct_exists(cardinal, "s_move")
+                struct_set(cardinal, "s_move", []);
+            array_set(struct_get(cardinal, "s_move"), i, walk_sprite);
+        }
+        else if sprite_exists(old_format_sprite) && old_format_sprite != fallback {
+            if !struct_exists(cardinal, "s_move")
+                struct_set(cardinal, "s_move", []);
+            array_set(struct_get(cardinal, "s_move"), i, old_format_sprite);
+        }
     }
-    return cardinal
+    
+    return cardinal;
 }
 
 /// @desc returns the array with the sprites for the actor's cardinal directions

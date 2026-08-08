@@ -1,11 +1,12 @@
 /// @description theme set
-var theme = ""
-//theme = "ominous"
-theme = "finished"
+var completed = save_is_chapter_completed();
+var slots = save_read_all(global.chapter)
+
+var theme = completed ? global.registered_chapters[global.chapter-1].save_theme_completed : global.registered_chapters[global.chapter-1].save_theme_default;
 
 loc_id_messages = "save_select_messages_normal"
 
-if theme == "ominous" {
+if theme == SAVE_SELECT_THEME.OMINOUS {
 	{ // theme
 		white = #07FF00
 		dark = #008000
@@ -42,22 +43,21 @@ if theme == "ominous" {
 		m_copycant = "copycant"
 		m_copysuccess = function(prev) {
 			if (prev == 22 || prev == 21) && state == 0 {
-				if files[0] != -1 {
-					var p = prepared
-					var f = 1
-					var a = [files[0].NAME, files[0].TIME]
-					for (var i = 0; i < array_length(self.files); ++i) {
-						if self.files[i] != -1 {
-							if files[i].NAME == a[0] && files[i].TIME == a[1] {}
-							else 
-								f = 0
-						}
-					}
-					
-					prepared = f
-					if p && f 
+				if files[0] != -1 { // check if all saves are identical (very specific secret in DR)
+                	var prepared_previous = prepared;
+                    
+                    prepared = true;
+                	var reference_save = [files[0].NAME, files[0].TIME];
+                	for (var i = 0; i < array_length(files); ++i) {
+                		if is_struct(files[i]) || (files[i].NAME == reference_save[0] && files[i].TIME == reference_save[1]) {
+                			prepared = false; 
+                			break;
+                		}
+                	}
+                    
+					if prepared_previous && prepared
 						return "copysuccess_weird"
-					if f 
+					else if prepared
 						return "copysuccess_prepared"
 				}
 			}
@@ -101,21 +101,23 @@ if theme == "ominous" {
 	
 	target_music = mus_drone
 }
-else if theme == "finished" {
+else if theme == SAVE_SELECT_THEME.FOUNTAIN {
 	{ // theme
 		white = c_white
 		dark = #9a9ab3
 		shadow = c_black
 		yellow = #ffff66
 		outline_thickness = 4
-		bg = spr_ui_saveselect_fountain
+		bg = spr_ui_saveselect_fountain;
 		image_alpha = 0
 	}
 	
-	target_music = mus_story
+	target_music = mus_story;
+	target_music_pitch = 0.95;
 }
 else {
-	target_music = mus_menu
+	target_music = mus_menu;
+	target_music_pitch = 0.95;
 }
 	
 fader_fade(1, 0, 15)

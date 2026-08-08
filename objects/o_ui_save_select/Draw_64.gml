@@ -97,11 +97,11 @@ for (var i = 0; i < SAVE_SLOTS; ++i) {
 	draw_set_color(col)
 	
 	if state == 4 || state == 41 { // ch files
-		if files_prev[i] != -1 && files_prev[i].COMPLETED {
+		if is_struct(files_prev[i]) {
 			draw_text_transformed_shadow(160, 120 + i*90, files_prev[i].NAME, 2, 2, 0, 2, shadow)
 		
 			if (state != 41) || s != i {
-				draw_text_transformed_shadow(160, 154 + i*90, loc(files_prev[i].COMPLETE_ROOM), 2, 2, 0, 2, shadow)
+				draw_text_transformed_shadow(160, 154 + i*90, loc(files_prev[i].ROOM_NAME), 2, 2, 0, 2, shadow)
 			}
 			else {
 				draw_set_color(white)
@@ -110,14 +110,14 @@ for (var i = 0; i < SAVE_SLOTS; ++i) {
 				draw_text_transformed_shadow(180, 154 + i*90, loc("save_select_start"), 2, 2, 0, 2, shadow)
 			
 				draw_set_color(white)
-				if s_hor!=1 
+				if s_hor != 1 
 					draw_set_color(dark)
 				draw_text_transformed_shadow(360, 154 + i*90, loc("save_select_back"), 2, 2, 0, 2, shadow)
 			}
 			
 			draw_set_color(col)
 			draw_set_halign(fa_right)
-			draw_text_transformed_shadow(470, 120 + i*90, time_format(files_prev[i].COMPLETE_TIME), 2, 2, 0, 2, shadow)
+			draw_text_transformed_shadow(470, 120 + i*90, time_format(files_prev[i].TIME), 2, 2, 0, 2, shadow)
 			
 			draw_set_halign(fa_left)
 		}
@@ -127,7 +127,7 @@ for (var i = 0; i < SAVE_SLOTS; ++i) {
 		}
 	}
 	else {
-		if files[i] != -1 {
+		if is_struct(files[i]) {
 			if state == 22 && s == i // copy
 				draw_text_transformed_shadow(160, 120 + i*90, loc("save_select_copy_query"), 2, 2, 0, 2, shadow)
 			else if state == 31 && s == i // erase (stg 1)

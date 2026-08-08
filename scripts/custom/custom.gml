@@ -116,7 +116,7 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
         return undefined;
     
     if offset > 0 
-        call_later(offset, time_source_units_frames, method({type, sound, loop, gain, pitch}, function() {
+        return call_later(offset, time_source_units_frames, method({type, sound, loop, gain, pitch}, function() {
             audio_play_sound_on(audio_get_target_emitter(type), 
                 sound, loop, 
                 0, gain,
@@ -129,12 +129,13 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
             0, gain,
             0, pitch
         );
+        audio_sound_gain(ret, gain);
+        audio_sound_pitch(ret, pitch);
+        
         o_world.sound_on_frame = sound;
         
         return ret;
     }
-    
-    return noone;
 }
 
 /**
@@ -291,6 +292,23 @@ function draw_cone(_x1, _y1, _x2, _y2, _radius, _direction = 0, _color = draw_ge
     draw_set_alpha(og_alpha);
 }
 
+/// @desc draws a rectangle outline using separate pixels
+/// @arg {real} x
+/// @arg {real} y
+/// @arg {real} width
+/// @arg {real} height
+/// @arg {real} thickness the thickness of the outline
+/// @arg {real} angle
+/// @arg {real} blend
+/// @arg {real} alpha
+function draw_rectangle_outline(_x, _y, _width, _height, _thickness = 1, _angle = 0, _blend = draw_get_colour(), _alpha = draw_get_alpha()) {
+    draw_sprite_ext(spr_pixel, 0, _x, _y, _width, _thickness, _angle, _blend, _alpha);
+    draw_sprite_ext(spr_pixel, 0, _x, _y, _thickness, _height, _angle, _blend, _alpha);
+    
+    draw_sprite_ext(spr_pixel, 0, _x + _width - _thickness, _y, _thickness, _height, _angle, _blend, _alpha);
+    draw_sprite_ext(spr_pixel, 0, _x, _y + _height - _thickness, _width, _thickness, _angle, _blend, _alpha);
+}
+
 // ------------- INSTANCE AND OBJECT STUFF --------------
 
 /// @desc uses post_var_struct instead of just var_struct because it sets the values in the struct after the instance's create event has run.
@@ -334,8 +352,6 @@ function object_get_base_parent(o_index, stop_at = noone) {
 /// @desc returns an asset index with specified name but if the prefix version does not exists, returns the normal sprite
 function asset_get_index_state(str, state){
 	var ret = asset_get_index(str)
-    if !sprite_exists(ret)
-        return undefined
     
     var __states = string_split(state, "_", true)
 	
@@ -387,11 +403,50 @@ function array_sort_ext(array, sort_type_or_function) {
 	array_sort(arr, sort_type_or_function)
 	return arr
 }
+/// @desc finds a value and then deletes it
+function array_delete_by_value(_array, _value) {
+    var index = array_get_index(_array, _value);
+    array_delete(_array, index, 1);
+}
+
 /// @param {string}  substring  The string to find.
 /// @param {string}  fullstring  The string to find from.
 /// @description              Check if a string contains a string inside it.
 function string_contains(substring, fullString) {
     return string_pos(substring, fullString) > 0;
+}
+/// @desc truncates a string, if it's bigger than the max_len it will be truncated down to it. will avoid cutting words if possible
+/// @param {string} str the original string
+/// @param {string} max_len the maximum allowed length
+function string_truncate_words(str, max_len) {
+    if string_length(str) <= max_len 
+        return str;
+    
+    var cut_str = string_copy(str, 1, max_len);
+    
+    var last_space = 0;
+    for (var i = string_length(cut_str); i > 0; i --) {
+        if array_contains(TYPER_CONSIDER_SPACES, string_char_at(cut_str, i)) {
+            last_space = i;
+            break;
+        }
+    }
+    
+    if last_space > 0
+        return string_copy(cut_str, 1, last_space - 1) + "...";
+    return cut_str + "..."; // if it doesn't have 
+}
+/// @desc compares two strings using an ascii table. the result will be -1 if string A is earlier and 1 if string B is earlier. a 0 can be returned if strings are identical
+function string_compare_alphabetically(a, b) {
+    var name_a = string_lower(a);
+    var name_b = string_lower(b);
+    
+    if name_a < name_b
+        return -1;
+    else if name_a > name_b
+        return 1;
+    else
+        return 0;
 }
 
 /// @desc snaps a number x to a multiple of n
@@ -458,6 +513,21 @@ function struct_merge(primary, secondary, shared) {
 	}
 	return _ReturnStruct;
 }
+/// @desc checks if a constructor is a child of another constructor in its parents
+/// @arg {struct|Asset.GMScript|function} _child
+/// @arg {Asset.GMScript|function} _parent
+/// @returns {bool}
+function constructor_is_child(_child, _parent) {
+    var _static_struct = static_get(_child);
+    
+    while _static_struct != undefined {
+        if _static_struct == static_get(_parent)
+            return true;
+        
+        _static_struct = static_get(_static_struct);
+    }
+    return false;
+}
 
 /// @desc returns the sum of two angles within the angle range
 function angle_add(x, y) {
@@ -474,6 +544,12 @@ function string_to_bool(_string) {
         return false
     else 
         return real(string_digits(_string)) > .5
+}
+/// @desc removes all "\n"s from a string
+/// @arg {string} _string the string you'd like to convert
+/// @returns {bool}
+function string_remove_newlines(_string) {
+    return string_replace_all(_string, "\n", " ");
 }
 
 function increment_towards(a, b, increment) {
@@ -600,7 +676,7 @@ function time_format(time_s, display_hours = true){
 	return time
 }
 
-/// @desc Move with collision without slope support and returns the id of what's being collided with. By notrealnevereveal
+/// @desc Move with collision without slope support and returns the id of what's being collided with
 function move_and_collide_simple(dx, dy, inst) {
 	var tx = sign(dx), ty = sign(dy), col = noone, colid = noone;
 
@@ -632,7 +708,6 @@ function move_and_collide_simple(dx, dy, inst) {
 
 	return colid;
 }
-
 
 // ----------- INPUT STUFF --------------------
 /// @desc converts binds to keys
@@ -713,6 +788,29 @@ function input_binding_draw(verb, xx, yy, scale, label = "", pre_label = "", _is
 	}
 	
     draw_text_transformed(xx, yy, pre_label + $"[{input_binding_to_string(InputBindingGet(false, verb), true, _is_gamepad)}]" + label, scale, scale, 0)
+}
+
+/// @desc detects a key press and checks if its being held down long enough to start repeating
+function keyboard_check_repeat(_key, _repeat_delay = 2, _repeat_predelay = 10) {
+    var check_repeat = false;
+    static last_pressed_key = _key;
+    static press_timer = 0;
+    
+    if keyboard_check(_key) {
+        if last_pressed_key != _key  {
+            last_pressed_key = _key;
+            press_timer = 0;
+        }
+        
+        press_timer ++;
+        
+        if press_timer > _repeat_predelay && press_timer % _repeat_delay == 0
+            return true;
+    }
+    else if last_pressed_key == _key
+        press_timer = 0;
+    
+    return keyboard_check_pressed(_key);
 }
 
 function cap_wraparound(value, maxvalue) {
