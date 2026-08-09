@@ -22,7 +22,10 @@
     "name":"enemies",
     "path":"folders/Goob/objects/actors/enemies.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"o_actor_e",
+    "path":"objects/o_actor_e/o_actor_e.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

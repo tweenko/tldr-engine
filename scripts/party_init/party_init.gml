@@ -137,9 +137,9 @@ function party_m_kris(_initialized_name) : party_m(_initialized_name) constructo
 		["party_stat_guts", 2, spr_ui_menu_icon_fire],
 	]
 	
-	max_hp =	party_m_calculate_hp(90, lv)
+	max_hp =	party_m_calculate_hp(340, lv)
     hp =		max_hp
-	attack =	12
+	attack =	16
 	defense =	2
 	magic =		0
 	element_resistance = {
@@ -200,9 +200,9 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
 		["party_stat_guts", 2, spr_ui_menu_icon_fire],
 	]
 	
-	max_hp =	party_m_calculate_hp(110, lv)
+	max_hp =	party_m_calculate_hp(400, lv)
     hp =        max_hp
-	attack =	16
+	attack =	20
 	defense =	2
 	magic =		1
 	element_resistance = {
@@ -269,9 +269,9 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 		["party_stat_guts", 0, spr_ui_menu_icon_fire],
 	]
 	
-	max_hp =	party_m_calculate_hp(70, lv)
+	max_hp =	party_m_calculate_hp(300, lv)
     hp =		max_hp
-	attack =	8
+	attack =	12
 	defense =	2
 	magic =		9
 	element_resistance = {

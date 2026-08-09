@@ -23,7 +23,7 @@
   ],
   "name":"spr_gb_e_lodestar_hurt",
   "nineSlice":null,
-  "origin":0,
+  "origin":9,
   "parent":{
     "name":"lodestar",
     "path":"folders/Goob/sprites/actors/enemies/lodestar.yy",
@@ -76,7 +76,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":0,
-    "yorigin":0,
+    "yorigin":36,
   },
   "swatchColours":null,
   "swfPrecision":0.5,

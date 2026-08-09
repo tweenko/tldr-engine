@@ -1,20 +1,29 @@
-function gb_enc_set() : enc_set() constructor {
-	debug_name	=	"malign_combat"
+function gb_enc_set_malign() : enc_set() constructor {
+	debug_name	=	"gb_enc_malign_combat"
     
 	enemies = [
-		new ex_enemy_custodian(),
-		new ex_enemy_lodestar(),
+		new gb_enemy_custodian(),
+		new gb_enemy_lodestar(),
 	]
-	flavor = "* Cold entropy constricts you...{br}{resetx}* {col(y)}TP{col(w)} Gain reduced outside of {col(g)}COURAGE{col(w)}!"
-    
-    bgm = mus_ex_spawn
+	 flavor = function() {
+        if o_enc.turn_count == 0 
+            return "* Cold entropy constricts you...{br}{resetx}* {col(y)}TP{col(w)} Gain reduced outside of {col(g)}COURAGE{col(w)}!"
+        return choose(
+			"* Wisps of energy fly around you."	,
+			"* Why did you choose to be this way?",
+			"* The constructs stare at you coldly.",
+			"* Your soul's light struggles to fight the malign influence."
+		)
+	 }
+
+    bgm = mus_blood
     bgm_pitch = 1
     bgm_gain = 1
     
     // positions
     enemies_pos = function(i, xx, yy) {
         return [
-            xx - i*10,
+            xx,
             yy
         ]
     }
