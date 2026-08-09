@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.450884,
+  "duration":0.45088434,
   "exportDir":"",
   "name":"snd_damage",
   "parent":{

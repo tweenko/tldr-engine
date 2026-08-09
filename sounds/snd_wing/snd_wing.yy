@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.468753,
+  "duration":0.46875283,
   "exportDir":"",
   "name":"snd_wing",
   "parent":{

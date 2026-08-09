@@ -10,7 +10,7 @@
   "compression":3,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":89.608345,
+  "duration":128.0,
   "exportDir":"",
   "name":"mus_ex_test_zone",
   "parent":{

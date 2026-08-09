@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.357438,
+  "duration":1.3574376,
   "exportDir":"",
   "name":"snd_chs_ch2",
   "parent":{

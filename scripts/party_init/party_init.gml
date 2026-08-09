@@ -137,7 +137,7 @@ function party_m_kris(_initialized_name) : party_m(_initialized_name) constructo
 		["party_stat_guts", 2, spr_ui_menu_icon_fire],
 	]
 	
-	max_hp =	party_m_calculate_hp(340, lv)
+	max_hp =	party_m_calculate_hp(30, lv)
     hp =		max_hp
 	attack =	16
 	defense =	2
@@ -204,7 +204,7 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
     hp =        max_hp
 	attack =	20
 	defense =	2
-	magic =		1
+	magic =		5
 	element_resistance = {
 	}
 	
@@ -220,7 +220,7 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
 	
 	// sprites
     s_name = "susie"
-	s_state =		"" // serious, eyes, serious_eyes, bangs
+	s_state =		"serious_eyes" // serious, eyes, serious_eyes, bangs
 	s_substate =	""
 	s_icon =		spr_ui_susie_icon
 	s_icon_ow =		spr_ui_susie_head
@@ -273,7 +273,7 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
     hp =		max_hp
 	attack =	12
 	defense =	2
-	magic =		9
+	magic =		12
 	element_resistance = {
 	}
 	
@@ -289,7 +289,7 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 	
 	// sprites
     s_name = "ralsei"
-	s_state =		"" // sad, sad_subtle, hat, serious
+	s_state =		"serious" // sad, sad_subtle, hat, serious
 	s_substate =	""
 	s_icon =		spr_ui_ralsei_icon
 	s_icon_ow =		spr_ui_ralsei_head

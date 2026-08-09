@@ -4,10 +4,10 @@ function gb_enemy_custodian() : enemy() constructor{
 	turn_object = o_gb_turn_custodian
 	
 	//stats
-	hp =		1500
-	max_hp =	1500
-	attack =	9
-	defense =	3
+	hp =		3000
+	max_hp =	3000
+	attack =	6
+	defense =	6
     
     can_spare = false
     mercy_add_pity_percent = 0
@@ -25,7 +25,7 @@ function gb_enemy_custodian() : enemy() constructor{
 			party: [],
 			desc: "Useless analysis",
 			exec: function() {
-				encounter_scene_dialogue("* CUSTODIAN - Floats with a weightless, unnerving grace. {col(c_teal)}This entity should not be on the station!{col(w)}")
+				encounter_scene_dialogue("* CUSTODIAN - Floats with a weightless unnerving grace. {col(c_teal)}This should not be on the station!{col(w)}")
 			}
 		},
 	]
@@ -40,9 +40,9 @@ function gb_enemy_lodestar() : enemy() constructor{
 	turn_object = o_gb_turn_lodestar
 	
 	// stats
-	hp =		1500
-	max_hp =	1500
-	attack =	9
+	hp =		3000
+	max_hp =	3000
+	attack =	12
 	defense =	3
     
     can_spare = false

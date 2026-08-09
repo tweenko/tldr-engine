@@ -170,5 +170,8 @@
             "like": "レトロゲーム",
             "dislike": "司法制度"
         }
-    }
+    },
+	"enemy_malign_ralsei": {
+		"en": ["{char(ralsei, 3)}＊We're too close to the monument! We can't lose this now!"]
+	}
 }
