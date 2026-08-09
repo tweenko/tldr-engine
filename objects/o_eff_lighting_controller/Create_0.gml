@@ -9,6 +9,7 @@ lighting_alpha = 0
 
 shadows = true;
 darken = true;
+darken_color = c_black;
 highlights = true;
 
 surf = -1

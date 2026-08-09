@@ -28,7 +28,8 @@ function lighting_darken_self(drawer = undefined) {
     if variable_instance_exists(self, "am_emitting_light")
         __emitting_light = am_emitting_light
     
-	if o_eff_lighting_controller.lighting_alpha > 0 && !__emitting_light {
+    gpu_set_fog(true, o_eff_lighting_controller.darken_color, 0, 1);
+	if o_eff_lighting_controller.lighting_alpha > 0 && !__emitting_light && o_eff_lighting_controller.darken {
         if !is_undefined(drawer) && is_method(drawer)
             drawer(sprite_index, image_index,
     			x, y, image_xscale, image_yscale,
@@ -40,4 +41,5 @@ function lighting_darken_self(drawer = undefined) {
                 image_angle, c_black, o_eff_lighting_controller.lighting_alpha * o_eff_lighting_controller.lighting_darken
             )
 	}
+    gpu_set_fog(false, 0, 0, 0);
 }

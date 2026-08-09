@@ -139,8 +139,6 @@ if flashing { // battle select flash
 	gpu_set_fog(true, c_white, 0, 0)
 	s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, c_white, (-cos(fsiner / 5)*0.4 + 0.6) * alpha_mod);
 	gpu_set_fog(false, c_white, 0, 0)
-    
-    lighting_darken_self()
 }
 if flash > 0 { // normal flash
 	gpu_set_fog(true, flash_color, 0, 0)

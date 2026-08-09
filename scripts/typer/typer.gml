@@ -1,3 +1,6 @@
+#macro TYPER_COMMAND_START "{"
+#macro TYPER_COMMAND_END "}"
+
 function typer(_text, _x, _y, _depth, _gui = true) constructor {
     text = _text;
     
@@ -14,7 +17,7 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     break_tabulation = 16;
     break_tabulation_enabled = true;
     
-    color = [c_white, c_yellow];
+    color = c_white;
     alpha = 1;
     font = loc_font("main");
     
@@ -25,6 +28,7 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     
     gui = _gui;
     
+    // projections
     projection = noone;
     create_projection = method(self, function() {
         projection = instance_create(o_typer_projection, x, y, depth);
@@ -41,17 +45,17 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     
     width = 540;
     height = undefined;
-    fixed_width = undefined; // auto-set later
-    fixed_height = undefined; // auto-set later
+    fixed_width = undefined; // auto-set later, depending on whether width is defined
+    fixed_height = undefined; // auto-set later, depending on whether height is defined
     
-    dynamic = true; // if true, the info will be updated every time the typer's drawn. could be memory-heavy
+    dynamic = false; // if true, the info will be updated every time the typer's drawn. could be memory-heavy
     
     draw = method(self, function() {
         // make line breaks
-        var line_breaks = evaluate_linebreaks();
-        
-        if dynamic
+        if dynamic {
+            line_breaks = evaluate_linebreaks();
             update_info(line_breaks);
+        }
         
         var xx = x;
         var yy = y;
@@ -95,31 +99,37 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         draw_sprite_ext(spr_pixel, 0, start_xx + width, start_yy, 1, height, 0, c_white, 1)
     });
     
-    parse = method(self, function(_text) {
-        var parse_point = 1;
-        
-        while parse_point <= string_length(_text) {
-            var cur_char = string_char_at(_text, parse_point);
-            var symbol = new typer_symbol(cur_char);
+    line_breaks = [];
+    evaluate_linebreaks = method(self, function() {
+        var line_breaks = [];
+        var last_space = undefined;
+        var last_space_x = 0;
+        var xx_offset = 0;
+        for (var i = 0; i < array_length(symbols); i ++) {
+            var s = symbols[i];
             
-            // inherit all struct variables
-            var struct_names = struct_get_names(self);
-            for (var i = 0; i < array_length(struct_names); i ++) {
-                if !struct_exists(symbol, struct_names[i]) || array_contains(symbols_dont_inherit, struct_names[i])
-                    continue;
-                
-                struct_set(symbol, struct_names[i], struct_get(self, struct_names[i]));
+            var _full_hor_spacing = (spacing_mono ? spacing_mono_width : s.width) + spacing_hor * scale_x;
+            xx_offset += _full_hor_spacing;
+            
+            if array_contains(TYPER_CONSIDER_SPACES, s.symbol) {
+                last_space = i;
+                last_space_x = xx_offset;
+                continue;
             }
             
-            // inherit the other ones manually for naming conventions' sake
-            symbol.dynamic = symbols_dynamic;
-            symbol.symbol_n = parse_point - 1;
-            
-            array_push(symbols, symbol);
-            
-            parse_point ++;
+            // break if current length is longer than the target width
+            if xx_offset >= width {
+                array_push(line_breaks, last_space);
+                
+                last_space = i;
+                
+                xx_offset = (xx_offset - last_space_x);
+                xx_offset += (break_tabulation_enabled ? break_tabulation*scale_x : 0);
+            }
         }
-    });
+        
+        return line_breaks;
+    })
     update_info = method(self, function(_line_breaks = []) {
         var cumulative_width = [0];
         var cumulative_height = 0;
@@ -144,37 +154,8 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         if !fixed_height
             height = cumulative_height;
     })
-    evaluate_linebreaks = method(self, function() {
-        var line_breaks = [];
-        var last_space = undefined;
-        var last_space_x = 0;
-        var xx_offset = 0;
-        for (var i = 0; i < array_length(symbols); i ++) {
-            var s = symbols[i];
-            
-            var _full_hor_spacing = (spacing_mono ? spacing_mono_width : s.width) + spacing_hor * scale_x;
-            xx_offset += _full_hor_spacing;
-            
-            if s.symbol == " " {
-                last_space = i;
-                last_space_x = xx_offset;
-                continue;
-            }
-            
-            // break if current length is longer than the target width
-            if xx_offset >= width {
-                array_push(line_breaks, last_space);
-                
-                last_space = i;
-                
-                xx_offset = (xx_offset - last_space_x);
-                xx_offset += (break_tabulation_enabled ? break_tabulation*scale_x : 0);
-            }
-        }
-        
-        return line_breaks;
-    })
     
+    // time callback
     time_source = undefined;
     start = method(self, function() {
         // call for the first time
@@ -183,7 +164,27 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         time_source = call_later(1, time_source_units_frames, method(self, callback), true);
     })
     callback = method(self, function() {
-        width = 500 + sine(20, 100);
+        if _typewriter_typing {
+            if _typewriter_sleep <= 0 {
+                repeat max(_typewriter_spd, 1) {
+                    if _typewriter_displayed_symbols >= array_length(symbols) {
+                        _typewriter_typing = false;
+                        break;
+                    }
+                    
+                    if _typewriter_pos >= _typewriter_displayed_symbols {
+                        symbols[_typewriter_displayed_symbols].activate(self);
+                        _typewriter_displayed_symbols ++;
+                    }
+                    _typewriter_pos += _typewriter_spd;
+                }
+            }
+            
+            if _typewriter_sleep > 0
+                _typewriter_sleep --;
+            
+            _typewriter_timer ++;
+        }
     });
     destroy = method(self, function() {
         if time_source_exists(time_source)
@@ -194,12 +195,95 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         return false;
     })
     
+    // initialize
+    parse = method(self, function(_text) {
+        var parse_point = 1;
+        var cur_char_commands = [];
+        
+        while parse_point <= string_length(_text) {
+            var cur_char = string_char_at(_text, parse_point);
+            
+            // parse the command
+            if cur_char == TYPER_COMMAND_START {
+                var command_parse_result = "";
+                while string_char_at(_text, parse_point) != TYPER_COMMAND_END {
+                    parse_point ++;
+                    command_parse_result += string_char_at(_text, parse_point);
+                }
+                parse_point ++;
+                
+                command_parse_result = string_delete(command_parse_result, string_length(command_parse_result), 1);
+                
+                // find the command result in the command list
+                var cmd = typer_command_find(command_parse_result);
+                array_push(cur_char_commands, cmd);
+                
+                continue;
+            }
+            
+            var symbol = new typer_symbol(cur_char);
+            
+            // inherit all struct variables
+            var struct_names = struct_get_names(self);
+            for (var i = 0; i < array_length(struct_names); i ++) {
+                if !struct_exists(symbol, struct_names[i]) || array_contains(symbols_dont_inherit, struct_names[i])
+                    continue;
+                
+                struct_set(symbol, struct_names[i], struct_get(self, struct_names[i]));
+            }
+            
+            // inherit the other ones manually for naming conventions' sake
+            symbol.dynamic = symbols_dynamic;
+            symbol.symbol_n = parse_point - 1;
+            symbol.linked_commands = cur_char_commands;
+            cur_char_commands = [];
+            
+            array_push(symbols, symbol);
+            
+            parse_point ++;
+        }
+    });
     parse(text);
-    update_info();
+    
+    line_breaks = evaluate_linebreaks();
+    update_info(line_breaks);
+    
     start();
+    
+    // typewriter method
+    _typewriter_typing = false;
+    _typewriter_displayed_symbols = 0;
+    _typewriter_spd = 1; // symbols that will be shown per frame. 1/2 shows a symbol once per two frames
+    _typewriter_pos = 0;
+    _typewriter_sleep = 0;
+    _typewriter_timer = 0;
+    
+    typewriter = method(self, function() {
+        for (var i = 0; i < array_length(symbols); i ++) {
+            var symbol = symbols[i];
+            if !is_struct(symbol)
+                exit;
+            symbol.activated = false;
+        }
+        _typewriter_typing = true;
+    })
+    typewriter();
 }
 
 function typer_symbol(_symbol) constructor {
+    activated = false;
+    activate = method(self, function(_typer) {
+        activated = true;
+        for (var i = 0; i < array_length(linked_commands); i ++) {
+            if !is_struct(linked_commands[i])
+                continue;
+            
+            linked_commands[i].call(_typer);
+        }
+    });
+    
+    linked_commands = [];
+    
     symbol = _symbol;
     symbol_n = 0;
     font = font_main;
@@ -222,6 +306,9 @@ function typer_symbol(_symbol) constructor {
     dynamic = false; // if it's dynamic, its info will be updated every time it's drawn
     
     draw = method(self, function(_x, _y, _angle) {
+        if !activated 
+            return false;
+        
         // check colors
         if !is_array(color)
             color = array_create(4, color);
@@ -254,6 +341,9 @@ function typer_symbol(_symbol) constructor {
         );
     });
     update_info = method(self, function() {
+        if !activated 
+            return false;
+        
         width = string_width(symbol) * scale_x;
         height = string_height(symbol) * scale_y;
     });
@@ -266,6 +356,9 @@ function typer_symbol(_symbol) constructor {
         time_source = call_later(1, time_source_units_frames, method(self, callback), true);
     })
     callback = method(self, function() {
+        if !activated 
+            return false;
+        
         if effect == TYPER_EFFECT.WAVE
             offset_y = sine(5, 2, o_world.frames + symbol_n*3);
     });
