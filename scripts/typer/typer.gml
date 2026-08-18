@@ -47,8 +47,9 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     height = undefined;
     fixed_width = undefined; // auto-set later, depending on whether width is defined
     fixed_height = undefined; // auto-set later, depending on whether height is defined
+    break_mode = BREAK_MODE.ANY_SYMBOL;
     
-    dynamic = false; // if true, the info will be updated every time the typer's drawn. could be memory-heavy
+    dynamic = true; // if true, the info will be updated every time the typer's drawn. could be memory-heavy
     
     draw = method(self, function() {
         // make line breaks
@@ -111,7 +112,7 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
             var _full_hor_spacing = (spacing_mono ? spacing_mono_width : s.width) + spacing_hor * scale_x;
             xx_offset += _full_hor_spacing;
             
-            if array_contains(TYPER_CONSIDER_SPACES, s.symbol) {
+            if array_contains(TYPER_CONSIDER_SPACES, s.symbol) && break_mode == BREAK_MODE.ONLY_SPACES {
                 last_space = i;
                 last_space_x = xx_offset;
                 continue;
@@ -119,11 +120,35 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
             
             // break if current length is longer than the target width
             if xx_offset >= width {
-                array_push(line_breaks, last_space);
+                if break_mode == BREAK_MODE.ONLY_SPACES {
+                    array_push(line_breaks, last_space);
+                    last_space = i; // update last space
+                    
+                    xx_offset = (xx_offset - last_space_x);
+                }
+                else if break_mode == BREAK_MODE.ANY_SYMBOL {
+                    var target_break_pos = i;
+                    
+                    while array_contains(TYPER_CONSIDER_PUNCTUATION, symbols[target_break_pos].symbol) 
+                        target_break_pos -= 1;
+                    
+                    // if there are more symbols ahead
+                    if target_break_pos < array_length(symbols)-1 {
+                        // check if the next symbol is a space, and if so, move the line break there
+                        if array_contains(TYPER_CONSIDER_SPACES, symbols[target_break_pos + 1].symbol)
+                            target_break_pos += 1;
+                    }
+                    
+                    array_push(line_breaks, target_break_pos);
+                    last_space = target_break_pos; // update last space
+                    
+                    xx_offset = 0;
+                    for (var j = target_break_pos; j <= i; j ++) {
+                        var _char_width = (spacing_mono ? spacing_mono_width : symbols[j].width) + spacing_hor * scale_x;
+                        xx_offset += _char_width;
+                    }
+                }
                 
-                last_space = i;
-                
-                xx_offset = (xx_offset - last_space_x);
                 xx_offset += (break_tabulation_enabled ? break_tabulation*scale_x : 0);
             }
         }
@@ -164,6 +189,7 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         time_source = call_later(1, time_source_units_frames, method(self, callback), true);
     })
     callback = method(self, function() {
+        width = 500 + sine(20, 100);
         if _typewriter_typing {
             if _typewriter_sleep <= 0 {
                 repeat max(_typewriter_spd, 1) {
@@ -290,15 +316,21 @@ function typer_symbol(_symbol) constructor {
     
     offset_x = 0;
     offset_y = 0;
+    color = c_white;
+    alpha = 1;
+    
+    shadow = true;
+    shadow_x = 1;
+    shadow_y = 1;
+    shadow_color = c_dkgray;
+    shadow_alpha = 1;
+    
     scale_x = 1;
     scale_y = 1;
     angle = 0;
     align_hor = fa_left;
     align_ver = fa_middle;
     effect = TYPER_EFFECT.NONE;
-    
-    alpha = 1;
-    color = c_white;
     
     width = 0;
     height = 0;
@@ -313,11 +345,20 @@ function typer_symbol(_symbol) constructor {
         if !is_array(color)
             color = array_create(4, color);
         else if array_length(color) == 1
-            color = [color[0], color[0], color[0], color[0]];
+            color = array_create(4, color[0]);
         else if array_length(color) == 2 
             color = [color[0], color[0], color[1], color[1]];
         else if array_length(color) == 3
             array_push(color, color[2]);
+        
+        if !is_array(shadow_color)
+            shadow_color = array_create(4, shadow_color);
+        else if array_length(color) == 1
+            shadow_color = array_create(4, shadow_color[0]);
+        else if array_length(shadow_color) == 2 
+            shadow_color = [shadow_color[0], shadow_color[0], shadow_color[1], shadow_color[1]];
+        else if array_length(shadow_color) == 3
+            array_push(shadow_color, shadow_color[2]);
         
         // update info
         if dynamic || !init {
@@ -331,6 +372,16 @@ function typer_symbol(_symbol) constructor {
         var __offset_hor = lengthdir_x(offset_x, _angle - 90) + lengthdir_x(offset_y, _angle - 90);
         var __offset_ver = lengthdir_y(offset_x, _angle - 90) + lengthdir_y(offset_y, _angle - 90);
         
+        if shadow {
+            draw_text_transformed_colour(
+                _x + __offset_hor + shadow_x, 
+                _y + __offset_ver + shadow_x, 
+                symbol, 
+                scale_x, scale_y, _angle + angle,
+                shadow_color[0], shadow_color[1], shadow_color[2], shadow_color[3],
+                shadow_alpha
+            );
+        }
         draw_text_transformed_colour(
             _x + __offset_hor, 
             _y + __offset_ver, 
@@ -378,4 +429,8 @@ enum TYPER_EFFECT {
     NONE,
     SHAKE,
     WAVE
+}
+enum BREAK_MODE {
+    ONLY_SPACES,
+    ANY_SYMBOL
 }
