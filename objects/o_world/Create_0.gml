@@ -33,8 +33,8 @@ global.climbing_enabled = function() {
     return item_inventory_contains(item_key_claimbclaws);
 }
 
-global.party_limit = 3 // set to undefined for unlimited party members
-global.slide_speed = 5
+global.party_limit = undefined; // set to undefined for unlimited party members
+global.slide_speed = 5;
 global.ow_dodge_inv = 40;
 
 { // emmiters
