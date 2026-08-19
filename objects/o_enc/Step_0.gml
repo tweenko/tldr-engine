@@ -54,13 +54,9 @@ if battle_state == BATTLE_STATE.MENU {
         party_button_selection[party_selection] = cap_wraparound(party_button_selection[party_selection], array_length(party_buttons[party_selection]))
         
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-            var __sel = party_button_selection[party_selection]
+            
+			__move_menu_select();
 			party_buttons[party_selection][party_button_selection[party_selection]].press()
-            	
-			if party_length() > 3 && party_selection == clamp(party_selection, 2, party_length()-3) && __sel == 4 {
-				ui_menu_x = -(party_selection-2)*ui_menu_width;
-				animate(ui_menu_x, ui_menu_x-ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
-			}
 			
             if party_selection >= party_length() || party_selection < 0 {
 				__battle_state_advance()
@@ -73,10 +69,7 @@ if battle_state == BATTLE_STATE.MENU {
             var __selection = party_selection
             
             party_selection --;
-			if party_length() > 3 && party_selection == clamp(party_selection, 1, party_length()-4) {
-				ui_menu_x = -party_selection*ui_menu_width;
-				animate(ui_menu_x, ui_menu_x + ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
-			}
+			__move_menu_cancel();
             while !(party_isup(global.party_names[party_selection]) 
                 && !array_contains(party_busy, global.party_names[party_selection]) 
                 && !array_contains(party_busy_internal, global.party_names[party_selection])
@@ -134,17 +127,8 @@ if battle_state == BATTLE_STATE.MENU {
 		}
 		
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 { 
-            battle_menu_enemy_proceed()
-			
-			if party_length() > 3 && party_selection == clamp(party_selection, 2, party_length()-3) {
-				
-				if party_button_selection[party_selection] == 2 && is_instanceof(__button, enc_button_act) {
-					exit;
-				}
-				
-				ui_menu_x = -(party_selection-2)*ui_menu_width;
-				animate(ui_menu_x, ui_menu_x-ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
-			}
+			__move_menu_select();
+			battle_menu_enemy_proceed()
 			
             buffer = 1
         }
@@ -208,18 +192,8 @@ if battle_state == BATTLE_STATE.MENU {
             __tp_update_cost(list[selected_item_index]);
         
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-            battle_menu_inv_proceed(list[selected_item_index])
-			
-			if party_length() > 3 && party_selection == clamp(party_selection, 2, party_length()-3) {
-				
-				if !(party_button_selection[party_selection] == 2 && is_instanceof(__button, enc_button_act)) {
-					exit;
-				}
-				
-				ui_menu_x = -(party_selection-2)*ui_menu_width;
-				animate(ui_menu_x, ui_menu_x-ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
-			}
-			
+			__move_menu_select();
+			battle_menu_inv_proceed(list[selected_item_index])
 			
             buffer = 1
         }
@@ -245,12 +219,9 @@ if battle_state == BATTLE_STATE.MENU {
         party_ally_selection[party_selection] = cap_wraparound(party_ally_selection[party_selection], party_length())
 		
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 { 
-            battle_menu_party_proceed()
-			
-			if party_length() > 3 && party_selection == clamp(party_selection, 2, party_length()-3) {
-				ui_menu_x = -(party_selection-2)*ui_menu_width;
-				animate(ui_menu_x, ui_menu_x-ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
-			}
+      
+			__move_menu_select();
+			battle_menu_party_proceed()
 			
             buffer = 1
         }
@@ -272,10 +243,7 @@ if battle_state == BATTLE_STATE.MENU {
         )
     {
         party_selection ++
-		if party_length() > 3 && party_selection == clamp(party_selection, 2, party_length()-2) {
-			ui_menu_x = -(party_selection-2)*ui_menu_width;
-			animate(ui_menu_x, ui_menu_x - ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
-		}
+		__move_menu_select();
     }
     if party_selection >= party_length() || party_selection < 0 {
         __battle_state_advance()
@@ -401,28 +369,27 @@ else if battle_state == BATTLE_STATE.TURN {
     if !pre_turn_init {
         __call_enc_event("ev_turn")
 		
-
-		animate(ui_menu_x, 0, move_time, anime_curve.cubic_out, self, "ui_menu_x");
+		__move_menu_reset();
 		
 		var _ww = GAME_W_GUI / max(3, party_length());
 		animate(ui_menu_width_default, _ww, move_time, anime_curve.cubic_out, self, "ui_menu_width");
 		
-		if !draw_name() {
+		if !__draw_name() {
 			animate(party_ui_offset_default.name, 0, move_time, anime_curve.cubic_out, party_ui_offset, "name");
 			animate(1, 0, move_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
 		}
 		
-		if !draw_icon() {
+		if !__draw_icon() {
 			animate(party_ui_offset_default.icon, 0, move_time, anime_curve.cubic_out, party_ui_offset, "icon");
 			animate(1, 0, move_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
 		}
 		
-		if !draw_hp_label() {
+		if !__draw_hp_label() {
 			animate(party_ui_offset_default.hp_text, 0, move_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
 			animate(1, 0, move_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
 		}
 		
-		if !draw_max_hp() {
+		if !__draw_max_hp() {
 			animate(1, 0, move_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
 		}
 		

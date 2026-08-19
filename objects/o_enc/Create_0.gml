@@ -73,22 +73,64 @@ party_ui_offset = {
 	hp_bar : 18
 }
 
-draw_name = function(){
+__draw_name = function(){
 	var _ww = GAME_W_GUI / max(3, party_length());
 	return (_ww > 192);
 } 
-draw_icon = function(){
+__draw_icon = function(){
 	var _ww = GAME_W_GUI / max(3, party_length());
 	return (_ww > 134);
 }
-draw_hp_label = function(){
+__draw_hp_label = function(){
 	var _ww = GAME_W_GUI / max(3, party_length());
 	return (_ww > 154 && (_ww != clamp(_ww, 192, 207)));
 }
-draw_max_hp = function(){
+__draw_max_hp = function(){
 	var _ww = GAME_W_GUI / max(3, party_length());
 	return (_ww > 92)
 }
+
+__move_menu_select = function(){
+	var __sel = party_button_selection[party_selection];
+	var __button = party_buttons[party_selection][__sel];
+	
+	if party_length() > 3 && party_selection == clamp(party_selection, 1, party_length()-3) {
+		if battle_menu == BATTLE_MENU.BUTTON_SELECTION && __sel == 4 {
+			ui_menu_x = -(party_selection-1)*ui_menu_width;
+			animate(ui_menu_x, ui_menu_x-ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
+			
+		}
+		
+		if battle_menu == BATTLE_MENU.ENEMY_SELECTION && !(__sel == 1 && is_instanceof(__button, enc_button_act)) {
+			ui_menu_x = -(party_selection-1)*ui_menu_width;
+			animate(ui_menu_x, ui_menu_x-ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
+			return;
+		}
+		if battle_menu == BATTLE_MENU.INV_SELECTION && (__sel != 2) && !(__sel == 1 && is_instanceof(__button, enc_button_power)) {
+			ui_menu_x = -(party_selection-1)*ui_menu_width;
+			animate(ui_menu_x, ui_menu_x-ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
+			return;
+		}
+		if battle_menu == BATTLE_MENU.PARTY_SELECTION && (__sel == 2) {
+			ui_menu_x = -(party_selection-1)*ui_menu_width;
+			animate(ui_menu_x, ui_menu_x-ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
+			return;
+		}
+		
+	}
+}
+__move_menu_cancel = function(){
+	if party_length() > 3 && party_selection == clamp(party_selection, 1, party_length()-3) {
+		ui_menu_x = -party_selection*ui_menu_width;
+		animate(ui_menu_x, ui_menu_x + ui_menu_width, 10, anime_curve.cubic_out, self, "ui_menu_x"); 
+	}
+}
+__move_menu_reset = function(){
+	animate(ui_menu_x, 0, move_time, anime_curve.cubic_out, self, "ui_menu_x");
+}
+
+
+
 
 hp_bar_length_default = 76;
 hp_bar_length = 76;
