@@ -6,6 +6,11 @@ function party_init() {
     party_m_initialize("susie", party_m_susie)
     party_m_initialize("ralsei", party_m_ralsei)
     party_m_initialize("noelle", party_m_noelle)
+	
+	party_m_initialize("kris2", party_m_kris2)
+    party_m_initialize("susie2", party_m_susie2)
+    party_m_initialize("ralsei2", party_m_ralsei2)
+    party_m_initialize("noelle2", party_m_noelle2)
     
 	global.party_names = []
 }
