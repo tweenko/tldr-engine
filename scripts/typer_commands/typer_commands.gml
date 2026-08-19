@@ -2,7 +2,8 @@
 
 function typer_command() constructor {
     name = "";
-    call = undefined;
+    arguments = [];
+    activate = undefined;
 }
 function typer_command_register(_asset_index) {
     asset_add_tags(_asset_index, AssetTag_typer_command);
@@ -15,8 +16,8 @@ typer_command_register(typer_command_pause);
 
 function typer_command_sleep() : typer_command() constructor {
     name = ["sleep", "s"];
-    call = method(self, function(_typer) {
-        _typer._typewriter_sleep = 10;
+    activate = method(self, function(_typer) {
+        _typer._typewriter_sleep = arguments[0];
     })
 }
 typer_command_register(typer_command_sleep);

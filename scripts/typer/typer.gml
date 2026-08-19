@@ -47,9 +47,9 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     height = undefined;
     fixed_width = undefined; // auto-set later, depending on whether width is defined
     fixed_height = undefined; // auto-set later, depending on whether height is defined
-    break_mode = BREAK_MODE.ANY_SYMBOL;
+    break_mode = BREAK_MODE.ONLY_SPACES;
     
-    dynamic = true; // if true, the info will be updated every time the typer's drawn. could be memory-heavy
+    dynamic = false; // if true, the info will be updated every time the typer's drawn. could be memory-heavy
     
     draw = method(self, function() {
         // make line breaks
@@ -77,23 +77,28 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         for (var i = 0; i < array_length(symbols); i ++) {
             var s = symbols[i];
             
-            var _dx = xx - x;
-            var _dy = yy - y;
-            
-            s.draw(
-                x + lengthdir_x(_dx, angle) + lengthdir_x(_dy, angle - 90), 
-                y + lengthdir_y(_dx, angle) + lengthdir_y(_dy, angle - 90), 
-                angle,
-            );
-            
-            var _full_hor_spacing = (spacing_mono ? spacing_mono_width : s.width) + spacing_hor * scale_x;
-            xx += _full_hor_spacing;
-            
-            if array_contains(line_breaks, i) {
-                xx = start_xx;
-                xx += (break_tabulation_enabled ? break_tabulation*scale_x : 0);
+            if is_instanceof(s, typer_command) {
+                // implement command drawer
+            }
+            else {
+                var _dx = xx - x;
+                var _dy = yy - y;
                 
-                yy += spacing_ver * scale_y;
+                s.draw(
+                    x + lengthdir_x(_dx, angle) + lengthdir_x(_dy, angle - 90), 
+                    y + lengthdir_y(_dx, angle) + lengthdir_y(_dy, angle - 90), 
+                    angle,
+                );
+                
+                var _full_hor_spacing = (spacing_mono ? spacing_mono_width : s.width) + spacing_hor * scale_x;
+                xx += _full_hor_spacing;
+                
+                if array_contains(line_breaks, i) {
+                    xx = start_xx;
+                    xx += (break_tabulation_enabled ? break_tabulation*scale_x : 0);
+                    
+                    yy += spacing_ver * scale_y;
+                }
             }
         }
         
@@ -105,51 +110,56 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         var line_breaks = [];
         var last_space = undefined;
         var last_space_x = 0;
-        var xx_offset = 0;
+        var xx_offset = 16;
         for (var i = 0; i < array_length(symbols); i ++) {
             var s = symbols[i];
             
-            var _full_hor_spacing = (spacing_mono ? spacing_mono_width : s.width) + spacing_hor * scale_x;
-            xx_offset += _full_hor_spacing;
-            
-            if array_contains(TYPER_CONSIDER_SPACES, s.symbol) && break_mode == BREAK_MODE.ONLY_SPACES {
-                last_space = i;
-                last_space_x = xx_offset;
-                continue;
+            if is_instanceof(s, typer_command) {
+                //
             }
-            
-            // break if current length is longer than the target width
-            if xx_offset >= width {
-                if break_mode == BREAK_MODE.ONLY_SPACES {
-                    array_push(line_breaks, last_space);
-                    last_space = i; // update last space
-                    
-                    xx_offset = (xx_offset - last_space_x);
-                }
-                else if break_mode == BREAK_MODE.ANY_SYMBOL {
-                    var target_break_pos = i;
-                    
-                    while array_contains(TYPER_CONSIDER_PUNCTUATION, symbols[target_break_pos].symbol) 
-                        target_break_pos -= 1;
-                    
-                    // if there are more symbols ahead
-                    if target_break_pos < array_length(symbols)-1 {
-                        // check if the next symbol is a space, and if so, move the line break there
-                        if array_contains(TYPER_CONSIDER_SPACES, symbols[target_break_pos + 1].symbol)
-                            target_break_pos += 1;
-                    }
-                    
-                    array_push(line_breaks, target_break_pos);
-                    last_space = target_break_pos; // update last space
-                    
-                    xx_offset = 0;
-                    for (var j = target_break_pos; j <= i; j ++) {
-                        var _char_width = (spacing_mono ? spacing_mono_width : symbols[j].width) + spacing_hor * scale_x;
-                        xx_offset += _char_width;
-                    }
+            else {
+                var _full_hor_spacing = (spacing_mono ? spacing_mono_width : s.width) + spacing_hor * scale_x;
+                xx_offset += _full_hor_spacing;
+                
+                if array_contains(TYPER_CONSIDER_SPACES, s.symbol) && break_mode == BREAK_MODE.ONLY_SPACES {
+                    last_space = i;
+                    last_space_x = xx_offset;
+                    continue;
                 }
                 
-                xx_offset += (break_tabulation_enabled ? break_tabulation*scale_x : 0);
+                // break if current length is longer than the target width
+                if xx_offset >= width {
+                    if break_mode == BREAK_MODE.ONLY_SPACES {
+                        array_push(line_breaks, last_space);
+                        last_space = i; // update last space
+                        
+                        xx_offset = (xx_offset - last_space_x);
+                    }
+                    else if break_mode == BREAK_MODE.ANY_SYMBOL {
+                        var target_break_pos = i;
+                        
+                        while array_length(symbols) - target_break_pos > 1 && array_contains(TYPER_AVOID_ON_NEWLINES, symbols[target_break_pos+1].symbol)
+                            target_break_pos -= 1;
+                        
+                        // if there are more symbols ahead
+                        if target_break_pos < array_length(symbols)-1 {
+                            // check if the next symbol is a space, and if so, move the line break there
+                            if array_contains(TYPER_CONSIDER_SPACES, symbols[target_break_pos + 1].symbol)
+                                target_break_pos += 1;
+                        }
+                        
+                        array_push(line_breaks, target_break_pos);
+                        last_space = target_break_pos; // update last space
+                        
+                        xx_offset = 0;
+                        for (var j = target_break_pos; j <= i; j ++) {
+                            var _char_width = (spacing_mono ? spacing_mono_width : symbols[j].width) + spacing_hor * scale_x;
+                            xx_offset += _char_width;
+                        }
+                    }
+                    
+                    xx_offset += (break_tabulation_enabled ? break_tabulation*scale_x : 0);
+                }
             }
         }
         
@@ -183,13 +193,17 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     // time callback
     time_source = undefined;
     start = method(self, function() {
+        parse(text);
+    
+        line_breaks = evaluate_linebreaks();
+        update_info(line_breaks);
+        
         // call for the first time
         method(self, callback);
         // and loop
         time_source = call_later(1, time_source_units_frames, method(self, callback), true);
     })
     callback = method(self, function() {
-        width = 500 + sine(20, 100);
         if _typewriter_typing {
             if _typewriter_sleep <= 0 {
                 repeat max(_typewriter_spd, 1) {
@@ -199,9 +213,20 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
                     }
                     
                     if _typewriter_pos >= _typewriter_displayed_symbols {
-                        symbols[_typewriter_displayed_symbols].activate(self);
+                        var s = symbols[_typewriter_displayed_symbols];
+                        s.activate(self);
+                        
                         _typewriter_displayed_symbols ++;
                     }
+                    
+                    while _typewriter_displayed_symbols < array_length(symbols) && is_instanceof(symbols[_typewriter_displayed_symbols], typer_command) && _typewriter_sleep <= 0 {
+                        var s = symbols[_typewriter_displayed_symbols];
+                        s.activate(self);
+                        
+                        _typewriter_displayed_symbols ++;
+                        _typewriter_pos ++;
+                    }
+                    
                     _typewriter_pos += _typewriter_spd;
                 }
             }
@@ -221,10 +246,9 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         return false;
     })
     
-    // initialize
+    /// @desc parses given text -- parses the commands, assigns them as symbols and spawns in all the symbols in advance
     parse = method(self, function(_text) {
         var parse_point = 1;
-        var cur_char_commands = [];
         
         while parse_point <= string_length(_text) {
             var cur_char = string_char_at(_text, parse_point);
@@ -240,9 +264,45 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
                 
                 command_parse_result = string_delete(command_parse_result, string_length(command_parse_result), 1);
                 
+                var _cmd_name = "";
+                var _cmd_args = [];
+                if string_contains("(", command_parse_result) {
+                    _cmd_name = string_split(command_parse_result, "(")[0];
+                    
+                    var args_str = string_copy(command_parse_result, string_pos("(", command_parse_result) + 1, string_pos(")", command_parse_result) - 1);
+                    
+                    var __temp_arg = "";
+                    var __string_mode = false;
+                    for (var i = 1; i <= string_length(args_str); i ++) {
+                        var __char = string_char_at(args_str, i);
+                        
+                        if __char == "`"
+                            __string_mode = !__string_mode;
+                        else if __char == "," && !__string_mode {
+                            __temp_arg = string_trim(__temp_arg);
+                            array_push(_cmd_args, __temp_arg);
+                            
+                            __temp_arg = "";
+                        }
+                        else
+                            __temp_arg += __char;
+                    }
+                    
+                    // add the last recorded argument as well
+                    if __temp_arg != "" {
+                        __temp_arg = string_trim(__temp_arg);
+                        array_push(_cmd_args, __temp_arg);
+                    }
+                }
+                else
+                    _cmd_name = command_parse_result;
+                
                 // find the command result in the command list
-                var cmd = typer_command_find(command_parse_result);
-                array_push(cur_char_commands, cmd);
+                var cmd = typer_command_find(_cmd_name);
+                if !is_undefined(cmd) {
+                    cmd.arguments = _cmd_args;
+                    array_push(symbols, cmd);
+                }
                 
                 continue;
             }
@@ -261,20 +321,12 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
             // inherit the other ones manually for naming conventions' sake
             symbol.dynamic = symbols_dynamic;
             symbol.symbol_n = parse_point - 1;
-            symbol.linked_commands = cur_char_commands;
-            cur_char_commands = [];
             
             array_push(symbols, symbol);
             
             parse_point ++;
         }
     });
-    parse(text);
-    
-    line_breaks = evaluate_linebreaks();
-    update_info(line_breaks);
-    
-    start();
     
     // typewriter method
     _typewriter_typing = false;
@@ -284,6 +336,14 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     _typewriter_sleep = 0;
     _typewriter_timer = 0;
     
+    /// @desc returns how long the typewriter should pause for any given symbol
+    _typewriter_calculate = function(_symbol) {
+        if array_contains(TYPER_PUNCTUATION_SHORT, _symbol)
+            return 10;
+        else if array_contains(TYPER_PUNCTUATION_LONG, _symbol)
+            return 5;
+        return 0;
+    }
     typewriter = method(self, function() {
         for (var i = 0; i < array_length(symbols); i ++) {
             var symbol = symbols[i];
@@ -293,6 +353,15 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         }
         _typewriter_typing = true;
     })
+    instant = method(self,  function() {
+        for (var i = 0; i < array_length(symbols); i ++) {
+            symbols[i].activate(self);
+        }
+        _typewriter_typing = false;
+    })
+
+    // initialize
+    start();
     typewriter();
 }
 
@@ -300,12 +369,6 @@ function typer_symbol(_symbol) constructor {
     activated = false;
     activate = method(self, function(_typer) {
         activated = true;
-        for (var i = 0; i < array_length(linked_commands); i ++) {
-            if !is_struct(linked_commands[i])
-                continue;
-            
-            linked_commands[i].call(_typer);
-        }
     });
     
     linked_commands = [];
