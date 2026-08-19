@@ -73,10 +73,22 @@ party_ui_offset = {
 	hp_bar : 18
 }
 
-draw_name = party_length() <= 3;
-draw_icon = party_length() <= 4;
-draw_hp_text = party_length() <= 5;
-draw_hp_num = party_length() <= 7;
+draw_name = function(){
+	var _ww = GAME_W_GUI / max(3, party_length());
+	return (_ww > 192);
+} 
+draw_icon = function(){
+	var _ww = GAME_W_GUI / max(3, party_length());
+	return (_ww > 134);
+}
+draw_hp_label = function(){
+	var _ww = GAME_W_GUI / max(3, party_length());
+	return (_ww > 154 && (_ww != clamp(_ww, 192, 207)));
+}
+draw_max_hp = function(){
+	var _ww = GAME_W_GUI / max(3, party_length());
+	return (_ww > 92)
+}
 
 hp_bar_length_default = 76;
 hp_bar_length = 76;

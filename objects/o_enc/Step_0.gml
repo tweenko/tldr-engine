@@ -18,24 +18,24 @@ if battle_state == BATTLE_STATE.MENU {
 			animate(_ww, ui_menu_width_default, move_time, anime_curve.cubic_out, self, "ui_menu_width");
 		}
 		
-		if !draw_name {
+		//if draw_name() {
 			animate(party_ui_offset.name, party_ui_offset_default.name, move_time, anime_curve.cubic_out, party_ui_offset, "name");
 			animate(party_ui_alpha_name, 1, move_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
-		}
+		//}
 		
-		if !draw_icon {
+		//if draw_icon() {
 			animate(party_ui_offset.icon, party_ui_offset_default.icon, move_time, anime_curve.cubic_out, party_ui_offset, "icon");
 			animate(party_ui_alpha_icon, 1, move_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
-		}
+		//}
 		
-		if !draw_hp_text {
+		//if draw_hp_label() {
 			animate(party_ui_offset_default.hp_text, party_ui_offset.hp_text, move_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
 			animate(party_ui_alpha_hp_text, 1, move_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
-		}
+		//}
 		
-		if !draw_hp_num {
+		//if draw_max_hp() {
 			animate(party_ui_alpha_hp_num, 1, move_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
-		}
+		//}
 		
         __call_enc_event("ev_party_turn")
     }
@@ -407,22 +407,22 @@ else if battle_state == BATTLE_STATE.TURN {
 		var _ww = GAME_W_GUI / max(3, party_length());
 		animate(ui_menu_width_default, _ww, move_time, anime_curve.cubic_out, self, "ui_menu_width");
 		
-		if !draw_name {
+		if !draw_name() {
 			animate(party_ui_offset_default.name, 0, move_time, anime_curve.cubic_out, party_ui_offset, "name");
 			animate(1, 0, move_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
 		}
 		
-		if !draw_icon {
+		if !draw_icon() {
 			animate(party_ui_offset_default.icon, 0, move_time, anime_curve.cubic_out, party_ui_offset, "icon");
 			animate(1, 0, move_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
 		}
 		
-		if !draw_hp_text {
+		if !draw_hp_label() {
 			animate(party_ui_offset_default.hp_text, 0, move_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
 			animate(1, 0, move_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
 		}
 		
-		if !draw_hp_num {
+		if !draw_max_hp() {
 			animate(1, 0, move_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
 		}
 		
