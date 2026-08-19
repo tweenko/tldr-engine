@@ -50,12 +50,50 @@
     
     items_using = []
 }
+
+
+ui_menu_center = (party_length() <= 3);
+	
+ui_menu_x = 0;
+ui_menu_width_default = 213;
+ui_menu_width = ui_menu_width_default;
+
+party_ui_offset_default = {
+	edge : 7,
+	icon : 3,
+	name : 39,
+	hp_text : 59,
+	hp_bar : 18
+}
+party_ui_offset = {
+	edge : 7,
+	icon : 3,
+	name : 39,
+	hp_text : 59,
+	hp_bar : 18
+}
+
+draw_name = party_length() <= 3;
+draw_icon = party_length() <= 4;
+draw_hp_text = party_length() <= 5;
+draw_hp_num = party_length() <= 7;
+
+hp_bar_length_default = 76;
+hp_bar_length = 76;
+
+party_ui_alpha_icon = 1;
+party_ui_alpha_name = 1;
+party_ui_alpha_hp_text = 1;
+party_ui_alpha_hp_num = 1;
+
+move_time = 15;
+
 { // ui
     ui_main_lerp = 0
     ui_party_sticks = [0, -3, -6]
     ui_hp_danger_zone = 30
     ui_menu_state = 0
-    
+
     battle_menu = BATTLE_MENU.BUTTON_SELECTION
     
     battle_menu_enemy_proceed = function() {}

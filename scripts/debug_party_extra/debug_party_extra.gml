@@ -1,6 +1,6 @@
 
 function party_m_kris2(_initialized_name) : party_m(_initialized_name) constructor {
-	name = "party_kris2_name"
+	name = "Kris2"
     action_letter = "party_kris2_action_letter"
 	obj = o_actor_kris_1
 	
@@ -63,7 +63,7 @@ function party_m_kris2(_initialized_name) : party_m(_initialized_name) construct
 	}
 }
 function party_m_susie2(_initialized_name) : party_m(_initialized_name) constructor {
-	name = "party_susie2_name"
+	name = "Susie2"
     action_letter = "party_susie2_action_letter"
 	obj = o_actor_susie_1
 	
@@ -132,7 +132,7 @@ function party_m_susie2(_initialized_name) : party_m(_initialized_name) construc
 	}
 }
 function party_m_ralsei2(_initialized_name) : party_m(_initialized_name) constructor {
-	name = "party_ralsei2_name"
+	name = "Ralsei2"
     action_letter = "party_ralsei2_action_letter"
 	obj = o_actor_ralsei_1
 	
@@ -201,7 +201,7 @@ function party_m_ralsei2(_initialized_name) : party_m(_initialized_name) constru
 	}
 }
 function party_m_noelle2(_initialized_name) : party_m(_initialized_name) constructor {
-	name = "party_noelle2_name"
+	name = "Noelle2"
     action_letter = "party_noelle2_action_letter"
 	obj = o_actor_noelle_1
 	

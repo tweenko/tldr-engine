@@ -9,23 +9,41 @@ draw_clear_alpha(0,0)
 draw_sprite_ext(spr_pixel, 0, 0, 417 - 92 + __roll, 640, 156, 0, c_black, 1)
 draw_sprite_ext(spr_pixel, 0, 0, 417 - 92 + __roll, 640, 2, 0, bcolor, 1)
 
-for (var i = 0; i < party_length(); ++i) {
-    var xoff = i*213 + 319.5 + party_length() * -213/2
-    var box_base_y = 325 + __roll - 32 * party_ui_lerp[i]
-    var member_name = global.party_names[i]
+for (var i = party_length()-1; i >= 0; --i) {
+	hp_bar_length = min(hp_bar_length_default, ui_menu_width - 4 - 2*party_ui_offset.edge);
+	
+	var _xoff_icon = party_ui_offset.edge + party_ui_offset.icon;
+	var _xoff_name = _xoff_icon + party_ui_offset.name;
+	
+	var _xoff_hp_bar = ui_menu_width - 2 - party_ui_offset.edge - hp_bar_length;
+	var _xoff_hp_text = _xoff_hp_bar - party_ui_offset.hp_bar;
+	
+	var _x_hp_bar_end = ui_menu_width - 2 - party_ui_offset.edge;
+	
+	
+	
+	
+	
+	var xoff = ui_menu_x + i*ui_menu_width;
+	if ui_menu_center {
+		xoff = i*ui_menu_width + ui_menu_width*1.5 + party_length() * -ui_menu_width/2
+	}
+    var box_base_y = 325 + __roll - 32 * party_ui_lerp[i];
+    var member_name = global.party_names[i];
     
-    draw_set_color(c_white)
+    draw_set_color(c_white);
     
-    var col = bcolor
-    if party_selection == i 
+    var col = bcolor;
+    if party_selection == i {
         col = party_getdata(member_name, "color")
-    
-    draw_sprite_ext(spr_pixel, 0, xoff, box_base_y, 213, 70, 0, c_black, 1)
-    draw_sprite_ext(spr_pixel, 0, xoff, box_base_y, 213, 2, 0, col, 1)
-    draw_sprite_ext(spr_pixel, 0, xoff, box_base_y + 37, 213, 2, 0, col, 1)
+	}
+	
+    draw_sprite_ext(spr_pixel, 0, xoff, box_base_y, ui_menu_width, 70, 0, c_black, 1)
+    draw_sprite_ext(spr_pixel, 0, xoff, box_base_y, ui_menu_width, 2, 0, col, 1)
+    draw_sprite_ext(spr_pixel, 0, xoff, box_base_y + 37, ui_menu_width, 2, 0, col, 1)
     
     if party_selection == i {
-        draw_sprite_ext(spr_pixel, 0, xoff + 211, box_base_y, 2, 69, 0, col, 1)
+        draw_sprite_ext(spr_pixel, 0, xoff + ui_menu_width-2, box_base_y, 2, 69, 0, col, 1)
         draw_sprite_ext(spr_pixel, 0, xoff, box_base_y, 2, 69, 0, col, 1)
     }
     
@@ -36,17 +54,17 @@ for (var i = 0; i < party_length(); ++i) {
         if instance_exists(__inst) && variable_instance_exists(__inst, "hurt") && __inst.hurt > 0
             __icon = party_get_icon_hurt(member_name)
         
-        draw_sprite_ext(__icon, 0, 12 + xoff, box_base_y + 11, 1, 1, 0, c_white, 1)
+        draw_sprite_ext(__icon, 0, _xoff_icon + xoff, box_base_y + 11, 1, 1, 0, c_white, party_ui_alpha_icon)
     }
     else {
         draw_sprite_ext(spr_ui_enc_icons_command, __state_to_icon(party_state[i]), 
-            12 + xoff, 
+            _xoff_icon + xoff, 
             box_base_y + 11, 
             1, 1, 0, 
-            party_getdata(member_name, "iconcolor"), 1
+            party_getdata(member_name, "iconcolor"), party_ui_alpha_icon
         )
     }
-    
+	
     // draw the name
     var __name = string_upper(party_getname(member_name, false))
     var __name_font = global.font_name[0]
@@ -55,17 +73,24 @@ for (var i = 0; i < party_length(); ++i) {
     if string_length(__name) > 5
         __name_font = global.font_name[2]
     
-    draw_set_font(__name_font)
-    draw_text_transformed(51 + xoff, box_base_y + 11, __name, 1, 1, 0)
-    
+    draw_set_font(__name_font);
+	
+	var _text_width = string_width(__name);
+	//var _text_xscale = (_text_width > 55*ui_menu_width/ui_menu_width_default) ? 55*ui_menu_width/ui_menu_width_default/_text_width : 1;
+	var _text_xscale = (_text_width > 55) ? 55/_text_width : 1;
+	
+	draw_set_alpha(party_ui_alpha_name);
+    draw_text_transformed(_xoff_name + xoff, box_base_y + 11, __name, _text_xscale, 1, 0)
+    draw_set_alpha(1);
+	
     // draw the hp bar
     var health_coeff = party_getdata(member_name, "hp") / party_getdata(member_name, "max_hp")
     var health_real = string(party_getdata(member_name, "hp"))
     var health_max = string(party_getdata(member_name, "max_hp"))
     
-    draw_sprite_ext(loc_sprite("menu_caption_hp"), 0, 110 + xoff, box_base_y + 22, 1, 1, 0, c_white, 1)
-    draw_sprite_ext(spr_pixel, 0, 128 + xoff, box_base_y + 22, 76, 9, 0, c_maroon, 1)
-    draw_sprite_ext(spr_pixel, 0, 128 + xoff, box_base_y + 22, 76 * max(0, health_coeff), 9, 0, party_getdata(member_name, "color"), 1)
+    draw_sprite_ext(loc_sprite("menu_caption_hp"), 0, _xoff_hp_text + xoff, box_base_y + 22, 1, 1, 0, c_white, party_ui_alpha_hp_text)
+    draw_sprite_ext(spr_pixel, 0, _xoff_hp_bar + xoff, box_base_y + 22, hp_bar_length, 9, 0, c_maroon, 1)
+    draw_sprite_ext(spr_pixel, 0, _xoff_hp_bar + xoff, box_base_y + 22, hp_bar_length * max(0, health_coeff), 9, 0, party_getdata(member_name, "color"), 1)
     
     draw_set_font(global.font_ui_hp)
     draw_set_halign(fa_right)
@@ -75,9 +100,13 @@ for (var i = 0; i < party_length(); ++i) {
     if !party_isup(member_name) 
         draw_set_color(c_red)
     
-    draw_text_transformed(160 + xoff, box_base_y + 9, health_real, 1, 1, 0)
-    draw_sprite_ext(spr_ui_hp_seperator, 0, 161 + xoff, box_base_y + 9, 1, 1, 0, c_white, 1)
-    draw_text_transformed(205 + xoff, box_base_y + 9, health_max, 1, 1, 0)
+	//draw_set_alpha(party_ui_alpha_hp_num);
+	
+	
+	
+    draw_text_transformed(_x_hp_bar_end-45 + xoff, box_base_y + 9, health_real, 1, 1, 0)
+    draw_sprite_ext(spr_ui_hp_seperator, 0, _x_hp_bar_end-44 + xoff, box_base_y + 9, 1, 1, 0, c_white, 1)
+    draw_text_transformed(_x_hp_bar_end-1 + xoff, box_base_y + 9, health_max, 1, 1, 0)
     
     draw_set_halign(fa_left)
     draw_set_color(c_white)
@@ -85,7 +114,10 @@ for (var i = 0; i < party_length(); ++i) {
     draw_set_alpha(1)
     
     if !surface_exists(party_ui_button_surf[i])
-        party_ui_button_surf[i] = surface_create(211, 33)
+        party_ui_button_surf[i] = surface_create(ui_menu_width-2, 33)
+	else {
+		surface_resize(party_ui_button_surf[i], ui_menu_width-2, 33)
+	}	
     surface_set_target(party_ui_button_surf[i]) {
         var buttons = party_buttons[i]
         draw_clear_alpha(0,0)
@@ -114,7 +146,7 @@ for (var i = 0; i < party_length(); ++i) {
             var __selection = party_button_selection[i]
             
             if array_length(buttons) != 5 // actually center them so they're not ugly
-                __x_off = 109 - floor(array_length(buttons)*35/2) + j*35
+                __x_off = floor(ui_menu_width/2 - array_length(buttons)*35/2) + j*35
             
             __x_off = round(__x_off)
             
@@ -138,7 +170,10 @@ draw_sprite_ext(spr_pixel, 0, 0, 363 + __roll, 640, 156, 0, c_black, 1)
 draw_sprite_ext(spr_pixel, 0, 0, 362 + __roll, 640, 3, 0, bcolor, 1)
 
 for (var i = 0; i < party_length(); i ++) { // draw buttons
-    var xoff = i*213 + 319.5 + party_length() * -213/2
+    var xoff = ui_menu_x + i*ui_menu_width;
+	if ui_menu_center {
+		xoff = i*ui_menu_width + ui_menu_width*1.5 + party_length() * -ui_menu_width/2
+	}
     if party_ui_lerp[i] > .1 && battle_state == BATTLE_STATE.MENU
         draw_surface(party_ui_button_surf[i], xoff, 332 + __roll)
 }
