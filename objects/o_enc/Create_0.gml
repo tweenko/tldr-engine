@@ -118,7 +118,7 @@ __move_menu_reset = function() {
 	animate(ui_menu_x, 0, menu_move_time, anime_curve.cubic_out, self, "ui_menu_x");
 }
 
-__party_menu_compact = function(){} // also todo
+__party_menu_compact = function(){} // also todo -- this should fix an inaccuracy i added for 3 party members
 __party_menu_reset = function(){}
 
 
