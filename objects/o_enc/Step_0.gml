@@ -12,31 +12,8 @@ if !encounter_init {
 if battle_state == BATTLE_STATE.MENU {
     if !party_menu_init {
         party_menu_init = true
-
-		if ui_menu_width != ui_menu_width_default {
-			var _ww = GAME_W_GUI / max(3, party_length());
-			animate(_ww, ui_menu_width_default, compact_anim_time, anime_curve.cubic_out, self, "ui_menu_width");
-		}
 		
-		//if draw_name() {
-			animate(party_ui_offset.name, party_ui_offset_default.name, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "name");
-			animate(party_ui_alpha_name, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
-		//}
-		
-		//if draw_icon() {
-			animate(party_ui_offset.icon, party_ui_offset_default.icon, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "icon");
-			animate(party_ui_alpha_icon, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
-		//}
-		
-		//if draw_hp_label() {
-			animate(party_ui_offset_default.hp_text, party_ui_offset.hp_text, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
-			animate(party_ui_alpha_hp_text, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
-		//}
-		
-		//if draw_max_hp() {
-			animate(party_ui_alpha_hp_num, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
-		//}
-		
+		__party_menu_reset();
         __call_enc_event("ev_party_turn")
     }
     
@@ -370,28 +347,7 @@ else if battle_state == BATTLE_STATE.TURN {
         __call_enc_event("ev_turn")
 		
 		__move_menu_reset();
-		
-		var _ww = GAME_W_GUI / max(3, party_length());
-		animate(ui_menu_width_default, _ww, compact_anim_time, anime_curve.cubic_out, self, "ui_menu_width");
-		
-		if !__draw_name() {
-			animate(party_ui_offset_default.name, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "name");
-			animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
-		}
-		
-		if !__draw_icon() {
-			animate(party_ui_offset_default.icon, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "icon");
-			animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
-		}
-		
-		if !__draw_hp_label() {
-			animate(party_ui_offset_default.hp_text, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
-			animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
-		}
-		
-		if !__draw_max_hp() {
-			animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
-		}
+		__party_menu_compact();
 		
 		
         buffer = 2

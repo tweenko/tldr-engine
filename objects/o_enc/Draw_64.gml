@@ -76,8 +76,8 @@ for (var i = party_length()-1; i >= 0; --i) {
     draw_set_font(__name_font);
 	
 	var _text_width = string_width(__name);
-	//var _text_xscale = (_text_width > 55*ui_menu_width/ui_menu_width_default) ? 55*ui_menu_width/ui_menu_width_default/_text_width : 1;
-	var _text_xscale = (_text_width > 55) ? 55/_text_width : 1;
+	var _text_max_width = 55;
+	var _text_xscale = ((_text_width > _text_max_width) ? _text_max_width/_text_width : 1);
 	
 	draw_set_alpha(party_ui_alpha_name);
     draw_text_transformed(_xoff_name + xoff, box_base_y + 11, __name, _text_xscale, 1, 0)
@@ -99,14 +99,16 @@ for (var i = party_length()-1; i >= 0; --i) {
         draw_set_color(c_yellow)
     if !party_isup(member_name) 
         draw_set_color(c_red)
-    
-	//draw_set_alpha(party_ui_alpha_hp_num);
 	
+	var __xoff_hp = _x_hp_bar_end - party_ui_offset.hp;
+	var __xoff_hpsep = _x_hp_bar_end - party_ui_offset.hp_sep;
+	var __xoff_maxhp = _x_hp_bar_end - party_ui_offset.hp_max;
 	
-	
-    draw_text_transformed(_x_hp_bar_end-45 + xoff, box_base_y + 9, health_real, 1, 1, 0)
-    draw_sprite_ext(spr_ui_hp_seperator, 0, _x_hp_bar_end-44 + xoff, box_base_y + 9, 1, 1, 0, c_white, 1)
-    draw_text_transformed(_x_hp_bar_end-1 + xoff, box_base_y + 9, health_max, 1, 1, 0)
+    draw_text_transformed(__xoff_hp + xoff, box_base_y + 9, health_real, 1, 1, 0)
+    draw_sprite_ext(spr_ui_hp_seperator, 0, __xoff_hpsep + xoff, box_base_y + 9, 1, 1, 0, c_white, party_ui_alpha_hp_num);
+	draw_set_alpha(party_ui_alpha_hp_num);
+    draw_text_transformed(__xoff_maxhp + xoff, box_base_y + 9, health_max, 1, 1, 0);
+	draw_set_alpha(1);
     
     draw_set_halign(fa_left)
     draw_set_color(c_white)

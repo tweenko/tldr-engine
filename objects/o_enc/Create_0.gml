@@ -63,14 +63,20 @@ party_ui_offset_default = {
 	icon : 3,
 	name : 39,
 	hp_text : 59,
-	hp_bar : 18
+	hp_bar : 18,
+	hp : 47,
+	hp_sep : 46,
+	hp_max : 3
 }
 party_ui_offset = {
 	edge : 7,
 	icon : 3,
 	name : 39,
 	hp_text : 59,
-	hp_bar : 18
+	hp_bar : 18,	
+	hp : 47,
+	hp_sep : 46,
+	hp_max : 3
 }
 
 __draw_name = function(){
@@ -87,9 +93,8 @@ __draw_hp_label = function(){
 }
 __draw_max_hp = function(){
 	var _ww = GAME_W_GUI / max(3, party_length());
-	return (_ww > 92)
+	return (_ww > 79);
 }
-__draw_hp_centered = function(){} // todo
 
 __move_menu_select = function() {
 	var __sel = party_button_selection[party_selection];
@@ -118,8 +123,59 @@ __move_menu_reset = function() {
 	animate(ui_menu_x, 0, menu_move_time, anime_curve.cubic_out, self, "ui_menu_x");
 }
 
-__party_menu_compact = function(){} // also todo -- this should fix an inaccuracy i added for 3 party members
-__party_menu_reset = function(){}
+__party_menu_compact = function(){	
+	var _ww = GAME_W_GUI / max(3, party_length());
+	if party_length() > 3 {
+		animate(ui_menu_width_default, _ww, compact_anim_time, anime_curve.cubic_out, self, "ui_menu_width");
+	}
+		
+	if !__draw_name() {
+		animate(party_ui_offset_default.name, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "name");
+		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
+	}
+		
+	if !__draw_icon() {
+		animate(party_ui_offset_default.icon, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "icon");
+		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
+	}
+		
+	if !__draw_hp_label() {
+		animate(party_ui_offset_default.hp_text, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
+		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
+	}
+		
+	if !__draw_max_hp() {
+		var _fnt = draw_get_font();
+		draw_set_font(global.font_ui_hp);
+		var _off = _ww/2 - string_width("000");
+		animate(party_ui_offset.hp, _off, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp");
+		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
+	}
+}
+__party_menu_reset = function(){
+	if ui_menu_width != ui_menu_width_default {
+		var _ww = GAME_W_GUI / max(3, party_length());
+		animate(_ww, ui_menu_width_default, compact_anim_time, anime_curve.cubic_out, self, "ui_menu_width");
+	}
+		
+	// reset name
+	animate(party_ui_offset.name, party_ui_offset_default.name, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "name");
+	animate(party_ui_alpha_name, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
+
+	// reset icon
+	animate(party_ui_offset.icon, party_ui_offset_default.icon, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "icon");
+	animate(party_ui_alpha_icon, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
+
+	// reset hp label
+	animate(party_ui_offset.hp_text, party_ui_offset_default.hp_text, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
+	animate(party_ui_alpha_hp_text, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
+
+	// reset hp
+	animate(party_ui_offset.hp, party_ui_offset_default.hp, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp");
+	animate(party_ui_offset.hp_sep, party_ui_offset_default.hp_sep, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_sep");
+	animate(party_ui_offset.hp_max, party_ui_offset_default.hp_max, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_max");
+	animate(party_ui_alpha_hp_num, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
+}
 
 
 hp_bar_length_default = 76;
