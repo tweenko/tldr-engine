@@ -37,6 +37,7 @@ function enc_set() constructor { // base
 	}
     
     // miscellaneous config
+	needed_tp = 0
     can_change_turnlen = true // by defending
 	display_target = false // whether to display the targets of the enemy's attack, like in chapter 1
     enc_var_struct = {}
@@ -93,6 +94,8 @@ function enc_set_ex() : enc_set() constructor {
             new ex_item_s_weep(global.party_names[i])
         ]);
 	}
+	
+	needed_tp = 50 // <- here
     
 	enemies_pos = [
 		[0, 0, true],

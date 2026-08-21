@@ -16,6 +16,10 @@ balloonheight = 0
 inited = false
 max_typer_width = 174
 
+target = noone
+offx = 0
+offy = 0
+
 alarm[0] = 1
 
 spr = [spr_ui_enc_dialogue_box, spr_ui_enc_dialogue_spike]

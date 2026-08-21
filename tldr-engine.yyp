@@ -1560,6 +1560,7 @@
     {"id":{"name":"spr_ui_enc_press","path":"sprites/spr_ui_enc_press/spr_ui_enc_press.yy",},},
     {"id":{"name":"spr_ui_enc_sparestar","path":"sprites/spr_ui_enc_sparestar/spr_ui_enc_sparestar.yy",},},
     {"id":{"name":"spr_ui_enc_tiredmark","path":"sprites/spr_ui_enc_tiredmark/spr_ui_enc_tiredmark.yy",},},
+    {"id":{"name":"spr_ui_enc_tp_star","path":"sprites/spr_ui_enc_tp_star/spr_ui_enc_tp_star.yy",},},
     {"id":{"name":"spr_ui_enc_tpbar_caption","path":"sprites/spr_ui_enc_tpbar_caption/spr_ui_enc_tpbar_caption.yy",},},
     {"id":{"name":"spr_ui_enc_tpbar","path":"sprites/spr_ui_enc_tpbar/spr_ui_enc_tpbar.yy",},},
     {"id":{"name":"spr_ui_enc_tpfilling","path":"sprites/spr_ui_enc_tpfilling/spr_ui_enc_tpfilling.yy",},},

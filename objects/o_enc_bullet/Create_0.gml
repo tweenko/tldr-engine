@@ -13,3 +13,4 @@ color = BULLET_COLOR.SOLID; // the color of the bullet
 destroy = true; // whether the bullet should be destroyed after being hit
 element = ""; // the element the bullet uses. for element reduction
 inside = false; // whether the bullet should be drawn inside the box
+gui = false; // whether the bullet should be above the UI

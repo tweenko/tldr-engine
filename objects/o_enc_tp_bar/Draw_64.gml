@@ -1,45 +1,38 @@
 var full = false
 
-if !surface_exists(tp_surf)
-    tp_surf = surface_create(640, 480)
 if !surface_exists(surf)
     surf = surface_create(640, 480)
 
 surface_set_target(surf)
     draw_clear_alpha(0,0)
-    surface_set_target(tp_surf) {
-        draw_clear_alpha(0, 0)
-        draw_set_font(loc_font("main"))
-        draw_set_color(c_white)
+    draw_clear_alpha(0, 0)
+    draw_set_font(loc_font("main"))
+    draw_set_color(c_white)
         
-        draw_sprite_ext(loc_sprite("enc_ui_spr_tp"), 0, x - 40 + x_offset, y - 61, 2, 2, 0, c_white, 1)
+    draw_sprite_ext(loc_sprite("enc_ui_spr_tp"), 0, x - 40 + x_offset, y - 61, 2, 2, 0, c_white, 1)
         
-        if floor(tp_visual_fast) >= 100 {
-            full = true
+    if floor(tp_visual_fast) >= 100 {
+		full = true
             
-            draw_set_color(c_yellow)
-            draw_text_transformed(x-40 + x_offset, y-20, "M", 2, 2, 0)
-            draw_text_transformed(x-36 + x_offset, y, "A", 2, 2, 0)
-            draw_text_transformed(x-32 + x_offset, y+20, "X", 2, 2, 0)
-        }
-        else {
-            draw_text_transformed(x-42 + x_offset, y-28, floor(tp_visual_fast), 2, 2, 0)
-            draw_text_transformed(x-37 + x_offset, y-3, "%", 2, 2, 0)
-        }
+        draw_set_color(c_yellow)
+        draw_text_transformed(x-40 + x_offset, y-20, "M", 2, 2, 0)
+        draw_text_transformed(x-36 + x_offset, y, "A", 2, 2, 0)
+        draw_text_transformed(x-32 + x_offset, y+20, "X", 2, 2, 0)
     }
-    surface_reset_target()
+    else {
+        draw_text_transformed(x-42 + x_offset, y-28, floor(tp_visual_fast), 2, 2, 0)
+        draw_text_transformed(x-37 + x_offset, y-3, "%", 2, 2, 0)
+    }
     
-    draw_surface(tp_surf, 0, 0)
     draw_set_alpha(tp_glow_alpha)
     
     gpu_set_blendmode(bm_add)
     for (var i = 0; i < 360; i += 45) {
-        draw_surface(tp_surf, lengthdir_x(2, i), lengthdir_y(2, i))
+        draw_surface(surf, lengthdir_x(2, i), lengthdir_y(2, i))
     }
     gpu_set_blendmode(bm_normal)
-    
     draw_set_alpha(1)
-    
+	
     var __c_unfilled = c_red
     var __c_filled = (!full ? c_orange : c_yellow)
     var __c_outline = c_white
@@ -98,7 +91,7 @@ surface_set_target(surf)
                 0, __tp_fill_fast * 187,
                 18, 2, 
                 __tp_x_origin, y-92 + __tp_fill_fast * 187,
-                1, 1, __c_outline, 1
+                1, 1, __c_filled, 1
             )
         }
     }
@@ -113,6 +106,19 @@ surface_set_target(surf)
        )
     
     draw_sprite_ext(spr_ui_enc_tpfilling, 0, x + x_offset, y - 92, 1, 1, 0, c_white, tp_glow_alpha)
+	
+	if (has_neededtp){
+		draw_sprite_part_ext(spr_ui_enc_tpfilling, 0, 
+			0, 187-(tp_needed*2),
+	        18, 2, 
+	        __tp_x_origin, (y+4)-92 + 187-(tp_needed*2),
+	        1, 1, c_white, 1
+	    )
+		draw_sprite(spr_ui_enc_tp_star, 0, __tp_x_origin+30, (y+4)-92 + 187-(tp_needed*2))
+	}
 surface_reset_target()
 
-draw_surface(surf, 0, 0)
+var _rad = degtorad(image_angle)
+var _off_x = x-(x*cos(_rad)+y*sin(_rad))
+var _off_y = y-(-x*sin(_rad)+y*cos(_rad))
+draw_surface_ext(surf,_off_x,_off_y,1,1,image_angle,c_white,1)

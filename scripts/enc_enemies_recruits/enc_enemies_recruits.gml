@@ -13,6 +13,7 @@ function enemy_recruit(data = {progress: 0}) constructor {
     element      = "NONE:DEBUG"
     like         = "(None)"
     dislike      = "(None)"
+	wish         = "(None)"
     attack       = 0
     defense      = 0
     
@@ -53,4 +54,5 @@ function enemy_recruit_killercar(data = {progress: 0}) : enemy_recruit(data) con
     element      = "POWER:COOL"
     like         = "HANGING WITH THE COOL KIDS"
     dislike      = "YOU"
+	wish         = "Kill you (kindly)"
 }
