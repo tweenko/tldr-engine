@@ -118,7 +118,9 @@ for (var i = party_length()-1; i >= 0; --i) {
     if !surface_exists(party_ui_button_surf[i])
         party_ui_button_surf[i] = surface_create(ui_menu_width-2, 33)
 	else {
-		surface_resize(party_ui_button_surf[i], ui_menu_width-2, 33)
+		if __can_resize_surface() {
+			surface_resize(party_ui_button_surf[i], ui_menu_width-2, 33);
+		}
 	}	
     surface_set_target(party_ui_button_surf[i]) {
         var buttons = party_buttons[i]

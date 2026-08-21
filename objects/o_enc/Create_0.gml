@@ -96,6 +96,10 @@ __draw_max_hp = function(){
 	return (_ww > 79);
 }
 
+__can_resize_surface = function() {
+	return (ui_menu_width != ui_menu_width_default);
+}
+
 __move_menu_select = function() {
 	var __sel = party_button_selection[party_selection];
 	var __button = party_buttons[party_selection][__sel];
