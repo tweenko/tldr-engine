@@ -355,9 +355,6 @@ function actor_dialogue_create(_text, _actor_inst, prefix = "", postfix = "{p}{e
     )
     inst.text = prefix + dialogue_array_to_string(_text) + postfix
     inst.side = coming_from
-	inst.target = _actor_inst
-	inst.offx = bubble_off_x
-	inst.offy = bubble_off_y
     
     return inst
 }

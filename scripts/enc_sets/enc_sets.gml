@@ -94,8 +94,6 @@ function enc_set_ex() : enc_set() constructor {
             new ex_item_s_weep(global.party_names[i])
         ]);
 	}
-	
-	needed_tp = 50 // <- here
     
 	enemies_pos = [
 		[0, 0, true],

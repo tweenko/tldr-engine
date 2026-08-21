@@ -69,7 +69,7 @@ else if view == 1 {
     draw_text_xfit(180, 280, loc(current_recruit.dislike), 540, 2, 2)
     
 	if ((loc(current_recruit.wish))!="(None)"){
-		draw_text_xfit(80, 320, "Wish", 160, 2, 2)
+		draw_text_xfit(80, 320, loc("recruits_wish"), 160, 2, 2)
 		draw_text_xfit(180, 320, loc(current_recruit.wish), 540, 2, 2)
 	}
 	else{

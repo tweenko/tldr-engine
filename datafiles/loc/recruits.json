@@ -15,6 +15,9 @@
     "recruits_dislike": {
         "en": "DISLIKE", "ja": "きらい:"
     },
+    "recruits_wish": {
+        "en": "WISH", "ja": "願い："
+    },
     "recruits_level": {
         "en": "LEVEL", "ja": "LV:"
     },
