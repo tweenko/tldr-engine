@@ -118,7 +118,7 @@ for (var i = party_length()-1; i >= 0; --i) {
     if !surface_exists(party_ui_button_surf[i])
         party_ui_button_surf[i] = surface_create(ui_menu_width-2, 33)
 	else {
-		if __can_resize_surface() {
+		if ui_menu_width != ui_menu_width_default {
 			surface_resize(party_ui_button_surf[i], ui_menu_width-2, 33);
 		}
 	}	
