@@ -148,26 +148,23 @@ if !only_hp {
                         i_select_array = item_get_array(t)
 						
 						audio_play(snd_ui_select);
-						
-						__party_menu_expand();
-						__move_menu_to(i_pmselection);
-						
 					}
                     else 
                         audio_play(snd_ui_cant_select);
                     
 					if i_pselection == 1 
 						i_mode = ITEM_USE.EVERYONE;
+						
+					if item_check_useable(arr[i_selection]) && i_mode != ITEM_USE.EVERYONE {
+						__party_menu_expand();
+						__move_menu_to(i_pmselection);
+					}
 				}
                 if item_get_count(t) == 0
 					state = 1
 			}
 		}
 		if state == 3 { // choose party member / confirm action
-			
-			if i_selection == 0 {
-				__party_menu_expand();
-			}
 			
 			var t = (i_pselection == 2 ? ITEM_TYPE.KEY : ITEM_TYPE.CONSUMABLE)
 			
@@ -191,6 +188,8 @@ if !only_hp {
 				state = 2
 				i_mode = 0
 				audio_play(snd_ui_cancel_small)
+				
+				__party_menu_compact();
 				
 			}
 			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {

@@ -1,4 +1,3 @@
-var roll = 80 * menuroll
 var __top_txt_len = 310
 
 draw_set_font(loc_font("main"))
@@ -13,7 +12,7 @@ if !only_hp {
 }
 __ui_draw_bottom();
 	
-if selection == MENU_SELECTION.ITEMS { // items
+if selection == MENU_SELECTION.ITEMS {
 	if state > 0 {
         var _l_offset = 0
         var _r_offset = 0
@@ -84,7 +83,7 @@ if selection == MENU_SELECTION.ITEMS { // items
 		}
 	}
 }
-if selection == MENU_SELECTION.EQUIP { // equip
+if selection == MENU_SELECTION.EQUIP {
 	if state > 0 {
 		draw_set_font(loc_font("main"))
         
@@ -324,7 +323,7 @@ if selection == MENU_SELECTION.EQUIP { // equip
 		}
 	}
 }
-if selection == MENU_SELECTION.POWER { // power
+if selection == MENU_SELECTION.POWER {
 	if state > 0 {
 		draw_set_font(loc_font("main"))
         
@@ -389,7 +388,7 @@ if selection == MENU_SELECTION.POWER { // power
 		}
 	}
 }
-if selection == MENU_SELECTION.CONFIG && state > 0 { // config
+if selection == MENU_SELECTION.CONFIG && state > 0 {
     draw_set_font(loc_font("main"))
     ui_dialoguebox_create(58, 88, 584 - 58, 414 - 88)
     
