@@ -17,8 +17,11 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 		party_setdata(name, "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
 		
 		if (caller == o_ui_menu || instance_exists(caller) && caller.object_index == o_ui_menu) { // if in menu
-			var xoff = 319.5 + party_length() * -213/2
-			var inst = instance_create(o_ui_menu_healeffect, xoff + 70 + 213*array_get_index(global.party_names, name))
+			var xoff = caller.ui_menu_x;
+			if party_length() <= 3 {
+				xoff = caller.ui_menu_width*(1.5 - party_length()/2);
+			}
+			var inst = instance_create(o_ui_menu_healeffect, xoff + 70 + caller.ui_menu_width*array_get_index(global.party_names, name))
 			
 			inst.text = string("+{0}", heal)
 		}

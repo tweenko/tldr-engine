@@ -35,9 +35,11 @@ if !only_hp {
 			audio_play(snd_ui_select);
 		}
 	}
-	
-	if selection == 0 { // item
+
+	if selection == MENU_SELECTION.ITEMS {
 		if state == 1 { // submenu selector
+			__party_menu_compact();
+			
 			if InputPressed(INPUT_VERB.RIGHT) {
 				i_pselection ++; 
 				audio_play(snd_ui_move)
@@ -118,6 +120,7 @@ if !only_hp {
 			if InputPressed(INPUT_VERB.CANCEL){
 				state = 1
 				audio_play(snd_ui_cancel_small)
+				__party_menu_compact();
 			}
 			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				if i_pselection == 2 {
@@ -145,25 +148,36 @@ if !only_hp {
                         i_select_array = item_get_array(t)
 						
 						audio_play(snd_ui_select);
+						
+						__party_menu_expand();
+						__move_menu_to(i_pmselection);
+						
 					}
                     else 
                         audio_play(snd_ui_cant_select);
                     
 					if i_pselection == 1 
-						i_mode = 1
+						i_mode = ITEM_USE.EVERYONE;
 				}
                 if item_get_count(t) == 0
 					state = 1
 			}
 		}
 		if state == 3 { // choose party member / confirm action
+			
+			if i_selection == 0 {
+				__party_menu_expand();
+			}
+			
 			var t = (i_pselection == 2 ? ITEM_TYPE.KEY : ITEM_TYPE.CONSUMABLE)
 			
 			if InputPressed(INPUT_VERB.RIGHT) && i_mode != 1 {
+				__move_menu_right(i_pmselection);
 				i_pmselection ++
 				audio_play(snd_ui_move)
 			}
 			if InputPressed(INPUT_VERB.LEFT) && i_mode != 1 {
+				__move_menu_left(i_pmselection);
 				i_pmselection --
 				audio_play(snd_ui_move)
 			}
@@ -177,6 +191,7 @@ if !only_hp {
 				state = 2
 				i_mode = 0
 				audio_play(snd_ui_cancel_small)
+				
 			}
 			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				if i_pselection == 1 {
@@ -206,13 +221,16 @@ if !only_hp {
 			}
 		}
 	}
-	if selection == 1 { // equip
+	if selection == MENU_SELECTION.EQUIP {
 		if state == 1 { // character selector
+			__party_menu_expand();
 			if InputPressed(INPUT_VERB.RIGHT) {
+				__move_menu_right(e_pmselection);
 				e_pmselection ++; 
 				audio_play(snd_ui_move)
 			}
 			if InputPressed(INPUT_VERB.LEFT) {
+				__move_menu_left(e_pmselection);
 				e_pmselection --; 
 				audio_play(snd_ui_move)
 			}
@@ -225,6 +243,7 @@ if !only_hp {
 			if InputPressed(INPUT_VERB.CANCEL) {
 				state = 0
 				audio_play(snd_ui_cancel_small)
+				__party_menu_compact();
 			}
 			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				state ++
@@ -376,7 +395,7 @@ if !only_hp {
 			}
 		}
 	}
-	if selection == 2 { // power
+	if selection == MENU_SELECTION.POWER {
 		if state == 1 { // character selector
 			if InputPressed(INPUT_VERB.RIGHT) { 
 				p_pmselection++; 
@@ -425,7 +444,7 @@ if !only_hp {
 				p_selection = 0
 		}
 	}
-    if selection == 3 { // config
+    if selection == MENU_SELECTION.CONFIG {
         if state == 1 { // config menu
             if InputPressed(INPUT_VERB.DOWN) {
                 c_selection ++
