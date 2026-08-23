@@ -90,6 +90,8 @@ party_ui_offset = {
 	hp_max : party_ui_offset_default.hp_max
 }
 
+ui_arrow_alpha = (party_length() > 3);
+
 __draw_name = function() {
 	var _ww = GAME_W_GUI / max(3, party_length());
 	return (_ww > 192);

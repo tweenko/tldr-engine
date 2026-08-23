@@ -232,8 +232,7 @@ depth = DEPTH_UI.MENU_UI;
 		var __center_pm_index = clamp(__sel, 1, party_length()-2);
 		
 		draw_text_transformed(135 + _l_offset, 107, party_getname(global.party_names[__sel],false), 2, 2, 0)
-		
-		
+			
 		for (var i = __center_pm_index-1; i <= __center_pm_index+1; ++i) {
 			var c = (i == __sel ? c_white : #666666)
 			if i == __sel && state == 1 {
@@ -242,6 +241,10 @@ depth = DEPTH_UI.MENU_UI;
 			
 		    draw_sprite_ext(party_get_icon_ow(global.party_names[i]),0, 90 + 50*(i - __center_pm_index+1) + _l_offset, 160, 2, 2, 0, c, 1)
 		}
+		
+		var _xoff_arrow = 2*sin(o_world.frames/15);
+		draw_sprite_ext(spr_ui_arrow_flat, 0, 90-12+_l_offset-_xoff_arrow, 180, 2, 2, 180, c_white, (__sel > 1));
+		draw_sprite_ext(spr_ui_arrow_flat, 0, 90+50*3+12+_l_offset+_xoff_arrow, 180, 2, 2, 0, c_white, (__sel < party_length()-2));
 	}
 	
 	__ui_draw_top = function() {
@@ -257,6 +260,8 @@ depth = DEPTH_UI.MENU_UI;
 				draw_sprite_ext(spr_ui_soul_small, 0, 128 + 100*i, 38 - 80 + roll, 2, 2, 0, c_red, 1)
 		}
 		draw_text_transformed(520, 20 - 80 + roll, string("D$ {0}", save_get("money")), 2, 2, 0)
+		
+		
 	}
 	
 	__ui_draw_bottom = function(){

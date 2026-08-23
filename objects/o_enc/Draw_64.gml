@@ -20,10 +20,6 @@ for (var i = party_length()-1; i >= 0; --i) {
 	
 	var _x_hp_bar_end = ui_menu_width - 2 - party_ui_offset.edge;
 	
-	
-	
-	
-	
 	var xoff = ui_menu_x + i*ui_menu_width;
 	if ui_menu_center {
 		xoff = i*ui_menu_width + ui_menu_width*1.5 + party_length() * -ui_menu_width/2
@@ -377,6 +373,9 @@ else if battle_menu == BATTLE_MENU.PARTY_SELECTION {
         draw_sprite_ext(spr_pixel, 0, 400, 380 + 30*i, hp_bar_width*hp_ratio, 16, 0, c_lime, 1)
     }
 }
+
+var _xoff_arrow = 2*sin(o_world.frames/15);
+draw_sprite_ext(spr_ui_arrow_flat, 0, GAME_W_GUI - 32+_xoff_arrow, 300, 2, 2, 0, c_white, (party_selection <= 1)); 
 
 surface_reset_target()
 
