@@ -12,6 +12,8 @@ if !encounter_init {
 if battle_state == BATTLE_STATE.MENU {
     if !party_menu_init {
         party_menu_init = true
+		
+		__party_menu_reset();
         __call_enc_event("ev_party_turn")
     }
     
@@ -29,26 +31,34 @@ if battle_state == BATTLE_STATE.MENU {
         party_button_selection[party_selection] = cap_wraparound(party_button_selection[party_selection], array_length(party_buttons[party_selection]))
         
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-            party_buttons[party_selection][party_button_selection[party_selection]].press()
             
+			__move_menu_select();
+			party_buttons[party_selection][party_button_selection[party_selection]].press()
+			
             if party_selection >= party_length() || party_selection < 0 {
-                __battle_state_advance()
+				__battle_state_advance()
                 exit
             }
+			
+			
         }
         if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 && party_selection > 0 {
             var __selection = party_selection
             
-            party_selection --
+            party_selection --;
+			__move_menu_cancel();
             while !(party_isup(global.party_names[party_selection]) 
                 && !array_contains(party_busy, global.party_names[party_selection]) 
                 && !array_contains(party_busy_internal, global.party_names[party_selection])
             ) {
                 party_selection --
                 if party_selection < 0 {
-                    party_selection = __selection
+                    party_selection = __selection;
                     break
                 }
+				
+				
+				
             }
             
             if array_length(action_queue) > 0 {
@@ -94,7 +104,9 @@ if battle_state == BATTLE_STATE.MENU {
 		}
 		
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 { 
-            battle_menu_enemy_proceed()
+			__move_menu_select();
+			battle_menu_enemy_proceed()
+			
             buffer = 1
         }
 		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
@@ -157,7 +169,9 @@ if battle_state == BATTLE_STATE.MENU {
             __tp_update_cost(list[selected_item_index]);
         
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-            battle_menu_inv_proceed(list[selected_item_index])
+			__move_menu_select();
+			battle_menu_inv_proceed(list[selected_item_index])
+			
             buffer = 1
         }
         if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
@@ -182,7 +196,10 @@ if battle_state == BATTLE_STATE.MENU {
         party_ally_selection[party_selection] = cap_wraparound(party_ally_selection[party_selection], party_length())
 		
         if InputPressed(INPUT_VERB.SELECT) && buffer == 0 { 
-            battle_menu_party_proceed()
+      
+			__move_menu_select();
+			battle_menu_party_proceed()
+			
             buffer = 1
         }
 		if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
@@ -203,6 +220,7 @@ if battle_state == BATTLE_STATE.MENU {
         )
     {
         party_selection ++
+		__move_menu_select();
     }
     if party_selection >= party_length() || party_selection < 0 {
         __battle_state_advance()
@@ -327,6 +345,11 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
 else if battle_state == BATTLE_STATE.TURN {
     if !pre_turn_init {
         __call_enc_event("ev_turn")
+		
+		__move_menu_reset();
+		__party_menu_compact();
+		
+		
         buffer = 2
         
         pre_turn_init = true

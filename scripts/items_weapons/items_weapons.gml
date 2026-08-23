@@ -223,6 +223,41 @@ function item_w_blackshard() : item_weapon() constructor {
 }
 item_register(item_w_blackshard);
 
+function item_w_aquaknife() : item_weapon() constructor {
+	name = "AquaKnife"
+	desc = ["A mischievous blade. Attacks with this weapon are easier to make critical.", "", "", "A weapon for Kris. It will be easier to get critical hits."]
+	weapon_whitelist = ["kris"];
+	lw_counterpart = item_lw_petal;
+  
+	convert_when_not_equipped = false;
+	stats = {
+        attack: 10,
+		defense: 2
+    }
+	icon = spr_ui_menu_icon_aquaknife;
+	
+    effect = {
+        text: "Critical",
+        sprite: spr_ui_menu_icon_up
+    }
+    
+	reactions = {
+		susie: "Too small. Kris-size.",
+		ralsei: "Umm, I might hurt myself...",
+		noelle: "That's, um, nostalgic."
+	}
+	
+	apply = method(self, function(member_name){
+		party_setdata(member_name, "crit_width", 20)
+	})
+	deapply = method(self, function(member_name){
+		party_removedata(member_name, "crit_width");
+	})
+	
+	item_localize("item_w_aquaknife");
+}
+item_register(item_w_aquaknife)
+
 function item_lw_blackshard() : item_light() constructor {
     name = "BlackShard";
     desc = ["* \"BlackShard\" - A small chip of{br}extremely hard glass.{br}{resetx}* Oddly, it's nearly opaque."];
@@ -244,6 +279,15 @@ function item_lw_blackshard() : item_light() constructor {
 }
 item_register(item_lw_blackshard)
 
+function item_lw_petal() : item_light() constructor {
+	name = "Petal";
+	desc = ["* \"Petal\" - 0 AT{br}{resetx}* A cyan colored petal. It's not a weapon, but it's nice."]
+	dw_counterpart = item_w_aquaknife;
+	
+	use = method(self, __item_w_lw_equip);
+	item_localize("item_lw_petal");
+}
+item_register(item_lw_petal);
 // axes
 function item_w_mane_ax() : item_weapon() constructor {
     name = ["Mane Ax"]

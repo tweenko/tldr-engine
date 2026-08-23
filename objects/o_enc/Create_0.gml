@@ -50,12 +50,153 @@
     
     items_using = []
 }
+
+
+ui_menu_center = (party_length() <= 3);
+	
+ui_menu_x = 0;
+ui_menu_width_default = 213;
+ui_menu_width = ui_menu_width_default;
+
+hp_bar_length_default = 76;
+hp_bar_length = 76;
+
+party_ui_alpha_icon = 1;
+party_ui_alpha_name = 1;
+party_ui_alpha_hp_text = 1;
+party_ui_alpha_hp_num = 1;
+
+menu_move_time = 15;
+compact_anim_time = 15;
+
+party_ui_offset_default = {
+	edge : 7,
+	icon : 3,
+	name : 39,
+	hp_text : 59,
+	hp_bar : 18,
+	hp : 43,
+	hp_sep : 42,
+	hp_max : -1
+}
+party_ui_offset = {
+	edge : party_ui_offset_default.edge,
+	icon : party_ui_offset_default.icon,
+	name : party_ui_offset_default.name,
+	hp_text : party_ui_offset_default.hp_text,
+	hp_bar : party_ui_offset_default.hp_bar,	
+	hp : party_ui_offset_default.hp,
+	hp_sep : party_ui_offset_default.hp_sep,
+	hp_max : party_ui_offset_default.hp_max
+}
+
+ui_arrow_alpha = (party_length() > 3);
+
+__draw_name = function() {
+	var _ww = GAME_W_GUI / max(3, party_length());
+	return (_ww > 192);
+} 
+__draw_icon = function() {
+	var _ww = GAME_W_GUI / max(3, party_length());
+	return (_ww > 134);
+}
+__draw_hp_label = function() {
+	var _ww = GAME_W_GUI / max(3, party_length());
+	return (_ww > 154 && (_ww != clamp(_ww, 192, 207)));
+}
+__draw_max_hp = function() {
+	var _ww = GAME_W_GUI / max(3, party_length());
+	return (_ww > 79);
+}
+
+__move_menu_select = function() {
+	var __sel = party_button_selection[party_selection];
+	var __button = party_buttons[party_selection][__sel];
+	
+	if party_length() > 3 && party_selection == clamp(party_selection, 1, party_length()-3) {
+		if (battle_menu == BATTLE_MENU.BUTTON_SELECTION && is_instanceof(__button, enc_button_defend))
+		|| (battle_menu == BATTLE_MENU.ENEMY_SELECTION && !is_instanceof(__button, enc_button_act))
+		|| (battle_menu == BATTLE_MENU.INV_SELECTION && !is_instanceof(__button, enc_button_item) && !is_instanceof(__button, enc_button_power))
+		|| (battle_menu == BATTLE_MENU.PARTY_SELECTION && is_instanceof(__button, enc_button_item)) {
+			
+			ui_menu_x = -(party_selection-1)*ui_menu_width;
+			animate(ui_menu_x, ui_menu_x-ui_menu_width, menu_move_time, anime_curve.cubic_out, self, "ui_menu_x"); 
+		}
+	}
+}
+__move_menu_cancel = function() {
+	if party_length() > 3 && party_selection == clamp(party_selection, 1, party_length()-3) {
+		ui_menu_x = -party_selection*ui_menu_width;
+		animate(ui_menu_x, ui_menu_x + ui_menu_width, menu_move_time, anime_curve.cubic_out, self, "ui_menu_x"); 
+	}
+}
+__move_menu_reset = function() {
+	animate(ui_menu_x, 0, menu_move_time, anime_curve.cubic_out, self, "ui_menu_x");
+}
+
+__party_menu_compact = function() {	
+	var _ww = GAME_W_GUI / max(3, party_length());
+	if party_length() > 3 {
+		animate(ui_menu_width_default, _ww, compact_anim_time, anime_curve.cubic_out, self, "ui_menu_width");
+	}
+		
+	if !__draw_name() {
+		animate(party_ui_offset_default.name, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "name");
+		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
+	}
+		
+	if !__draw_icon() {
+		animate(party_ui_offset_default.icon, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "icon");
+		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
+	}
+		
+	if !__draw_hp_label() {
+		animate(party_ui_offset_default.hp_text, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
+		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
+	}
+		
+	if !__draw_max_hp() {
+		var _fnt = draw_get_font();
+		draw_set_font(global.font_ui_hp);
+		var _off = _ww/2 - string_width("000");
+		animate(party_ui_offset.hp, _off, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp");
+		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
+	}
+}
+__party_menu_reset = function() {
+	if ui_menu_width != ui_menu_width_default {
+		var _ww = GAME_W_GUI / max(3, party_length());
+		animate(_ww, ui_menu_width_default, compact_anim_time, anime_curve.cubic_out, self, "ui_menu_width");
+	}
+		
+	// reset name
+	animate(party_ui_offset.name, party_ui_offset_default.name, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "name");
+	animate(party_ui_alpha_name, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
+
+	// reset icon
+	animate(party_ui_offset.icon, party_ui_offset_default.icon, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "icon");
+	animate(party_ui_alpha_icon, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
+
+	// reset hp label
+	animate(party_ui_offset.hp_text, party_ui_offset_default.hp_text, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
+	animate(party_ui_alpha_hp_text, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
+
+	// reset hp
+	animate(party_ui_offset.hp, party_ui_offset_default.hp, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp");
+	animate(party_ui_offset.hp_sep, party_ui_offset_default.hp_sep, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_sep");
+	animate(party_ui_offset.hp_max, party_ui_offset_default.hp_max, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_max");
+	animate(party_ui_alpha_hp_num, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
+}
+
+
+
+
 { // ui
     ui_main_lerp = 0
     ui_party_sticks = [0, -3, -6]
     ui_hp_danger_zone = 30
     ui_menu_state = 0
-    
+
     battle_menu = BATTLE_MENU.BUTTON_SELECTION
     
     battle_menu_enemy_proceed = function() {}

@@ -2,7 +2,7 @@ var w = 260
 var h = 100
 
 draw_sprite_ext(spr_pixel, 0, 0, 0, GAME_W_GUI, GAME_H_GUI, 0, c_black, .5)
-ui_dialoguebox_create(GAME_W_GUI/2 - w/2, GAME_H_GUI/2 - h/2, w, h)
+ui_dialoguebox_create(GAME_W_GUI/2 - w/2, GAME_H_GUI/2 - h/2, w, h + 15)
 
 for (var i = 0; i < maxparty; ++i) {
 	if abs(i-selection) > 1
@@ -24,6 +24,14 @@ for (var i = 0; i < maxparty; ++i) {
 			)
 		}
 		gpu_set_fog(false, c_white, 0, 0)
+		
+		draw_set_font(loc_font("main"));
+		draw_set_halign(fa_center);
+		
+		draw_text_transformed(GAME_W_GUI/2, GAME_H_GUI/2 + 30, party_getname(name), 1, 1, 0);
+		
+		draw_set_halign(fa_left);
+		
 	}
 	
     if !party_contains(name, true)

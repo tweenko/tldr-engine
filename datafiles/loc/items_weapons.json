@@ -162,6 +162,44 @@
         }
     },
 
+    "item_w_aquaknife": {
+        "en": {
+            "name": "AquaKnife",
+            "desc": ["A mischievous blade. Attacks with this weapon are easier to make critical.", "", "", "A weapon for Kris. It will be easier to get critical hits."],
+            "effect" : {
+                "text": "Critical"
+            },
+            "reactions": {
+                "susie": "Too small. Kris-size.",
+                "ralsei": "Umm, I might hurt myself...",
+                "noelle": "That's, um, nostalgic."
+            }
+        },
+        "ja": {
+            "name": "ターコナイフ",
+            "desc": ["いたずら好きなナイフ。このぶきを装備して\nこうげきすると　クリティカルになりやすい。", "", "", "クリス用ぶき^1。\nクリティカルヒットが出やすくなる。"],
+            "effect" : {
+                "text": "クリティカル"
+            },
+            
+            "reactions": {
+                "susie": "ちっこすぎ…クリスサイズだな",
+                "ralsei": "うっかりケガしちゃうかも…",
+                "noelle": "なんだか…なつかしい"
+            }
+        }
+    },
+    "item_lw_petal": {
+        "en":{
+            "name": "Petal",
+            "desc": ["* \"Petal\" - 0 AT{br}{resetx}* A cyan colored petal. It's not a weapon, but it's nice."]
+        },
+        "ja":{
+            "name": "はなびら",
+            "desc": ["＊ 「はなびら」 - ATK0{br}{resetx}＊ あおみどりいろの　はなびら^1。{br}ぶきではないが　なんか　いい。"]
+        }
+    },
+
     "item_w_mane_ax": {
         "en": {
             "name": "Mane Ax",

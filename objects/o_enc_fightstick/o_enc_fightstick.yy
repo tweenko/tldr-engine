@@ -36,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_ui_enc_fightstick",
-    "path":"sprites/spr_ui_enc_fightstick/spr_ui_enc_fightstick.yy",
+    "name":"spr_pixelfour",
+    "path":"sprites/spr_pixelfour/spr_pixelfour.yy",
   },
   "spriteMaskId":null,
   "visible":true,
