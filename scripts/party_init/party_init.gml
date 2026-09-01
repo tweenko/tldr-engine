@@ -137,9 +137,9 @@ function party_m_kris(_initialized_name) : party_m(_initialized_name) constructo
 		["party_stat_guts", 2, spr_ui_menu_icon_fire],
 	]
 	
-	max_hp =	party_m_calculate_hp(30, lv)
+	max_hp =	party_m_calculate_hp(360, lv)
     hp =		max_hp
-	attack =	16
+	attack =	1600
 	defense =	2
 	magic =		0
 	element_resistance = {

@@ -8,8 +8,6 @@ function gb_enc_set_malign() : enc_set() constructor {
 	 flavor = function() {
         if o_enc.turn_count == 0 
             return "* Cold entropy constricts you...{br}{resetx}* {col(y)}TP{col(w)} Gain reduced outside of {col(g)}COURAGE{col(w)}!"
-		if party_getdata(kris, "hp") < 1
-			return "{char(ralsei, 52)} * We're too close to the monument! We can't lose this now!"
         return choose(
 			"* Wisps of energy fly around you."	,
 			"* Why did you choose to be this way?",

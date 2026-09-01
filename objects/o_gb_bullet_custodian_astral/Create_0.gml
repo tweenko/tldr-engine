@@ -21,7 +21,7 @@ _aura_call = function() {
     _underaura = true
     
     glow += .03
-    scale -= .05
+    scale -= 0.025
     if spd > .2
         spd -= .001
     

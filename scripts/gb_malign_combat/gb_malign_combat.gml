@@ -2,6 +2,7 @@ function gb_enemy_custodian() : enemy() constructor{
 	name = "Custodian"
 	obj = o_gb_actor_e_custodian
 	turn_object = o_gb_turn_custodian
+	run_away = false
 	
 	//stats
 	hp =		3000
@@ -38,6 +39,7 @@ function gb_enemy_lodestar() : enemy() constructor{
 	name = "Lodestar"
 	obj = o_gb_actor_e_lodestar
 	turn_object = o_gb_turn_lodestar
+	run_away = false
 	
 	// stats
 	hp =		3000

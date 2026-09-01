@@ -8,3 +8,8 @@ var __list = instance_place_list_ext(x, y, o_enc_bullet_dark, false)
 for (var i = 0; i < array_length(__list); i ++) {
     __list[i]._aura_call()
 }
+
+var __list = instance_place_list_ext(x, y, o_gb_bullet_custodian_astral, false)
+for (var i = 0; i < array_length(__list); i ++) {
+    __list[i]._aura_call()
+}
