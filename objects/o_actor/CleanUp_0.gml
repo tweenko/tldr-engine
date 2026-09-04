@@ -1,0 +1,2 @@
+if surface_exists(dodge_outline_surf)
+	surface_free(dodge_outline_surf)
