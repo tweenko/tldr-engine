@@ -26,7 +26,7 @@ function gb_enemy_custodian() : enemy() constructor{
 			party: [],
 			desc: "Useless analysis",
 			exec: function() {
-				encounter_scene_dialogue("* CUSTODIAN - Floats with a weightless unnerving grace. {col(c_teal)}This should not be on the station!{col(w)}")
+				encounter_scene_dialogue("* CUSTODIAN - Floats with a empty, unnerving grace. {col(c_teal)}This should not be on the station!{col(w)}")
 			}
 		},
 	]

@@ -72,7 +72,7 @@ array_push(global.key_items, new item_key_cell_phone())
 #region create the save entries
     // base player data
     save_entry("NAME", "PLAYER")
-    save_entry("ROOM", room_test_main, undefined, function() { return room })
+    save_entry("ROOM", room_chapter_select, undefined, function() { return room })
     save_entry("ROOM_NAME", "", function(_conv_data){ global.room_name = _conv_data }, function(){ return global.room_name })
     
     save_entry("TIME", global.time, function(_conv_data){ global.time = _conv_data }, function(){ return global.time })

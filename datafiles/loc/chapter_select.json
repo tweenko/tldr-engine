@@ -54,19 +54,31 @@
     },
 
     "chapter_1": {
-        "en": "The Beginning",
+        "en": "Arrivals",
         "ja": "はじまり"
     },
     "chapter_2": {
-        "en": "A Cyber's World",
+        "en": "Cable Jungle",
         "ja": "サイバーワールド"
     },
     "chapter_3": {
-        "en": "Late Night",
+        "en": "Lavaland",
         "ja": "レイトナイト"
     },
     "chapter_4": {
-        "en": "Prophecy",
-        "ja": "予言"
-    }
+        "en": "Revelation",
+        "ja": "サイバーワールド"
+	},
+	"chapter_5": {
+        "en": "Hydroponics",
+        "ja": "サイバーワールド"
+	},
+	"chapter_6": {
+        "en": "Mousetrap",
+        "ja": "サイバーワールド"
+	},
+	"chapter_7": {
+        "en": "A New Dawn",
+        "ja": "サイバーワールド"
+	}
 }

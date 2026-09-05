@@ -3,7 +3,7 @@ chapters = [
 		name: "chapter_1", // will be localized when drawn
 		exec: function(caller) {
 			music_stop(0)
-			audio_play(snd_ui_scary)
+			audio_play(snd_gb_chs_ch1)
 			
 			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
@@ -17,13 +17,13 @@ chapters = [
 				room_goto(room_save_select)
 			})
 		},
-		icon: spr_ui_chs_ch1,
+		icon: spr_gb_ui_chs_ch1,
 	},
 	{
 		name: "chapter_2",
 		exec: function(caller){
 			music_stop(0)
-			audio_play(snd_chs_ch2)
+			audio_play(snd_gb_chs_ch2)
 			
 			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
@@ -36,13 +36,13 @@ chapters = [
 				room_goto(room_save_select)
 			})
 		},
-		icon: spr_ui_chs_ch2,
+		icon: spr_gb_ui_chs_ch2,
 	},
 	{
 		name: "chapter_3",
 		exec: function(caller){
 			music_stop(0)
-			audio_play(snd_chs_ch3)
+			audio_play(snd_gb_chs_ch3)
 			
 			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
@@ -55,13 +55,13 @@ chapters = [
 				room_goto(room_save_select)
 			})
 		},
-		icon: spr_ui_chs_ch3,
+		icon: spr_gb_ui_chs_ch3,
 	},
 	{
 		name: "chapter_4",
 		exec: function(caller){
 			music_stop(0)
-			audio_play(snd_chs_ch4)
+			audio_play(snd_gb_chs_ch4)
 			
 			animate(0, 1, 20, "linear", caller, "trans_shrink")
 			
@@ -74,11 +74,65 @@ chapters = [
 				room_goto(room_save_select)
 			})
 		},
-		icon: spr_ui_chs_ch4,
+		icon: spr_gb_ui_chs_ch4,
 	},
-	-1,
-	-1,
-	-1,
+	{
+		name: "chapter_5",
+		exec: function(caller){
+			music_stop(0)
+			audio_play(snd_gb_chs_ch5)
+			
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
+			
+			call_later(80, time_source_units_frames, function() {
+				global.chapter = 5
+                save_entry_set_default("ROOM", room_test_main)
+                save_entry_set_default("CHAPTER", 5)
+                
+				save_reload()
+				room_goto(room_save_select)
+			})
+		},
+		icon: spr_gb_ui_chs_ch5,
+	},
+	{
+		name: "chapter_6",
+		exec: function(caller){
+			music_stop(0)
+			audio_play(snd_gb_chs_ch6)
+			
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
+			
+			call_later(80, time_source_units_frames, function() {
+				global.chapter = 6
+                save_entry_set_default("ROOM", room_test_main)
+                save_entry_set_default("CHAPTER", 6)
+                
+				save_reload()
+				room_goto(room_save_select)
+			})
+		},
+		icon: spr_gb_ui_chs_ch6,
+	},
+	{
+		name: "chapter_7",
+		exec: function(caller){
+			music_stop(0)
+			audio_play(snd_gb_chs_ch7)
+			
+			animate(0, 1, 20, "linear", caller, "trans_shrink")
+			
+			call_later(80, time_source_units_frames, function() {
+				global.chapter = 7
+                save_entry_set_default("ROOM", room_test_main)
+                save_entry_set_default("CHAPTER", 7)
+                
+				save_reload()
+				room_goto(room_save_select)
+			})
+		},
+		icon: spr_gb_ui_chs_ch7,
+	},
 ]
 
 yadd = -80
