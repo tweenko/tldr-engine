@@ -8,6 +8,9 @@ Prouds itself in simple minimalist ways to recreate, reimagine and create brand 
 - [Documentation](https://docs.google.com/document/d/14SpnU32P-_HLdNS17gwaIe8Z2mO8AG1KUUGMe_hNdzM/edit?tab=t.0) - the document that contains answers to most questions you may have regarding the engine.
 - [Discord Server](https://discord.gg/x3t8JTyC2p) - a space where you can get notified on new updates, discuss things with other community members, report bugs and request new features! (recommended to join)
 
+## Community Tutorials
+- [tlDR Handbook](https://profsergiocosta.github.io/tldr-handbook/) - an independent, unofficial tutorial written by a parent learning the engine alongside their kid, a Deltarune fan, with writing assistance from Claude (Anthropic). Not affiliated with or endorsed by the tlDR Engine team.
+
 <img width="1920" height="1440" alt="tldr-promo-pacify" src="https://github.com/user-attachments/assets/7d5bf3e6-0076-48f9-983b-d2fb6aad630b" />
 <img width="1920" height="1440" alt="tldr-promo-equip" src="https://github.com/user-attachments/assets/2f479227-82f3-4683-bda0-23a29fc4cc99" />
 <img width="1920" height="1440" alt="tldr-promo-menu" src="https://github.com/user-attachments/assets/987ec403-630c-4dcc-962a-0edca0c0430a" />
