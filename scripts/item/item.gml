@@ -554,12 +554,12 @@ function item_spell_get_index(_item_ref, _party_name) {
  */
 function item_spell_reload(_party_name, _spell_index, _data = undefined) {
     var __iteminst = asset_get_index(instanceof(party_getdata(_party_name, "spells")[_spell_index]))
-    var _n = undefined
+    var _n = {}
     
     if !is_undefined(_data)
-        _n = new __iteminst(_data)
+		with (_n) script_execute(__iteminst, _data) // call the constructor from the script
     else 
-    	_n = new __iteminst()
+    	with (_n) script_execute(__iteminst)
         
     party_getdata(_party_name, "spells")[_spell_index] = _n
 }

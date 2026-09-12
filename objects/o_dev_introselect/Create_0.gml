@@ -5,7 +5,7 @@ _select = function(_item) {
     music_stop_all()
     audio_play(snd_ui_select)
     
-    o_console.log_text($"{_item_name(_item, 0, 0)} started", c_orange);
+    o_console.log_text($"{_item_name(_item)} started", c_orange);
     
 	room_instance_clear(room_intro);
 	room_goto(room_intro);
@@ -22,7 +22,7 @@ _select = function(_item) {
 	cutscene_play();
 }
 
-_item_name = function(_item, _category, _item_index) {
+_item_name = function(_item) {
     return object_get_name(_item);
 }
 
