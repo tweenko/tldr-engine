@@ -35,7 +35,7 @@
     },
 
     "menu_stat_attack": {
-        "en": "Attack:", "ja": "こうげき: "
+        "en": "Attack:", "ja": "こうげき:"
     },
     "menu_stat_defense": {
         "en": "Defense:", "ja": "ぼうぎょ:"
@@ -60,7 +60,7 @@
     },
 
     "menu_no_ability": {
-        "en": "(No Ability.)", "ja": "アビリティなし"
+        "en": "(No ability.)", "ja": "アビリティなし"
     },
     "menu_nothing": {
         "en": "(Nothing)", "ja": "(なし)"
@@ -223,5 +223,26 @@
     },
     "menu_lw_stats_money": {
         "en": "MONEY: {0}"
+    },
+
+    "menu_lw_equip_text": {
+        "en": "* You equipped the {0}.",
+        "ja": "＊ {0}を　そうびした。"
+    },
+    "menu_lw_toss_text": {
+        "en": [
+            "* You bid a quiet farewell to the {0}.",
+            "* You put the {0} on the ground and gave it a little pat.",
+            "* You threw the {0} on the ground like the piece of trash it is.",
+            "* You abandoned the {0}.",
+            "* The {0} was thrown away."
+        ],
+        "ja": [
+            "＊ {0}に そっと　わかれを　つげた。",
+            "＊ {0}を じめんに　おいて 「おつかれさま」と　なでてあげた。",
+            "＊ {0}を ゴミのように　なげすてた。",
+            "＊ {0}を みすてた。",
+            "＊ {0}を すてた。"
+        ]
     }
 }

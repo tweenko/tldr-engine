@@ -10,12 +10,9 @@ function item() constructor {
     
 	// item specific
 	use_type = ITEM_USE.INDIVIDUAL
-	can_use = true // can also be a function that returns boolean
-	throw_scripts = {
-		can: true,
-		execute_code: function(_index) { //executes this INSTEAD of the default item_delete
-		},
-	}
+	can_use = true; // can also be a function that returns boolean
+    can_toss = true; // can also be a function that returns boolean
+	toss_execute = undefined; // executed instead of `item_delete`. argument 0 is the item slot
 	
 	// equippable specific
 	stats = {
@@ -31,7 +28,7 @@ function item() constructor {
     deapply = function(party_name) {}
     
 	effect = undefined // (struct with the sprite key and text key)
-	icon = spr_ui_menu_icon_exclamation
+	icon = undefined;
     
     // party act specific
     perform_act_anim = true
@@ -39,6 +36,7 @@ function item() constructor {
     use_instant = function(item_index, target_index) {}
     use_instant_cancel = function(item_index, target_index) {}
     
+    use_lw_equip_text = loc("menu_lw_equip_text");
     use_encounter_text = "item_use" // will be localized. {0} is the party member name and {1} is the item name. can also be callable
 	use = function(item_index, target_index, caller = -1) {}
 	use_args = []
@@ -255,11 +253,30 @@ function item_get_in_stock(item_struct) {
 	return variable_callable_to_value(item_struct.shop_in_stock);
 }
 
-///@desc returns the type of an item
+/// @desc returns the type of an item
+/// @return {enum.ITEM_TYPE}
 function item_get_type(item_struct) {
     if is_undefined(item_struct)
         return undefined
-	return item_struct.type
+    
+    if is_struct(item_struct)
+        return item_struct.type;
+    else {
+        var tags = asset_get_tags(item_struct);
+        
+        if array_contains(tags, "@@parent=item_consumable")
+            return ITEM_TYPE.CONSUMABLE;
+        if array_contains(tags, "@@parent=item_weapon")
+            return ITEM_TYPE.WEAPON;
+        if array_contains(tags, "@@parent=item_armor")
+            return ITEM_TYPE.ARMOR;
+        if array_contains(tags, "@@parent=item_key")
+            return ITEM_TYPE.KEY;
+        if array_contains(tags, "@@parent=item_spell")
+            return ITEM_TYPE.SPELL; 
+        if array_contains(tags, "@@parent=item_light")
+            return ITEM_TYPE.LIGHT; 
+    }
 }
 
 ///@desc returns whether the item can deal fatal damage to the enemies
@@ -380,7 +397,7 @@ function item_menu_reaction(item_struct, user = 0) {
 /// @arg {Asset.GMScript,struct} _item_ref the item constructor OR item struct that we are looking a match for
 /// @arg {enum.ITEM_TYPE} _item_type by default is equal to `undefined`, which just looks in the same item type as the item ref's item type
 /// @return {bool}
-function item_contains(_item_ref, _item_type = undefined) {
+function item_inventory_contains(_item_ref, _item_type = undefined) {
 	var __iteminst = (is_struct(_item_ref) ? instanceof(_item_ref) : script_get_name(_item_ref));
     
     if is_undefined(_item_type) {
@@ -401,7 +418,7 @@ function item_contains(_item_ref, _item_type = undefined) {
 ///@desc counts the items in the inventory that match the instance of the item reference
 ///@arg {Asset.GMScript,struct} _item_ref the item constructor OR item struct that we are looking a match for
 ///@return {real}
-function item_count(_item_ref){
+function item_inventory_count(_item_ref){
 	var __item = (is_struct(_item_ref) ? _item_ref : new _item_ref())
 	var __iteminst = (is_struct(_item_ref) ? instanceof(_item_ref) : script_get_name(_item_ref))
 	var s = item_get_array(__item.type)
@@ -582,6 +599,9 @@ function item_check_useable(item_struct) {
  * @param {string} _loc the loc_id of the item struct
  */
 function item_localize(_loc) {
+    if !variable_global_exists("loc_source")
+        exit;
+    
     var __data = loc(_loc)
     if !is_struct(__data) {
         show_debug_message($"attempted to localize an item with the loc id of {_loc}, but the localized string didn't return a struct. aborted localization")
@@ -599,5 +619,89 @@ function item_localize(_loc) {
         }
         else
             struct_set(self, __names[i], __value)
+    }
+}
+
+/// @desc draws a diff board for an item containing all party members on a certain x and y position. for WEAPONS/ARMORS
+/// @arg {struct.item} item
+/// @arg {real} x
+/// @arg {real} y
+function item_draw_diff_board(_item, _x, _y) {
+    var item_type = item_get_type(_item);
+    var __get_diff_color = function(diff) {
+        switch sign(diff) {
+            default:
+                return c_white
+            case 1:
+                return c_yellow
+            case -1:
+                return c_aqua
+        }
+    }
+    
+    if item_type != ITEM_TYPE.WEAPON && item_type != ITEM_TYPE.ARMOR
+        return false;
+    
+    draw_set_font(loc_font("enc"))
+    for (var i = 0; i < party_length(); i ++) {
+        var x_off = (i % 2) * 100
+        var y_off = (i div 2) * 45
+        
+        var greyed_out = false
+        if item_type == ITEM_TYPE.WEAPON && !array_contains(_item.weapon_whitelist, global.party_names[i])
+            greyed_out = true
+        else if item_type == ITEM_TYPE.ARMOR && array_contains(_item.armor_blacklist, global.party_names[i])
+            greyed_out = true
+        
+        draw_sprite_ext(party_get_icon(global.party_names[i]), 0, _x + x_off, _y + y_off, 1, 1, 0, (greyed_out ? c_gray : c_white), draw_get_alpha());
+        
+        if greyed_out 
+            continue
+        if item_type == ITEM_TYPE.WEAPON {
+            var og_attack = item_get_stat(party_getdata(global.party_names[i], "weapon"), "attack")
+            var attack_diff = item_get_stat(_item, "attack") - og_attack
+            var og_magic = item_get_stat(party_getdata(global.party_names[i], "weapon"), "magic")
+            var magic_diff = item_get_stat(_item, "magic") - og_magic
+            
+            draw_sprite_ext(spr_ui_shop_weapon, 0, _x+45 + x_off, _y-5 + y_off, 1, 1, 0, c_white, draw_get_alpha())
+            draw_sprite_ext(spr_ui_shop_magic, 0, _x+45 + x_off, _y+15 + y_off, 1, 1, 0, c_white, draw_get_alpha())
+            
+            draw_set_colour(__get_diff_color(attack_diff))
+            
+            if sign(attack_diff) == 1 
+                attack_diff = $"+{attack_diff}"
+            draw_text(_x+65 + x_off, _y-4 + y_off, attack_diff)
+            
+            draw_set_colour(__get_diff_color(magic_diff))
+            
+            if sign(magic_diff) == 1 
+                magic_diff = $"+{magic_diff}"
+            draw_text(_x+65 + x_off, _y+16 + y_off, magic_diff)
+            
+            draw_set_colour(c_white)
+        }
+        else if item_type == ITEM_TYPE.ARMOR {
+            var a1_og_defense = item_get_stat(party_getdata(global.party_names[i], "armor1"), "defense")
+            var a1_diff = item_get_stat(_item, "defense") - a1_og_defense
+            var a2_og_defense = item_get_stat(party_getdata(global.party_names[i], "armor2"), "defense")
+            var a2_diff = item_get_stat(_item, "defense") - a2_og_defense
+            
+            draw_sprite_ext(spr_ui_menu_armor1, 0, _x+45 + x_off, _y-5 + y_off, 1, 1, 0, c_white, draw_get_alpha())
+            draw_sprite_ext(spr_ui_menu_armor2, 0, _x+45 + x_off, _y+15 + y_off, 1, 1, 0, c_white, draw_get_alpha())
+            
+            draw_set_colour(__get_diff_color(a1_diff))
+            
+            if sign(a1_diff) == 1 
+                a1_diff = $"+{a1_diff}"
+            draw_text(_x+65 + x_off, _y-4 + y_off, a1_diff)
+            
+            draw_set_colour(__get_diff_color(a2_diff))
+            
+            if sign(a2_diff) == 1 
+                a2_diff = $"+{a2_diff}"
+            draw_text(_x+65 + x_off, _y+16 + y_off, a2_diff)
+            
+            draw_set_colour(c_white)
+        }
     }
 }

@@ -32,40 +32,53 @@ else {
 	surface_set_target(surf) {
 		draw_clear_alpha(0, 0)
         
-		var total = array_length(chapters)
+		var total = array_length(global.registered_chapters)
         
 		draw_set_font(loc_font("main"))
 		draw_set_alpha(alpha)
         
-		for (var i = 0; i < array_length(chapters); ++i) {
-			if selection == i+1 
-				draw_set_color(c_yellow)
-			else if !is_struct(chapters[i]) 
-				draw_set_color(c_gray)
+		for (var i = 0; i < array_length(global.registered_chapters); ++i) {
+			if selection == i
+				draw_set_color(c_yellow);
+			else if !is_struct(global.registered_chapters[i]) 
+				draw_set_color(c_gray);
 			else 
-				draw_set_color(c_white)
+				draw_set_color(c_white);
             
 			draw_sprite_ext(spr_pixel, 0, 0, 62 + 60*i - yadd, 640, 2, 0, #2B2B2B, alpha)
             
-			if i+1 == selection && !confirming {
+			if i == selection && !confirming
 				draw_sprite_ext(spr_ui_soul, 0, 20, 24 + 60*i + yadd, 2, 2, 0, c_red, alpha)
-			}
 			
-            var _label = loc_string("chapter_select_chapter", i + 1)
+            var _label = loc_string("chapter_select_chapter", (is_struct(global.registered_chapters[i]) ? global.registered_chapters[i].target_chapter : i+1));
+            
 			draw_set_font(font_main)
 		    draw_text_transformed(50, 24 - 8 + i*60 + yadd, _label, 2, 2, 0)
+			
+            // draw completion stars
+            if is_struct(global.registered_chapters[i])
+                for (var j = 0; j < array_length(chapter_parsed_data[i].completed_slots); ++j) {
+                    switch chapter_parsed_data[i].completed_slots[j] {
+                        case "not_completed":
+                            break;
+                        case "completed_before":
+                            draw_sprite_ext(spr_ui_chs_star_outline, 0,
+                                50 + string_width(_label)*2 + 17, 20 + 12*j + i*60 + yadd,
+                                1, 1, 0, c_white, alpha
+                            )
+                            break;
+                        case "completed":
+                            draw_sprite_ext(spr_ui_chs_star, 0,
+                                50 + string_width(_label)*2 + 17, 20 + 12*j + i*60 + yadd,
+                                1, 1, 0, c_white, alpha
+                            )
+                            break;
+                    }
+                }
+            
 			draw_set_font(loc_font("main"))
 			
-			for (var j = 0; j < SAVE_SLOTS; ++j) {
-				if save_chs[i] != -1 && save_chs[i][j] != -1 && save_chs[i][j][1] {
-					draw_sprite_ext(spr_ui_chs_star, 0,
-						50 + string_width(_label)*2 + 17, 20 + 12*j + i*60 + yadd,
-						1, 1, 0, c_white, alpha
-					)
-				}
-			}
-			
-			if confirming && i+1 == selection {
+			if confirming && i == selection {
 				draw_set_color(c_white)
 				
 				if confirmselection == 0 {
@@ -91,17 +104,22 @@ else {
 				draw_set_color(c_yellow)
 			}
 			else {
-				draw_set_halign(fa_center)
+				draw_set_halign(fa_center);
 				
-				var title = (!is_struct(chapters[i]) ? "- -" : loc(chapters[i].name))
-				draw_text_transformed(360, 24-8 + i*60 + yadd, title, 2, 2, 0)
-				draw_set_halign(fa_left)
+				var title = (!is_struct(global.registered_chapters[i]) ? "- -" : loc(global.registered_chapters[i].name));
+				draw_text_transformed(360, 24-8 + i*60 + yadd, title, 2, 2, 0);
+				draw_set_halign(fa_left);
 			}
-	
-			if !is_struct(chapters[i])
-				draw_sprite_ext(spr_ui_chs_defafult, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
-			else
-				draw_sprite_ext(chapters[i].icon, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
+            
+			if !is_struct(global.registered_chapters[i])
+				draw_sprite_ext(spr_ui_chs_default, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha);
+			else {
+				var _spr = global.registered_chapters[i].icon;
+				if chapter_parsed_data[i].any_completed 
+					_spr = global.registered_chapters[i].icon_completed;
+				
+				draw_sprite_ext(_spr, 0, 553, 10 + i*60 + yadd, 2, 2, 0, draw_get_color(), alpha)
+			}
 		}
 		
 		draw_set_color(c_white)
@@ -109,14 +127,14 @@ else {
 		draw_set_halign(fa_left)
 		
 		if languages {
-			if selection == total+1 && horselection == 0 {
+			if selection == total && horselection == 0 {
 				draw_set_color(c_yellow)
 				draw_sprite_ext(spr_ui_soul, 0, 210 - 30 + horselection, 442, 2, 2, 0, c_red, alpha)
 			}
 			draw_text_transformed(210, 440-6+yadd, loc("chapter_select_quit"), 2, 2, 0)
 			draw_set_color(c_white)
 			
-			if selection == total+1 && horselection == 1 {
+			if selection == total && horselection == 1 {
 				draw_set_color(c_yellow)
 				draw_sprite_ext(spr_ui_soul, 0, 350-30 + horselection, 442, 2, 2, 0, c_red, alpha)
 			}
@@ -128,7 +146,7 @@ else {
 		else {
 			draw_set_halign(fa_center)
 			
-			if selection == total+1 && horselection == 0 {
+			if selection == total && horselection == 0 {
 				draw_set_color(c_yellow)
 				draw_sprite_ext(spr_ui_soul, 0, 320 - string_width(loc("chapter_select_quit")) - 30, 442, 2, 2, 0, c_red, alpha)
 			}
@@ -139,19 +157,22 @@ else {
 		draw_set_halign(fa_right)
 		draw_set_color(c_white)
 		
+        // draw the shadow crystals if you already have at least one
         if acquired_crystal {
-            var __xoff = 569 - possible_chapters * 10
-            var __yoff = 410 + 26
-            for (var i = 0; i < possible_chapters; ++i) {
-    			for (var j = 0; j < SAVE_SLOTS; ++j) {
-        			if save_chs[i] != -1 && save_chs[i][j] != -1 && save_chs[i][j][0]
-                        draw_sprite_ext(spr_ui_chs_crystal, 0, __xoff + i*20, __yoff + 10*j + yadd, 1, 1, 0, c_white, alpha)
+            var __xoff = 569 - possible_chapters * 10;
+            var __yoff = 410 + 26;
+            
+            for (var i = 0; i < array_length(global.registered_chapters); i ++) {
+                if !is_struct(global.registered_chapters[i])
+                    continue;
+                for (var j = 0; j < array_length(chapter_parsed_data[i].crystal_slots); ++j) {
+                    if chapter_parsed_data[i].crystal_slots[j]
+                        draw_sprite_ext(spr_ui_chs_crystal, 0, __xoff + i*20, __yoff + 10*j + yadd, 1, 1, 0, c_white, alpha);
                     else
-                        draw_sprite_ext(spr_pixel, 0, __xoff + i*20 - 2, __yoff - 1 + j*10 + yadd, 4, 4, 0, c_dkgray, alpha)
-        		}
+                        draw_sprite_ext(spr_pixel, 0, __xoff + i*20 - 2, __yoff - 1 + j*10 + yadd, 4, 4, 0, c_dkgray, alpha);
+    			}
     		}
         }
-		
   
 		draw_set_alpha(1)
 		draw_set_color(c_white)

@@ -7,6 +7,16 @@ function item_weapon() : item() constructor {
         element: undefined,
         multiplier: 1.0
     }
+    convert_when_not_equipped = false;
+}
+
+function __item_w_lw_equip(_item_index) {
+    item_delete(_item_index, ITEM_TYPE.LIGHT);
+    item_add(global.lw_weapon, ITEM_TYPE.LIGHT);
+    
+    global.lw_weapon = self;
+    
+    dialogue_start(string(use_lw_equip_text, item_get_name(self)));
 }
 
 // swords
@@ -37,16 +47,21 @@ function item_w_spookysword() : item_weapon() constructor {
     
     item_localize("item_w_spookysword")
 }
+item_register(item_w_spookysword);
+
 function item_w_lw_halloween_pencil() : item_weapon() constructor {
     name = ["Halloween Pencil"]
 	desc = ["* Orange with black bats on it.", "--"]
-	
+	dw_counterpart = item_w_spookysword;
+    
 	stats = {
         attack: 1,
     }
     
+    use = method(self, __item_w_lw_equip);
     item_localize("item_w_lw_halloween_pencil")
 }
+item_register(item_w_lw_halloween_pencil);
 
 function item_w_wood_blade() : item_weapon() constructor {
 	name = ["Wood Blade"]
@@ -67,16 +82,21 @@ function item_w_wood_blade() : item_weapon() constructor {
     
     item_localize("item_w_wood_blade")
 }
+item_register(item_w_wood_blade);
+
 function item_w_lw_pencil() : item_weapon() constructor {
     name = ["Pencil"]
 	desc = ["* \"Pencil\" - Weapon 1 AT{br}{resetx}{sleep(10)}* Mightier than a sword?{br}{resetx}{sleep(10)} * Maybe equal at best.", "--"]
+	dw_counterpart = item_w_wood_blade;
 	
-	stats = {
+    stats = {
         attack: 1,
     }
     
+    use = method(self, __item_w_lw_equip);
     item_localize("item_w_lw_pencil")
 }
+item_register(item_w_lw_pencil);
 
 function item_w_saber10() : item_weapon() constructor {
 	name = ["Saber10"]
@@ -99,16 +119,21 @@ function item_w_saber10() : item_weapon() constructor {
     
     item_localize("item_w_saber10")
 }
+item_register(item_w_saber10);
+
 function item_w_lw_cactusneedle() : item_weapon() constructor {
 	name = ["CactusNeedle"]
 	desc = ["* Ouch! ... It's somewhat sentimental in a way.", "--"]
-	
+	dw_counterpart = item_w_saber10;
+    
 	stats = {
         attack: 2,
     }
     
+    use = method(self, __item_w_lw_equip);
     item_localize("item_w_lw_cactusneedle")
 }
+item_register(item_w_lw_cactusneedle);
 
 function item_w_jingleblade() : item_weapon() constructor {
 	name = ["JingleBlade"]
@@ -136,16 +161,88 @@ function item_w_jingleblade() : item_weapon() constructor {
     
     item_localize("item_w_jingleblade")
 }
+item_register(item_w_jingleblade);
+
 function item_w_lw_holiday_pencil() : item_weapon() constructor {
 	name = ["Holiday Pencil"]
 	desc = ["* \"Holiday Pencil\" - 1 AT{br}{resetx}{sleep(10)}* A festive candycane pencil.{br}{resetx}{sleep(10)}* Do not eat.", "--"]
-	
+	dw_counterpart = item_w_jingleblade;
+    
+    use = method(self, __item_w_lw_equip);
 	stats = {
         attack: 1,
     }
     
     item_localize("item_w_lw_holiday_pencil")
 }
+item_register(item_w_lw_holiday_pencil);
+
+function item_w_blackshard() : item_weapon() constructor {
+    name = "BlackShard";
+    desc = ["A dagger-like shard of the Black Knife. Strikes the weakness of dark-element enemies."]
+    lw_counterpart = item_lw_blackshard;
+    convert_when_not_equipped = true;
+    
+	stats = {
+        attack: 16,
+    }
+	icon = spr_ui_menu_icon_shard
+    
+    weapon_whitelist = [ "kris", "noelle" ];
+    weapon_element = {
+        element: "dark",
+        multiplier: 2.0
+    }
+    
+    effect = {
+        text: "SlayDark",
+        sprite: spr_ui_menu_icon_shard
+    }
+    
+	reactions = {
+		susie: "... how is this a weapon?",
+		ralsei: "I... shouldn't use it.",
+	}
+    
+    _data = {
+        save_slash: {},
+    };
+    _const_init = method(self, function(data) {
+        _data = data;
+    });
+    
+    apply = method(self, function(member_name) {
+        _data.save_slash = struct_get(party_getdata(member_name, "battle_sprites"), "attack_eff");
+        struct_set(party_getdata(member_name, "battle_sprites"), "attack_eff", spr_bkris_attackeff_dark);
+    })
+    deapply = method(self, function(member_name) {
+        struct_set(party_getdata(member_name, "battle_sprites"), "attack_eff", _data.save_slash);
+    })
+    
+    item_localize("item_w_blackshard");
+}
+item_register(item_w_blackshard);
+
+function item_lw_blackshard() : item_light() constructor {
+    name = "BlackShard";
+    desc = ["* \"BlackShard\" - A small chip of{br}extremely hard glass.{br}{resetx}* Oddly, it's nearly opaque."];
+    dw_counterpart = item_w_blackshard;
+	
+    stats = {
+        attack: 16,
+    }
+    
+    use = method(self, __item_w_lw_equip);
+    
+    can_toss = false;
+    toss_flavor = "* (Recently, seems like weapons can't be thrown away so easily.)";
+    toss_execute = method(self, function() {
+        dialogue_start(toss_flavor);
+    })
+    
+    item_localize("item_lw_blackshard");
+}
+item_register(item_lw_blackshard)
 
 // axes
 function item_w_mane_ax() : item_weapon() constructor {
@@ -166,6 +263,8 @@ function item_w_mane_ax() : item_weapon() constructor {
     
     item_localize("item_w_mane_ax")
 }
+item_register(item_w_mane_ax);
+
 function item_w_devilsknife() : item_weapon() constructor {
 	name = ["Devilsknife"]
 	desc = ["Skull-emblazoned scythe-ax.\nReduces Rudebuster's cost by 10"]
@@ -190,7 +289,9 @@ function item_w_devilsknife() : item_weapon() constructor {
     can_sell = false
     
     item_localize("item_w_devilsknife")
-}    
+}
+item_register(item_w_devilsknife);
+
 function item_w_absorbax() : item_weapon() constructor {
 	name = ["AbsorbAx"]
 	desc = ["A long, curved axe with an indent. Scoop up HP when you attack."]
@@ -214,7 +315,8 @@ function item_w_absorbax() : item_weapon() constructor {
     sell_price = 617
     
     item_localize("item_w_absorbax")
-}  
+}
+item_register(item_w_absorbax);
 
 // scarfs
 function item_w_red_scarf() : item_weapon() constructor {
@@ -235,6 +337,8 @@ function item_w_red_scarf() : item_weapon() constructor {
     
     item_localize("item_w_red_scarf")
 }
+item_register(item_w_red_scarf);
+
 function item_w_flexscarf() : item_weapon() constructor {
 	name = ["FlexScarf"]
 	desc = ["A scarf that is warm and fuzzy, but with a metal core that lets it keep its shape.", "--", "Weaklings can flex too"]
@@ -256,6 +360,8 @@ function item_w_flexscarf() : item_weapon() constructor {
     
     item_localize("item_w_flexscarf")
 }
+item_register(item_w_flexscarf);
+
 function item_w_puppetscarf() : item_weapon() constructor {
 	name = ["PuppetScarf"]
 	desc = ["A scarf made of strange strings. For those that abandon healing."]
@@ -277,6 +383,7 @@ function item_w_puppetscarf() : item_weapon() constructor {
     
     item_localize("item_w_puppetscarf")
 } 
+item_register(item_w_puppetscarf);
 
 // rings
 function item_w_snowring() : item_weapon() constructor {
@@ -297,6 +404,8 @@ function item_w_snowring() : item_weapon() constructor {
     
     item_localize("item_w_snowring")
 }
+item_register(item_w_snowring);
+
 function item_w_freezering() : item_weapon() constructor {
 	name = ["FreezeRing"]
 	desc = ["A ring with a snowglobe on it. ... is that someone inside?"]
@@ -318,3 +427,4 @@ function item_w_freezering() : item_weapon() constructor {
     
     item_localize("item_w_freezering")
 }  
+item_register(item_w_freezering);

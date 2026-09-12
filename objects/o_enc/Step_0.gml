@@ -278,7 +278,7 @@ else if battle_state == BATTLE_STATE.DIALOGUE {
                 if instance_exists(turn_objects[i]) {
                     // call the initialize event for turn objects
                     with turn_objects[i] {
-                        event_user(0)
+                        event_user(0);
                     }
                 }
             }

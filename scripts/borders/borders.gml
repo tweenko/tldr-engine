@@ -105,7 +105,7 @@ function borders_window_resize(borders_on = global.border, window_scale = o_worl
     }
     else {
         window_set_size(res_window[0], res_window[1]);
-        winx -= (res_window[0] - res_borders[0])/2;;
+        winx -= (res_window[0] - res_borders[0])/2;
         winy -= (res_window[1] - res_borders[1])/2
     }
     

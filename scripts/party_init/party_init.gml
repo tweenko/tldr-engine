@@ -21,15 +21,68 @@ function party_apply_equipment() {
         item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i]);
     }
 }
-function party_m_calculate_hp(base_hp, level) {
-    if level == 1
-        return base_hp
-    else if level == 2
-        return base_hp + 30
-    else
-        return base_hp + 30 + 40*level
-}
+
+/// @desc a constructor for a power stat in the power menu
+/// @arg {string} _name the stat identifier that will be shown beside the icon
+/// @arg {Asset.GMSprite} _icon
+/// @arg {any} _value the value that will be shown
+/// @arg {function|undefined} _drawer the drawer (by default just draws the icon, the name and the value
+/// @arg {real} _xfit
+function party_power_stat(_name, _icon = spr_ui_menu_icon_none, _value = undefined, _drawer = undefined, _xfit = 130) constructor {
+    name = _name;
+    icon = _icon;
+    value = _value;
+    drawer = _drawer;
+    xfit = _xfit;
     
+    drawer ??= method(self, function(_x, _y, _scale = 2) {
+        draw_sprite_ext(icon, 0, _x, _y + 4, _scale, _scale, 0, draw_get_color(), draw_get_alpha());
+        draw_text_xfit(_x + 26, _y + (loc_getlang() == "ja" ? 0 : -2), loc(name), xfit*_scale, _scale, _scale);
+        
+        if !is_undefined(value)
+            draw_text_transformed(_x + 26 + xfit, _y, value, _scale, _scale, 0);
+    });
+    
+    _prepare_for_export = method(self, function() {
+        _data = {name, icon, value, xfit};
+    });
+    _const_init = method(self, function(data) {
+        name = data.name;
+        icon = data.icon;
+        value = data.value;
+        xfit = data.xfit;
+    })
+}
+function party_power_stat_images(_name = "party_stat_guts", _icon = spr_ui_menu_icon_fire, _value = 0, _xfit = 86) : party_power_stat(_name, _icon, _value,, _xfit) constructor {
+    drawer = method(self, function(_x, _y, _scale = 2) {
+        draw_sprite_ext(icon, 0, _x, _y + 4, _scale, _scale, 0, draw_get_color(), draw_get_alpha());
+        draw_text_xfit(_x + 26, _y + (loc_getlang() == "ja" ? 0 : -2), loc(name), xfit*_scale, _scale, _scale);
+        for (var i = 0; i < value; i ++) {
+            draw_sprite_ext(icon, 0, _x + 26 + 4 + xfit + 20 * i, _y + 4, _scale, _scale, 0, draw_get_color(), draw_get_alpha());
+        }
+    });
+    
+    _prepare_for_export = method(self, function() {
+        _data = {name, icon, value, xfit};
+    });
+    _const_init = method(self, function(data) {
+        name = data.name;
+        icon = data.icon;
+        value = data.value;
+        xfit = data.xfit;
+    })
+}
+function party_power_stat_unknown() : party_power_stat("???", spr_ui_menu_icon_none, undefined) constructor {
+    drawer = method(self, function(_x, _y, _scale = 2) {
+        draw_set_colour(c_dkgray);
+        draw_text_transformed(_x + 26, _y + (loc_getlang() == "ja" ? 0 : -2), name, _scale, _scale, 0);
+        draw_set_colour(c_white);
+    })
+}
+function party_power_stat_none() : party_power_stat("") constructor {
+    drawer = method(self, function(_x, _y, _scale = 2) {});
+}
+   
 function party_m(_initialized_name) constructor {
     __constructable = false; // make sure the save system doesn't take them as constructables
     
@@ -52,10 +105,10 @@ function party_m(_initialized_name) constructor {
 	lv =	0
 	desc =	"???"
 	power_stats = [
-		["--", 0, spr_ui_menu_icon_exclamation],
-		["--", 0, spr_ui_menu_icon_exclamation],
-		["party_stat_guts", 0, spr_ui_menu_icon_fire],
-	]
+        new party_power_stat("--"),
+        new party_power_stat("--"),
+        new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 4),
+	];
 	
 	hp =		50
 	max_hp =	50
@@ -132,9 +185,9 @@ function party_m_kris(_initialized_name) : party_m(_initialized_name) constructo
 	lv =	save_get("chapter")
 	desc =	"party_kris_desc"
 	power_stats = [
-		"???",
-		"???",
-		["party_stat_guts", 2, spr_ui_menu_icon_fire],
+        new party_power_stat_unknown(),
+        new party_power_stat_unknown(),
+        new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 2),
 	]
 	
 	max_hp =	party_m_calculate_hp(360, lv)
@@ -195,9 +248,9 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
 	lv =	save_get("chapter")
 	desc =	"party_susie_desc"
 	power_stats = [
-		["party_susie_stat_rudeness", 89, spr_ui_menu_icon_demon],
-		["party_susie_stat_purple", "Yes", spr_ui_menu_icon_demon],
-		["party_stat_guts", 2, spr_ui_menu_icon_fire],
+        new party_power_stat("party_susie_stat_rudeness", spr_ui_menu_icon_demon, 89),
+        new party_power_stat("party_susie_stat_purple", spr_ui_menu_icon_demon, "Yes"),
+        new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 2),
 	]
 	
 	max_hp =	party_m_calculate_hp(400, lv)
@@ -264,9 +317,9 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 	lv =	save_get("chapter")
 	desc =	"party_ralsei_desc"
 	power_stats = [
-		["party_ralsei_stat_sweetness", 97, spr_ui_menu_icon_lollipop],
-		["party_ralsei_stat_fluffiness", 2, spr_ui_menu_icon_fluff],
-		["party_stat_guts", 0, spr_ui_menu_icon_fire],
+        new party_power_stat("party_ralsei_stat_sweetness", spr_ui_menu_icon_lollipop, 97),
+        new party_power_stat_images("party_ralsei_stat_fluffiness", spr_ui_menu_icon_fluff, 2, 130),
+        new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 0),
 	]
 	
 	max_hp =	party_m_calculate_hp(300, lv)
@@ -333,12 +386,12 @@ function party_m_noelle(_initialized_name) : party_m(_initialized_name) construc
 	lv =	1
 	desc =	"party_noelle_desc"
 	power_stats = [
-		["party_noelle_stat_coldness", 47, spr_ui_menu_icon_snow],
-		["party_noelle_stat_boldness", 100, spr_ui_menu_icon_exclamation],
-		["party_stat_guts", 0, spr_ui_menu_icon_fire],
+        new party_power_stat("party_noelle_stat_coldness", spr_ui_menu_icon_snow, 47),
+        new party_power_stat("party_noelle_stat_boldness", spr_ui_menu_icon_exclamation, 100),
+        new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 0),
 	] 
     
-    max_hp =	party_m_calculate_hp(90, lv)
+    max_hp =	90
 	hp =		max_hp
 	attack =	3
 	defense =	1

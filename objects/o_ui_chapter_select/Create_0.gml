@@ -156,29 +156,24 @@ languages = true
 lock = false
 surf = -1
 state = -1
-musplayed=  0
+musplayed = 0
 
 complete_ch = 0
 incomplete_ch = 0
 tselec = 0
-possible_chapters = 0
-for (var i = 0; i < array_length(chapters); i ++) {
-    if !is_struct(chapters[i])
+
+possible_chapters = 0;
+for (var i = 0; i < array_length(global.registered_chapters); i ++) {
+    if !is_struct(global.registered_chapters[i])
         break
     possible_chapters ++
-}
-for (var i = 0; i < array_length(chapters); i ++) {
-    for (var j = 0; j < array_length(SAVE_SLOTS); j ++) {
-        
-    }
 }
 
 yes = loc("chapter_select_yes")
 no = loc("chapter_select_no")
 
 txt = ""
-
-save_chs =  []
+chapter_parsed_data = array_create(array_length(global.registered_chapters), {});
 
 event_user(0)
 

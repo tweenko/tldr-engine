@@ -17,6 +17,7 @@ function item_s_act() : item_spell() constructor {
     
     item_localize("item_s_act");
 }
+item_register(item_s_act);
 	
 function item_s_rudebuster() : item_spell() constructor {
 	name = "Rude Buster";
@@ -64,16 +65,17 @@ function item_s_rudebuster() : item_spell() constructor {
     
     item_localize("item_s_rude_buster");
 }
-function item_s_susieheal(data = {
+item_register(item_s_rudebuster);
+
+function item_s_susieheal() : item_spell() constructor {
+    use_type = ITEM_USE.INDIVIDUAL
+    _data = {
         progress: 0,
         uses: 0,
-    }) : item_spell() constructor {
-    
-    use_type = ITEM_USE.INDIVIDUAL
-    _data = data
+    }
     
     __heal_calc = function(user) {
-        return 1
+        return 1;
     }
     __update_spell = method(self, function() {
         var __prog = _data.progress
@@ -133,8 +135,15 @@ function item_s_susieheal(data = {
 		cutscene_enc_wait(false)
     })
     
+    _const_init = method(self, function(data) {
+        _data = data;
+        __update_spell();
+    });
+    
     __update_spell();
 }
+item_register(item_s_susieheal);
+
 function item_s_scythemare() : item_spell() constructor {
 	name = "Scythemare";
 	desc = ["Inflicts all enemies with bad dreams.\nAll TIRED enemies will be SPAREd.", "Spare all\nTIRED foes"];
@@ -184,6 +193,7 @@ function item_s_scythemare() : item_spell() constructor {
     
     item_localize("item_s_scythemare");
 }
+item_register(item_s_scythemare);
 	
 function item_s_testdmg() : item_spell() constructor {
 	name = ["Test Damage"];
@@ -198,6 +208,7 @@ function item_s_testdmg() : item_spell() constructor {
 		cutscene_enc_wait(false)
 	}
 }
+item_register(item_s_testdmg);
 
 function item_s_pacify() : item_spell() constructor {
 	name = ["Pacify"];
@@ -261,6 +272,8 @@ function item_s_pacify() : item_spell() constructor {
     
     item_localize("item_s_pacify");
 }
+item_register(item_s_pacify);
+
 function item_s_healprayer() : item_spell() constructor {
 	name = "Heal Prayer";
 	desc = ["Heavenly Light restores a little HP to\none party member. Depends on Magic.", "Heal Ally"];
@@ -283,6 +296,8 @@ function item_s_healprayer() : item_spell() constructor {
     
     item_localize("item_s_healprayer");
 }
+item_register(item_s_healprayer);
+
 function item_s_revivesong() : item_spell() constructor {
 	name = "ReviveSong";
 	desc = ["Revives a DOWNed ally and heals them.\nOtherwise, heals a lot of HP.. Depends on Magic.", "Revive\nally"];
@@ -318,7 +333,7 @@ function item_s_revivesong() : item_spell() constructor {
     
     item_localize("item_s_revivesong");
 };
-
+item_register(item_s_revivesong);
 
 function item_s_sleepmist() : item_spell() constructor {
     name = "Sleep Mist";
@@ -382,6 +397,8 @@ function item_s_sleepmist() : item_spell() constructor {
     
     item_localize("item_s_sleepmist");
 }
+item_register(item_s_sleepmist);
+
 function item_s_iceshock() : item_spell() constructor {
 	name = "IceShock";
 	desc = ["Deal magical ICE damage to one enemy.", "Damage w/ ICE"];
@@ -422,6 +439,7 @@ function item_s_iceshock() : item_spell() constructor {
     
     item_localize("item_s_iceshock");
 }
+item_register(item_s_iceshock);
 
 function item_s_defaultaction(nname) : item_spell() constructor {
 	name = loc_string("item_s_party_action_name", loc(party_getdata(nname, "action_letter")))
@@ -433,3 +451,4 @@ function item_s_defaultaction(nname) : item_spell() constructor {
 	color = merge_color(party_getdata(nname, "color"), c_white, 0.5)
 	tp_cost = 0
 }
+item_register(item_s_defaultaction);

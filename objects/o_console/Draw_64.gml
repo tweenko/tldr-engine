@@ -25,3 +25,12 @@ if active {
 	if keyhold > 0 
 		draw_rectangle(0, string_height(text), string_width(text) * keyhold/keyhold_max, string_height(text) + 4, 0)
 }
+
+var yy = 0;
+for (var i = 0; i < array_length(current_console_logs); i ++) {
+    if is_undefined(current_console_logs[i])
+        continue;
+    
+    current_console_logs[i].draw(0, yy);
+    yy -= current_console_logs[i].height + 12;
+}

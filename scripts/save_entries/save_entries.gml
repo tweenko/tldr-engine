@@ -117,7 +117,12 @@ function save_import_constructed(_item) {
         return _item;
         
     var __scr = asset_get_index(_item._constructor);
-    return new __scr(_item._data);
+    var __res = new __scr();
+    
+    if struct_exists(__res, "_const_init")
+        __res._const_init(_item._data);
+    
+    return __res;
 }
 /// @desc get a constructed ready for export
 function save_export_constructed(_item) {

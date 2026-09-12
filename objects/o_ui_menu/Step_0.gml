@@ -183,12 +183,12 @@ if !only_hp {
 					state = 2;
 					i_mode = 0
 					
-					if i_select_array[i_selection].throw_scripts.can {
-						item_delete(i_selection)
+					if i_select_array[i_selection].can_toss {
+						method_call(i_select_array[i_selection].toss_execute ?? item_delete, [i_selection]);
 						audio_play(snd_ui_cancel);
 					}
-					else
-						i_select_array[i_selection].throw_scripts.execute_code()
+					else if !is_undefined(i_select_array[i_selection].toss_execute)
+                        method_call(i_select_array[i_selection].toss_execute, [i_selection]);
 				}
                 else {
 					state = 2;

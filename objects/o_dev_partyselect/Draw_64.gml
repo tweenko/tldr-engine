@@ -20,7 +20,7 @@ for (var i = 0; i < maxparty; ++i) {
 			draw_sprite_ext(party_get_icon_ow(name), 0, 
 				xx + xdelta,yy + ydelta,
 				2, 2,
-				0, c_white, (i==selection ? 1 : .3)
+				0, c_white, (i == selection ? 1 : .3)
 			)
 		}
 		gpu_set_fog(false, c_white, 0, 0)

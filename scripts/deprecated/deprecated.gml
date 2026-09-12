@@ -180,3 +180,12 @@ function party_geticon_ow(member_name) {
 function draw_get_index_looped(sprite = undefined, timer = o_world.frames, img_fps = undefined, img_start_index = 0, img_number = undefined) {
     return draw_get_subimg(sprite, timer, img_fps, img_start_index, img_number);
 }
+
+/// @ignore
+/// @deprecated
+/// awkward name, changed to item_inventory_contains
+function item_contains(_item_ref, _item_type = undefined) { return item_inventory_contains(_item_ref, _item_type); }
+/// @ignore
+/// @deprecated
+/// awkward name, changed to item_inventory_count
+function item_count(_item_ref) { return item_inventory_count(_item_ref); }

@@ -28,7 +28,7 @@
     "item_w_lw_halloween_pencil": {
         "en": {
             "name": "Halloween Pencil",
-            "desc": ["* \"Halloween Pencil\" - Weapon 1 AT{br}{resetx}{s(10)}*Orange with black bats on it.", "--"]
+            "desc": ["* \"Halloween Pencil\" - Weapon 1 AT{br}{resetx}{s(10)}* Orange with black bats on it.", "--"]
         },
         "ja": {
             "name": "ハロウィンエンピツ",
@@ -122,6 +122,43 @@
         "ja": {
             "name": "ホリデーエンピツ",
             "desc": ["＊ 「ホリデーエンピツ」  - ATK+1{br}{resetx}{sleep(10)}＊ キャンディステッキのかたち。{br}{resetx}{sleep(10)}＊ たべられない。", "--"]
+        }
+    },
+
+    "item_w_blackshard": {
+        "en": {
+            "name": "BlackShard",
+            "desc": ["A dagger-like shard of the Black Knife. Strikes the weakness of dark-element enemies."],
+            "effect": {
+                "text": "SlayDark"
+            },
+            "reactions": {
+                "susie": "... how is this a weapon?",
+                "ralsei": "I... shouldn't use it."
+            }
+        },
+        "ja": {
+            "name": "ブラックシャード",
+            "desc": ["ダガーのような　ブラックナイフのかけら。\n闇属性の敵の弱点を突く。"],
+            "effect": {
+                "text": "闇斬り"
+            },
+            "reactions": {
+                "susie": "…これが武器？",
+                "ralsei": "ボクは…使っちゃダメ"
+            }
+        }
+    },
+    "item_lw_blackshard": {
+        "en": {
+            "name": "BlackShard",
+            "desc": ["* \"BlackShard\" - A small chip of{br}extremely hard glass.{br}{resetx}* Oddly, it's nearly opaque."],
+            "toss_flavor": "* (Recently, seems like weapons{br}can't be thrown away so{br}easily.)"
+        },
+        "ja": {
+            "name": "ブラックシャード",
+            "desc": ["＊ 「ブラックシャード」 - ものすごく かたいガラスの　ちいさなかけら。{br}{resetx}＊ ほとんど　ふとうめい。"],
+            "toss_flavor": "＊ (さいきんは　きやすく　ぶきを{br}すてられないようだ)"
         }
     },
 
