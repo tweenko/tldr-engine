@@ -5,10 +5,10 @@ function gb_enemy_custodian() : enemy() constructor{
 	run_away = false
 	
 	//stats
-	hp =		3000
-	max_hp =	3000
-	attack =	6
-	defense =	6
+	hp =		6000
+	max_hp =	6000
+	attack =	5
+	defense =	12
     
     can_spare = false
     mercy_add_pity_percent = 0

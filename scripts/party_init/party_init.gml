@@ -386,3 +386,66 @@ function party_m_noelle(_initialized_name) : party_m(_initialized_name) construc
 		attack_eff: spr_bnoelle_attackeff,
 	}
 }
+
+/// Thomas
+function party_m_thomas(_initialized_name) : party_m(_initialized_name) constructor {
+	name = "party_thomas_name"
+    action_letter = "party_thomas_action_letter"
+	obj = o_gb_actor_thomas
+	
+	// colors
+	color = c_silver
+	darkcolor = c_grey
+	iconcolor = #656565
+	
+	// stats
+	lv =	save_get("chapter")
+	desc =	"party_thomas_desc"
+	power_stats = [
+		"???",
+		"???",
+		["party_stat_tide", 3, spr_ui_menu_icon_fire],
+	]
+	
+	max_hp =	party_m_calculate_hp(90, lv)
+    hp =		max_hp
+	attack =	10
+	defense =	10
+	magic =		0
+	element_resistance = {
+	}
+	
+	// inventory
+    weapon = new item_w_wood_blade()
+	spells = [
+		new item_s_act()
+	]
+	
+	// sprites
+    s_name = "thomas"
+	s_state =		""
+	s_substate =	""
+	s_icon =		spr_ui_kris_icon
+	s_icon_ow =		spr_ui_kris_head
+	s_icon_weapon = spr_ui_menu_weapon_sword
+	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+	
+	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
+		act: [spr_bkris_act, true],
+		actready: spr_bkris_actready,
+		actend: [spr_bkris_actend, "idle", 1],
+		attack: [spr_bkris_attack, true],
+		attackready: spr_bkris_attackready,
+		defeat: spr_bkris_defeat,
+		defend: [spr_bkris_defend, true],
+		hurt: spr_bkris_hurt,
+		idle: spr_bkris_idle,
+		intro: [spr_bkris_intro, true],
+		introb: spr_bkris_introb,
+		itemuse: [spr_bkris_item, "idle", 1],
+		itemready: spr_bkris_itemready,
+		victory: [spr_bkris_victory, true],
+		spare: [spr_bkris_act, "idle", 1],
+		attack_eff: spr_bkris_attackeff,
+	}
+}

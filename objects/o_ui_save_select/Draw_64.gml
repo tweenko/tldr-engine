@@ -15,6 +15,21 @@ if bg != -1 {
 		draw_sprite_ext(spr_ui_saveselect_door, 0, 47*2,52*2, 4,4, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
 		draw_sprite_ext(spr_ui_saveselect_door, 0, 45*2,50*2, 4,4, 0, c_white, .25)
 	}
+		if bg == spr_gb_ui_save_select {
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, (.03 + (sin(o_world.frames/20) * .04)))
+		draw_sprite_ext(spr_gb_ui_save_select, o_world.frames/30+0.2, 0, 0, 1,1, 0, c_white, .2)
+	}
 	else if bg == spr_ui_saveselect_fountain {
 		var ia = round_p(image_alpha,.02)
 		var yy = -ia*80 + 40

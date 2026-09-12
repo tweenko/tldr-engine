@@ -108,7 +108,7 @@ else if theme == "finished" {
 		shadow = c_black
 		yellow = #ffff66
 		outline_thickness = 4
-		bg = spr_ui_saveselect_fountain
+		bg = spr_gb_ui_save_select
 		image_alpha = 0
 	}
 	
