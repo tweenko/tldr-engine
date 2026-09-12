@@ -67,9 +67,9 @@ function item_s_rudebuster() : item_spell() constructor {
 }
 item_register(item_s_rudebuster);
 
-function item_s_susieheal() : item_spell() constructor {
+function item_s_susieheal(_default_data = undefined) : item_spell() constructor {
     use_type = ITEM_USE.INDIVIDUAL
-    _data = {
+    _data = _default_data ?? {
         progress: 0,
         uses: 0,
     }
