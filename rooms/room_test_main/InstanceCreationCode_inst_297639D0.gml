@@ -55,7 +55,7 @@ execute_code = function() {
             if instance_exists(o) {
                 cutscene_set_variable(o, "dir", DIR.UP)
                 if struct_exists(dialogue, global.party_names[i]) {
-                    if !array_contains(get_leader().interactable_instances)
+                    if !array_contains(get_leader().interactable_instances, o)
                         array_push(get_leader().interactable_instances, o)
                     
                     cutscene_set_variable(o, "interaction_code", method({text: string(struct_get(dialogue, global.party_names[i]), party_getname(global.party_names[i]))}, function() {
@@ -89,7 +89,7 @@ execute_code = function() {
             var o = party_get_inst(members[i])
             if instance_exists(o) {
                 o.collide = false
-                if array_contains(get_leader().interactable_instances)
+                if array_contains(get_leader().interactable_instances, o)
                     array_delete(get_leader().interactable_instances, 
                         array_get_index(get_leader().interactable_instances, o), 1
                     )

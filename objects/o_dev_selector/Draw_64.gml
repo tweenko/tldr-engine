@@ -16,7 +16,7 @@ for (var i = 0; i < array_length(display_list); i ++) {
         if selection == j && category == i
             arrow_y = yy + 5;
         
-        var i_name = _item_name(display_list[i].items[j], i, j);
+        var i_name = _item_name(display_list[i].items[j]);
         draw_set_colour(array_contains(item_blocked, display_list[i].items[j]) ? c_gray : c_white);
         draw_text_highlighted(i_name, 35, yy - scroll, (selection == j && category == i && !search_mode));
         draw_set_colour(c_white);

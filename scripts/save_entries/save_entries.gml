@@ -116,8 +116,8 @@ function save_import_constructed(_item) {
     if is_struct(_item) && !struct_exists(_item, "_constructor")
         return _item;
         
-    var __scr = asset_get_index(_item._constructor);
-    var __res = new __scr();
+    var __res = {};
+	with (__res) script_execute(asset_get_index(_item._constructor));
     
     if struct_exists(__res, "_const_init")
         __res._const_init(_item._data);

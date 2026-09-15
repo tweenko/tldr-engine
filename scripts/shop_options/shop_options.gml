@@ -109,7 +109,9 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                     if item_type == ITEM_TYPE.CONSUMABLE {
                 		if item_get_count(item_type) + 1 > item_get_maxcount(item_type)  {
                 			if item_get_count(ITEM_TYPE.STORAGE) + 1 <= item_get_maxcount(ITEM_TYPE.STORAGE) {
-                                item_add(new __sc(), ITEM_TYPE.CONSUMABLE)
+                                var _item = {}
+                                with (_item) script_execute(__sc)
+                                item_add(_item, ITEM_TYPE.CONSUMABLE)
                                 shop_data_item_eval(o_shop.shop_data, items[selection])
                                 global.save.MONEY -= item_get_buy_price(items[selection])
                                 
@@ -120,7 +122,9 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                 				talk_context = SHOP_TALK_CONTEXT.NO_SPACE
                 		}
                         else {
-                            item_add(new __sc(), ITEM_TYPE.CONSUMABLE)
+                            var _item = {}
+                            with (_item) script_execute(__sc)
+                            item_add(_item, ITEM_TYPE.CONSUMABLE)
                             shop_data_item_eval(o_shop.shop_data, items[selection])
                             global.save.MONEY -= item_get_buy_price(items[selection])
                             
@@ -133,7 +137,9 @@ function shop_option_buy(_items, _talk_gen) : shop_option() constructor {
                         else 
                             audio_play(snd_locker)
                         
-                        item_add(new __sc())
+                        var _item = {}
+                        with (_item) script_execute(__sc)
+                        item_add(_item)
                         shop_data_item_eval(o_shop.shop_data, items[selection])
                         global.save.MONEY -= item_get_buy_price(items[selection])
                     }
