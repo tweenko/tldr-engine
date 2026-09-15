@@ -221,9 +221,9 @@ depth = DEPTH_UI.MENU_UI;
 #region drawing methods
 	__ui_draw_pm_list = function() {	
 		var __sel = selection == MENU_SELECTION.EQUIP ? e_pmselection : p_pmselection;
-		
 		var _l_offset = 0
         var _r_offset = 0
+        
         if loc_getlang() == "ja" {
             _l_offset = -16 - 6
             _r_offset = 16 + 8
@@ -246,7 +246,6 @@ depth = DEPTH_UI.MENU_UI;
 		draw_sprite_ext(spr_ui_arrow_flat, 0, 90-12+_l_offset-_xoff_arrow, 180, 2, 2, 180, c_white, (__sel > 1));
 		draw_sprite_ext(spr_ui_arrow_flat, 0, 90+50*3+12+_l_offset+_xoff_arrow, 180, 2, 2, 0, c_white, (__sel < party_length()-2));
 	}
-	
 	__ui_draw_top = function() {
 		var roll = 80 * menuroll;
 		
@@ -255,15 +254,13 @@ depth = DEPTH_UI.MENU_UI;
 	
 		for (var i = 0; i < 4; ++i) {
 		    draw_sprite_ext(spr_ui_menu_bt, i*2 + (selection == i ? 1 : 0), 120 + 100*i, 20 - 80 + roll, 2, 2, 0, c_white, 1)
-		
+            
 			if selection == i && state == 0
 				draw_sprite_ext(spr_ui_soul_small, 0, 128 + 100*i, 38 - 80 + roll, 2, 2, 0, c_red, 1)
 		}
+        
 		draw_text_transformed(520, 20 - 80 + roll, string("D$ {0}", save_get("money")), 2, 2, 0)
-		
-		
 	}
-	
 	__ui_draw_bottom = function(){
 		var roll = 80 * menuroll;
 		
@@ -289,7 +286,6 @@ depth = DEPTH_UI.MENU_UI;
 		draw_sprite_ext(spr_pixel, 0, 0, 417 + 80 - roll, 640, 63, 0, c_black, 1)
 		
 		for (var i = 0; i < party_length(); ++i) {
-			
 			var col = bcolor
 		
 			if i_pmselection == i && state == 3 && selection == 0 
@@ -321,8 +317,7 @@ depth = DEPTH_UI.MENU_UI;
 			var _text_width = string_width(__name);
 			var _text_max_width = 56;
 			var _text_xscale = ((_text_width > _text_max_width) ? _text_max_width/_text_width : 1);
-			
-	
+            
 			draw_set_alpha(party_ui_alpha_name);
 			draw_text_transformed(_xoff_name + ui_menu_width*i + xoff, 430 + 80 - roll, __name, _text_xscale, 1, 0)
 			draw_set_alpha(1);
@@ -341,7 +336,8 @@ depth = DEPTH_UI.MENU_UI;
 		
 			draw_text_transformed(__xoff_hp + ui_menu_width*i + xoff, 428 + 80 - roll, string(party_getdata(global.party_names[i], "hp")), 1, 1, 0)
 			draw_set_alpha(party_ui_alpha_hp_num);
-			draw_sprite_ext(spr_ui_hp_seperator, 0, __xoff_hpsep + ui_menu_width*i + xoff, 428 + 80 - roll, 1, 1, 0, c_white, 1)
+            
+			draw_sprite_ext(spr_ui_hp_seperator, 0, __xoff_hpsep + ui_menu_width*i + xoff, 428 + 80 - roll, 1, 1, 0, c_white, party_ui_alpha_hp_num);
 			draw_text_transformed(__xoff_maxhp + ui_menu_width*i + xoff, 428 + 80 - roll, party_getdata(global.party_names[i], "max_hp"), 1, 1, 0)
 			draw_set_alpha(1);
 			
@@ -361,22 +357,20 @@ depth = DEPTH_UI.MENU_UI;
 	}	
 	
 	// bool methods
-	__draw_name = function() {
-		var _ww = GAME_W_GUI / max(3, party_length());
-		return (_ww > 192);
-	} 
-	__draw_icon = function() {
-		var _ww = GAME_W_GUI / max(3, party_length());
-		return (_ww > 134);
-	}
-	__draw_hp_label = function() {
-		var _ww = GAME_W_GUI / max(3, party_length());
-		return (_ww > 154 && (_ww != clamp(_ww, 192, 207)));
-	}
-	__draw_max_hp = function() {
-		var _ww = GAME_W_GUI / max(3, party_length());
-		return (_ww > 79);
-	}
+	__draw_name = function(_available_width) {
+	   return (_available_width >= 192);
+    } 
+    __draw_icon = function(_available_width) {
+    	return (_available_width >= 134);
+    }
+    __draw_hp_label = function(_available_width) {
+        if _available_width < 192 && _available_width > 154
+            return true;
+    	return _available_width > 208;
+    }
+    __draw_max_hp = function(_available_width) {
+    	return (_available_width >= 79);
+    }
 
 	__move_menu_right = function(index) {
 		if party_length() > 3 {
@@ -425,35 +419,33 @@ depth = DEPTH_UI.MENU_UI;
 	__party_menu_compact = function() {	
 		if !party_ui_menu_compacted {
 			__move_menu_first();
-			
+            
 			var _ww = GAME_W_GUI / max(3, party_length());
 			if party_length() > 3 {
 				animate(ui_menu_width_default, _ww, compact_anim_time, anime_curve.cubic_out, self, "ui_menu_width");
 				party_ui_menu_compacted = true;
 			}
-		
-			if !__draw_name() {
+            
+			if !__draw_name(_ww) {
 				animate(party_ui_offset_default.name, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "name");
-				animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
+				animate(party_ui_alpha_name, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
 			}
-		
-			if !__draw_icon() {
+			if !__draw_icon(_ww) {
 				animate(party_ui_offset_default.icon, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "icon");
-				animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
+				animate(party_ui_alpha_icon, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
 			}
-		
-			if !__draw_hp_label() {
+			if !__draw_hp_label(_ww) {
 				animate(party_ui_offset_default.hp_text, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
-				animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
+				animate(party_ui_alpha_hp_text, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
 			}
-		
-			if !__draw_max_hp() {
+			if !__draw_max_hp(_ww) {
 				var _fnt = draw_get_font();
 				draw_set_font(global.font_ui_hp);
+                
 				var _off = _ww/2 - string_width("000");
 				animate(party_ui_offset.hp, _off, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp");
-				animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
-		
+				animate(party_ui_alpha_hp_num, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
+                
 				draw_set_font(_fnt);
 			}
 		}
@@ -461,55 +453,54 @@ depth = DEPTH_UI.MENU_UI;
 	__party_menu_compact_instant = function(){
 		if !party_ui_menu_compacted {
 			var _ww = GAME_W_GUI / max(3, party_length());
-		
+            
 			var _fnt = draw_get_font();
 			draw_set_font(global.font_ui_hp);
 			var _off = _ww/2 - string_width("000");
 			draw_set_font(_fnt);
-		
+            
 			ui_menu_width = (party_length() > 3) ? _ww : ui_menu_width_default;
-
-			party_ui_offset.name = __draw_name()*party_ui_offset_default.name;
-			party_ui_alpha_name = __draw_name();
-		
-			party_ui_offset.icon = __draw_icon()*party_ui_offset_default.icon;
-			party_ui_alpha_icon = __draw_icon();
-		
-			party_ui_offset.hp_text = __draw_hp_label()*party_ui_offset_default.hp_text;
-			party_ui_alpha_hp_text = __draw_hp_label();
-		
-			party_ui_offset.hp = !__draw_max_hp() ? _off : party_ui_offset_default.hp;
-			party_ui_alpha_hp_num = __draw_max_hp();
-		
+            
+			party_ui_offset.name = __draw_name(_ww)*party_ui_offset_default.name;
+			party_ui_alpha_name = __draw_name(_ww);
+            
+			party_ui_offset.icon = __draw_icon(_ww)*party_ui_offset_default.icon;
+			party_ui_alpha_icon = __draw_icon(_ww);
+            
+			party_ui_offset.hp_text = __draw_hp_label(_ww)*party_ui_offset_default.hp_text;
+			party_ui_alpha_hp_text = __draw_hp_label(_ww);
+            
+			party_ui_offset.hp = !__draw_max_hp(_ww) ? _off : party_ui_offset_default.hp;
+			party_ui_alpha_hp_num = __draw_max_hp(_ww);
+            
 			party_ui_menu_compacted = party_length() > 3;
 		}
 	}
-	
 	__party_menu_expand = function() {
 		if party_ui_menu_compacted {
 			if ui_menu_width != ui_menu_width_default {
 				var _ww = GAME_W_GUI / max(3, party_length());
 				animate(_ww, ui_menu_width_default, compact_anim_time, anime_curve.cubic_out, self, "ui_menu_width");
 			}
-		
+            
 			// reset name
 			animate(party_ui_offset.name, party_ui_offset_default.name, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "name");
 			animate(party_ui_alpha_name, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
-
+            
 			// reset icon
 			animate(party_ui_offset.icon, party_ui_offset_default.icon, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "icon");
 			animate(party_ui_alpha_icon, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
-
+             
 			// reset hp label
 			animate(party_ui_offset.hp_text, party_ui_offset_default.hp_text, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
 			animate(party_ui_alpha_hp_text, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
-
+            
 			// reset hp
 			animate(party_ui_offset.hp, party_ui_offset_default.hp, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp");
 			animate(party_ui_offset.hp_sep, party_ui_offset_default.hp_sep, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_sep");
 			animate(party_ui_offset.hp_max, party_ui_offset_default.hp_max, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_max");
 			animate(party_ui_alpha_hp_num, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
-		
+            
 			party_ui_menu_compacted = false;
 		}
 	}

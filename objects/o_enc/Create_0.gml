@@ -92,24 +92,26 @@ party_ui_offset = {
 
 ui_arrow_alpha = (party_length() > 3);
 
-__draw_name = function() {
-	var _ww = GAME_W_GUI / max(3, party_length());
-	return (_ww > 192);
+__draw_name = function(_available_width) {
+	return (_available_width >= 192);
 } 
-__draw_icon = function() {
-	var _ww = GAME_W_GUI / max(3, party_length());
-	return (_ww > 134);
+__draw_icon = function(_available_width) {
+	return (_available_width >= 134);
 }
-__draw_hp_label = function() {
-	var _ww = GAME_W_GUI / max(3, party_length());
-	return (_ww > 154 && (_ww != clamp(_ww, 192, 207)));
+__draw_hp_label = function(_available_width) {
+    show_debug_message(_available_width);
+    if _available_width < 194 && _available_width > 154
+        return true;
+	return _available_width > 208;
 }
-__draw_max_hp = function() {
-	var _ww = GAME_W_GUI / max(3, party_length());
-	return (_ww > 79);
+__draw_max_hp = function(_available_width) {
+	return (_available_width >= 79);
 }
 
 __move_menu_select = function() {
+    if party_selection >= array_length(global.party_names)
+        return false;
+    
 	var __sel = party_button_selection[party_selection];
 	var __button = party_buttons[party_selection][__sel];
 	
@@ -136,31 +138,32 @@ __move_menu_reset = function() {
 
 __party_menu_compact = function() {	
 	var _ww = GAME_W_GUI / max(3, party_length());
-	if party_length() > 3 {
+    
+	if party_length() > 3 
 		animate(ui_menu_width_default, _ww, compact_anim_time, anime_curve.cubic_out, self, "ui_menu_width");
-	}
-		
-	if !__draw_name() {
+    
+	if !__draw_name(_ww) {
 		animate(party_ui_offset_default.name, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "name");
-		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
+		animate(party_ui_alpha_name, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_name");
 	}
-		
-	if !__draw_icon() {
+	if !__draw_icon(_ww) {
 		animate(party_ui_offset_default.icon, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "icon");
-		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
+		animate(party_ui_alpha_icon, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_icon");
 	}
-		
-	if !__draw_hp_label() {
+	if !__draw_hp_label(_ww) {
 		animate(party_ui_offset_default.hp_text, 0, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_text");
-		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
+		animate(party_ui_alpha_hp_text, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_text");
 	}
-		
-	if !__draw_max_hp() {
+	if !__draw_max_hp(_ww) {
 		var _fnt = draw_get_font();
+        
 		draw_set_font(global.font_ui_hp);
 		var _off = _ww/2 - string_width("000");
+        
 		animate(party_ui_offset.hp, _off, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp");
-		animate(1, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
+		animate(party_ui_alpha_hp_num, 0, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
+        
+        draw_set_font(_fnt);
 	}
 }
 __party_menu_reset = function() {
@@ -187,9 +190,6 @@ __party_menu_reset = function() {
 	animate(party_ui_offset.hp_max, party_ui_offset_default.hp_max, compact_anim_time, anime_curve.cubic_out, party_ui_offset, "hp_max");
 	animate(party_ui_alpha_hp_num, 1, compact_anim_time, anime_curve.cubic_out, self, "party_ui_alpha_hp_num");
 }
-
-
-
 
 { // ui
     ui_main_lerp = 0

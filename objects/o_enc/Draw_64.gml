@@ -375,7 +375,8 @@ else if battle_menu == BATTLE_MENU.PARTY_SELECTION {
 }
 
 var _xoff_arrow = 2*sin(o_world.frames/15);
-draw_sprite_ext(spr_ui_arrow_flat, 0, GAME_W_GUI - 32+_xoff_arrow, 300, 2, 2, 0, c_white, (party_selection <= 1)); 
+draw_sprite_ext(spr_ui_arrow_flat, 0, 32-_xoff_arrow, 300, -2, 2, 0, c_white, (array_length(global.party_names) > 3 && party_selection >= 2)); 
+draw_sprite_ext(spr_ui_arrow_flat, 0, GAME_W_GUI - 32+_xoff_arrow, 300, 2, 2, 0, c_white, (array_length(global.party_names) > 3 && party_selection < array_length(global.party_names) - 2)); 
 
 surface_reset_target()
 
