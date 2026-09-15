@@ -25,8 +25,8 @@ else if !fading {
 				}
 				
 		        with (o_enc_fightstick) {
-		            if order == caller.order && !fading{
-						if x > 84 && x < 90 {
+		            if order == caller.order && !fading {
+						if x > 84 && x < 84 + caller.ui_crit_widths[ii] {
 							perfect = true 
 							image_blend = c_yellow
 						}

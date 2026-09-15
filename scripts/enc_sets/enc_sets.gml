@@ -23,9 +23,15 @@ function enc_set() constructor { // base
     // positions
 	enemies_pos = undefined // [x, y, relative] OR just a function that returns [x, y]
     party_pos = function(i) { // returns [x, y]
-        return [
-            guipos_x() + 52,
-            guipos_y() + 130 - 22 * party_length() + i*44,
+        
+		var _span = 44 + (party_length() > 3)*12;
+		var _xx = 52;
+		var _yy = 108 - (party_length() > 3)*8;
+
+		
+		return [
+            guipos_x() + _xx,
+            guipos_y() + ((party_length() <= 3) ? 130-22*party_length()+44*i : lerp(_yy-_span, _yy+_span, i/(party_length()-1)))
         ]
     }
 	

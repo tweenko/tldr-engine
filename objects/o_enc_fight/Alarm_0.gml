@@ -20,8 +20,8 @@ for (var i = 0; i < array_length(pattern); ++i) {
 for (var i = 0; i < array_length(fighting); ++i) {
 	var spacing = 14*8
     var index = party_get_index(fighting[i])
-	var yy = 38 * index
-	array_push(sticks, instance_create(o_enc_fightstick, 80 + 30*7 + pattern[i]*spacing, 365 + yy + 19, depth - 10, {
+	var yy = ui_fightbar_height * index;
+	array_push(sticks, instance_create(o_enc_fightstick, ui_crit_x - 2 + 30*7 + pattern[i]*spacing, ui_fightarea_y + yy + ui_fightbar_height/2, depth - 10, {
 		order: pattern[i],
 		caller: id,
 		ecaller: caller,

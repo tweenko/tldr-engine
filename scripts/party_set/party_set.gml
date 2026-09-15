@@ -7,6 +7,16 @@ function party_setdata(name, hash, value) {
 	struct_set(party_nametostruct(name), hash, value)
 }
 
+///@desc removes a value in the party data struct. be careful with this function
+///@arg {String} name
+///@arg {String} hash
+///@return {Struct}
+function party_removedata(name, hash) {
+	if struct_exists(party_nametostruct(name), hash) {
+		struct_remove(party_nametostruct(name), hash);
+	}
+}
+
 ///@desc adds to a value in the party data struct (works like a var struct)
 ///@arg {String} name
 ///@arg {String} hash

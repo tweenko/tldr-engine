@@ -1,4 +1,3 @@
-var roll = 80 * menuroll
 var __top_txt_len = 310
 
 draw_set_font(loc_font("main"))
@@ -8,75 +7,12 @@ if !surface_exists(surf)
 surface_set_target(surf)
 draw_clear_alpha(0, 0)
 
-if !only_hp { // top
-	draw_sprite_ext(spr_pixel, 0, 0, 0, 640, roll, 0, c_black, 1)
-	draw_sprite_ext(loc_sprite("menu_label_spr"), selection, 20, 24 - 80 + roll, 2, 2, 0, c_white, 1)
-	
-	for (var i = 0; i < 4; ++i) {
-	    draw_sprite_ext(spr_ui_menu_bt, i*2 + (selection == i ? 1 : 0), 120 + 100*i, 20 - 80 + roll, 2, 2, 0, c_white, 1)
-		
-		if selection == i && state == 0
-			draw_sprite_ext(spr_ui_soul_small, 0, 128 + 100*i, 38 - 80 + roll, 2, 2, 0, c_red, 1)
-	}
-	draw_text_transformed(520, 20 - 80 + roll, string("D$ {0}", save_get("money")), 2, 2, 0)
+if !only_hp {
+	__ui_draw_top();
 }
-{ // bottom
-	draw_sprite_ext(spr_pixel, 0, 0, 417 + 80 - roll, 640, 63, 0, c_black, 1)
-	for (var i = 0; i < party_length(); ++i) {
-		var xoff = 319.5 + party_length() * -213/2
-		var col = bcolor
-		
-		if i_pmselection == i && state == 3 && selection == 0 
-			col = party_getdata(global.party_names[i], "color")
-		if e_pmselection == i && selection == 1 && state > 0 
-			col = party_getdata(global.party_names[i], "color")
-		
-		draw_sprite_ext(spr_pixel, 0, i*213 + xoff, 417 + 80 - roll, 213, 2, 0, col, 1)
-		
-		if (i == i_pmselection || i_mode == 1) && state == 3 && selection == 0
-			draw_sprite_ext(spr_ui_menu_heart, 0, 18+213*i+xoff, 430+80-roll, 1, 1, 0, c_white, 1)
-		else
-			draw_sprite_ext(party_get_icon(global.party_names[i]), 0, 12 + 213*i + xoff, 430 + 80-roll, 1, 1, 0, c_white, 1)
-		
-		var font = global.font_name[0]
-		
-		if string_length(party_getname(global.party_names[i], false)) > 4
-			font = global.font_name[1]
-		if string_length(party_getname(global.party_names[i], false)) > 5
-			font = global.font_name[2]
-		
-		draw_set_font(font)
-		draw_text_transformed(51 + 213*i + xoff, 430 + 80 - roll, string_upper(party_getname(global.party_names[i], false)), 1, 1, 0)
-		
-		draw_set_font(global.font_ui_hp)
-		draw_sprite_ext(loc_sprite("menu_caption_hp"), 0, 110 + 213*i + xoff, 441 + 80 - roll, 1, 1, 0, c_white, 1)
-		
-		draw_sprite_ext(spr_pixel, 0, 128 + 213*i + xoff, 441 + 80 - roll, 76, 9, 0, c_maroon, 1)
-		draw_sprite_ext(spr_pixel, 0, 128 + 213*i + xoff, 441 + 80 - roll, 76*(party_getdata(global.party_names[i], "hp")/party_getdata(global.party_names[i], "max_hp")), 9, 0,party_getdata(global.party_names[i], "color"), 1)
-		
-		draw_set_halign(fa_right)
-		if party_getdata(global.party_names[i], "hp") < 30 
-			draw_set_color(c_yellow)
-		
-		draw_text_transformed(160 + 213*i + xoff, 428 + 80 - roll, string(party_getdata(global.party_names[i], "hp")), 1, 1, 0)
-		draw_sprite_ext(spr_ui_hp_seperator, 0, 161 + 213*i + xoff, 428 + 80 - roll, 1, 1, 0, c_white, 1)
-		draw_text_transformed(205 + 213*i + xoff, 428 + 80 - roll, party_getdata(global.party_names[i], "max_hp"), 1, 1, 0)
-        
-        gpu_set_colourwriteenable(true, true, true, false);
-		draw_set_color(c_white)
-		draw_set_halign(fa_left)
-		draw_set_font(loc_font("main"))
-		draw_set_alpha(min(partyreactiontimer[i],1))
-		draw_set_color(c_white)
-		
-		if is_string(partyreaction[i]) 
-			draw_text_transformed(213*i+xoff, 456 + 80 - roll, partyreaction[i], 1, 1, 0)
-		draw_set_alpha(1)
-        gpu_set_colourwriteenable(true, true, true, true);
-	}
-}	
-
-if selection == 0 { // items
+__ui_draw_bottom();
+	
+if selection == MENU_SELECTION.ITEMS {
 	if state > 0 {
         var _l_offset = 0
         var _r_offset = 0
@@ -147,7 +83,7 @@ if selection == 0 { // items
 		}
 	}
 }
-if selection == 1 { // equip
+if selection == MENU_SELECTION.EQUIP {
 	if state > 0 {
 		draw_set_font(loc_font("main"))
         
@@ -159,15 +95,7 @@ if selection == 1 { // equip
         }
 		
 		ui_dialoguebox_create(58 + _l_offset, 88, 584 - 58 + _r_offset - _l_offset, 414 - 88)
-		draw_text_transformed(135 + _l_offset, 107, party_getname(global.party_names[e_pmselection],false), 2, 2, 0)
-		
-		for (var i = 0; i < party_length(); ++i) {
-			var c = (i == e_pmselection ? c_white : #666666)
-			if i == e_pmselection && state == 1 {
-				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i + _l_offset, 142, 1, 1, 0, c_red, 1)
-			}
-		    draw_sprite_ext(party_get_icon_ow(global.party_names[i]),0, 90 + 50*i + _l_offset, 160, 2, 2, 0, c, 1)
-		}
+		__ui_draw_pm_list()
 		
 		draw_set_color(c_white)
 		draw_rectangle(270 + _l_offset, 90, 275 + _l_offset, 220, 0)
@@ -395,7 +323,7 @@ if selection == 1 { // equip
 		}
 	}
 }
-if selection == 2 { // power
+if selection == MENU_SELECTION.POWER {
 	if state > 0 {
 		draw_set_font(loc_font("main"))
         
@@ -408,14 +336,7 @@ if selection == 2 { // power
         
         ui_dialoguebox_create(58 + _l_offset, 88, 584 - 58 + _r_offset - _l_offset, 414 - 88)
 		
-		draw_text_transformed(130 + _l_offset, 112-7, party_getname(global.party_names[p_pmselection], false), 2, 2, 0)
-		for (var i = 0; i < party_length(); ++i) {
-			var c = (i == p_pmselection ? c_white : #666666)
-			if i == p_pmselection && state == 1 {
-				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i + _l_offset, 141, 1, 1, 0, c_red, 1)
-			}
-		    draw_sprite_ext(party_get_icon_ow(global.party_names[i]),0, 90+50*i + _l_offset, 160, 2, 2, 0, c, 1)
-		}
+		__ui_draw_pm_list()
 		
 		draw_set_color(c_white)
 		draw_rectangle(62 + _l_offset, 216, 580 + _r_offset, 221, 0)
@@ -467,7 +388,7 @@ if selection == 2 { // power
 		}
 	}
 }
-if selection == 3 && state > 0 { // config
+if selection == MENU_SELECTION.CONFIG && state > 0 {
     draw_set_font(loc_font("main"))
     ui_dialoguebox_create(58, 88, 584 - 58, 414 - 88)
     
