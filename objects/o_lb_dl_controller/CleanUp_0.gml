@@ -1,0 +1,6 @@
+if surface_exists(surf_overlay)
+	surface_free(surf_overlay)
+if surface_exists(surf_light)
+	surface_free(surf_light)
+if surface_exists(surf_final)
+	surface_free(surf_final)

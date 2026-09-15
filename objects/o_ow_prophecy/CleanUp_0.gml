@@ -1,0 +1,6 @@
+if surface_exists(surf)
+	surface_free(surf)
+if surface_exists(surf_aura)
+	surface_free(surf_aura)
+if surface_exists(surf_text)
+	surface_free(surf_text)
