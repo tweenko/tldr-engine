@@ -3,6 +3,9 @@
 function typer_command() constructor {
     name = "";
     arguments = [];
+    
+    allow_to_advance = true;
+    initial_call = undefined;
     activate = undefined;
 }
 function typer_command_register(_asset_index) {
@@ -11,8 +14,34 @@ function typer_command_register(_asset_index) {
 
 function typer_command_pause() : typer_command() constructor {
     name = ["pause", "p"];
+    
+    allow_to_advance = false;
+    activate = function(_typer) {
+        _time_source = call_later(1, time_source_units_frames, method(self, function() {
+            if InputPressed(INPUT_VERB.SELECT) {
+                allow_to_advance = true;
+                
+                if time_source_exists(_time_source)
+                    call_cancel(_time_source);
+                _time_source = undefined;
+            }
+        }), true);
+    }
 }
 typer_command_register(typer_command_pause);
+
+function typer_command_clear() : typer_command() constructor {
+    name = ["clear", "c"];
+    
+    activate = function(_typer) {
+        with _typer {
+            symbols = [];
+            parse(text);
+            typewriter();
+        }
+    }
+}
+typer_command_register(typer_command_clear);
 
 function typer_command_sleep() : typer_command() constructor {
     name = ["sleep", "s"];

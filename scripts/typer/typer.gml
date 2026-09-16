@@ -29,33 +29,43 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     gui = _gui;
     
     // projections
-    projection = noone;
+    projections = [];
+    
+    /// @desc creates an `o_typer_projection` instance at the x, y and depth of the typer, which is now responsible for rendering this specific typer
     create_projection = method(self, function() {
-        projection = instance_create(o_typer_projection, x, y, depth);
-        projection.ref = self;
-        return projection;
+        var _projection = instance_create(o_typer_projection, x, y, depth);
+        _projection.ref = self;
+        
+        array_push(projections, _projection);
+        
+        return _projection;
     });
-    destroy_projection = method(self, function() {
-        instance_destroy(projection);
+    /// @desc destroys all linked projections
+    destroy_projections = method(self, function() {
+        for (var i = 0; i < array_length(projections); i ++) {
+            with projections[i] instance_destroy();
+        }
     })
     
     symbols = [];
-    symbols_dont_inherit = ["draw", "width", "height", "dynamic", "update_info"]
+    symbols_dont_inherit = ["draw", "width", "height", "dynamic", "update_attributes"]
     symbols_dynamic = false;
     
     width = 540;
     height = undefined;
+    
     fixed_width = undefined; // auto-set later, depending on whether width is defined
     fixed_height = undefined; // auto-set later, depending on whether height is defined
     break_mode = BREAK_MODE.ONLY_SPACES;
     
     dynamic = false; // if true, the info will be updated every time the typer's drawn. could be memory-heavy
     
+    /// @desc the draw method for the typer. will evaluate the line breaks for you, if they weren't previously. use it to draw manually, or it will be used by a `o_typer_projection`
     draw = method(self, function() {
         // make line breaks
         if dynamic {
             line_breaks = evaluate_linebreaks();
-            update_info(line_breaks);
+            update_attributes(line_breaks);
         }
         
         var xx = x;
@@ -106,11 +116,23 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     });
     
     line_breaks = [];
+    /// @desc should return whether a given symbol can be a start of a new line
+    /// @arg {string} _symbol
+    /// @return {bool}
+    linebreak_rule = function(_symbol) {
+        if loc_getlang() == "ja" && array_contains(TYPER_CONSIDER_SMALL_KANA, _symbol) // avoid small kana on new lines
+            return false;
+        
+        return !__typer_symbol_is_punctuation(_symbol);
+    }
+    /// @desc evaluates all indices of symbols at which there should be a line break
+    /// @return {array<real>}
     evaluate_linebreaks = method(self, function() {
         var line_breaks = [];
         var last_space = undefined;
         var last_space_x = 0;
-        var xx_offset = 16;
+        var xx_offset = break_tabulation;
+        
         for (var i = 0; i < array_length(symbols); i ++) {
             var s = symbols[i];
             
@@ -128,7 +150,7 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
                 }
                 
                 // break if current length is longer than the target width
-                if xx_offset >= width {
+                if xx_offset >= width && !allow_overflow {
                     if break_mode == BREAK_MODE.ONLY_SPACES {
                         array_push(line_breaks, last_space);
                         last_space = i; // update last space
@@ -137,8 +159,7 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
                     }
                     else if break_mode == BREAK_MODE.ANY_SYMBOL {
                         var target_break_pos = i;
-                        
-                        while array_length(symbols) - target_break_pos > 1 && array_contains(TYPER_AVOID_ON_NEWLINES, symbols[target_break_pos+1].symbol)
+                        while !linebreak_rule(symbols[target_break_pos+1].symbol)
                             target_break_pos -= 1;
                         
                         // if there are more symbols ahead
@@ -165,7 +186,10 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         
         return line_breaks;
     })
-    update_info = method(self, function(_line_breaks = []) {
+    
+    /// @desc calculates the attributes (width, height, etc.) of the typer, considering the calculated line break indices
+    /// @arg {array<real>} _line_breaks
+    update_attributes = method(self, function(_line_breaks = []) {
         var cumulative_width = [0];
         var cumulative_height = 0;
         var line_n = 1;
@@ -192,20 +216,28 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     
     // time callback
     time_source = undefined;
+    
+    /// @desc starts the text typer
     start = method(self, function() {
         parse(text);
     
         line_breaks = evaluate_linebreaks();
-        update_info(line_breaks);
+        update_attributes(line_breaks);
         
         // call for the first time
         method(self, callback);
         // and loop
         time_source = call_later(1, time_source_units_frames, method(self, callback), true);
-    })
+    });
+    /// @desc the callback (step) event of the text typer
     callback = method(self, function() {
         if _typewriter_typing {
-            if _typewriter_sleep <= 0 {
+            if _typewriter_sleep <= 0 
+                && !(_typewriter_displayed_symbols < array_length(symbols) && _typewriter_displayed_symbols > 0
+                    && is_instanceof(symbols[_typewriter_displayed_symbols], typer_command)
+                    && !symbols[_typewriter_displayed_symbols].allow_to_advance
+                ) 
+            {
                 repeat max(_typewriter_spd, 1) {
                     if _typewriter_displayed_symbols >= array_length(symbols) {
                         _typewriter_typing = false;
@@ -223,6 +255,9 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
                         var s = symbols[_typewriter_displayed_symbols];
                         s.activate(self);
                         
+                        if !s.allow_to_advance 
+                            break;
+                        
                         _typewriter_displayed_symbols ++;
                         _typewriter_pos ++;
                     }
@@ -237,20 +272,21 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
             _typewriter_timer ++;
         }
     });
+    /// @desc destroys the text typer (stops the time source and destroys the projection, if one exists)
     destroy = method(self, function() {
         if time_source_exists(time_source)
             call_cancel(time_source);
         time_source = undefined;
         
-        destroy_projection();
-        return false;
+        destroy_projections();
     })
     
+    parse_point = 1;
     /// @desc parses given text -- parses the commands, assigns them as symbols and spawns in all the symbols in advance
-    parse = method(self, function(_text) {
-        var parse_point = 1;
+    parse = method(self, function(_text = text, _end_at = undefined) {
+        _end_at ??= string_length(_text);
         
-        while parse_point <= string_length(_text) {
+        while parse_point <= _end_at {
             var cur_char = string_char_at(_text, parse_point);
             
             // parse the command
@@ -301,7 +337,13 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
                 var cmd = typer_command_find(_cmd_name);
                 if !is_undefined(cmd) {
                     cmd.arguments = _cmd_args;
+                    if !is_undefined(cmd.initial_call)
+                        cmd.initial_call();
+                    
                     array_push(symbols, cmd);
+                    
+                    if is_instanceof(cmd, typer_command_clear)
+                        break;
                 }
                 
                 continue;
@@ -322,6 +364,9 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
             symbol.dynamic = symbols_dynamic;
             symbol.symbol_n = parse_point - 1;
             
+            with symbol
+                update_attributes();
+            
             array_push(symbols, symbol);
             
             parse_point ++;
@@ -330,13 +375,10 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
     
     // typewriter method
     _typewriter_typing = false;
-    _typewriter_displayed_symbols = 0;
     _typewriter_spd = 1; // symbols that will be shown per frame. 1/2 shows a symbol once per two frames
-    _typewriter_pos = 0;
-    _typewriter_sleep = 0;
-    _typewriter_timer = 0;
     
     /// @desc returns how long the typewriter should pause for any given symbol
+    /// @ignore
     _typewriter_calculate = function(_symbol) {
         if array_contains(TYPER_PUNCTUATION_SHORT, _symbol)
             return 10;
@@ -344,7 +386,15 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
             return 5;
         return 0;
     }
+    
+    /// @desc starts the typewriter effect, which displays symbols in order of being parsed
     typewriter = method(self, function() {
+        // reset the typewriter variables
+        _typewriter_displayed_symbols = 0;
+        _typewriter_pos = 1;
+        _typewriter_sleep = 0;
+        _typewriter_timer = 0;
+        
         for (var i = 0; i < array_length(symbols); i ++) {
             var symbol = symbols[i];
             if !is_struct(symbol)
@@ -353,14 +403,27 @@ function typer(_text, _x, _y, _depth, _gui = true) constructor {
         }
         _typewriter_typing = true;
     })
+    
+    /// @desc instantly initializes all symbols, negating the typewriter method, if called.
     instant = method(self,  function() {
         for (var i = 0; i < array_length(symbols); i ++) {
             symbols[i].activate(self);
         }
         _typewriter_typing = false;
     })
+    
+    // misc
+    /// @desc configures the current setup for a given language
+    configure_for_language = method(self, function(_lang = loc_getlang()) {
+        if _lang == "ja" {
+            break_tabulation = 22;
+            spacing_mono = false;
+            break_mode = BREAK_MODE.ANY_SYMBOL;
+        }
+    })
 
     // initialize
+    configure_for_language();
     start();
     typewriter();
 }
@@ -375,7 +438,7 @@ function typer_symbol(_symbol) constructor {
     
     symbol = _symbol;
     symbol_n = 0;
-    font = font_main;
+    font = loc_font("main");
     
     offset_x = 0;
     offset_y = 0;
@@ -425,7 +488,7 @@ function typer_symbol(_symbol) constructor {
         
         // update info
         if dynamic || !init {
-            update_info();
+            update_attributes();
             if !init
                 init = true;
         }
@@ -454,12 +517,14 @@ function typer_symbol(_symbol) constructor {
             alpha
         );
     });
-    update_info = method(self, function() {
-        if !activated 
-            return false;
+    update_attributes = method(self, function() {
+        var font_og = draw_get_font();
+        draw_set_font(font);
         
         width = string_width(symbol) * scale_x;
         height = string_height(symbol) * scale_y;
+        
+        draw_set_font(font_og);
     });
     
     time_source = undefined;
@@ -484,7 +549,7 @@ function typer_symbol(_symbol) constructor {
         return false;
     })
     
-    update_info();
+    update_attributes();
     start();
 }
 
