@@ -1,5 +1,5 @@
 if !instance_exists(o_dodge_controller)
-    exit
+	exit
 
 image_alpha = o_dodge_controller.dodge_alpha
 if image_alpha == 0 

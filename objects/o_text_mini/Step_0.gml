@@ -1,14 +1,14 @@
 if is_undefined(face_creator) || !is_callable(face_creator)
-    instance_destroy()
+	instance_destroy()
 
 if x_offset > 0
-    x_offset -= 10
+	x_offset -= 10
 
 if !instance_exists(face_inst) {
-    face_inst = face_creator(xstart + x_offset - 68 * xscale, y - 6, depth-100)
-    
-    face_inst.f_index = face_expression
-    face_inst.visible = true
+	face_inst = face_creator(xstart + x_offset - 68 * xscale, y - 6, depth-100)
+	
+	face_inst.f_index = face_expression
+	face_inst.visible = true
 }
 
 x = xstart + x_offset

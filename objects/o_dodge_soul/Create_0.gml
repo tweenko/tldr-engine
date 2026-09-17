@@ -9,4 +9,4 @@ image_speed = 0
 i_frames = 0
 
 if !instance_exists(o_dodge_controller)
-    instance_create(o_dodge_controller)
+	instance_create(o_dodge_controller)

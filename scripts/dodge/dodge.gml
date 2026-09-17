@@ -1,47 +1,47 @@
 /// @desc turns on the dodge mode
 function dodge_on() {
-    if !instance_exists(o_dodge_controller)
-        return false
-    o_dodge_controller.dodge_mode = true
+	if !instance_exists(o_dodge_controller)
+		return false
+	o_dodge_controller.dodge_mode = true
 }
 
 /// @desc turns off the dodge mode
 function dodge_off() {
-    if !instance_exists(o_dodge_controller)
-        return false
-    
-    o_dodge_controller.dodge_mode = false
+	if !instance_exists(o_dodge_controller)
+		return false
+	
+	o_dodge_controller.dodge_mode = false
 }
 
 /// @desc draw_self except it darkens depending on dodge_alpha (overworld battle darken)
 /// @arg {function|undefined} drawer the function that draws your object
 function dodge_darken_self(drawer = undefined) {
-    if !instance_exists(o_dodge_controller)
-        return false
-    
-    if !is_undefined(drawer) && is_method(drawer)
-        drawer(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * o_dodge_controller.dodge_darken)
-    else
+	if !instance_exists(o_dodge_controller)
+		return false
+	
+	if !is_undefined(drawer) && is_method(drawer)
+		drawer(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * o_dodge_controller.dodge_darken)
+	else
 	   draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, c_black, dodge_getalpha() * o_dodge_controller.dodge_darken)
 }
 ///@desc returns the alpha of the overworld battle mode
 function dodge_getalpha(){
 	if !instance_exists(o_dodge_controller)
-        return 0
+		return 0
 	return o_dodge_controller.dodge_alpha
 }
 ///@desc game over!
 function dodge_gameover(){
-    if instance_exists(o_gameover)
-        exit
-    
-    var xx = get_leader().x;
-    var yy = get_leader().s_get_middle_y();
-    if instance_exists(o_dodge_soul) {
-        xx = o_dodge_soul.x; 
-        yy = o_dodge_soul.y;
-    }
-    
+	if instance_exists(o_gameover)
+		exit
+	
+	var xx = get_leader().x;
+	var yy = get_leader().s_get_middle_y();
+	if instance_exists(o_dodge_soul) {
+		xx = o_dodge_soul.x; 
+		yy = o_dodge_soul.y;
+	}
+	
 	instance_create(o_gameover, 
 		xx - guipos_x(), yy - guipos_y(), DEPTH_ENCOUNTER.UI,
 		{

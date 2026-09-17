@@ -3,8 +3,8 @@ if global.console
 
 currently_naming = instance_exists(o_ui_naming)
 if currently_naming {
-    buffer = 2 
-    exit
+	buffer = 2 
+	exit
 }
 
 if state == 0 { // choose
@@ -84,7 +84,7 @@ if state == 0 { // choose
 				subselection = 0
 				msg_set(m_erase, 0)
 			}
- 			if selection == SAVE_SLOTS + 2 {
+			if selection == SAVE_SLOTS + 2 {
 				room_goto(room_chapter_select)
 				music_stop(0)
 			}
@@ -95,10 +95,10 @@ if state == 0 { // choose
 				msg_set(m_chfile, 0)
 			}
 			if selection == SAVE_SLOTS + 4 {
-                loc_switch_lang(, false)
-                event_user(2)
-                
-                audio_play(snd_ui_select)
+				loc_switch_lang(, false)
+				event_user(2)
+				
+				audio_play(snd_ui_select)
 			}
 			if selection == SAVE_SLOTS + 5 {
 				game_end()
@@ -127,21 +127,21 @@ if state == 1 {
 		state = 0
 	}
 	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 { // load file
-        if files[selection] != -1 {
-            music_stop_all()
-            
-            save_load(selection, global.chapter)
-            
-    		room_goto(save_get("room"))
-            fader_fade(1, 0, 15)
-        }
+		if files[selection] != -1 {
+			music_stop_all()
+			
+			save_load(selection, global.chapter)
+			
+			room_goto(save_get("room"))
+			fader_fade(1, 0, 15)
+		}
 		else {
-            currently_naming = true
-            instance_create(o_ui_naming,,, depth - 10, {
-                target_save_index: selection,
-                caller: id
-            })
-        }
+			currently_naming = true
+			instance_create(o_ui_naming,,, depth - 10, {
+				target_save_index: selection,
+				caller: id
+			})
+		}
 	}
 }
 	
@@ -221,8 +221,8 @@ if state == 21 {
 				audio_play(snd_ui_scary)
 				state = 0
 				buffer = 1
-                
-                save_export_to_file(subselection,, files[copy_from])
+				
+				save_export_to_file(subselection,, files[copy_from])
 				event_user(0)
 				
 				copy_from = 0
@@ -498,14 +498,14 @@ if state == 41 {
 	}
 	if InputPressed(INPUT_VERB.SELECT) && selection_hor == 0 && buffer == 0 {
 		audio_play(snd_ui_select)
-        
-        music_stop_all()
-        
-        save_load(subselection, global.chapter - 1,,, true) // load the previous chapter
-        global.chapter ++;
-        
-        room_goto(save_get("room"))
-        fader_fade(1, 0, 15)
+		
+		music_stop_all()
+		
+		save_load(subselection, global.chapter - 1,,, true) // load the previous chapter
+		global.chapter ++;
+		
+		room_goto(save_get("room"))
+		fader_fade(1, 0, 15)
 	}
 }
 

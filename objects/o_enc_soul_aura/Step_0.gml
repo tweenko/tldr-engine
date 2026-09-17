@@ -6,5 +6,5 @@ image_yscale = image_xscale
 
 var __list = instance_place_list_ext(x, y, o_enc_bullet_dark, false)
 for (var i = 0; i < array_length(__list); i ++) {
-    __list[i]._aura_call()
+	__list[i]._aura_call()
 }

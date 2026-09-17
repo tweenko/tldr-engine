@@ -11,19 +11,19 @@ function guipos_y() {
 ///@arg {Real} [tolerance]
 /// @arg {bool} [percise_collisions] whether the collision calculation should use a percise bounding box. false by default
 /// @return {Bool}
-function onscreen(instance = id, tolerance = 0, percise_collisions = false) {	
-    if !instance_exists(instance)
-        exit
-    
-    if collision_rectangle(guipos_x() - tolerance, 
-        guipos_y() - tolerance, 
-        guipos_x() + o_camera.width + tolerance, 
-        guipos_y() + o_camera.height + tolerance, 
-        instance, percise_collisions, false
-    )
-        return true
-    else
-        return false
+function onscreen(instance = id, tolerance = 0, percise_collisions = false) {   
+	if !instance_exists(instance)
+		exit
+	
+	if collision_rectangle(guipos_x() - tolerance, 
+		guipos_y() - tolerance, 
+		guipos_x() + o_camera.width + tolerance, 
+		guipos_y() + o_camera.height + tolerance, 
+		instance, percise_collisions, false
+	)
+		return true
+	else
+		return false
 }
 
 ///@desc shakes the screen (with the gui layer) and returns the animation used
@@ -41,60 +41,60 @@ function screen_shake(pow, timelen = undefined){
 /// @param {bool} [confined_x] whether the camera is confined within the bounds of the room on the x axis (true by default)
 /// @param {bool} [confined_y] whether the camera is confined within the bounds of the room on the y axis (true by default)
 function camera_pan(x_dest, y_dest, time, ease_type = "linear", confined_x = true, confined_y = true) {
-    x_dest ??= o_camera.x
-    y_dest ??= o_camera.y
-    
-    if confined_x
-        x_dest = camera_confine_x(x_dest)
-    if confined_y
-        y_dest = camera_confine_y(y_dest)
-    
-    camera_stop_animations()
-    
-    if o_camera.x != x_dest && !is_undefined(x_dest)
-        o_camera.animation_x = animate(o_camera.x, x_dest, time, ease_type, o_camera, "x")
-    if o_camera.y != y_dest && !is_undefined(y_dest)
-        o_camera.animation_y = animate(o_camera.y, y_dest, time, ease_type, o_camera, "y")
+	x_dest ??= o_camera.x
+	y_dest ??= o_camera.y
+	
+	if confined_x
+		x_dest = camera_confine_x(x_dest)
+	if confined_y
+		y_dest = camera_confine_y(y_dest)
+	
+	camera_stop_animations()
+	
+	if o_camera.x != x_dest && !is_undefined(x_dest)
+		o_camera.animation_x = animate(o_camera.x, x_dest, time, ease_type, o_camera, "x")
+	if o_camera.y != y_dest && !is_undefined(y_dest)
+		o_camera.animation_y = animate(o_camera.y, y_dest, time, ease_type, o_camera, "y")
 }
 function camera_unpan(target, time, ease_type = "linear") {
-    if !instance_exists(target)
-        return false;
-    
-    o_camera.target = target
-    
-    o_camera.offset_x = guipos_x() - camera_confine_x(target.x)
-    o_camera.offset_y = guipos_y() - camera_confine_y(target.y)
-    
-    camera_stop_animations()
-    
-    o_camera.animation_x = animate(o_camera.offset_x, 0, time, ease_type, o_camera, "offset_x")
-    o_camera.animation_y = animate(o_camera.offset_y, 0, time, ease_type, o_camera, "offset_y")
+	if !instance_exists(target)
+		return false;
+	
+	o_camera.target = target
+	
+	o_camera.offset_x = guipos_x() - camera_confine_x(target.x)
+	o_camera.offset_y = guipos_y() - camera_confine_y(target.y)
+	
+	camera_stop_animations()
+	
+	o_camera.animation_x = animate(o_camera.offset_x, 0, time, ease_type, o_camera, "offset_x")
+	o_camera.animation_y = animate(o_camera.offset_y, 0, time, ease_type, o_camera, "offset_y")
 }
 function camera_stop_animations() {
-    if is_struct(o_camera.animation_x)
-        o_camera.animation_x._stop()
-    if is_struct(o_camera.animation_y)
-        o_camera.animation_y._stop()
+	if is_struct(o_camera.animation_x)
+		o_camera.animation_x._stop()
+	if is_struct(o_camera.animation_y)
+		o_camera.animation_y._stop()
 }
 
 function camera_confine_x(xx) {
-    xx = xx - o_camera.width/2 * o_camera.scale_x;
-    xx = clamp(xx, 0, room_width - (o_camera.width * o_camera.scale_x));
-    
-    return xx;
+	xx = xx - o_camera.width/2 * o_camera.scale_x;
+	xx = clamp(xx, 0, room_width - (o_camera.width * o_camera.scale_x));
+	
+	return xx;
 }
 function camera_confine_y(yy) {
-    yy = yy - o_camera.height/2 * o_camera.scale_y;
-    yy = clamp(yy, 0, room_height - (o_camera.height * o_camera.scale_y));
-    
-    return yy;
+	yy = yy - o_camera.height/2 * o_camera.scale_y;
+	yy = clamp(yy, 0, room_height - (o_camera.height * o_camera.scale_y));
+	
+	return yy;
 }
 
 
 // --------- SOUND STUFF -------------
 enum AUDIO {
-    SOUND,
-    MUSIC
+	SOUND,
+	MUSIC
 }
 
 /**
@@ -112,30 +112,30 @@ enum AUDIO {
  * @returns {id.Sound}
  */
 function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type = AUDIO.SOUND, offset = 0) {
-    if nonstack && o_world.sound_on_frame == sound // exit if you're we are avoiding sound stacking
-        return undefined;
-    
-    if offset > 0 
-        return call_later(offset, time_source_units_frames, method({type, sound, loop, gain, pitch}, function() {
-            audio_play_sound_on(audio_get_target_emitter(type), 
-                sound, loop, 
-                0, gain,
-                0, pitch
-            );
-        }));
-    else {
-        var ret = audio_play_sound_on(audio_get_target_emitter(type), 
-            sound, loop, 
-            0, gain,
-            0, pitch
-        );
-        audio_sound_gain(ret, gain);
-        audio_sound_pitch(ret, pitch);
-        
-        o_world.sound_on_frame = sound;
-        
-        return ret;
-    }
+	if nonstack && o_world.sound_on_frame == sound // exit if you're we are avoiding sound stacking
+		return undefined;
+	
+	if offset > 0 
+		return call_later(offset, time_source_units_frames, method({type, sound, loop, gain, pitch}, function() {
+			audio_play_sound_on(audio_get_target_emitter(type), 
+				sound, loop, 
+				0, gain,
+				0, pitch
+			);
+		}));
+	else {
+		var ret = audio_play_sound_on(audio_get_target_emitter(type), 
+			sound, loop, 
+			0, gain,
+			0, pitch
+		);
+		audio_sound_gain(ret, gain);
+		audio_sound_pitch(ret, pitch);
+		
+		o_world.sound_on_frame = sound;
+		
+		return ret;
+	}
 }
 
 /**
@@ -147,26 +147,26 @@ function audio_play(sound, loop = 0, gain = 1, pitch = 1, nonstack = false, type
  * @param {real} [pitch] the pitch of the sound played
  */
 function audio_play_sound_echo(sound, delay = 10, decay = .2, gain = 1, pitch = 1) {
-    var _offset = 0;
-    for (var i = gain; i > 0; i -= decay) {
-        audio_play(
-            sound, false, 
-            i, pitch, 
-            false, AUDIO.SOUND, _offset
-        );
-        _offset += delay;
-    }
+	var _offset = 0;
+	for (var i = gain; i > 0; i -= decay) {
+		audio_play(
+			sound, false, 
+			i, pitch, 
+			false, AUDIO.SOUND, _offset
+		);
+		_offset += delay;
+	}
 }
 
 /// @desc returns an emitter based on an `AUDIO` sound type
 /// @arg {enum.AUDIO} sound_type
 function audio_get_target_emitter(sound_type) {
-    switch sound_type {
-        case AUDIO.SOUND:
-            return o_world.emitter_sfx;
-        case AUDIO.MUSIC:
-            return o_world.emitter_bgm;
-    }
+	switch sound_type {
+		case AUDIO.SOUND:
+			return o_world.emitter_sfx;
+		case AUDIO.MUSIC:
+			return o_world.emitter_bgm;
+	}
 }
 
 ///@desc Creates a loaded stream of audio straight from "locale/sfx/..."
@@ -199,55 +199,55 @@ function draw_text_xfit(xx, yy, str, xfit, xscale, yscale) {
 }
 /// @desc draws text with a slightly opaque white border around it if `_highlight` is true
 function draw_text_highlighted(_text, _x, _y, _highlight, _xscale = 1, _yscale = 1, _padding = 2, _highlight_color = c_white, _highlight_alpha = .25) {
-    if _highlight {
-        var pad = 2;
-        var i_w = string_width(_text) * _xscale;
-        var i_h = string_height(_text) * _yscale;
-        
-        var xx = _x;
-        var yy = _y;
-        
-        if draw_get_halign() == fa_center 
-            xx -= i_w/2;
-        else if draw_get_halign() == fa_right
-            xx -= i_w;
-        
-        if draw_get_valign() == fa_middle
-            yy -= i_h/2;
-        else if draw_get_valign() == fa_bottom
-            yy -= i_h;
-        
-        i_w += _padding*2;
-        i_h += _padding*2;
-        
-        draw_sprite_ext(spr_pixel, 0, xx - _padding, yy - _padding, i_w, i_h, 0, _highlight_color, _highlight_alpha);
-    }
-    
-    draw_text_transformed(_x, _y, _text, _xscale, _yscale, 0);
+	if _highlight {
+		var pad = 2;
+		var i_w = string_width(_text) * _xscale;
+		var i_h = string_height(_text) * _yscale;
+		
+		var xx = _x;
+		var yy = _y;
+		
+		if draw_get_halign() == fa_center 
+			xx -= i_w/2;
+		else if draw_get_halign() == fa_right
+			xx -= i_w;
+		
+		if draw_get_valign() == fa_middle
+			yy -= i_h/2;
+		else if draw_get_valign() == fa_bottom
+			yy -= i_h;
+		
+		i_w += _padding*2;
+		i_h += _padding*2;
+		
+		draw_sprite_ext(spr_pixel, 0, xx - _padding, yy - _padding, i_w, i_h, 0, _highlight_color, _highlight_alpha);
+	}
+	
+	draw_text_transformed(_x, _y, _text, _xscale, _yscale, 0);
 }
 
 function draw_rectangle_ext(x1, y1, x2, y2, color, outline_width) {
 	for (var i = 0; i < outline_width; i += 1) {
-	    draw_rectangle_color(x1+i, y1+i, x2-i, y2-i, color, color, color, color, true)
+		draw_rectangle_color(x1+i, y1+i, x2-i, y2-i, color, color, color, color, true)
 	}
 }
 function draw_sprite_looped(offset, amp, sprite, image, xx, yy, xscale = 1, yscale = 1, angle = 0, color = c_white, alpha = 1, move_x = true, move_y = true, xamt = 2, yamt = 2) {
 	var __sw = sprite_get_width(sprite)  * xscale
 	var __sh = sprite_get_height(sprite) * yscale
-    
+	
 	// pixel–space offsets (smooth, always positive)
 	var __ox = (move_x ? (offset * amp) mod __sw : 0)
 	var __oy = (move_y ? (offset * amp) mod __sh : 0)
 
 	for (var i = 0; abs(i) < xamt; i += sign(amp) ) {
-	    for (var j = 0; abs(j) < yamt; j += sign(amp)) {
-	        draw_sprite_ext(
-	            sprite, image,
-		        xx - __ox + i * __sw,
-	            yy - __oy + j * __sh,
-	            xscale, yscale, angle, color, alpha
-	        )
-	    }
+		for (var j = 0; abs(j) < yamt; j += sign(amp)) {
+			draw_sprite_ext(
+				sprite, image,
+				xx - __ox + i * __sw,
+				yy - __oy + j * __sh,
+				xscale, yscale, angle, color, alpha
+			)
+		}
 	}
 }
 
@@ -259,11 +259,11 @@ function draw_sprite_looped(offset, amp, sprite, image, xx, yy, xscale = 1, ysca
 /// @arg {real} img_start_index the starting index of the animation. defaults to 0
 /// @arg {real|undefined} img_number the number of frames the animation has in total. if set to undefined, the value will be auto determined depending on the sprite argument
 function draw_get_subimg(sprite = undefined, timer = o_world.frames, img_fps = undefined, img_start_index = 0, img_number = undefined) {
-    if !is_undefined(sprite) {
-        img_fps ??= sprite_get_speed(sprite)
-        img_number ??= sprite_get_number(sprite)
-    }
-    return floor((img_start_index + timer*img_fps/fps) % img_number)
+	if !is_undefined(sprite) {
+		img_fps ??= sprite_get_speed(sprite)
+		img_number ??= sprite_get_number(sprite)
+	}
+	return floor((img_start_index + timer*img_fps/fps) % img_number)
 }
 
 /// @desc draws a cone based on two positions and a radius
@@ -274,22 +274,22 @@ function draw_get_subimg(sprite = undefined, timer = o_world.frames, img_fps = u
 /// @arg {real} radius the radius of the end of the cone
 /// @arg {real} direction the direction of the cone's end
 function draw_cone(_x1, _y1, _x2, _y2, _radius, _direction = 0, _color = draw_get_colour(), _alpha = draw_get_alpha()) {
-    var dist = point_distance(_x1, _y1, _x2, _y2);
-    var og_color = draw_get_colour();
-    var og_alpha = draw_get_alpha();
-    
-    
-    draw_set_colour(_color);
-    draw_set_alpha(_alpha);
-    
-    draw_primitive_begin(pr_trianglelist);
-    draw_vertex(_x1, _y1);
-    draw_vertex(_x2 + lengthdir_x(_radius, _direction), _y2 + lengthdir_y(_radius, _direction));
-    draw_vertex(_x2 + lengthdir_x(_radius, _direction + 180), _y2 + lengthdir_y(_radius, _direction + 180));
-    draw_primitive_end();
-    
-    draw_set_colour(og_color);
-    draw_set_alpha(og_alpha);
+	var dist = point_distance(_x1, _y1, _x2, _y2);
+	var og_color = draw_get_colour();
+	var og_alpha = draw_get_alpha();
+	
+	
+	draw_set_colour(_color);
+	draw_set_alpha(_alpha);
+	
+	draw_primitive_begin(pr_trianglelist);
+	draw_vertex(_x1, _y1);
+	draw_vertex(_x2 + lengthdir_x(_radius, _direction), _y2 + lengthdir_y(_radius, _direction));
+	draw_vertex(_x2 + lengthdir_x(_radius, _direction + 180), _y2 + lengthdir_y(_radius, _direction + 180));
+	draw_primitive_end();
+	
+	draw_set_colour(og_color);
+	draw_set_alpha(og_alpha);
 }
 
 /// @desc draws a rectangle outline using separate pixels
@@ -302,11 +302,11 @@ function draw_cone(_x1, _y1, _x2, _y2, _radius, _direction = 0, _color = draw_ge
 /// @arg {real} blend
 /// @arg {real} alpha
 function draw_rectangle_outline(_x, _y, _width, _height, _thickness = 1, _angle = 0, _blend = draw_get_colour(), _alpha = draw_get_alpha()) {
-    draw_sprite_ext(spr_pixel, 0, _x, _y, _width, _thickness, _angle, _blend, _alpha);
-    draw_sprite_ext(spr_pixel, 0, _x, _y, _thickness, _height, _angle, _blend, _alpha);
-    
-    draw_sprite_ext(spr_pixel, 0, _x + _width - _thickness, _y, _thickness, _height, _angle, _blend, _alpha);
-    draw_sprite_ext(spr_pixel, 0, _x, _y + _height - _thickness, _width, _thickness, _angle, _blend, _alpha);
+	draw_sprite_ext(spr_pixel, 0, _x, _y, _width, _thickness, _angle, _blend, _alpha);
+	draw_sprite_ext(spr_pixel, 0, _x, _y, _thickness, _height, _angle, _blend, _alpha);
+	
+	draw_sprite_ext(spr_pixel, 0, _x + _width - _thickness, _y, _thickness, _height, _angle, _blend, _alpha);
+	draw_sprite_ext(spr_pixel, 0, _x, _y + _height - _thickness, _width, _thickness, _angle, _blend, _alpha);
 }
 
 // ------------- INSTANCE AND OBJECT STUFF --------------
@@ -317,23 +317,23 @@ function instance_create(obj, xx = 0, yy = 0, dpth = 0, post_var_struct = {}) {
 	if post_var_struct != {}{
 		var struct_names = struct_get_names(post_var_struct)
 		for (var i = 0; i < struct_names_count(post_var_struct); ++i) {
-		    if variable_instance_exists(instance, struct_names[i]) 
+			if variable_instance_exists(instance, struct_names[i]) 
 				variable_instance_set(instance, struct_names[i], struct_get(post_var_struct, struct_names[i]))
 		}
 	}
 	return instance
 }
 
-/// @desc	same as instance_place_list but returns the ds list
+/// @desc   same as instance_place_list but returns the ds list
 function instance_place_list_ext(xx, yy, obj, ordered){
 	var m = ds_list_create()
 	ds_list_clear(m)
-    
+	
 	instance_place_list(xx, yy, obj, m, ordered)
 	
-    var a = []
+	var a = []
 	for (var i = 0; i < ds_list_size(m); ++i) {
-	    array_push(a, m[|i])
+		array_push(a, m[|i])
 	}
 	ds_list_destroy(m)
 	return a
@@ -342,36 +342,36 @@ function instance_place_list_ext(xx, yy, obj, ordered){
 /// @param {Asset.GMObject} stop_at
 /// @desc Return the base parent object index, or noone if invalid.
 function object_get_base_parent(o_index, stop_at = noone) {
-    var current_object = o_index;
-    while (object_get_parent(current_object) != -100&&current_object!=stop_at) {
-        current_object = object_get_parent(current_object);
-    }
-    return current_object;
+	var current_object = o_index;
+	while (object_get_parent(current_object) != -100&&current_object!=stop_at) {
+		current_object = object_get_parent(current_object);
+	}
+	return current_object;
 }
 
 /// @desc returns an asset index with specified name but if the prefix version does not exists, returns the normal sprite
 function asset_get_index_state(str, state){
 	var ret = asset_get_index(str)
-    
-    var __states = string_split(state, "_", true)
+	
+	var __states = string_split(state, "_", true)
 	
 	for (var i = array_length(__states); i >= 0; i--) {
-        var __curstate = ""
-        for (var j = 0; j < i; j ++) {
-            __curstate += __states[j]
-            if j < i - 1
-                __curstate += "_"
-        }
-        if __curstate != ""
-            __curstate = string_concat("_", __curstate)
-        
+		var __curstate = ""
+		for (var j = 0; j < i; j ++) {
+			__curstate += __states[j]
+			if j < i - 1
+				__curstate += "_"
+		}
+		if __curstate != ""
+			__curstate = string_concat("_", __curstate)
+		
 		var r = asset_get_index(str + __curstate)
 		if r != -1 {
 			ret = r
 			break
 		}
 	}
-    
+	
 	return ret
 }
 
@@ -394,10 +394,10 @@ function array_clone(array){
 	array_copy(ret, 0, array, 0, array_length(array))
 	return ret
 }
-///@desc	Sort an array, but this ext version returns the array back.
-///@arg		array
-///@arg		{function|bool}	sorttype_or_function True for ascending and False for descending or a function reference for sorting.
-///@return	{array}
+///@desc    Sort an array, but this ext version returns the array back.
+///@arg     array
+///@arg     {function|bool} sorttype_or_function True for ascending and False for descending or a function reference for sorting.
+///@return  {array}
 function array_sort_ext(array, sort_type_or_function) {
 	var arr = array_clone(array)
 	array_sort(arr, sort_type_or_function)
@@ -405,48 +405,48 @@ function array_sort_ext(array, sort_type_or_function) {
 }
 /// @desc finds a value and then deletes it
 function array_delete_by_value(_array, _value) {
-    var index = array_get_index(_array, _value);
-    array_delete(_array, index, 1);
+	var index = array_get_index(_array, _value);
+	array_delete(_array, index, 1);
 }
 
 /// @param {string}  substring  The string to find.
 /// @param {string}  fullstring  The string to find from.
 /// @description              Check if a string contains a string inside it.
 function string_contains(substring, fullString) {
-    return string_pos(substring, fullString) > 0;
+	return string_pos(substring, fullString) > 0;
 }
 /// @desc truncates a string, if it's bigger than the max_len it will be truncated down to it. will avoid cutting words if possible
 /// @param {string} str the original string
 /// @param {string} max_len the maximum allowed length
 function string_truncate_words(str, max_len) {
-    if string_length(str) <= max_len 
-        return str;
-    
-    var cut_str = string_copy(str, 1, max_len);
-    
-    var last_space = 0;
-    for (var i = string_length(cut_str); i > 0; i --) {
-        if array_contains(TYPER_CONSIDER_SPACES, string_char_at(cut_str, i)) {
-            last_space = i;
-            break;
-        }
-    }
-    
-    if last_space > 0
-        return string_copy(cut_str, 1, last_space - 1) + "...";
-    return cut_str + "..."; // if it doesn't have 
+	if string_length(str) <= max_len 
+		return str;
+	
+	var cut_str = string_copy(str, 1, max_len);
+	
+	var last_space = 0;
+	for (var i = string_length(cut_str); i > 0; i --) {
+		if array_contains(TYPER_CONSIDER_SPACES, string_char_at(cut_str, i)) {
+			last_space = i;
+			break;
+		}
+	}
+	
+	if last_space > 0
+		return string_copy(cut_str, 1, last_space - 1) + "...";
+	return cut_str + "..."; // if it doesn't have 
 }
 /// @desc compares two strings using an ascii table. the result will be -1 if string A is earlier and 1 if string B is earlier. a 0 can be returned if strings are identical
 function string_compare_alphabetically(a, b) {
-    var name_a = string_lower(a);
-    var name_b = string_lower(b);
-    
-    if name_a < name_b
-        return -1;
-    else if name_a > name_b
-        return 1;
-    else
-        return 0;
+	var name_a = string_lower(a);
+	var name_b = string_lower(b);
+	
+	if name_a < name_b
+		return -1;
+	else if name_a > name_b
+		return 1;
+	else
+		return 0;
 }
 
 /// @desc snaps a number x to a multiple of n
@@ -454,7 +454,7 @@ function string_compare_alphabetically(a, b) {
 /// @arg {real} n the number to multiple of which to snap to
 /// @returns {real}
 function snap(x, n) {
-    return n * round(x / n);
+	return n * round(x / n);
 }
 
 /// @desc adds padding to the start of a string to reach desired length (e.g. 01 instead of 1)
@@ -462,34 +462,34 @@ function snap(x, n) {
 /// @arg {string} _substring the string to add to reach the required length
 /// @arg {real} _required_length the target length you're trying to achieve
 function string_pad_start(_string, _substring, _required_length) {
-    if !is_string(_string)
-        _string = string(_string)
-    while string_length(_string) < _required_length {
-        _string = _substring + _string
-    }
-    return _string
+	if !is_string(_string)
+		_string = string(_string)
+	while string_length(_string) < _required_length {
+		_string = _substring + _string
+	}
+	return _string
 }
 /// @desc adds padding to the end of a string to reach desired length (e.g. B0 instead of B)
 /// @arg {string} _string the string to pad
 /// @arg {string} _substring the string to add to reach the required length
 /// @arg {real} _required_length the target length you're trying to achieve
 function string_pad_end(_string, _substring, _required_length) {
-    if !is_string(_string)
-        _string = string(_string)
-    while string_length(_string) < _required_length {
-        _string = string_insert(_string, _substring, string_length(_string)+1)
-    }
-    return _string
+	if !is_string(_string)
+		_string = string(_string)
+	while string_length(_string) < _required_length {
+		_string = string_insert(_string, _substring, string_length(_string)+1)
+	}
+	return _string
 }
 
 /// @desc checks whether a given struct is empty
 function struct_empty(_struct) {
-    return struct_names_count(_struct) > 0
+	return struct_names_count(_struct) > 0
 }
 
-/// @desc	rounds value with cerain percision
-/// @arg	{real} value
-/// @arg	{real} precision    works like round(value/precision) * precision
+/// @desc   rounds value with cerain percision
+/// @arg    {real} value
+/// @arg    {real} precision    works like round(value/precision) * precision
 function round_p(value, precision){
 	return round(value/precision) * precision
 }
@@ -498,16 +498,16 @@ function round_p(value, precision){
 function struct_merge(primary, secondary, shared) {
 	var _ReturnStruct = primary;
 	
-	if (shared)	{
+	if (shared) {
 		var _PropertyNames = variable_struct_get_names(primary);
-		for (var i = 0; i < array_length(_PropertyNames); i ++)	{
-			if (variable_struct_exists(secondary, _PropertyNames[i]))	{
+		for (var i = 0; i < array_length(_PropertyNames); i ++) {
+			if (variable_struct_exists(secondary, _PropertyNames[i]))   {
 				variable_struct_set(_ReturnStruct, _PropertyNames[i], variable_struct_get(secondary, _PropertyNames[i]));
 			}
 		}
-	}	else	{
+	}   else    {
 		var _PropertyNames = variable_struct_get_names(secondary);
-		for (var i = 0; i < array_length(_PropertyNames); i ++)	{
+		for (var i = 0; i < array_length(_PropertyNames); i ++) {
 			variable_struct_set(_ReturnStruct, _PropertyNames[i], variable_struct_get(secondary, _PropertyNames[i]));
 		}
 	}
@@ -518,43 +518,43 @@ function struct_merge(primary, secondary, shared) {
 /// @arg {Asset.GMScript|function} _parent
 /// @returns {bool}
 function constructor_is_child(_child, _parent) {
-    var _static_struct = static_get(_child);
-    
-    while _static_struct != undefined {
-        if _static_struct == static_get(_parent)
-            return true;
-        
-        _static_struct = static_get(_static_struct);
-    }
-    return false;
+	var _static_struct = static_get(_child);
+	
+	while _static_struct != undefined {
+		if _static_struct == static_get(_parent)
+			return true;
+		
+		_static_struct = static_get(_static_struct);
+	}
+	return false;
 }
 
 /// @desc returns the sum of two angles within the angle range
 function angle_add(x, y) {
-    return (x + y + 360) % 360
+	return (x + y + 360) % 360
 }
 
 /// @desc converts the string data type into bool, accounting for typing the boolean in as a word
 /// @arg {string} _string the string you'd like to convert to boolean
 /// @returns {bool}
 function string_to_bool(_string) {
-    if string_lower(_string) == "true"
-        return true
-    else if string_lower(_string) == "false"
-        return false
-    else 
-        return real(string_digits(_string)) > .5
+	if string_lower(_string) == "true"
+		return true
+	else if string_lower(_string) == "false"
+		return false
+	else 
+		return real(string_digits(_string)) > .5
 }
 /// @desc removes all "\n"s from a string
 /// @arg {string} _string the string you'd like to convert
 /// @returns {bool}
 function string_remove_newlines(_string) {
-    return string_replace_all(_string, "\n", " ");
+	return string_replace_all(_string, "\n", " ");
 }
 
 function increment_towards(a, b, increment) {
-    var i = sign(b - a) * increment;
-    return clamp(a + i, min(a, b), max(a, b));
+	var i = sign(b - a) * increment;
+	return clamp(a + i, min(a, b), max(a, b));
 }
 
 /// @desc Reset matrix
@@ -585,76 +585,76 @@ function cosine(INP_DEVIDE, OUT_MULTIPLY, input = undefined) {
 /// @arg {function|any} variable the variable you'd like to convert
 /// @arg {array} arg_array the array of arguments you'd like to pass to the function if it's callable. empty by default
 function variable_callable_to_value(variable, arg_array = []) {
-    if is_method(variable)
-        return method_call(variable, arg_array);
-    return variable;
+	if is_method(variable)
+		return method_call(variable, arg_array);
+	return variable;
 }
 
 /// @desc makes a black fade
-/// @arg {real}	start the starting point for the opacity of the fader. if set to undefined, will start from the fader's current opacity
-/// @arg {real}	end the target opacity for the fader
-/// @arg {real}	time the time it takes to go from A to B in terms of the fader's opacity
+/// @arg {real} start the starting point for the opacity of the fader. if set to undefined, will start from the fader's current opacity
+/// @arg {real} end the target opacity for the fader
+/// @arg {real} time the time it takes to go from A to B in terms of the fader's opacity
 /// @arg {real} depth the depth of the fader. by default is set to `DEPTH_UI.FADER`
 function fader_fade(a, b, time, _depth = DEPTH_UI.FADER){
 	if !instance_exists(o_fader)
-        return false
-    
-    if is_undefined(a)
-        a = o_fader.image_alpha
-    
-    o_fader.depth = _depth
-    if time == 0
-        o_fader.image_alpha = b
-    else 
-        animate(a, b, time, "linear", o_fader, "image_alpha")
+		return false
+	
+	if is_undefined(a)
+		a = o_fader.image_alpha
+	
+	o_fader.depth = _depth
+	if time == 0
+		o_fader.image_alpha = b
+	else 
+		animate(a, b, time, "linear", o_fader, "image_alpha")
 }
 /// @desc starts a flash animation, the color of which you can change
-/// @arg {real}	start the starting point for the opacity of the flash. if set to undefined, will start from the flash's current opacity
-/// @arg {real}	end the target opacity for the flash
-/// @arg {real}	time the time it takes to go from A to B in terms of the flash's opacity
+/// @arg {real} start the starting point for the opacity of the flash. if set to undefined, will start from the flash's current opacity
+/// @arg {real} end the target opacity for the flash
+/// @arg {real} time the time it takes to go from A to B in terms of the flash's opacity
 /// @arg {color} color the color of the flash. white by default
 /// @arg {real} depth the depth of the flash. by default is set to `DEPTH_UI.FADER`
 function flash_fade(a, b, time, color = c_white, _depth = DEPTH_UI.FADER){
 	if !instance_exists(o_flash)
-        return false
-    
-    if is_undefined(a)
-        a = o_flash.image_alpha
-    
-    o_fader.depth = _depth
-    o_flash.color = color
-    if time == 0
-        o_flash.image_alpha = b
-    else 
-        animate(a, b, time, "linear", o_flash, "image_alpha")
+		return false
+	
+	if is_undefined(a)
+		a = o_flash.image_alpha
+	
+	o_fader.depth = _depth
+	o_flash.color = color
+	if time == 0
+		o_flash.image_alpha = b
+	else 
+		animate(a, b, time, "linear", o_flash, "image_alpha")
 }
 
 ///@desc creates a trail of the object that calls this function
 function afterimage(_decay_speed = 0.1, inst = id, gui = false, drawer = undefined){
-    var _afterimage = instance_create_depth(inst.x, inst.y, inst.depth, o_afterimage)
+	var _afterimage = instance_create_depth(inst.x, inst.y, inst.depth, o_afterimage)
 
-    _afterimage.sprite_index = inst.sprite_index
-    _afterimage.image_index = inst.image_index
-    _afterimage.image_blend = inst.image_blend
-    _afterimage.image_speed = 0
-    _afterimage.depth = inst.depth
-    _afterimage.gui = gui
-    _afterimage.image_xscale = inst.image_xscale
-    _afterimage.image_yscale = inst.image_yscale
-    _afterimage.image_angle = inst.image_angle
-    _afterimage.decay_speed = _decay_speed
-    
-    if !is_undefined(drawer) && is_method(drawer)
-        _afterimage.drawer = drawer
+	_afterimage.sprite_index = inst.sprite_index
+	_afterimage.image_index = inst.image_index
+	_afterimage.image_blend = inst.image_blend
+	_afterimage.image_speed = 0
+	_afterimage.depth = inst.depth
+	_afterimage.gui = gui
+	_afterimage.image_xscale = inst.image_xscale
+	_afterimage.image_yscale = inst.image_yscale
+	_afterimage.image_angle = inst.image_angle
+	_afterimage.decay_speed = _decay_speed
+	
+	if !is_undefined(drawer) && is_method(drawer)
+		_afterimage.drawer = drawer
 
-    return _afterimage;
+	return _afterimage;
 }
 
 ///@desc returns time in the format of HH:MM:SS (hours can overflow)
 ///@arg {bool} [display_hours] if asked not to, it will return the MM:SS format instead
 function time_format(time_s, display_hours = true){
 	time_s = round(time_s)
-    
+	
 	var time_m = floor(time_s/60)
 	var time_h = floor(time_m/60)
 	time_m -= time_h*60
@@ -683,11 +683,11 @@ function move_and_collide_simple(dx, dy, inst) {
 	col = instance_place(x + dx, y, inst)
 	if col != noone {
 		repeat(abs(dx)+1) {
-            if place_meeting(x + tx, y, inst) 
-                break; 
-            x += tx;
-        }
-        
+			if place_meeting(x + tx, y, inst) 
+				break; 
+			x += tx;
+		}
+		
 		dx = 0;
 		colid = col;
 	}
@@ -696,11 +696,11 @@ function move_and_collide_simple(dx, dy, inst) {
 	col = instance_place(x, y + dy, inst);
 	if col != noone {
 		repeat(abs(dy) + 1) {
-            if place_meeting(x, y + ty, inst) 
-                break; 
-            y += ty;
-        }
-        
+			if place_meeting(x, y + ty, inst) 
+				break; 
+			y += ty;
+		}
+		
 		dy = 0;
 		colid = col;
 	}
@@ -713,20 +713,20 @@ function move_and_collide_simple(dx, dy, inst) {
 /// @desc converts binds to keys
 function input_binding_to_string(bind, upper = true, _is_gamepad = InputDeviceIsGamepad(InputPlayerGetDevice())){
 	var __bindname = InputGetBindingName(bind, _is_gamepad)
-    var __ret = ""
-    
-    if string_contains("arrow", __bindname) {
-        __ret = string_split(__bindname, " ")[1]
-        __ret = string_lower(string_copy(__ret, 1, 1)) + string_delete(__ret, 1, 1);
-    }
-    else {
-    	__ret = string_lower(__bindname);
-    }
-    
-    var __loc_id = $"menu_bind_{string_lower(__ret)}";
-    if loc_exists(__loc_id)
-        __ret = loc(__loc_id)
-    
+	var __ret = ""
+	
+	if string_contains("arrow", __bindname) {
+		__ret = string_split(__bindname, " ")[1]
+		__ret = string_lower(string_copy(__ret, 1, 1)) + string_delete(__ret, 1, 1);
+	}
+	else {
+		__ret = string_lower(__bindname);
+	}
+	
+	var __loc_id = $"menu_bind_{string_lower(__ret)}";
+	if loc_exists(__loc_id)
+		__ret = loc(__loc_id)
+	
 	return (upper ? string_upper(__ret) : __ret)
 }
 /// @desc converts a bind to text (or sprite) - gets it ready for use in dialogue
@@ -746,8 +746,8 @@ function input_binding_intext(verb) {
 		var res = ""
 		for (var i = 0; i < array_length(verb); ++i) {
 			res += input_binding_to_string(InputBindingGet(false, verb[i]))
-            if i < array_length(verb) - 1
-                res += "/"
+			if i < array_length(verb) - 1
+				res += "/"
 		}
 		
 		return $"[{res}]"
@@ -758,24 +758,24 @@ function input_binding_intext(verb) {
 /// @desc converts a bind to text (or sprite) - gets it ready for use in dialogue
 function input_binding_draw(verb, xx, yy, scale, label = "", pre_label = "", _is_gamepad = InputDeviceIsGamepad(InputPlayerGetDevice())) {
 	if _is_gamepad {
-        draw_text_transformed(xx, yy, pre_label, scale, scale, 0)
-        xx += string_width(pre_label) * scale
-        
+		draw_text_transformed(xx, yy, pre_label, scale, scale, 0)
+		xx += string_width(pre_label) * scale
+		
 		if is_array(verb) {
 			for (var i = 0; i < array_length(verb); ++i) {
-                draw_sprite_ext(InputIconGet(verb[i]), 0, xx, yy-scale + 2.5*scale, scale, scale, 0, c_white, 1)
-                xx += sprite_get_width(InputIconGet(verb[i])) * scale
+				draw_sprite_ext(InputIconGet(verb[i]), 0, xx, yy-scale + 2.5*scale, scale, scale, 0, c_white, 1)
+				xx += sprite_get_width(InputIconGet(verb[i])) * scale
 			}
 		}
 		else {
-            draw_sprite_ext(InputIconGet(verb), 0, xx, yy-scale + 2.5*scale, scale, scale, 0, c_white, 1)
-            xx += sprite_get_width(InputIconGet(verb)) * scale
-        }
-        draw_text_transformed(xx, yy, label, scale, scale, 0)
-        
-        return true
+			draw_sprite_ext(InputIconGet(verb), 0, xx, yy-scale + 2.5*scale, scale, scale, 0, c_white, 1)
+			xx += sprite_get_width(InputIconGet(verb)) * scale
+		}
+		draw_text_transformed(xx, yy, label, scale, scale, 0)
+		
+		return true
 	}
-    
+	
 	if is_array(verb) {
 		var res = ""
 		for (var i = 0; i < array_length(verb); ++i) {
@@ -783,36 +783,36 @@ function input_binding_draw(verb, xx, yy, scale, label = "", pre_label = "", _is
 		}
 		res = string_delete(res, string_width(res)-1, 1)
 		
-        draw_text_transformed(xx, yy, pre_label + $"[{res}]" + label, scale, scale, 0)
-        return true
+		draw_text_transformed(xx, yy, pre_label + $"[{res}]" + label, scale, scale, 0)
+		return true
 	}
 	
-    draw_text_transformed(xx, yy, pre_label + $"[{input_binding_to_string(InputBindingGet(false, verb), true, _is_gamepad)}]" + label, scale, scale, 0)
+	draw_text_transformed(xx, yy, pre_label + $"[{input_binding_to_string(InputBindingGet(false, verb), true, _is_gamepad)}]" + label, scale, scale, 0)
 }
 
 /// @desc detects a key press and checks if its being held down long enough to start repeating
 function keyboard_check_repeat(_key, _repeat_delay = 2, _repeat_predelay = 10) {
-    var check_repeat = false;
-    static last_pressed_key = _key;
-    static press_timer = 0;
-    
-    if keyboard_check(_key) {
-        if last_pressed_key != _key  {
-            last_pressed_key = _key;
-            press_timer = 0;
-        }
-        
-        press_timer ++;
-        
-        if press_timer > _repeat_predelay && press_timer % _repeat_delay == 0
-            return true;
-    }
-    else if last_pressed_key == _key
-        press_timer = 0;
-    
-    return keyboard_check_pressed(_key);
+	var check_repeat = false;
+	static last_pressed_key = _key;
+	static press_timer = 0;
+	
+	if keyboard_check(_key) {
+		if last_pressed_key != _key  {
+			last_pressed_key = _key;
+			press_timer = 0;
+		}
+		
+		press_timer ++;
+		
+		if press_timer > _repeat_predelay && press_timer % _repeat_delay == 0
+			return true;
+	}
+	else if last_pressed_key == _key
+		press_timer = 0;
+	
+	return keyboard_check_pressed(_key);
 }
 
 function cap_wraparound(value, maxvalue) {
-    return (value + maxvalue) % maxvalue
+	return (value + maxvalue) % maxvalue
 }

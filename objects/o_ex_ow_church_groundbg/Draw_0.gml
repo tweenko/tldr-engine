@@ -1,5 +1,5 @@
 if !surface_exists(surf) 
-    surf = surface_create(sprite_width, sprite_height)
+	surf = surface_create(sprite_width, sprite_height)
 
 var off = -o_world.frames/2
 

@@ -19,12 +19,12 @@ if keyboard_check_pressed(vk_enter) {
 	
 	if !party_contains(name, true) {
 		party_member_add(name)
-        o_console.log_text($"{name} was added to your Party", c_orange);
-    }
+		o_console.log_text($"{name} was added to your Party", c_orange);
+	}
 	else {
 		party_member_kick(name)
-        o_console.log_text($"{name} was removed from your Party", c_teal);
-    }
+		o_console.log_text($"{name} was removed from your Party", c_teal);
+	}
 }
 if keyboard_check_pressed(vk_escape) {
 	instance_destroy()

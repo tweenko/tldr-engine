@@ -4,6 +4,6 @@ if !lighting_override {
 		lighting_alpha += 1/30
 	else 
 		lighting_alpha -= 1/30
-    
+	
 	lighting_alpha = clamp(lighting_alpha, 0, 1)
 }

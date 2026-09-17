@@ -10,8 +10,8 @@ with object_index {
 }
 
 with o_turn {
-    if id != other.id 
-        other.debuff ++;
+	if id != other.id 
+		other.debuff ++;
 }
 
 buff = count - 1 // remove yourself

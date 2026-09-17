@@ -3,13 +3,13 @@
 /// @arg {bool} destroy_other_instances whether the dialogue should destroy the other already existing dialogue instances before spawning itself
 /// @arg {bool} allow_movement whether the player can move or not during the dialogue
 function dialogue_start(text, _destroy_other_instances = true, allow_movement = false) {
-    if _destroy_other_instances
-        instance_destroy(o_ui_dialogue)
-    
+	if _destroy_other_instances
+		instance_destroy(o_ui_dialogue)
+	
 	var inst = instance_create(o_ui_dialogue)
 	inst.text = dialogue_array_to_string(text)
-    
-    get_leader().moveable_dialogue = allow_movement
+	
+	get_leader().moveable_dialogue = allow_movement
 	
 	return inst
 }
@@ -21,7 +21,7 @@ function dialogue_array_to_string(arr) {
 	
 	var str = ""
 	for (var i = 0; i < array_length(arr); ++i) {
-	    str += arr[i]
+		str += arr[i]
 		if i < array_length(arr)-1 
 			str += "{p}{c}"
 	}
@@ -36,37 +36,37 @@ function dialogue_array_to_string(arr) {
 /// @arg {Constant.Colour|function} _select_color the color of the choice when selected. can be callable
 /// @arg {bool|function} _can_select whether the option can be selected. can be callable
 function text_typer_choice(_text, _off_x = 0, _off_y = 0, _color = undefined, _select_color = c_yellow, _can_select = true) constructor {
-    _color ??= (_can_select ? c_white : c_gray);
-    
-    text = _text;
-    color = _color;
-    select_color = _select_color;
-    off_x = _off_x;
-    off_y = _off_y;
-    can_select = _can_select;
-    
-    _draw = function(_x, _y, _pos, _choicer, _halign = fa_left) {
-        var __t = variable_callable_to_value(text);
-        
-        if _halign == fa_right 
-            _x -= string_width(__t)*2;
-        else if _halign == fa_center
-            _x -= string_width(__t);
-        
-        _x += variable_callable_to_value(off_x);
-        _y += variable_callable_to_value(off_y);
-        
-        draw_set_colour(variable_callable_to_value(color));
-        
-        if _choicer.selection == _pos {
-            draw_set_color(variable_callable_to_value(select_color));
-            _choicer.target_x = _x - 14;
-            _choicer.target_y = _y + 16;
-        }
-        draw_text_transformed(_x, _y, __t, 2, 2, 0);
-        
-        draw_set_colour(c_white);
-    }
+	_color ??= (_can_select ? c_white : c_gray);
+	
+	text = _text;
+	color = _color;
+	select_color = _select_color;
+	off_x = _off_x;
+	off_y = _off_y;
+	can_select = _can_select;
+	
+	_draw = function(_x, _y, _pos, _choicer, _halign = fa_left) {
+		var __t = variable_callable_to_value(text);
+		
+		if _halign == fa_right 
+			_x -= string_width(__t)*2;
+		else if _halign == fa_center
+			_x -= string_width(__t);
+		
+		_x += variable_callable_to_value(off_x);
+		_y += variable_callable_to_value(off_y);
+		
+		draw_set_colour(variable_callable_to_value(color));
+		
+		if _choicer.selection == _pos {
+			draw_set_color(variable_callable_to_value(select_color));
+			_choicer.target_x = _x - 14;
+			_choicer.target_y = _y + 16;
+		}
+		draw_text_transformed(_x, _y, __t, 2, 2, 0);
+		
+		draw_set_colour(c_white);
+	}
 };
 
 /// @desc starts a choicer and creates a dialogue box for it if needed
@@ -74,39 +74,39 @@ function text_typer_choice(_text, _off_x = 0, _off_y = 0, _color = undefined, _s
 /// @arg {id.instance} _caller the caller (an instance of `o_ui_dialogue`)
 /// @arg {bool} _box_pos_down whether the box should be on the bottom. by default equals to `undefined`, which makes it automatically pick the optimal position
 function text_typer_choicer(_choices, _caller = id, _box_pos_down = undefined) {
-    for (var i = 0; i < array_length(_choices); i ++) {
-        if is_instanceof(_choices[i], text_typer_choice) || is_struct(_choices[i]) || is_undefined(_choices[i])
-            continue;
-        _choices[i] = new text_typer_choice(_choices[i]);
-    }
-    
-    var inst_dialogue = ((instance_exists(_caller) && _caller.object_index == o_ui_dialogue) ? _caller : instance_nearest(0, 0, o_ui_dialogue));
-    if !instance_exists(inst_dialogue) {
-        inst_dialogue = instance_create(o_ui_dialogue);
-        if !is_undefined(_box_pos_down)
-            inst_dialogue._reposition_self_to(_box_pos_down);
-        
-        with inst_dialogue event_user(0);
-    }
-    
-    var xx = inst_dialogue.xx + 26;
-    var yy = inst_dialogue.yy + 20;
-    if inst_dialogue.encounter_mode {
-        xx = 30; 
-        yy = 376;
-    }
-    else if inst_dialogue.shop_mode {
-        xx = 30; 
-        yy = 270;
-    };
-    
-    var choicer = instance_create(o_text_choicer, xx, yy, inst_dialogue.depth - 10, {
-        choices: _choices,
-        caller: inst_dialogue,
-        box_height: 151
-    });
-    
-    return choicer;
-    
-    
+	for (var i = 0; i < array_length(_choices); i ++) {
+		if is_instanceof(_choices[i], text_typer_choice) || is_struct(_choices[i]) || is_undefined(_choices[i])
+			continue;
+		_choices[i] = new text_typer_choice(_choices[i]);
+	}
+	
+	var inst_dialogue = ((instance_exists(_caller) && _caller.object_index == o_ui_dialogue) ? _caller : instance_nearest(0, 0, o_ui_dialogue));
+	if !instance_exists(inst_dialogue) {
+		inst_dialogue = instance_create(o_ui_dialogue);
+		if !is_undefined(_box_pos_down)
+			inst_dialogue._reposition_self_to(_box_pos_down);
+		
+		with inst_dialogue event_user(0);
+	}
+	
+	var xx = inst_dialogue.xx + 26;
+	var yy = inst_dialogue.yy + 20;
+	if inst_dialogue.encounter_mode {
+		xx = 30; 
+		yy = 376;
+	}
+	else if inst_dialogue.shop_mode {
+		xx = 30; 
+		yy = 270;
+	};
+	
+	var choicer = instance_create(o_text_choicer, xx, yy, inst_dialogue.depth - 10, {
+		choices: _choices,
+		caller: inst_dialogue,
+		box_height: 151
+	});
+	
+	return choicer;
+	
+	
 }

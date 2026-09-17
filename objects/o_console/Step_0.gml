@@ -10,9 +10,9 @@ else {
 }
 
 if active {
-    held_keys = get_all_pressed_keys();
-    var target_command = command_find(held_keys);
-    
+	held_keys = get_all_pressed_keys();
+	var target_command = command_find(held_keys);
+	
 	if !is_undefined(target_command)
 		keyhold ++
 	else
@@ -21,7 +21,7 @@ if active {
 	if keyhold >= keyhold_max {
 		active = false
 		keyhold = 0
-        
+		
 		keyboard_clear(vk_tab);
 		curcommand = target_command.execute;
 		

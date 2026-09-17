@@ -1,6 +1,6 @@
 choices = [
-    new text_typer_choice("Yes"),
-    new text_typer_choice("No"),
+	new text_typer_choice("Yes"),
+	new text_typer_choice("No"),
 ];
 
 caller = noone;

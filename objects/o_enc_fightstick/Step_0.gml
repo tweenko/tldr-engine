@@ -17,24 +17,24 @@ if fading {
 }
 else if !fading {
 	if order == caller.order && !fading {
-	    if InputPressed(INPUT_VERB.SELECT) && !caller.buffer && x > 60 {
+		if InputPressed(INPUT_VERB.SELECT) && !caller.buffer && x > 60 {
 			if x < 79+125 {
 				if x > 84 && x < 90 {
 					perfect = true
 					image_blend = c_yellow
 				}
 				
-		        with (o_enc_fightstick) {
-		            if order == caller.order && !fading{
+				with (o_enc_fightstick) {
+					if order == caller.order && !fading{
 						if x > 84 && x < 90 {
 							perfect = true 
 							image_blend = c_yellow
 						}
 						
-		                fading = true
+						fading = true
 						event_user(1)
-		            }
-		        }
+					}
+				}
 				
 				event_user(0)
 				
@@ -51,7 +51,7 @@ else if !fading {
 			}
 			else
 				caller.lightup = 1
-	    }
+		}
 	}
 	if x < 60 {
 		die = true

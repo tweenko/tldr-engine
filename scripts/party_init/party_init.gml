@@ -2,24 +2,24 @@ global.party = {}
 
 /// @desc intializes the party stuff
 function party_init() {
-    party_m_initialize("kris", party_m_kris)
-    party_m_initialize("susie", party_m_susie)
-    party_m_initialize("ralsei", party_m_ralsei)
-    party_m_initialize("noelle", party_m_noelle)
-    
+	party_m_initialize("kris", party_m_kris)
+	party_m_initialize("susie", party_m_susie)
+	party_m_initialize("ralsei", party_m_ralsei)
+	party_m_initialize("noelle", party_m_noelle)
+	
 	global.party_names = []
 }
 function party_m_initialize(_name, _constructor) {
-    struct_set(global.party, _name, new _constructor(_name))
+	struct_set(global.party, _name, new _constructor(_name))
 }
 
 /// @desc applies the equipment to party members (only for raw saves)
 function party_apply_equipment() {
-    for (var i = 0; i < party_length(true); i ++) {
-        item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i]);
-        item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i]);
-        item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i]);
-    }
+	for (var i = 0; i < party_length(true); i ++) {
+		item_apply(party_getdata(global.party_names[i], "weapon"), global.party_names[i]);
+		item_apply(party_getdata(global.party_names[i], "armor1"), global.party_names[i]);
+		item_apply(party_getdata(global.party_names[i], "armor2"), global.party_names[i]);
+	}
 }
 
 /// @desc a constructor for a power stat in the power menu
@@ -29,67 +29,67 @@ function party_apply_equipment() {
 /// @arg {function|undefined} _drawer the drawer (by default just draws the icon, the name and the value
 /// @arg {real} _xfit
 function party_power_stat(_name, _icon = spr_ui_menu_icon_none, _value = undefined, _drawer = undefined, _xfit = 130) constructor {
-    name = _name;
-    icon = _icon;
-    value = _value;
-    drawer = _drawer;
-    xfit = _xfit;
-    
-    drawer ??= method(self, function(_x, _y, _scale = 2) {
-        draw_sprite_ext(icon, 0, _x, _y + 4, _scale, _scale, 0, draw_get_color(), draw_get_alpha());
-        draw_text_xfit(_x + 26, _y + (loc_getlang() == "ja" ? 0 : -2), loc(name), xfit*_scale, _scale, _scale);
-        
-        if !is_undefined(value)
-            draw_text_transformed(_x + 26 + xfit, _y, value, _scale, _scale, 0);
-    });
-    
-    _prepare_for_export = method(self, function() {
-        _data = {name, icon, value, xfit};
-    });
-    _const_init = method(self, function(data) {
-        name = data.name;
-        icon = data.icon;
-        value = data.value;
-        xfit = data.xfit;
-    })
+	name = _name;
+	icon = _icon;
+	value = _value;
+	drawer = _drawer;
+	xfit = _xfit;
+	
+	drawer ??= method(self, function(_x, _y, _scale = 2) {
+		draw_sprite_ext(icon, 0, _x, _y + 4, _scale, _scale, 0, draw_get_color(), draw_get_alpha());
+		draw_text_xfit(_x + 26, _y + (loc_getlang() == "ja" ? 0 : -2), loc(name), xfit*_scale, _scale, _scale);
+		
+		if !is_undefined(value)
+			draw_text_transformed(_x + 26 + xfit, _y, value, _scale, _scale, 0);
+	});
+	
+	_prepare_for_export = method(self, function() {
+		_data = {name, icon, value, xfit};
+	});
+	_const_init = method(self, function(data) {
+		name = data.name;
+		icon = data.icon;
+		value = data.value;
+		xfit = data.xfit;
+	})
 }
 function party_power_stat_images(_name = "party_stat_guts", _icon = spr_ui_menu_icon_fire, _value = 0, _xfit = 86) : party_power_stat(_name, _icon, _value,, _xfit) constructor {
-    drawer = method(self, function(_x, _y, _scale = 2) {
-        draw_sprite_ext(icon, 0, _x, _y + 4, _scale, _scale, 0, draw_get_color(), draw_get_alpha());
-        draw_text_xfit(_x + 26, _y + (loc_getlang() == "ja" ? 0 : -2), loc(name), xfit*_scale, _scale, _scale);
-        for (var i = 0; i < value; i ++) {
-            draw_sprite_ext(icon, 0, _x + 26 + 4 + xfit + 20 * i, _y + 4, _scale, _scale, 0, draw_get_color(), draw_get_alpha());
-        }
-    });
-    
-    _prepare_for_export = method(self, function() {
-        _data = {name, icon, value, xfit};
-    });
-    _const_init = method(self, function(data) {
-        name = data.name;
-        icon = data.icon;
-        value = data.value;
-        xfit = data.xfit;
-    })
+	drawer = method(self, function(_x, _y, _scale = 2) {
+		draw_sprite_ext(icon, 0, _x, _y + 4, _scale, _scale, 0, draw_get_color(), draw_get_alpha());
+		draw_text_xfit(_x + 26, _y + (loc_getlang() == "ja" ? 0 : -2), loc(name), xfit*_scale, _scale, _scale);
+		for (var i = 0; i < value; i ++) {
+			draw_sprite_ext(icon, 0, _x + 26 + 4 + xfit + 20 * i, _y + 4, _scale, _scale, 0, draw_get_color(), draw_get_alpha());
+		}
+	});
+	
+	_prepare_for_export = method(self, function() {
+		_data = {name, icon, value, xfit};
+	});
+	_const_init = method(self, function(data) {
+		name = data.name;
+		icon = data.icon;
+		value = data.value;
+		xfit = data.xfit;
+	})
 }
 function party_power_stat_unknown() : party_power_stat("???", spr_ui_menu_icon_none, undefined) constructor {
-    drawer = method(self, function(_x, _y, _scale = 2) {
-        draw_set_colour(c_dkgray);
-        draw_text_transformed(_x + 26, _y + (loc_getlang() == "ja" ? 0 : -2), name, _scale, _scale, 0);
-        draw_set_colour(c_white);
-    })
+	drawer = method(self, function(_x, _y, _scale = 2) {
+		draw_set_colour(c_dkgray);
+		draw_text_transformed(_x + 26, _y + (loc_getlang() == "ja" ? 0 : -2), name, _scale, _scale, 0);
+		draw_set_colour(c_white);
+	})
 }
 function party_power_stat_none() : party_power_stat("") constructor {
-    drawer = method(self, function(_x, _y, _scale = 2) {});
+	drawer = method(self, function(_x, _y, _scale = 2) {});
 }
    
 function party_m(_initialized_name) constructor {
-    __constructable = false; // make sure the save system doesn't take them as constructables
-    
+	__constructable = false; // make sure the save system doesn't take them as constructables
+	
 	name = "???"
-    initialized_name = _initialized_name
-    action_letter = "?"
-    obj = {
+	initialized_name = _initialized_name
+	action_letter = "?"
+	obj = {
 		obj: o_actor,
 		var_struct: {
 			name: "susie"
@@ -97,24 +97,24 @@ function party_m(_initialized_name) constructor {
 	}
 	
 	// colors
-	color =		c_gray
-	darkcolor =	c_dkgray
-	iconcolor =	c_gray
+	color =     c_gray
+	darkcolor = c_dkgray
+	iconcolor = c_gray
 	
 	// stats
-	lv =	0
-	desc =	"???"
+	lv =    0
+	desc =  "???"
 	power_stats = [
-        new party_power_stat("--"),
-        new party_power_stat("--"),
-        new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 4),
+		new party_power_stat("--"),
+		new party_power_stat("--"),
+		new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 4),
 	];
 	
-	hp =		50
-	max_hp =	50
-	attack =	16
-	defense =	10
-	magic =		0
+	hp =        50
+	max_hp =    50
+	attack =    16
+	defense =   10
+	magic =     0
 	element_resistance = {
 	}
 	
@@ -127,20 +127,20 @@ function party_m(_initialized_name) constructor {
 	]
 	
 	// sprites config
-    s_name = ""
-    s_prefix = ""
-    s_scheme = "spr_{0}_{1}_{2}"
-    s_scheme_addelements = []
-    s_fallback = spr_default
-    
-	s_icon =		spr_ui_default_icon
-	s_icon_ow =		spr_ui_default_head
+	s_name = ""
+	s_prefix = ""
+	s_scheme = "spr_{0}_{1}_{2}"
+	s_scheme_addelements = []
+	s_fallback = spr_default
+	
+	s_icon =        spr_ui_default_icon
+	s_icon_ow =     spr_ui_default_head
 	s_icon_weapon = spr_ui_menu_weapon_axe
-	s_battle_intro =	1 // 1 for attack, 0 for full intro	
-    
-    // states
-	s_state =		""
-	s_substate =	""
+	s_battle_intro =    1 // 1 for attack, 0 for full intro 
+	
+	// states
+	s_state =       ""
+	s_substate =    ""
 	
 	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
 		act: [spr_bsusie_act, true],
@@ -165,15 +165,15 @@ function party_m(_initialized_name) constructor {
 		
 	// system
 	actor_id = noone
-    
-    // methods
-    __get_cardinal = party_m_get_cardinal
-    __get_sprite = party_m_get_sprite
+	
+	// methods
+	__get_cardinal = party_m_get_cardinal
+	__get_sprite = party_m_get_sprite
 }
 
 function party_m_kris(_initialized_name) : party_m(_initialized_name) constructor {
 	name = "party_kris_name"
-    action_letter = "party_kris_action_letter"
+	action_letter = "party_kris_action_letter"
 	obj = o_actor_kris
 	
 	// colors
@@ -182,38 +182,38 @@ function party_m_kris(_initialized_name) : party_m(_initialized_name) constructo
 	iconcolor = #00A2E8
 	
 	// stats
-	lv =	save_get("chapter")
-	desc =	"party_kris_desc"
+	lv =    save_get("chapter")
+	desc =  "party_kris_desc"
 	power_stats = [
-        new party_power_stat_unknown(),
-        new party_power_stat_unknown(),
-        new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 2),
+		new party_power_stat_unknown(),
+		new party_power_stat_unknown(),
+		new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 2),
 	]
 	
-	max_hp =	90
-    hp =		max_hp
-	attack =	12
-	defense =	2
-	magic =		0
+	max_hp =    90
+	hp =        max_hp
+	attack =    12
+	defense =   2
+	magic =     0
 	element_resistance = {
 	}
 	
 	// inventory
-    weapon = new item_w_spookysword()
-    armor1 = new item_a_ambercard()
-    armor2 = new item_a_ambercard()
+	weapon = new item_w_spookysword()
+	armor1 = new item_a_ambercard()
+	armor2 = new item_a_ambercard()
 	spells = [
 		new item_s_act()
 	]
 	
 	// sprites
-    s_name = "kris"
-	s_state =		""
-	s_substate =	""
-	s_icon =		spr_ui_kris_icon
-	s_icon_ow =		spr_ui_kris_head
+	s_name = "kris"
+	s_state =       ""
+	s_substate =    ""
+	s_icon =        spr_ui_kris_icon
+	s_icon_ow =     spr_ui_kris_head
 	s_icon_weapon = spr_ui_menu_weapon_sword
-	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+	s_battle_intro =    1 // 1 for attack, 0 for full intro 
 	
 	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
 		act: [spr_bkris_act, true],
@@ -236,7 +236,7 @@ function party_m_kris(_initialized_name) : party_m(_initialized_name) constructo
 }
 function party_m_susie(_initialized_name) : party_m(_initialized_name) constructor {
 	name = "party_susie_name"
-    action_letter = "party_susie_action_letter"
+	action_letter = "party_susie_action_letter"
 	obj = o_actor_susie
 	
 	// colors
@@ -245,40 +245,40 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
 	iconcolor = #EA79C8
 	
 	// stats
-	lv =	save_get("chapter")
-	desc =	"party_susie_desc"
+	lv =    save_get("chapter")
+	desc =  "party_susie_desc"
 	power_stats = [
-        new party_power_stat("party_susie_stat_rudeness", spr_ui_menu_icon_demon, 89),
-        new party_power_stat("party_susie_stat_purple", spr_ui_menu_icon_demon, "Yes"),
-        new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 2),
+		new party_power_stat("party_susie_stat_rudeness", spr_ui_menu_icon_demon, 89),
+		new party_power_stat("party_susie_stat_purple", spr_ui_menu_icon_demon, "Yes"),
+		new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 2),
 	]
 	
-	max_hp =	110
-    hp =        max_hp
-	attack =	16
-	defense =	2
-	magic =		1
+	max_hp =    110
+	hp =        max_hp
+	attack =    16
+	defense =   2
+	magic =     1
 	element_resistance = {
 	}
 	
 	// inventory
-    weapon = new item_w_mane_ax()
-    armor1 = new item_a_ambercard()
-    armor2 = new item_a_ambercard()
+	weapon = new item_w_mane_ax()
+	armor1 = new item_a_ambercard()
+	armor2 = new item_a_ambercard()
 	spells = [
 		new item_s_rudebuster(),
-        new item_s_susieheal({progress: 3, uses: 0}),
-        new item_s_scythemare()
+		new item_s_susieheal({progress: 3, uses: 0}),
+		new item_s_scythemare()
 	]
 	
 	// sprites
-    s_name = "susie"
-	s_state =		"" // serious, eyes, serious_eyes, bangs
-	s_substate =	""
-	s_icon =		spr_ui_susie_icon
-	s_icon_ow =		spr_ui_susie_head
+	s_name = "susie"
+	s_state =       "" // serious, eyes, serious_eyes, bangs
+	s_substate =    ""
+	s_icon =        spr_ui_susie_icon
+	s_icon_ow =     spr_ui_susie_head
 	s_icon_weapon = spr_ui_menu_weapon_axe
-	s_battle_intro =	1 // 1 for attack, 0 for full intro	
+	s_battle_intro =    1 // 1 for attack, 0 for full intro 
 	
 	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
 		act: [spr_bsusie_act, true],
@@ -305,7 +305,7 @@ function party_m_susie(_initialized_name) : party_m(_initialized_name) construct
 }
 function party_m_ralsei(_initialized_name) : party_m(_initialized_name) constructor {
 	name = "party_ralsei_name"
-    action_letter = "party_ralsei_action_letter"
+	action_letter = "party_ralsei_action_letter"
 	obj = o_actor_ralsei
 	
 	// colors
@@ -314,40 +314,40 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 	iconcolor = #B5E61D
 	
 	// stats
-	lv =	save_get("chapter")
-	desc =	"party_ralsei_desc"
+	lv =    save_get("chapter")
+	desc =  "party_ralsei_desc"
 	power_stats = [
-        new party_power_stat("party_ralsei_stat_sweetness", spr_ui_menu_icon_lollipop, 97),
-        new party_power_stat_images("party_ralsei_stat_fluffiness", spr_ui_menu_icon_fluff, 2, 130),
-        new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 0),
+		new party_power_stat("party_ralsei_stat_sweetness", spr_ui_menu_icon_lollipop, 97),
+		new party_power_stat_images("party_ralsei_stat_fluffiness", spr_ui_menu_icon_fluff, 2, 130),
+		new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 0),
 	]
 	
-	max_hp =	70
-    hp =		max_hp
-	attack =	8
-	defense =	2
-	magic =		9
+	max_hp =    70
+	hp =        max_hp
+	attack =    8
+	defense =   2
+	magic =     9
 	element_resistance = {
 	}
 	
 	// inventory
-    weapon = new item_w_red_scarf()
-    armor1 = new item_a_ambercard()
-    armor2 = new item_a_white_ribbon()
+	weapon = new item_w_red_scarf()
+	armor1 = new item_a_ambercard()
+	armor2 = new item_a_white_ribbon()
 	spells = [
 		new item_s_pacify(),
 		new item_s_healprayer(),
-        new item_s_revivesong(),
+		new item_s_revivesong(),
 	]
 	
 	// sprites
-    s_name = "ralsei"
-	s_state =		"" // sad, sad_subtle, hat, serious
-	s_substate =	""
-	s_icon =		spr_ui_ralsei_icon
-	s_icon_ow =		spr_ui_ralsei_head
+	s_name = "ralsei"
+	s_state =       "" // sad, sad_subtle, hat, serious
+	s_substate =    ""
+	s_icon =        spr_ui_ralsei_icon
+	s_icon_ow =     spr_ui_ralsei_head
 	s_icon_weapon = spr_ui_menu_weapon_scarf
-	s_battle_intro =	0 // 1 for attack, 0 for full intro	
+	s_battle_intro =    0 // 1 for attack, 0 for full intro 
 	
 	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
 		act: [spr_bralsei_act, true],
@@ -368,13 +368,13 @@ function party_m_ralsei(_initialized_name) : party_m(_initialized_name) construc
 		victory: [spr_bralsei_victory, true],
 		spare: [spr_bralsei_act, "idle", 1],
 		attack_eff: spr_bralsei_attackeff,
-        revivesong_sing_ready: spr_ralsei_sing_ready,
-        revivesong_sing: spr_ralsei_sing,
+		revivesong_sing_ready: spr_ralsei_sing_ready,
+		revivesong_sing: spr_ralsei_sing,
 	}
 }
 function party_m_noelle(_initialized_name) : party_m(_initialized_name) constructor {
 	name = "party_noelle_name"
-    action_letter = "party_noelle_action_letter"
+	action_letter = "party_noelle_action_letter"
 	obj = o_actor_noelle
 	
 	// colors
@@ -383,26 +383,26 @@ function party_m_noelle(_initialized_name) : party_m(_initialized_name) construc
 	iconcolor = #FFFF00
 	
 	// stats
-	lv =	1
-	desc =	"party_noelle_desc"
+	lv =    1
+	desc =  "party_noelle_desc"
 	power_stats = [
-        new party_power_stat("party_noelle_stat_coldness", spr_ui_menu_icon_snow, 47),
-        new party_power_stat("party_noelle_stat_boldness", spr_ui_menu_icon_exclamation, 100),
-        new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 0),
+		new party_power_stat("party_noelle_stat_coldness", spr_ui_menu_icon_snow, 47),
+		new party_power_stat("party_noelle_stat_boldness", spr_ui_menu_icon_exclamation, 100),
+		new party_power_stat_images("party_stat_guts", spr_ui_menu_icon_fire, 0),
 	] 
-    
-    max_hp =	90
-	hp =		max_hp
-	attack =	3
-	defense =	1
-	magic =		11
+	
+	max_hp =    90
+	hp =        max_hp
+	attack =    3
+	defense =   1
+	magic =     11
 	element_resistance = {
 	}
 	
 	// inventory
-    weapon = new item_w_snowring()
-    armor1 = new item_a_silver_watch()
-    armor2 = new item_a_royal_pin()
+	weapon = new item_w_snowring()
+	armor1 = new item_a_silver_watch()
+	armor2 = new item_a_royal_pin()
 	spells = [
 		new item_s_healprayer(),
 		new item_s_sleepmist(),
@@ -410,13 +410,13 @@ function party_m_noelle(_initialized_name) : party_m(_initialized_name) construc
 	]
 	
 	// sprites
-    s_name = "noelle"
-	s_state =		""
-	s_substate =	""
-	s_icon =		spr_ui_noelle_icon
-	s_icon_ow =		spr_ui_noelle_head
+	s_name = "noelle"
+	s_state =       ""
+	s_substate =    ""
+	s_icon =        spr_ui_noelle_icon
+	s_icon_ow =     spr_ui_noelle_head
 	s_icon_weapon = spr_ui_menu_weapon_ring
-	s_battle_intro =	0 // 1 for attack, 0 for full intro	
+	s_battle_intro =    0 // 1 for attack, 0 for full intro 
 	
 	battle_sprites = { // [sprite, whether stop at the end (or change to what sprite), (image speed of the upcoming sprite)]
 		act: [spr_bnoelle_act, true],

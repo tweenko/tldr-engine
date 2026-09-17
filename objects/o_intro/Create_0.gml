@@ -5,7 +5,7 @@ __intro_init = method(self, function(_debug_call=false) {
 	
 	if _debug_call {
 		target_room = o_world.last_room;
-	}	
+	}
 	
 	event_user(0);
 })

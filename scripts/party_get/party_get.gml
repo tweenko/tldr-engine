@@ -77,18 +77,18 @@ function party_isup(name) {
 ///@arg {string} name the name of the party member we're checking
 ///@arg {real} hp_change the amount the hp will be changed by
 function party_get_will_down(name, hp_change) {
-    if party_getdata(name, "hp") > 0 && party_getdata(name, "hp") + hp_change <= 0
-        return true
+	if party_getdata(name, "hp") > 0 && party_getdata(name, "hp") + hp_change <= 0
+		return true
 }
 ///@desc returns whether a party member will be up when getting a certain amount of healing/damage
 ///@arg {string} name the name of the party member we're checking
 ///@arg {real} hp_change the amount the hp will be changed by
 function party_get_will_up(name, hp_change) {
-    if party_getdata(name, "hp") < 0 && party_getdata(name, "hp") + hp_change >= 0
-        return true
+	if party_getdata(name, "hp") < 0 && party_getdata(name, "hp") + hp_change >= 0
+		return true
 }
 
 /// @desc returns the struct of the party member
 function party_get_struct(name) {
-    return struct_get(global.party, name)
+	return struct_get(global.party, name)
 }

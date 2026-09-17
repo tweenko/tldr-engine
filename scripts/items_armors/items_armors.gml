@@ -1,13 +1,13 @@
 function item_armor() : item() constructor {
 	type = ITEM_TYPE.ARMOR
 	icon = spr_ui_menu_icon_armor
-    
-    armor_blacklist = []
-    convert_when_not_equipped = false;
+	
+	armor_blacklist = []
+	convert_when_not_equipped = false;
 }
 
 function item_a_ambercard() : item_armor() constructor {
-    name = ["Amber Card"]
+	name = ["Amber Card"]
 	desc = ["A thin square charm that sticks to you, increasing defense.", "--", "Defensive charm"]
 	
 	stats = {
@@ -19,11 +19,11 @@ function item_a_ambercard() : item_armor() constructor {
 		ralsei: "It's sticky, huh, Kris...",
 		noelle: "It's like a name-tag!",
 	}
-    
-    buy_price = 100
-    sell_price = 50
-    
-    item_localize("item_a_amber_card")
+	
+	buy_price = 100
+	sell_price = 50
+	
+	item_localize("item_a_amber_card")
 }
 item_register(item_a_ambercard);
 
@@ -35,24 +35,24 @@ function item_a_silvercard() : item_armor() constructor {
 		defense: 4
 	}
 	effect = {
-        text: "$ +5%",
-        sprite: spr_ui_menu_icon_up
-    }
-    
-    stats_misc = {
-        money_modifier: .05
-    }
+		text: "$ +5%",
+		sprite: spr_ui_menu_icon_up
+	}
+	
+	stats_misc = {
+		money_modifier: .05
+	}
 	
 	reactions = {
 		susie: "Money, that's what I need.",
 		ralsei: "Do they take credit?",
 		noelle: "It goes with my watch!",
 	}
-    
-    buy_price = 200
-    sell_price = 100
-    
-    item_localize("item_a_silver_card")
+	
+	buy_price = 200
+	sell_price = 100
+	
+	item_localize("item_a_silver_card")
 }
 item_register(item_a_silvercard);
 
@@ -66,19 +66,19 @@ function item_a_pink_ribbon() : item_armor() constructor {
 		defense: 1,
 	}
 	effect = {
-        text: "GrazeArea",
-        sprite: spr_ui_menu_icon_up
-    }
+		text: "GrazeArea",
+		sprite: spr_ui_menu_icon_up
+	}
 	
 	reactions = {
 		susie: "Nope. Not in 1st grade anymore.",
 		ralsei: "Um... D-do I look cute...?",
 		noelle: "... feels familiar.",
 	}
-    
-    sell_price = 50
-    
-    item_localize("item_a_pink_ribbon")
+	
+	sell_price = 50
+	
+	item_localize("item_a_pink_ribbon")
 }
 item_register(item_a_pink_ribbon);
 
@@ -92,19 +92,19 @@ function item_a_white_ribbon() : item_armor() constructor {
 		defense: 2,
 	}
 	effect = {
-        text: "Cuteness",
-        sprite: spr_ui_menu_icon_up
-    }
+		text: "Cuteness",
+		sprite: spr_ui_menu_icon_up
+	}
 	
 	reactions = {
 		susie: "Nope. Not in 1st grade anymore.",
 		ralsei: "Um... D-do I look cute...?",
 		noelle: "... feels familiar.",
 	}
-    
-    sell_price = 45
-    
-    item_localize("item_a_white_ribbon")
+	
+	sell_price = 45
+	
+	item_localize("item_a_white_ribbon")
 }
 item_register(item_a_white_ribbon);
 
@@ -118,34 +118,34 @@ function item_a_twin_ribbon() : item_armor() constructor {
 		defense: 3,
 	}
 	effect = {
-        text: "GrazeArea",
-        sprite: spr_ui_menu_icon_up
-    }
+		text: "GrazeArea",
+		sprite: spr_ui_menu_icon_up
+	}
 	
 	reactions = {
 		susie: "... it gets worse and worse.",
 		ralsei: "Try around my horns!",
 		noelle: "... nostalgic, huh.",
 	}
-    
-    sell_price = 200
-    
-    item_localize("item_a_twin_ribbon")
+	
+	sell_price = 200
+	
+	item_localize("item_a_twin_ribbon")
 }
 item_register(item_a_twin_ribbon);
 
 function item_a_royal_pin() : item_armor() constructor {
-    name = ["Royal Pin"]
-    desc = [
-        "A brooch engraved with Queen's face.\nCareful of the sharp part.", 
-        "",
-        "",
-        "Luxurious brooch."
-    ]
-    
+	name = ["Royal Pin"]
+	desc = [
+		"A brooch engraved with Queen's face.\nCareful of the sharp part.", 
+		"",
+		"",
+		"Luxurious brooch."
+	]
+	
 	stats = {
 		defense: 3,
-        magic: 1
+		magic: 1
 	}
 	
 	reactions = {
@@ -153,178 +153,178 @@ function item_a_royal_pin() : item_armor() constructor {
 		ralsei: "I'm a cute little corkboard!",
 		noelle: "Queen... gave this to me.",
 	}
-    
-    buy_price = 1000
-    
-    item_localize("item_a_royal_pin")
+	
+	buy_price = 1000
+	
+	item_localize("item_a_royal_pin")
 }
 item_register(item_a_royal_pin);
 
 function item_a_silver_watch() : item_armor() constructor {
-    name = ["Silver Watch"]
-    desc = ["Grazing bullets affects the turn length by 10% more", "--"]
+	name = ["Silver Watch"]
+	desc = ["Grazing bullets affects the turn length by 10% more", "--"]
 	lw_counterpart = item_a_lw_wristwatch
-    
+	
 	stats = {
 		defense: 2,
 	}
 	effect = {
-        text: "GrazeTime",
-        sprite: spr_ui_menu_icon_up
-    }
+		text: "GrazeTime",
+		sprite: spr_ui_menu_icon_up
+	}
 	
 	reactions = {
 		susie: "It's clobbering time.",
 		ralsei: "I'm late, I'm late!",
 		noelle: "(Th-this was mine...)",
 	}
-    
-    sell_price = 500
-    
-    item_localize("item_a_silver_watch")
+	
+	sell_price = 500
+	
+	item_localize("item_a_silver_watch")
 }
 item_register(item_a_silver_watch);
 
 function item_a_lw_wristwatch() : item_armor() constructor {
-    name = ["Wristwatch"]
-    desc = ["* Maybe an expensive antique. Stuck before half past noon.", "--"]
+	name = ["Wristwatch"]
+	desc = ["* Maybe an expensive antique. Stuck before half past noon.", "--"]
 	
 	stats = {
 		defense: 1,
 	}
-    
-    item_localize("item_a_wristwatch")
+	
+	item_localize("item_a_wristwatch")
 }
 item_register(item_a_lw_wristwatch);
 
 function item_a_dealmaker() : item_armor() constructor {
-    name = ["Dealmaker"]
-    desc = ["Fashionable pink and yellow glasses.\nGreatly increases $ gained, and...?", "--"]
-    
+	name = ["Dealmaker"]
+	desc = ["Fashionable pink and yellow glasses.\nGreatly increases $ gained, and...?", "--"]
+	
 	stats = {
 		defense: 5,
-        magic: 5,
-        element_resistance: {
+		magic: 5,
+		element_resistance: {
 			puppet_cat: .4,
 		},
 	}
-    stats_misc = {
-        money_modifier: .3
-    }
+	stats_misc = {
+		money_modifier: .3
+	}
 	effect = {
-        text: "$ +30%",
-        sprite: spr_ui_menu_icon_up
-    }
+		text: "$ +30%",
+		sprite: spr_ui_menu_icon_up
+	}
 	
 	reactions = {
 		susie: "Money, that's what I need.",
 		ralsei: "Two pairs of glasses?",
 		noelle: "(Seems... familiar?)",
 	}
-    
-    can_sell = false
-    
-    item_localize("item_a_dealmaker")
+	
+	can_sell = false
+	
+	item_localize("item_a_dealmaker")
 }
 item_register(item_a_dealmaker);
 
 function item_a_shadowmantle() : item_armor() constructor {
-    name = ["ShadowMantle"]
-    desc = ["Shadows slip off like water.\nGreatly protects against Dark and Star attacks.", "--"]
-    
-    armor_blacklist = ["noelle"]
-    
+	name = ["ShadowMantle"]
+	desc = ["Shadows slip off like water.\nGreatly protects against Dark and Star attacks.", "--"]
+	
+	armor_blacklist = ["noelle"]
+	
 	stats = {
 		defense: 3,
-        element_resistance: {
+		element_resistance: {
 			dark_star: .66,
 		},
 	}
 	effect = {
-        text: "Dark/Star",
-        sprite: spr_ui_menu_icon_armor
-    }
+		text: "Dark/Star",
+		sprite: spr_ui_menu_icon_armor
+	}
 	
 	reactions = {
 		susie: "Hell yeah, what's this?",
 		ralsei: "Sh-should I wear this...?",
 		noelle: "No... it's for someone... taller.",
 	}
-    
-    can_sell = false
-    
-    item_localize("item_a_shadowmantle")
+	
+	can_sell = false
+	
+	item_localize("item_a_shadowmantle")
 }
 item_register(item_a_shadowmantle);
 
 function item_a_scarletbadge() : item_armor() constructor {
-    name = ["ScarletBadge"]
-    desc = ["Debug item. The bearer's color shifts to a dull red while worn.", "--"]
-    
+	name = ["ScarletBadge"]
+	desc = ["Debug item. The bearer's color shifts to a dull red while worn.", "--"]
+	
 	stats = {
 		defense: 6,
 	}
 	effect = {
-        text: "Redness",
-        sprite: spr_ui_menu_icon_up
-    }
+		text: "Redness",
+		sprite: spr_ui_menu_icon_up
+	}
 	
 	reactions = {
 		susie: "Blood! Nice!",
 		ralsei: "... well, it fits my horns!",
 		noelle: "Candy-cane red? Does it look good?",
 	}
-    
-    _data = {
-        save_colors: {},
-    };
-    scarlet_icons = {
-        kris: spr_ex_misc_scarlet_icon_kris,
-        susie: spr_ex_misc_scarlet_icon_susie,
-        ralsei: spr_ex_misc_scarlet_icon_ralsei,
-        noelle: spr_ex_misc_scarlet_icon_noelle,
-    }
-    _const_init = method(self, function(data) {
-        _data = data;
-    });
-    
-    apply = method(self, function(member_name) {
-        _data.save_colors = {
-            color: party_getdata(member_name, "color"),
-            darkcolor: party_getdata(member_name, "darkcolor"),
-            iconcolor: party_getdata(member_name, "iconcolor"),
-            s_icon: party_getdata(member_name, "s_icon"),
-        };
-        party_setdata(member_name, "color", #db0025);
-        party_setdata(member_name, "darkcolor", #a2002f);
-        party_setdata(member_name, "iconcolor", #E35A71);
-        
-        if struct_exists(scarlet_icons, member_name)
-            party_setdata(member_name, "s_icon", struct_get(scarlet_icons, member_name));
-    })
-    deapply = method(self, function(member_name) {
-        var __struct_names = struct_get_names(_data.save_colors)
-        for (var i = 0; i < array_length(__struct_names); i ++) {
-            party_setdata(member_name, __struct_names[i], struct_get(_data.save_colors, __struct_names[i]));
-        }
-    })
-    
-    sell_price = 200;
+	
+	_data = {
+		save_colors: {},
+	};
+	scarlet_icons = {
+		kris: spr_ex_misc_scarlet_icon_kris,
+		susie: spr_ex_misc_scarlet_icon_susie,
+		ralsei: spr_ex_misc_scarlet_icon_ralsei,
+		noelle: spr_ex_misc_scarlet_icon_noelle,
+	}
+	_const_init = method(self, function(data) {
+		_data = data;
+	});
+	
+	apply = method(self, function(member_name) {
+		_data.save_colors = {
+			color: party_getdata(member_name, "color"),
+			darkcolor: party_getdata(member_name, "darkcolor"),
+			iconcolor: party_getdata(member_name, "iconcolor"),
+			s_icon: party_getdata(member_name, "s_icon"),
+		};
+		party_setdata(member_name, "color", #db0025);
+		party_setdata(member_name, "darkcolor", #a2002f);
+		party_setdata(member_name, "iconcolor", #E35A71);
+		
+		if struct_exists(scarlet_icons, member_name)
+			party_setdata(member_name, "s_icon", struct_get(scarlet_icons, member_name));
+	})
+	deapply = method(self, function(member_name) {
+		var __struct_names = struct_get_names(_data.save_colors)
+		for (var i = 0; i < array_length(__struct_names); i ++) {
+			party_setdata(member_name, __struct_names[i], struct_get(_data.save_colors, __struct_names[i]));
+		}
+	})
+	
+	sell_price = 200;
 }
 item_register(item_a_scarletbadge);
 
 function item_a_lw_bandage() : item_armor() constructor {
-    name = ["Bandage"]
-    desc = ["", "--"]
+	name = ["Bandage"]
+	desc = ["", "--"]
 	
 	stats = {
 		defense: 0,
 	}
-    unequipped = function(index) {
-        item_delete(index, ITEM_TYPE.LIGHT);
-        item_add(new item_lw_bandage(), ITEM_TYPE.LIGHT);
-    }
-    
-    item_localize("item_c_lw_bandage")
+	unequipped = function(index) {
+		item_delete(index, ITEM_TYPE.LIGHT);
+		item_add(new item_lw_bandage(), ITEM_TYPE.LIGHT);
+	}
+	
+	item_localize("item_c_lw_bandage")
 }
 item_register(item_a_lw_bandage);

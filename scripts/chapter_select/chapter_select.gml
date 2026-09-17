@@ -12,14 +12,14 @@
 /// @arg {function} _set_defaults_method The method for setting the defaults. (Empty function by default)
 /// @arg {Asset.GMSprite} _icon_completed The chapter's icon if it's been completed. (same as `_icon` by default)
 function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _intro_seq_firstrun=-1, _intro_seq_midgame=-1, _intro_seq_default = o_intro_legend, _save_theme_default=SAVE_SELECT_THEME.GREAT_DOOR, _save_theme_completed=SAVE_SELECT_THEME.FOUNTAIN, _set_defaults_method = function() {}, _icon_completed=_icon) constructor {
-    name = _name;
-    icon = _icon;
+	name = _name;
+	icon = _icon;
 	icon_completed = _icon_completed;
-    sound = _sound;
-    target_chapter = _target_chapter;
-    target_room = _default_room;
-    set_defaults = _set_defaults_method;
-    
+	sound = _sound;
+	target_chapter = _target_chapter;
+	target_room = _default_room;
+	set_defaults = _set_defaults_method;
+	
 	intro_seq_default = _intro_seq_default;
 	intro_seq_first_run = _intro_seq_firstrun;
 	intro_seq_midgame = _intro_seq_midgame;
@@ -27,22 +27,22 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _i
 	save_theme_default = _save_theme_default;
 	save_theme_completed = _save_theme_completed;
 	
-    exec = method(self, function(caller) {
-        cutscene_create();
+	exec = method(self, function(caller) {
+		cutscene_create();
 
-        cutscene_func(music_stop_all);
-        cutscene_audio_play(sound);
-        cutscene_animate(0, 1, 20, "linear", caller, "trans_shrink")
-        cutscene_sleep(80);
+		cutscene_func(music_stop_all);
+		cutscene_audio_play(sound);
+		cutscene_animate(0, 1, 20, "linear", caller, "trans_shrink")
+		cutscene_sleep(80);
 
-        cutscene_func(method({caller, set_defaults, target_room, target_chapter, intro_seq_default, intro_seq_first_run, intro_seq_midgame}, function() {
-            global.chapter = target_chapter;
-            
-            save_entry_set_default("ROOM", target_room);
-            save_entry_set_default("CHAPTER", target_chapter);
-            set_defaults();
-            
-            save_reload();
+		cutscene_func(method({caller, set_defaults, target_room, target_chapter, intro_seq_default, intro_seq_first_run, intro_seq_midgame}, function() {
+			global.chapter = target_chapter;
+			
+			save_entry_set_default("ROOM", target_room);
+			save_entry_set_default("CHAPTER", target_chapter);
+			set_defaults();
+			
+			save_reload();
 			
 			// determine right intro sequence
 			var _introseq = intro_seq_default;
@@ -55,7 +55,7 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _i
 					_introseq = object_exists(intro_seq_midgame) ? intro_seq_midgame : intro_seq_default;
 			}
 			else {
-				_introseq = object_exists(intro_seq_first_run) ? intro_seq_first_run : intro_seq_default;	
+				_introseq = object_exists(intro_seq_first_run) ? intro_seq_first_run : intro_seq_default;   
 			}
 				
 			room_instance_clear(room_intro);
@@ -71,8 +71,8 @@ function chapter_option(_name, _icon, _sound, _target_chapter, _default_room, _i
 				}
 			}, _introseq);
 			cutscene_play();
-        }))
+		}))
 		
-        cutscene_play();
-    });
+		cutscene_play();
+	});
 }

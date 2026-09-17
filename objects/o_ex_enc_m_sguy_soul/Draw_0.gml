@@ -1,6 +1,6 @@
 if !dropping{
 	draw_set_color(c_red); 
-    draw_set_alpha(.5)
+	draw_set_alpha(.5)
 	
 	var dir = point_direction(x, y, xprevious, yprevious)
 	
@@ -9,7 +9,7 @@ if !dropping{
 	x += 1; y += 1
 	
 	draw_set_color(c_white); 
-    draw_set_alpha(1)
+	draw_set_alpha(1)
 }
 
 draw_self()

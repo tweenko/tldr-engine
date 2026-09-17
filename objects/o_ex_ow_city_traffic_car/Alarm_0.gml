@@ -4,8 +4,8 @@ transitioning = false
 for (var i = 0; i < party_length(true); ++i) {
 	var o = party_get_inst(global.party_names[i])
 	if !instance_exists(o) 
-        continue
-    
+		continue
+	
 	o.follow = true
 	o.image_alpha = 1
 	

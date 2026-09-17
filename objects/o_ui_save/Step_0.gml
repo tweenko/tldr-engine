@@ -17,25 +17,25 @@ if page == 0 { // main menu
 		m_selection = 0
 	
 	if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-        if !m_buttons[m_selection].on {
-            audio_play(snd_ui_cant_select)
-        }
-        else {
-    		page = m_buttons[m_selection].page
-    		if page != -1 
-    			audio_play(snd_ui_select)
-    		
-    		buffer = 1
-    		prog = 0
-    		
-    		if page == 2 {
-    			st_page = 0
-    			
-    			var xx = (st_selection[st_page] % 2 == 0 ? 155 : 375)
-    			st_soulx = xx - 15
-    			st_souly = 145 + floor(st_selection[st_page]/2)*20 + 3
-    		}
-        }
+		if !m_buttons[m_selection].on {
+			audio_play(snd_ui_cant_select)
+		}
+		else {
+			page = m_buttons[m_selection].page
+			if page != -1 
+				audio_play(snd_ui_select)
+			
+			buffer = 1
+			prog = 0
+			
+			if page == 2 {
+				st_page = 0
+				
+				var xx = (st_selection[st_page] % 2 == 0 ? 155 : 375)
+				st_soulx = xx - 15
+				st_souly = 145 + floor(st_selection[st_page]/2)*20 + 3
+			}
+		}
 	}
 	if InputPressed(INPUT_VERB.CANCEL) && buffer == 0{
 		instance_destroy()
@@ -58,7 +58,7 @@ if page == 1 { // save menu
 				prog = 2
 			else {
 				global.save_slot = s_selection
-                save_export_to_file()
+				save_export_to_file()
 				
 				audio_play(snd_save)
 				prog ++
@@ -84,9 +84,9 @@ if page == 1 { // save menu
 		if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 			if s_o_selection == 0 {
 				audio_play(snd_save)
-                
-                global.save_slot = s_selection
-                save_export_to_file()
+				
+				global.save_slot = s_selection
+				save_export_to_file()
 				
 				prog = 1
 			}
@@ -144,17 +144,17 @@ if page == 2 { // storage
 			if st_selection[1] < array_length(global.storage) && global.storage[st_selection[1]] != undefined 
 				i2 = global.storage[st_selection[1]]
 			
-            if !(is_undefined(i1) && is_undefined(i2)) {
-    			if !is_undefined(i1)
-    				item_set(i1, st_selection[1], ITEM_TYPE.STORAGE)
-    			else 
-    				item_delete(st_selection[1], ITEM_TYPE.STORAGE)
-    			
-    			if !is_undefined(i2)
-    				item_set(i2, st_selection[0], ITEM_TYPE.CONSUMABLE)
-    			else 
-    				item_delete(st_selection[0], ITEM_TYPE.CONSUMABLE)
-            }
+			if !(is_undefined(i1) && is_undefined(i2)) {
+				if !is_undefined(i1)
+					item_set(i1, st_selection[1], ITEM_TYPE.STORAGE)
+				else 
+					item_delete(st_selection[1], ITEM_TYPE.STORAGE)
+				
+				if !is_undefined(i2)
+					item_set(i2, st_selection[0], ITEM_TYPE.CONSUMABLE)
+				else 
+					item_delete(st_selection[0], ITEM_TYPE.CONSUMABLE)
+			}
 			
 			st_page = 0
 		}
@@ -174,29 +174,29 @@ if page == -1 {
 	instance_destroy()
 }
 if page == 3 { // recruits
-    instance_destroy()
-    instance_create(o_ui_recruits)
+	instance_destroy()
+	instance_create(o_ui_recruits)
 }
 if page == 4 && !fading_out { // return to title
-    if InputPressed(INPUT_VERB.RIGHT)
-        return_selection --
-    else if InputPressed(INPUT_VERB.LEFT)
-        return_selection ++
-    
-    return_selection = (return_selection + 2) % 2
-    
-    if InputPressed(INPUT_VERB.SELECT) && buffer == 0 && return_selection == 0 {
-        audio_play(snd_ui_select)
-        
-        fader_fade(0, 1, 20, DEPTH_UI.HIGHEST)
-        music_fade_all(0, 20)
-        
-        alarm[2] = 40
-        fading_out = true
-    }
-    else if (InputPressed(INPUT_VERB.CANCEL) || (InputPressed(INPUT_VERB.SELECT) && return_selection == 1)) && buffer == 0 {
-        page = 0
-    }
+	if InputPressed(INPUT_VERB.RIGHT)
+		return_selection --
+	else if InputPressed(INPUT_VERB.LEFT)
+		return_selection ++
+	
+	return_selection = (return_selection + 2) % 2
+	
+	if InputPressed(INPUT_VERB.SELECT) && buffer == 0 && return_selection == 0 {
+		audio_play(snd_ui_select)
+		
+		fader_fade(0, 1, 20, DEPTH_UI.HIGHEST)
+		music_fade_all(0, 20)
+		
+		alarm[2] = 40
+		fading_out = true
+	}
+	else if (InputPressed(INPUT_VERB.CANCEL) || (InputPressed(INPUT_VERB.SELECT) && return_selection == 1)) && buffer == 0 {
+		page = 0
+	}
 }
 
 if buffer > 0 

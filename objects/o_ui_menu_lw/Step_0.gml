@@ -1,9 +1,9 @@
 if dialogue_overlay {
-    state = -1
-    if !instance_exists(o_ui_dialogue)
-        instance_destroy()
-    
-    exit
+	state = -1
+	if !instance_exists(o_ui_dialogue)
+		instance_destroy()
+	
+	exit
 }
 
 if state == 0 {
@@ -28,21 +28,21 @@ if state == 0 {
 	if InputPressed(INPUT_VERB.SELECT) {
 		if selection == 0 {
 			if item_get_count(ITEM_TYPE.LIGHT) == 0 {
-                exit
-            }
-            
+				exit
+			}
+			
 		}
-        if selection == 2 {
-            if !phone_can_use {
-                phone_cant_cutscene()
-                instance_destroy()
-                
-                exit
-            }
-        }
-        
-        state = options[selection].state
-        audio_play(snd_ui_select)
+		if selection == 2 {
+			if !phone_can_use {
+				phone_cant_cutscene()
+				instance_destroy()
+				
+				exit
+			}
+		}
+		
+		state = options[selection].state
+		audio_play(snd_ui_select)
 		exit
 	}
 }
@@ -110,16 +110,16 @@ if state == 2 {
 			dialogue_start(item_get_desc(_item, ITEM_DESC_TYPE.FULL))
 		}
 		else if ip_selection == 2 {
-            if _item.can_toss {
-                method_call(_item.toss_execute ?? function(_item_index, _item) {
-                    var _pool = loc("menu_lw_toss_text");
-                    
-                    item_delete(_item_index, ITEM_TYPE.LIGHT);
-                    dialogue_start(string(array_shuffle(_pool)[0], item_get_name(_item)));
-                }, [i_selection, _item]);
-            }
-            else if !is_undefined(_item.toss_execute)
-                method_call(_item.toss_execute, [i_selection]);
+			if _item.can_toss {
+				method_call(_item.toss_execute ?? function(_item_index, _item) {
+					var _pool = loc("menu_lw_toss_text");
+					
+					item_delete(_item_index, ITEM_TYPE.LIGHT);
+					dialogue_start(string(array_shuffle(_pool)[0], item_get_name(_item)));
+				}, [i_selection, _item]);
+			}
+			else if !is_undefined(_item.toss_execute)
+				method_call(_item.toss_execute, [i_selection]);
 		}
 		
 		dialogue_overlay = true
@@ -135,7 +135,7 @@ if state == 2 {
 	}
 }
 if state == 3 {
-    if InputPressed(INPUT_VERB.CANCEL){
+	if InputPressed(INPUT_VERB.CANCEL){
 		audio_play(snd_ui_move)
 		state = 0
 		exit
@@ -143,7 +143,7 @@ if state == 3 {
 }
 if state == 4 {
 	if !array_equals(phone_numbers, []) {
-	    if InputPressed(INPUT_VERB.DOWN){
+		if InputPressed(INPUT_VERB.DOWN){
 			c_selection ++
 		
 			if c_selection < array_length(phone_numbers) - 1
@@ -157,15 +157,15 @@ if state == 4 {
 		}
 	
 		c_selection = clamp(c_selection, 0, array_length(phone_numbers) - 1)
-    
-	    if InputPressed(INPUT_VERB.SELECT) {
-	        phone_numbers[c_selection].cutscene()
-	        dialogue_overlay = true
-        
-	        exit
-	    }
+	
+		if InputPressed(INPUT_VERB.SELECT) {
+			phone_numbers[c_selection].cutscene()
+			dialogue_overlay = true
+		
+			exit
+		}
 	}
-    if InputPressed(INPUT_VERB.CANCEL){
+	if InputPressed(INPUT_VERB.CANCEL){
 		if c_selection != selection {
 			audio_play(snd_ui_move)
 		}

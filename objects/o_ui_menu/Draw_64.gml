@@ -4,7 +4,7 @@ var __top_txt_len = 310
 draw_set_font(loc_font("main"))
 
 if !surface_exists(surf)
-    surf = surface_create(640, 480)
+	surf = surface_create(640, 480)
 surface_set_target(surf)
 draw_clear_alpha(0, 0)
 
@@ -13,7 +13,7 @@ if !only_hp { // top
 	draw_sprite_ext(loc_sprite("menu_label_spr"), selection, 20, 24 - 80 + roll, 2, 2, 0, c_white, 1)
 	
 	for (var i = 0; i < 4; ++i) {
-	    draw_sprite_ext(spr_ui_menu_bt, i*2 + (selection == i ? 1 : 0), 120 + 100*i, 20 - 80 + roll, 2, 2, 0, c_white, 1)
+		draw_sprite_ext(spr_ui_menu_bt, i*2 + (selection == i ? 1 : 0), 120 + 100*i, 20 - 80 + roll, 2, 2, 0, c_white, 1)
 		
 		if selection == i && state == 0
 			draw_sprite_ext(spr_ui_soul_small, 0, 128 + 100*i, 38 - 80 + roll, 2, 2, 0, c_red, 1)
@@ -61,8 +61,8 @@ if !only_hp { // top
 		draw_text_transformed(160 + 213*i + xoff, 428 + 80 - roll, string(party_getdata(global.party_names[i], "hp")), 1, 1, 0)
 		draw_sprite_ext(spr_ui_hp_seperator, 0, 161 + 213*i + xoff, 428 + 80 - roll, 1, 1, 0, c_white, 1)
 		draw_text_transformed(205 + 213*i + xoff, 428 + 80 - roll, party_getdata(global.party_names[i], "max_hp"), 1, 1, 0)
-        
-        gpu_set_colourwriteenable(true, true, true, false);
+		
+		gpu_set_colourwriteenable(true, true, true, false);
 		draw_set_color(c_white)
 		draw_set_halign(fa_left)
 		draw_set_font(loc_font("main"))
@@ -72,25 +72,25 @@ if !only_hp { // top
 		if is_string(partyreaction[i]) 
 			draw_text_transformed(213*i+xoff, 456 + 80 - roll, partyreaction[i], 1, 1, 0)
 		draw_set_alpha(1)
-        gpu_set_colourwriteenable(true, true, true, true);
+		gpu_set_colourwriteenable(true, true, true, true);
 	}
-}	
+}   
 
 if selection == 0 { // items
 	if state > 0 {
-        var _l_offset = 0
-        var _r_offset = 0
-        if loc_getlang() == "ja" {
-            _l_offset = -24
-            _r_offset = 24
-        }
-        
+		var _l_offset = 0
+		var _r_offset = 0
+		if loc_getlang() == "ja" {
+			_l_offset = -24
+			_r_offset = 24
+		}
+		
 		var opt = [loc("menu_item_use"), loc("menu_item_toss"), loc("menu_item_key")]
 		var draw_text_shadow = function(xx,yy, sstring, color = c_white) {
 			draw_set_color(bcolor)
-		    draw_text_transformed(xx+2, yy+2, sstring, 2, 2, 0)
+			draw_text_transformed(xx+2, yy+2, sstring, 2, 2, 0)
 			draw_set_color(color)
-		    draw_text_transformed(xx, yy, sstring, 2, 2, 0)
+			draw_text_transformed(xx, yy, sstring, 2, 2, 0)
 		}
 		
 		draw_set_font(loc_font("main"))
@@ -98,7 +98,7 @@ if selection == 0 { // items
 		
 		// the three options at the top
 		for (var i = 0; i < 3; ++i) {
-		    var col = c_white
+			var col = c_white
 			if state > 1 && i_pselection == i
 				col = c_orange
 			else if state > 1
@@ -113,22 +113,22 @@ if selection == 0 { // items
 			for (var i = 0; i < item_get_count(ITEM_TYPE.KEY); ++i) {
 				if i == i_selection && state == 2 
 					draw_sprite_ext(spr_uisoul, 0, 120 + (i % 2 == 1 ? 210 + _r_offset*2 : 0) + _l_offset*2, 160 + floor(i/2) * 30, 1, 1, 0, c_red, 1)
-                if !item_check_useable(global.key_items[i])
-                    draw_set_colour(c_gray)
+				if !item_check_useable(global.key_items[i])
+					draw_set_colour(c_gray)
 				draw_text_shadow(146 + (i%2 == 1 ? 210 + _r_offset*2 : 0) + _l_offset*2, 152 + floor(i/2) * 30, item_get_name(global.key_items[i]), (state == 1 ? c_gray : draw_get_colour()))
-                draw_set_colour(c_white)
+				draw_set_colour(c_white)
 			}
 		}
 		else { // other
 			for (var i = 0; i < item_get_count(); ++i) {
 				if i == i_selection && state == 2 
 					draw_sprite_ext(spr_uisoul, 0, 120 + (i % 2 == 1 ? 210 + _r_offset*2 : 0) + _l_offset*2, 160 + floor(i/2) * 30, 1, 1, 0, c_red, 1)
-                if !item_check_useable(global.items[i])
-                    draw_set_colour(c_gray)
+				if !item_check_useable(global.items[i])
+					draw_set_colour(c_gray)
 				draw_text_shadow(146 + (i%2 == 1 ? 210 + _r_offset*2 : 0) + _l_offset*2, 152 + floor(i/2) * 30, item_get_name(global.items[i]), (state == 1 ? c_gray : draw_get_colour()))
-                draw_set_colour(c_white)
+				draw_set_colour(c_white)
 			}
-		}    
+		}
 		
 		if state == 2 || state == 3 {
 			var arr = global.items
@@ -150,13 +150,13 @@ if selection == 0 { // items
 if selection == 1 { // equip
 	if state > 0 {
 		draw_set_font(loc_font("main"))
-        
-        var _l_offset = 0
-        var _r_offset = 0
-        if loc_getlang() == "ja" {
-            _l_offset = -16 - 6
-            _r_offset = 16 + 8
-        }
+		
+		var _l_offset = 0
+		var _r_offset = 0
+		if loc_getlang() == "ja" {
+			_l_offset = -16 - 6
+			_r_offset = 16 + 8
+		}
 		
 		ui_dialoguebox_create(58 + _l_offset, 88, 584 - 58 + _r_offset - _l_offset, 414 - 88)
 		draw_text_transformed(135 + _l_offset, 107, party_getname(global.party_names[e_pmselection],false), 2, 2, 0)
@@ -166,7 +166,7 @@ if selection == 1 { // equip
 			if i == e_pmselection && state == 1 {
 				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i + _l_offset, 142, 1, 1, 0, c_red, 1)
 			}
-		    draw_sprite_ext(party_get_icon_ow(global.party_names[i]),0, 90 + 50*i + _l_offset, 160, 2, 2, 0, c, 1)
+			draw_sprite_ext(party_get_icon_ow(global.party_names[i]),0, 90 + 50*i + _l_offset, 160, 2, 2, 0, c, 1)
 		}
 		
 		draw_set_color(c_white)
@@ -209,7 +209,7 @@ if selection == 1 { // equip
 			if state == 3 && i == e_pselection {
 				if !is_undefined(arr_mod[e_selection]) && !is_undefined(arr_mod[e_selection].effect) {
 					array_push(stats, [arr_mod[e_selection].effect.text, 0, arr_mod[e_selection].effect.sprite])
-                    
+					
 					if !is_undefined(equipment[i]) && !is_undefined(equipment[i].effect) {
 						if arr_mod[e_selection].effect.text != equipment[i].effect.text
 							delta = 2
@@ -224,7 +224,7 @@ if selection == 1 { // equip
 				}
 			}
 			else {
-			    if !is_undefined(equipment[i]) && !is_undefined(equipment[i].effect)
+				if !is_undefined(equipment[i]) && !is_undefined(equipment[i].effect)
 					array_push(stats, [equipment[i].effect.text, 0, equipment[i].effect.sprite])
 				else
 					array_push(stats, [loc("menu_no_ability"), 0, -1])
@@ -238,7 +238,7 @@ if selection == 1 { // equip
 			else 
 				draw_set_color(c_white)
 			
-		    if sprite_exists(stats[i][2]) 
+			if sprite_exists(stats[i][2]) 
 				draw_sprite_ext(stats[i][2], 0, 74 + _l_offset, 236 + i*off + (i > 2 ? 2 : 0), 2, 2, 0, draw_get_color(), 1)
 			
 			if stats[i][0] == loc("menu_no_ability") 
@@ -276,11 +276,11 @@ if selection == 1 { // equip
 				}
 				
 				if struct_get(delta_stats, order[i]) != 0 {
-                    if i != 0 // dont show the change for weapons 
-                        txt = string("{0}({2}{1})", stats[i][1] + struct_get(delta_stats,order[i]), struct_get(delta_stats,order[i]), (struct_get(delta_stats,order[i]) >= 0 ? "+" : ""))
-                    else 
-                        txt = string(stats[i][1] + struct_get(delta_stats,order[i]))
-                    
+					if i != 0 // dont show the change for weapons 
+						txt = string("{0}({2}{1})", stats[i][1] + struct_get(delta_stats,order[i]), struct_get(delta_stats,order[i]), (struct_get(delta_stats,order[i]) >= 0 ? "+" : ""))
+					else 
+						txt = string(stats[i][1] + struct_get(delta_stats,order[i]))
+					
 					if struct_get(delta_stats, order[i]) >= 0 
 						draw_set_color(c_yellow)
 					else 
@@ -360,11 +360,11 @@ if selection == 1 { // equip
 				txt = "---------"
 				draw_set_color(c_dkgray)
 			}
-            
-            if loc_getlang() == "ja"
-                _l_offset -= 6;
 			
-		    draw_text_transformed(384 + _l_offset, 232 + (i - e_move) * 28, txt, 2, 2, 0)
+			if loc_getlang() == "ja"
+				_l_offset -= 6;
+			
+			draw_text_transformed(384 + _l_offset, 232 + (i - e_move) * 28, txt, 2, 2, 0)
 			if i == e_selection && state == 3 
 				draw_sprite_ext(spr_uisoul, 0, 344 + _l_offset, 238 + (i - e_move) * 28, 1, 1, 0, c_red, 1)
 			
@@ -374,9 +374,9 @@ if selection == 1 { // equip
 			if !is_undefined(icon) 
 				draw_sprite_ext(icon, 0, 362 + _l_offset, 236 + (i - e_move) * 28, 2, 2, 0, draw_get_color(), 1)
 			draw_set_color(c_white)
-            
-            if loc_getlang() == "ja"
-                _l_offset += 6;
+			
+			if loc_getlang() == "ja"
+				_l_offset += 6;
 		}
 		
 		// the page arrows
@@ -398,15 +398,15 @@ if selection == 1 { // equip
 if selection == 2 { // power
 	if state > 0 {
 		draw_set_font(loc_font("main"))
-        
-        var _l_offset = 0
-        var _r_offset = 0
-        if loc_getlang() == "ja" {
-            _l_offset = -15
-            _r_offset = 16
-        }
-        
-        ui_dialoguebox_create(58 + _l_offset, 88, 584 - 58 + _r_offset - _l_offset, 414 - 88)
+		
+		var _l_offset = 0
+		var _r_offset = 0
+		if loc_getlang() == "ja" {
+			_l_offset = -15
+			_r_offset = 16
+		}
+		
+		ui_dialoguebox_create(58 + _l_offset, 88, 584 - 58 + _r_offset - _l_offset, 414 - 88)
 		
 		draw_text_transformed(130 + _l_offset, 112-7, party_getname(global.party_names[p_pmselection], false), 2, 2, 0)
 		for (var i = 0; i < party_length(); ++i) {
@@ -414,7 +414,7 @@ if selection == 2 { // power
 			if i == p_pmselection && state == 1 {
 				draw_sprite_ext(spr_ui_soul_arrows, o_world.frames/30 * 2, 108 + 50*i + _l_offset, 141, 1, 1, 0, c_red, 1)
 			}
-		    draw_sprite_ext(party_get_icon_ow(global.party_names[i]),0, 90+50*i + _l_offset, 160, 2, 2, 0, c, 1)
+			draw_sprite_ext(party_get_icon_ow(global.party_names[i]),0, 90+50*i + _l_offset, 160, 2, 2, 0, c, 1)
 		}
 		
 		draw_set_color(c_white)
@@ -428,26 +428,26 @@ if selection == 2 { // power
 		draw_text_ext_transformed(320 + _l_offset, 105, "LV" + string(party_getdata(global.party_names[p_pmselection], "lv")) + " " + loc(party_getdata(global.party_names[p_pmselection], "desc")), 16, 126, 2, 2, 0)
 		
 		var stats = [
-            new party_power_stat("menu_stat_attack", spr_ui_menu_icon_sword, party_getdata(global.party_names[p_pmselection], "attack")),
-            new party_power_stat("menu_stat_defense", spr_ui_menu_icon_armor, party_getdata(global.party_names[p_pmselection], "defense")),
-            new party_power_stat("menu_stat_magic", spr_ui_menu_icon_magic, party_getdata(global.party_names[p_pmselection], "magic")),
+			new party_power_stat("menu_stat_attack", spr_ui_menu_icon_sword, party_getdata(global.party_names[p_pmselection], "attack")),
+			new party_power_stat("menu_stat_defense", spr_ui_menu_icon_armor, party_getdata(global.party_names[p_pmselection], "defense")),
+			new party_power_stat("menu_stat_magic", spr_ui_menu_icon_magic, party_getdata(global.party_names[p_pmselection], "magic")),
 		]
 		if struct_exists(party_nametostruct(global.party_names[p_pmselection]), "power_stats")
 			for (var i = 0; i < array_length(party_getdata(global.party_names[p_pmselection], "power_stats")); ++i) {
-			    array_push(stats, party_getdata(global.party_names[p_pmselection], "power_stats")[i])
+				array_push(stats, party_getdata(global.party_names[p_pmselection], "power_stats")[i])
 			}
 		
-        var off = (loc_getlang() == "ja" ? 28 : 25);
+		var off = (loc_getlang() == "ja" ? 28 : 25);
 		for (var i = 0; i < array_length(stats); i ++) {
-            stats[i].drawer(74 + _l_offset, 232 + i*off);
+			stats[i].drawer(74 + _l_offset, 232 + i*off);
 		}
 		
 		draw_set_color(c_gray)
 		draw_sprite_ext(loc_sprite("menu_caption_tp_spr"), 0, 340 + _l_offset*3, 225, 1, 1, 0, c_white, 1)
 		
 		for (var i = 0; i < array_length(party_getdata(global.party_names[p_pmselection], "spells")); ++i) {
-		    draw_text_transformed(340 + _l_offset*3, 230 + i*25, string("{0}%", party_getdata(global.party_names[p_pmselection], "spells")[i].tp_cost), 2, 2, 0)
-		    draw_text_transformed(410 + _l_offset*3, 230 + i*25, item_get_name(party_getdata(global.party_names[p_pmselection], "spells")[i]), 2, 2, 0)
+			draw_text_transformed(340 + _l_offset*3, 230 + i*25, string("{0}%", party_getdata(global.party_names[p_pmselection], "spells")[i].tp_cost), 2, 2, 0)
+			draw_text_transformed(410 + _l_offset*3, 230 + i*25, item_get_name(party_getdata(global.party_names[p_pmselection], "spells")[i]), 2, 2, 0)
 			
 			if i == p_selection && state == 2
 				draw_sprite_ext(spr_uisoul, 0, 320 + (loc_getlang() == "ja" ? 20 : 0), 240 + i*25 - (loc_getlang() == "ja" ? 2 : 0), 1, 1, 0, c_red, 1)
@@ -468,87 +468,87 @@ if selection == 2 { // power
 	}
 }
 if selection == 3 && state > 0 { // config
-    draw_set_font(loc_font("main"))
-    ui_dialoguebox_create(58, 88, 584 - 58, 414 - 88)
-    
-    if (state == 1 || state == 2 || state == 4) && !fading_out {
-        draw_text_transformed(270, 100, loc("menu_config_header"), 2, 2, 0)
-        draw_sprite_ext(spr_soul, 0, 152, 168 + c_selection*35, 1, 1, 0, c_red, 1)
-        
-        for (var i = 0; i < array_length(c_config); i ++) {
-            if c_selection == i && (state == 2 || state == 4)
-                draw_set_color(c_yellow)
-            
-            draw_text_transformed(170, 150 + i*35, c_config[i].name, 2, 2, 0)
-            
-            // draw the value to the right
-            switch c_config[i].type {
-                case C_CONFIG_TYPE.BUTTON:
-                    break
-                case C_CONFIG_TYPE.SLIDER:
-                    draw_text_transformed(430, 150 + i*35, c_config[i].display(), 2, 2, 0)
-                    break
-                case C_CONFIG_TYPE.SWITCH:
-                    var __txt = "ON"
-                    if is_method(c_config[i].state) {
-                        var __tmp = c_config[i].state()
-                        __txt = (__tmp ? "ON" : "OFF")
-                    }
-                    else
-                        __txt = (c_config[i].state ? "ON" : "OFF")
-                    
-                    draw_text_transformed(430, 150 + i*35, __txt, 2, 2, 0)
-                    break
-                case C_CONFIG_TYPE.SINGLE_SLIDER:
-                    draw_text_transformed(430, 150 + i*35, c_config[i].display(), 2, 2, 0)
-                    break
-            }
-            
-            draw_set_color(c_white)
-        }
-    }
-    else if state == 3 {
-        var __isgamepad = InputDeviceIsGamepad(InputPlayerGetDevice())
-        
-        draw_text_transformed(105, 100, loc("menu_controls_function"), 2, 2, 0)
-        draw_text_transformed(325, 100, loc("menu_controls_key"), 2, 2, 0)
-        
-        if __isgamepad 
-            draw_text_transformed(435, 100, loc("menu_controls_gamepad"), 2, 2, 0)
-        
-        draw_sprite_ext(spr_soul, 0, 88, 156 + 28 * c_controls_selection, 1, 1, 0, c_red, 1)
-        
-        var i = 0;
-        for (i = 0; i < array_length(c_controls); i ++) {
-            if c_controls_selection == i {
-                draw_set_color(c_aqua)
-                if c_controls_changing
-                    draw_set_color(c_red)
-            }
-            
-            draw_text_transformed(105, 140 + 28*i, input_verb_get_name(c_controls[i]), 2, 2, 0)
-            draw_text_transformed(325, 140 + 28*i, input_binding_to_string(InputBindingGet(false, c_controls[i]), false, false), 2, 2, 0)
-            
-            draw_set_color(c_white)
-            
-            if __isgamepad {
-                var __potential_icon = InputIconGet(c_controls[i])
-                draw_sprite_ext(__potential_icon, 0, 465, 140 + 28*i, 2, 2, 0, c_white, 1)
-            }
-        }
-        
-        if c_controls_selection == array_length(c_controls)
-            draw_set_color(merge_color(c_aqua, c_yellow, c_controls_resetfade))
-        draw_text_transformed(105, 140 + 28*i, loc("menu_controls_reset"), 2, 2, 0)
-        draw_set_color(c_white)
-        
-        i ++
-        
-        if c_controls_selection == array_length(c_controls) + 1
-            draw_set_color(c_aqua)
-        draw_text_transformed(105, 140 + 28*i, loc("menu_controls_finish"), 2, 2, 0)
-        draw_set_color(c_white)
-    }
+	draw_set_font(loc_font("main"))
+	ui_dialoguebox_create(58, 88, 584 - 58, 414 - 88)
+	
+	if (state == 1 || state == 2 || state == 4) && !fading_out {
+		draw_text_transformed(270, 100, loc("menu_config_header"), 2, 2, 0)
+		draw_sprite_ext(spr_soul, 0, 152, 168 + c_selection*35, 1, 1, 0, c_red, 1)
+		
+		for (var i = 0; i < array_length(c_config); i ++) {
+			if c_selection == i && (state == 2 || state == 4)
+				draw_set_color(c_yellow)
+			
+			draw_text_transformed(170, 150 + i*35, c_config[i].name, 2, 2, 0)
+			
+			// draw the value to the right
+			switch c_config[i].type {
+				case C_CONFIG_TYPE.BUTTON:
+					break
+				case C_CONFIG_TYPE.SLIDER:
+					draw_text_transformed(430, 150 + i*35, c_config[i].display(), 2, 2, 0)
+					break
+				case C_CONFIG_TYPE.SWITCH:
+					var __txt = "ON"
+					if is_method(c_config[i].state) {
+						var __tmp = c_config[i].state()
+						__txt = (__tmp ? "ON" : "OFF")
+					}
+					else
+						__txt = (c_config[i].state ? "ON" : "OFF")
+					
+					draw_text_transformed(430, 150 + i*35, __txt, 2, 2, 0)
+					break
+				case C_CONFIG_TYPE.SINGLE_SLIDER:
+					draw_text_transformed(430, 150 + i*35, c_config[i].display(), 2, 2, 0)
+					break
+			}
+			
+			draw_set_color(c_white)
+		}
+	}
+	else if state == 3 {
+		var __isgamepad = InputDeviceIsGamepad(InputPlayerGetDevice())
+		
+		draw_text_transformed(105, 100, loc("menu_controls_function"), 2, 2, 0)
+		draw_text_transformed(325, 100, loc("menu_controls_key"), 2, 2, 0)
+		
+		if __isgamepad 
+			draw_text_transformed(435, 100, loc("menu_controls_gamepad"), 2, 2, 0)
+		
+		draw_sprite_ext(spr_soul, 0, 88, 156 + 28 * c_controls_selection, 1, 1, 0, c_red, 1)
+		
+		var i = 0;
+		for (i = 0; i < array_length(c_controls); i ++) {
+			if c_controls_selection == i {
+				draw_set_color(c_aqua)
+				if c_controls_changing
+					draw_set_color(c_red)
+			}
+			
+			draw_text_transformed(105, 140 + 28*i, input_verb_get_name(c_controls[i]), 2, 2, 0)
+			draw_text_transformed(325, 140 + 28*i, input_binding_to_string(InputBindingGet(false, c_controls[i]), false, false), 2, 2, 0)
+			
+			draw_set_color(c_white)
+			
+			if __isgamepad {
+				var __potential_icon = InputIconGet(c_controls[i])
+				draw_sprite_ext(__potential_icon, 0, 465, 140 + 28*i, 2, 2, 0, c_white, 1)
+			}
+		}
+		
+		if c_controls_selection == array_length(c_controls)
+			draw_set_color(merge_color(c_aqua, c_yellow, c_controls_resetfade))
+		draw_text_transformed(105, 140 + 28*i, loc("menu_controls_reset"), 2, 2, 0)
+		draw_set_color(c_white)
+		
+		i ++
+		
+		if c_controls_selection == array_length(c_controls) + 1
+			draw_set_color(c_aqua)
+		draw_text_transformed(105, 140 + 28*i, loc("menu_controls_finish"), 2, 2, 0)
+		draw_set_color(c_white)
+	}
 }
 
 draw_set_color(c_white)

@@ -1,7 +1,7 @@
 enum SAVE_SELECT_THEME {
-    GREAT_DOOR,
-    OMINOUS,
-    FOUNTAIN
+	GREAT_DOOR,
+	OMINOUS,
+	FOUNTAIN
 }
 
 msg = ""
@@ -37,9 +37,9 @@ allow_savename = true
 	
 	m_chfile = "chfile"
 	m_chfileconfirm = "chfileconfirm"
-    
-    localized_messages = loc("save_select_messages_normal")
-    loc_id_messages = "save_select_messages_normal"
+	
+	localized_messages = loc("save_select_messages_normal")
+	loc_id_messages = "save_select_messages_normal"
 }
 
 target_music = mus_story
@@ -74,7 +74,7 @@ event_user(0)
 prepared = false;
 if files[0] != -1 { // check if all saves are identical (very specific secret in DR)
 	prepared = true;
-    
+	
 	var reference_save = [files[0].NAME, files[0].TIME];
 	for (var i = 0; i < array_length(files); ++i) {
 		if is_struct(files[i]) || (files[i].NAME == reference_save[0] && files[i].TIME == reference_save[1]) {

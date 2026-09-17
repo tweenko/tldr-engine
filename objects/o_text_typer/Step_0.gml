@@ -1,5 +1,5 @@
 if global.console && !ignore_console
-    exit
+	exit
 
 if !skipping 
 	event_user(5)
@@ -10,4 +10,4 @@ else
 timer ++
 box_init = true
 if superskipping_buffer > 0
-    superskipping_buffer --
+	superskipping_buffer --

@@ -4,8 +4,8 @@ if fadeout{
 		instance_destroy()
 }
 else {
-	if start_timer 
-        timer --
+	if start_timer
+		timer --
 	siner ++
 	
 	if siner < 10 exit
@@ -80,4 +80,4 @@ else {
 if buffer > 0 buffer--
 
 //if instance_exists(eff_bg) 
-//	eff_bg.fade = uialpha/2
+//  eff_bg.fade = uialpha/2

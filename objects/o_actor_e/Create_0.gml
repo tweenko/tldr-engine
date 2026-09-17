@@ -23,13 +23,13 @@ drawsiner = 0
 encounter_started = false
 
 __start_chasing = function() {
-    notice_timer = 0
-    audio_play(snd_exclamation)
-    
-    if !is_undefined(idle_path)
-        path_end()
-    
-    chase_encounter = true
+	notice_timer = 0
+	audio_play(snd_exclamation)
+	
+	if !is_undefined(idle_path)
+		path_end()
+	
+	chase_encounter = true
 }
 
 xprev_real = 0

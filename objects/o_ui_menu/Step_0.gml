@@ -1,7 +1,7 @@
 if global.console 
 	exit
 if fading_out
-    exit
+	exit
 
 menuroll = lerp(menuroll, (close ? 0 : 1), .4)
 if menuroll < .1 && close 
@@ -11,8 +11,8 @@ if !only_hp {
 	if state == 0 {
 		if (InputPressed(INPUT_VERB.SPECIAL) || InputPressed(INPUT_VERB.CANCEL)) && !close {
 			close = true
-            global.menu_page = selection
-        }
+			global.menu_page = selection
+		}
 		
 		if InputPressed(INPUT_VERB.RIGHT) {
 			selection ++
@@ -121,38 +121,38 @@ if !only_hp {
 			}
 			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
 				if i_pselection == 2 {
-                    if item_check_useable(arr[i_selection]) {
-                        if item_get_type(arr[i_selection]) == ITEM_TYPE.CONSUMABLE {
-                            state = 3; 
-                            buffer = 1;
-                            i_mode = arr[i_selection].use_type
-                            i_select_array = item_get_array(t)
-                        }
-                        else
-                            item_use(arr[i_selection], i_selection, 0)
-                        
-                        if i_selection > item_get_count(t) - 1 
-                            i_selection = item_get_count(t) - 1
-                    }
-                    else 
-                        audio_play(snd_ui_cant_select);
+					if item_check_useable(arr[i_selection]) {
+						if item_get_type(arr[i_selection]) == ITEM_TYPE.CONSUMABLE {
+							state = 3; 
+							buffer = 1;
+							i_mode = arr[i_selection].use_type
+							i_select_array = item_get_array(t)
+						}
+						else
+							item_use(arr[i_selection], i_selection, 0)
+						
+						if i_selection > item_get_count(t) - 1 
+							i_selection = item_get_count(t) - 1
+					}
+					else 
+						audio_play(snd_ui_cant_select);
 				}
 				else {
 					if item_check_useable(arr[i_selection]) {
 						state = 3; 
 						buffer = 1;
 						i_mode = arr[i_selection].use_type
-                        i_select_array = item_get_array(t)
+						i_select_array = item_get_array(t)
 						
 						audio_play(snd_ui_select);
 					}
-                    else 
-                        audio_play(snd_ui_cant_select);
-                    
+					else 
+						audio_play(snd_ui_cant_select);
+					
 					if i_pselection == 1 
 						i_mode = 1
 				}
-                if item_get_count(t) == 0
+				if item_get_count(t) == 0
 					state = 1
 			}
 		}
@@ -188,16 +188,16 @@ if !only_hp {
 						audio_play(snd_ui_cancel);
 					}
 					else if !is_undefined(i_select_array[i_selection].toss_execute)
-                        method_call(i_select_array[i_selection].toss_execute, [i_selection]);
+						method_call(i_select_array[i_selection].toss_execute, [i_selection]);
 				}
-                else {
+				else {
 					state = 2;
 					i_mode = 0
 					
 					// use the item and apply the reaction
 					item_menu_reaction(i_select_array[i_selection], i_pmselection)
 					item_use(i_select_array[i_selection], i_selection, i_pmselection)
-                }
+				}
 				
 				if item_get_count(t) == 0
 					state = 1
@@ -325,10 +325,10 @@ if !only_hp {
 					customreaction = true
 					item_menu_party_react("susie", loc("item_susie_comment"))
 				}
-                if allow // don't allow to touch weapons at all
-                    && e_pselection == 0
+				if allow // don't allow to touch weapons at all
+					&& e_pselection == 0
 					&& is_undefined(arr_mod[e_selection]) 
-                    && !is_undefined(party_getdata(global.party_names[e_pmselection], "weapon"))
+					&& !is_undefined(party_getdata(global.party_names[e_pmselection], "weapon"))
 				{
 					allow = false
 				}
@@ -340,31 +340,31 @@ if !only_hp {
 					var prev_item = equipment[e_pselection]
 					if !is_undefined(arr_mod[e_selection]) {
 						item_menu_reaction(arr_mod[e_selection], e_pmselection)
-                        
+						
 						item_use(arr_mod[e_selection], e_selection, e_pmselection);
 						if is_undefined(equipment[e_pselection]) {
 							item_delete(e_selection, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
-                        }
+						}
 						else {
 							item_set(equipment[e_pselection], e_selection, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
-                            if is_method(equipment[e_pselection].unequipped)
-                                method_call(equipment[e_pselection].unequipped, [e_selection, e_pmselection])
-                        }
-                        
+							if is_method(equipment[e_pselection].unequipped)
+								method_call(equipment[e_pselection].unequipped, [e_selection, e_pmselection])
+						}
+						
 						party_setdata(global.party_names[e_pmselection], order[e_pselection], arr_mod[e_selection])
 					}
 					else {
 						if !is_undefined(equipment[e_pselection]) {
-                            if is_method(equipment[e_pselection].unequipped)
-                                method_call(equipment[e_pselection].unequipped, [e_selection, e_pmselection])
+							if is_method(equipment[e_pselection].unequipped)
+								method_call(equipment[e_pselection].unequipped, [e_selection, e_pmselection])
 							item_set(equipment[e_pselection], e_selection, (e_pselection>0 ? ITEM_TYPE.ARMOR : ITEM_TYPE.WEAPON))
-                            
+							
 							party_setdata(global.party_names[e_pmselection], order[e_pselection], undefined)
 						}
 					}
-                    
-                    item_deapply(prev_item, global.party_names[e_pmselection])
-                    item_apply(arr_mod[e_selection], global.party_names[e_pmselection])
+					
+					item_deapply(prev_item, global.party_names[e_pmselection])
+					item_apply(arr_mod[e_selection], global.party_names[e_pmselection])
 					
 					audio_play(snd_equip)
 				}
@@ -425,163 +425,163 @@ if !only_hp {
 				p_selection = 0
 		}
 	}
-    if selection == 3 { // config
-        if state == 1 { // config menu
-            if InputPressed(INPUT_VERB.DOWN) {
-                c_selection ++
-                audio_play(snd_ui_move)
-            }
-            if InputPressed(INPUT_VERB.UP) {
-                c_selection --
-                audio_play(snd_ui_move)
-            }
-            c_selection = (c_selection + array_length(c_config)) % array_length(c_config)
-            
-            if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-                audio_play(snd_ui_select)
-                buffer = 2
-                
-                switch c_config[c_selection].type {
-                    case C_CONFIG_TYPE.SLIDER:
-                        state = 2
-                        break
-                    case C_CONFIG_TYPE.BUTTON:
-                        c_config[c_selection].call()
-                        break
-                    case C_CONFIG_TYPE.SWITCH:
-                        var __tmp = false
-                        if is_method(c_config[c_selection].state)
-                            __tmp = !c_config[c_selection].state()
-                        else {
-                            __tmp = !c_config[c_selection].state
-                            c_config[c_selection].state = __tmp
-                        }
-                        
-                        c_config[c_selection].call(__tmp)
-                        break
-                    case C_CONFIG_TYPE.SINGLE_SLIDER:
-                        state = 4
-                        break
-                }
-            }
-            if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
-                audio_play(snd_ui_cancel_small)
-                state = 0
-                buffer = 1
-            }
-        }
-        if state == 2 { // changing a slider
-            if InputCheck(INPUT_VERB.LEFT) {
-                c_config[c_selection].call(-.02)
-                c_holdtimer ++
-                
-                if c_holdtimer % 3 == 0
-                    audio_play(snd_noise)
-            }
-            else if InputCheck(INPUT_VERB.RIGHT) {
-                c_config[c_selection].call(.02)
-                c_holdtimer ++
-                
-                if c_holdtimer % 3 == 0
-                    audio_play(snd_noise)
-            }
-            else 
-                c_holdtimer = 0
-            
-            if (InputPressed(INPUT_VERB.SELECT) || InputPressed(INPUT_VERB.CANCEL)) && buffer == 0 {
-                state = 1
-                buffer = 1
-                audio_play(snd_ui_select)
-            }
-        }
-        if state == 3 { // controls
-            var __inputdevice = InputPlayerGetDevice()
-            if c_controls_changing {
-                if keyboard_check_pressed(vk_escape) && buffer == 0 {
-                    audio_play(snd_ui_cancel_small)
-                    InputDeviceSetRebinding(__inputdevice, false)
-                    
-                    c_controls_changing = false
-                    buffer = 1
-                }
-                if buffer == 0 {
-                    if InputDeviceGetRebinding(__inputdevice) {
-                        var _result = InputDeviceGetRebindingResult(__inputdevice);
-                        if (_result != undefined) {
-                            InputBindingSetSafe(InputDeviceIsGamepad(__inputdevice), c_controls[c_controls_selection], _result);
-                            InputDeviceSetRebinding(__inputdevice, false);
-                            
-                            audio_play(snd_ui_cancel_small)
-                            audio_play(snd_ui_select)
-                            c_controls_changing = false
-                            buffer = 1
-                        }
-                    }
-                }
-            }
-            else {
-                if InputPressed(INPUT_VERB.DOWN) {
-                    c_controls_selection ++
-                    audio_play(snd_ui_move)
-                }
-                if InputPressed(INPUT_VERB.UP) {
-                    c_controls_selection --
-                    audio_play(snd_ui_move)
-                }
-                c_controls_selection = (c_controls_selection + (array_length(c_controls) + 2)) % (array_length(c_controls) + 2)
-                
-                if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
-                    audio_play(snd_ui_select)
-                    
-                    if c_controls_selection < array_length(c_controls) {
-                        c_controls_changing = true
-                        buffer = 2
-                        
-                        // start rebinding and ignore certain keys
-                        var _ignoreArray = [
-                            vk_alt, vk_capslock, vk_printscreen, 
-                            vk_control, vk_enter, vk_shift, vk_tab,
-                            vk_backspace, vk_subtract, vk_add, vk_equals,
-                            
-                            vk_f1, vk_f2, vk_f3, vk_f4, vk_f5, vk_f6, vk_f7, vk_f8, vk_f9, vk_f10, vk_f11, vk_f12, 
-                            vk_escape, vk_insert, vk_delete, vk_home, vk_end, vk_pageup, vk_pagedown,
-                            
-                            gp_start, gp_home, gp_touchpadbutton, gp_select, 
-                            gp_axislh, gp_axisrh, gp_axisrv, gp_axislv, 
-                            gp_stickl, gp_stickr
-                        ]
-                        InputDeviceSetRebinding(__inputdevice, true, _ignoreArray)
-                    }
-                    else {
-                    	if c_controls_selection == array_length(c_controls) {
-                            c_controls_resetfade = 1
-                            audio_play(snd_levelup)
-                            
-                            // reset the bindings
-                            InputBindingsReset(InputDeviceIsGamepad(InputPlayerGetDevice()))
-                        }
-                        else {
-                            buffer = 2
-                            audio_play(snd_ui_cancel_small)
-                            state = 1
-                        }
-                    }
-                }
-            }
-        }
-        if state == 4 { // single slider
-            if InputPressed(INPUT_VERB.LEFT)
-                c_config[c_selection].call(-1)
-            else if InputPressed(INPUT_VERB.RIGHT)
-                c_config[c_selection].call(1)
-            
-            if (InputPressed(INPUT_VERB.SELECT) || InputPressed(INPUT_VERB.CANCEL)) && buffer == 0 {
-                state = 1
-                buffer = 1
-                audio_play(snd_ui_select)
-            }
-        }
-    }
+	if selection == 3 { // config
+		if state == 1 { // config menu
+			if InputPressed(INPUT_VERB.DOWN) {
+				c_selection ++
+				audio_play(snd_ui_move)
+			}
+			if InputPressed(INPUT_VERB.UP) {
+				c_selection --
+				audio_play(snd_ui_move)
+			}
+			c_selection = (c_selection + array_length(c_config)) % array_length(c_config)
+			
+			if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
+				audio_play(snd_ui_select)
+				buffer = 2
+				
+				switch c_config[c_selection].type {
+					case C_CONFIG_TYPE.SLIDER:
+						state = 2
+						break
+					case C_CONFIG_TYPE.BUTTON:
+						c_config[c_selection].call()
+						break
+					case C_CONFIG_TYPE.SWITCH:
+						var __tmp = false
+						if is_method(c_config[c_selection].state)
+							__tmp = !c_config[c_selection].state()
+						else {
+							__tmp = !c_config[c_selection].state
+							c_config[c_selection].state = __tmp
+						}
+						
+						c_config[c_selection].call(__tmp)
+						break
+					case C_CONFIG_TYPE.SINGLE_SLIDER:
+						state = 4
+						break
+				}
+			}
+			if InputPressed(INPUT_VERB.CANCEL) && buffer == 0 {
+				audio_play(snd_ui_cancel_small)
+				state = 0
+				buffer = 1
+			}
+		}
+		if state == 2 { // changing a slider
+			if InputCheck(INPUT_VERB.LEFT) {
+				c_config[c_selection].call(-.02)
+				c_holdtimer ++
+				
+				if c_holdtimer % 3 == 0
+					audio_play(snd_noise)
+			}
+			else if InputCheck(INPUT_VERB.RIGHT) {
+				c_config[c_selection].call(.02)
+				c_holdtimer ++
+				
+				if c_holdtimer % 3 == 0
+					audio_play(snd_noise)
+			}
+			else 
+				c_holdtimer = 0
+			
+			if (InputPressed(INPUT_VERB.SELECT) || InputPressed(INPUT_VERB.CANCEL)) && buffer == 0 {
+				state = 1
+				buffer = 1
+				audio_play(snd_ui_select)
+			}
+		}
+		if state == 3 { // controls
+			var __inputdevice = InputPlayerGetDevice()
+			if c_controls_changing {
+				if keyboard_check_pressed(vk_escape) && buffer == 0 {
+					audio_play(snd_ui_cancel_small)
+					InputDeviceSetRebinding(__inputdevice, false)
+					
+					c_controls_changing = false
+					buffer = 1
+				}
+				if buffer == 0 {
+					if InputDeviceGetRebinding(__inputdevice) {
+						var _result = InputDeviceGetRebindingResult(__inputdevice);
+						if (_result != undefined) {
+							InputBindingSetSafe(InputDeviceIsGamepad(__inputdevice), c_controls[c_controls_selection], _result);
+							InputDeviceSetRebinding(__inputdevice, false);
+							
+							audio_play(snd_ui_cancel_small)
+							audio_play(snd_ui_select)
+							c_controls_changing = false
+							buffer = 1
+						}
+					}
+				}
+			}
+			else {
+				if InputPressed(INPUT_VERB.DOWN) {
+					c_controls_selection ++
+					audio_play(snd_ui_move)
+				}
+				if InputPressed(INPUT_VERB.UP) {
+					c_controls_selection --
+					audio_play(snd_ui_move)
+				}
+				c_controls_selection = (c_controls_selection + (array_length(c_controls) + 2)) % (array_length(c_controls) + 2)
+				
+				if InputPressed(INPUT_VERB.SELECT) && buffer == 0 {
+					audio_play(snd_ui_select)
+					
+					if c_controls_selection < array_length(c_controls) {
+						c_controls_changing = true
+						buffer = 2
+						
+						// start rebinding and ignore certain keys
+						var _ignoreArray = [
+							vk_alt, vk_capslock, vk_printscreen, 
+							vk_control, vk_enter, vk_shift, vk_tab,
+							vk_backspace, vk_subtract, vk_add, vk_equals,
+							
+							vk_f1, vk_f2, vk_f3, vk_f4, vk_f5, vk_f6, vk_f7, vk_f8, vk_f9, vk_f10, vk_f11, vk_f12, 
+							vk_escape, vk_insert, vk_delete, vk_home, vk_end, vk_pageup, vk_pagedown,
+							
+							gp_start, gp_home, gp_touchpadbutton, gp_select, 
+							gp_axislh, gp_axisrh, gp_axisrv, gp_axislv, 
+							gp_stickl, gp_stickr
+						]
+						InputDeviceSetRebinding(__inputdevice, true, _ignoreArray)
+					}
+					else {
+						if c_controls_selection == array_length(c_controls) {
+							c_controls_resetfade = 1
+							audio_play(snd_levelup)
+							
+							// reset the bindings
+							InputBindingsReset(InputDeviceIsGamepad(InputPlayerGetDevice()))
+						}
+						else {
+							buffer = 2
+							audio_play(snd_ui_cancel_small)
+							state = 1
+						}
+					}
+				}
+			}
+		}
+		if state == 4 { // single slider
+			if InputPressed(INPUT_VERB.LEFT)
+				c_config[c_selection].call(-1)
+			else if InputPressed(INPUT_VERB.RIGHT)
+				c_config[c_selection].call(1)
+			
+			if (InputPressed(INPUT_VERB.SELECT) || InputPressed(INPUT_VERB.CANCEL)) && buffer == 0 {
+				state = 1
+				buffer = 1
+				audio_play(snd_ui_select)
+			}
+		}
+	}
 }
 
 timer --
@@ -591,9 +591,9 @@ if timer <= 0 && only_hp
 if buffer > 0 
 	buffer --
 if c_controls_resetfade > 0
-    c_controls_resetfade -= .1
+	c_controls_resetfade -= .1
 
 for (var i = 0; i < party_length(); ++i) {
-    if partyreactiontimer[i] > 0
+	if partyreactiontimer[i] > 0
 		partyreactiontimer[i] -= .1
 }

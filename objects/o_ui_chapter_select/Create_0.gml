@@ -27,9 +27,9 @@ tselec = 0
 
 possible_chapters = 0;
 for (var i = 0; i < array_length(global.registered_chapters); i ++) {
-    if !is_struct(global.registered_chapters[i])
-        break
-    possible_chapters ++
+	if !is_struct(global.registered_chapters[i])
+		break
+	possible_chapters ++
 }
 
 yes = loc("chapter_select_yes")

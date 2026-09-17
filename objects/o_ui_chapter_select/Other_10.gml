@@ -2,28 +2,28 @@
 incomplete_ch = global.chapter
 
 for (var i = 0; i < array_length(global.registered_chapters); i ++) {
-    var _chapter = global.registered_chapters[i];
-    
-    if !is_struct(_chapter)
-        continue;
-    
-    var _target_ch = _chapter.target_chapter;
-    chapter_parsed_data[i] = {
-        any_completed: save_is_chapter_completed(_target_ch),
-        completed_slots: array_create_ext(SAVE_SLOTS, method({chapter: _target_ch}, function(index) { return (save_is_slot_completed(index, chapter) 
-            ? (save_exists(index, chapter) ? "completed" : "completed_before") 
-            : "not_completed"
-        ); })),
-        crystal_slots: array_create_ext(SAVE_SLOTS, method({chapter: _target_ch}, 
-            function(index) { 
-                if !save_exists(index, chapter) 
-                    return false;
-                if save_read(index, chapter).CRYSTAL
-                    return true;
-                return false;
-            })
-        )
-    }
+	var _chapter = global.registered_chapters[i];
+	
+	if !is_struct(_chapter)
+		continue;
+	
+	var _target_ch = _chapter.target_chapter;
+	chapter_parsed_data[i] = {
+		any_completed: save_is_chapter_completed(_target_ch),
+		completed_slots: array_create_ext(SAVE_SLOTS, method({chapter: _target_ch}, function(index) { return (save_is_slot_completed(index, chapter) 
+			? (save_exists(index, chapter) ? "completed" : "completed_before") 
+			: "not_completed"
+		); })),
+		crystal_slots: array_create_ext(SAVE_SLOTS, method({chapter: _target_ch}, 
+			function(index) { 
+				if !save_exists(index, chapter) 
+					return false;
+				if save_read(index, chapter).CRYSTAL
+					return true;
+				return false;
+			})
+		)
+	}
 }
 
 if save_is_chapter_completed()

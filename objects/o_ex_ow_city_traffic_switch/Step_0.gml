@@ -8,6 +8,6 @@ if active && get_leader()._checkmove() {
 	if timer_sec == 0 {
 		active = false
 		if onscreen(id) 
-            audio_play(snd_noise,,,,1)
+			audio_play(snd_noise,,,,1)
 	}
 }

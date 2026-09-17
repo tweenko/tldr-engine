@@ -1,2 +1,2 @@
 if !gui
-    draw_self()
+	draw_self()

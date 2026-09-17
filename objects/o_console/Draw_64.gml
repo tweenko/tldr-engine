@@ -2,15 +2,15 @@ loc_font("main")
 if active {
 	draw_set_font(loc_font("main"))
 	
-    var target_command = command_find(held_keys);
+	var target_command = command_find(held_keys);
 	
 	var text = $"tab+"
-    for (var i = 0; i < array_length(held_keys); i ++) {
-        text += chr(held_keys[i]);
-        if i < array_length(held_keys) - 1
-            text += "+";
-    }
-    
+	for (var i = 0; i < array_length(held_keys); i ++) {
+		text += chr(held_keys[i]);
+		if i < array_length(held_keys) - 1
+			text += "+";
+	}
+	
 	if !is_undefined(target_command) {
 		text += $"\n{target_command.name}"
 	}
@@ -28,9 +28,9 @@ if active {
 
 var yy = 0;
 for (var i = 0; i < array_length(current_console_logs); i ++) {
-    if is_undefined(current_console_logs[i])
-        continue;
-    
-    current_console_logs[i].draw(0, yy);
-    yy -= current_console_logs[i].height + 12;
+	if is_undefined(current_console_logs[i])
+		continue;
+	
+	current_console_logs[i].draw(0, yy);
+	yy -= current_console_logs[i].height + 12;
 }

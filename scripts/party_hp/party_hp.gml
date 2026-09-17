@@ -6,14 +6,14 @@
 /// @arg {bool} spawn_text whether text should be spawned
 function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true) {
 	heal = round(heal) // to avoid artifacts
-    
-    if heal > 0 { // heal
+	
+	if heal > 0 { // heal
 		if sfx == -1
 			sfx = snd_heal
-        if audio_exists(sfx)
-            audio_play(sfx,,,,1)
+		if audio_exists(sfx)
+			audio_play(sfx,,,,1)
 		
-        var will_be_up = party_get_will_up(name, heal)
+		var will_be_up = party_get_will_up(name, heal)
 		party_setdata(name, "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
 		
 		if (caller == o_ui_menu || instance_exists(caller) && caller.object_index == o_ui_menu) { // if in menu
@@ -33,44 +33,44 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 			if party_getdata(name, "hp") >= party_getdata(name, "max_hp")
 				txt = "max"
 			
-            if spawn_text
-                instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {
-                    draw: txt, 
-                    mode: TEXT_HPCHANGE_MODE.PARTY
-                })
-            
+			if spawn_text
+				instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {
+					draw: txt, 
+					mode: TEXT_HPCHANGE_MODE.PARTY
+				})
+			
 			instance_create(o_eff_healeffect,,,, {target: o})
-            var a = animate(.5, 1, 4, anime_curve.linear, o, "flash")
-                a._add(0, 6, anime_curve.linear)
-                a._start()
+			var a = animate(.5, 1, 4, anime_curve.linear, o, "flash")
+				a._add(0, 6, anime_curve.linear)
+				a._start()
 		}
 	}
 	else if heal == 0 { // miss
-        if (caller == o_ui_menu || instance_exists(caller) && caller.object_index == o_ui_menu) {} // if in menu, do nothing
+		if (caller == o_ui_menu || instance_exists(caller) && caller.object_index == o_ui_menu) {} // if in menu, do nothing
 		else if spawn_text {
 			var o = party_get_inst(name)
-            if spawn_text && instance_exists(o)
-                instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: "miss", mode: TEXT_HPCHANGE_MODE.PARTY})
+			if spawn_text && instance_exists(o)
+				instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth-100, {draw: "miss", mode: TEXT_HPCHANGE_MODE.PARTY})
 		}
 	}
 	else if heal < 0 { // hurt
 		if sfx == -1
 			sfx = snd_hurt
 		
-        var will_be_down = party_get_will_down(name, heal)
+		var will_be_down = party_get_will_down(name, heal)
 		party_setdata(name, "hp", min(party_getdata(name, "hp") + heal, party_getdata(name, "max_hp")))
 		
-        if (caller == o_ui_menu || instance_exists(caller) && caller.object_index == o_ui_menu) {} // if in menu, do nothing
+		if (caller == o_ui_menu || instance_exists(caller) && caller.object_index == o_ui_menu) {} // if in menu, do nothing
 		else {
 			var txt = heal
 			var o = party_get_inst(name)
 			
-            if instance_exists(o_enc)
-                o_enc.pm_hurt[party_get_index(name)] = 15;
-            
+			if instance_exists(o_enc)
+				o_enc.pm_hurt[party_get_index(name)] = 15;
+			
 			if o.is_in_battle {
 				o.hurt = 20
-                screen_shake(5)
+				screen_shake(5)
 				animate(6, 0, 10, anime_curve.linear, o, "shake")
 				
 				if will_be_down {
@@ -84,8 +84,8 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 				
 				if instance_exists(get_leader().dodge_mysoul) 
 					get_leader().dodge_mysoul.i_frames = global.ow_dodge_inv;
-                else if climb_check()
-                    o_dev_climb_controller.leader_inv = o_dev_climb_controller.leader_inv_max;
+				else if climb_check()
+					o_dev_climb_controller.leader_inv = o_dev_climb_controller.leader_inv_max;
 				
 				if !instance_exists(o_ui_menu) 
 					instance_create(o_ui_menu,,,, {only_hp: true})
@@ -98,7 +98,7 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 				if party_getdata(name, "hp") <= 1 {
 					var alive = false
 					for (var i = 0; i < party_length(); ++i) {
-					    if party_getdata(global.party_names[i], "hp") > 1 {
+						if party_getdata(global.party_names[i], "hp") > 1 {
 							alive = true
 							break
 						}
@@ -109,13 +109,13 @@ function party_hpchange(name, heal, caller = noone, sfx = -1, spawn_text = true)
 				}
 			}
 			
-            if spawn_text
-                instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {
-                    draw: txt, 
-                    mode: TEXT_HPCHANGE_MODE.PARTY
-                })
-            if audio_exists(sfx)
-                audio_play(sfx,,,,1)
+			if spawn_text
+				instance_create(o_text_hpchange, o.x, o.s_get_middle_y(), o.depth - 100, {
+					draw: txt, 
+					mode: TEXT_HPCHANGE_MODE.PARTY
+				})
+			if audio_exists(sfx)
+				audio_play(sfx,,,,1)
 		}
 		
 		party_check_gameover()
@@ -144,8 +144,8 @@ function party_hurt(name, hurt, caller = noone, sfx = -1) {
 /// @arg {string} element the element of the attack that will be used for calculation
 /// @arg {real} sfx sound effect that will be played upon dealing damage
 function party_attack(name, enemy_attack, caller = noone, element = "", sfx = -1) {
-    var dmg = damage(enemy_attack, name, element)
-    party_hurt(name, dmg, caller, sfx)
+	var dmg = damage(enemy_attack, name, element)
+	party_hurt(name, dmg, caller, sfx)
 }
 
 ///@desc heal all party members a specified amount
@@ -191,9 +191,9 @@ function party_hurt_targets(hurt, caller = noone) {
 /// @arg {string} element the element of the attack that will be used for calculation
 function party_attack_targets(att, caller = noone, element = "") {
 	for (var i = 0; i < array_length(o_enc.turn_targets); ++i) {
-        if enc_recalculate_condition(o_enc.encounter_data, o_enc.turn_targets)
-            o_enc.turn_targets = enc_calculate_target(o_enc.encounter_data)
-        
+		if enc_recalculate_condition(o_enc.encounter_data, o_enc.turn_targets)
+			o_enc.turn_targets = enc_calculate_target(o_enc.encounter_data)
+		
 		if party_isup(o_enc.turn_targets[i]) {
 			var dmg = damage(att, o_enc.turn_targets[i], element)
 			party_hurt(o_enc.turn_targets[i], dmg, caller)
@@ -204,7 +204,7 @@ function party_attack_targets(att, caller = noone, element = "") {
 ///@desc check if the party is all down. if so, initiates the gameover screen
 function party_check_gameover() {
 	var res_ow = true
-    var res_enc = true
+	var res_enc = true
 	for (var i = 0; i < party_length(); ++i) {
 		if party_getdata(global.party_names[i], "hp") > 1 && res_ow
 			res_ow = false
@@ -214,17 +214,17 @@ function party_check_gameover() {
 	
 	if res_enc && instance_exists(o_enc) 
 		enc_gameover()
-    else if res_ow
-        dodge_gameover()
+	else if res_ow
+		dodge_gameover()
 }
 
-///@desc	caluclates the damage for an enemy attack
-///@arg	{struct}	attack	enemy's attack stat
-///@arg	{string}	party_name	party member's name
+///@desc    caluclates the damage for an enemy attack
+///@arg {struct}    attack  enemy's attack stat
+///@arg {string}    party_name  party member's name
 /// @arg {string}   element     the element that will be used for calculation
 function damage(attack, party_name, element){
 	if !party_get_inst(party_name).is_in_battle 
-        return attack
+		return attack
 	
 	// base calculation
 	var hurt = 5*attack
@@ -233,20 +233,20 @@ function damage(attack, party_name, element){
 	// member's defense
 	var dfm = 0
 	for (var i = 0; i < party.defense; ++i) {
-	    if hurt > 1/5 * party.max_hp 
-            dfm=3
+		if hurt > 1/5 * party.max_hp 
+			dfm=3
 		else if hurt > 1/8 * party.max_hp 
-            dfm = 2
+			dfm = 2
 		else 
-            dfm = 1
-        
+			dfm = 1
+		
 		hurt -= dfm
 	}
 	
 	// check if member is defending
 	if instance_exists(o_enc){
 		if o_enc.party_state[party_get_index(party_name)] == PARTY_STATE.DEFEND // defending
-            hurt *= 2/3
+			hurt *= 2/3
 	}
 	// apply element protection
 	if struct_exists(party.element_resistance, element) {

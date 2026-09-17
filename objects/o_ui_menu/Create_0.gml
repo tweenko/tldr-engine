@@ -30,125 +30,125 @@ c_controls_selection = 0
 c_holdtimer = 0
 
 enum C_CONFIG_TYPE {
-    SLIDER,
-    BUTTON,
-    SWITCH,
-    SINGLE_SLIDER,
+	SLIDER,
+	BUTTON,
+	SWITCH,
+	SINGLE_SLIDER,
 }
 c_config = [
-    {
-        name: loc("menu_config_master_vol"),
-        type: C_CONFIG_TYPE.SLIDER,
-    
-        call: method(self, function(delta) {
-            o_world.volume_master += delta
-            o_world.volume_master = clamp(o_world.volume_master, 0, 1)
-            
-            audio_master_gain(o_world.volume_master)
-        }),
-        display: function() {
-            return $"{clamp(round(o_world.volume_master * 100), 0, 100)}%"
-        }
-    },
-    {
-        name: loc("menu_config_controls"),
-        type: C_CONFIG_TYPE.BUTTON,
-        call: method(self, function() {
-            state = 3
-        })
-    },
-    {
-        name: loc("menu_config_simplify_vfx"),
-        state: function() {
-            return global.settings.SIMPLIFY_VFX
-        },
-        type: C_CONFIG_TYPE.SWITCH,
-        call: method(self, function(_bool) {
-            global.settings.SIMPLIFY_VFX = _bool
-        })
-    },
-    // fullscreen ?
-    {
-        name: loc("menu_config_auto_run"),
-        state: function() {
-            return global.settings.AUTO_RUN
-        },
-        type: C_CONFIG_TYPE.SWITCH,
-        call: method(self, function(_bool) {
-            get_leader().auto_run = _bool
-            global.settings.AUTO_RUN = _bool
-        })
-    },
-    // border ?
-    {
-        name: loc("menu_config_return_title"),
-        type: C_CONFIG_TYPE.BUTTON,
-        call: method(self, function() {
-            fader_fade(0, 1, 20, DEPTH_UI.HIGHEST)
-            music_fade_all(0, 20)
-            
-            alarm[2] = 40
-            fading_out = true
-        })
-    },
-    {
-        name: loc("menu_config_back"),
-        type: C_CONFIG_TYPE.BUTTON,
-        call: method(self, function() {
-            state = 0
-        })
-    },
+	{
+		name: loc("menu_config_master_vol"),
+		type: C_CONFIG_TYPE.SLIDER,
+	
+		call: method(self, function(delta) {
+			o_world.volume_master += delta
+			o_world.volume_master = clamp(o_world.volume_master, 0, 1)
+			
+			audio_master_gain(o_world.volume_master)
+		}),
+		display: function() {
+			return $"{clamp(round(o_world.volume_master * 100), 0, 100)}%"
+		}
+	},
+	{
+		name: loc("menu_config_controls"),
+		type: C_CONFIG_TYPE.BUTTON,
+		call: method(self, function() {
+			state = 3
+		})
+	},
+	{
+		name: loc("menu_config_simplify_vfx"),
+		state: function() {
+			return global.settings.SIMPLIFY_VFX
+		},
+		type: C_CONFIG_TYPE.SWITCH,
+		call: method(self, function(_bool) {
+			global.settings.SIMPLIFY_VFX = _bool
+		})
+	},
+	// fullscreen ?
+	{
+		name: loc("menu_config_auto_run"),
+		state: function() {
+			return global.settings.AUTO_RUN
+		},
+		type: C_CONFIG_TYPE.SWITCH,
+		call: method(self, function(_bool) {
+			get_leader().auto_run = _bool
+			global.settings.AUTO_RUN = _bool
+		})
+	},
+	// border ?
+	{
+		name: loc("menu_config_return_title"),
+		type: C_CONFIG_TYPE.BUTTON,
+		call: method(self, function() {
+			fader_fade(0, 1, 20, DEPTH_UI.HIGHEST)
+			music_fade_all(0, 20)
+			
+			alarm[2] = 40
+			fading_out = true
+		})
+	},
+	{
+		name: loc("menu_config_back"),
+		type: C_CONFIG_TYPE.BUTTON,
+		call: method(self, function() {
+			state = 0
+		})
+	},
 ]
 
 if !global.can_use_borders {
-    array_insert(c_config, 3, {
-        name: loc("menu_config_fullscreen"),
-        state: function() {
-            return window_get_fullscreen()
-        },
-        type: C_CONFIG_TYPE.SWITCH,
-    
-        call: method(self, function(_bool) {
-            window_set_fullscreen(_bool)
-        }),
-    })
+	array_insert(c_config, 3, {
+		name: loc("menu_config_fullscreen"),
+		state: function() {
+			return window_get_fullscreen()
+		},
+		type: C_CONFIG_TYPE.SWITCH,
+	
+		call: method(self, function(_bool) {
+			window_set_fullscreen(_bool)
+		}),
+	})
 }
 else {
-    array_insert(c_config, 4, {
-        name: loc("menu_config_border"),
-        display: function() {
-            return loc($"menu_config_border_mode_{global.border_mode}")
-        },
-        type: C_CONFIG_TYPE.SINGLE_SLIDER,
-    
-        call: method(self, function(delta) {
-            global.border_mode += delta
-            global.border_mode = (global.border_mode + global.border_mode_count) % global.border_mode_count
-            
-            if global.border_mode == BORDER_MODE.OFF
-                borders_toggle(false)
-            else
-                borders_toggle(true)
-            
-            if global.border_mode == BORDER_MODE.DYNAMIC
-                border_set(global.current_dynamic_border,, 0);
-            else if global.border_mode == BORDER_MODE.SIMPLE
-                border_set(border_simple,, 0);
-            else if global.border_mode == BORDER_MODE.NONE
-                border_set(border_none,, 0);
-        }),
-    })
+	array_insert(c_config, 4, {
+		name: loc("menu_config_border"),
+		display: function() {
+			return loc($"menu_config_border_mode_{global.border_mode}")
+		},
+		type: C_CONFIG_TYPE.SINGLE_SLIDER,
+	
+		call: method(self, function(delta) {
+			global.border_mode += delta
+			global.border_mode = (global.border_mode + global.border_mode_count) % global.border_mode_count
+			
+			if global.border_mode == BORDER_MODE.OFF
+				borders_toggle(false)
+			else
+				borders_toggle(true)
+			
+			if global.border_mode == BORDER_MODE.DYNAMIC
+				border_set(global.current_dynamic_border,, 0);
+			else if global.border_mode == BORDER_MODE.SIMPLE
+				border_set(border_simple,, 0);
+			else if global.border_mode == BORDER_MODE.NONE
+				border_set(border_none,, 0);
+		}),
+	})
 }
 
 
 c_controls = [
-    INPUT_VERB.DOWN,
-    INPUT_VERB.RIGHT,
-    INPUT_VERB.UP,
-    INPUT_VERB.LEFT,
-    INPUT_VERB.SELECT,
-    INPUT_VERB.CANCEL,
-    INPUT_VERB.SPECIAL,
+	INPUT_VERB.DOWN,
+	INPUT_VERB.RIGHT,
+	INPUT_VERB.UP,
+	INPUT_VERB.LEFT,
+	INPUT_VERB.SELECT,
+	INPUT_VERB.CANCEL,
+	INPUT_VERB.SPECIAL,
 ]
 c_controls_changing = false
 c_controls_resetfade = 0

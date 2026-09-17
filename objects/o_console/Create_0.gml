@@ -22,28 +22,28 @@ current_console_logs = array_create(4, undefined);
 
 /// @arg {struct.console_log} _log
 log = function(_log) {
-    array_insert_cycle(current_console_logs, 0, _log);
+	array_insert_cycle(current_console_logs, 0, _log);
 }
 /// @arg {string} _text
 /// @arg {Constant.Color} _color the color here will be merged with white (half-and-half). to override this, set the color attribute manually
 log_text = function(_text, _color = c_white) {
-    var _log = new console_log(_text);
-    _log.color = merge_colour(_color, c_white, .5);
-    array_insert_cycle(current_console_logs, 0, _log);
+	var _log = new console_log(_text);
+	_log.color = merge_colour(_color, c_white, .5);
+	array_insert_cycle(current_console_logs, 0, _log);
 }
 
 command_find = function(_hotkey) {
-    for (var i = 0; i < array_length(registred_commands); i ++) {
-        if array_equals(registred_commands[i].hotkey, _hotkey)
-            return registred_commands[i];
-    }
-    return undefined;
+	for (var i = 0; i < array_length(registred_commands); i ++) {
+		if array_equals(registred_commands[i].hotkey, _hotkey)
+			return registred_commands[i];
+	}
+	return undefined;
 }
 get_all_pressed_keys = function() {
-    var keys = [];
-    for (var i = ord("!"); i < ord("`"); i ++) {
-        if keyboard_check(i)
-            array_push(keys, i);
-    }
-    return keys;
+	var keys = [];
+	for (var i = ord("!"); i < ord("`"); i ++) {
+		if keyboard_check(i)
+			array_push(keys, i);
+	}
+	return keys;
 }

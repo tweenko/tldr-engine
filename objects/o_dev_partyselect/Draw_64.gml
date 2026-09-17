@@ -26,7 +26,7 @@ for (var i = 0; i < maxparty; ++i) {
 		gpu_set_fog(false, c_white, 0, 0)
 	}
 	
-    if !party_contains(name, true)
+	if !party_contains(name, true)
 		shader_set(shd_greyscale)
 	draw_sprite_ext(party_get_icon_ow(name), 0,
 		xx, yy,

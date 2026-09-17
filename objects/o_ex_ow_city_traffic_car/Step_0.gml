@@ -3,19 +3,19 @@ if get_leader()._checkmove() {
 		y += spd
 		if walk
 			if legsgrow > 0 
-                legsgrow -= .25
+				legsgrow -= .25
 	}
-    else {
+	else {
 		if walk {
 			if legsgrow < 1 
-                legsgrow += .25
+				legsgrow += .25
 			y += spd/4
 		}
 	}
 }
 
 if y > room_height + 20 
-    instance_destroy()
+	instance_destroy()
 
 if transitioning {}
 else {
@@ -26,9 +26,9 @@ else {
 		var tgt_marker = noone
 		with(o_dev_marker){
 			if toggled {
-                tgt_marker = id; 
-                break 
-            }
+				tgt_marker = id; 
+				break 
+			}
 		}
 		
 		transitioning = true
@@ -38,7 +38,7 @@ else {
 			var o = party_get_inst(global.party_names[i])
 			
 			if !instance_exists(o) 
-                continue
+				continue
 			o.image_alpha = .5
 			o.follow = false
 			animate(o.x, tgt_marker.x, 30, "linear", o, "x")
@@ -46,8 +46,8 @@ else {
 		}
 	}
 	
-    if myswitch.active && !walk
+	if myswitch.active && !walk
 		collide=true
-    else 
-        collide=false
+	else 
+		collide=false
 }

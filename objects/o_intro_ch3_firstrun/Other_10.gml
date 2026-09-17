@@ -1,23 +1,23 @@
 // variables
 x = 160;
 y = 120;
-	
+
 active = false;
-	
+
 logoYOffset = -10;
 chYOffset = 15;
-	
+
 logoSprIndex = 0;
-	
+
 drawStatic = true;
 staticSurf = -1;
-	
+
 staticMaskSprIndex = 0;
 staticSprIndex = 0;
 staticAnimSpd = 0.4;
-	
+
 drawChText = false;
-	
+
 //cutscene
 cutscene_create();
 
@@ -43,7 +43,7 @@ cutscene_func(function(){
 cutscene_sleep(90);
 
 cutscene_func(function() {
-    audio_sound_gain(snd_crowd_cheer_single, 0, 90*1000/30);
+	audio_sound_gain(snd_crowd_cheer_single, 0, 90*1000/30);
 })
 cutscene_func(fader_fade, [o_fader.image_alpha, 1, 90, DEPTH_UI.CONSOLE]);
 cutscene_sleep(105);

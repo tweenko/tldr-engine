@@ -11,4 +11,4 @@ if !collide {
 }
 
 if instance_exists(caller)
-    depth = caller.depth - 5
+	depth = caller.depth - 5

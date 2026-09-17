@@ -1,8 +1,8 @@
 save_follow = array_create(party_length(true))
 
 for (var i = 0; i < party_length(true); i ++) {
-    var inst = party_get_inst(global.party_names[i])
-    save_follow[i] = inst.follow
+	var inst = party_get_inst(global.party_names[i])
+	save_follow[i] = inst.follow
 }
 party_setfollow(false)
 
@@ -10,8 +10,8 @@ party_setfollow(false)
 for (var i = 0; i < party_length(); ++i) {
 	var obj = party_get_inst(global.party_names[i])
 	
-    animate(obj.x, encounter_data.party_pos(i)[0], 10, anime_curve.linear, obj, "x")
-    animate(obj.y, encounter_data.party_pos(i)[1], 10, anime_curve.linear, obj, "y")
+	animate(obj.x, encounter_data.party_pos(i)[0], 10, anime_curve.linear, obj, "x")
+	animate(obj.y, encounter_data.party_pos(i)[1], 10, anime_curve.linear, obj, "y")
 	
 	var m = party_getdata(global.party_names[i], "s_battle_intro")
 	if m == 0 
@@ -31,39 +31,39 @@ for (var i = 0; i < array_length(encounter_data.enemies); ++i) {
 	var yy = guipos_y() + 130 - 20*array_length(encounter_data.enemies) + 40*i
 	
 	if struct_exists(encounter_data, "enemies_pos") {
-        if is_array(encounter_data.enemies_pos) 
-            && i < array_length(encounter_data.enemies_pos) 
-            && is_array(encounter_data.enemies_pos[i]) 
-        {
-            if encounter_data.enemies_pos[i][2] {
-                xx += encounter_data.enemies_pos[i][0]
-                yy += encounter_data.enemies_pos[i][1]
-            }
-            else {
-                xx = encounter_data.enemies_pos[i][0] + guipos_x()
-                yy = encounter_data.enemies_pos[i][1] + guipos_y()
-            }
-        }
-        else if is_method(encounter_data.enemies_pos) {
-            xx = encounter_data.enemies_pos(i, xx, yy)[0]
-            yy = encounter_data.enemies_pos(i, xx, yy)[1]
-        }
+		if is_array(encounter_data.enemies_pos) 
+			&& i < array_length(encounter_data.enemies_pos) 
+			&& is_array(encounter_data.enemies_pos[i]) 
+		{
+			if encounter_data.enemies_pos[i][2] {
+				xx += encounter_data.enemies_pos[i][0]
+				yy += encounter_data.enemies_pos[i][1]
+			}
+			else {
+				xx = encounter_data.enemies_pos[i][0] + guipos_x()
+				yy = encounter_data.enemies_pos[i][1] + guipos_y()
+			}
+		}
+		else if is_method(encounter_data.enemies_pos) {
+			xx = encounter_data.enemies_pos(i, xx, yy)[0]
+			yy = encounter_data.enemies_pos(i, xx, yy)[1]
+		}
 	}
 	
 	var obj = enemy_objects[i]
-    var enemy_struct = encounter_data.enemies[i]
-    if !instance_exists(obj)
-        obj = actor_create(enemy_struct.obj, guipos_x() + 320 + 100, guipos_y() + 120, 0)
+	var enemy_struct = encounter_data.enemies[i]
+	if !instance_exists(obj)
+		obj = actor_create(enemy_struct.obj, guipos_x() + 320 + 100, guipos_y() + 120, 0)
 	
 	animate(obj.x, xx, 10, "linear", obj, "x")
 	animate(obj.y, yy, 10, "linear", obj, "y")
 	
-    obj.sprite_index = encounter_data.enemies[i].s_idle
+	obj.sprite_index = encounter_data.enemies[i].s_idle
 	obj.image_index = 0
-    obj.image_speed = 1
+	obj.image_speed = 1
 	obj.is_in_battle = true
-    obj.enemy_slot = i
-    obj.enemy_struct = enemy_struct
+	obj.enemy_slot = i
+	obj.enemy_struct = enemy_struct
 	
 	enemy_struct.actor_id = obj
 	enemy_struct.slot = i

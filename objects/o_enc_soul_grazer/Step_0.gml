@@ -29,11 +29,11 @@ if grazed_inst != noone && graze_new_buffer > 0 {
 	}
 }
 else if grazed_inst != noone && graze_new_buffer <= 0 {
-    image_alpha = max(image_alpha, .35);
+	image_alpha = max(image_alpha, .35);
 }
 
 image_alpha -= 0.1;
 
 grazed_previous = grazed_inst;
 if graze_new_buffer > 0
-    graze_new_buffer --
+	graze_new_buffer --

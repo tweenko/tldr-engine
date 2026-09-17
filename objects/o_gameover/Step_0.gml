@@ -4,7 +4,7 @@ if state < 3 {
 	if timer == 30
 		state = 1
 	if timer == 31  
-        sprite_delete(freezeframe)
+		sprite_delete(freezeframe)
 	if timer == 50 {
 		sprite_index = spr_soul_break
 		audio_play(snd_break1)
@@ -12,7 +12,7 @@ if state < 3 {
 	if timer == 90 {
 		audio_play(snd_break2)
 		visible = false
-	
+		
 		instance_create(o_eff_soulshard, x-2, y)
 		instance_create(o_eff_soulshard, x, y+3)
 		instance_create(o_eff_soulshard, x+2, y+6)
@@ -26,7 +26,7 @@ if state < 3 {
 	}
 	if timer == 140 {
 		instance_destroy(o_eff_soulshard)
-	
+		
 		visible = true
 		state = 2
 	}
@@ -34,11 +34,11 @@ if state < 3 {
 		music_play(mus_defeat, 0, true)
 		state = 3
 	}
-		
+	
 	if timer < 200 && timer > 31 {
 		if InputPressed(INPUT_VERB.SELECT) 
-            confirm_pressed ++
-        
+			confirm_pressed ++
+		
 		if confirm_pressed > 4 {
 			event_user(0)
 			exit
@@ -48,15 +48,15 @@ if state < 3 {
 
 if state == 2 {
 	if image_alpha < 1
-	    image_alpha += .02
+		image_alpha += .02
 }
 if state == 3 {
 	if !dia_created {
-        if !is_undefined(_dialogue)
-    		inst_dialogue = text_typer_create(_dialogue, 100, 300, DEPTH_UI.DIALOGUE_UI, "{can_skip(false)}{shadow(0)}{speed(3)}{xspace(3)}{yspace(18)}{break_tabulation(false)}", "{p}{e}", {
-    			gui: true,
-    			caller: id,
-    		})
+		if !is_undefined(_dialogue)
+			inst_dialogue = text_typer_create(_dialogue, 100, 300, DEPTH_UI.DIALOGUE_UI, "{can_skip(false)}{shadow(0)}{speed(3)}{xspace(3)}{yspace(18)}{break_tabulation(false)}", "{p}{e}", {
+				gui: true,
+				caller: id,
+			})
 		
 		dia_created = true
 	}
@@ -66,12 +66,12 @@ if state == 3 {
 }
 if state == 4 {
 	if ui_alpha < 1
-	    ui_alpha += .05
+		ui_alpha += .05
 	
 	if InputPressed(INPUT_VERB.LEFT) 
-        selection = 0
+		selection = 0
 	else if InputPressed(INPUT_VERB.RIGHT) 
-        selection = 1
+		selection = 1
 	
 	if InputPressed(INPUT_VERB.SELECT) && ui_alpha > .5 {
 		timer = 0
@@ -80,11 +80,11 @@ if state == 4 {
 }
 if state == 5 && selection == 0 {
 	if ui_alpha > 0 
-        ui_alpha -= .05
+		ui_alpha -= .05
 	
 	if timer == 1
 		music_stop(0)
-    
+	
 	if timer == 30
 		audio_play(snd_dtrans_lw)
 	if timer > 30
@@ -95,7 +95,7 @@ if state == 5 && selection == 0 {
 }
 if state == 5 && selection == 1 {
 	if ui_alpha > 0 
-        ui_alpha -= .05
+		ui_alpha -= .05
 	image_alpha = 0
 	
 	if timer == 1 {

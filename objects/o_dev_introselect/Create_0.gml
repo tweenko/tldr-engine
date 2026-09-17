@@ -1,12 +1,12 @@
 event_inherited();
 
 _select = function(_item) {
-    instance_destroy()
-    music_stop_all()
-    audio_play(snd_ui_select)
-    
-    o_console.log_text($"{_item_name(_item)} started", c_orange);
-    
+	instance_destroy()
+	music_stop_all()
+	audio_play(snd_ui_select)
+	
+	o_console.log_text($"{_item_name(_item)} started", c_orange);
+	
 	room_instance_clear(room_intro);
 	room_goto(room_intro);
 	
@@ -23,13 +23,13 @@ _select = function(_item) {
 }
 
 _item_name = function(_item) {
-    return object_get_name(_item);
+	return object_get_name(_item);
 }
 
 item_categories = [
-    new _item_category("Examples", tag_get_asset_ids("TLDR_Intro_Example", asset_object)),
-    new _item_category("DELTARUNE", tag_get_asset_ids("TLDR_Intro_DR", asset_object)),
-    new _item_category("Unavailable", tag_get_asset_ids("TLDR_Intro_NoPick", asset_object)),
+	new _item_category("Examples", tag_get_asset_ids("TLDR_Intro_Example", asset_object)),
+	new _item_category("DELTARUNE", tag_get_asset_ids("TLDR_Intro_DR", asset_object)),
+	new _item_category("Unavailable", tag_get_asset_ids("TLDR_Intro_NoPick", asset_object)),
 ]
 
 item_blocked = tag_get_asset_ids(["TLDR_Intro_NoPick"], asset_object);

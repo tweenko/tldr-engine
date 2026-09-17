@@ -4,6 +4,6 @@ if !dodge_override {
 		dodge_alpha = lerp(dodge_alpha, 1, .2)
 	else 
 		dodge_alpha = lerp(dodge_alpha, 0, .15)
-    
+	
 	dodge_alpha = clamp(dodge_alpha, 0, 1)
 }

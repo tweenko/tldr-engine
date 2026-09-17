@@ -1,21 +1,21 @@
 draw_set_font(loc_font("main"))
 
 if state == 0 { // still show the freezeframe
-    var total_shake = o_window.shake;
-    var scale = window_get_fullscreen() ? o_world.fullscreen_scale : (global.border ? o_world.window_border_scale : o_world.window_scale);
-    if window_get_fullscreen() && !global.border
-        scale = min(display_get_width() / GAME_W_GUI, display_get_height() / GAME_H_GUI);
-    
-    var xoff = sine(10, o_window.sinexoff) + random_range(-total_shake, total_shake) * scale;
-    var yoff = sine(10, o_window.sineyoff) + random_range(-total_shake, total_shake) * scale;
-    
+	var total_shake = o_window.shake;
+	var scale = window_get_fullscreen() ? o_world.fullscreen_scale : (global.border ? o_world.window_border_scale : o_world.window_scale);
+	if window_get_fullscreen() && !global.border
+		scale = min(display_get_width() / GAME_W_GUI, display_get_height() / GAME_H_GUI);
+	
+	var xoff = sine(10, o_window.sinexoff) + random_range(-total_shake, total_shake) * scale;
+	var yoff = sine(10, o_window.sineyoff) + random_range(-total_shake, total_shake) * scale;
+	
 	draw_sprite_ext(freezeframe, 0, xoff, yoff, 1, 1, 0, c_white, 1);
-    
-    if sprite_exists(freezeframe_gui)
-        draw_sprite_ext(freezeframe_gui, 0, xoff, yoff, 1, 1, 0, c_white, 1);
-    
-    if sprite_exists(freezeframe_tp)
-        draw_sprite_ext(freezeframe_tp, 0, xoff, yoff, 1, 1, 0, c_white, 1);
+	
+	if sprite_exists(freezeframe_gui)
+		draw_sprite_ext(freezeframe_gui, 0, xoff, yoff, 1, 1, 0, c_white, 1);
+	
+	if sprite_exists(freezeframe_tp)
+		draw_sprite_ext(freezeframe_tp, 0, xoff, yoff, 1, 1, 0, c_white, 1);
 }
 if state == 1 {
 	draw_sprite_ext(sprite_index, 0, x*2, y*2, 1, 1, image_angle, image_blend, 1)
@@ -29,12 +29,12 @@ if state >= 4 {
 	draw_set_alpha(ui_alpha)
 	
 	if selection == 0 
-        draw_set_color(c_yellow)
+		draw_set_color(c_yellow)
 	draw_text_transformed(160, 360, choice[0], 2, 2, 0)
 	draw_set_color(c_white)
 	
 	if selection == 1 
-        draw_set_color(c_yellow)
+		draw_set_color(c_yellow)
 	draw_text_transformed(380, 360, choice[1], 2, 2, 0)
 	draw_set_color(c_white)
 	

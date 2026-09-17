@@ -1,5 +1,5 @@
 if !active 
-    exit
+	exit
 
 if !surface_exists(propSurf)
 	propSurf = surface_create(picW, picH);
@@ -11,9 +11,9 @@ draw_sprite_part(pic, picIndex, -picXOff, -picYOff, picW, picH, picX, picY);
 draw_set_alpha(1);
 
 if sprite_exists(ov) {
-    draw_set_alpha(ovAlpha);
-    draw_sprite_part(ov, ovIndex, 0, -ovYOff, sprite_get_width(ov), ovH, ovX, ovY);
-    draw_set_alpha(1);
+	draw_set_alpha(ovAlpha);
+	draw_sprite_part(ov, ovIndex, 0, -ovYOff, sprite_get_width(ov), ovH, ovX, ovY);
+	draw_set_alpha(1);
 }
 
 surface_set_target(propSurf);

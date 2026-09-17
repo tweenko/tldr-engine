@@ -6,7 +6,7 @@ if !InputCheck(INPUT_VERB.SELECT)
 	
 var go = true
 for (var i = 0; i < array_length(sticks); ++i) {
-    if instance_exists(sticks[i]) 
+	if instance_exists(sticks[i]) 
 		go = false
 }
 

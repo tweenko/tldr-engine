@@ -9,10 +9,10 @@ var dist = 4 * image_xscale
 var scale = 0.05 * image_xscale
 
 for (var i = 0; i < 4; i += 1)
-    draw_sprite_ext(sprite_index, image_index, 
-        x + (xoff * i * dist), y + yoff + (i * dist), 
-        image_xscale + (scale * i), image_yscale + (scale * i), 
-        0, c_white, (0.7 + sine(40, .4) - 0.1*i) * image_alpha
-    )
+	draw_sprite_ext(sprite_index, image_index, 
+		x + (xoff * i * dist), y + yoff + (i * dist), 
+		image_xscale + (scale * i), image_yscale + (scale * i), 
+		0, c_white, (0.7 + sine(40, .4) - 0.1*i) * image_alpha
+	)
 
 gpu_set_blendmode(bm_normal)

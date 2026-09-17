@@ -15,11 +15,11 @@ menu_in_options = true
 menu_expanded = false
 
 __get_flavor = function() {
-    return variable_callable_to_value(shop_data.flavor);
+	return variable_callable_to_value(shop_data.flavor);
 }
 __get_waiting = function() {
-    return waiting || waiting_internal
+	return waiting || waiting_internal
 }
 
 if instance_exists(get_leader())
-    get_leader().moveable_shop = false
+	get_leader().moveable_shop = false

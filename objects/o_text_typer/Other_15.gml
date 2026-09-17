@@ -74,19 +74,19 @@ while looping || normalupd {
 			chars ++
 			
 			while string_char_at(text, 0) != ")" || command_string_mode {
-                if string_char_at(text, 0) == "`" {
-                    argstrings += string_char_at(text, 0)
-                    command_string_mode = !command_string_mode
-                    text = string_delete(text, 1, 1)
-                    
-                    chars ++
-                }
-                else {
-    				argstrings += string_char_at(text, 0)
-    				text = string_delete(text, 1, 1)
-    				
-    				chars ++
-                }
+				if string_char_at(text, 0) == "`" {
+					argstrings += string_char_at(text, 0)
+					command_string_mode = !command_string_mode
+					text = string_delete(text, 1, 1)
+					
+					chars ++
+				}
+				else {
+					argstrings += string_char_at(text, 0)
+					text = string_delete(text, 1, 1)
+					
+					chars ++
+				}
 			}
 		}
 		// otherwise just collect it as is
@@ -124,16 +124,16 @@ if pause > 0 {
 // -1 in pauses stands for "waiting for confirmation to resume"
 // -2 in pauses stands for "waiting until pause variable is set to something else"
 if pause == -1 || pause == -2 {
-    if pause == -2
-        superskipping = false
-    if !superskipping
-	   skipping = false
+	if pause == -2
+		superskipping = false
+	if !superskipping
+		skipping = false
 	
 	__update_talking(false)
 	if instance_exists(caller) && pause != -2 {
 		caller.can_proceed = true
 	}
-    
+	
 	if (InputPressed(INPUT_VERB.SELECT) || InputCheck(INPUT_VERB.SPECIAL)) && pause == -1 || (superskipping && superskipping_buffer == 0 && pause == -1)
 		pause = 0
 }
@@ -149,7 +149,7 @@ else {
 if _face == noone && instance_exists(face_inst) {
 	instance_destroy(face_inst)
 	x -= face_xoff
-    face_xoff = 0
+	face_xoff = 0
 }
 if face_expression != face_expression_prev {
 	face_inst.f_index = face_expression
@@ -157,21 +157,21 @@ if face_expression != face_expression_prev {
 }
 
 if (InputPressed(INPUT_VERB.CANCEL) || (!box_init && InputCheck(INPUT_VERB.CANCEL))) 
-    && !skipping && can_skip && !command_mode && pause >= 0 
-    && !superskipping && allow_skip_internal 
+	&& !skipping && can_skip && !command_mode && pause >= 0 
+	&& !superskipping && allow_skip_internal 
 {
 	skipping = true
-    pause = 0
+	pause = 0
 }
 
 // refresh it every frame
 superskipping = false
 if InputCheck(INPUT_VERB.SPECIAL) && can_skip && !command_mode && allow_skip_internal && can_superskip {
-    skipping = true
-    superskipping = true
-    
-    if instance_exists(face_inst)
-        face_inst.visible = true
-    
-    pause = 0
+	skipping = true
+	superskipping = true
+	
+	if instance_exists(face_inst)
+		face_inst.visible = true
+	
+	pause = 0
 }

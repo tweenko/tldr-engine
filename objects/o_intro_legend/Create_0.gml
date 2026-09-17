@@ -9,7 +9,7 @@ __spawn_text = function(idx, tx, ty, duration=undefined) {
 			destroy_caller: false
 		}
 	)
-		
+	
 	if !is_undefined(duration) {
 		var ts = time_source_create(o_intro_legend.tsParent, duration, time_source_units_frames, instance_destroy, [typer]);
 		time_source_start(ts);

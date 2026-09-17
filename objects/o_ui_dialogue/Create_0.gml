@@ -26,18 +26,18 @@ if instance_exists(get_leader())
 
 _reposition_self = function() {
 	if instance_exists(get_leader()) {
-        _reposition_self_to(true)
+		_reposition_self_to(true)
 		if get_leader().y - guipos_y() > 160
 			_reposition_self_to(false)
 	}
 }
 _reposition_self_to = function(down) {
 	if down
-        yy = 320
-    else
-    	yy = 10
-    
-    if instance_exists(textinst)
-        textinst.y = yy + 20
+		yy = 320
+	else
+		yy = 10
+	
+	if instance_exists(textinst)
+		textinst.y = yy + 20
 }
 _reposition_self()

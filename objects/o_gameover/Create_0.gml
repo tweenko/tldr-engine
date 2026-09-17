@@ -20,11 +20,11 @@ _dialogue = undefined
 var dialogue_variants = []
 
 if party_contains("susie")
-    array_push(dialogue_variants, loc("game_over_dialogue_susie"))
+	array_push(dialogue_variants, loc("game_over_dialogue_susie"))
 if party_contains("ralsei")
-    array_push(dialogue_variants, loc("game_over_dialogue_ralsei"))
+	array_push(dialogue_variants, loc("game_over_dialogue_ralsei"))
 
 if array_length(dialogue_variants) > 0
-    _dialogue = array_shuffle(dialogue_variants)[0]
+	_dialogue = array_shuffle(dialogue_variants)[0]
 
 image_alpha = 0

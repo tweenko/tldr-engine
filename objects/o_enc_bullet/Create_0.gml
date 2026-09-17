@@ -1,7 +1,7 @@
 enum BULLET_COLOR {
-    SOLID,
-    BLUE,
-    ORANGE
+	SOLID,
+	BLUE,
+	ORANGE
 }
 
 graze = 2; // how many graze points the bullet should give upon first contact

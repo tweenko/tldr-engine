@@ -1,7 +1,7 @@
 var xx = 0
 if instance_exists(get_leader()) {
-    if get_leader().x > guipos_x() + 160
-        xx += 320
+	if get_leader().x > guipos_x() + 160
+		xx += 320
 }
 
 var held_space = item_get_maxcount(sell_type) - item_get_count(sell_type)
@@ -18,4 +18,4 @@ draw_text_transformed(368 + xx, 208 + y_off, $"${save_get("money")}", 2, 2, 0)
 draw_text_transformed(368 + xx, 234 + y_off, loc_string("money_display_held_space", held_space), 2, 2, 0)
 
 if sell_type == ITEM_TYPE.CONSUMABLE
-    draw_text_transformed(368 + xx, 260 + y_off, loc_string("money_display_storage_space", storage_space), 2, 2, 0)
+	draw_text_transformed(368 + xx, 260 + y_off, loc_string("money_display_storage_space", storage_space), 2, 2, 0)

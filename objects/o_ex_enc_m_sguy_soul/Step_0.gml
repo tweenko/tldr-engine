@@ -3,7 +3,7 @@ if place_meeting(x, y, o_ex_enc_m_sguy_socks) && !dropping{
 	
 	if o.collide {
 		if irandom(1) == 0 
-            instance_create(o_ex_eff_sguy_soulhit, x, y, depth-10)
+			instance_create(o_ex_eff_sguy_soulhit, x, y, depth-10)
 		o.hits += 1
 		o.shake = 2
 	

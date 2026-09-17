@@ -36,59 +36,59 @@ cutscene_sleep(19);
 // stop displaying the prophecy icon + spawn glass shards
 cutscene_set_variable(id, "active", false);
 cutscene_func(method(id, method(id, function(){
-    for (var i = 0; i < sprite_get_number(spr_intro_ch4_prophecy_glass_shards); i ++) {
-        var inst = instance_create(o_eff_intro_ch4_shard, x, y);
-        
-        with inst {
-            direction = random(360)
-            sprite_index = spr_intro_ch4_prophecy_glass_shards
-            image_speed = 0
-            image_index = i
-            
-            call_later(20, time_source_units_frames, method(self, function(){
-                gravity = 0.4 + random(0.12);
-                friction = 0;
-                speed = 4;
-            }))
-        }
-    }
+	for (var i = 0; i < sprite_get_number(spr_intro_ch4_prophecy_glass_shards); i ++) {
+		var inst = instance_create(o_eff_intro_ch4_shard, x, y);
+		
+		with inst {
+			direction = random(360)
+			sprite_index = spr_intro_ch4_prophecy_glass_shards
+			image_speed = 0
+			image_index = i
+			
+			call_later(20, time_source_units_frames, method(self, function(){
+				gravity = 0.4 + random(0.12);
+				friction = 0;
+				speed = 4;
+			}))
+		}
+	}
 })))
 
 // sounds
 cutscene_func(function(){
-    cutscene_create();
-    
-    cutscene_sleep(10);
-    
-    cutscene_audio_play(snd_punchmed, false, 0.95, 0.7);
-    cutscene_sleep(1);
-    
-    cutscene_audio_play(snd_ch4_glassbreak1, false, 0.5, 0.5);
-    cutscene_audio_play(snd_ch4_glassbreak1, false, 0.5, 0.44);
-    cutscene_sleep(1);
-    
-    cutscene_audio_play(snd_glassbreak, false, 0.4, 0.6);
-    
-    cutscene_play();
-})	
+	cutscene_create();
+	
+	cutscene_sleep(10);
+	
+	cutscene_audio_play(snd_punchmed, false, 0.95, 0.7);
+	cutscene_sleep(1);
+	
+	cutscene_audio_play(snd_ch4_glassbreak1, false, 0.5, 0.5);
+	cutscene_audio_play(snd_ch4_glassbreak1, false, 0.5, 0.44);
+	cutscene_sleep(1);
+	
+	cutscene_audio_play(snd_glassbreak, false, 0.4, 0.6);
+	
+	cutscene_play();
+})  
 
 cutscene_sleep(20);
 cutscene_func(function(){
-    var _num = 15;
-    var _ww = 45;
-    for (var i=0; i<_num; i++) {
-        var _xx = 160 - _ww + 2*i*_ww/_num + random_range(-15, 15);
-        var _yy = 120 + random(35);
-        
-        if i == 0 {
-            _xx = 160 - _ww;
-        }
-        if i == _num-1 {
-            _xx = 160 + _ww
-        }
-        
-        instance_create(o_eff_intro_ch4_ground_shard, _xx, _yy);
-    }
+	var _num = 15;
+	var _ww = 45;
+	for (var i=0; i<_num; i++) {
+		var _xx = 160 - _ww + 2*i*_ww/_num + random_range(-15, 15);
+		var _yy = 120 + random(35);
+		
+		if i == 0 {
+			_xx = 160 - _ww;
+		}
+		if i == _num-1 {
+			_xx = 160 + _ww
+		}
+		
+		instance_create(o_eff_intro_ch4_ground_shard, _xx, _yy);
+	}
 })
 cutscene_sleep(150);
 

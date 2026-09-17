@@ -21,14 +21,14 @@
 /// @arg {real} y_off
 /// @arg {real} depth
 function lb_ripple_create(
-    _x, _y, _power = 3, _colour = c_white, _polygons = 24, 
-    _width = 3, _rotation = 0, _blendmode = bm_add, _thickness = 14, 
-    _choppiness_div = 1, _spaced_out = 1, _alpha = 1, _fade_speed = 0.025, 
-    _stick_to_object = noone, _x_off = 0, _y_off = 0,
-    _depth = depth + 100
+	_x, _y, _power = 3, _colour = c_white, _polygons = 24, 
+	_width = 3, _rotation = 0, _blendmode = bm_add, _thickness = 14, 
+	_choppiness_div = 1, _spaced_out = 1, _alpha = 1, _fade_speed = 0.025, 
+	_stick_to_object = noone, _x_off = 0, _y_off = 0,
+	_depth = depth + 100
 ) {
-    var inst = instance_create_depth(_x + _x_off, _y + _y_off, _depth, o_lb_ripple);
-	with inst {		
+	var inst = instance_create_depth(_x + _x_off, _y + _y_off, _depth, o_lb_ripple);
+	with inst {     
 		if _polygons < 3
 			_polygons = 3;
 		if _thickness < _width
@@ -50,14 +50,14 @@ function lb_ripple_create(
 		depth = _depth;
 		image_angle = _rotation;
 	};
-    
-    return inst;
+	
+	return inst;
 };
 
 function lb_ripple_vision_on() {
-    if !instance_exists(o_lb_ripple_vision)
-        instance_create(o_lb_ripple_vision);
+	if !instance_exists(o_lb_ripple_vision)
+		instance_create(o_lb_ripple_vision);
 }
 function lb_ripple_vision_off() {
-    instance_destroy(o_lb_ripple_vision);
+	instance_destroy(o_lb_ripple_vision);
 }

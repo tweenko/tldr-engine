@@ -1,13 +1,13 @@
 // variables
 sprite_index = spr_intro_ch3_tv_time
 image_speed = 0;
-	
+
 x = 160;
 y = 120;
-	
+
 fadeWhiteAlpha = 0;
 tvSound = snd_its_tv_time;
-	
+
 // cutscene
 cutscene_create();
 

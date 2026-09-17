@@ -20,12 +20,12 @@ draw_text_transformed(__center_x, __center_y + 10 + __c, "Would you like to clea
 
 draw_set_color(c_white)
 if selection == 0
-    draw_set_color(c_yellow)
+	draw_set_color(c_yellow)
 draw_text_highlighted("Yes", __center_x - 50, __center_y + 60 + __c, (selection == 0), 1, 1)
 
 draw_set_color(c_white)
 if selection == 1
-    draw_set_color(c_yellow)
+	draw_set_color(c_yellow)
 draw_text_highlighted("No", __center_x + 60, __center_y + 60 + __c, (selection == 1), 1, 1)
 
 draw_set_color(c_gray)

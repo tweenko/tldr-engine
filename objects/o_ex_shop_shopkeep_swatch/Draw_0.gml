@@ -1,5 +1,5 @@
 if !surface_exists(surf)
-    surf = surface_create(640, 240)
+	surf = surface_create(640, 240)
 
 surface_set_target(surf)
 

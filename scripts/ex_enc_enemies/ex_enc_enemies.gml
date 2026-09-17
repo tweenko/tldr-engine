@@ -4,19 +4,19 @@ function ex_enemy_shadowguy() : enemy() constructor{
 	turn_object = o_ex_turn_sguy
 	
 	// stats
-	hp =		240
-	max_hp =	240
-	attack =	5
-	defense =	0
+	hp =        240
+	max_hp =    240
+	attack =    5
+	defense =   0
 	
-    // sprites
-    s_idle = spr_ex_e_sguy_idle
-    s_hurt = spr_ex_e_sguy_hurt
-    s_spare = spr_ex_e_sguy_spare
-    
-    boogie_sprites = {
-        kris: spr_ex_kris_boogie
-    }
+	// sprites
+	s_idle = spr_ex_e_sguy_idle
+	s_hurt = spr_ex_e_sguy_hurt
+	s_spare = spr_ex_e_sguy_spare
+	
+	boogie_sprites = {
+		kris: spr_ex_kris_boogie
+	}
 	shoot_sprites = {
 		kris: spr_ex_kris_costume,
 		susie: spr_ex_susie_costume,
@@ -33,12 +33,12 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				encounter_scene_dialogue("* SHADOWGUY - ATK 10 DEF 1{s(10)}{br}{resetx}* Battling's just a side gig. Playing on stage is the dream!")
 			}
 		},
-        {
+		{
 			name: "Boogie",
 			party: [],
 			desc: "Dance, don't get hit!",
-            perform_act_anim: false,
-            
+			perform_act_anim: false,
+			
 			exec: function(slot, user, boogie_sprites) {
 				var me = o_enc.encounter_data.enemies[slot]
 				
@@ -46,37 +46,37 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				cutscene_enc_wait(true)
 				
 				cutscene_func(enc_enemy_add_spare, [slot, 5])
-                cutscene_func(function(user, boogie_sprites, slot) {
-                    if struct_exists(boogie_sprites, user) {
-                        var o = party_get_inst(user)
-                        
-                        o.sprite_index = struct_get(boogie_sprites, user)
-                        
-                        var inst = afterimage(.03, o)
-                        inst.speed = 1
-                        inst = afterimage(.04, o)
-                        inst.speed = 2
-                    
-                        var a = animate(.5, 1, 4, anime_curve.linear, o, "flash")
-                            a._add(0, 6, anime_curve.linear)
-                            a._start()
-                    }
-                    instance_create(o_ex_enc_m_boogie_controller,,,, {enemy_index: slot})
-                }, [user, boogie_sprites, slot])
-                
+				cutscene_func(function(user, boogie_sprites, slot) {
+					if struct_exists(boogie_sprites, user) {
+						var o = party_get_inst(user)
+						
+						o.sprite_index = struct_get(boogie_sprites, user)
+						
+						var inst = afterimage(.03, o)
+						inst.speed = 1
+						inst = afterimage(.04, o)
+						inst.speed = 2
+					
+						var a = animate(.5, 1, 4, anime_curve.linear, o, "flash")
+							a._add(0, 6, anime_curve.linear)
+							a._start()
+					}
+					instance_create(o_ex_enc_m_boogie_controller,,,, {enemy_index: slot})
+				}, [user, boogie_sprites, slot])
+				
 				cutscene_dialogue("* " + party_getname(user) + " boogies past bullets!{br}{resetx}* SHADOWGUY gains mercy until you get hit!")
-                cutscene_set_partysprite(user, "idle")
+				cutscene_set_partysprite(user, "idle")
 				
 				cutscene_enc_wait(false)
 				cutscene_play()
 			},
-            exec_args: [boogie_sprites] 
+			exec_args: [boogie_sprites] 
 		},
 		{
 			name: "Sharpshoot",
 			party: -1,
 			desc: "Light\n'em up",
-            perform_act_anim: false,
+			perform_act_anim: false,
 			exec: function(slot, user) {
 				var me = o_enc.encounter_data.enemies[slot]
 				
@@ -100,11 +100,11 @@ function ex_enemy_shadowguy() : enemy() constructor{
 				
 				cutscene_func(function(){instance_destroy(o_ui_dialogue)})
 				cutscene_sleep(30)
-                cutscene_func(function(slot) {
-                    for (var i = 0; i < party_length(); ++i) {
-                        enc_party_set_battle_sprite(global.party_names[i], "idle")
-                    }
-                }, slot)
+				cutscene_func(function(slot) {
+					for (var i = 0; i < party_length(); ++i) {
+						enc_party_set_battle_sprite(global.party_names[i], "idle")
+					}
+				}, slot)
 				
 				cutscene_enc_wait(false)
 				cutscene_play()
@@ -114,12 +114,12 @@ function ex_enemy_shadowguy() : enemy() constructor{
 	
 	// recruit
 	recruit = new ex_enemy_recruit_shadowguy()
-    
-    // in-fight-events
-    ev_post_turn = function() {
-        instance_destroy(o_ex_enc_m_boogie_controller)
-    }
-    
+	
+	// in-fight-events
+	ev_post_turn = function() {
+		instance_destroy(o_ex_enc_m_boogie_controller)
+	}
+	
 	// text
 	dialogue = function(slot){}
 }
@@ -130,19 +130,19 @@ function ex_enemy_spawnling() : enemy() constructor{
 	turn_object = o_turn_default_dark
 	
 	//stats
-	hp =		5000
-	max_hp =	5000
-	attack =	30
-	defense =	6
-    
-    can_spare = false
-    mercy_add_pity_percent = 0
+	hp =        5000
+	max_hp =    5000
+	attack =    30
+	defense =   6
+	
+	can_spare = false
+	mercy_add_pity_percent = 0
 	no_mercy_text = "* But, it was not something that can understand MERCY."
-    
-    // sprites
-    s_idle = spr_ex_e_spawnling
-    s_hurt = spr_ex_e_spawnling_hurt
-    s_spare = s_idle
+	
+	// sprites
+	s_idle = spr_ex_e_spawnling
+	s_hurt = spr_ex_e_spawnling_hurt
+	s_spare = s_idle
 	
 	//acts
 	acts = [
@@ -155,7 +155,7 @@ function ex_enemy_spawnling() : enemy() constructor{
 			}
 		},
 	]
-    
+	
 	//text
 	dialogue = function(slot){
 	}
@@ -166,20 +166,20 @@ function ex_enemy_dentos() : enemy() constructor{
 	turn_object = o_ex_turn_dentos
 	
 	// stats
-	hp =		5000
-	max_hp =	5000
-	attack =	30
-	defense =	6
-    
-    can_spare = false
-    mercy_add_pity_percent = 0
+	hp =        5000
+	max_hp =    5000
+	attack =    30
+	defense =   6
+	
+	can_spare = false
+	mercy_add_pity_percent = 0
 	no_mercy_text = "* But, it was not something that can understand MERCY."
 	
-    // sprites
-    s_idle = spr_ex_e_dentos
-    s_hurt = spr_ex_e_dentos_hurt
-    s_spare = s_idle
-    
+	// sprites
+	s_idle = spr_ex_e_dentos
+	s_hurt = spr_ex_e_dentos_hurt
+	s_spare = s_idle
+	
 	// acts
 	acts = [
 		{
@@ -191,7 +191,7 @@ function ex_enemy_dentos() : enemy() constructor{
 			}
 		},
 	]
-    
+	
 	// text
 	dialogue = function(slot){
 	}

@@ -1,35 +1,35 @@
 event_inherited()
 
 if is_enemy && freeze > 0 {
-    image_speed = 0
-    if sprite_exists(s_frozen) && !is_undefined(s_frozen)
-        sprite_index = s_frozen
-    else 
-        sprite_index = s_intro
-    
-    exit
+	image_speed = 0
+	if sprite_exists(s_frozen) && !is_undefined(s_frozen)
+		sprite_index = s_frozen
+	else 
+		sprite_index = s_intro
+	
+	exit
 }
 
 drawsiner += 0.25
 
 if !is_undefined(chase_dist) && !chasing && notice_timer == -1 && enable_chasing {
-    if distance_to_point(get_leader().x, get_leader().y) < chase_dist {
-        __start_chasing()
-    }
+	if distance_to_point(get_leader().x, get_leader().y) < chase_dist {
+		__start_chasing()
+	}
 }
 if notice_timer >= 0
-    notice_timer ++
+	notice_timer ++
 
 if notice_timer >= 0 && notice_timer < 30
-    notice = true
+	notice = true
 else
-    notice = false
+	notice = false
 
 if notice_timer == 30
-    chasing = true
+	chasing = true
 
 if !instance_exists(get_leader())
-    exit
+	exit
 
 if chasing && !is_in_battle
 	&& get_leader()._checkmove()
@@ -43,11 +43,11 @@ if chasing && !is_in_battle
 	
 	if (!place_meeting(x + rx, y, o_block) 
 	|| (instance_place(x + rx, y, o_block) != noone && !instance_place(x + rx, y, o_block).collide))
-    && (!instance_exists(chase_zone) || place_meeting(x + rx, y, chase_zone))
+	&& (!instance_exists(chase_zone) || place_meeting(x + rx, y, chase_zone))
 		x += rx
 	if (!place_meeting(x, y + ry, o_block) 
 	|| (instance_place(x, y + ry, o_block) != noone && !instance_place(x, y + ry, o_block).collide))
-    && (!instance_exists(chase_zone) || place_meeting(x, y + ry, chase_zone))
+	&& (!instance_exists(chase_zone) || place_meeting(x, y + ry, chase_zone))
 		y += ry
 		
 	// diagonal collision
@@ -58,43 +58,43 @@ if chasing && !is_in_battle
 }
 
 if path_exists(path_index) {
-    if get_leader()._checkmove()
-        path_speed = idle_path_spd
-    else
-        path_speed = 0
+	if get_leader()._checkmove()
+		path_speed = idle_path_spd
+	else
+		path_speed = 0
 }
 
 // collision, initiate encounter
 if place_meeting(x, y, get_leader()) 
-    && !encounter_started && (can_idle_encounter || chase_encounter) 
-    && !instance_exists(o_enc) && !instance_exists(o_enc_anim) 
-    && get_leader()._checkmove()
+	&& !encounter_started && (can_idle_encounter || chase_encounter) 
+	&& !instance_exists(o_enc) && !instance_exists(o_enc_anim) 
+	&& get_leader()._checkmove()
 {
-    chasing = false
-    encounter_started = true
-    
-    sprite_index = s_intro
-    image_speed = s_intro_spd
-    image_index = 0
-    
-    path_end()
-    encounter._start()
-    
-    image_xscale = 1
+	chasing = false
+	encounter_started = true
+	
+	sprite_index = s_intro
+	image_speed = s_intro_spd
+	image_index = 0
+	
+	path_end()
+	encounter._start()
+	
+	image_xscale = 1
 }
 
 if run_away && hurt <= 0 { // spawn the trail upon running away
-    for (var i = 0; i <= 30; i += 2) {
-        var o = afterimage()
-        o.x += i
-        o.sprite_index = s_hurt
-        o.image_alpha = 1
-        o.depth = depth-10
-    }
-    x += 30
+	for (var i = 0; i <= 30; i += 2) {
+		var o = afterimage()
+		o.x += i
+		o.sprite_index = s_hurt
+		o.image_alpha = 1
+		o.depth = depth-10
+	}
+	x += 30
 
-    run_away_timer ++
-    
-    if run_away_timer > 4
-        instance_destroy()
+	run_away_timer ++
+	
+	if run_away_timer > 4
+		instance_destroy()
 }

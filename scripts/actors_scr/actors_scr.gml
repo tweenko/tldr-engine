@@ -1,18 +1,18 @@
 ///@desc creates an actor object. use ONLY for actors: it initializes them
 ///@arg {asset.GMObject | struct} obj
 function actor_create(obj, xx = 0, yy = 0, ddepth = 0){
-    var inst = noone
+	var inst = noone
 	if is_struct(obj)
 		inst = instance_create(obj.obj, xx, yy, ddepth, obj.var_struct)
 	else
 		inst = instance_create(obj, xx, yy, ddepth)
-    
-    with inst {
-        event_user(2)
-        __initialize()
-    }
-    
-    return inst
+	
+	with inst {
+		event_user(2)
+		__initialize()
+	}
+	
+	return inst
 }
 
 /// @desc finds an actor in the room
@@ -23,15 +23,15 @@ function actor_create(obj, xx = 0, yy = 0, ddepth = 0){
 /// @arg {struct} require the required variables and their values for the actor to be registered as the same
 function actor_find(obj, xx = x, yy = y, snap = 10, require = {}) {
 	if is_struct(obj) {
-        var record_dist = infinity
-        var record_instance = noone
-        
-        var full_struct = struct_merge(obj.var_struct, require, false)
-        var n = struct_get_names(full_struct)
-        
+		var record_dist = infinity
+		var record_instance = noone
+		
+		var full_struct = struct_merge(obj.var_struct, require, false)
+		var n = struct_get_names(full_struct)
+		
 		with obj.obj {
 			var me = true
-            
+			
 			for (var i = 0; i < array_length(n); ++i) {
 				if struct_get(full_struct, n[i]) == variable_instance_get(id, n[i]) {}
 				else {
@@ -41,28 +41,28 @@ function actor_find(obj, xx = x, yy = y, snap = 10, require = {}) {
 			}
 			if me {
 				var __mydist = point_distance(xx, yy, x, y)
-                
-                if __mydist < record_dist {
-                    record_dist = __mydist
-                    record_instance = id
-                }
-                if __mydist < snap
-                    break
+				
+				if __mydist < record_dist {
+					record_dist = __mydist
+					record_instance = id
+				}
+				if __mydist < snap
+					break
 			}
 		}
-        
+		
 		return record_instance
 	}
 	else {
 		var record_dist = infinity
-        var record_instance = noone
-        
-        var full_struct = require
-        var n = struct_get_names(full_struct)
-        
+		var record_instance = noone
+		
+		var full_struct = require
+		var n = struct_get_names(full_struct)
+		
 		with obj {
 			var me = true
-            
+			
 			for (var i = 0; i < array_length(n); ++i) {
 				if struct_get(full_struct, n[i]) == variable_instance_get(id, n[i]) {}
 				else {
@@ -72,17 +72,17 @@ function actor_find(obj, xx = x, yy = y, snap = 10, require = {}) {
 			}
 			if me {
 				var __mydist = point_distance(xx, yy, x, y)
-                
-                if __mydist < record_dist {
-                    record_dist = __mydist
-                    record_instance = id
-                }
-                if __mydist < snap
-                    break
+				
+				if __mydist < record_dist {
+					record_dist = __mydist
+					record_instance = id
+				}
+				if __mydist < snap
+					break
 			}
 		}
-        
-        return record_instance
+		
+		return record_instance
 	}
 }
 
@@ -96,14 +96,14 @@ function actor_find(obj, xx = x, yy = y, snap = 10, require = {}) {
 /// @param {bool} [_absolute] whether the X and Y positions are absolute
 /// @param {bool} [_play_sfx] whether to play sfx (if applicable)
 function actor_movement(_x, _y, _time, _seed = "", _spd = undefined, _char_dir = undefined, _absolute = true, _play_sfx = true) constructor {
-    xx = _x;
-    yy = _y;
-    seed = _seed;
-    time = _time;
-    spd = _spd;
-    char_dir = _char_dir;
-    absolute = _absolute;
-    play_sfx = _play_sfx;
+	xx = _x;
+	yy = _y;
+	seed = _seed;
+	time = _time;
+	spd = _spd;
+	char_dir = _char_dir;
+	absolute = _absolute;
+	play_sfx = _play_sfx;
 }
 
 /// @desc  a constructor for actor jump movement. inherits from actor_movement.
@@ -122,14 +122,14 @@ function actor_movement_jump(_x, _y, _absolute = true, _time = 15, _play_sfx = t
 /// @param {bool} [_play_sfx] whether to play sfx
 function actor_movement_jump_into(_x, _y, _absolute = true, _time = 15, _play_sfx = true) : actor_movement(_x, _y, _time, "jump_into", undefined, undefined, _absolute, _play_sfx) constructor {}
 
-/// @desc	moves an actor using a struct
-/// @arg		{Id.Instance|Asset.GMObject}	actor		the actor to move
-/// @arg		{array|struct.actor_movement}	movement	array of the movement pattern
+/// @desc   moves an actor using a struct
+/// @arg        {Id.Instance|Asset.GMObject}    actor       the actor to move
+/// @arg        {array|struct.actor_movement}   movement    array of the movement pattern
 function actor_move(_actor, movement){
 	if !instance_exists(_actor) 
-        exit
+		exit
 	
-	var inst = instance_create(o_actor_mover)	
+	var inst = instance_create(o_actor_mover)   
 	
 	inst.character = _actor
 	inst.xx = []
@@ -140,18 +140,18 @@ function actor_move(_actor, movement){
 	inst.char_dir = []
 	
 	if !is_array(movement) 
-        movement = [movement]
+		movement = [movement]
 	
 	for (var i = 0; i < array_length(movement); ++i) {
 		var absolute = true
 		if struct_exists(movement[i], "absolute") 
-            absolute = movement[i].absolute
+			absolute = movement[i].absolute
 		
 		var xx = movement[i].xx
 		if !absolute 
 			xx = _actor.x + movement[i].xx
 		
-        var yy = movement[i].yy
+		var yy = movement[i].yy
 		if !absolute 
 			yy = _actor.y + movement[i].yy
 		
@@ -159,33 +159,33 @@ function actor_move(_actor, movement){
 		array_push(inst.yreq, yy)
 		
 		if struct_exists(movement[i], "seed") 
-            array_push(inst.seed, movement[i].seed)
+			array_push(inst.seed, movement[i].seed)
 		else 
-            array_push(inst.seed, "")
-        
+			array_push(inst.seed, "")
+		
 		if struct_exists(movement[i], "play_sfx") 
-            array_push(inst.play_sfx, movement[i].play_sfx);
+			array_push(inst.play_sfx, movement[i].play_sfx);
 		else 
-            array_push(inst.play_sfx, true);
+			array_push(inst.play_sfx, true);
 		
 		if struct_exists(movement[i], "spd") 
-            array_push(inst.spd, movement[i].spd)
+			array_push(inst.spd, movement[i].spd)
 		else 
-            array_push(inst.spd, 2)
+			array_push(inst.spd, 2)
 		
 		if struct_exists(movement[i], "time") 
-            array_push(inst.time, movement[i].time)
+			array_push(inst.time, movement[i].time)
 		else 
-            array_push(inst.time, undefined)
+			array_push(inst.time, undefined)
 		
 		if struct_exists(movement[i], "char_dir") 
-            array_push(inst.char_dir, movement[i].char_dir)
+			array_push(inst.char_dir, movement[i].char_dir)
 		else 
-            array_push(inst.char_dir, undefined)
+			array_push(inst.char_dir, undefined)
 	}
 	
 	with inst
-        event_user(0)
+		event_user(0)
 	return inst
 }
 

@@ -9,9 +9,9 @@ draw_self()
 //draw the screen
 var col = c_gray
 if label == "stop" && active 
-    col = c_red
+	col = c_red
 if label == "walk" && active 
-    col = c_lime
+	col = c_lime
 
 //draw the top screen content
 draw_set_color(col)

@@ -2,16 +2,16 @@
 for (var i = 0; i < party_length(); ++i) {
 	var obj = party_get_inst(global.party_names[i])
 	
-    obj.sprite_index = enc_getparty_sprite(global.party_names[i], "idle")
-    obj.image_speed = 1
-    obj.image_index = 0
+	obj.sprite_index = enc_getparty_sprite(global.party_names[i], "idle")
+	obj.image_speed = 1
+	obj.image_index = 0
 }
 
 enc_setup();
 var inst = instance_create(o_enc,,,,{
 	encounter_data: encounter_data, 
 	save_pos,
-    save_follow,
+	save_follow,
 })
 
 // do the initial flavor text
@@ -20,7 +20,7 @@ inst.flavor = variable_callable_to_value(encounter_data.flavor);
 var __vs = encounter_data.enc_var_struct
 var __names = struct_get_names(__vs)
 for (var i = 0; i < array_length(__names); i ++) {
-    variable_instance_set(inst, __names[i], struct_get(__vs, __names[i]))
+	variable_instance_set(inst, __names[i], struct_get(__vs, __names[i]))
 }
 
 if struct_exists(encounter_data, "bgm") && audio_exists(encounter_data.bgm) {

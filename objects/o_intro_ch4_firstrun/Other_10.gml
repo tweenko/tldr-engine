@@ -49,7 +49,7 @@ cutscene_sleep(210);
 
 cutscene_animate(scrollSpeed, 0, 60, anime_curve.linear, id, "scrollSpeed");
 cutscene_wait_until(function() {
-    return !audio_is_playing(mus_intro_ch4);
+	return !audio_is_playing(mus_intro_ch4);
 });
 
 cutscene_set_variable(id, "cracked", true);
@@ -91,7 +91,7 @@ cutscene_func(function(){
 		cutscene_sleep(1);
 		cutscene_audio_play(snd_glassbreak, false, 0.4, 0.6);
 	cutscene_play();
-})	
+})  
 cutscene_sleep(20);
 
 //summon ground shards

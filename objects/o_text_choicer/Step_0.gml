@@ -9,11 +9,11 @@ if visible {
 		selection = 3;
 
 	if InputPressed(INPUT_VERB.SELECT) && selection != -1 {
-        var choice = choices[selection];
-        if variable_callable_to_value(choice.can_select)
-            instance_destroy();
-    }
-    
-    soul_x = lerp(soul_x, target_x, (modern_choicer ? .8 : 1));
-    soul_y = lerp(soul_y, target_y, (modern_choicer ? .8 : 1));
+		var choice = choices[selection];
+		if variable_callable_to_value(choice.can_select)
+			instance_destroy();
+	}
+	
+	soul_x = lerp(soul_x, target_x, (modern_choicer ? .8 : 1));
+	soul_y = lerp(soul_y, target_y, (modern_choicer ? .8 : 1));
 }

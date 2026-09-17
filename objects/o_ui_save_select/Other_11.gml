@@ -44,17 +44,17 @@ if theme == SAVE_SELECT_THEME.OMINOUS {
 		m_copysuccess = function(prev) {
 			if (prev == 22 || prev == 21) && state == 0 {
 				if files[0] != -1 { // check if all saves are identical (very specific secret in DR)
-                	var prepared_previous = prepared;
-                    
-                    prepared = true;
-                	var reference_save = [files[0].NAME, files[0].TIME];
-                	for (var i = 0; i < array_length(files); ++i) {
-                		if is_struct(files[i]) || (files[i].NAME == reference_save[0] && files[i].TIME == reference_save[1]) {
-                			prepared = false; 
-                			break;
-                		}
-                	}
-                    
+					var prepared_previous = prepared;
+					
+					prepared = true;
+					var reference_save = [files[0].NAME, files[0].TIME];
+					for (var i = 0; i < array_length(files); ++i) {
+						if is_struct(files[i]) || (files[i].NAME == reference_save[0] && files[i].TIME == reference_save[1]) {
+							prepared = false; 
+							break;
+						}
+					}
+					
 					if prepared_previous && prepared
 						return "copysuccess_weird"
 					else if prepared
@@ -96,7 +96,7 @@ if theme == SAVE_SELECT_THEME.OMINOUS {
 		m_chfile = "chfile"
 		m_chfileconfirm = "chfileconfirm"
 
-        loc_id_messages = "save_select_messages_ominous"
+		loc_id_messages = "save_select_messages_ominous"
 	}
 	
 	target_music = mus_drone

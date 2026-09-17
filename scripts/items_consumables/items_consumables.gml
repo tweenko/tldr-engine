@@ -15,10 +15,10 @@ function item_lightcandy() : item_consumable() constructor {
 		ralsei: "Nice and chalky.",
 		noelle: "(I-isn't this the chalk I gave her?)",
 	}
-    
-    sell_price = 100
-    
-    item_localize("item_c_lightcandy")
+	
+	sell_price = 100
+	
+	item_localize("item_c_lightcandy")
 }
 item_register(item_lightcandy);
 
@@ -26,8 +26,8 @@ function item_darker_candy() : item_consumable() constructor {
 	name = ["Darker Candy"]
 	desc = ["A candy that has grown sweeter with time.\nSaid to taste like toasted marshmallow. +120HP", "Heals 120HP"]
 	
-    lw_counterpart = item_lw_shit
-    
+	lw_counterpart = item_lw_shit
+	
 	use = function(item_index, target_index, caller = -1) {
 		party_heal(global.party_names[target_index], 40, caller)
 		item_delete(item_index)
@@ -40,11 +40,11 @@ function item_darker_candy() : item_consumable() constructor {
 		},
 		noelle: "Oh, it's... sticky?"
 	}
-    
-    buy_price = 240
-    sell_price = 60
-    
-    item_localize("item_c_darker_candy")
+	
+	buy_price = 240
+	sell_price = 60
+	
+	item_localize("item_c_darker_candy")
 }
 item_register(item_darker_candy);
 
@@ -63,10 +63,10 @@ function item_top_cake() : item_consumable() constructor {
 		ralsei: "Whoops.",
 		noelle: "Happy birthday! Haha!"
 	}
-    
-    sell_price = 75
-    
-    item_localize("item_c_top_cake")
+	
+	sell_price = 75
+	
+	item_localize("item_c_top_cake")
 }
 item_register(item_top_cake);
 
@@ -86,8 +86,8 @@ function item_revivemint() : item_consumable() constructor {
 		noelle: "Mints? I love mints!",
 	}
 	use = function(item_index, target_index, caller) {
-        var target = global.party_names[target_index]
-        
+		var target = global.party_names[target_index]
+		
 		if party_getdata(target, "hp") > 0{
 			var heal = party_getdata(target, "max_hp") / 2
 			party_heal(target, heal, caller)
@@ -98,9 +98,9 @@ function item_revivemint() : item_consumable() constructor {
 		}
 		item_delete(item_index)
 	}
-    
-    sell_price = 200
-    
-    item_localize("item_c_revivemint")
+	
+	sell_price = 200
+	
+	item_localize("item_c_revivemint")
 }
 item_register(item_revivemint);

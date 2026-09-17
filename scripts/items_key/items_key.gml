@@ -1,7 +1,7 @@
 function item_key() : item() constructor {
 	type = ITEM_TYPE.KEY
-    
-    shop_max_sell = 1
+	
+	shop_max_sell = 1
 }
 
 function item_key_cell_phone() : item_key() constructor {
@@ -33,8 +33,8 @@ function item_key_cell_phone() : item_key() constructor {
 		cutscene_player_canmove(true)
 		cutscene_play()
 	}
-    
-    item_localize("item_key_cell_phone")
+	
+	item_localize("item_key_cell_phone")
 }
 item_register(item_key_cell_phone);
 
@@ -42,8 +42,8 @@ function item_key_claimbclaws() : item_key() constructor {
 	name = ["ClaimbClaws"];
 	desc = ["Claws so small they conveniently can't\nbe seen. Use them to climb up obvious walls.", "--"];
 	
-    can_use = false;
-    
-    item_localize("item_key_claimb_claws");
+	can_use = false;
+	
+	item_localize("item_key_claimb_claws");
 }
 item_register(item_key_claimbclaws);

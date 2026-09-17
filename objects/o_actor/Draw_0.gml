@@ -1,12 +1,12 @@
 var spr = sprite_index
 if !sprite_exists(sprite_index) 
-    spr = spr_default
+	spr = spr_default
 
 // set the hurt sprite if hurt
 if is_player || is_follower
 	s_hurt = party_getdata(name, "battle_sprites").hurt
 if is_enemy && struct_exists(enemy_struct, "s_hurt")
-    s_hurt = enemy_struct.s_hurt
+	s_hurt = enemy_struct.s_hurt
 if (hurt > 0 && is_in_battle || run_away && is_in_battle && is_enemy) && !(instance_exists(o_enc) && (is_player || is_follower) && o_enc.party_state[party_get_index(name)] == PARTY_STATE.DEFEND)
 	spr = s_hurt
 	
@@ -19,7 +19,7 @@ var yy = y + yoff
 var isave = image_blend
 image_blend = merge_color(image_blend, c_black, darken);
 if !is_undefined(override_blend)
-    image_blend = override_blend;
+	image_blend = override_blend;
 
 if dodge_getalpha() > 0 && is_player { // outline and bg darkener
 	if !surface_exists(dodge_outline_surf) // create outline surface
@@ -33,7 +33,7 @@ if dodge_getalpha() > 0 && is_player { // outline and bg darkener
 			var xdelta = lengthdir_x(1, i)
 			var ydelta = lengthdir_y(1, i)
 			
-		    s_drawer(spr, image_index, 
+			s_drawer(spr, image_index, 
 				160 + xdelta, 120 + ydelta,
 				image_xscale, image_yscale,
 				image_angle, image_blend, image_alpha
@@ -55,63 +55,63 @@ s_drawer(spr, image_index,
 )
 
 if freeze > 0 {
-    var __freezecol = merge_color(c_navy, c_white, 0.8)
-    var t = (sprite_height) - (freeze * (sprite_height));
-    
-    gpu_set_fog(true, __freezecol, 0, 0);
-    
-    var yoffset = -(sprite_get_yoffset(sprite_index) * image_yscale);
-    var xoffset = -(sprite_get_xoffset(sprite_index) * image_xscale);
-    
-    draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, (x - 1) + xoffset, (y - 1) + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.8);
-    draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, x + 1 + xoffset, (y - 1) + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.4);
-    draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, (x - 1) + xoffset, y + 1 + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.4);
-    draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, x + 1 + xoffset, y + 1 + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.8);
-    gpu_set_fog(false, c_white, 0, 0);
-    
-    gpu_set_blendmode(bm_add);
-    draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, x + xoffset, y + t + yoffset, image_xscale, image_yscale, __freezecol, image_alpha * 0.4);
-    gpu_set_blendmode(bm_normal);
+	var __freezecol = merge_color(c_navy, c_white, 0.8)
+	var t = (sprite_height) - (freeze * (sprite_height));
+	
+	gpu_set_fog(true, __freezecol, 0, 0);
+	
+	var yoffset = -(sprite_get_yoffset(sprite_index) * image_yscale);
+	var xoffset = -(sprite_get_xoffset(sprite_index) * image_xscale);
+	
+	draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, (x - 1) + xoffset, (y - 1) + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.8);
+	draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, x + 1 + xoffset, (y - 1) + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.4);
+	draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, (x - 1) + xoffset, y + 1 + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.4);
+	draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, x + 1 + xoffset, y + 1 + t + yoffset, image_xscale, image_yscale, c_blue, image_alpha * 0.8);
+	gpu_set_fog(false, c_white, 0, 0);
+	
+	gpu_set_blendmode(bm_add);
+	draw_sprite_part_ext(sprite_index, image_index, 0, t, sprite_width, sprite_height - t, x + xoffset, y + t + yoffset, image_xscale, image_yscale, __freezecol, image_alpha * 0.4);
+	gpu_set_blendmode(bm_normal);
 }
 
 // the light on the top of the character's sprite
 if instance_exists(o_eff_lighting_controller) && o_eff_lighting_controller.lighting_alpha > 0 {
-    var __l_alpha = o_eff_lighting_controller.lighting_alpha
-    var __l_darken = o_eff_lighting_controller.lighting_darken
-    var __l_off = o_eff_lighting_controller.surf_border/2
-    
-    if lighting_highlight_enabled && o_eff_lighting_controller.highlights {
-        surface_set_target(o_eff_lighting_controller.surf) {
-            gpu_set_fog(true, c_white, 0, 1)
-            s_drawer(spr, image_index, 
-                (xx - guipos_x() + __l_off)*2, (yy - guipos_y() + __l_off)*2, 
-                image_xscale*2, image_yscale*2, 
-                image_angle, c_white, 1
-            )
-            gpu_set_fog(false, 0, 0, 0)
-        
-            gpu_set_blendmode(bm_subtract)
-            s_drawer(spr, image_index, 
-                (xx - guipos_x() + __l_off)*2, (yy+1 - guipos_y() + __l_off)*2, 
-                image_xscale*2, image_yscale*2, 
-                image_angle, c_black, 1
-            )
-            gpu_set_blendmode(bm_normal)
-        }
-        surface_reset_target()
-    }
+	var __l_alpha = o_eff_lighting_controller.lighting_alpha
+	var __l_darken = o_eff_lighting_controller.lighting_darken
+	var __l_off = o_eff_lighting_controller.surf_border/2
+	
+	if lighting_highlight_enabled && o_eff_lighting_controller.highlights {
+		surface_set_target(o_eff_lighting_controller.surf) {
+			gpu_set_fog(true, c_white, 0, 1)
+			s_drawer(spr, image_index, 
+				(xx - guipos_x() + __l_off)*2, (yy - guipos_y() + __l_off)*2, 
+				image_xscale*2, image_yscale*2, 
+				image_angle, c_white, 1
+			)
+			gpu_set_fog(false, 0, 0, 0)
+		
+			gpu_set_blendmode(bm_subtract)
+			s_drawer(spr, image_index, 
+				(xx - guipos_x() + __l_off)*2, (yy+1 - guipos_y() + __l_off)*2, 
+				image_xscale*2, image_yscale*2, 
+				image_angle, c_black, 1
+			)
+			gpu_set_blendmode(bm_normal)
+		}
+		surface_reset_target()
+	}
 	
 	// the shadow on the actor
-    if lighting_darken_enabled && o_eff_lighting_controller.darken
-        lighting_darken_self(s_drawer)
+	if lighting_darken_enabled && o_eff_lighting_controller.darken
+		lighting_darken_self(s_drawer)
 
 	// the shadow on the ground
-    if lighting_shadow_enabled && o_eff_lighting_controller.shadows
-        s_drawer(spr, image_index, 
-            xx, yy, 
-            image_xscale, anime_curve_lerp(0, -2, __l_alpha, anime_curve.linear), 
-            image_angle, c_black, image_alpha * o_eff_lighting_controller.lighting_alpha * alpha_mod
-        )
+	if lighting_shadow_enabled && o_eff_lighting_controller.shadows
+		s_drawer(spr, image_index, 
+			xx, yy, 
+			image_xscale, anime_curve_lerp(0, -2, __l_alpha, anime_curve.linear), 
+			image_angle, c_black, image_alpha * o_eff_lighting_controller.lighting_alpha * alpha_mod
+		)
 }
 
 // draw the sweat sprite
@@ -126,21 +126,21 @@ if sweat {
 	
 // dim the leader while dodging
 if dodge_getalpha() > 0 { 
-    if is_player {
-        gpu_set_fog(true, merge_color(c_black, c_dkgray, .5), 0, 0)
-    	s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, image_blend, .8 * dodge_getalpha() * alpha_mod);
-    	gpu_set_fog(false, c_white, 0, 0)
-    }
-    else
-        dodge_darken_self(s_drawer)
+	if is_player {
+		gpu_set_fog(true, merge_color(c_black, c_dkgray, .5), 0, 0)
+		s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, image_blend, .8 * dodge_getalpha() * alpha_mod);
+		gpu_set_fog(false, c_white, 0, 0)
+	}
+	else
+		dodge_darken_self(s_drawer)
 }
 
 if flashing { // battle select flash
 	gpu_set_fog(true, c_white, 0, 0)
 	s_drawer(spr, image_index, xx, yy, image_xscale, image_yscale, image_angle, c_white, (-cos(fsiner / 5)*0.4 + 0.6) * alpha_mod);
 	gpu_set_fog(false, c_white, 0, 0)
-    
-    lighting_darken_self()
+	
+	lighting_darken_self()
 }
 if flash > 0 { // normal flash
 	gpu_set_fog(true, flash_color, 0, 0)
@@ -149,23 +149,23 @@ if flash > 0 { // normal flash
 }
 
 if instance_exists(o_lb_dl_controller) {
-    surface_set_target(o_lb_dl_controller.surf_light)
-        gpu_set_fog(true, lb_dl_highlight_color, 0, 1)
-        s_drawer(spr, image_index, 
-            (xx - guipos_x())*2, (yy - guipos_y())*2, 
-            image_xscale*2, image_yscale*2, 
-            image_angle, c_white, 1
-        )
-        gpu_set_fog(false, 0, 0, 0)
-        
-        gpu_set_blendmode(bm_subtract)
-        s_drawer(spr, image_index, 
-            (xx - guipos_x())*2, (yy+1 - guipos_y())*2, 
-            image_xscale*2, image_yscale*2, 
-            image_angle, c_black, 1
-        )
-        gpu_set_blendmode(bm_normal)
-    surface_reset_target()
+	surface_set_target(o_lb_dl_controller.surf_light)
+		gpu_set_fog(true, lb_dl_highlight_color, 0, 1)
+		s_drawer(spr, image_index, 
+			(xx - guipos_x())*2, (yy - guipos_y())*2, 
+			image_xscale*2, image_yscale*2, 
+			image_angle, c_white, 1
+		)
+		gpu_set_fog(false, 0, 0, 0)
+		
+		gpu_set_blendmode(bm_subtract)
+		s_drawer(spr, image_index, 
+			(xx - guipos_x())*2, (yy+1 - guipos_y())*2, 
+			image_xscale*2, image_yscale*2, 
+			image_angle, c_black, 1
+		)
+		gpu_set_blendmode(bm_normal)
+	surface_reset_target()
 }
 
 image_blend = isave

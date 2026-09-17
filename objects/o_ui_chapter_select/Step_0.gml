@@ -23,16 +23,16 @@ if state == -1 {
 		}
 		else {
 			yadd = -80
-            animate(0, 1, 20, anime_curve.linear, id, "alpha")
+			animate(0, 1, 20, anime_curve.linear, id, "alpha")
 			
 			state = 0
-            selection = global.chapter - 1;
+			selection = global.chapter - 1;
 		}
 	}
 }
 else {
 	var total = array_length(global.registered_chapters)
-    
+	
 	if !musplayed && music_getplaying(0) != mus_drone {
 		musplayed = true
 		music_play(mus_drone, 0)
@@ -113,18 +113,18 @@ else {
 			else
 				audio_play(snd_ui_cant_select)
 		}
-        
+		
 		if selection == total {
-            if horselection == 0
-                game_end()
-            else {
-                audio_play(snd_ui_select)
-            	loc_switch_lang(, false)
-                
-                if restart_upon_language_switch
-                    room_goto(room)
-            }
-        }
+			if horselection == 0
+				game_end()
+			else {
+				audio_play(snd_ui_select)
+				loc_switch_lang(, false)
+				
+				if restart_upon_language_switch
+					room_goto(room)
+			}
+		}
 	}
 	else if InputPressed(INPUT_VERB.CANCEL) && confirming {
 		confirming = false

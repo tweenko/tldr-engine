@@ -10,8 +10,8 @@ if !instance_exists(character) {
 
 // finished all steps?
 if step >= array_length(xreq) || step >= array_length(yreq) {
-    instance_destroy();
-    exit;
+	instance_destroy();
+	exit;
 }
 
 timer = 0;
@@ -25,8 +25,8 @@ if seed[step] == "" {
 	var dist = point_distance(0, 0, xdiff, ydiff)
 	if time[step] == undefined
 		time[step] = dist/spd[step]
-    else
-        spd[step] = dist/time[step] * 2
+	else
+		spd[step] = dist/time[step] * 2
 		
 	time[step] = max(1, time[step])
 }
@@ -36,16 +36,16 @@ else if seed[step] == "jump" || seed[step] == "jump_into" {
 	time[step] ??= 15
 	time[step] = max(1, time[step])
 	
-    if play_sfx[step]
+	if play_sfx[step]
 	   audio_play(snd_jump,,,, 1)
-    
-    animate(character.x, xreq[step], time[step], anime_curve.linear, character, "x")
-    animate(character.y, yreq[step], time[step], anime_curve.linear, character, "y")
-    
-    var a = animate(0, -30, floor(time[step]/2), anime_curve.cubic_out, character, "yoff", false)
-        a._add(0, floor(time[step]/2), anime_curve.cubic_in)
-        a._start()
-    
+	
+	animate(character.x, xreq[step], time[step], anime_curve.linear, character, "x")
+	animate(character.y, yreq[step], time[step], anime_curve.linear, character, "y")
+	
+	var a = animate(0, -30, floor(time[step]/2), anime_curve.cubic_out, character, "yoff", false)
+		a._add(0, floor(time[step]/2), anime_curve.cubic_in)
+		a._start()
+	
 	
 	var spr = character.s_ball
 	if sprite_exists(spr) {

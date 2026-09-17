@@ -9,6 +9,6 @@ fade = 0
 offset = 0
 
 enum ENC_BG {
-    GRID,
-    NONE
+	GRID,
+	NONE
 }

@@ -1,5 +1,5 @@
 if !surface_exists(surf)
-    surf = surface_create(640, 480, surface_rgba32float)
+	surf = surface_create(640, 480, surface_rgba32float)
 
 surface_set_target(surf)
 draw_clear_alpha(c_black, 0)
@@ -39,14 +39,14 @@ if display_chapter {
 	draw_text_transformed_shadow(16, 8, $"CHAPTER {global.chapter}", 2, 2, 0, 2, shadow)
 }
 if currently_naming {
-    surface_reset_target()
-    
-    gpu_set_blendenable(false)
-    draw_surface_ext(surf, 0, 0, 1, 1, 0, c_white, 1)
-    gpu_set_blendenable(true)
-    
-    draw_set_color(c_white);
-    exit;
+	surface_reset_target()
+	
+	gpu_set_blendenable(false)
+	draw_surface_ext(surf, 0, 0, 1, 1, 0, c_white, 1)
+	gpu_set_blendenable(true)
+	
+	draw_set_color(c_white);
+	exit;
 }
 
 var t = msg
@@ -248,11 +248,11 @@ if state < 2 { // main
 	if ch_file 
 		option_draw(108, 420, loc_string("save_select_ch_files", global.chapter-1), SAVE_SLOTS+3)
 	if language {
-        draw_set_font(font_main_ja)
+		draw_set_font(font_main_ja)
 		option_draw(280, 420, $"{loc("chapter_select_lanswitch")}", SAVE_SLOTS+4)
-    }
-    
-    draw_set_font(loc_font("main"))
+	}
+	
+	draw_set_font(loc_font("main"))
 	option_draw(408, 420, loc("save_select_endprogram"), SAVE_SLOTS+5)
 }
 else if state == 2 || state == 21 || state == 22 { // copy
