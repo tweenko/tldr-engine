@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.160862,
+  "duration":0.16086167,
   "exportDir":"",
   "name":"snd_bump",
   "parent":{
