@@ -301,3 +301,89 @@ function party_fade_in(time = 10) {
         animate(inst.image_alpha, 1, time, anime_curve.linear, inst, "image_alpha")
     }
 }
+
+function party_spell_exists(party_name, spell) {
+	if !(is_struct(spell) || (is_callable(spell) && asset_has_tags(spell, "@@constructor", asset_script))) {
+		return;
+	}
+	
+	var __spells = party_getdata(party_name, "spells");
+	
+	for (var i=0; i<array_length(__spells); i++) {
+		if is_instanceof(__spells[i], spell) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+/// @desc adds a spell to a party member
+/// @arg {string} party_name the party member's internal name
+/// @arg {Asset.GMScript,Struct.item_spell} spell the spell to add, if it wasn't already added
+function party_m_addspell(party_name, spell) {
+	if !(is_struct(spell) || (is_callable(spell) && asset_has_tags(spell, "@@constructor", asset_script))) {
+		show_debug_message($"CANNOT ADD SPELL: The argument 'spell' is not a struct or a constructor.");	
+		return;
+	}
+	
+	if !party_spell_exists(party_name, spell) {
+		var __spells = party_getdata(party_name, "spells");
+		var __spell_struct = is_struct(spell) ? spell : new spell();
+		
+		array_push(__spells, __spell_struct);
+		party_setdata(party_name, "spells", __spells);
+	}
+	else {
+		show_debug_message($"CANNOT ADD SPELL: The spell {is_callable(spell) ? script_get_name(spell) : instanceof(spell)} already exists in the spell list for {party_name}.");
+	}
+}
+
+/// @desc removes a spell from a party member
+/// @arg {string} party_name the party member's internal name
+/// @arg {Asset.GMScript,Struct.item_spell} spell the spell to remove, if it was added
+function party_m_removespell(party_name, spell) {
+	if !(is_struct(spell) || (is_callable(spell) && asset_has_tags(spell, "@@constructor", asset_script))) {
+		show_debug_message($"CANNOT REMOVE SPELL: The argument 'spell' is not a struct or a constructor.");
+		return;
+	}
+	
+	if party_spell_exists(party_name, spell) {
+		var __spells = party_getdata(party_name, "spells");
+		var __spell_struct = is_struct(spell) ? spell : new spell();
+		
+		for (var i=0; i<array_length(__spells); i++) {
+			if is_instanceof(__spells[i], spell) {
+				array_delete(__spells, i, 1);
+				i=0;
+			}
+		}
+		
+		party_setdata(party_name, "spells", __spells);
+	}
+	else {
+		show_debug_message($"CANNOT REMOVE SPELL: The spell {is_callable(spell) ? script_get_name(spell) : instanceof(spell)} already doesn't exist in the spell list for {party_name}.");
+	}
+}
+
+/// @desc gets a spell struct (or the entire spell array if `spell` is left undefined) from a party member
+/// @arg {string} party_name the party member's internal name
+/// @arg {Asset.GMScript,Struct.item_spell,Undefined} spell the spell to get. if `undefined`, returns the party member's entire spell array
+function party_m_getspell(party_name, spell=undefined) {
+	var __spells = party_getdata(party_name, "spells");
+	
+	if is_undefined(spell) {
+		return __spells;
+	}
+	else {
+		if !(is_struct(spell) || (is_callable(spell) && asset_has_tags(spell, "@@constructor", asset_script))) {
+			show_debug_message($"CANNOT GET SINGLE SPELL: The argument 'spell' is not a struct or a constructor.");
+			return undefined;
+		}
+		for (var i=0; i<array_length(__spells); i++) {
+			if is_instanceof(__spells[i], spell) {
+				return __spells[i];
+			}
+		}
+	}
+}
