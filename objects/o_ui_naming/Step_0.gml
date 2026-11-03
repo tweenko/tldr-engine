@@ -1,16 +1,35 @@
 if state == NAMING_STATE.NAMING {
     soul_update = true
+	keypress_timer++
     
-    if InputPressed(INPUT_VERB.RIGHT)
-        __selection_move(0, 1)
-    else if InputPressed(INPUT_VERB.LEFT)
-        __selection_move(0, -1)
-    else if InputPressed(INPUT_VERB.UP)
-        __selection_move(-1, 0)
-    else if InputPressed(INPUT_VERB.DOWN)
-        __selection_move(1, 0)
-    else
+    if InputCheck(INPUT_VERB.RIGHT) {
+		if InputPressed(INPUT_VERB.RIGHT)
+            __selection_move(0, 1)
+
+		    if keypress_timer % 2
+		      __selection_move(0, 1)
+	} else if InputCheck(INPUT_VERB.LEFT) {
+		if InputPressed(INPUT_VERB.LEFT)
+           __selection_move(0, -1)
+
+           if keypress_timer % 2
+		      __selection_move(0, -1)
+    } else if InputCheck(INPUT_VERB.UP) {
+	    if InputPressed(INPUT_VERB.UP)
+	       __selection_move(-1, 0)
+
+          if keypress_timer % 2
+		     __selection_move(-1, 0)
+     } else if InputCheck(INPUT_VERB.DOWN) {
+		if InputPressed(INPUT_VERB.DOWN)
+           __selection_move(1, 0)
+
+          if keypress_timer % 2
+		     __selection_move(1, 0)
+    } else {
     	soul_update = false
+		keypress_timer = 0
+	}
     
     if InputPressed(INPUT_VERB.SELECT) {
         if selection[0] == keyboard_back_pos[0] && selection[1] == keyboard_back_pos[1] // back
