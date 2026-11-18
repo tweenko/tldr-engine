@@ -26,7 +26,7 @@ function __InputVibrateClassGamepad(_device) constructor
         else
         {
             var _gamepadType = InputDeviceGetGamepadType(__device);
-            if ((INPUT_ON_WINDOWS || INPUT_ON_SWITCH)
+            if ((INPUT_ON_WINDOWS || INPUT_ON_SWITCH_X)
             &&  ((_gamepadType == INPUT_GAMEPAD_TYPE_SWITCH)
               || (_gamepadType == INPUT_GAMEPAD_TYPE_JOYCON_LEFT)
               || (_gamepadType == INPUT_GAMEPAD_TYPE_JOYCON_RIGHT)))
@@ -49,6 +49,8 @@ function __InputVibrateClassGamepad(_device) constructor
         else
         {
             InputVibrateDirect(__device, 0, 0);
+            __left  = 0;
+            __right = 0;
         }
     };
 }

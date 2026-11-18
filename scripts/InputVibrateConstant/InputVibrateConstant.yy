@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"InputVibrateConstant",
   "parent":{
-    "name":"Vibration",
-    "path":"folders/@Engine/External Libraries/Input Plug-Ins/Vibration.yy",
+    "name":"Actions",
+    "path":"folders/@Engine/External Libraries/Input Plug-Ins/Vibration/Actions.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

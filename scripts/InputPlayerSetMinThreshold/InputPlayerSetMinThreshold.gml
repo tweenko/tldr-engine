@@ -14,15 +14,14 @@ function InputPlayerSetMinThreshold(_thresholdType, _value, _playerIndex = 0)
     {
         if (_thresholdType == INPUT_THRESHOLD.BOTH)
         {
-            //There's probably a fancy way to do this with a native array function
-            __thresholdMinArray[@ INPUT_THRESHOLD.LEFT ] = _value;
-            __thresholdMinArray[@ INPUT_THRESHOLD.RIGHT] = _value;
-            __thresholdMinArray[@ INPUT_THRESHOLD.BOTH ] = _value;
+            __SetMinThreshold(INPUT_THRESHOLD.LEFT,  _value);
+            __SetMinThreshold(INPUT_THRESHOLD.RIGHT, _value);
+            __SetMinThreshold(INPUT_THRESHOLD.BOTH,  _value);
         }
         else
         {
-            __thresholdMinArray[@ _thresholdType] = _value;
-            __thresholdMinArray[@ INPUT_THRESHOLD.BOTH] = 0.5*(__thresholdMinArray[INPUT_THRESHOLD.LEFT] + __thresholdMinArray[INPUT_THRESHOLD.RIGHT]);
+            __SetMinThreshold(_thresholdType, _value);
+            __SetMinThreshold(INPUT_THRESHOLD.BOTH, 0.5*(__thresholdMinArray[INPUT_THRESHOLD.LEFT] + __thresholdMinArray[INPUT_THRESHOLD.RIGHT]));
         }
     }
 }

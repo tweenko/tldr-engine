@@ -25,7 +25,41 @@ function InputPlayerSetDevice(_device, _playerIndex = 0)
     {
         if ((_playerIndex != 0) && (_device != INPUT_NO_DEVICE))
         {
-            __InputError($"Cannot set player {_playerIndex} device to {_device}, hotswap mode is enabled");
+            __InputError("Cannot set player ", _playerIndex, " device to ", _device, ", hotswap mode is enabled");
+        }
+    }
+    
+    if (INPUT_ON_PS5 && INPUT_PS5_SINGLE_USER)
+    {
+        if ((_device != INPUT_NO_DEVICE) && (_device != INPUT_GENERIC_DEVICE) && (_device != __InputGetPS5InitialUserDevice()))
+        {
+            //Player 0 must have no device or device 0 (or a generic device if the developer is doing something custom)
+            __InputTrace("Warning! Cannot set device ", _device, " for player 0 due to `INPUT_PS5_SINGLE_USER`");
+            return;
+        }
+        else if ((_playerIndex != 0) && (_device != INPUT_NO_DEVICE))
+        {
+            //No other players can have a device
+            _device = INPUT_NO_DEVICE;
+            __InputTrace("Warning! Player ", _playerIndex, " cannot have a device due to `INPUT_PS5_SINGLE_USER`");
+        }
+    }
+    
+    if (INPUT_ON_XBOX && INPUT_XBOX_SIMPLIFIED_USER_MODEL)
+    {
+        if ((_playerIndex != 0) && (_device != INPUT_NO_DEVICE))
+        {
+            //No other players can have a device
+            _device = INPUT_NO_DEVICE;
+            __InputTrace("Warning! Player ", _playerIndex, " cannot have a device due to `INPUT_XBOX_SIMPLIFIED_USER_MODEL`");
+        }
+    }
+
+    if (INPUT_KBM_FIRST_PLAYER_ONLY)
+    {
+        if ((_device == INPUT_KBM) && (_playerIndex != 0))
+        {
+            __InputError("Cannot set player ", _playerIndex, " device to ", _device, " due to `INPUT_KBM_FIRST_PLAYER_ONLY`");        
         }
     }
     

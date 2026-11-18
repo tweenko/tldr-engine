@@ -1,5 +1,11 @@
 // Feather disable all
 
+/// This script defines return values for `InputIconGet()` and `InputIconGetDirect()` in situations
+/// where a player's current device types and/or gamepad type cannot be determined.
+/// 
+/// N.B. Icon return values need not be merely strings. You may define return values to be whatever
+///      datatype you like: strings, sprites, structs etc.
+
 
 
 // Icon data to return when a binding is empty
@@ -7,8 +13,6 @@ InputIconDefineEmpty("empty");
 
 // Icon data to return when a binding is unsupported on the target device
 InputIconDefineUnsupported("unsupported");
-
-
 
 ////////////////////////////
 //                        //

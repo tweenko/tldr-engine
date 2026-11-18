@@ -22,12 +22,7 @@ function __InputGamepadTransformQuirks(_gamepadStruct)
         switch (os_type)
         {
             case os_windows:                
-                if ((_vidPid == "63257505") && (_buttonCount == 13) && (_hatCount == 1) && (__InputStringContains(_description, "switch co.,ltd. retro-bit controller"))) 
-                {
-                    __InputTrace("Overriding gamepad type: Switch (Saturn Wireless Pro)");
-                    __type = INPUT_GAMEPAD_TYPE_SWITCH;
-                }
-                else if ((_vidPid == "7e050920") && (_buttonCount > 21) && !((_buttonCount == 30) && (_hatCount == 0)))
+                 if ((_vidPid == "7e050920") && (_buttonCount > 21) && (not ((_buttonCount == 30) && (_hatCount == 0))))
                 {
                     __InputTrace("Blocking gamepad: Switch USB Controller");
                     __blocked = true;
@@ -40,6 +35,11 @@ function __InputGamepadTransformQuirks(_gamepadStruct)
                 else if ((_vidPid == "4c056802") && (_buttonCount == 0) && (_axisCount == 8))
                 {
                     __InputTrace("Blocking gamepad: DSHidMini Gyro");
+                    __blocked = true;
+                }
+                else if (__InputStringMatches(_vidPid, "71011904", "5e04050b", "5e04130b", "5e04220b", "5e04200b"))
+                {
+                    __InputTrace("Blocking gamepad: DInput duplicate");
                     __blocked = true;
                 }
                 else if (_vidPid == "31730100")
@@ -55,7 +55,7 @@ function __InputGamepadTransformQuirks(_gamepadStruct)
                     __InputTrace("Blocking gamepad: Apple virtual controller");
                     __blocked = true;
                 }
-                else if ((__InputStringMatches(__guid, "03000000050b00000619000000010000", "03000000050b0000e318000000010000", "03000000050b0000e518000000010000", "03000000050b00005819000000010000", "03000000050b0000181a000000010000", "03000000050b00001a1a000000010000", "03000000050b00001c1a000000010000"))) 
+                else if (__InputStringMatches(__guid, "03000000050b00000619000000010000", "03000000050b0000e318000000010000", "03000000050b0000e518000000010000", "03000000050b00005819000000010000", "03000000050b0000181a000000010000", "03000000050b00001a1a000000010000", "03000000050b00001c1a000000010000")) 
                 {
                     __InputTrace("Blocking gamepad: ROG Mouse");
                     __blocked = true;
@@ -63,6 +63,11 @@ function __InputGamepadTransformQuirks(_gamepadStruct)
                 else if ((__type == INPUT_GAMEPAD_TYPE_JOYCON_LEFT) || (__type == INPUT_GAMEPAD_TYPE_JOYCON_RIGHT))
                 {
                     __InputTrace("Blocking gamepad: Single Joy Con");
+                    __blocked = true;
+                }
+                else if (_vidPid == "7e050920")
+                {
+                    __InputTrace("Blocking gamepad: Switch Pro Controller");
                     __blocked = true;
                 }
             break;
@@ -77,11 +82,6 @@ function __InputGamepadTransformQuirks(_gamepadStruct)
                 {
                     __InputTrace("Blocking gamepad: Joy-Con IMU");
                     __blocked = true;
-                }
-                else if ((_vidPid == "63257505") && (_buttonCount == 13) && (_hatCount == 1) && (__InputStringContains(_description, "usb"))) 
-                {
-                    __InputTrace("Overriding gamepad type: Saturn Wireless Pro");
-                    __type = INPUT_GAMEPAD_TYPE_SWITCH;
                 }
                 else if ((__InputStringContains(_description, "touchpad", "touchscreen"))) 
                 {           

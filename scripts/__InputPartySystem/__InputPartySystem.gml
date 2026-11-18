@@ -95,9 +95,31 @@ function __InputPartySystem()
                             }
                         }
                         
-                        var _device = InputDeviceGetNewActivityOnVerb(__joinVerb, _p);
+                        if (__joinVerb == INPUT_PARTY_ANY_BUTTON)
+                        {
+                            var _device = __InputPartyDeviceGetNewActivity(__leaveVerb, _p);
+                        }
+                        else
+                        {
+                            var _device = InputDeviceGetNewActivityOnVerb(__joinVerb, _p);
+                        }
+                        
                         if (_device != INPUT_NO_DEVICE)
                         {
+                            if (INPUT_KBM_FIRST_PLAYER_ONLY)
+                            {
+                                if ((_device == INPUT_KBM) && (_p != 0))
+                                {
+                                    __InputTrace("Attempted to connect as player ", _p, " with device ", _device, ". Connected as player 0 instead, per `INPUT_KBM_FIRST_PLAYER_ONLY`");                                
+                                    
+                                    _p = 0;
+                                    if (InputPlayerIsConnected(_p))
+                                    {
+                                        __InputTrace("Removed device ", InputPlayerGetDevice(_p), " from player ", _p);
+                                    }
+                                }
+                            }
+
                             __InputTrace("Player ", _p, " joined with device ", _device);
                             InputPlayerSetDevice(_device, _p);
                             InputVerbConsumeAll(_p); //Make sure we don't leak input

@@ -1,9 +1,21 @@
 // Feather disable all
 
+#macro __INPUT_GAMEPAD_AXIS_BLOCKS_HOTSWAP  false
+
 #macro __INPUT_VERB_STATE_HEADER  "<PWP"
 #macro __INPUT_VERB_STATE_FOOTER  ">"
 
+#macro __INPUT_DEBUG_STEAM_INPUT  false
+
 #macro __INPUT_CONTROLLER_OBJECT_DEPTH  16001
+
+// Vary from `0` to `1` to increase the amount of overlap between adjacent thumbstick cardinal
+// directions when collecting input from analogue thumbsticks. A value of `1` will provide no
+// overlap which means each cardinal direction will exist in 90 degree slices. A value of `0` will
+// cause segments to overlap entirely which is definitely not what anyone wants. Choosing a value
+// for this macro is currently trial-and-error because I haven't gotten round to figuring out the
+// trigonometry. `0.56` feels about right though.
+#macro __INPUT_THUMBSTICK_OVERLAP_FACTOR  0.56
 
 // Whether the game uses the horizontal holdtype for single Joy-Cons. Set this to `false` for
 // vertical holdtype when running on Switch. The library treats these two modes as mutually
@@ -46,25 +58,15 @@
                                          }\
                                      }
 
-#macro __INPUT_VALIDATE_CURSOR_CLUSTER if (INPUT_SAFETY_CHECKS)\
-                                     {\
-                                         if (not is_numeric(INPUT_CURSOR_CLUSTER))\
-                                         {\
-                                             __InputError("Cursor cluster index must be a number (typeof = \"", typeof(INPUT_CURSOR_CLUSTER), "\")");\
-                                         }\
-                                         if (INPUT_CURSOR_CLUSTER < 0)\
-                                         {\
-                                             __InputError("Cursor cluster index ", INPUT_CURSOR_CLUSTER, " less than zero");\
-                                         }\
-                                     }
-
 __InputSystem();
 function __InputSystem()
 {
     static _system = undefined;
     if (_system != undefined) return _system;
     
-    __InputTrace("Welcome to Input by Juju Adams, Alynne Keith, and friends! This is version " + INPUT_VERSION + ", " + INPUT_DATE);
+    global.__inputPlugInGuard = true;
+    
+    __InputTrace("Welcome to Input by Juju Adams, Alynne Keith, and friends! This is version " + INPUT_VERSION + ", " + INPUT_DATE + " (GM version " + string(GM_runtime_version) + ")");
     
     device_mouse_dbclick_enable(false);
     
@@ -89,6 +91,7 @@ function __InputSystem()
         __rebindingArray = [];
         
         __gamepadArray = array_create(gamepad_get_device_count(), undefined);
+        __deviceArray = [];
         
         __androidEnumerationTime = -infinity;
         __restartTime            = -infinity;
@@ -103,6 +106,7 @@ function __InputSystem()
         __verbCount           = 0;
         
         __clusterDefinitionArray = [];
+        __verbToClusterMap       = ds_map_create();
         __clusterCount           = 0;
         
         __kbmBindingNameMap       = __InputCreateKbmBindingNameMap();
@@ -220,105 +224,147 @@ function __InputSystem()
             keyboard_virtual_hide();
         }
         
-        
-        //Create a time source if the library needs to self-manage
-        if (INPUT_COLLECT_MODE != 2)
+        //Disable mouse input on PlayStation 5
+        if (INPUT_ON_PS5)
         {
-            time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, function()
+            ps5_touchpad_mouse_enable(false);
+        }
+        
+        //Set known-good configuration on Switch
+        if (INPUT_ON_SWITCH_X && INPUT_SWITCH_X_KNOWN_GOOD)
+        {
+            __InputSwitchXKnownGood();
+        }
+        
+        
+        
+        time_source_start(time_source_create(time_source_global, 1, time_source_units_frames, function()
+        {
+            if (INPUT_COLLECT_MODE == 1)
             {
-                if (INPUT_COLLECT_MODE == 1)
+                __InputCollect();
+            }
+            else if (INPUT_COLLECT_MODE == 0)
+            {
+                //Ensure existance of our controller object
+                if (!instance_exists(__InputUpdateController))
                 {
-                    __InputCollect();
-                }
-                else if (INPUT_COLLECT_MODE == 0)
-                {
-                    //Ensure existance of our controller object
-                    if (!instance_exists(__InputUpdateController))
+                    //Try to detect deactivation of the controller object
+                    instance_activate_object(__InputUpdateController);
+                    if (instance_exists(__InputUpdateController))
                     {
-                        //Try to detect deactivation of the controller object
-                        instance_activate_object(__InputUpdateController);
-                        if (instance_exists(__InputUpdateController))
+                        if (GM_build_type == "run")
                         {
-                            if (GM_build_type == "run")
-                            {
-                                //Be nasty when running from the IDE >:(
-                                __InputError("__InputUpdateController has been deactivated\nPlease ensure that __InputUpdateController is never deactivated\nYou may need to use instance_activate_object(__InputUpdateController)");
-                            }
-                            else
-                            {
-                                //Be nice when in production <:)
-                                __InputTrace("Warning! __InputUpdateController has been deactivated. Please ensure that __InputUpdateController is never deactivated. You may need to use instance_activate_object(__InputUpdateController)");
-                            }
+                            //Be nasty when running from the IDE >:(
+                            __InputError("__InputUpdateController has been deactivated\nPlease ensure that __InputUpdateController is never deactivated\nYou may need to use instance_activate_object(__InputUpdateController)");
                         }
                         else
                         {
-                            static _created = false;
-                            if (not _created)
+                            //Be nice when in production <:)
+                            __InputTrace("Warning! __InputUpdateController has been deactivated. Please ensure that __InputUpdateController is never deactivated. You may need to use instance_activate_object(__InputUpdateController)");
+                        }
+                    }
+                    else
+                    {
+                        static _created = false;
+                        if (not _created)
+                        {
+                            //Don't throw an error if we haven't made the instance yet
+                            _created = true;
+                        }
+                        else
+                        {
+                            if (__restartTime == __time)
                             {
-                                //Don't throw an error if we haven't made the instance yet
-                                _created = true;
+                                __InputTrace("Warning! Please consider an alternative method to reset game state: avoid using \"game_restart()\"");
                             }
                             else
-                            {
-                                if (__restartTime == __time)
+                            {                                
+                                if (GM_build_type == "run")
                                 {
-                                    __InputTrace("Warning! Please consider an alternative method to reset game state: avoid using \"game_restart()\"");
+                                    //Be nasty when running from the IDE >:(
+                                    __InputError("__InputUpdateController has been destroyed\nPlease ensure that __InputUpdateController is never destroyed");
                                 }
                                 else
-                                {                                
-                                    if (GM_build_type == "run")
-                                    {
-                                        //Be nasty when running from the IDE >:(
-                                        __InputError("__InputUpdateController has been destroyed\nPlease ensure that __InputUpdateController is never destroyed");
-                                    }
-                                    else
-                                    {
-                                        //Be nice when in production <:)
-                                        __InputTrace("Warning! __InputUpdateController has been destroyed. Please ensure that __InputUpdateController is never destroyed");
-                                    }
+                                {
+                                    //Be nice when in production <:)
+                                    __InputTrace("Warning! __InputUpdateController has been destroyed. Please ensure that __InputUpdateController is never destroyed");
                                 }
                             }
-                
-                            instance_create_depth(0, -__INPUT_CONTROLLER_OBJECT_DEPTH, __INPUT_CONTROLLER_OBJECT_DEPTH, __InputUpdateController);
                         }
-                    }
-        
-                    //Detect if the controller object has been set to non-persistent
-                    if (!__InputUpdateController.persistent)
-                    {
-                        if (GM_build_type == "run")
-                        {
-                            //Be nasty when running from the IDE >:(
-                            __InputError("__InputUpdateController has been set as non-persistent\nPlease ensure that __InputUpdateController is always persistent");
-                        }
-                        else
-                        {
-                            //Be nice when in production <:)
-                            __InputTrace("Warning! __InputUpdateController has been set as non-persistent. Please ensure that __InputUpdateController is always persistent");
-                            __InputUpdateController.persistent = true;
-                        }
-                    }
-        
-                    //Detect if the controller object depth has been set
-                    if (__InputUpdateController.depth != __INPUT_CONTROLLER_OBJECT_DEPTH)
-                    {
-                        if (GM_build_type == "run")
-                        {
-                            //Be nasty when running from the IDE >:(
-                            __InputError("__InputUpdateController depth has been changed (expected ", __INPUT_CONTROLLER_OBJECT_DEPTH, ", got ", __InputUpdateController.depth ,")\nPlease ensure that __InputUpdateController is never manually created and depth is not manually set");
-                        }
-                        else
-                        {
-                            //Be nice when in production <:)
-                            __InputTrace("Warning! __InputUpdateController depth has been changed (expected ", __INPUT_CONTROLLER_OBJECT_DEPTH, ", got ", __InputUpdateController.depth ,")\nPlease ensure that __InputUpdateController is never manually created and depth is not manually set");
-                            __InputUpdateController.depth = __INPUT_CONTROLLER_OBJECT_DEPTH;
-                        }
+                        
+                        instance_create_depth(0, -__INPUT_CONTROLLER_OBJECT_DEPTH, __INPUT_CONTROLLER_OBJECT_DEPTH, __InputUpdateController);
                     }
                 }
-            },
-            [], -1));
-        }
+                
+                //Detect if the controller object has been set to non-persistent
+                if (!__InputUpdateController.persistent)
+                {
+                    if (GM_build_type == "run")
+                    {
+                        //Be nasty when running from the IDE >:(
+                        __InputError("__InputUpdateController has been set as non-persistent\nPlease ensure that __InputUpdateController is always persistent");
+                    }
+                    else
+                    {
+                        //Be nice when in production <:)
+                        __InputTrace("Warning! __InputUpdateController has been set as non-persistent. Please ensure that __InputUpdateController is always persistent");
+                        __InputUpdateController.persistent = true;
+                    }
+                }
+                
+                //Detect if the controller object depth has been set
+                if (__InputUpdateController.depth != __INPUT_CONTROLLER_OBJECT_DEPTH)
+                {
+                    if (GM_build_type == "run")
+                    {
+                        //Be nasty when running from the IDE >:(
+                        __InputError("__InputUpdateController depth has been changed (expected ", __INPUT_CONTROLLER_OBJECT_DEPTH, ", got ", __InputUpdateController.depth ,")\nPlease ensure that __InputUpdateController is never manually created and depth is not manually set");
+                    }
+                    else
+                    {
+                        //Be nice when in production <:)
+                        __InputTrace("Warning! __InputUpdateController depth has been changed (expected ", __INPUT_CONTROLLER_OBJECT_DEPTH, ", got ", __InputUpdateController.depth ,")\nPlease ensure that __InputUpdateController is never manually created and depth is not manually set");
+                        __InputUpdateController.depth = __INPUT_CONTROLLER_OBJECT_DEPTH;
+                    }
+                }
+            }
+            
+            //Enumerate all devices regardless of collect mode
+            var _array = __deviceArray;
+            array_resize(_array, 0);
+            
+            if (not INPUT_BAN_GAMEPADS)
+            {
+                var _gamepadCount = gamepad_get_device_count();
+                
+                if ((not INPUT_ON_WEB) && (INPUT_ON_MACOS || ((not __usingSteamworks) && INPUT_ON_WINDOWS) || (__usingSteamworks && INPUT_ON_LINUX)))
+                {
+                    //Search last-to-first on platforms with low-index virtual controllers (Steam Input, ViGEm)
+                    //We want real devices to take priority over virtual ones where possible to avoid thrashing
+                    var _sortOrder = -1;
+                    var _device = _gamepadCount - 1;
+                }
+                else
+                {
+                    var _sortOrder = 1;
+                    var _device = 0;
+                }
+                
+                repeat(_gamepadCount)
+                {
+                    if (InputDeviceIsConnected(_device)) array_push(_array, _device);
+                    _device += _sortOrder;
+                }
+            }
+            
+            if (not INPUT_BAN_KBM) array_push(_array, INPUT_KBM);
+            if (not INPUT_BAN_TOUCH) array_push(_array, INPUT_TOUCH);
+        },
+        [], -1));
     }
+    
+    struct_remove(global, "__inputPlugInGuard");
     
     return _system;
 }

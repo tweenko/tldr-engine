@@ -13,7 +13,7 @@ function __InputMotionClass(_device) constructor
     
     __isCalibrated = false;
     
-    if (INPUT_ON_SWITCH || INPUT_ON_PS4 || INPUT_ON_PS5)
+    if (INPUT_ON_SWITCH_X || INPUT_ON_PS4 || INPUT_ON_PS5)
     {
         //Console platforms are presumed to always have motion data available for their first-party gamepads
         __hasData = InputDeviceIsGamepad(__device);

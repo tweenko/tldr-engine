@@ -14,6 +14,11 @@ function InputDeviceIsConnected(_device)
     {
         if (INPUT_BAN_GAMEPADS || (_device >= array_length(_gamepadArray))) return false;
         
+        if (INPUT_ON_XBOX && INPUT_XBOX_SIMPLIFIED_USER_MODEL && (xboxone_user_for_pad(_device) != xboxone_get_activating_user()))
+        {
+            return false;
+        }
+        
         var _struct = _gamepadArray[_device];
         return ((_struct != undefined) && (not _struct.__blocked));
     }
