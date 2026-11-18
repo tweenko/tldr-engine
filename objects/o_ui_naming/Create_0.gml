@@ -28,6 +28,7 @@ confirm_soulx_display = 320
 confirm_alpha = 0
 
 target_save_index = 0
+keypress_timer = 0
 
 enum NAMING_STATE {
     NAMING,
