@@ -1,12 +1,20 @@
 // Feather disable all
 
-/// Returns whether a player has been assigned INPUT_KBM as their device.
+/// Returns whether a player has been assigned `INPUT_KBM` as their device. If the optional
+/// `complianceSafe` argument is set to `true` (which it is by default) then this function will
+/// always return `false` when running on console.
 /// 
 /// @param {Real} [playerIndex=0]
+/// @param {Boolean} [complianceSafe=true]
 
-function InputPlayerUsingKbm(_playerIndex = 0)
+function InputPlayerUsingKbm(_playerIndex = 0, _complianceSafe = true)
 {
     static _playerArray = __InputSystemPlayerArray();
+    
+    if (INPUT_ON_CONSOLE && _complianceSafe)
+    {
+        return false;
+    }
     
     __INPUT_VALIDATE_PLAYER_INDEX
     

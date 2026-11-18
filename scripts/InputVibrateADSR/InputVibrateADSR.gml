@@ -1,7 +1,7 @@
 // Feather disable all
 
 /// Vibrates a player's gampead over an Attack-Decay-Sustain-Release curve. Time units are in
-/// milliseconds. Set the `force argument to `true` to force the vibration to happen regardless
+/// milliseconds. Set the `force` argument to `true` to force the vibration to happen regardless
 /// of whether the player has gamepad vibration paused.
 ///          
 /// @param {Real} peakStrength

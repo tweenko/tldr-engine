@@ -1,9 +1,9 @@
 // Feather disable all
 
 /// Returns the gamepad type of the currently connected gamepad for a player. If the player is not
-/// currently using a gamepad, this function will return `undefined`.
-/// 
-/// Game type will be a member of the `INPUT_GAMEPAD_TYPE_*` macros:
+/// currently using a gamepad or the player's device is not connected then this function returns
+/// `INPUT_GAMEPAD_TYPE_NO_GAMEPAD`. Otherwise, this function will return a member of the
+/// `INPUT_GAMEPAD_TYPE_*` macros:
 ///  - `INPUT_GAMEPAD_TYPE_UNKNOWN`
 ///  - `INPUT_GAMEPAD_TYPE_XBOX`
 ///  - `INPUT_GAMEPAD_TYPE_PS4`

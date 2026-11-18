@@ -40,7 +40,13 @@ function __InputCursorClassPlayer(_playerIndex) constructor
         
         if (INPUT_CURSOR_MOUSE_CONTROL && InputPlayerUsingKbm(_playerIndex))
         {
-            if (InputMouseMoved())
+            if (window_mouse_get_locked())
+            {
+                var _result = __InputCursorTransformCoordinate(window_mouse_get_delta_x(), window_mouse_get_delta_y(), INPUT_CURSOR_DEVICE_SPACE, INPUT_CURSOR_PRIMARY_COORD_SPACE);
+                _nextX += _result.x;
+                _nextY += _result.y;
+            }
+            else
             {
                 if (INPUT_CURSOR_PRIMARY_COORD_SPACE == INPUT_CURSOR_ROOM_SPACE)
                 {
@@ -144,7 +150,7 @@ function __InputCursorClassPlayer(_playerIndex) constructor
                         _rotatedX = clamp(_rotatedX, _l + __limitMargin - _pivotX, _r - __limitMargin - _pivotX);
                         _rotatedY = clamp(_rotatedY, _t + __limitMargin - _pivotY, _b - __limitMargin - _pivotY);
                         
-                        __x =  _rotatedX*_sin + _rotatedY*_cos + _pivotX;
+                        __x =  _rotatedX*_cos + _rotatedY*_sin + _pivotX;
                         __y = -_rotatedX*_sin + _rotatedY*_cos + _pivotY;
                         
                         //No need to apply the rest of the logic

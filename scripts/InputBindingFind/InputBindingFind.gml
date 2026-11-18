@@ -29,6 +29,8 @@ function __InputBindingFindInternal(_array, _forGamepad, _binding, _playerIndex)
 {
     static _playerArray = __InputSystemPlayerArray();
     static _verbCount   = __InputSystem().__verbCount;
+
+    if (is_string(_binding)) _binding = ord(_binding);
     
     with(_playerArray[_playerIndex])
     {

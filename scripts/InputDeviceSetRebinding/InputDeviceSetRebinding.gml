@@ -14,11 +14,33 @@
 /// @param {Bool} state
 /// @param {Array<Enum.INPUT_VERB,Real>} [ignoreArray]
 /// @param {Array<Enum.INPUT_VERB,Real>} [allowArray]
+/// @param {Bool} [consume=true]
 
-function InputDeviceSetRebinding(_device, _state, _ignoreArray = undefined, _allowArray = undefined)
+function InputDeviceSetRebinding(_device, _state, _ignoreArray = undefined, _allowArray = undefined, _consume = true)
 {
     static _rebindingMap   = __InputSystem().__rebindingMap;
     static _rebindingArray = __InputSystem().__rebindingArray;
+    static _playerArray    = __InputSystemPlayerArray();
+    static _verbCount      = __InputSystem().__verbCount;
+    
+    static _funcConsumeAll = function(_playerIndex)
+    {
+        static _playerArray = __InputSystemPlayerArray();
+        static _verbCount   = __InputSystem().__verbCount;
+        
+        if ((not is_numeric(_playerIndex)) || (_playerIndex < 0) || (_playerIndex >= INPUT_MAX_PLAYERS))
+        {
+            return;
+        }
+        
+        var _playerStruct = _playerArray[_playerIndex];
+        var _i = 0;
+        repeat(_verbCount)
+        {
+            __InputVerbConsumeInternal(_playerStruct, _i, true);
+            ++_i;
+        }
+    }
     
     if ((_device != INPUT_KBM) && (_device < 0))
     {
@@ -33,7 +55,10 @@ function InputDeviceSetRebinding(_device, _state, _ignoreArray = undefined, _all
             _rebindingMap[? _device] = _handler;
             array_push(_rebindingArray, _handler);
             
-            InputVerbConsumeAll(InputDeviceGetPlayer(_device));
+            if (_consume)
+            {
+                _funcConsumeAll(InputDeviceGetPlayer(_device));
+            }
         }
     }
     else
@@ -55,7 +80,10 @@ function InputDeviceSetRebinding(_device, _state, _ignoreArray = undefined, _all
                 }
             }
             
-            InputVerbConsumeAll(InputDeviceGetPlayer(_device));
+            if (_consume)
+            {
+                _funcConsumeAll(InputDeviceGetPlayer(_device));
+            }
         }
     }
 }

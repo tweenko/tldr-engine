@@ -48,10 +48,7 @@ __InputTrace("Done!");
 
 
 function __InputCompareVersions(_targetVersion, _actualVersion)
-{
-    _targetVersion = string(_targetVersion);
-    _actualVersion = string(_actualVersion);
-    
+{    
     static _funcSplit = function(_versionString)
     {
         static _array = [];
@@ -118,8 +115,8 @@ function __InputCompareVersions(_targetVersion, _actualVersion)
         return _struct;
     }
     
-    var _targetStruct = _funcSplit(_targetVersion);
-    var _actualStruct = _funcSplit(_actualVersion);
+    var _targetStruct = _funcSplit(string(_targetVersion));
+    var _actualStruct = _funcSplit(string(_actualVersion));
     
     if (_targetStruct.__major != _actualStruct.__major) return false;
     if (_targetStruct.__minor >  _actualStruct.__minor) return false;

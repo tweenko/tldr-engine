@@ -31,7 +31,7 @@ function InputOpposingPressed(_verbNeg, _verbPos, _playerIndex = 0, _mostRecent 
         if (!_pressedNeg && !_pressedPos) return 0;
         
         if (_pressedPos && (not InputCheck(_verbNeg, _playerIndex))) return  1;
-        if (_pressedNeg && (not InputCheck(_verbNeg, _playerIndex))) return -1;
+        if (_pressedNeg && (not InputCheck(_verbPos, _playerIndex))) return -1;
         
         return 0;
     }

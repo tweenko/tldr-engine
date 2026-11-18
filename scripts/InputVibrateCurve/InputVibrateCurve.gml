@@ -3,7 +3,7 @@
 /// Vibrates a player's gamepad using an animation curve to control the strength. The duration of
 /// playback is measured in milliseconds. If the curve has one channel, that channel controls both
 /// left and right motors. If the curve has two (or more) channels then the first two channels from
-/// left and right motos respectively. Set the `force argument to `true` to force the vibration to
+/// left and right motos respectively. Set the `force` argument to `true` to force the vibration to
 /// happen regardless of whether the player has gamepad vibration paused.
 /// 
 /// @param {Real} strength

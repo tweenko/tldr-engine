@@ -11,15 +11,15 @@ function __InputGamepadDiscover(_gamepadStruct)
     {
         var _device = __gamepadIndex;
         
-        __InputTrace("Discovering gamepad = \"", gamepad_get_description(_device), "\", GUID=\"", gamepad_get_guid(_device), "\", buttons = ", gamepad_button_count(_device), ", axes = ", gamepad_axis_count(_device), ", hats = ", gamepad_hat_count(_device));
+        __InputTrace("Discovering gamepad ", _device, ", desc=\"", gamepad_get_description(_device), "\", GUID=\"", gamepad_get_guid(_device), "\", buttons = ", gamepad_button_count(_device), ", axes = ", gamepad_axis_count(_device), ", hats = ", gamepad_hat_count(_device));
         
         __guid         = gamepad_get_guid(_device);
         __description  = gamepad_get_description(_device);
         __type         = INPUT_GAMEPAD_TYPE_UNKNOWN;
         
-        if (INPUT_ON_SWITCH)
+        if (INPUT_ON_SWITCH_X)
         {
-            __type = __InputGamepadIdentifySwitchType(_device, __description);
+            __type = __InputGamepadIdentifySwitchType(_device, __description, true);
             
             //Going full custom
             InputPlugInGamepadNullifyAllMappings(_device);
@@ -62,31 +62,14 @@ function __InputGamepadDiscover(_gamepadStruct)
                 if (__INPUT_SWITCH_JOYCON_HORIZONTAL_HOLDTYPE)
                 {
                     //Single Joy-Cons in horizontal report L/R/ZL/ZR as shoulder buttons even though they rest in the player's palm. No idea why, but we disallow that
-                    //Also it seems like GameMaker implements SL and SR weirdly so we circumvent that
-                    if (__type == INPUT_GAMEPAD_TYPE_JOYCON_LEFT)
-                    {
-                        InputPlugInGamepadSetMapping(_device, gp_shoulderl, function(_device) { return gamepad_button_value(_device, 16); });
-                        InputPlugInGamepadSetMapping(_device, gp_shoulderr, function(_device) { return gamepad_button_value(_device, 17); });
-                    }
-                    else
-                    {
-                        InputPlugInGamepadSetMapping(_device, gp_shoulderl, function(_device) { return gamepad_button_value(_device, 18); });
-                        InputPlugInGamepadSetMapping(_device, gp_shoulderr, function(_device) { return gamepad_button_value(_device, 19); });
-                    }
+                    InputPlugInGamepadResetMapping(_device, gp_shoulderl);
+                    InputPlugInGamepadResetMapping(_device, gp_shoulderr);
                 }
                 else
                 {
                     //SL/SR are still technically active in vertical mode too but that's silly so we ignore them
-                    if (__type == INPUT_GAMEPAD_TYPE_JOYCON_LEFT)
-                    {
-                        InputPlugInGamepadSetMapping(_device, gp_shoulderl, function(_device) { return gamepad_button_value(_device, 6); });
-                        InputPlugInGamepadSetMapping(_device, gp_shoulderr, function(_device) { return gamepad_button_value(_device, 8); });
-                    }
-                    else
-                    {
-                        InputPlugInGamepadSetMapping(_device, gp_shoulderl, function(_device) { return gamepad_button_value(_device, 7); });
-                        InputPlugInGamepadSetMapping(_device, gp_shoulderr, function(_device) { return gamepad_button_value(_device, 9); });
-                    }
+                    InputPlugInGamepadResetMapping(_device, gp_shoulderlb);
+                    InputPlugInGamepadResetMapping(_device, gp_shoulderrb);
                 }
             }
         }
@@ -113,18 +96,11 @@ function __InputGamepadDiscover(_gamepadStruct)
         else //Not console
         {
             //Unpack the vendor/product IDs from the gamepad's GUID
-            var _result = __InputGamepadGUIDParse(__guid, false);
-            
+            var _result = __InputGamepadGUIDParse(__guid);
             __vendor  = _result.__vendor;
             __product = _result.__product;
-
-            if (INPUT_ON_WINDOWS)
-            {
-                if ((_device < 4) && (not __InputStringContains(__guid, "000000007801"))) //"H" (HID)
-                {
-                    __xinput = true;
-                }
-            }
+            
+            __xinput = (INPUT_ON_WINDOWS && (_device < 4) && (not __InputStringContains(__guid, "000000007801"))); //"H" (HID)
             
             //Force type if it's an XInput device
             if (__xinput)
@@ -134,9 +110,22 @@ function __InputGamepadDiscover(_gamepadStruct)
             }
             else
             {
-                __type  = _typeLookupStruct[$ __vendor + __product];
-                __type ??= __InputGamepadIdentifyDescriptionType(__description);
-                __type ??= INPUT_GAMEPAD_FALLBACK_TYPE;
+                __InputTrace("Identifying gamepad type using VID + PID \"", __vendor + __product, "\"");
+                __type = _typeLookupStruct[$ __vendor + __product];
+                
+                if (__type == undefined)
+                {
+                    __InputTrace("Unsuccessful; identifying gamepad using description \"", __description, "\"");
+                    __type = __InputGamepadIdentifyDescriptionType(__description);
+                    
+                    if (__type == undefined)
+                    {
+                        __InputTrace("Unsuccessful; using fallback type");
+                        __type = INPUT_GAMEPAD_FALLBACK_TYPE;
+                    }
+                }
+                
+                __InputTrace("Gamepad type decided as ", __type);
             }
             
             //Read Steam Input values and modify our gamepad representation to match

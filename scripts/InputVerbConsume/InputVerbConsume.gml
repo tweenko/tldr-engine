@@ -9,18 +9,40 @@
 
 function InputVerbConsume(_verbIndex, _playerIndex = 0)
 {
-    static _playerArray = __InputSystemPlayerArray();
+    static _verbToClusterMap = __InputSystem().__verbToClusterMap;
+    static _playerArray      = __InputSystemPlayerArray();
     
     __INPUT_VALIDATE_PLAYER_INDEX
     
     with(_playerArray[_playerIndex])
     {
-        if (array_get_index(__consumedArray, __verbStateArray[_verbIndex]) < 0)
+        __InputVerbConsumeInternal(self, _verbIndex, false);
+        
+        //Update clusters associated with this verb
+        var _verbToClusterArray = _verbToClusterMap[? _verbIndex];
+        if (is_array(_verbToClusterArray))
         {
-            array_push(__consumedArray, __verbStateArray[_verbIndex]);
+            var _i = 0;
+            repeat(array_length(_verbToClusterArray))
+            {
+                __UpdateCluster(_verbToClusterArray[_i]);
+                ++_i;
+            }
+        }
+    }
+}
+
+function __InputVerbConsumeInternal(_playerStruct, _verbIndex, _ignoreHeldCheck)
+{
+    with(_playerStruct)
+    {
+        var _verbState = __verbStateArray[_verbIndex];
+        if ((_ignoreHeldCheck || _verbState.__held) && (array_get_index(__consumedArray, _verbState) < 0))
+        {
+            array_push(__consumedArray, _verbState);
         }
         
-        with(__verbStateArray[_verbIndex])
+        with(_verbState)
         {
             __prevHeld   = false;
             __held       = false;

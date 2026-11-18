@@ -5,7 +5,7 @@
 
 function InputVibrateDirect(_device, _left, _right)
 {
-    if (INPUT_ON_SWITCH)
+    if (INPUT_ON_SWITCH_X)
     {
         var _gamepadType = InputDeviceGetGamepadType(_device);
         if ((_gamepadType == INPUT_GAMEPAD_TYPE_JOYCON_LEFT) || (_gamepadType == INPUT_GAMEPAD_TYPE_JOYCON_RIGHT))

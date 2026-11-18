@@ -1,7 +1,7 @@
 // Feather disable all
 
 /// Vibrates a player's gampead with a series of pulses over the given duration, measured in
-/// millseconds. Set the `force argument to `true` to force the vibration to happen regardless
+/// millseconds. Set the `force` argument to `true` to force the vibration to happen regardless
 /// of whether the player has gamepad vibration paused.
 ///          
 /// @param {Real} strength

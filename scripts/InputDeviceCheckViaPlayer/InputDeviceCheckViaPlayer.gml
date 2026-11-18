@@ -12,6 +12,8 @@ function InputDeviceCheckViaPlayer(_device, _verbIndex, _playerIndex = 0)
     
     __INPUT_VALIDATE_PLAYER_INDEX
     
+    if (_verbIndex == undefined) return false;
+    
     if (not InputGameHasFocus()) return false;
     
     with(_playerArray[_playerIndex])

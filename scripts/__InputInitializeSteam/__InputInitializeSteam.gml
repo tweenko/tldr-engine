@@ -4,7 +4,9 @@ function __InputInitializeSteam()
 {
     with(__InputSystem())
     {
+        __usingSteam      = false;
         __usingSteamworks = false;
+        __usingBigPicture = false;
         __onSteamDeck     = false;
         __onWINE          = false;
         
@@ -14,11 +16,18 @@ function __InputInitializeSteam()
         __steamTypeToInputTypeMap    = ds_map_create();
         __steamTypeToDescriptionMap  = ds_map_create();
         __steamInputTypeIgnoreMap    = ds_map_create();
+         
+        var _steamEnviron = environment_get_variable("SteamEnv");
+        if ((_steamEnviron != "") && (_steamEnviron == "1"))
+        {
+            __usingSteam = true;
+        }
         
         try
         {
             //Using Steamworks extension
             __usingSteamworks = steam_input_init(true);
+            __usingBigPicture = steam_utils_is_steam_in_big_picture_mode();
             __onSteamDeck     = steam_utils_is_steam_running_on_steam_deck();
         }
         catch(_error)
@@ -26,9 +35,21 @@ function __InputInitializeSteam()
             __InputTrace("Steamworks extension unavailable");
         }
         
+        if (not is_bool(__usingBigPicture))
+        {
+            try
+            {
+                __usingBigPicture = bool(__usingBigPicture);
+            }
+            catch(_error)
+            {
+                __usingBigPicture = false;
+            }
+        }
+        
         if (__usingSteamworks && (string(steam_get_app_id()) == "480"))
         {
-            __InputError("Steam application ID 480 is not supported.\nPlease change to your game's actual Steam application ID.\n \nIf you need a testing ID you should:\n1. Use ID 378090\n2. Install the game itself (Rebel Wings) on Steam.");
+            __InputError("Steam application ID 480 is not supported.\nPlease change to your game's actual Steam application ID.\n \nIf you need a testing ID you should:\n1. Use ID 378090\n2. Set Debug to Enabled\n3. Install the game itself (Rebel Wings) on Steam.");
         }
         
         //Identify Steam Deck in absence of Steamworks
@@ -115,11 +136,10 @@ function __InputInitializeSteam()
         //Build a Linux-only gamepad ignore map
         if (INPUT_ON_LINUX)
         {
-            var _steamEnviron = environment_get_variable("SteamEnv");
             var _steamConfigs = environment_get_variable("EnableConfiguratorSupport");
-        
-            if (((_steamEnviron != "") && (_steamEnviron == "1") || __usingSteamworks)
-            &&   (_steamConfigs != "") && (_steamConfigs == string_digits(_steamConfigs)))
+            
+            if ((__usingSteam || __usingSteamworks)
+            &&  (_steamConfigs != "") && (_steamConfigs == string_digits(_steamConfigs)))
             {
                 var _bitmask = real(_steamConfigs);
                 

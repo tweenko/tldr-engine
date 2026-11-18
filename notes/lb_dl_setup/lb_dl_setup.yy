@@ -1,5 +1,5 @@
 {
-  "$GMNotes":"v1",
+  "$GMNotes":"v2",
   "%Name":"lb_dl_setup",
   "name":"lb_dl_setup",
   "parent":{
